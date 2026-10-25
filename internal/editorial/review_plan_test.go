@@ -197,6 +197,7 @@ func (m *budgetRepairer) Generate(_ context.Context, prompt string, in, out any)
 		v.Question = p.Draft.Quiz[0]
 	case *radioOutput:
 		v.Segment = p.Draft.Segments[0]
+		v.Segment.Text = p.Draft.Articles[0].Summary
 	case *headingOutput:
 		*v = headingOutput{p.Draft.Title, p.Draft.Introduction, p.Draft.ArtworkBrief}
 	default:

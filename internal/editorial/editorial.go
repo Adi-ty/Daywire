@@ -5,6 +5,7 @@ import (
 	"embed"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/Adi-ty/daywire/internal/content"
 )
@@ -19,11 +20,13 @@ func Prompt(name string) string {
 	}
 	return string(data)
 }
-func PromptHash() string { return content.Hash([]byte(Prompt("draft") + Prompt("verify"))) }
+func PromptHash() string {
+	return content.Hash([]byte("newsroom-v3-target-gates" + stageRules + Prompt("draft") + Prompt("article") + Prompt("radio") + Prompt("verify")))
+}
 
 // Separate review identity preserves saved drafts when review policy changes.
 func ReviewHash() string {
-	return content.Hash([]byte("dependency-review-v2" + Prompt("verify") + Prompt("edition-review") + Prompt("quiz-review") + Prompt("radio-review")))
+	return content.Hash([]byte("dependency-review-v3-single-target" + Prompt("verify") + Prompt("edition-review") + Prompt("quiz-review") + Prompt("radio-review")))
 }
 
 func verificationPrompt(batch VerificationInput) string {
@@ -76,6 +79,7 @@ func Verify(ctx context.Context, model Model, input Input, draft content.Draft) 
 		largest = max(largest, estimate+completion)
 	}
 	progress(model, "Review plan: %d batches, %d targets; largest estimated request %d/%d tokens including completion", len(batches), len(draft.Targets()), largest, requestBudget)
+	singleRetries := map[string]bool{}
 	for index := 0; index < len(batches); index++ {
 		batch := batches[index]
 		progress(model, "Review batch %d/%d: %d targets", index+1, len(batches), len(batch.Targets))
@@ -84,12 +88,28 @@ func Verify(ctx context.Context, model Model, input Input, draft content.Draft) 
 		usage.PromptTokens += used.PromptTokens
 		usage.CompletionTokens += used.CompletionTokens
 		usage.TotalTokens += used.TotalTokens
+		if err == nil {
+			var rejected *Rejection
+			if check := Accept(part, batch.Targets); check != nil && !errors.As(check, &rejected) {
+				err = check
+			}
+		}
 		if err != nil {
+			var coverage *CoverageError
+			malformed := errors.As(err, &coverage)
 			var oversized *RequestTooLarge
-			if errors.As(err, &oversized) && len(batch.Targets) > 1 {
+			var truncated *OutputTruncated
+			if (errors.As(err, &oversized) || errors.As(err, &truncated) || malformed) && len(batch.Targets) > 1 {
+				progress(model, "Review batch incomplete, truncated or oversized; splitting into smaller checks")
 				middle := len(batch.Targets) / 2
 				split := []VerificationInput{reviewSubset(input, draft, batch.Targets[:middle]), reviewSubset(input, draft, batch.Targets[middle:])}
 				batches = append(batches[:index], append(split, batches[index+1:]...)...)
+				index--
+				continue
+			}
+			if malformed && len(batch.Targets) == 1 && !singleRetries[batch.Targets[0]] {
+				singleRetries[batch.Targets[0]] = true
+				progress(model, "Review response invalid (%s); retrying single target once", coverage.Reason)
 				index--
 				continue
 			}
@@ -113,6 +133,12 @@ func Verify(ctx context.Context, model Model, input Input, draft content.Draft) 
 	return review, usage, Accept(review, draft.Targets())
 }
 
+// CoverageError is a malformed reviewer response, not an editorial rejection.
+// Keep reasons categorical: untrusted model text never enters public logs.
+type CoverageError struct{ Reason string }
+
+func (e *CoverageError) Error() string { return "invalid verification coverage: " + e.Reason }
+
 func Accept(review Review, targets []string) error {
 	wanted := map[string]bool{}
 	for _, id := range targets {
@@ -121,19 +147,25 @@ func Accept(review Review, targets []string) error {
 	seen := map[string]bool{}
 	var rejection *Rejection
 	for _, v := range review.Verdicts {
-		if !wanted[v.TargetID] || seen[v.TargetID] || v.Reason == "" {
-			return errors.New("invalid verification coverage")
+		if !wanted[v.TargetID] {
+			return &CoverageError{"unexpected target ID"}
+		}
+		if seen[v.TargetID] {
+			return &CoverageError{"duplicate target ID"}
+		}
+		if strings.TrimSpace(v.Reason) == "" {
+			return &CoverageError{"empty reason"}
 		}
 		seen[v.TargetID] = true
 		if v.Verdict != "supported" && v.Verdict != "contradicted" && v.Verdict != "insufficient_evidence" {
-			return errors.New("unknown review verdict")
+			return &CoverageError{"unknown verdict"}
 		}
 		if v.Verdict != "supported" && rejection == nil {
 			rejection = &Rejection{Target: v.TargetID, Verdict: v.Verdict}
 		}
 	}
 	if len(seen) != len(wanted) {
-		return errors.New("verification omitted required targets")
+		return &CoverageError{"missing required target"}
 	}
 	if rejection != nil {
 		return rejection

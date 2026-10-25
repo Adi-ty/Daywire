@@ -123,7 +123,7 @@ func TestResumeDoesNotRepeatCompletedGeneration(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if model.calls != 18 || e.Demo {
+	if model.calls != 30 || e.Demo {
 		t.Fatalf("calls=%d demo=%v", model.calls, e.Demo)
 	}
 	path := filepath.Join(o.OutputDir, o.Date+".json")
@@ -133,13 +133,13 @@ func TestResumeDoesNotRepeatCompletedGeneration(t *testing.T) {
 	if _, err := Run(context.Background(), o); err != nil {
 		t.Fatal(err)
 	}
-	if model.calls != 18 {
+	if model.calls != 30 {
 		t.Fatalf("repeated paid work: %d", model.calls)
 	}
 	if _, err := Run(context.Background(), o); err != nil {
 		t.Fatal(err)
 	}
-	if model.calls != 18 {
+	if model.calls != 30 {
 		t.Fatal("existing edition regenerated")
 	}
 }
@@ -154,7 +154,7 @@ func TestRejectedReviewCannotPublish(t *testing.T) {
 	if _, err := Run(context.Background(), o); err == nil {
 		t.Fatal("cached rejection accepted")
 	}
-	if model.calls != 20 {
+	if model.calls != 32 {
 		t.Fatalf("expected one bounded repair and verification, got %d calls", model.calls)
 	}
 }
@@ -198,7 +198,7 @@ func TestLegacySavedDraftResumesWithoutRegeneration(t *testing.T) {
 	if string(original) != string(after) {
 		t.Fatal("legacy draft was rewritten")
 	}
-	if model.calls != 4 {
+	if model.calls != 15 {
 		t.Fatalf("expected only verification; got %d calls", model.calls)
 	}
 }
@@ -210,7 +210,7 @@ func TestRejectedDraftCanPublishOnlyAfterRepairPasses(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !model.repaired || edition.Content.Title == model.draft.Title || model.calls != 20 {
+	if !model.repaired || edition.Content.Title == model.draft.Title || model.calls != 32 {
 		t.Fatalf("repair not verified: calls=%d", model.calls)
 	}
 	dir := filepath.Join(o.StateDir, o.Date)
@@ -218,8 +218,8 @@ func TestRejectedDraftCanPublishOnlyAfterRepairPasses(t *testing.T) {
 	if err := store.Read(filepath.Join(dir, "draft.json"), &original); err != nil {
 		t.Fatal(err)
 	}
-	if original.Draft.Title != model.draft.Title {
-		t.Fatal("original draft overwritten")
+	if original.Draft.Title != edition.Content.Title {
+		t.Fatal("draft checkpoint did not preserve the accepted correction")
 	}
 	// Simulate interruption after validation and before atomic public output.
 	if err := os.Remove(filepath.Join(o.OutputDir, o.Date+".json")); err != nil {
@@ -228,7 +228,7 @@ func TestRejectedDraftCanPublishOnlyAfterRepairPasses(t *testing.T) {
 	if _, err := Run(context.Background(), o); err != nil {
 		t.Fatal(err)
 	}
-	if model.calls != 20 {
+	if model.calls != 32 {
 		t.Fatal("rerun repeated paid repair")
 	}
 }

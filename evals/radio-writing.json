@@ -1,0 +1,704 @@
+[
+  {
+    "id": "radio-spoken-equivalence",
+    "description": "Spoken version and product name, show framing and plainly non-factual humor preserve the fictional article.",
+    "expected_accept": true,
+    "input": {
+      "date": "2026-10-23",
+      "evidence": [
+        {
+          "source": {
+            "id": "source-demo-1",
+            "name": "Aster research notes",
+            "title": "Aster research notes — fictional example",
+            "url": "https://example.com/daywire/demo/1",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Aster is a fictional routing experiment used in a Daywire demo. It routes simple classification requests to a smaller model and sends uncertain requests to a larger one. Its sample evaluation compares quality and total cost, including retries and fallbacks. The experiment is not a real product announcement. A lower per-request price does not by itself establish a cheaper end-to-end system. A routing threshold controls when the larger model is used. In this fictional example, Aster version 1.2.4 is a preview for Node.js; general availability has not been announced.",
+          "hash": "a2d68be9b344fa56dc1870a4a004615e7e989b4fa694b8a56ed5fa1ea1899adf",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-2",
+            "name": "Relay engineering notes",
+            "title": "Relay engineering notes — fictional example",
+            "url": "https://example.com/daywire/demo/2",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Relay is a fictional job runner used in a Daywire demo. It gives each daily edition a stable operation key and records completion before starting the next stage. When a completed job is retried, Relay reuses its saved result. An external request may still complete if its response is lost. Local checkpoints alone do not guarantee exactly-once external effects. An idempotent operation has the same intended effect when repeated with the same input.",
+          "hash": "d4c55197f6613a9945e106d4a2cc0dca18e2c0091c7d66d56b4673e51dea402d",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-3",
+            "name": "Patchwork design notes",
+            "title": "Patchwork design notes — fictional example",
+            "url": "https://example.com/daywire/demo/3",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Patchwork is a fictional command-line tool used in a Daywire demo. Its preview mode shows intended configuration changes without applying them. Its apply mode requires an explicit command. Keeping preview and execution separate lets an operator review what will change before writing. This is an illustrative design, not an announcement of a shipped tool.",
+          "hash": "fe8d8e041f596dafb5410626110913ec091a732a3eb40c579d522c0a1afd2df4",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-4",
+            "name": "Harbor review notes",
+            "title": "Harbor review notes — fictional example",
+            "url": "https://example.com/daywire/demo/4",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Harbor is a fictional package review used in a Daywire demo. It records the source and integrity hash of an artifact before promotion. A checksum establishes whether bytes match a known value, not whether the software is trustworthy. The review keeps integrity checks separate from decisions about the author, build process and expected behavior. This is a conceptual example and not a reported security incident.",
+          "hash": "bdde894e9bbec1036a180a8e65f0c0469884889e34c58a53381dd8afe9720469",
+          "kind": "synthetic_fixture"
+        }
+      ],
+      "previous_headlines": []
+    },
+    "draft": {
+      "title": "Smaller models. Smarter decisions.",
+      "introduction": "A considered look at model routing, retries that remember, and the small design choices that make systems easier to trust.",
+      "articles": [
+        {
+          "id": "smaller-models",
+          "section": "AI",
+          "headline": "The smallest useful model might already be enough.",
+          "summary": "A fictional routing experiment asks a better question: how much model does each task actually need?",
+          "paragraphs": [
+            "In the Aster example, straightforward classification goes to a smaller model. Uncertain requests take a second route to a larger one. The interesting decision is where to draw that line.",
+            "A cheaper request is only one part of the calculation. Retries, fallback calls and quality failures all belong in the final comparison. A useful evaluation measures the complete route, not just the first call.",
+            "In this fictional example, Aster version 1.2.4 is a preview for Node.js; general availability has not been announced."
+          ],
+          "implication": "For engineers: test routing against your own examples before treating a lower token price as a lower system cost.",
+          "source_ids": [
+            "source-demo-1"
+          ]
+        },
+        {
+          "id": "retries-with-memory",
+          "section": "Engineering",
+          "headline": "A retry should remember what already worked.",
+          "summary": "The Relay example gives a daily job a stable identity, then saves each completed stage.",
+          "paragraphs": [
+            "A failed publication does not have to restart collection and generation. Relay records completed work and reuses that result on the next attempt.",
+            "There is a limit: an external request can succeed even when its response never arrives. A local checkpoint cannot settle that ambiguity on its own."
+          ],
+          "implication": "For engineers: distinguish a repeatable local workflow from a guarantee about external side effects.",
+          "source_ids": [
+            "source-demo-2"
+          ]
+        },
+        {
+          "id": "preview-before-apply",
+          "section": "Tools",
+          "headline": "Show the change before making the change.",
+          "summary": "Patchwork separates a readable preview from an explicit apply command.",
+          "paragraphs": [
+            "The fictional command-line tool makes the proposed configuration changes visible first. Writing them is a separate action, giving the operator a clear review point."
+          ],
+          "implication": "For engineers: previews are useful when they show the actual changes the execution step will make.",
+          "source_ids": [
+            "source-demo-3"
+          ]
+        },
+        {
+          "id": "hashes-and-trust",
+          "section": "Security",
+          "headline": "Matching bytes are not the same as trusted software.",
+          "summary": "Harbor’s example separates artifact integrity from the decision to promote a package.",
+          "paragraphs": [
+            "A checksum can tell you whether an artifact matches a known value. It does not establish who should be trusted or whether the program behaves as expected."
+          ],
+          "implication": "For engineers: keep byte integrity and software trust as separate review questions.",
+          "source_ids": [
+            "source-demo-4"
+          ]
+        }
+      ],
+      "lessons": [
+        {
+          "id": "lesson-routing",
+          "title": "A routing threshold is a product decision.",
+          "paragraphs": [
+            "A router chooses which model handles a request. In the Aster example, the small model handles straightforward classifications and the larger model receives uncertain ones.",
+            "Moving the threshold changes both the number of fallback calls and the results users receive. Evaluate the complete route on representative examples, including the cost of retries and fallbacks."
+          ],
+          "example": "Request → smaller model → confident result?\nYes: return the result.\nNo: ask the larger model, then return its result.",
+          "takeaway": "Measure cost and quality across the whole route.",
+          "article_ids": [
+            "smaller-models"
+          ],
+          "source_ids": [
+            "source-demo-1"
+          ]
+        },
+        {
+          "id": "lesson-idempotency",
+          "title": "Make repetition predictable.",
+          "paragraphs": [
+            "An idempotent operation has the same intended effect when repeated with the same input. In the Relay example, a stable key identifies the daily job so completed work can be found again.",
+            "A checkpoint records a result the process received. If an external service finishes a request but the response is lost, the checkpoint may be missing even though the external effect happened."
+          ],
+          "example": "Edition key: 2026-10-23\nDraft saved? Reuse it.\nAudio saved? Reuse it.\nPublish failed? Retry publication.",
+          "takeaway": "Save completed work, and treat uncertain external outcomes separately.",
+          "article_ids": [
+            "retries-with-memory"
+          ],
+          "source_ids": [
+            "source-demo-2"
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "id": "question-routing-cost",
+          "lesson_id": "lesson-routing",
+          "prompt": "What belongs in the cost of a model route?",
+          "options": [
+            "Only the first model call",
+            "The complete route, including retries and fallbacks",
+            "Only the larger model calls"
+          ],
+          "answer": 1,
+          "explanation": "The lesson measures the complete route, because retries and fallbacks also consume work."
+        },
+        {
+          "id": "question-threshold",
+          "lesson_id": "lesson-routing",
+          "prompt": "Changing a routing threshold can affect…",
+          "options": [
+            "Only the name of the model",
+            "Both fallback frequency and user-facing results",
+            "Neither cost nor quality"
+          ],
+          "answer": 1,
+          "explanation": "The threshold determines which requests reach the larger model, affecting both work and results."
+        },
+        {
+          "id": "question-repeat",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "What does idempotent mean here?",
+          "options": [
+            "The operation can run only once",
+            "Repeating the same input has the same intended effect",
+            "The operation never fails"
+          ],
+          "answer": 1,
+          "explanation": "Idempotency describes the effect of repetition, not the absence of failures."
+        },
+        {
+          "id": "question-reuse",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "Publication fails after the draft and audio were saved. What should be reused?",
+          "options": [
+            "Neither completed stage",
+            "Only the source list",
+            "The saved draft and audio"
+          ],
+          "answer": 2,
+          "explanation": "The Relay example reuses completed stages and retries the failed publication step."
+        },
+        {
+          "id": "question-ambiguity",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "A service finishes a request, but its response is lost. Does a missing checkpoint prove nothing happened?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "explanation": "An external effect can happen before the local process receives and saves its result."
+        }
+      ],
+      "segments": [
+        {
+          "id": "radio-spoken-preview",
+          "title": "Aster preview",
+          "text": "Welcome to Daywire for October twenty-third, twenty twenty-six. First, a fictional example from our demo. Aster version one point two point four is a preview for Node jay ess. General availability hasn't been announced. It routes simple classification requests to a smaller model and uncertain ones to a larger model. The catch? A cheaper request doesn't automatically mean a cheaper system. Even a bargain likes to bring friends to the bill. That's Daywire. Thanks for listening.",
+          "article_ids": [
+            "smaller-models"
+          ]
+        }
+      ],
+      "artwork_brief": "Conceptual editorial photograph of two differently sized paper apertures on a warm desk, expressing selective routing. No labels, logos, people or documentary claims."
+    }
+  },
+  {
+    "id": "radio-wrong-spoken-version",
+    "description": "Reject a changed patch version despite natural narration.",
+    "expected_accept": false,
+    "input": {
+      "date": "2026-10-23",
+      "evidence": [
+        {
+          "source": {
+            "id": "source-demo-1",
+            "name": "Aster research notes",
+            "title": "Aster research notes — fictional example",
+            "url": "https://example.com/daywire/demo/1",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Aster is a fictional routing experiment used in a Daywire demo. It routes simple classification requests to a smaller model and sends uncertain requests to a larger one. Its sample evaluation compares quality and total cost, including retries and fallbacks. The experiment is not a real product announcement. A lower per-request price does not by itself establish a cheaper end-to-end system. A routing threshold controls when the larger model is used. In this fictional example, Aster version 1.2.4 is a preview for Node.js; general availability has not been announced.",
+          "hash": "a2d68be9b344fa56dc1870a4a004615e7e989b4fa694b8a56ed5fa1ea1899adf",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-2",
+            "name": "Relay engineering notes",
+            "title": "Relay engineering notes — fictional example",
+            "url": "https://example.com/daywire/demo/2",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Relay is a fictional job runner used in a Daywire demo. It gives each daily edition a stable operation key and records completion before starting the next stage. When a completed job is retried, Relay reuses its saved result. An external request may still complete if its response is lost. Local checkpoints alone do not guarantee exactly-once external effects. An idempotent operation has the same intended effect when repeated with the same input.",
+          "hash": "d4c55197f6613a9945e106d4a2cc0dca18e2c0091c7d66d56b4673e51dea402d",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-3",
+            "name": "Patchwork design notes",
+            "title": "Patchwork design notes — fictional example",
+            "url": "https://example.com/daywire/demo/3",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Patchwork is a fictional command-line tool used in a Daywire demo. Its preview mode shows intended configuration changes without applying them. Its apply mode requires an explicit command. Keeping preview and execution separate lets an operator review what will change before writing. This is an illustrative design, not an announcement of a shipped tool.",
+          "hash": "fe8d8e041f596dafb5410626110913ec091a732a3eb40c579d522c0a1afd2df4",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-4",
+            "name": "Harbor review notes",
+            "title": "Harbor review notes — fictional example",
+            "url": "https://example.com/daywire/demo/4",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Harbor is a fictional package review used in a Daywire demo. It records the source and integrity hash of an artifact before promotion. A checksum establishes whether bytes match a known value, not whether the software is trustworthy. The review keeps integrity checks separate from decisions about the author, build process and expected behavior. This is a conceptual example and not a reported security incident.",
+          "hash": "bdde894e9bbec1036a180a8e65f0c0469884889e34c58a53381dd8afe9720469",
+          "kind": "synthetic_fixture"
+        }
+      ],
+      "previous_headlines": []
+    },
+    "draft": {
+      "title": "Smaller models. Smarter decisions.",
+      "introduction": "A considered look at model routing, retries that remember, and the small design choices that make systems easier to trust.",
+      "articles": [
+        {
+          "id": "smaller-models",
+          "section": "AI",
+          "headline": "The smallest useful model might already be enough.",
+          "summary": "A fictional routing experiment asks a better question: how much model does each task actually need?",
+          "paragraphs": [
+            "In the Aster example, straightforward classification goes to a smaller model. Uncertain requests take a second route to a larger one. The interesting decision is where to draw that line.",
+            "A cheaper request is only one part of the calculation. Retries, fallback calls and quality failures all belong in the final comparison. A useful evaluation measures the complete route, not just the first call.",
+            "In this fictional example, Aster version 1.2.4 is a preview for Node.js; general availability has not been announced."
+          ],
+          "implication": "For engineers: test routing against your own examples before treating a lower token price as a lower system cost.",
+          "source_ids": [
+            "source-demo-1"
+          ]
+        },
+        {
+          "id": "retries-with-memory",
+          "section": "Engineering",
+          "headline": "A retry should remember what already worked.",
+          "summary": "The Relay example gives a daily job a stable identity, then saves each completed stage.",
+          "paragraphs": [
+            "A failed publication does not have to restart collection and generation. Relay records completed work and reuses that result on the next attempt.",
+            "There is a limit: an external request can succeed even when its response never arrives. A local checkpoint cannot settle that ambiguity on its own."
+          ],
+          "implication": "For engineers: distinguish a repeatable local workflow from a guarantee about external side effects.",
+          "source_ids": [
+            "source-demo-2"
+          ]
+        },
+        {
+          "id": "preview-before-apply",
+          "section": "Tools",
+          "headline": "Show the change before making the change.",
+          "summary": "Patchwork separates a readable preview from an explicit apply command.",
+          "paragraphs": [
+            "The fictional command-line tool makes the proposed configuration changes visible first. Writing them is a separate action, giving the operator a clear review point."
+          ],
+          "implication": "For engineers: previews are useful when they show the actual changes the execution step will make.",
+          "source_ids": [
+            "source-demo-3"
+          ]
+        },
+        {
+          "id": "hashes-and-trust",
+          "section": "Security",
+          "headline": "Matching bytes are not the same as trusted software.",
+          "summary": "Harbor’s example separates artifact integrity from the decision to promote a package.",
+          "paragraphs": [
+            "A checksum can tell you whether an artifact matches a known value. It does not establish who should be trusted or whether the program behaves as expected."
+          ],
+          "implication": "For engineers: keep byte integrity and software trust as separate review questions.",
+          "source_ids": [
+            "source-demo-4"
+          ]
+        }
+      ],
+      "lessons": [
+        {
+          "id": "lesson-routing",
+          "title": "A routing threshold is a product decision.",
+          "paragraphs": [
+            "A router chooses which model handles a request. In the Aster example, the small model handles straightforward classifications and the larger model receives uncertain ones.",
+            "Moving the threshold changes both the number of fallback calls and the results users receive. Evaluate the complete route on representative examples, including the cost of retries and fallbacks."
+          ],
+          "example": "Request → smaller model → confident result?\nYes: return the result.\nNo: ask the larger model, then return its result.",
+          "takeaway": "Measure cost and quality across the whole route.",
+          "article_ids": [
+            "smaller-models"
+          ],
+          "source_ids": [
+            "source-demo-1"
+          ]
+        },
+        {
+          "id": "lesson-idempotency",
+          "title": "Make repetition predictable.",
+          "paragraphs": [
+            "An idempotent operation has the same intended effect when repeated with the same input. In the Relay example, a stable key identifies the daily job so completed work can be found again.",
+            "A checkpoint records a result the process received. If an external service finishes a request but the response is lost, the checkpoint may be missing even though the external effect happened."
+          ],
+          "example": "Edition key: 2026-10-23\nDraft saved? Reuse it.\nAudio saved? Reuse it.\nPublish failed? Retry publication.",
+          "takeaway": "Save completed work, and treat uncertain external outcomes separately.",
+          "article_ids": [
+            "retries-with-memory"
+          ],
+          "source_ids": [
+            "source-demo-2"
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "id": "question-routing-cost",
+          "lesson_id": "lesson-routing",
+          "prompt": "What belongs in the cost of a model route?",
+          "options": [
+            "Only the first model call",
+            "The complete route, including retries and fallbacks",
+            "Only the larger model calls"
+          ],
+          "answer": 1,
+          "explanation": "The lesson measures the complete route, because retries and fallbacks also consume work."
+        },
+        {
+          "id": "question-threshold",
+          "lesson_id": "lesson-routing",
+          "prompt": "Changing a routing threshold can affect…",
+          "options": [
+            "Only the name of the model",
+            "Both fallback frequency and user-facing results",
+            "Neither cost nor quality"
+          ],
+          "answer": 1,
+          "explanation": "The threshold determines which requests reach the larger model, affecting both work and results."
+        },
+        {
+          "id": "question-repeat",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "What does idempotent mean here?",
+          "options": [
+            "The operation can run only once",
+            "Repeating the same input has the same intended effect",
+            "The operation never fails"
+          ],
+          "answer": 1,
+          "explanation": "Idempotency describes the effect of repetition, not the absence of failures."
+        },
+        {
+          "id": "question-reuse",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "Publication fails after the draft and audio were saved. What should be reused?",
+          "options": [
+            "Neither completed stage",
+            "Only the source list",
+            "The saved draft and audio"
+          ],
+          "answer": 2,
+          "explanation": "The Relay example reuses completed stages and retries the failed publication step."
+        },
+        {
+          "id": "question-ambiguity",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "A service finishes a request, but its response is lost. Does a missing checkpoint prove nothing happened?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "explanation": "An external effect can happen before the local process receives and saves its result."
+        }
+      ],
+      "segments": [
+        {
+          "id": "radio-spoken-preview",
+          "title": "Aster preview",
+          "text": "Welcome to Daywire for October twenty-third, twenty twenty-six. First, a fictional example from our demo. Aster version one point two point five is a preview for Node jay ess. General availability hasn't been announced. It routes simple classification requests to a smaller model and uncertain ones to a larger model. The catch? A cheaper request doesn't automatically mean a cheaper system. Even a bargain likes to bring friends to the bill. That's Daywire. Thanks for listening.",
+          "article_ids": [
+            "smaller-models"
+          ]
+        }
+      ],
+      "artwork_brief": "Conceptual editorial photograph of two differently sized paper apertures on a warm desk, expressing selective routing. No labels, logos, people or documentary claims."
+    }
+  },
+  {
+    "id": "radio-preview-strengthened",
+    "description": "Reject preview promoted to general availability despite fluent narration.",
+    "expected_accept": false,
+    "input": {
+      "date": "2026-10-23",
+      "evidence": [
+        {
+          "source": {
+            "id": "source-demo-1",
+            "name": "Aster research notes",
+            "title": "Aster research notes — fictional example",
+            "url": "https://example.com/daywire/demo/1",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Aster is a fictional routing experiment used in a Daywire demo. It routes simple classification requests to a smaller model and sends uncertain requests to a larger one. Its sample evaluation compares quality and total cost, including retries and fallbacks. The experiment is not a real product announcement. A lower per-request price does not by itself establish a cheaper end-to-end system. A routing threshold controls when the larger model is used. In this fictional example, Aster version 1.2.4 is a preview for Node.js; general availability has not been announced.",
+          "hash": "a2d68be9b344fa56dc1870a4a004615e7e989b4fa694b8a56ed5fa1ea1899adf",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-2",
+            "name": "Relay engineering notes",
+            "title": "Relay engineering notes — fictional example",
+            "url": "https://example.com/daywire/demo/2",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Relay is a fictional job runner used in a Daywire demo. It gives each daily edition a stable operation key and records completion before starting the next stage. When a completed job is retried, Relay reuses its saved result. An external request may still complete if its response is lost. Local checkpoints alone do not guarantee exactly-once external effects. An idempotent operation has the same intended effect when repeated with the same input.",
+          "hash": "d4c55197f6613a9945e106d4a2cc0dca18e2c0091c7d66d56b4673e51dea402d",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-3",
+            "name": "Patchwork design notes",
+            "title": "Patchwork design notes — fictional example",
+            "url": "https://example.com/daywire/demo/3",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Patchwork is a fictional command-line tool used in a Daywire demo. Its preview mode shows intended configuration changes without applying them. Its apply mode requires an explicit command. Keeping preview and execution separate lets an operator review what will change before writing. This is an illustrative design, not an announcement of a shipped tool.",
+          "hash": "fe8d8e041f596dafb5410626110913ec091a732a3eb40c579d522c0a1afd2df4",
+          "kind": "synthetic_fixture"
+        },
+        {
+          "source": {
+            "id": "source-demo-4",
+            "name": "Harbor review notes",
+            "title": "Harbor review notes — fictional example",
+            "url": "https://example.com/daywire/demo/4",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "Harbor is a fictional package review used in a Daywire demo. It records the source and integrity hash of an artifact before promotion. A checksum establishes whether bytes match a known value, not whether the software is trustworthy. The review keeps integrity checks separate from decisions about the author, build process and expected behavior. This is a conceptual example and not a reported security incident.",
+          "hash": "bdde894e9bbec1036a180a8e65f0c0469884889e34c58a53381dd8afe9720469",
+          "kind": "synthetic_fixture"
+        }
+      ],
+      "previous_headlines": []
+    },
+    "draft": {
+      "title": "Smaller models. Smarter decisions.",
+      "introduction": "A considered look at model routing, retries that remember, and the small design choices that make systems easier to trust.",
+      "articles": [
+        {
+          "id": "smaller-models",
+          "section": "AI",
+          "headline": "The smallest useful model might already be enough.",
+          "summary": "A fictional routing experiment asks a better question: how much model does each task actually need?",
+          "paragraphs": [
+            "In the Aster example, straightforward classification goes to a smaller model. Uncertain requests take a second route to a larger one. The interesting decision is where to draw that line.",
+            "A cheaper request is only one part of the calculation. Retries, fallback calls and quality failures all belong in the final comparison. A useful evaluation measures the complete route, not just the first call.",
+            "In this fictional example, Aster version 1.2.4 is a preview for Node.js; general availability has not been announced."
+          ],
+          "implication": "For engineers: test routing against your own examples before treating a lower token price as a lower system cost.",
+          "source_ids": [
+            "source-demo-1"
+          ]
+        },
+        {
+          "id": "retries-with-memory",
+          "section": "Engineering",
+          "headline": "A retry should remember what already worked.",
+          "summary": "The Relay example gives a daily job a stable identity, then saves each completed stage.",
+          "paragraphs": [
+            "A failed publication does not have to restart collection and generation. Relay records completed work and reuses that result on the next attempt.",
+            "There is a limit: an external request can succeed even when its response never arrives. A local checkpoint cannot settle that ambiguity on its own."
+          ],
+          "implication": "For engineers: distinguish a repeatable local workflow from a guarantee about external side effects.",
+          "source_ids": [
+            "source-demo-2"
+          ]
+        },
+        {
+          "id": "preview-before-apply",
+          "section": "Tools",
+          "headline": "Show the change before making the change.",
+          "summary": "Patchwork separates a readable preview from an explicit apply command.",
+          "paragraphs": [
+            "The fictional command-line tool makes the proposed configuration changes visible first. Writing them is a separate action, giving the operator a clear review point."
+          ],
+          "implication": "For engineers: previews are useful when they show the actual changes the execution step will make.",
+          "source_ids": [
+            "source-demo-3"
+          ]
+        },
+        {
+          "id": "hashes-and-trust",
+          "section": "Security",
+          "headline": "Matching bytes are not the same as trusted software.",
+          "summary": "Harbor’s example separates artifact integrity from the decision to promote a package.",
+          "paragraphs": [
+            "A checksum can tell you whether an artifact matches a known value. It does not establish who should be trusted or whether the program behaves as expected."
+          ],
+          "implication": "For engineers: keep byte integrity and software trust as separate review questions.",
+          "source_ids": [
+            "source-demo-4"
+          ]
+        }
+      ],
+      "lessons": [
+        {
+          "id": "lesson-routing",
+          "title": "A routing threshold is a product decision.",
+          "paragraphs": [
+            "A router chooses which model handles a request. In the Aster example, the small model handles straightforward classifications and the larger model receives uncertain ones.",
+            "Moving the threshold changes both the number of fallback calls and the results users receive. Evaluate the complete route on representative examples, including the cost of retries and fallbacks."
+          ],
+          "example": "Request → smaller model → confident result?\nYes: return the result.\nNo: ask the larger model, then return its result.",
+          "takeaway": "Measure cost and quality across the whole route.",
+          "article_ids": [
+            "smaller-models"
+          ],
+          "source_ids": [
+            "source-demo-1"
+          ]
+        },
+        {
+          "id": "lesson-idempotency",
+          "title": "Make repetition predictable.",
+          "paragraphs": [
+            "An idempotent operation has the same intended effect when repeated with the same input. In the Relay example, a stable key identifies the daily job so completed work can be found again.",
+            "A checkpoint records a result the process received. If an external service finishes a request but the response is lost, the checkpoint may be missing even though the external effect happened."
+          ],
+          "example": "Edition key: 2026-10-23\nDraft saved? Reuse it.\nAudio saved? Reuse it.\nPublish failed? Retry publication.",
+          "takeaway": "Save completed work, and treat uncertain external outcomes separately.",
+          "article_ids": [
+            "retries-with-memory"
+          ],
+          "source_ids": [
+            "source-demo-2"
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "id": "question-routing-cost",
+          "lesson_id": "lesson-routing",
+          "prompt": "What belongs in the cost of a model route?",
+          "options": [
+            "Only the first model call",
+            "The complete route, including retries and fallbacks",
+            "Only the larger model calls"
+          ],
+          "answer": 1,
+          "explanation": "The lesson measures the complete route, because retries and fallbacks also consume work."
+        },
+        {
+          "id": "question-threshold",
+          "lesson_id": "lesson-routing",
+          "prompt": "Changing a routing threshold can affect…",
+          "options": [
+            "Only the name of the model",
+            "Both fallback frequency and user-facing results",
+            "Neither cost nor quality"
+          ],
+          "answer": 1,
+          "explanation": "The threshold determines which requests reach the larger model, affecting both work and results."
+        },
+        {
+          "id": "question-repeat",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "What does idempotent mean here?",
+          "options": [
+            "The operation can run only once",
+            "Repeating the same input has the same intended effect",
+            "The operation never fails"
+          ],
+          "answer": 1,
+          "explanation": "Idempotency describes the effect of repetition, not the absence of failures."
+        },
+        {
+          "id": "question-reuse",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "Publication fails after the draft and audio were saved. What should be reused?",
+          "options": [
+            "Neither completed stage",
+            "Only the source list",
+            "The saved draft and audio"
+          ],
+          "answer": 2,
+          "explanation": "The Relay example reuses completed stages and retries the failed publication step."
+        },
+        {
+          "id": "question-ambiguity",
+          "lesson_id": "lesson-idempotency",
+          "prompt": "A service finishes a request, but its response is lost. Does a missing checkpoint prove nothing happened?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "explanation": "An external effect can happen before the local process receives and saves its result."
+        }
+      ],
+      "segments": [
+        {
+          "id": "radio-spoken-preview",
+          "title": "Aster preview",
+          "text": "Welcome to Daywire for October twenty-third, twenty twenty-six. First, a fictional example from our demo. Aster version one point two point four is now generally available for Node jay ess. It routes simple classification requests to a smaller model and uncertain ones to a larger model. The catch? A cheaper request doesn't automatically mean a cheaper system. Even a bargain likes to bring friends to the bill. That's Daywire. Thanks for listening.",
+          "article_ids": [
+            "smaller-models"
+          ]
+        }
+      ],
+      "artwork_brief": "Conceptual editorial photograph of two differently sized paper apertures on a warm desk, expressing selective routing. No labels, logos, people or documentary claims."
+    }
+  }
+]

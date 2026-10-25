@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/Adi-ty/daywire/internal/content"
 )
@@ -23,6 +24,16 @@ type quizOutput struct {
 type radioOutput struct {
 	Segment content.Segment `json:"segment"`
 }
+
+// Only one article supplies facts; the bounded ending supplies continuity.
+type radioWritingInput struct {
+	Date           string          `json:"date"`
+	Position       int             `json:"position"`
+	Total          int             `json:"total"`
+	Article        content.Article `json:"article"`
+	PreviousEnding string          `json:"previous_ending_for_flow_only"`
+}
+
 type headingOutput struct {
 	Title        string `json:"title"`
 	Introduction string `json:"introduction"`
@@ -56,7 +67,7 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 		if logf != nil {
 			logf("Draft stage: %s", label)
 		}
-		used, err := model.Generate(ctx, stageRules+prompt, in, out)
+		used, err := generateValidated(ctx, model, stageRules+prompt, in, out)
 		total.PromptTokens += used.PromptTokens
 		total.CompletionTokens += used.CompletionTokens
 		total.TotalTokens += used.TotalTokens
@@ -66,13 +77,20 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 		return nil
 	}
 	var selection selectionOutput
-	if err := call("selection", "Select 1–5 distinct useful developments for software engineers from these short source previews. Return groups of source IDs: sources covering the same event belong in one group. Order each group's sources by usefulness, primary sources first; at most two sources per story will be used. Prefer novel developments relative to previous headlines. Do not repeat a source across groups. Never pad with unsupported news. The article writer receives the original, longer excerpts separately.", selectionInput(input), &selection); err != nil {
+	if err := call("selection", "Select 1–5 distinct useful developments for software engineers from these short source previews. Return groups of source IDs: sources covering the same event belong in one group. Order each group's sources by usefulness, primary sources first; at most two sources per story will be used. Rank by concrete developer impact, evidence quality and novelty relative to previous headlines, not brand fame. Put the strongest story first. Favor actionable changes and useful technical explanations over announcements without substance; do not force topic diversity. Do not repeat a source across groups. Never pad with unsupported news. The article writer receives the original, longer excerpts separately.", selectionInput(input), &selection); err != nil {
 		return total, err
 	}
 	if len(selection.Groups) < 1 || len(selection.Groups) > 5 {
 		return total, errors.New("selection must contain 1–5 story groups")
 	}
 	d := content.Draft{Articles: []content.Article{}, Lessons: []content.Lesson{}, Quiz: []content.Question{}, Segments: []content.Segment{}}
+	gate := func(id string) error {
+		used, err := settleTarget(ctx, model, input, &d, id)
+		total.PromptTokens += used.PromptTokens
+		total.CompletionTokens += used.CompletionTokens
+		total.TotalTokens += used.TotalTokens
+		return err
+	}
 	seen := map[string]bool{}
 	for i, ids := range selection.Groups {
 		if len(ids) == 0 {
@@ -104,7 +122,7 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 			logf("Story %d: using the two highest-ranked sources from %d related sources", i+1, len(ids))
 		}
 		var out articleOutput
-		if err := call(fmt.Sprintf("article %d/%d", i+1, len(selection.Groups)), "Write one concise article combining this group's evidence. Section must be AI, Engineering, Security, or Tools. Supply a headline, short summary, 1–2 short paragraphs and an implication clearly identified as interpretation. Cite the supplied sources. Aim for 120–180 words total.", selected, &out); err != nil {
+		if err := call(fmt.Sprintf("article %d/%d", i+1, len(selection.Groups)), Prompt("article"), selected, &out); err != nil {
 			return total, err
 		}
 		if len(out.Article.SourceIDs) == 0 {
@@ -120,6 +138,9 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 			}
 		}
 		d.Articles = append(d.Articles, out.Article)
+		if err := gate(out.Article.ID); err != nil {
+			return total, err
+		}
 	}
 	// Each lesson has a small, explicit evidence packet; a quiet one-story day may
 	// teach two distinct concepts from that same story if its evidence supports them.
@@ -135,10 +156,13 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 			Packet  VerificationInput `json:"packet"`
 			Earlier []string          `json:"earlier_lesson_titles"`
 		}{packet, earlier}
-		if err := call(fmt.Sprintf("lesson %d/2", i+1), "Write one distinct lesson grounded in this article and its actual evidence. Use 2 short explanatory paragraphs, a concrete plain-text example and a takeaway. Cite its article and source IDs. Do not repeat earlier lessons. Aim for 120–160 words.", in, &out); err != nil {
+		if err := call(fmt.Sprintf("lesson %d/2", i+1), "Write one distinct lesson grounded in this article and its actual evidence. Teach the underlying mechanism, not a recap of the announcement. Use 2 short explanatory paragraphs that build from problem to mechanism, a concrete plain-text example and a takeaway. Distinguish a hypothetical illustration from a reported event; do not invent benchmark numbers or unsupported technical behavior. Cite its article and source IDs. Do not repeat earlier lessons. Aim for 120–160 words.", in, &out); err != nil {
 			return total, err
 		}
 		d.Lessons = append(d.Lessons, out.Lesson)
+		if err := gate(out.Lesson.ID); err != nil {
+			return total, err
+		}
 	}
 	for i, l := range d.Lessons {
 		count := 3 - i
@@ -151,27 +175,36 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 			return total, errors.New("quiz stage returned wrong question count")
 		}
 		d.Quiz = append(d.Quiz, quiz.Quiz...)
+		for _, q := range quiz.Quiz {
+			if err := gate(q.ID); err != nil {
+				return total, err
+			}
+		}
 	}
 	for i, a := range d.Articles {
 		var out radioOutput
-		prompt := "Write one natural radio segment of 40–70 words for this article. Reference its article ID. Preserve all qualifications; no URLs or added claims."
-		if i == 0 {
-			prompt += " Start with the edition's absolute date."
+		packet := radioWritingInput{Date: input.Date, Position: i + 1, Total: len(d.Articles), Article: a}
+		if i > 0 {
+			words := strings.Fields(d.Segments[i-1].Text)
+			packet.PreviousEnding = strings.Join(words[max(0, len(words)-35):], " ")
 		}
-		packet := struct {
-			Date    string          `json:"date"`
-			Article content.Article `json:"article"`
-		}{input.Date, a}
-		if err := call(fmt.Sprintf("radio %d/%d", i+1, len(d.Articles)), prompt+" This article is your only premise; do not add facts beyond it.", packet, &out); err != nil {
+		if err := call(fmt.Sprintf("radio %d/%d", i+1, len(d.Articles)), Prompt("radio"), packet, &out); err != nil {
 			return total, err
 		}
+		out.Segment = frameRadio(out.Segment, input.Date, i+1, len(d.Articles))
 		d.Segments = append(d.Segments, out.Segment)
+		if err := gate(out.Segment.ID); err != nil {
+			return total, err
+		}
 	}
 	var heading headingOutput
-	if err := call("heading", "Write a short edition title and introduction from these article summaries. Also describe one conceptual editorial illustration based on the lead article, without text, logos or purported documentary scenes. Never add facts.", verificationSubset(input, d, []string{"edition"}), &heading); err != nil {
+	if err := call("heading", "Write a specific, short edition title and a two-sentence introduction orienting the reader to the strongest developments in these summaries. Avoid a list of headlines, generic tech-roundup language, hype or a manufactured common theme. Also describe one conceptual editorial illustration based on the lead article, without text, logos or purported documentary scenes. Never add facts.", verificationSubset(input, d, []string{"edition"}), &heading); err != nil {
 		return total, err
 	}
 	d.Title, d.Introduction, d.ArtworkBrief = heading.Title, heading.Introduction, heading.ArtworkBrief
+	if err := gate("edition"); err != nil {
+		return total, err
+	}
 	*draft = d
 	return total, nil
 }

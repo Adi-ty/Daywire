@@ -21,6 +21,15 @@ type Usage struct {
 	CompletionTokens int `json:"completion_tokens"`
 	TotalTokens      int `json:"total_tokens"`
 }
+
+// OutputTruncated is separate from refusal: only a smaller task can safely
+// recover without accepting a partial response.
+type OutputTruncated struct{ Limit int }
+
+func (e *OutputTruncated) Error() string {
+	return fmt.Sprintf("Groq output truncated (finish_reason=length; completion cap=%d); reduce this stage's workload", e.Limit)
+}
+
 type Model interface {
 	Generate(context.Context, string, any, any) (Usage, error)
 }
@@ -42,7 +51,37 @@ func NewGroq(key, model string) *Groq {
 	return &Groq{APIKey: key, Model: model, gate: make(chan struct{}, 1), Client: &http.Client{Timeout: 120 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return errors.New("provider redirects are disabled") }}}
 }
 
+// Generate retries only explicit structured-generation failures. They describe
+// failed model output, not an invalid schema or an authentication/config error.
+// Each attempt still uses strict schema output, the same evidence, and quota
+// pacing. No failed text is salvaged or fed back as instructions.
 func (g *Groq) Generate(ctx context.Context, system string, input any, output any) (Usage, error) {
+	var total Usage
+	for attempt := 1; attempt <= 3; attempt++ {
+		if err := ctx.Err(); err != nil {
+			return total, err
+		}
+		used, err := g.generateOnce(ctx, system, input, output)
+		total.PromptTokens += used.PromptTokens
+		total.CompletionTokens += used.CompletionTokens
+		total.TotalTokens += used.TotalTokens
+		var provider *ProviderError
+		retryable := errors.As(err, &provider) && provider.Status == http.StatusBadRequest &&
+			(provider.Code == "json_validate_failed" || provider.Code == "structured_generation_failed")
+		if !retryable {
+			return total, err
+		}
+		if attempt == 3 {
+			return total, fmt.Errorf("structured generation failed after %d attempts; completed stages are saved; rerun to resume: %w", attempt, err)
+		}
+		if g.Logf != nil {
+			g.Logf("Groq could not produce schema-valid JSON (%s); regenerating this stage, attempt %d/3 after quota pacing", provider.Code, attempt+1)
+		}
+	}
+	panic("unreachable")
+}
+
+func (g *Groq) generateOnce(ctx context.Context, system string, input any, output any) (Usage, error) {
 	var usage Usage
 	if g.APIKey == "" || g.Model == "" {
 		return usage, errors.New("GROQ_API_KEY and model are required")
@@ -119,8 +158,17 @@ func (g *Groq) Generate(ctx context.Context, system string, input any, output an
 	if g.Logf != nil {
 		g.Logf("Groq usage: input=%d completion=%d total=%d", usage.PromptTokens, usage.CompletionTokens, usage.TotalTokens)
 	}
-	if len(result.Choices) != 1 || result.Choices[0].Finish != "stop" || result.Choices[0].Message.Refusal != nil {
-		return usage, errors.New("Groq output refused, incomplete, or missing")
+	if len(result.Choices) != 1 {
+		return usage, errors.New("Groq response must contain exactly one choice")
+	}
+	if result.Choices[0].Message.Refusal != nil {
+		return usage, errors.New("Groq refused output")
+	}
+	if result.Choices[0].Finish == "length" {
+		return usage, &OutputTruncated{Limit: completionLimit}
+	}
+	if result.Choices[0].Finish != "stop" {
+		return usage, errors.New("Groq response ended without a completed answer")
 	}
 	if err := content.Decode(bytes.NewBufferString(result.Choices[0].Message.Content), output); err != nil {
 		return usage, fmt.Errorf("invalid model JSON: %w", err)
@@ -128,7 +176,8 @@ func (g *Groq) Generate(ctx context.Context, system string, input any, output an
 	return usage, nil
 }
 
-// Only an explicit 429 is retried. Network errors and 5xx responses can have
+// Transport-level retries handle explicit 429s; Generate separately handles
+// explicit structured-generation errors. Network errors and 5xx responses can have
 // ambiguous billing outcomes and are returned without repeating the request.
 func (g *Groq) request(ctx context.Context, body []byte) (*http.Response, error) {
 	var waited time.Duration

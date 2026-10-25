@@ -69,7 +69,10 @@ func verificationBatches(input Input, draft content.Draft) []VerificationInput {
 			candidate := append(append([]string{}, targets...), id)
 			batch := reviewSubset(input, draft, candidate)
 			_, _, _, err := requestBody("openai/gpt-oss-120b", verificationPrompt(batch), batch, &Review{})
-			if err != nil && len(targets) > 0 {
+			// Input fit alone does not bound the reasoning/output needed to
+			// judge every claim. Use one target per completion so cache identity and judgments
+			// never depend on unrelated neighboring targets.
+			if (err != nil || len(candidate) > 1) && len(targets) > 0 {
 				batches = append(batches, reviewSubset(input, draft, targets))
 				targets = []string{id}
 			} else {

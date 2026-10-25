@@ -3,6 +3,7 @@ package editorial
 import (
 	"context"
 	"errors"
+	"strings"
 	"testing"
 
 	"github.com/Adi-ty/daywire/internal/content"
@@ -16,6 +17,7 @@ type stagedWriter struct {
 	budget                              bool
 	groups                              [][]string
 	articleInputs                       []Input
+	radioInputs                         []radioWritingInput
 }
 
 func (m *stagedWriter) Generate(_ context.Context, system string, in, out any) (Usage, error) {
@@ -32,6 +34,10 @@ func (m *stagedWriter) Generate(_ context.Context, system string, in, out any) (
 		}
 	}
 	switch v := out.(type) {
+	case *Review:
+		for _, id := range in.(VerificationInput).Targets {
+			v.Verdicts = append(v.Verdicts, Verdict{id, "supported", "Frozen evidence supports this target"})
+		}
 	case *selectionOutput:
 		if m.groups != nil {
 			v.Groups = m.groups
@@ -55,6 +61,7 @@ func (m *stagedWriter) Generate(_ context.Context, system string, in, out any) (
 		}
 		m.quiz++
 	case *radioOutput:
+		m.radioInputs = append(m.radioInputs, in.(radioWritingInput))
 		a := m.draft.Articles[m.radio]
 		v.Segment = content.Segment{ID: "radio-" + a.ID, Title: a.Headline, Text: a.Summary, ArticleIDs: []string{a.ID}}
 		m.radio++
@@ -122,6 +129,19 @@ func TestDraftStagesKeepEditionContractAndResumeWithoutCalls(t *testing.T) {
 	}
 	if err := content.ValidateDraft(draft, e.Sources); err != nil {
 		t.Fatal(err)
+	}
+	for i, packet := range m.radioInputs {
+		if packet.Position != i+1 || packet.Total != len(draft.Articles) || packet.Article.ID != draft.Articles[i].ID {
+			t.Fatal("radio lost its show position or factual premise")
+		}
+		if i == 0 && packet.PreviousEnding != "" {
+			t.Fatal("first segment has unrelated context")
+		}
+		if i > 0 {
+			if packet.PreviousEnding == "" || len(strings.Fields(packet.PreviousEnding)) > 35 || !strings.HasSuffix(draft.Segments[i-1].Text, packet.PreviousEnding) {
+				t.Fatal("radio continuity context is missing, unbounded or incorrect")
+			}
+		}
 	}
 	calls := m.calls
 	if _, err := GenerateDraft(context.Background(), cache, input, &draft, nil); err != nil {

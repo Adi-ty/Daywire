@@ -9,11 +9,13 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestProvider400KeepsUsefulPrivateDiagnosticWithoutLoggingInputs(t *testing.T) {
 	g := NewGroq("private-api-key", "test-model")
 	g.DiagnosticsDir = t.TempDir()
+	g.wait = func(context.Context, time.Duration) error { return nil }
 	calls := 0
 	g.Client.Transport = roundTrip(func(*http.Request) (*http.Response, error) {
 		calls++
@@ -22,7 +24,7 @@ func TestProvider400KeepsUsefulPrivateDiagnosticWithoutLoggingInputs(t *testing.
 	var review Review
 	_, err := g.Generate(context.Background(), "system", map[string]string{"text": "input must not be saved"}, &review)
 	var provider *ProviderError
-	if !errors.As(err, &provider) || provider.Status != 400 || provider.Code != "json_validate_failed" || calls != 1 {
+	if !errors.As(err, &provider) || provider.Status != 400 || provider.Code != "json_validate_failed" || calls != 3 {
 		t.Fatalf("missing classification or unexpected retry: calls=%d err=%v", calls, err)
 	}
 	for _, secret := range []string{"private-api-key", "private source text", "partial generated text"} {
@@ -67,6 +69,70 @@ func TestUnclassifiedAndMalformedProviderErrorsStayFailures(t *testing.T) {
 		var provider *ProviderError
 		if !errors.As(err, &provider) || err.Error() != "Groq HTTP 400" || len(review.Verdicts) != 0 {
 			t.Fatalf("untrusted or malformed error accepted/leaked: %v", err)
+		}
+	}
+}
+
+func TestStructuredGenerationRecoversWithSameStrictRequest(t *testing.T) {
+	for _, code := range []string{"json_validate_failed", "structured_generation_failed"} {
+		t.Run(code, func(t *testing.T) {
+			g := NewGroq("key", "model")
+			waits, calls := 0, 0
+			g.wait = func(context.Context, time.Duration) error { waits++; return nil }
+			var first string
+			g.Client.Transport = roundTrip(func(req *http.Request) (*http.Response, error) {
+				calls++
+				raw, _ := io.ReadAll(req.Body)
+				if calls == 1 {
+					first = string(raw)
+				} else if first != string(raw) {
+					t.Fatal("retry changed evidence/schema")
+				}
+				body := `{"choices":[{"message":{"content":"{\"verdicts\":[]}"},"finish_reason":"stop"}],"usage":{"total_tokens":10}}`
+				status := 200
+				if calls == 1 {
+					status = 400
+					body = `{"error":{"code":"` + code + `","failed_generation":"untrusted broken output"}}`
+				}
+				return &http.Response{StatusCode: status, Header: http.Header{}, Body: io.NopCloser(strings.NewReader(body))}, nil
+			})
+			var result Review
+			used, err := g.Generate(context.Background(), "rules", struct{}{}, &result)
+			if err != nil || calls != 2 || waits != 1 || used.TotalTokens != 10 {
+				t.Fatalf("calls=%d waits=%d usage=%+v err=%v", calls, waits, used, err)
+			}
+		})
+	}
+}
+
+func TestStructuredRetryHonorsCancellationDuringPacing(t *testing.T) {
+	g := NewGroq("key", "model")
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	calls := 0
+	g.wait = func(context.Context, time.Duration) error { cancel(); return ctx.Err() }
+	g.Client.Transport = roundTrip(func(*http.Request) (*http.Response, error) {
+		calls++
+		return &http.Response{StatusCode: 400, Header: http.Header{}, Body: io.NopCloser(strings.NewReader(`{"error":{"code":"json_validate_failed"}}`))}, nil
+	})
+	var result Review
+	_, err := g.Generate(ctx, "rules", struct{}{}, &result)
+	if !errors.Is(err, context.Canceled) || calls != 1 {
+		t.Fatalf("calls=%d err=%v", calls, err)
+	}
+}
+
+func TestConfigurationFailuresAreNotRetried(t *testing.T) {
+	for _, status := range []int{400, 401, 403, 404, 500} {
+		g := NewGroq("key", "model")
+		calls := 0
+		g.Client.Transport = roundTrip(func(*http.Request) (*http.Response, error) {
+			calls++
+			return &http.Response{StatusCode: status, Header: http.Header{}, Body: io.NopCloser(strings.NewReader(`{"error":{"code":"invalid_request_error","param":"response_format"}}`))}, nil
+		})
+		var result Review
+		if _, err := g.Generate(context.Background(), "rules", struct{}{}, &result); err == nil || calls != 1 {
+			t.Fatalf("status=%d calls=%d err=%v", status, calls, err)
 		}
 	}
 }

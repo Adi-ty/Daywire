@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Adi-ty/daywire/internal/content"
 	"github.com/Adi-ty/daywire/internal/editorial"
 	"github.com/Adi-ty/daywire/internal/store"
 )
@@ -57,5 +58,33 @@ func TestCancellationStopsStartingNewCases(t *testing.T) {
 	}})
 	if len(report.Cases) != 1 || report.Errors != 1 {
 		t.Fatalf("cancellation did not stop run: %+v", report)
+	}
+}
+
+// These must reach the AI judge: neither positive nor negative cases should
+// be rejected merely because the fixture is malformed or its hashes are stale.
+func TestRadioWritingFixturesAreValid(t *testing.T) {
+	checkEditorialFixtures(t, "../../evals/radio-writing.json")
+	checkEditorialFixtures(t, "../../evals/editorial-regressions.json")
+}
+func checkEditorialFixtures(t *testing.T, path string) {
+	t.Helper()
+	var cases []Case
+	if err := store.Read(path, &cases); err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range cases {
+		t.Run(c.ID, func(t *testing.T) {
+			sources := []content.Source{}
+			for _, e := range c.Input.Evidence {
+				if content.Hash([]byte(e.Text)) != e.Hash {
+					t.Fatal("stale evidence hash")
+				}
+				sources = append(sources, e.Source)
+			}
+			if err := content.ValidateDraft(c.Draft, sources); err != nil {
+				t.Fatal(err)
+			}
+		})
 	}
 }

@@ -319,7 +319,10 @@ func ValidateDraft(d Draft, sources []Source) error {
 		if err := add(l.ID); err != nil {
 			return err
 		}
-		if l.Title == "" || len(l.Title) > 200 || !paragraphs(l.Paragraphs) || l.Example == "" || len(l.Example) > 3000 || l.Takeaway == "" || len(l.Takeaway) > 1000 || !refs(l.ArticleIDs, articleIDs) || !refs(l.SourceIDs, sourceIDs) {
+		if err := ValidateLessonText(l); err != nil {
+			return fmt.Errorf("lesson %s: %w", l.ID, err)
+		}
+		if !refs(l.ArticleIDs, articleIDs) || !refs(l.SourceIDs, sourceIDs) {
 			return fmt.Errorf("invalid lesson %s", l.ID)
 		}
 		lessonIDs[l.ID] = true
@@ -411,6 +414,33 @@ func Validate(e Edition) error {
 		}
 		if index != len(e.Radio.Cues) {
 			return errors.New("unexpected transcript timing words")
+		}
+	}
+	return nil
+}
+
+// ValidateLessonText is shared by the generation boundary and final edition
+// validation so an invalid lesson cannot become a premise for quiz generation.
+func ValidateLessonText(l Lesson) error {
+	for _, f := range []struct {
+		name, value string
+		limit       int
+	}{
+		{"title", l.Title, 200}, {"example", l.Example, 3000}, {"takeaway", l.Takeaway, 1000},
+	} {
+		if strings.TrimSpace(f.value) == "" {
+			return fmt.Errorf("%s must not be empty", f.name)
+		}
+		if len(f.value) > f.limit {
+			return fmt.Errorf("%s exceeds %d bytes", f.name, f.limit)
+		}
+	}
+	if len(l.Paragraphs) < 1 || len(l.Paragraphs) > 8 {
+		return errors.New("paragraphs must contain 1–8 entries")
+	}
+	for _, p := range l.Paragraphs {
+		if strings.TrimSpace(p) == "" || len(p) > 3000 {
+			return errors.New("paragraphs must be nonempty and at most 3000 bytes each")
 		}
 	}
 	return nil

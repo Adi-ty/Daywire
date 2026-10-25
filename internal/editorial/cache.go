@@ -36,7 +36,7 @@ func (m *CachedModel) Generate(ctx context.Context, system string, input, output
 		Identity, Prompt string
 		Input            any
 		Schema           map[string]any
-	}{m.Identity, system, input, dereferenceSchema(output)})
+	}{m.Identity, system, input, outputSchema(input, output)})
 	if err != nil {
 		return Usage{}, err
 	}
@@ -50,13 +50,28 @@ func (m *CachedModel) Generate(ctx context.Context, system string, input, output
 		if err := content.Decode(strings.NewReader(saved.Output), output); err != nil {
 			return Usage{}, fmt.Errorf("invalid cached stage: %w", err)
 		}
-		if err := validStage(input, output); err != nil {
-			return Usage{}, err
+		if err := validStage(input, output); err == nil {
+			if m.Logf != nil {
+				m.Logf("Reusing completed AI stage %s", key[:12])
+			}
+			return Usage{}, nil
+		} else {
+			var invalid *StageValidationError
+			if !errors.As(err, &invalid) {
+				return Usage{}, err
+			}
+			// Older versions cached structurally invalid lessons. Regenerate
+			// this stage; never use it as a premise or edit saved facts by hand.
+			if m.Logf != nil {
+				m.Logf("Regenerating invalid cached editorial stage: %s", invalid.Reason)
+			}
+			switch out := output.(type) {
+			case *lessonOutput:
+				*out = lessonOutput{}
+			case *radioOutput:
+				*out = radioOutput{}
+			}
 		}
-		if m.Logf != nil {
-			m.Logf("Reusing completed AI stage %s", key[:12])
-		}
-		return Usage{}, nil // No tokens consumed by this invocation.
 	} else if !os.IsNotExist(err) {
 		return Usage{}, err
 	}
@@ -77,6 +92,16 @@ func (m *CachedModel) Generate(ctx context.Context, system string, input, output
 	return used, store.JSON(path, stageCheckpoint{key, string(raw), used})
 }
 func validStage(input, output any) error {
+	if out, ok := output.(*radioOutput); ok {
+		if err := radioBodyError(out.Segment.Text); err != nil {
+			return err
+		}
+	}
+	if out, ok := output.(*lessonOutput); ok {
+		if err := content.ValidateLessonText(out.Lesson); err != nil {
+			return &StageValidationError{err.Error()}
+		}
+	}
 	if review, ok := output.(*Review); ok {
 		batch, ok := input.(VerificationInput)
 		if !ok {

@@ -98,11 +98,11 @@ func (m *oversizedBatchModel) Generate(_ context.Context, _ string, in, out any)
 	out.(*Review).Verdicts = []Verdict{{b.Targets[0], "supported", "evidence supports it"}}
 	return Usage{}, nil
 }
-func TestProvider413SplitsReviewAndStillRequiresEveryTarget(t *testing.T) {
+func TestSingleTargetPlanAvoidsOversizedBatchesAndRequiresEveryTarget(t *testing.T) {
 	d := content.Draft{Articles: []content.Article{{ID: "one"}, {ID: "two"}}}
 	m := &oversizedBatchModel{}
 	r, _, err := Verify(context.Background(), m, Input{}, d)
-	if err != nil || len(r.Verdicts) != 3 || m.calls != 4 {
+	if err != nil || len(r.Verdicts) != 3 || m.calls != 3 {
 		t.Fatalf("calls=%d err=%v", m.calls, err)
 	}
 }

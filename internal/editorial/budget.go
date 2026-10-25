@@ -49,7 +49,7 @@ func requestBody(model, system string, input, output any) ([]byte, int, int, err
 	completion := completionBudget(output)
 	payload := map[string]any{"model": model, "temperature": 0.2, "max_completion_tokens": completion,
 		"messages":        []map[string]string{{"role": "system", "content": system}, {"role": "user", "content": string(user)}},
-		"response_format": map[string]any{"type": "json_schema", "json_schema": map[string]any{"name": "daywire_output", "strict": true, "schema": dereferenceSchema(output)}}}
+		"response_format": map[string]any{"type": "json_schema", "json_schema": map[string]any{"name": "daywire_output", "strict": true, "schema": outputSchema(input, output)}}}
 	body, err := json.Marshal(payload)
 	if err != nil {
 		return nil, 0, 0, err
@@ -119,4 +119,20 @@ func (g *Groq) observe(h http.Header) {
 			g.resetAt = now.Add(reset + time.Second)
 		}
 	}
+}
+
+// Restrict review identifiers at decoding time, not only in prompt prose.
+// Accept still enforces uniqueness and exhaustive coverage after decoding.
+func outputSchema(input, output any) map[string]any {
+	schema := dereferenceSchema(output)
+	batch, ok := input.(VerificationInput)
+	if _, review := output.(*Review); !ok || !review || len(batch.Targets) == 0 {
+		return schema
+	}
+	props := schema["properties"].(map[string]any)
+	verdicts := props["verdicts"].(map[string]any)
+	fields := verdicts["items"].(map[string]any)["properties"].(map[string]any)
+	fields["target_id"].(map[string]any)["enum"] = batch.Targets
+	fields["verdict"].(map[string]any)["enum"] = []string{"supported", "contradicted", "insufficient_evidence"}
+	return schema
 }
