@@ -1,0 +1,23 @@
+# Credentials and local environment files.
+.env
+.env.*
+!.env.example
+
+# Local build outputs.
+/bin/
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# Private evidence, checkpoints, generated editions and media.
+.daywire/
+/content/
+/web/public/media/
+*.test
+coverage.out
+
+# Local speech runtime (never include model weights in run checkpoints).
+/.venv-kokoro/
+/.cache/kokoro/
+__pycache__/

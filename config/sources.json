@@ -1,0 +1,71 @@
+[
+  {
+    "id": "hacker-news",
+    "name": "Hacker News",
+    "kind": "hn",
+    "url": "https://hacker-news.firebaseio.com/v0/topstories.json"
+  },
+  {
+    "id": "lobsters",
+    "name": "Lobsters",
+    "kind": "lobsters",
+    "url": "https://lobste.rs/hottest.json"
+  },
+  {
+    "id": "go-blog",
+    "name": "Go Blog",
+    "kind": "rss",
+    "url": "https://go.dev/blog/feed.atom"
+  },
+  {
+    "id": "cloudflare",
+    "name": "Cloudflare Blog",
+    "kind": "rss",
+    "url": "https://blog.cloudflare.com/rss/"
+  },
+  {
+    "id": "netflix",
+    "name": "Netflix TechBlog",
+    "kind": "rss",
+    "url": "https://netflixtechblog.com/feed"
+  },
+  {
+    "id": "hugging-face",
+    "name": "Hugging Face",
+    "kind": "rss",
+    "url": "https://huggingface.co/blog/feed.xml"
+  },
+  {
+    "id": "simon-willison",
+    "name": "Simon Willison",
+    "kind": "rss",
+    "url": "https://simonwillison.net/atom/entries/"
+  },
+  {
+    "id": "node-security",
+    "name": "Node.js Security",
+    "kind": "rss",
+    "url": "https://nodejs.org/en/feed/vulnerability.xml",
+    "security": true
+  },
+  {
+    "id": "php",
+    "name": "PHP Announcements",
+    "kind": "rss",
+    "url": "https://www.php.net/feed.atom",
+    "security": true
+  },
+  {
+    "id": "openjs-security",
+    "name": "OpenJS Security Advisories",
+    "kind": "rss",
+    "url": "https://cna.openjsf.org/feed.xml",
+    "security": true
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel Blog",
+    "kind": "rss",
+    "url": "https://vercel.com/atom"
+  }
+]

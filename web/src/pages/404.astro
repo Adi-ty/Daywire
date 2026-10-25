@@ -1,0 +1,5 @@
+---
+import Page from '../layouts/Page.astro';
+import { href } from '../lib/editions';
+---
+<Page title="Edition not found" mode="news"><section class="empty-state"><h1>This edition isn’t on the shelf.</h1><p>The date may not have a published newspaper yet.</p><a href={href('news/archive/')}>Find an edition in the archive</a></section></Page>

@@ -1,0 +1,407 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "artwork": {
+      "additionalProperties": false,
+      "properties": {
+        "alt": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "url",
+        "alt"
+      ],
+      "type": "object"
+    },
+    "content": {
+      "additionalProperties": false,
+      "properties": {
+        "articles": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "headline": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "implication": {
+                "type": "string"
+              },
+              "paragraphs": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "section": {
+                "type": "string"
+              },
+              "source_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "summary": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "section",
+              "headline",
+              "summary",
+              "paragraphs",
+              "implication",
+              "source_ids"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "artwork_brief": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "lessons": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "article_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "example": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "paragraphs": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "source_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "takeaway": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "paragraphs",
+              "example",
+              "takeaway",
+              "article_ids",
+              "source_ids"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "quiz": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "answer": {
+                "type": "integer"
+              },
+              "explanation": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "lesson_id": {
+                "type": "string"
+              },
+              "options": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "prompt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "lesson_id",
+              "prompt",
+              "options",
+              "answer",
+              "explanation"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "segments": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "article_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "id": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "text",
+              "article_ids"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "introduction",
+        "articles",
+        "lessons",
+        "quiz",
+        "segments",
+        "artwork_brief"
+      ],
+      "type": "object"
+    },
+    "coverage": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_count": {
+          "type": "integer"
+        },
+        "evidence_count": {
+          "type": "integer"
+        },
+        "from": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "unavailable_sources": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "until": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "from",
+        "until",
+        "status",
+        "unavailable_sources",
+        "candidate_count",
+        "evidence_count"
+      ],
+      "type": "object"
+    },
+    "date": {
+      "type": "string"
+    },
+    "demo": {
+      "type": "boolean"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "radio": {
+      "additionalProperties": false,
+      "properties": {
+        "audio_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cues": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "end_seconds": {
+                "type": "number"
+              },
+              "segment_id": {
+                "type": "string"
+              },
+              "start_seconds": {
+                "type": "number"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "segment_id",
+              "text",
+              "start_seconds",
+              "end_seconds"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "duration_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "script_hash": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "audio_url",
+        "duration_seconds",
+        "script_hash"
+      ],
+      "type": "object"
+    },
+    "revision": {
+      "type": "integer"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "sources": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "discovered_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "discussion_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "title",
+          "url",
+          "published_at",
+          "discovered_at",
+          "discussion_url"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "timezone": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "date",
+    "timezone",
+    "revision",
+    "demo",
+    "generated_at",
+    "coverage",
+    "content",
+    "sources",
+    "radio",
+    "artwork"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,44 @@
+---
+import type { Edition } from '../lib/types';
+interface Props { edition: Edition }
+const { edition } = Astro.props;
+---
+<section class="quiz-section" id="quiz" aria-labelledby="quiz-heading" data-edition={`${edition.demo ? 'demo-' : ''}${edition.date}-r${edition.revision}`}>
+  <div class="section-heading"><h2 id="quiz-heading">Make it stick.</h2><p>Five questions. A little less forgetting.</p></div>
+  <p class="quiz-progress" aria-live="polite">Answers are saved on this device when storage is available.</p>
+  <div class="quiz-grid">
+    {edition.content.quiz.map((question, index) => <form class="quiz-question" data-question={question.id} data-answer={question.answer}>
+      <fieldset><legend><span class="question-number">{index + 1} / 5</span>{question.prompt}</legend>
+        {question.options.map((option, optionIndex) => <label class="quiz-option"><input type="radio" name={question.id} value={optionIndex} required /><span>{option}</span></label>)}
+      </fieldset>
+      <button type="submit" class="text-button check-answer" hidden>Check answer</button>
+      <p class="quiz-feedback" aria-live="polite"></p>
+      <details class="quiz-answer"><summary>Read the answer</summary><p><strong>{question.options[question.answer]}</strong></p><p>{question.explanation}</p></details>
+    </form>)}
+  </div>
+</section>
+<script>
+  const section = document.querySelector<HTMLElement>('.quiz-section');
+  if (section) {
+    const forms = [...section.querySelectorAll<HTMLFormElement>('.quiz-question')];
+    const checked = new Set<string>();
+    const progress = section.querySelector<HTMLElement>('.quiz-progress');
+    function updateProgress() { if (progress) progress.textContent = `${checked.size} of ${forms.length} checked · Progress stays on this device when storage is available.`; }
+    forms.forEach(form => {
+      const button = form.querySelector<HTMLButtonElement>('.check-answer')!;
+      button.hidden = false;
+      const key = `daywire-quiz-${section.dataset.edition}-${form.dataset.question}`;
+      const reveal = (value: number) => {
+        const correct = value === Number(form.dataset.answer);
+        form.dataset.result = correct ? 'correct' : 'incorrect';
+        form.querySelector<HTMLElement>('.quiz-feedback')!.textContent = correct ? 'That’s right.' : 'Not quite. Here’s the reasoning.';
+        form.querySelector<HTMLDetailsElement>('.quiz-answer')!.open = true;
+        button.textContent = 'Check again';
+        checked.add(key); updateProgress();
+      };
+      try { const saved = localStorage.getItem(key); if (saved !== null) { const value = Number(saved); const input = form.querySelector<HTMLInputElement>(`input[value="${Number.isInteger(value) ? value : -1}"]`); if (input) { input.checked = true; reveal(value); } } } catch {}
+      form.addEventListener('submit', event => { event.preventDefault(); const input = form.querySelector<HTMLInputElement>('input:checked'); if (!input) return; const value = Number(input.value); reveal(value); try { localStorage.setItem(key, String(value)); } catch {} });
+    });
+    updateProgress();
+  }
+</script>

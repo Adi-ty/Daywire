@@ -1,0 +1,23 @@
+{
+  "name": "daywire-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.23.4" },
+  "scripts": {
+    "predev": "node scripts/validate-content.mjs",
+    "dev": "astro dev",
+    "prebuild": "node scripts/validate-content.mjs",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "test": "node --test scripts/*.test.mjs"
+  },
+  "dependencies": {
+    "astro": "7.4.2",
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
+    "@fontsource-variable/source-serif-4": "^5.0.0",
+    "@fontsource-variable/public-sans": "^5.0.0"
+  },
+  "devDependencies": { "@astrojs/check": "0.9.12", "@types/node": "^24.0.0", "typescript": "6.0.3" }
+}

@@ -1,0 +1,47 @@
+name: Check Daywire
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5
+        with:
+          go-version: stable
+          cache: false
+      - run: go test -race ./...
+      - run: go vet ./...
+      - name: Check speech helper contracts (no model downloads)
+        run: |
+          python3 -m unittest discover -s internal/audio/kokoro -p 'test_*.py'
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+      - run: go run ./cmd/daywire demo
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Install web dependencies
+        working-directory: web
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+      - name: Check content branch restore
+        run: node --test scripts/content-branch.test.mjs
+      - run: npm test
+        working-directory: web
+      - name: Build demo
+        working-directory: web
+        env:
+          DAYWIRE_DEMO: '1'
+        run: npm run build
+      - name: Build empty production state
+        working-directory: web
+        run: npm run build

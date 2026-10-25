@@ -1,0 +1,69 @@
+---
+import '@fontsource-variable/source-serif-4';
+import '@fontsource-variable/public-sans';
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { editions, dateLabel, href } from '../lib/editions';
+import type { Edition } from '../lib/types';
+interface Props { title: string; mode: 'news' | 'radio'; edition?: Edition }
+const { title, edition } = Astro.props;
+const mode = Astro.url.pathname.split('/').includes('radio') ? 'radio' : 'news';
+const currentIndex = edition ? editions.findIndex(e => e.date === edition.date) : -1;
+const older = currentIndex >= 0 ? editions[currentIndex + 1] : undefined;
+const newer = currentIndex > 0 ? editions[currentIndex - 1] : undefined;
+const selected = edition ? `/${edition.date}/` : '/';
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A daily technology newspaper. Read what matters, learn two things, or take the edition with you on the radio." />
+    <meta name="theme-color" content="#171916" />
+    {edition?.demo && <meta name="robots" content="noindex, nofollow" />}
+    <title>{title} — Daywire</title>
+    <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
+    <script is:inline>
+      try { const theme = localStorage.getItem('daywire-theme'); if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme; } catch {}
+    </script>
+  </head>
+  <body data-mode={mode}>
+    <a class="skip-link" href="#main">Skip to the edition</a>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="wordmark" href={href('news/')} aria-label="Daywire home">daywire<span aria-hidden="true">.</span></a>
+        <nav class="mode-nav" aria-label="Read or listen">
+          <a href={href(`news${selected}`)} aria-current={mode === 'news' ? 'page' : undefined}>Newspaper</a>
+          <a href={href(`radio${selected}`)} aria-current={mode === 'radio' ? 'page' : undefined}>Radio <Icon name="headphones" size={17} /></a>
+        </nav>
+        <div class="edition-controls">
+          <details class="date-picker">
+            <summary>{edition ? dateLabel(edition.date) : 'Choose an edition'} <Icon name="chevron" size={16} /></summary>
+            <nav aria-label="Edition dates">
+              {editions.length ? editions.map(e => <a href={href(`${mode}/${e.date}/`)} aria-current={e.date === edition?.date ? 'date' : undefined}>{dateLabel(e.date)}{e.demo ? ' · Demo' : ''}</a>) : <p>No editions published yet.</p>}
+              <a href={href('news/archive/')}>Browse the archive <Icon name="arrow" size={16} /></a>
+            </nav>
+          </details>
+          <button class="theme-toggle" type="button" aria-label="Switch to light theme" hidden><Icon name="sun" size={19} /></button>
+        </div>
+      </header>
+      {edition?.demo && <aside class="demo-notice">Demonstration edition · The stories and sources below are fictional examples.</aside>}
+      <main id="main"><slot /></main>
+      {edition && <nav class="edition-pager" aria-label="Previous and next editions">
+        {older ? <a href={href(`${mode}/${older.date}/`)}><span aria-hidden="true">←</span> {dateLabel(older.date)}</a> : <span>Beginning of the archive</span>}
+        <a href={href('news/archive/')}>All editions</a>
+        {newer ? <a href={href(`${mode}/${newer.date}/`)}>{dateLabel(newer.date)} <Icon name="arrow" size={16} /></a> : <span>Latest edition</span>}
+      </nav>}
+      <footer class="site-footer"><a class="wordmark" href={href('news/')}>daywire<span>.</span></a><p>Today in tech. Worth your attention.</p><a href={href('news/archive/')}>The archive</a><p class="footer-note">AI-assisted reporting. Sources beside every story.</p></footer>
+    </div>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+      if (button) {
+        button.hidden = false;
+        const label = () => button.setAttribute('aria-label', `Switch to ${document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'} theme`);
+        label();
+        button.addEventListener('click', () => { const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = theme; try { localStorage.setItem('daywire-theme', theme); } catch {} label(); });
+      }
+    </script>
+  </body>
+</html>

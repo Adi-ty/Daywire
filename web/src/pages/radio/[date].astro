@@ -1,0 +1,9 @@
+---
+import Radio from '../../components/Radio.astro';
+import { editions } from '../../lib/editions';
+import type { Edition } from '../../lib/types';
+export function getStaticPaths() { return editions.map(edition => ({ params: { date: edition.date }, props: { edition } })); }
+interface Props { edition: Edition }
+const { edition } = Astro.props;
+---
+<Radio edition={edition} />

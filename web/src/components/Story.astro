@@ -1,0 +1,14 @@
+---
+import type { Article, Edition } from '../lib/types';
+import Sources from './Sources.astro';
+interface Props { article: Article; edition: Edition; lead?: boolean }
+const { article, edition, lead = false } = Astro.props;
+---
+<article class:list={['story', { 'lead-story': lead }]} id={article.id}>
+  <h2>{article.headline}</h2>
+  <div class="story-meta"><span>{article.section}</span><span>{article.source_ids.length} {article.source_ids.length === 1 ? 'source' : 'sources'}</span></div>
+  <p class="story-summary">{article.summary}</p>
+  <div class="story-body">{article.paragraphs.map(p => <p>{p}</p>)}</div>
+  <p class="implication"><strong>The implication.</strong> {article.implication}</p>
+  <Sources ids={article.source_ids} sources={edition.sources} demo={edition.demo} />
+</article>

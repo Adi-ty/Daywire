@@ -1,0 +1,9 @@
+---
+import type { Source } from '../lib/types';
+interface Props { ids: string[]; sources: Source[]; demo?: boolean }
+const { ids, sources, demo = false } = Astro.props;
+const selected = ids.map(id => sources.find(s => s.id === id)).filter((s): s is Source => Boolean(s));
+---
+<ul class="source-list" aria-label="Sources">
+  {selected.map(s => <li>{demo ? <span>{s.name} · example</span> : <a href={s.url} rel="noopener noreferrer">{s.name}</a>}{s.discussion_url && !demo && <a class="discussion" href={s.discussion_url} rel="noopener noreferrer">Discussion</a>}</li>)}
+</ul>
