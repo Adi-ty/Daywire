@@ -62,7 +62,7 @@ func (m *stagedWriter) Generate(_ context.Context, system string, in, out any) (
 		m.quiz++
 	case *radioOutput:
 		m.radioInputs = append(m.radioInputs, in.(radioWritingInput))
-		a := m.draft.Articles[m.radio]
+		a := in.(radioWritingInput).Article
 		v.Segment = content.Segment{ID: "radio-" + a.ID, Title: a.Headline, Text: a.Summary, ArticleIDs: []string{a.ID}}
 		m.radio++
 	case *headingOutput:
@@ -138,7 +138,7 @@ func TestDraftStagesKeepEditionContractAndResumeWithoutCalls(t *testing.T) {
 			t.Fatal("first segment has unrelated context")
 		}
 		if i > 0 {
-			if packet.PreviousEnding == "" || len(strings.Fields(packet.PreviousEnding)) > 35 || !strings.HasSuffix(draft.Segments[i-1].Text, packet.PreviousEnding) {
+			if packet.PreviousEnding == "" || len(strings.Fields(packet.PreviousEnding)) > 35 || !strings.HasSuffix(strings.Join(strings.Fields(draft.Segments[i-1].Text), " "), packet.PreviousEnding) {
 				t.Fatal("radio continuity context is missing, unbounded or incorrect")
 			}
 		}

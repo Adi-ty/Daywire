@@ -13,11 +13,20 @@ func frameRadio(segment content.Segment, date string, position, total int) conte
 	if position == 1 {
 		day, err := time.Parse("2006-01-02", date)
 		if err == nil {
-			segment.Text = fmt.Sprintf("Welcome to Daywire. It's %s %s, %s. %s", day.Month(), spokenNumber(day.Day()), spokenNumber(day.Year()), segment.Text)
+			segment.Text = fmt.Sprintf("Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's %s %s, %s.\n\nWe begin with our lead story. %s", day.Month(), spokenNumber(day.Day()), spokenNumber(day.Year()), segment.Text)
 		}
 	}
+	if position > 1 {
+		transition := "Next on the bulletin. "
+		if position == total {
+			transition = "And finally, our last story. "
+		} else if position%2 == 1 {
+			transition = "Turning to our next story. "
+		}
+		segment.Text = transition + segment.Text
+	}
 	if position == total {
-		segment.Text += " That's Daywire. Thanks for listening."
+		segment.Text += "\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone."
 	}
 	return segment
 }

@@ -9,6 +9,20 @@ import (
 	"github.com/Adi-ty/daywire/internal/content"
 )
 
+// exhaustedTarget distinguishes a completed factual rejection from failures to
+// perform a review or correction. Only this error permits editorial omission.
+type exhaustedTarget struct {
+	id      string
+	cause   error
+	verdict string
+	reason  string
+}
+
+func (e *exhaustedTarget) Error() string {
+	return fmt.Sprintf("target %s still unsupported after one correction: %v; %s", e.id, e.cause, e.reason)
+}
+func (e *exhaustedTarget) Unwrap() error { return e.cause }
+
 // settleTarget checks a unit before it can become a premise for another unit.
 // One correction is allowed. Rejections are cached, so restarting cannot reroll
 // the judge until it approves. Cache keys include the exact current premises.
@@ -32,7 +46,13 @@ func settleTarget(ctx context.Context, model Model, input Input, draft *content.
 			return total, fmt.Errorf("review %s: %w", id, err)
 		}
 		if attempt == 1 {
-			return total, fmt.Errorf("target %s still unsupported after one correction; dependent generation stopped: %w", id, err)
+			reason := ""
+			for _, v := range review.Verdicts {
+				if v.TargetID == id {
+					reason = v.Reason
+				}
+			}
+			return total, &exhaustedTarget{id: id, cause: err, verdict: rejection.Verdict, reason: reason}
 		}
 		progress(model, "Correcting %s before generating dependent content", id)
 		u, err = correctTarget(ctx, model, input, draft, id, review)
@@ -95,7 +115,7 @@ func correctTarget(ctx context.Context, model Model, input Input, draft *content
 	for i, q := range draft.Quiz {
 		if q.ID == id {
 			var out questionOutput
-			u, err := call(derivedRepairRules, &out)
+			u, err := call(derivedRepairRules+Prompt("quiz")+" Replace the flawed question and its options completely when it is ambiguous. Do not merely add words such as combination, best, only, or fully to salvage overlapping options. Choose a different, directly supported learning objective if necessary. Keep the original question ID and lesson ID.", &out)
 			if err != nil {
 				return u, err
 			}

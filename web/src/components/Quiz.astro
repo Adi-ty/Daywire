@@ -2,13 +2,14 @@
 import type { Edition } from '../lib/types';
 interface Props { edition: Edition }
 const { edition } = Astro.props;
+const count = edition.content.quiz.length;
 ---
-<section class="quiz-section" id="quiz" aria-labelledby="quiz-heading" data-edition={`${edition.demo ? 'demo-' : ''}${edition.date}-r${edition.revision}`}>
-  <div class="section-heading"><h2 id="quiz-heading">Make it stick.</h2><p>Five questions. A little less forgetting.</p></div>
+{count > 0 && <section class="quiz-section" id="quiz" aria-labelledby="quiz-heading" data-edition={`${edition.demo ? 'demo-' : ''}${edition.date}-r${edition.revision}`}>
+  <div class="section-heading"><h2 id="quiz-heading">Make it stick.</h2><p>{count} {count === 1 ? 'question' : 'questions'}. A little less forgetting.</p></div>
   <p class="quiz-progress" aria-live="polite">Answers are saved on this device when storage is available.</p>
   <div class="quiz-grid">
     {edition.content.quiz.map((question, index) => <form class="quiz-question" data-question={question.id} data-answer={question.answer}>
-      <fieldset><legend><span class="question-number">{index + 1} / 5</span>{question.prompt}</legend>
+      <fieldset><legend><span class="question-number">{index + 1} / {count}</span>{question.prompt}</legend>
         {question.options.map((option, optionIndex) => <label class="quiz-option"><input type="radio" name={question.id} value={optionIndex} required /><span>{option}</span></label>)}
       </fieldset>
       <button type="submit" class="text-button check-answer" hidden>Check answer</button>
@@ -16,7 +17,7 @@ const { edition } = Astro.props;
       <details class="quiz-answer"><summary>Read the answer</summary><p><strong>{question.options[question.answer]}</strong></p><p>{question.explanation}</p></details>
     </form>)}
   </div>
-</section>
+</section>}
 <script>
   const section = document.querySelector<HTMLElement>('.quiz-section');
   if (section) {

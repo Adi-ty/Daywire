@@ -22,8 +22,8 @@ type Usage struct {
 	TotalTokens      int `json:"total_tokens"`
 }
 
-// OutputTruncated is separate from refusal: only a smaller task can safely
-// recover without accepting a partial response.
+// OutputTruncated is separate from refusal. Recovery can increase the allowance
+// or split the task, but must never accept a partial response.
 type OutputTruncated struct{ Limit int }
 
 func (e *OutputTruncated) Error() string {
@@ -51,37 +51,48 @@ func NewGroq(key, model string) *Groq {
 	return &Groq{APIKey: key, Model: model, gate: make(chan struct{}, 1), Client: &http.Client{Timeout: 120 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return errors.New("provider redirects are disabled") }}}
 }
 
-// Generate retries only explicit structured-generation failures. They describe
-// failed model output, not an invalid schema or an authentication/config error.
-// Each attempt still uses strict schema output, the same evidence, and quota
-// pacing. No failed text is salvaged or fed back as instructions.
+// Generate gives incomplete/failed structured output more completion space on
+// each retry, bounded by both attempts and the request's quota budget. It never
+// weakens the schema, salvages partial text, or repeats an unchanged request.
 func (g *Groq) Generate(ctx context.Context, system string, input any, output any) (Usage, error) {
 	var total Usage
+	completion := completionBudget(output)
 	for attempt := 1; attempt <= 3; attempt++ {
 		if err := ctx.Err(); err != nil {
 			return total, err
 		}
-		used, err := g.generateOnce(ctx, system, input, output)
+		used, err := g.generateOnce(ctx, system, input, output, completion)
 		total.PromptTokens += used.PromptTokens
 		total.CompletionTokens += used.CompletionTokens
 		total.TotalTokens += used.TotalTokens
 		var provider *ProviderError
-		retryable := errors.As(err, &provider) && provider.Status == http.StatusBadRequest &&
-			(provider.Code == "json_validate_failed" || provider.Code == "structured_generation_failed")
+		var truncated *OutputTruncated
+		retryable := errors.As(err, &truncated) || (errors.As(err, &provider) && provider.Status == http.StatusBadRequest &&
+			(provider.Code == "json_validate_failed" || provider.Code == "structured_generation_failed"))
 		if !retryable {
 			return total, err
 		}
 		if attempt == 3 {
 			return total, fmt.Errorf("structured generation failed after %d attempts; completed stages are saved; rerun to resume: %w", attempt, err)
 		}
-		if g.Logf != nil {
-			g.Logf("Groq could not produce schema-valid JSON (%s); regenerating this stage, attempt %d/3 after quota pacing", provider.Code, attempt+1)
+		_, estimate, _, planErr := requestBodyWithLimit(g.Model, system, input, output, completion)
+		if planErr != nil {
+			return total, planErr
 		}
+		// Leave room for token-estimation rounding if the serialized cap grows.
+		next := min(completion+1000, requestBudget-estimate-16)
+		if next <= completion {
+			return total, fmt.Errorf("structured generation exhausted available completion headroom; completed stages are saved: %w", err)
+		}
+		if g.Logf != nil {
+			g.Logf("Groq structured output failed or was truncated; increasing completion allowance %d -> %d, attempt %d/3 after quota pacing", completion, next, attempt+1)
+		}
+		completion = next
 	}
 	panic("unreachable")
 }
 
-func (g *Groq) generateOnce(ctx context.Context, system string, input any, output any) (Usage, error) {
+func (g *Groq) generateOnce(ctx context.Context, system string, input any, output any, completion int) (Usage, error) {
 	var usage Usage
 	if g.APIKey == "" || g.Model == "" {
 		return usage, errors.New("GROQ_API_KEY and model are required")
@@ -93,7 +104,7 @@ func (g *Groq) generateOnce(ctx context.Context, system string, input any, outpu
 	if len(user) > 180000 {
 		return usage, errors.New("model input exceeds 180 KB budget")
 	}
-	body, estimate, completionLimit, err := requestBody(g.Model, system, input, output)
+	body, estimate, completionLimit, err := requestBodyWithLimit(g.Model, system, input, output, completion)
 	if err != nil {
 		return usage, err
 	}

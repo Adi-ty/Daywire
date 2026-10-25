@@ -1,0 +1,317 @@
+[
+  {
+    "id": "overlapping-mitigations",
+    "description": "Reject multiple individually sufficient answers despite a combination being marked correct.",
+    "expected_accept": false,
+    "input": {
+      "date": "2026-10-23",
+      "previous_headlines": [],
+      "evidence": [
+        {
+          "source": {
+            "id": "source-synthetic-race",
+            "name": "Frozen evaluation fixture",
+            "title": "Synthetic upload callback lifecycle",
+            "url": "https://example.com/evals/callback-race",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made.",
+          "hash": "5f74c9b0c3c9478ba66aab2bd98e6d571fff7a5a8044b584f1839d1e6efeb4e4",
+          "kind": "synthetic-evaluation"
+        }
+      ]
+    },
+    "draft": {
+      "title": "A fictional callback-lifetime lesson",
+      "introduction": "This synthetic example examines callbacks after a request closes.",
+      "articles": [
+        {
+          "id": "callback-race",
+          "section": "Engineering",
+          "headline": "ParcelPipe fixes a callback race",
+          "summary": "In this fictional scenario, version 2.5.0 cancels pending upload callbacks when a request closes.",
+          "paragraphs": [
+            "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made."
+          ],
+          "implication": "The scenario illustrates why callback lifetimes must follow the request lifetime.",
+          "source_ids": [
+            "source-synthetic-race"
+          ]
+        }
+      ],
+      "lessons": [
+        {
+          "id": "callback-lifetime",
+          "title": "Tie callbacks to request lifetimes",
+          "paragraphs": [
+            "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made."
+          ],
+          "example": "In this fictional example, the client aborts while a filter callback is pending; the old callback later touches a destroyed stream.",
+          "takeaway": "Either upgrading to version 2.5.0 or using a synchronous filter prevents the described race.",
+          "article_ids": [
+            "callback-race"
+          ],
+          "source_ids": [
+            "source-synthetic-race"
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "id": "quiz-mitigation",
+          "lesson_id": "callback-lifetime",
+          "prompt": "Which mitigation prevents the race described in the lesson?",
+          "options": [
+            "Upgrade to version 2.5.0",
+            "Use a synchronous filter",
+            "Upgrade and use a synchronous filter"
+          ],
+          "answer": 2,
+          "explanation": "Both measures together prevent the race."
+        }
+      ],
+      "segments": [
+        {
+          "id": "radio-callback-race",
+          "title": "ParcelPipe fixes a callback race",
+          "text": "In this fictional example, a callback runs after a request closes. The updated version cancels pending callbacks.",
+          "article_ids": [
+            "callback-race"
+          ]
+        }
+      ],
+      "artwork_brief": "Conceptual illustration of a callback and a closing request."
+    }
+  },
+  {
+    "id": "cosmetic-combination-repair",
+    "description": "Reject the superficial repair from the production failure: overlapping options remain ambiguous.",
+    "expected_accept": false,
+    "input": {
+      "date": "2026-10-23",
+      "previous_headlines": [],
+      "evidence": [
+        {
+          "source": {
+            "id": "source-synthetic-race",
+            "name": "Frozen evaluation fixture",
+            "title": "Synthetic upload callback lifecycle",
+            "url": "https://example.com/evals/callback-race",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made.",
+          "hash": "5f74c9b0c3c9478ba66aab2bd98e6d571fff7a5a8044b584f1839d1e6efeb4e4",
+          "kind": "synthetic-evaluation"
+        }
+      ]
+    },
+    "draft": {
+      "title": "A fictional callback-lifetime lesson",
+      "introduction": "This synthetic example examines callbacks after a request closes.",
+      "articles": [
+        {
+          "id": "callback-race",
+          "section": "Engineering",
+          "headline": "ParcelPipe fixes a callback race",
+          "summary": "In this fictional scenario, version 2.5.0 cancels pending upload callbacks when a request closes.",
+          "paragraphs": [
+            "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made."
+          ],
+          "implication": "The scenario illustrates why callback lifetimes must follow the request lifetime.",
+          "source_ids": [
+            "source-synthetic-race"
+          ]
+        }
+      ],
+      "lessons": [
+        {
+          "id": "callback-lifetime",
+          "title": "Tie callbacks to request lifetimes",
+          "paragraphs": [
+            "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made."
+          ],
+          "example": "In this fictional example, the client aborts while a filter callback is pending; the old callback later touches a destroyed stream.",
+          "takeaway": "Either upgrading to version 2.5.0 or using a synchronous filter prevents the described race.",
+          "article_ids": [
+            "callback-race"
+          ],
+          "source_ids": [
+            "source-synthetic-race"
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "id": "quiz-mitigation",
+          "lesson_id": "callback-lifetime",
+          "prompt": "Which mitigation combination fully prevents the race described in the lesson?",
+          "options": [
+            "Upgrade to version 2.5.0",
+            "Use a synchronous filter",
+            "Upgrade and use a synchronous filter"
+          ],
+          "answer": 2,
+          "explanation": "Both measures together prevent the race."
+        }
+      ],
+      "segments": [
+        {
+          "id": "radio-callback-race",
+          "title": "ParcelPipe fixes a callback race",
+          "text": "In this fictional example, a callback runs after a request closes. The updated version cancels pending callbacks.",
+          "article_ids": [
+            "callback-race"
+          ]
+        }
+      ],
+      "artwork_brief": "Conceptual illustration of a callback and a closing request."
+    }
+  },
+  {
+    "id": "replacement-mechanism-question",
+    "description": "Accept a replacement question with one supported mechanism and mutually exclusive distractors.",
+    "expected_accept": true,
+    "input": {
+      "date": "2026-10-23",
+      "previous_headlines": [],
+      "evidence": [
+        {
+          "source": {
+            "id": "source-synthetic-race",
+            "name": "Frozen evaluation fixture",
+            "title": "Synthetic upload callback lifecycle",
+            "url": "https://example.com/evals/callback-race",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made.",
+          "hash": "5f74c9b0c3c9478ba66aab2bd98e6d571fff7a5a8044b584f1839d1e6efeb4e4",
+          "kind": "synthetic-evaluation"
+        }
+      ]
+    },
+    "draft": {
+      "title": "A fictional callback-lifetime lesson",
+      "introduction": "This synthetic example examines callbacks after a request closes.",
+      "articles": [
+        {
+          "id": "callback-race",
+          "section": "Engineering",
+          "headline": "ParcelPipe fixes a callback race",
+          "summary": "In this fictional scenario, version 2.5.0 cancels pending upload callbacks when a request closes.",
+          "paragraphs": [
+            "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made."
+          ],
+          "implication": "The scenario illustrates why callback lifetimes must follow the request lifetime.",
+          "source_ids": [
+            "source-synthetic-race"
+          ]
+        }
+      ],
+      "lessons": [
+        {
+          "id": "callback-lifetime",
+          "title": "Tie callbacks to request lifetimes",
+          "paragraphs": [
+            "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made."
+          ],
+          "example": "In this fictional example, the client aborts while a filter callback is pending; the old callback later touches a destroyed stream.",
+          "takeaway": "Either upgrading to version 2.5.0 or using a synchronous filter prevents the described race.",
+          "article_ids": [
+            "callback-race"
+          ],
+          "source_ids": [
+            "source-synthetic-race"
+          ]
+        }
+      ],
+      "quiz": [
+        {
+          "id": "quiz-mitigation",
+          "lesson_id": "callback-lifetime",
+          "prompt": "What can happen when the delayed callback runs after the request closes in the older version?",
+          "options": [
+            "It can resume a destroyed stream and cause an unhandled error",
+            "It always finishes before the request closes",
+            "It automatically upgrades the library"
+          ],
+          "answer": 0,
+          "explanation": "The lesson describes the delayed callback resuming a destroyed stream after the abort."
+        }
+      ],
+      "segments": [
+        {
+          "id": "radio-callback-race",
+          "title": "ParcelPipe fixes a callback race",
+          "text": "In this fictional example, a callback runs after a request closes. The updated version cancels pending callbacks.",
+          "article_ids": [
+            "callback-race"
+          ]
+        }
+      ],
+      "artwork_brief": "Conceptual illustration of a callback and a closing request."
+    }
+  },
+  {
+    "id": "news-without-enrichment",
+    "description": "Accept verified news and radio without optional learning or quiz sections.",
+    "expected_accept": true,
+    "input": {
+      "date": "2026-10-23",
+      "previous_headlines": [],
+      "evidence": [
+        {
+          "source": {
+            "id": "source-synthetic-race",
+            "name": "Frozen evaluation fixture",
+            "title": "Synthetic upload callback lifecycle",
+            "url": "https://example.com/evals/callback-race",
+            "published_at": "2026-10-22T10:00:00Z",
+            "discovered_at": "2026-10-22T11:00:00Z",
+            "discussion_url": null
+          },
+          "text": "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made.",
+          "hash": "5f74c9b0c3c9478ba66aab2bd98e6d571fff7a5a8044b584f1839d1e6efeb4e4",
+          "kind": "synthetic-evaluation"
+        }
+      ]
+    },
+    "draft": {
+      "title": "A fictional callback-lifetime lesson",
+      "introduction": "This synthetic example examines callbacks after a request closes.",
+      "articles": [
+        {
+          "id": "callback-race",
+          "section": "Engineering",
+          "headline": "ParcelPipe fixes a callback race",
+          "summary": "In this fictional scenario, version 2.5.0 cancels pending upload callbacks when a request closes.",
+          "paragraphs": [
+            "This is a fictional evaluation scenario, not news. ParcelPipe version 2.5.0 cancels pending upload filter callbacks when a request closes. In the older version a delayed callback can resume a destroyed stream after an upload aborts, causing an unhandled error. Either upgrading to version 2.5.0 or using a synchronous filter prevents this particular race. These are two independently sufficient mitigations, not a requirement to combine both. No broader security guarantee is made."
+          ],
+          "implication": "The scenario illustrates why callback lifetimes must follow the request lifetime.",
+          "source_ids": [
+            "source-synthetic-race"
+          ]
+        }
+      ],
+      "lessons": [],
+      "quiz": [],
+      "segments": [
+        {
+          "id": "radio-callback-race",
+          "title": "ParcelPipe fixes a callback race",
+          "text": "In this fictional example, a callback runs after a request closes. The updated version cancels pending callbacks.",
+          "article_ids": [
+            "callback-race"
+          ]
+        }
+      ],
+      "artwork_brief": "Conceptual illustration of a callback and a closing request."
+    }
+  }
+]

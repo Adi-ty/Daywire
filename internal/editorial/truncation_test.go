@@ -8,11 +8,13 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestTruncatedProviderOutputIsNotDecodedOrCached(t *testing.T) {
 	g := NewGroq("key", "model")
 	calls := 0
+	g.wait = func(context.Context, time.Duration) error { return nil }
 	g.Client.Transport = roundTrip(func(*http.Request) (*http.Response, error) {
 		calls++
 		// Even valid-looking JSON must not be accepted when finish_reason is length.
@@ -22,7 +24,7 @@ func TestTruncatedProviderOutputIsNotDecodedOrCached(t *testing.T) {
 	var out Review
 	used, err := cache.Generate(context.Background(), "review", VerificationInput{Targets: []string{"story"}}, &out)
 	var truncated *OutputTruncated
-	if !errors.As(err, &truncated) || truncated.Limit != 1600 || used.TotalTokens != 2000 || calls != 1 {
+	if !errors.As(err, &truncated) || truncated.Limit != 3600 || used.TotalTokens != 6000 || calls != 3 {
 		t.Fatalf("usage=%+v calls=%d err=%v", used, calls, err)
 	}
 	entries, _ := os.ReadDir(cache.Directory)

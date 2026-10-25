@@ -168,11 +168,17 @@ func Run(ctx context.Context, o Options) (content.Edition, error) {
 		if o.Logf != nil {
 			o.Logf("Drafting edition with Groq")
 		}
-		usage, err := editorial.GenerateDraft(ctx, model, modelInput, &draft, o.Logf)
+		usage, report, err := editorial.GenerateDraftWithReport(ctx, model, modelInput, &draft, o.Logf)
+		if reportErr := store.JSON(filepath.Join(dir, "generation-report.json"), report); reportErr != nil {
+			return edition, fmt.Errorf("save generation report: %w", reportErr)
+		}
 		if err != nil {
 			return edition, err
 		}
 		checkpoint = Checkpoint{Key: key, Draft: draft, Usage: usage}
+		if err := content.ValidateDraft(checkpoint.Draft, sources); err != nil {
+			return edition, fmt.Errorf("draft validation: %w", err)
+		}
 		if err := store.JSON(filepath.Join(dir, "draft.json"), checkpoint); err != nil {
 			return edition, err
 		}

@@ -66,6 +66,7 @@ func TestCancellationStopsStartingNewCases(t *testing.T) {
 func TestRadioWritingFixturesAreValid(t *testing.T) {
 	checkEditorialFixtures(t, "../../evals/radio-writing.json")
 	checkEditorialFixtures(t, "../../evals/editorial-regressions.json")
+	checkEditorialFixtures(t, "../../evals/quiz-regressions.json")
 }
 func checkEditorialFixtures(t *testing.T, path string) {
 	t.Helper()

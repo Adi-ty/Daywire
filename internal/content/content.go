@@ -250,8 +250,8 @@ func ValidateDraft(d Draft, sources []Source) error {
 	if len(d.Articles) < 1 || len(d.Articles) > 12 {
 		return errors.New("edition needs 1–12 articles")
 	}
-	if len(d.Lessons) != 2 || len(d.Quiz) != 5 {
-		return errors.New("edition needs two lessons and five questions")
+	if len(d.Lessons) > 2 || len(d.Quiz) > 5 {
+		return errors.New("edition allows at most two lessons and five questions")
 	}
 	if len(d.Segments) < 1 || len(d.Segments) > 10 || len(strings.Fields(d.Script())) > 650 {
 		return errors.New("radio needs 1–10 segments and at most 650 words")

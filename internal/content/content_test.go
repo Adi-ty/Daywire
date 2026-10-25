@@ -87,3 +87,40 @@ func TestDecodeRejectsUnknownAndTrailingJSON(t *testing.T) {
 		}
 	}
 }
+
+func TestOptionalEnrichmentStillRequiresValidReferences(t *testing.T) {
+	for _, scenario := range []string{"no enrichment", "one lesson", "four questions", "too many lessons", "too many questions", "orphan question"} {
+		t.Run(scenario, func(t *testing.T) {
+			e := demo(t)
+			valid := true
+			switch scenario {
+			case "no enrichment":
+				e.Content.Lessons = []Lesson{}
+				e.Content.Quiz = []Question{}
+			case "one lesson":
+				e.Content.Lessons = e.Content.Lessons[:1]
+				questions := []Question{}
+				for _, q := range e.Content.Quiz {
+					if q.LessonID == e.Content.Lessons[0].ID {
+						questions = append(questions, q)
+					}
+				}
+				e.Content.Quiz = questions
+			case "four questions":
+				e.Content.Quiz = e.Content.Quiz[:4]
+			case "too many lessons":
+				e.Content.Lessons = append(e.Content.Lessons, e.Content.Lessons[0])
+				valid = false
+			case "too many questions":
+				e.Content.Quiz = append(e.Content.Quiz, e.Content.Quiz[0])
+				valid = false
+			case "orphan question":
+				e.Content.Lessons = []Lesson{}
+				valid = false
+			}
+			if err := Validate(e); (err == nil) != valid {
+				t.Fatalf("valid=%v err=%v", valid, err)
+			}
+		})
+	}
+}

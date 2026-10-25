@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestReviewRequiresEveryTarget(t *testing.T) {
@@ -33,6 +34,7 @@ func TestGroqContractAndTruncation(t *testing.T) {
 	for _, finish := range []string{"stop", "length"} {
 		t.Run(finish, func(t *testing.T) {
 			g := NewGroq("test-key", "test-model")
+			g.wait = func(context.Context, time.Duration) error { return nil }
 			g.Client.Transport = transport(func(r *http.Request) (*http.Response, error) {
 				var request map[string]any
 				if err := json.NewDecoder(r.Body).Decode(&request); err != nil {

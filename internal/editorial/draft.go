@@ -59,6 +59,11 @@ func selectionInput(input Input) Input {
 // need to fit one model request or one completion. CachedModel makes each
 // successful stage resumable; failed calls aren't cached.
 func GenerateDraft(ctx context.Context, model Model, input Input, draft *content.Draft, logf func(string, ...any)) (Usage, error) {
+	usage, _, err := GenerateDraftWithReport(ctx, model, input, draft, logf)
+	return usage, err
+}
+
+func generateDraft(ctx context.Context, model Model, input Input, draft *content.Draft, report *GenerationReport, logf func(string, ...any)) (Usage, error) {
 	var total Usage
 	if logf != nil {
 		logf("Writing edition in resumable editorial stages")
@@ -83,7 +88,23 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 	if len(selection.Groups) < 1 || len(selection.Groups) > 5 {
 		return total, errors.New("selection must contain 1–5 story groups")
 	}
+	report.SelectedArticles = len(selection.Groups)
 	d := content.Draft{Articles: []content.Article{}, Lessons: []content.Lesson{}, Quiz: []content.Question{}, Segments: []content.Segment{}}
+	assignID := newIdentityAllocator()
+	defer func() {
+		report.Retained = RetainedCounts{len(d.Articles), len(d.Lessons), len(d.Quiz), len(d.Segments)}
+	}()
+	omit := func(kind, id string, err error) bool {
+		var exhausted *exhaustedTarget
+		if !errors.As(err, &exhausted) {
+			return false
+		}
+		report.Omissions = append(report.Omissions, Omission{kind, id, exhausted.verdict, exhausted.reason})
+		if logf != nil {
+			logf("Omitting %s %s after factual correction failed (%s): %s", kind, id, exhausted.verdict, exhausted.reason)
+		}
+		return true
+	}
 	gate := func(id string) error {
 		used, err := settleTarget(ctx, model, input, &d, id)
 		total.PromptTokens += used.PromptTokens
@@ -137,10 +158,20 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 				return total, errors.New("article cited a source outside its writing packet")
 			}
 		}
+		out.Article.ID = assignID("article", out.Article.ID)
 		d.Articles = append(d.Articles, out.Article)
 		if err := gate(out.Article.ID); err != nil {
-			return total, err
+			if !omit("article", out.Article.ID, err) {
+				return total, err
+			}
+			d.Articles = d.Articles[:len(d.Articles)-1]
 		}
+	}
+	if len(d.Articles) == 0 {
+		return total, errors.New("no articles passed evidence review; no edition generated")
+	}
+	if logf != nil {
+		logf("Accepted %d/%d stories; building dependent content from accepted articles only", len(d.Articles), len(selection.Groups))
 	}
 	// Each lesson has a small, explicit evidence packet; a quiet one-story day may
 	// teach two distinct concepts from that same story if its evidence supports them.
@@ -159,25 +190,33 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 		if err := call(fmt.Sprintf("lesson %d/2", i+1), "Write one distinct lesson grounded in this article and its actual evidence. Teach the underlying mechanism, not a recap of the announcement. Use 2 short explanatory paragraphs that build from problem to mechanism, a concrete plain-text example and a takeaway. Distinguish a hypothetical illustration from a reported event; do not invent benchmark numbers or unsupported technical behavior. Cite its article and source IDs. Do not repeat earlier lessons. Aim for 120–160 words.", in, &out); err != nil {
 			return total, err
 		}
+		out.Lesson.ID = assignID("lesson", out.Lesson.ID)
 		d.Lessons = append(d.Lessons, out.Lesson)
 		if err := gate(out.Lesson.ID); err != nil {
-			return total, err
+			if !omit("lesson", out.Lesson.ID, err) {
+				return total, err
+			}
+			d.Lessons = d.Lessons[:len(d.Lessons)-1]
 		}
 	}
 	for i, l := range d.Lessons {
 		count := 3 - i
 		var quiz quizOutput
 		prompt := fmt.Sprintf("Write exactly %d concise questions based on this lesson. Each references its lesson ID, has 2–4 distinct options, exactly one correct answer (zero-based index), and a short explanation grounded in the lesson. Prefix new IDs with quiz-%d- to keep IDs unique across batches.", count, i+1)
-		if err := call(fmt.Sprintf("quiz %d/2", i+1), prompt+" The lesson is your only premise; do not add facts beyond it.", l, &quiz); err != nil {
+		if err := call(fmt.Sprintf("quiz %d/%d", i+1, len(d.Lessons)), prompt+Prompt("quiz"), l, &quiz); err != nil {
 			return total, err
 		}
 		if len(quiz.Quiz) != count {
 			return total, errors.New("quiz stage returned wrong question count")
 		}
-		d.Quiz = append(d.Quiz, quiz.Quiz...)
 		for _, q := range quiz.Quiz {
+			q.ID = assignID("quiz", q.ID)
+			d.Quiz = append(d.Quiz, q)
 			if err := gate(q.ID); err != nil {
-				return total, err
+				if !omit("quiz question", q.ID, err) {
+					return total, err
+				}
+				d.Quiz = d.Quiz[:len(d.Quiz)-1]
 			}
 		}
 	}
@@ -191,6 +230,7 @@ func GenerateDraft(ctx context.Context, model Model, input Input, draft *content
 		if err := call(fmt.Sprintf("radio %d/%d", i+1, len(d.Articles)), Prompt("radio"), packet, &out); err != nil {
 			return total, err
 		}
+		out.Segment.ID = assignID("radio", out.Segment.ID)
 		out.Segment = frameRadio(out.Segment, input.Date, i+1, len(d.Articles))
 		d.Segments = append(d.Segments, out.Segment)
 		if err := gate(out.Segment.ID); err != nil {

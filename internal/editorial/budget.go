@@ -33,7 +33,8 @@ func completionBudget(output any) int {
 	case *quizOutput:
 		return 1600
 	case *radioOutput:
-		return 1200
+		// The completion allowance includes reasoning, not just spoken text.
+		return 2000
 	case *headingOutput:
 		return 1200
 	default:
@@ -42,14 +43,26 @@ func completionBudget(output any) int {
 }
 
 func requestBody(model, system string, input, output any) ([]byte, int, int, error) {
+	return requestBodyWithLimit(model, system, input, output, completionBudget(output))
+}
+
+func requestBodyWithLimit(model, system string, input, output any, completion int) ([]byte, int, int, error) {
 	user, err := json.Marshal(input)
 	if err != nil {
 		return nil, 0, 0, err
 	}
-	completion := completionBudget(output)
 	payload := map[string]any{"model": model, "temperature": 0.2, "max_completion_tokens": completion,
 		"messages":        []map[string]string{{"role": "system", "content": system}, {"role": "user", "content": string(user)}},
 		"response_format": map[string]any{"type": "json_schema", "json_schema": map[string]any{"name": "daywire_output", "strict": true, "schema": outputSchema(input, output)}}}
+	if model == "openai/gpt-oss-120b" || model == "openai/gpt-oss-20b" {
+		// Keep the factual judge at its existing medium effort. Writing stages
+		// are small transformations; avoid spending their allowance on deliberation.
+		effort := "low"
+		if _, review := output.(*Review); review {
+			effort = "medium"
+		}
+		payload["reasoning_effort"] = effort
+	}
 	body, err := json.Marshal(payload)
 	if err != nil {
 		return nil, 0, 0, err

@@ -45,7 +45,7 @@ func TestProvider400KeepsUsefulPrivateDiagnosticWithoutLoggingInputs(t *testing.
 	if err := json.Unmarshal(raw, &diagnostic); err != nil {
 		t.Fatal(err)
 	}
-	if diagnostic["request_id"] != "req-test" || diagnostic["message"] != "Provider explanation with [REDACTED] and private source text" || diagnostic["failed_generation_valid_json"] != false || diagnostic["completion_cap"] != float64(1600) {
+	if diagnostic["request_id"] != "req-test" || diagnostic["message"] != "Provider explanation with [REDACTED] and private source text" || diagnostic["failed_generation_valid_json"] != false || diagnostic["completion_cap"] != float64(3600) {
 		t.Fatal("lost diagnostic information")
 	}
 	info, err := os.Stat(provider.DiagnosticPath)
@@ -73,20 +73,32 @@ func TestUnclassifiedAndMalformedProviderErrorsStayFailures(t *testing.T) {
 	}
 }
 
-func TestStructuredGenerationRecoversWithSameStrictRequest(t *testing.T) {
+func TestStructuredGenerationRecoversWithLargerAllowanceAndSameContract(t *testing.T) {
 	for _, code := range []string{"json_validate_failed", "structured_generation_failed"} {
 		t.Run(code, func(t *testing.T) {
 			g := NewGroq("key", "model")
 			waits, calls := 0, 0
 			g.wait = func(context.Context, time.Duration) error { waits++; return nil }
-			var first string
+			var first map[string]any
 			g.Client.Transport = roundTrip(func(req *http.Request) (*http.Response, error) {
 				calls++
 				raw, _ := io.ReadAll(req.Body)
+				var payload map[string]any
+				if err := json.Unmarshal(raw, &payload); err != nil {
+					t.Fatal(err)
+				}
+				if payload["max_completion_tokens"] != float64(1600+(calls-1)*1000) {
+					t.Fatal("allowance did not increase")
+				}
+				delete(payload, "max_completion_tokens")
 				if calls == 1 {
-					first = string(raw)
-				} else if first != string(raw) {
-					t.Fatal("retry changed evidence/schema")
+					first = payload
+				} else {
+					a, _ := json.Marshal(first)
+					b, _ := json.Marshal(payload)
+					if string(a) != string(b) {
+						t.Fatal("retry changed evidence/schema")
+					}
 				}
 				body := `{"choices":[{"message":{"content":"{\"verdicts\":[]}"},"finish_reason":"stop"}],"usage":{"total_tokens":10}}`
 				status := 200

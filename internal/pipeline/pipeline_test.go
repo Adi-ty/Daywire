@@ -232,3 +232,75 @@ func TestRejectedDraftCanPublishOnlyAfterRepairPasses(t *testing.T) {
 		t.Fatal("rerun repeated paid repair")
 	}
 }
+
+type ambiguousQuestionModel struct {
+	*fakeModel
+	question content.Question
+}
+
+func (m *ambiguousQuestionModel) Generate(ctx context.Context, prompt string, in, out any) (editorial.Usage, error) {
+	if review, ok := out.(*editorial.Review); ok {
+		for _, id := range in.(editorial.VerificationInput).Targets {
+			verdict := "supported"
+			if id == m.question.ID {
+				verdict = "contradicted"
+			}
+			review.Verdicts = append(review.Verdicts, editorial.Verdict{TargetID: id, Verdict: verdict, Reason: "More than one answer is supported"})
+		}
+		return editorial.Usage{}, nil
+	}
+	if reflect.TypeOf(out).Elem().Field(0).Name == "Question" {
+		q := m.question
+		q.Prompt = "A rewritten but still ambiguous question?"
+		raw, _ := json.Marshal(map[string]any{"question": q})
+		return editorial.Usage{}, content.Decode(bytes.NewReader(raw), out)
+	}
+	return m.fakeModel.Generate(ctx, prompt, in, out)
+}
+func TestPipelinePublishesSmallerQuizAndPrivateOmissionReport(t *testing.T) {
+	o, model := setup(t, false)
+	q := model.draft.Quiz[4]
+	o.Model = &ambiguousQuestionModel{model, q}
+	e, err := Run(context.Background(), o)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(e.Content.Quiz) != 4 {
+		t.Fatal("ambiguous question published")
+	}
+	if err := content.Validate(e); err != nil {
+		t.Fatal(err)
+	}
+	var report editorial.GenerationReport
+	if err := store.Read(filepath.Join(o.StateDir, o.Date, "generation-report.json"), &report); err != nil {
+		t.Fatal(err)
+	}
+	if report.Status != "draft_complete" || len(report.Omissions) != 1 || report.Omissions[0].TargetID != q.ID || report.Retained.Questions != 4 {
+		t.Fatalf("bad report: %+v", report)
+	}
+	raw, err := os.ReadFile(filepath.Join(o.OutputDir, o.Date+".json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if bytes.Contains(raw, []byte(q.ID)) || bytes.Contains(raw, []byte("omissions")) {
+		t.Fatal("rejected question or private report entered publication")
+	}
+}
+
+func TestInvalidAssembledDraftIsNotCheckpointed(t *testing.T) {
+	o, model := setup(t, false)
+	model.draft.Articles[1].Headline = model.draft.Articles[0].Headline
+	_, err := Run(context.Background(), o)
+	if err == nil || !strings.Contains(err.Error(), "draft validation") {
+		t.Fatalf("expected draft validation: %v", err)
+	}
+	for _, path := range []string{filepath.Join(o.StateDir, o.Date, "draft.json"), filepath.Join(o.OutputDir, o.Date+".json")} {
+		if _, err := os.Stat(path); !os.IsNotExist(err) {
+			t.Fatalf("invalid draft persisted at %s", path)
+		}
+	}
+	entries, err := os.ReadDir(filepath.Join(o.StateDir, o.Date, "stages"))
+	if err != nil || len(entries) == 0 {
+		t.Fatal("completed stage checkpoints lost")
+	}
+}
