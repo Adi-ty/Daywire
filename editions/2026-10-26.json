@@ -1,0 +1,3626 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-26",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-10-26T07:44:12.071247Z",
+  "coverage": {
+    "from": "2026-10-25T06:00:00+05:30",
+    "until": "2026-10-26T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-e7f7d4275c4adeb7",
+      "source-4ca645a49e561432",
+      "source-d8c2497a7a86b63b"
+    ],
+    "candidate_count": 24,
+    "evidence_count": 21
+  },
+  "content": {
+    "title": "Cerebras Scales Trillion‑Parameter AI, While Edge SIMD Takes Off",
+    "introduction": "Cerebras unveiled a pipeline that spreads trillion‑parameter models across its wafer‑scale chips, delivering frontier benchmark performance via an RDMA‑based system. At the same time, hobbyists are unlocking hidden SIMD instructions on low‑cost ESP32‑S3 chips, showing that high‑performance vision processing is moving to the edge.",
+    "articles": [
+      {
+        "id": "cerebras-trillion-model-deployment",
+        "section": "AI",
+        "headline": "Cerebras pipelines trillion‑parameter models across wafer‑scale chips",
+        "summary": "Cerebras’ WSE‑3T wafers use 16 GB per layer and linear‑attention tricks to fit large models across multiple chips, delivering frontier‑level benchmark scores via an RDMA‑based pipeline.",
+        "paragraphs": [
+          "Cerebras explains that each WSE‑3T wafer provides 44 GB of on‑chip SRAM, enough to host a single 16 GB dense or linear‑attention layer. Because trillion‑parameter frontier models require terabytes of weights, the system distributes layers across several wafers, keeping one dense layer per wafer and reserving the remaining SRAM for its key‑value (KV) cache. Linear‑attention layers avoid a KV cache by storing only a small, fixed‑size state per request, allowing two such layers (2 × 16 GB = 32 GB) on a wafer.",
+          "The Cerebras compiler maps model layers to wafer regions, and the runtime routes token activations between wafers over RDMA‑enabled Ethernet, incurring roughly 2 µs per hop. By keeping the pipeline full—different requests occupying different stages—the architecture avoids idle time and achieves low‑latency inference, scoring 88.3 % on Terminal‑Bench 2.1 and 91.2 % on BrowseComp, comparable to leading proprietary models.",
+          "Developers can access the system today via Cerebras’ free cloud API, but workloads must respect the 16 GB‑per‑layer memory constraint and accept the linear‑attention trade‑off for cache‑free layers when scaling across wafers."
+        ],
+        "implication": "Engineers can run trillion‑parameter models with frontier‑level performance by partitioning them into 16 GB layers and leveraging linear‑attention, but must orchestrate a multi‑wafer pipeline rather than rely on a single chip.",
+        "source_ids": [
+          "source-e1545bcc45f4c70b"
+        ]
+      },
+      {
+        "id": "posix-wordexp-danger-2026",
+        "section": "Security",
+        "headline": "POSIX wordexp(3) runs shell‑style expansions by default",
+        "summary": "The POSIX wordexp(3) API expands untrusted strings with command substitution unless WRDE_NOCMD is used, and some libc implementations still delegate to a shell.",
+        "paragraphs": [
+          "The wordexp(3) function is frequently cited for simple tilde expansion, but its default flags enable full shell‑style expansion. Consequently, inputs such as \"$(whoami)/foo\" or \"$(cat /etc/passwd)/foo\" are handed to the system shell and executed.",
+          "Both musl and macOS’s libSystem implement wordexp(3) by delegating to external helpers (musl to the system shell, macOS to /usr/lib/system/wordexp‑helper). The article notes that these helpers can miss certain patterns, allowing command injection even when WRDE_NOCMD is supplied. The macOS bypass was observed in 2023; the author did not verify its status after the default shell switched to zsh."
+        ],
+        "implication": "When handling any input that might originate from users, avoid wordexp(3) and choose a parser that does not invoke a shell.",
+        "source_ids": [
+          "source-42ddf01f601d5b10"
+        ]
+      },
+      {
+        "id": "simd-esp32-s3-vision",
+        "section": "Engineering",
+        "headline": "SIMD‑accelerated FAST corner detection on the $2 ESP32‑S3",
+        "summary": "A hobbyist demonstrates a working SIMD‑based FAST corner pre‑test on the low‑cost ESP32‑S3, exposing both the chip’s hidden vector instructions and their quirks.",
+        "paragraphs": [
+          "The ESP32‑S3, a dual‑core 240 MHz microcontroller with Wi‑Fi and BLE, includes a modest SIMD extension that most developers overlook. By hand‑coding assembly and building a tiny register allocator named basm, the author implemented the FAST corner detector’s pre‑test using signed‑8‑bit comparisons, the only vector compare the chip supports.",
+          "Two hardware constraints shape the approach: the ISA forbids misaligned loads, so the algorithm assumes the central pixel is aligned, and all vector compares treat data as signed, requiring a reinterpret‑cast of unsigned image bytes. These work‑arounds let the detector run entirely on‑chip without external accelerators."
+        ],
+        "implication": "Developers can now prototype lightweight computer‑vision pipelines on sub‑$5 hardware, but must design data layouts that respect alignment and signed‑only comparison semantics.",
+        "source_ids": [
+          "source-64b8332606e5ff2f"
+        ]
+      },
+      {
+        "id": "goose-language-brief",
+        "section": "Engineering",
+        "headline": "Goose language claims 3× speed over C++ in benchmarks",
+        "summary": "Goose, a memory‑safe systems language without a heap or lifetime annotations, reports benchmark gains of up to three times C++ speed while using less memory.",
+        "paragraphs": [
+          "The open‑source project describes Goose as a compile‑to‑C language that frees memory at scope exit, avoiding a garbage collector and heap allocation. Its own benchmark suite shows 3.3× faster execution than C++ and 1.2–1.9× lower memory use, thanks to bump‑pointer allocation and a family of fixed‑size array types. The language targets developers familiar with C or Rust syntax but who want deterministic memory management without explicit lifetimes."
+        ],
+        "implication": "Engineers evaluating low‑overhead, safety‑focused alternatives may consider Goose for performance‑critical components, but should verify the claims against their own workloads before adopting.",
+        "source_ids": [
+          "source-c6f7fce2eddef14c"
+        ]
+      },
+      {
+        "id": "vim-classic-8-3-release",
+        "section": "Engineering",
+        "headline": "Vim Classic 8.3.0 launches as a long‑term support fork of Vim 8.x",
+        "summary": "The community‑maintained Vim Classic 8.3.0 release offers a stable, AI‑free editor forked from Vim 8.x for users needing long‑term maintenance.",
+        "paragraphs": [
+          "Vim Classic 8.3.0, announced on 2026‑06‑02, is the first stable release of a fork that preserves Vim 8.x without generative‑AI assistance. The project provides online documentation, source code on SourceHut, and mailing lists for support, positioning itself as a dependable alternative for developers who prefer a human‑maintained code base."
+        ],
+        "implication": "Teams that require a predictable, long‑term editor lifecycle can adopt Vim Classic 8.3.0 to avoid future AI‑driven changes while retaining full Vim functionality.",
+        "source_ids": [
+          "source-eeb492ee47cca0e3"
+        ]
+      },
+      {
+        "id": "compiler-warnings-design-2020",
+        "section": "Engineering",
+        "headline": "Design patterns for modern C++ compiler warnings",
+        "summary": "A 2020 essay outlines how mainstream C++ compilers now use fix‑its and suppression flags to turn ambiguous code into actionable diagnostics.",
+        "paragraphs": [
+          "The author notes that compilers such as GCC, Clang (‑Wall) and MSVC (‑W4) flag suspicious constructs like ‘if (argc = 1)’ and offer a fix‑it suggesting ‘==’. Suppression options let developers silence warnings without losing the underlying diagnostic, while fix‑its act as a prescribed treatment plan, clarifying intent when the code’s literal meaning diverges from common expectations."
+        ],
+        "implication": "Understanding these mechanisms helps engineers write clearer code and leverage compiler tooling to catch subtle bugs before they compile.",
+        "source_ids": [
+          "source-408aadb6f77027c9"
+        ]
+      },
+      {
+        "id": "thinkrail-extensions-support",
+        "section": "Tools",
+        "headline": "ThinkRail adds full extension support",
+        "summary": "JetBrains’ agentic IDE ThinkRail now lets users install community extensions via channel‑aware scripts.",
+        "paragraphs": [
+          "The open‑source ThinkRail repository announces a new extension framework that loads plug‑ins from a validated HTTPS feed. Installers accept --channel (stable or nightly) and optional --version flags, for example curl -fsSL https://raw.githubusercontent.com/JetBrains/thinkrail/main/install.sh | bash -s -- --channel stable --version 0.1.2. Git must be on the PATH and a model provider configured, either via JetBrains AI sign‑in or a custom backend."
+        ],
+        "implication": "Developers can now augment ThinkRail with custom skills without rebuilding the core, but they must manage version pins and ensure the feed’s HTTPS signature to avoid silent failures.",
+        "source_ids": [
+          "source-0acf196572ceb07e"
+        ]
+      },
+      {
+        "id": "derive-tool-reverse-engineers-instruction-encodings",
+        "section": "Tools",
+        "headline": "DERIVE automates reverse‑engineering of CPU instruction encodings",
+        "summary": "DERIVE infers bit‑level opcode and operand fields from assembler output, easing ISA documentation.",
+        "paragraphs": [
+          "The USENIX 2001 paper introduces DERIVE, a tool that parses the textual output of an assembler to recover the exact bit positions, sizes and values used for each instruction’s fields. By turning the assembler into a source of truth, the authors show how manual transcription of encoding tables from architecture manuals can be avoided, though the approach is demonstrated only for the examples presented in the paper."
+        ],
+        "implication": "Engineers can produce accurate encoding specifications for the instruction sets they are already assembling, reducing transcription errors in documentation.",
+        "source_ids": [
+          "source-fb543140675b9856"
+        ]
+      },
+      {
+        "id": "netbsd-bozohttpd-quickstart",
+        "section": "Tools",
+        "headline": "Run a tiny NetBSD web server with bozohttpd and Let’s Encrypt",
+        "summary": "A short guide shows how to serve static sites on NetBSD 11 using the built‑in bozohttpd and the acme-client for automated TLS certificates.",
+        "paragraphs": [
+          "The author walks through a minimal NetBSD 11 setup: install the bozohttpd package, configure it via a single line in /etc/rc.conf, and point it at /var/www/your_site. HTTP works out of the box, and TLS is added by installing the acme-client package, obtaining a Let’s Encrypt certificate, and scheduling renewal with a cron job that restarts httpd. The approach is intended for low‑traffic home or community sites and relies only on NetBSD’s base system and two extra packages."
+        ],
+        "implication": "Engineers can deploy a fully functional, TLS‑enabled web server on NetBSD with just bozohttpd and acme-client, avoiding heavyweight stacks for small static‑content projects.",
+        "source_ids": [
+          "source-8fa366732d09305a"
+        ]
+      },
+      {
+        "id": "java-me-modern-tooling",
+        "section": "Tools",
+        "headline": "Modern toolchain lets you compile Java ME apps without legacy SDKs",
+        "summary": "A Lobsters post shows how to use current Java compilers, MicroEmulator stubs, and Gradle to produce Java ME JARs for old feature phones.",
+        "paragraphs": [
+          "The guide walks through a Gradle‑based build that adds the MicroEmulator stub JAR to the classpath, enables the `-microedition` preverification flag, and optionally runs ProGuard (disabled in the example) to keep the output under the strict size limits of MIDP 2.0 devices. The process targets Java 1.3 source compatibility, matching the language level of the original platform."
+        ],
+        "implication": "Developers can revive legacy feature‑phone software using familiar modern build tools, but must accept Java 1.3 constraints and limited MIDP APIs, and avoid heavy floating‑point math on devices without an FPU.",
+        "source_ids": [
+          "source-9c3056cb2a154c40"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "linear-attention-pipeline-efficiency",
+        "title": "How linear‑attention layers keep a wafer‑scale pipeline busy",
+        "paragraphs": [
+          "Cerebras’ WSE‑3T wafers have 44 GB of on‑chip SRAM, but each dense layer consumes 16 GB and also needs a KV cache that grows with context length. To avoid exhausting SRAM, the system places only one dense layer per wafer and reserves the rest for its cache. Linear‑attention layers, however, store a tiny fixed‑size state per request, eliminating the KV cache entirely. This lets a wafer host two linear layers (2 × 16 GB = 32 GB) while leaving room for other runtime data.",
+          "The compiler maps these layers across multiple wafers and the runtime streams token activations between them over RDMA‑enabled Ethernet, costing about 2 µs per hop. By keeping the pipeline full—different requests occupying different stages—the architecture achieves low‑latency inference without idle chips, even for trillion‑parameter models."
+        ],
+        "example": "Imagine three requests A, B, and C entering a three‑stage pipeline. While stage 1 processes A, stage 2 simultaneously works on B and stage 3 on C, so all wafers stay busy and each token only incurs the 2 µs hop delay.",
+        "takeaway": "Using linear‑attention layers to remove KV‑cache memory pressure lets wafer‑scale systems fill more layers per chip and sustain a fully‑utilized pipeline, turning massive models into low‑latency services.",
+        "article_ids": [
+          "cerebras-trillion-model-deployment"
+        ],
+        "source_ids": [
+          "source-e1545bcc45f4c70b"
+        ]
+      },
+      {
+        "id": "avoid-wordexp-shell-injection",
+        "title": "Why POSIX wordexp(3) can turn harmless strings into command injection",
+        "paragraphs": [
+          "The wordexp(3) API expands a string using the same rules as a POSIX shell. When called with the default flag value (0), it enables every expansion feature, including command substitution. That means a payload such as \"$(whoami)/foo\" is handed to the system shell, which executes the command and returns its output as part of the expanded path.",
+          "Many libc implementations implement wordexp(3) by delegating to an external helper that runs a real shell (musl to /bin/sh, macOS to /usr/lib/system/wordexp‑helper). The helper performs only a superficial scan for command substitutions, so even when the caller supplies WRDE_NOCMD the helper can miss crafted patterns and still execute them. The article documents this bypass for both musl and macOS, with the macOS bypass observed in 2023."
+        ],
+        "example": "char *out = NULL; wordexp(\"$(cat /etc/passwd)/foo\", &p, 0); // the cat runs and its contents become part of out",
+        "takeaway": "Never rely on wordexp(3) for untrusted input; use a dedicated, non‑shell parser or perform explicit validation instead.",
+        "article_ids": [
+          "posix-wordexp-danger-2026"
+        ],
+        "source_ids": [
+          "source-42ddf01f601d5b10"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-linear-attention-kv-cache",
+        "lesson_id": "linear-attention-pipeline-efficiency",
+        "prompt": "Why do linear‑attention layers allow a wafer to host two layers instead of only one dense layer?",
+        "options": [
+          "They require half the SRAM per layer compared to dense layers.",
+          "They eliminate the need for a growing KV cache by storing only a tiny fixed‑size state per request.",
+          "They compress model weights so each layer uses less memory.",
+          "They run at double the clock speed, reducing memory usage."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that linear‑attention layers store a tiny fixed‑size state per request, removing the KV cache entirely. This eliminates the large memory pressure that forces dense layers to occupy an entire wafer, allowing two linear layers (2 × 16 GB) to fit within the 44 GB SRAM."
+      },
+      {
+        "id": "quiz-1-pipeline-fullness-benefit",
+        "lesson_id": "linear-attention-pipeline-efficiency",
+        "prompt": "What is the primary performance benefit of keeping the wafer‑scale pipeline full with different requests at each stage?",
+        "options": [
+          "It reduces the per‑token RDMA hop latency from 2 µs to 1 µs.",
+          "It eliminates the need for any on‑chip SRAM.",
+          "It prevents chips from idling, achieving low‑latency inference even for very large models.",
+          "It allows each wafer to process multiple tokens simultaneously in the same stage."
+        ],
+        "answer": 2,
+        "explanation": "The lesson explains that by keeping the pipeline full—different requests occupying different stages—all wafers stay busy, which yields low‑latency inference without idle chips, even for trillion‑parameter models."
+      },
+      {
+        "id": "quiz-1-rdma-hop-cost",
+        "lesson_id": "linear-attention-pipeline-efficiency",
+        "prompt": "According to the article, how much latency does each RDMA‑enabled Ethernet hop add when streaming token activations between wafers?",
+        "options": [
+          "Approximately 0.2 µs per hop",
+          "Approximately 2 µs per hop",
+          "Approximately 20 µs per hop",
+          "Approximately 200 µs per hop"
+        ],
+        "answer": 1,
+        "explanation": "The lesson specifies that streaming token activations over RDMA‑enabled Ethernet costs about 2 µs per hop."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "avoid-wordexp-shell-injection",
+        "prompt": "What is the primary reason that calling wordexp() with the default flags can lead to command injection?",
+        "options": [
+          "It expands environment variables before any other processing.",
+          "It enables command substitution, causing the input to be passed to a system shell.",
+          "It automatically sanitizes special characters in the input string.",
+          "It limits expansions to only pathname globbing."
+        ],
+        "answer": 1,
+        "explanation": "With the default flag value (0), wordexp() enables all expansion features, including command substitution. This causes the input to be handed to a system shell, which can execute embedded commands."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "avoid-wordexp-shell-injection",
+        "prompt": "Why can the WRDE_NOCMD flag still be bypassed on some libc implementations?",
+        "options": [
+          "The flag disables all expansions, including pathname globbing.",
+          "The external helper used by those implementations performs only a superficial scan and may miss crafted command substitution patterns.",
+          "The flag forces the use of a custom parser that ignores shell syntax.",
+          "The flag automatically escapes any characters that could form a command."
+        ],
+        "answer": 1,
+        "explanation": "Many libc implementations delegate wordexp() to an external helper that runs a real shell. The helper only does a superficial scan for command substitutions, so even when WRDE_NOCMD is set, crafted patterns can be missed and still execute."
+      }
+    ],
+    "segments": [
+      {
+        "id": "cerebras-trillion-model-deployment-segment",
+        "title": "Cerebras scales trillion‑parameter models across wafer‑scale chips",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's October twenty six, two thousand twenty six.\n\nWe begin with our lead story. Cerebras says its new WSE‑3T wafer can hold a single 16 GB dense or linear‑attention layer, and it strings several wafers together to cover trillion‑parameter models. By using linear‑attention, which skips the key‑value cache, two 16 GB layers fit on each wafer, and a compiler places the layers while an RDMA‑enabled runtime shuttles token activations between wafers in about two microseconds per hop. The result is low‑latency inference that hits 88.3 percent on Terminal‑Bench two point one and 91.2 percent on BrowseComp. Engineers can try it now via Cerebras’ free cloud API, but they have to respect the 16 GB‑per‑layer limit and the cache‑free trade‑off when scaling across wafers.",
+        "article_ids": [
+          "cerebras-trillion-model-deployment"
+        ]
+      },
+      {
+        "id": "posix-wordexp-danger-2026-segment",
+        "title": "POSIX wordexp runs shell‑style expansions by default",
+        "text": "Next on the bulletin. POSIX wordexp, the little‑known C library function for expanding strings, actually hands the input to a system shell unless you explicitly set WRDE_NOCMD. That means a payload like \"$(whoami)/foo\" gets executed, not just expanded. Both musl and macOS’s libSystem still call out to external helpers – musl to the shell, macOS to a wordexp‑helper – and those helpers can miss patterns, so even the WRDE_NOCMD flag isn’t a guarantee. Here’s why that matters: if you ever feed user‑supplied data into wordexp, you’re opening a command‑injection door. The safe move is to skip wordexp entirely and use a parser that never invokes a shell.",
+        "article_ids": [
+          "posix-wordexp-danger-2026"
+        ]
+      },
+      {
+        "id": "simd-esp32-s3-vision-segment",
+        "title": "SIMD‑accelerated FAST on a low‑cost ESP32‑S3",
+        "text": "Turning to our next story. A hobbyist got the inexpensive ESP32‑S3 to run the FAST corner detector’s pre‑test using its hidden SIMD unit.\n\nBy hand‑crafting assembly and a tiny register allocator called basm, they squeezed signed‑8‑bit compares—the only vector compare the chip supports—into the algorithm. The trick relies on forcing the central pixel to be aligned and reinterpreting the image bytes as signed data. That means you can prototype lightweight computer‑vision pipelines on sub‑$5 hardware, provided you respect the alignment and signed‑only comparison quirks.",
+        "article_ids": [
+          "simd-esp32-s3-vision"
+        ]
+      },
+      {
+        "id": "goose-language-brief-segment",
+        "title": "Goose language claims three‑times C++ speed",
+        "text": "Next on the bulletin. Goose, a new open‑source systems language, says it can run code up to three point three times faster than C++ while using less memory. It compiles to C, frees memory automatically at scope exit, and avoids a garbage collector or heap allocation by using bump‑pointer allocation and fixed‑size array types. The developers measured 1.2 to 1.9 times lower memory use in their own benchmark suite. Here's why that matters: if you need deterministic memory management without lifetimes, Goose might be worth a test, but you should verify the numbers on your own workloads before committing.\n",
+        "article_ids": [
+          "goose-language-brief"
+        ]
+      },
+      {
+        "id": "vim-classic-8-3-launch",
+        "title": "Vim Classic 8.3.0 released as long‑term support fork",
+        "text": "And finally, our last story. Vim Classic 8.3.0 hit the streets on June two, twenty twenty‑six, marking the first stable fork that locks in Vim eight point x without any generative‑AI bells and whistles. The community runs the code on SourceHut, keeps the docs online, and fields questions on its mailing lists, so you get the same Vim feel with a predictable maintenance schedule. Here's why that matters: teams that need a steady editor lifecycle can adopt Vim Classic and dodge future AI‑driven changes while keeping full Vim functionality.\n\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "vim-classic-8-3-release"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a massive wafer‑scale chip grid with data streams flowing between tiles, while a tiny ESP32‑S3 board sits nearby, its circuitry glowing to suggest hidden vector units."
+  },
+  "sources": [
+    {
+      "id": "source-8fa366732d09305a",
+      "name": "Lobsters",
+      "title": "Simple NetBSD webserver",
+      "url": "https://bsandro.tech/posts/simple-netbsd-webserver/",
+      "published_at": null,
+      "discovered_at": "2026-10-25T18:13:40.605-05:00",
+      "discussion_url": "https://lobste.rs/s/hzrmwz/simple_netbsd_webserver"
+    },
+    {
+      "id": "source-408aadb6f77027c9",
+      "name": "Lobsters",
+      "title": "Two musings on the design of compiler warnings (2020)",
+      "url": "https://quuxplusone.github.io/blog/2020/09/02/wparentheses/",
+      "published_at": null,
+      "discovered_at": "2026-10-25T17:23:32.565-05:00",
+      "discussion_url": "https://lobste.rs/s/kfaimp/two_musings_on_design_compiler_warnings"
+    },
+    {
+      "id": "source-fb543140675b9856",
+      "name": "Lobsters",
+      "title": "Reverse-Engineering Instruction Encodings (2001)",
+      "url": "https://www.usenix.org/legacy/events/usenix01/full_papers/hsieh/hsieh_html/",
+      "published_at": null,
+      "discovered_at": "2026-10-25T16:58:42.634-05:00",
+      "discussion_url": "https://lobste.rs/s/1q1rc1/reverse_engineering_instruction"
+    },
+    {
+      "id": "source-e1545bcc45f4c70b",
+      "name": "Hacker News",
+      "title": "Cerebras Deploys Trillion-Parameter AI Models",
+      "url": "https://www.cerebras.ai/blog/how-we-deploy-trillion-parameter-frontier-models-on-cerebras",
+      "published_at": null,
+      "discovered_at": "2026-10-25T07:03:49+05:30",
+      "discussion_url": "https://news.ycombinator.com/item?id=50227356"
+    },
+    {
+      "id": "source-9c3056cb2a154c40",
+      "name": "Lobsters",
+      "title": "Building Java ME Apps with Modern Tooling",
+      "url": "https://voxelmanip.se/2026/10/24/building-java-me-apps-with-modern-tooling/",
+      "published_at": null,
+      "discovered_at": "2026-10-25T16:33:19.325-05:00",
+      "discussion_url": "https://lobste.rs/s/ekwolo/building_java_me_apps_with_modern_tooling"
+    },
+    {
+      "id": "source-c6f7fce2eddef14c",
+      "name": "Lobsters",
+      "title": "The Goose Programming Language",
+      "url": "https://aardappel.github.io/goose/",
+      "published_at": null,
+      "discovered_at": "2026-10-25T15:10:47.275-05:00",
+      "discussion_url": "https://lobste.rs/s/dkoryq/goose_programming_language"
+    },
+    {
+      "id": "source-42ddf01f601d5b10",
+      "name": "Lobsters",
+      "title": "POSIX wordexp(3) is dangerous",
+      "url": "https://yossarian.net/til/post/posix-wordexp-3-is-dangerous/",
+      "published_at": null,
+      "discovered_at": "2026-10-25T10:09:29.815-05:00",
+      "discussion_url": "https://lobste.rs/s/tbbiqb/posix_wordexp_3_is_dangerous"
+    },
+    {
+      "id": "source-0acf196572ceb07e",
+      "name": "Hacker News",
+      "title": "JetBrains Thinkrail",
+      "url": "https://github.com/JetBrains/thinkrail",
+      "published_at": null,
+      "discovered_at": "2026-10-25T21:57:12+05:30",
+      "discussion_url": "https://news.ycombinator.com/item?id=50233294"
+    },
+    {
+      "id": "source-eeb492ee47cca0e3",
+      "name": "Lobsters",
+      "title": "Vim Classic",
+      "url": "https://vim-classic.org/",
+      "published_at": null,
+      "discovered_at": "2026-10-25T10:05:45.735-05:00",
+      "discussion_url": "https://lobste.rs/s/cxwpil/vim_classic"
+    },
+    {
+      "id": "source-64b8332606e5ff2f",
+      "name": "Lobsters",
+      "title": "SIMD-accelerated computer vision on a $2 microcontroller",
+      "url": "https://shraiwi.com/blog/simd-fast-esp32s3/",
+      "published_at": null,
+      "discovered_at": "2026-10-25T09:57:20.484-05:00",
+      "discussion_url": "https://lobste.rs/s/qsmmke/simd_accelerated_computer_vision_on_2"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-10-26/64fe4864bcc04cec445a98dd8b49611b558c1cf5eaf59b5129e6d934e80bb4e6.mp3",
+    "duration_seconds": 219.33,
+    "script_hash": "70f1cc2d66bb2f4854ea94e3e91892787e2f374f28ee2b9fb42b0dbea8cb7497",
+    "cues": [
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "everyone,",
+        "start_seconds": 0.6,
+        "end_seconds": 1.15
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "and",
+        "start_seconds": 1.15,
+        "end_seconds": 1.3125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "welcome",
+        "start_seconds": 1.3125,
+        "end_seconds": 1.75
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "to",
+        "start_seconds": 1.75,
+        "end_seconds": 1.875
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "Daywire.",
+        "start_seconds": 1.875,
+        "end_seconds": 2.8625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "Let's",
+        "start_seconds": 2.8625,
+        "end_seconds": 3.15
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "make",
+        "start_seconds": 3.15,
+        "end_seconds": 3.3875
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "sense",
+        "start_seconds": 3.3875,
+        "end_seconds": 3.7125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "of",
+        "start_seconds": 3.7125,
+        "end_seconds": 3.7875
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "the",
+        "start_seconds": 3.7875,
+        "end_seconds": 3.875
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "tech",
+        "start_seconds": 3.875,
+        "end_seconds": 4.125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "news.",
+        "start_seconds": 4.125,
+        "end_seconds": 4.85
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "It's",
+        "start_seconds": 4.85,
+        "end_seconds": 5.025
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "October",
+        "start_seconds": 5.025,
+        "end_seconds": 5.5
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "twenty",
+        "start_seconds": 5.5,
+        "end_seconds": 5.8375
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "six,",
+        "start_seconds": 5.8375,
+        "end_seconds": 6.2125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "two",
+        "start_seconds": 6.2125,
+        "end_seconds": 6.45
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "thousand",
+        "start_seconds": 6.45,
+        "end_seconds": 6.8125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "twenty",
+        "start_seconds": 6.8125,
+        "end_seconds": 7.1375
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "six.",
+        "start_seconds": 7.1375,
+        "end_seconds": 8.2
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "We",
+        "start_seconds": 9.35,
+        "end_seconds": 9.475
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "begin",
+        "start_seconds": 9.475,
+        "end_seconds": 9.825000000000001
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "with",
+        "start_seconds": 9.825000000000001,
+        "end_seconds": 9.9625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "our",
+        "start_seconds": 9.9625,
+        "end_seconds": 10.1
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "lead",
+        "start_seconds": 10.1,
+        "end_seconds": 10.35
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "story.",
+        "start_seconds": 10.35,
+        "end_seconds": 11.325
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "Cerebras",
+        "start_seconds": 11.325,
+        "end_seconds": 11.825
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "says",
+        "start_seconds": 11.825,
+        "end_seconds": 12.025
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "its",
+        "start_seconds": 12.025,
+        "end_seconds": 12.225000000000001
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "new",
+        "start_seconds": 12.225000000000001,
+        "end_seconds": 12.425
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "WSE‑3T",
+        "start_seconds": 12.425,
+        "end_seconds": 13.55
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "wafer",
+        "start_seconds": 13.55,
+        "end_seconds": 14
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "can",
+        "start_seconds": 14,
+        "end_seconds": 14.125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "hold",
+        "start_seconds": 14.125,
+        "end_seconds": 14.3625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "a",
+        "start_seconds": 14.3625,
+        "end_seconds": 14.4375
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "single",
+        "start_seconds": 14.4375,
+        "end_seconds": 14.8125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "16",
+        "start_seconds": 14.8125,
+        "end_seconds": 15.625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "GB",
+        "start_seconds": 14.8125,
+        "end_seconds": 15.625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "dense",
+        "start_seconds": 15.625,
+        "end_seconds": 15.975000000000001
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "or",
+        "start_seconds": 15.975000000000001,
+        "end_seconds": 16.1
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "linear‑attention",
+        "start_seconds": 16.1,
+        "end_seconds": 16.85
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "layer,",
+        "start_seconds": 16.85,
+        "end_seconds": 17.625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "and",
+        "start_seconds": 17.625,
+        "end_seconds": 17.7375
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "it",
+        "start_seconds": 17.7375,
+        "end_seconds": 17.825000000000003
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "strings",
+        "start_seconds": 17.825000000000003,
+        "end_seconds": 18.2125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "several",
+        "start_seconds": 18.2125,
+        "end_seconds": 18.525
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "wafers",
+        "start_seconds": 18.525,
+        "end_seconds": 18.9
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "together",
+        "start_seconds": 18.9,
+        "end_seconds": 19.275
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "to",
+        "start_seconds": 19.275,
+        "end_seconds": 19.375
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "cover",
+        "start_seconds": 19.375,
+        "end_seconds": 19.65
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "trillion‑parameter",
+        "start_seconds": 19.65,
+        "end_seconds": 20.525
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "models.",
+        "start_seconds": 20.525,
+        "end_seconds": 21.525
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "By",
+        "start_seconds": 21.525,
+        "end_seconds": 21.700000000000003
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "using",
+        "start_seconds": 21.700000000000003,
+        "end_seconds": 22
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "linear‑attention,",
+        "start_seconds": 22,
+        "end_seconds": 23.200000000000003
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "which",
+        "start_seconds": 23.200000000000003,
+        "end_seconds": 23.4
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "skips",
+        "start_seconds": 23.4,
+        "end_seconds": 23.725
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "the",
+        "start_seconds": 23.725,
+        "end_seconds": 23.825000000000003
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "key‑value",
+        "start_seconds": 23.825000000000003,
+        "end_seconds": 24.35
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "cache,",
+        "start_seconds": 24.35,
+        "end_seconds": 25.0875
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "two",
+        "start_seconds": 25.0875,
+        "end_seconds": 25.3375
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "16",
+        "start_seconds": 25.3375,
+        "end_seconds": 26.15
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "GB",
+        "start_seconds": 25.3375,
+        "end_seconds": 26.15
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "layers",
+        "start_seconds": 26.15,
+        "end_seconds": 26.549999999999997
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "fit",
+        "start_seconds": 26.549999999999997,
+        "end_seconds": 26.7125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "on",
+        "start_seconds": 26.7125,
+        "end_seconds": 26.8125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "each",
+        "start_seconds": 26.8125,
+        "end_seconds": 27
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "wafer,",
+        "start_seconds": 27,
+        "end_seconds": 27.85
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "and",
+        "start_seconds": 27.85,
+        "end_seconds": 27.9625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "a",
+        "start_seconds": 27.9625,
+        "end_seconds": 28.025
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "compiler",
+        "start_seconds": 28.025,
+        "end_seconds": 28.525
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "places",
+        "start_seconds": 28.525,
+        "end_seconds": 28.950000000000003
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "the",
+        "start_seconds": 28.950000000000003,
+        "end_seconds": 29.049999999999997
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "layers",
+        "start_seconds": 29.049999999999997,
+        "end_seconds": 29.6
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "while",
+        "start_seconds": 29.6,
+        "end_seconds": 29.7875
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "an",
+        "start_seconds": 29.7875,
+        "end_seconds": 29.9125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "RDMA‑enabled",
+        "start_seconds": 29.9125,
+        "end_seconds": 31.174999999999997
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "runtime",
+        "start_seconds": 31.174999999999997,
+        "end_seconds": 31.6625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "shuttles",
+        "start_seconds": 31.6625,
+        "end_seconds": 32.1125
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "token",
+        "start_seconds": 32.1125,
+        "end_seconds": 32.45
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "activations",
+        "start_seconds": 32.45,
+        "end_seconds": 33.25
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "between",
+        "start_seconds": 33.25,
+        "end_seconds": 33.55
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "wafers",
+        "start_seconds": 33.55,
+        "end_seconds": 33.9625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "in",
+        "start_seconds": 33.9625,
+        "end_seconds": 34.0625
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "about",
+        "start_seconds": 34.0625,
+        "end_seconds": 34.3375
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "two",
+        "start_seconds": 34.3375,
+        "end_seconds": 34.55
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "microseconds",
+        "start_seconds": 34.55,
+        "end_seconds": 35.275
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "per",
+        "start_seconds": 35.275,
+        "end_seconds": 35.425
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "hop.",
+        "start_seconds": 35.425,
+        "end_seconds": 36.3875
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "The",
+        "start_seconds": 36.845,
+        "end_seconds": 36.92
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "result",
+        "start_seconds": 36.92,
+        "end_seconds": 37.345
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "is",
+        "start_seconds": 37.345,
+        "end_seconds": 37.495
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "low‑latency",
+        "start_seconds": 37.495,
+        "end_seconds": 38.195
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "inference",
+        "start_seconds": 38.195,
+        "end_seconds": 38.644999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "that",
+        "start_seconds": 38.644999999999996,
+        "end_seconds": 38.769999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "hits",
+        "start_seconds": 38.769999999999996,
+        "end_seconds": 39.019999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "88.3",
+        "start_seconds": 39.019999999999996,
+        "end_seconds": 40.6575
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "percent",
+        "start_seconds": 39.019999999999996,
+        "end_seconds": 40.6575
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "on",
+        "start_seconds": 40.6575,
+        "end_seconds": 40.769999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "Terminal‑Bench",
+        "start_seconds": 40.769999999999996,
+        "end_seconds": 41.4825
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "two",
+        "start_seconds": 41.4825,
+        "end_seconds": 41.695
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "point",
+        "start_seconds": 41.695,
+        "end_seconds": 41.97
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "one",
+        "start_seconds": 41.97,
+        "end_seconds": 42.1825
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "and",
+        "start_seconds": 42.1825,
+        "end_seconds": 42.2825
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "91.2",
+        "start_seconds": 42.2825,
+        "end_seconds": 43.8075
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "percent",
+        "start_seconds": 42.2825,
+        "end_seconds": 43.8075
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "on",
+        "start_seconds": 43.8075,
+        "end_seconds": 43.92
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "BrowseComp.",
+        "start_seconds": 43.92,
+        "end_seconds": 45.045
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "Engineers",
+        "start_seconds": 45.045,
+        "end_seconds": 45.67
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "can",
+        "start_seconds": 45.67,
+        "end_seconds": 45.82
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "try",
+        "start_seconds": 45.82,
+        "end_seconds": 46.0575
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "it",
+        "start_seconds": 46.0575,
+        "end_seconds": 46.144999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "now",
+        "start_seconds": 46.144999999999996,
+        "end_seconds": 46.345
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "via",
+        "start_seconds": 46.345,
+        "end_seconds": 46.6325
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "Cerebras’",
+        "start_seconds": 46.6325,
+        "end_seconds": 47.5325
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "free",
+        "start_seconds": 47.5325,
+        "end_seconds": 47.769999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "cloud",
+        "start_seconds": 47.769999999999996,
+        "end_seconds": 48.095
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "API,",
+        "start_seconds": 48.095,
+        "end_seconds": 49.12
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "but",
+        "start_seconds": 49.12,
+        "end_seconds": 49.269999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "they",
+        "start_seconds": 49.269999999999996,
+        "end_seconds": 49.42
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "have",
+        "start_seconds": 49.42,
+        "end_seconds": 49.595
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "to",
+        "start_seconds": 49.595,
+        "end_seconds": 49.6825
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "respect",
+        "start_seconds": 49.6825,
+        "end_seconds": 50.1075
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "the",
+        "start_seconds": 50.1075,
+        "end_seconds": 50.207499999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "16",
+        "start_seconds": 50.207499999999996,
+        "end_seconds": 51.644999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "GB‑per‑layer",
+        "start_seconds": 50.207499999999996,
+        "end_seconds": 51.644999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "limit",
+        "start_seconds": 51.644999999999996,
+        "end_seconds": 52.394999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "and",
+        "start_seconds": 52.394999999999996,
+        "end_seconds": 52.5325
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "the",
+        "start_seconds": 52.5325,
+        "end_seconds": 52.62
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "cache‑free",
+        "start_seconds": 52.62,
+        "end_seconds": 53.245
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "trade‑off",
+        "start_seconds": 53.245,
+        "end_seconds": 53.6825
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "when",
+        "start_seconds": 53.6825,
+        "end_seconds": 53.8575
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "scaling",
+        "start_seconds": 53.8575,
+        "end_seconds": 54.295
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "across",
+        "start_seconds": 54.295,
+        "end_seconds": 54.644999999999996
+      },
+      {
+        "segment_id": "cerebras-trillion-model-deployment-segment",
+        "text": "wafers.",
+        "start_seconds": 54.644999999999996,
+        "end_seconds": 55.82
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "Next",
+        "start_seconds": 57.045,
+        "end_seconds": 57.307500000000005
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "on",
+        "start_seconds": 57.307500000000005,
+        "end_seconds": 57.407500000000006
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "the",
+        "start_seconds": 57.407500000000006,
+        "end_seconds": 57.495000000000005
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "bulletin.",
+        "start_seconds": 57.495000000000005,
+        "end_seconds": 58.4825
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "POSIX",
+        "start_seconds": 58.4825,
+        "end_seconds": 58.92
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "wordexp,",
+        "start_seconds": 58.92,
+        "end_seconds": 59.545
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "the",
+        "start_seconds": 59.545,
+        "end_seconds": 59.6325
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "little‑known",
+        "start_seconds": 59.6325,
+        "end_seconds": 60.2075
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "C",
+        "start_seconds": 60.2075,
+        "end_seconds": 60.42
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "library",
+        "start_seconds": 60.42,
+        "end_seconds": 60.845000000000006
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "function",
+        "start_seconds": 60.845000000000006,
+        "end_seconds": 61.295
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "for",
+        "start_seconds": 61.295,
+        "end_seconds": 61.42
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "expanding",
+        "start_seconds": 61.42,
+        "end_seconds": 61.970000000000006
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "strings,",
+        "start_seconds": 61.970000000000006,
+        "end_seconds": 62.82
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "actually",
+        "start_seconds": 62.82,
+        "end_seconds": 63.220000000000006
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "hands",
+        "start_seconds": 63.220000000000006,
+        "end_seconds": 63.4825
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "the",
+        "start_seconds": 63.4825,
+        "end_seconds": 63.57
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "input",
+        "start_seconds": 63.57,
+        "end_seconds": 63.92
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "to",
+        "start_seconds": 63.92,
+        "end_seconds": 64.00750000000001
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "a",
+        "start_seconds": 64.00750000000001,
+        "end_seconds": 64.07000000000001
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "system",
+        "start_seconds": 64.07000000000001,
+        "end_seconds": 64.4325
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "shell",
+        "start_seconds": 64.4325,
+        "end_seconds": 64.72
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "unless",
+        "start_seconds": 64.72,
+        "end_seconds": 65.0325
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "you",
+        "start_seconds": 65.0325,
+        "end_seconds": 65.14500000000001
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "explicitly",
+        "start_seconds": 65.14500000000001,
+        "end_seconds": 65.82000000000001
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "set",
+        "start_seconds": 65.82000000000001,
+        "end_seconds": 66.07000000000001
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "WRDE_NOCMD.",
+        "start_seconds": 66.07000000000001,
+        "end_seconds": 68.3575
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "That",
+        "start_seconds": 68.3575,
+        "end_seconds": 68.595
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "means",
+        "start_seconds": 68.595,
+        "end_seconds": 68.8575
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "a",
+        "start_seconds": 68.8575,
+        "end_seconds": 68.9325
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "payload",
+        "start_seconds": 68.9325,
+        "end_seconds": 69.42
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "like",
+        "start_seconds": 69.42,
+        "end_seconds": 69.9825
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "\"$(whoami)/foo\"",
+        "start_seconds": 69.9825,
+        "end_seconds": 71.295
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "gets",
+        "start_seconds": 71.295,
+        "end_seconds": 71.545
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "executed,",
+        "start_seconds": 71.545,
+        "end_seconds": 72.42
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "not",
+        "start_seconds": 72.42,
+        "end_seconds": 72.62
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "just",
+        "start_seconds": 72.62,
+        "end_seconds": 72.82000000000001
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "expanded.",
+        "start_seconds": 72.82000000000001,
+        "end_seconds": 74.1575
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "Both",
+        "start_seconds": 74.615,
+        "end_seconds": 74.89
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "musl",
+        "start_seconds": 74.89,
+        "end_seconds": 75.265
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "and",
+        "start_seconds": 75.265,
+        "end_seconds": 75.3775
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "macOS’s",
+        "start_seconds": 75.3775,
+        "end_seconds": 75.94
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "libSystem",
+        "start_seconds": 75.94,
+        "end_seconds": 76.53999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "still",
+        "start_seconds": 76.53999999999999,
+        "end_seconds": 76.815
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "call",
+        "start_seconds": 76.815,
+        "end_seconds": 77.0525
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "out",
+        "start_seconds": 77.0525,
+        "end_seconds": 77.21499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "to",
+        "start_seconds": 77.21499999999999,
+        "end_seconds": 77.33999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "external",
+        "start_seconds": 77.33999999999999,
+        "end_seconds": 77.815
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "helpers",
+        "start_seconds": 77.815,
+        "end_seconds": 78.58999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "–",
+        "start_seconds": 78.58999999999999,
+        "end_seconds": 78.66499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "musl",
+        "start_seconds": 78.66499999999999,
+        "end_seconds": 79.015
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "to",
+        "start_seconds": 79.015,
+        "end_seconds": 79.10249999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "the",
+        "start_seconds": 79.10249999999999,
+        "end_seconds": 79.2025
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "shell,",
+        "start_seconds": 79.2025,
+        "end_seconds": 79.58999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "macOS",
+        "start_seconds": 79.58999999999999,
+        "end_seconds": 80.14
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "to",
+        "start_seconds": 80.14,
+        "end_seconds": 80.22749999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "a",
+        "start_seconds": 80.22749999999999,
+        "end_seconds": 80.315
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "wordexp‑helper",
+        "start_seconds": 80.315,
+        "end_seconds": 81.5525
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "–",
+        "start_seconds": 81.5525,
+        "end_seconds": 81.64
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "and",
+        "start_seconds": 81.64,
+        "end_seconds": 81.7525
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "those",
+        "start_seconds": 81.7525,
+        "end_seconds": 81.96499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "helpers",
+        "start_seconds": 81.96499999999999,
+        "end_seconds": 82.39
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "can",
+        "start_seconds": 82.39,
+        "end_seconds": 82.5525
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "miss",
+        "start_seconds": 82.5525,
+        "end_seconds": 82.74
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "patterns,",
+        "start_seconds": 82.74,
+        "end_seconds": 83.53999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "so",
+        "start_seconds": 83.53999999999999,
+        "end_seconds": 83.71499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "even",
+        "start_seconds": 83.71499999999999,
+        "end_seconds": 84.0025
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "the",
+        "start_seconds": 84.0025,
+        "end_seconds": 84.08999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "WRDE_NOCMD",
+        "start_seconds": 84.08999999999999,
+        "end_seconds": 85.33999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "flag",
+        "start_seconds": 85.33999999999999,
+        "end_seconds": 85.71499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "isn’t",
+        "start_seconds": 85.71499999999999,
+        "end_seconds": 85.97749999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "a",
+        "start_seconds": 85.97749999999999,
+        "end_seconds": 86.03999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "guarantee.",
+        "start_seconds": 86.03999999999999,
+        "end_seconds": 87.2025
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "Here’s",
+        "start_seconds": 87.2025,
+        "end_seconds": 87.94
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "why",
+        "start_seconds": 87.94,
+        "end_seconds": 88.115
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "that",
+        "start_seconds": 88.115,
+        "end_seconds": 88.315
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "matters:",
+        "start_seconds": 88.315,
+        "end_seconds": 89.16499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "if",
+        "start_seconds": 89.16499999999999,
+        "end_seconds": 89.27749999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "you",
+        "start_seconds": 89.27749999999999,
+        "end_seconds": 89.3775
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "ever",
+        "start_seconds": 89.3775,
+        "end_seconds": 89.58999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "feed",
+        "start_seconds": 89.58999999999999,
+        "end_seconds": 89.815
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "user‑supplied",
+        "start_seconds": 89.815,
+        "end_seconds": 90.465
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "data",
+        "start_seconds": 90.465,
+        "end_seconds": 90.7775
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "into",
+        "start_seconds": 90.7775,
+        "end_seconds": 90.99
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "wordexp,",
+        "start_seconds": 90.99,
+        "end_seconds": 91.815
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "you’re",
+        "start_seconds": 91.815,
+        "end_seconds": 92.0275
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "opening",
+        "start_seconds": 92.0275,
+        "end_seconds": 92.45249999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "a",
+        "start_seconds": 92.45249999999999,
+        "end_seconds": 92.51499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "command‑injection",
+        "start_seconds": 92.51499999999999,
+        "end_seconds": 93.465
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "door.",
+        "start_seconds": 93.465,
+        "end_seconds": 94.215
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "The",
+        "start_seconds": 94.215,
+        "end_seconds": 94.35249999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "safe",
+        "start_seconds": 94.35249999999999,
+        "end_seconds": 94.66499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "move",
+        "start_seconds": 94.66499999999999,
+        "end_seconds": 94.9025
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "is",
+        "start_seconds": 94.9025,
+        "end_seconds": 95.03999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "to",
+        "start_seconds": 95.03999999999999,
+        "end_seconds": 95.16499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "skip",
+        "start_seconds": 95.16499999999999,
+        "end_seconds": 95.44
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "wordexp",
+        "start_seconds": 95.44,
+        "end_seconds": 95.91499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "entirely",
+        "start_seconds": 95.91499999999999,
+        "end_seconds": 96.70249999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "and",
+        "start_seconds": 96.70249999999999,
+        "end_seconds": 96.84
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "use",
+        "start_seconds": 96.84,
+        "end_seconds": 97.0275
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "a",
+        "start_seconds": 97.0275,
+        "end_seconds": 97.09
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "parser",
+        "start_seconds": 97.09,
+        "end_seconds": 97.465
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "that",
+        "start_seconds": 97.465,
+        "end_seconds": 97.63999999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "never",
+        "start_seconds": 97.63999999999999,
+        "end_seconds": 97.91499999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "invokes",
+        "start_seconds": 97.91499999999999,
+        "end_seconds": 98.35249999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "a",
+        "start_seconds": 98.35249999999999,
+        "end_seconds": 98.45249999999999
+      },
+      {
+        "segment_id": "posix-wordexp-danger-2026-segment",
+        "text": "shell.",
+        "start_seconds": 98.45249999999999,
+        "end_seconds": 99.44
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "Turning",
+        "start_seconds": 100.64,
+        "end_seconds": 100.99
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "to",
+        "start_seconds": 100.99,
+        "end_seconds": 101.0775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "our",
+        "start_seconds": 101.0775,
+        "end_seconds": 101.19
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "next",
+        "start_seconds": 101.19,
+        "end_seconds": 101.4525
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "story.",
+        "start_seconds": 101.4525,
+        "end_seconds": 102.3775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "A",
+        "start_seconds": 102.3775,
+        "end_seconds": 102.465
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "hobbyist",
+        "start_seconds": 102.465,
+        "end_seconds": 102.915
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "got",
+        "start_seconds": 102.915,
+        "end_seconds": 103.0775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "the",
+        "start_seconds": 103.0775,
+        "end_seconds": 103.19
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "inexpensive",
+        "start_seconds": 103.19,
+        "end_seconds": 103.9525
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "ESP32‑S3",
+        "start_seconds": 103.9525,
+        "end_seconds": 105.7025
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "to",
+        "start_seconds": 105.7025,
+        "end_seconds": 105.815
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "run",
+        "start_seconds": 105.815,
+        "end_seconds": 106.0025
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "the",
+        "start_seconds": 106.0025,
+        "end_seconds": 106.1025
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "FAST",
+        "start_seconds": 106.1025,
+        "end_seconds": 106.49
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "corner",
+        "start_seconds": 106.49,
+        "end_seconds": 106.815
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "detector’s",
+        "start_seconds": 106.815,
+        "end_seconds": 107.34
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "pre‑test",
+        "start_seconds": 107.34,
+        "end_seconds": 108.0775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "using",
+        "start_seconds": 108.0775,
+        "end_seconds": 108.3775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "its",
+        "start_seconds": 108.3775,
+        "end_seconds": 108.54
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "hidden",
+        "start_seconds": 108.54,
+        "end_seconds": 108.8525
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "SIMD",
+        "start_seconds": 108.8525,
+        "end_seconds": 109.615
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "unit.",
+        "start_seconds": 109.615,
+        "end_seconds": 110.615
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "By",
+        "start_seconds": 111.78999999999999,
+        "end_seconds": 111.965
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "hand‑crafting",
+        "start_seconds": 111.965,
+        "end_seconds": 112.6525
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "assembly",
+        "start_seconds": 112.6525,
+        "end_seconds": 113.16499999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "and",
+        "start_seconds": 113.16499999999999,
+        "end_seconds": 113.2775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "a",
+        "start_seconds": 113.2775,
+        "end_seconds": 113.34
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "tiny",
+        "start_seconds": 113.34,
+        "end_seconds": 113.66499999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "register",
+        "start_seconds": 113.66499999999999,
+        "end_seconds": 114.09
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "allocator",
+        "start_seconds": 114.09,
+        "end_seconds": 114.66499999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "called",
+        "start_seconds": 114.66499999999999,
+        "end_seconds": 114.91499999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "basm,",
+        "start_seconds": 114.91499999999999,
+        "end_seconds": 115.78999999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "they",
+        "start_seconds": 115.78999999999999,
+        "end_seconds": 115.9525
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "squeezed",
+        "start_seconds": 115.9525,
+        "end_seconds": 116.365
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "signed‑8‑bit",
+        "start_seconds": 116.365,
+        "end_seconds": 117.115
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "compares—the",
+        "start_seconds": 117.115,
+        "end_seconds": 118.24
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "only",
+        "start_seconds": 118.24,
+        "end_seconds": 118.53999999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "vector",
+        "start_seconds": 118.53999999999999,
+        "end_seconds": 118.89
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "compare",
+        "start_seconds": 118.89,
+        "end_seconds": 119.2025
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "the",
+        "start_seconds": 119.2025,
+        "end_seconds": 119.3025
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "chip",
+        "start_seconds": 119.3025,
+        "end_seconds": 119.565
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "supports—into",
+        "start_seconds": 119.565,
+        "end_seconds": 120.35249999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "the",
+        "start_seconds": 120.35249999999999,
+        "end_seconds": 120.49
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "algorithm.",
+        "start_seconds": 120.49,
+        "end_seconds": 121.66499999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "The",
+        "start_seconds": 121.66499999999999,
+        "end_seconds": 121.765
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "trick",
+        "start_seconds": 121.765,
+        "end_seconds": 122.03999999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "relies",
+        "start_seconds": 122.03999999999999,
+        "end_seconds": 122.4275
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "on",
+        "start_seconds": 122.4275,
+        "end_seconds": 122.5775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "forcing",
+        "start_seconds": 122.5775,
+        "end_seconds": 122.9275
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "the",
+        "start_seconds": 122.9275,
+        "end_seconds": 123.015
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "central",
+        "start_seconds": 123.015,
+        "end_seconds": 123.365
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "pixel",
+        "start_seconds": 123.365,
+        "end_seconds": 123.765
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "to",
+        "start_seconds": 123.765,
+        "end_seconds": 123.85249999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "be",
+        "start_seconds": 123.85249999999999,
+        "end_seconds": 123.965
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "aligned",
+        "start_seconds": 123.965,
+        "end_seconds": 124.7525
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "and",
+        "start_seconds": 124.7525,
+        "end_seconds": 124.89
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "reinterpreting",
+        "start_seconds": 124.89,
+        "end_seconds": 125.6275
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "the",
+        "start_seconds": 125.6275,
+        "end_seconds": 125.715
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "image",
+        "start_seconds": 125.715,
+        "end_seconds": 126.015
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "bytes",
+        "start_seconds": 126.015,
+        "end_seconds": 126.365
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "as",
+        "start_seconds": 126.365,
+        "end_seconds": 126.49
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "signed",
+        "start_seconds": 126.49,
+        "end_seconds": 126.765
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "data.",
+        "start_seconds": 126.765,
+        "end_seconds": 127.72749999999999
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "That",
+        "start_seconds": 127.72749999999999,
+        "end_seconds": 127.965
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "means",
+        "start_seconds": 127.965,
+        "end_seconds": 128.24
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "you",
+        "start_seconds": 128.24,
+        "end_seconds": 128.365
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "can",
+        "start_seconds": 128.365,
+        "end_seconds": 128.515
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "prototype",
+        "start_seconds": 128.515,
+        "end_seconds": 129.09
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "lightweight",
+        "start_seconds": 129.09,
+        "end_seconds": 129.565
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "computer‑vision",
+        "start_seconds": 129.565,
+        "end_seconds": 130.315
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "pipelines",
+        "start_seconds": 130.315,
+        "end_seconds": 130.9025
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "on",
+        "start_seconds": 130.9025,
+        "end_seconds": 131.0775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "sub‑$5",
+        "start_seconds": 131.0775,
+        "end_seconds": 131.915
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "hardware,",
+        "start_seconds": 131.915,
+        "end_seconds": 132.815
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "provided",
+        "start_seconds": 132.815,
+        "end_seconds": 133.29
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "you",
+        "start_seconds": 133.29,
+        "end_seconds": 133.415
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "respect",
+        "start_seconds": 133.415,
+        "end_seconds": 133.8525
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "the",
+        "start_seconds": 133.8525,
+        "end_seconds": 133.94
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "alignment",
+        "start_seconds": 133.94,
+        "end_seconds": 134.79
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "and",
+        "start_seconds": 134.79,
+        "end_seconds": 134.9775
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "signed‑only",
+        "start_seconds": 134.9775,
+        "end_seconds": 135.665
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "comparison",
+        "start_seconds": 135.665,
+        "end_seconds": 136.265
+      },
+      {
+        "segment_id": "simd-esp32-s3-vision-segment",
+        "text": "quirks.",
+        "start_seconds": 136.265,
+        "end_seconds": 137.44
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "Next",
+        "start_seconds": 138.665,
+        "end_seconds": 138.92749999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "on",
+        "start_seconds": 138.92749999999998,
+        "end_seconds": 139.02749999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "the",
+        "start_seconds": 139.02749999999997,
+        "end_seconds": 139.11499999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "bulletin.",
+        "start_seconds": 139.11499999999998,
+        "end_seconds": 140.15249999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "Goose,",
+        "start_seconds": 140.15249999999997,
+        "end_seconds": 140.69
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "a",
+        "start_seconds": 140.69,
+        "end_seconds": 140.79
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "new",
+        "start_seconds": 140.79,
+        "end_seconds": 140.98999999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "open‑source",
+        "start_seconds": 140.98999999999998,
+        "end_seconds": 141.54
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "systems",
+        "start_seconds": 141.54,
+        "end_seconds": 141.915
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "language,",
+        "start_seconds": 141.915,
+        "end_seconds": 142.71499999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "says",
+        "start_seconds": 142.71499999999997,
+        "end_seconds": 142.90249999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "it",
+        "start_seconds": 142.90249999999997,
+        "end_seconds": 142.98999999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "can",
+        "start_seconds": 142.98999999999998,
+        "end_seconds": 143.14
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "run",
+        "start_seconds": 143.14,
+        "end_seconds": 143.36499999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "code",
+        "start_seconds": 143.36499999999998,
+        "end_seconds": 143.6025
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "up",
+        "start_seconds": 143.6025,
+        "end_seconds": 143.73999999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "to",
+        "start_seconds": 143.73999999999998,
+        "end_seconds": 143.8775
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "three",
+        "start_seconds": 143.8775,
+        "end_seconds": 144.08999999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "point",
+        "start_seconds": 144.08999999999997,
+        "end_seconds": 144.36499999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "three",
+        "start_seconds": 144.36499999999998,
+        "end_seconds": 144.565
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "times",
+        "start_seconds": 144.565,
+        "end_seconds": 144.94
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "faster",
+        "start_seconds": 144.94,
+        "end_seconds": 145.36499999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "than",
+        "start_seconds": 145.36499999999998,
+        "end_seconds": 145.55249999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "C++",
+        "start_seconds": 145.55249999999998,
+        "end_seconds": 146.315
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "while",
+        "start_seconds": 146.315,
+        "end_seconds": 146.54
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "using",
+        "start_seconds": 146.54,
+        "end_seconds": 146.815
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "less",
+        "start_seconds": 146.815,
+        "end_seconds": 147.04
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "memory.",
+        "start_seconds": 147.04,
+        "end_seconds": 147.96499999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "It",
+        "start_seconds": 147.96499999999997,
+        "end_seconds": 148.11499999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "compiles",
+        "start_seconds": 148.11499999999998,
+        "end_seconds": 148.58999999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "to",
+        "start_seconds": 148.58999999999997,
+        "end_seconds": 148.71499999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "C,",
+        "start_seconds": 148.71499999999997,
+        "end_seconds": 149.27749999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "frees",
+        "start_seconds": 149.27749999999997,
+        "end_seconds": 149.61499999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "memory",
+        "start_seconds": 149.61499999999998,
+        "end_seconds": 149.98999999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "automatically",
+        "start_seconds": 149.98999999999998,
+        "end_seconds": 150.65249999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "at",
+        "start_seconds": 150.65249999999997,
+        "end_seconds": 150.73999999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "scope",
+        "start_seconds": 150.73999999999998,
+        "end_seconds": 151.04
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "exit,",
+        "start_seconds": 151.04,
+        "end_seconds": 151.89
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "and",
+        "start_seconds": 151.89,
+        "end_seconds": 152.0025
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "avoids",
+        "start_seconds": 152.0025,
+        "end_seconds": 152.3275
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "a",
+        "start_seconds": 152.3275,
+        "end_seconds": 152.39
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "garbage",
+        "start_seconds": 152.39,
+        "end_seconds": 152.815
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "collector",
+        "start_seconds": 152.815,
+        "end_seconds": 153.29
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "or",
+        "start_seconds": 153.29,
+        "end_seconds": 153.44
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "heap",
+        "start_seconds": 153.44,
+        "end_seconds": 153.65249999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "allocation",
+        "start_seconds": 153.65249999999997,
+        "end_seconds": 154.48999999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "by",
+        "start_seconds": 154.48999999999998,
+        "end_seconds": 154.665
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "using",
+        "start_seconds": 154.665,
+        "end_seconds": 154.96499999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "bump‑pointer",
+        "start_seconds": 154.96499999999997,
+        "end_seconds": 155.55249999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "allocation",
+        "start_seconds": 155.55249999999998,
+        "end_seconds": 156.4525
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "and",
+        "start_seconds": 156.4525,
+        "end_seconds": 156.6025
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "fixed‑size",
+        "start_seconds": 156.6025,
+        "end_seconds": 157.265
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "array",
+        "start_seconds": 157.265,
+        "end_seconds": 157.515
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "types.",
+        "start_seconds": 157.515,
+        "end_seconds": 158.46499999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "The",
+        "start_seconds": 158.46499999999997,
+        "end_seconds": 158.565
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "developers",
+        "start_seconds": 158.565,
+        "end_seconds": 159.065
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "measured",
+        "start_seconds": 159.065,
+        "end_seconds": 159.39
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "1.2",
+        "start_seconds": 159.39,
+        "end_seconds": 160.11499999999998
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "to",
+        "start_seconds": 160.11499999999998,
+        "end_seconds": 160.21499999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "1.9",
+        "start_seconds": 160.21499999999997,
+        "end_seconds": 160.915
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "times",
+        "start_seconds": 160.915,
+        "end_seconds": 161.29
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "lower",
+        "start_seconds": 161.29,
+        "end_seconds": 161.54
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "memory",
+        "start_seconds": 161.54,
+        "end_seconds": 161.915
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "use",
+        "start_seconds": 161.915,
+        "end_seconds": 162.19
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "in",
+        "start_seconds": 162.19,
+        "end_seconds": 162.27749999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "their",
+        "start_seconds": 162.27749999999997,
+        "end_seconds": 162.46499999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "own",
+        "start_seconds": 162.46499999999997,
+        "end_seconds": 162.71499999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "benchmark",
+        "start_seconds": 162.71499999999997,
+        "end_seconds": 163.265
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "suite.",
+        "start_seconds": 163.265,
+        "end_seconds": 164.27749999999997
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "Here's",
+        "start_seconds": 164.735,
+        "end_seconds": 165.03500000000003
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "why",
+        "start_seconds": 165.03500000000003,
+        "end_seconds": 165.235
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "that",
+        "start_seconds": 165.235,
+        "end_seconds": 165.435
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "matters:",
+        "start_seconds": 165.435,
+        "end_seconds": 166.3725
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "if",
+        "start_seconds": 166.3725,
+        "end_seconds": 166.51000000000002
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "you",
+        "start_seconds": 166.51000000000002,
+        "end_seconds": 166.63500000000002
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "need",
+        "start_seconds": 166.63500000000002,
+        "end_seconds": 166.86
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "deterministic",
+        "start_seconds": 166.86,
+        "end_seconds": 167.685
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "memory",
+        "start_seconds": 167.685,
+        "end_seconds": 168.06
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "management",
+        "start_seconds": 168.06,
+        "end_seconds": 168.585
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "without",
+        "start_seconds": 168.585,
+        "end_seconds": 168.91000000000003
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "lifetimes,",
+        "start_seconds": 168.91000000000003,
+        "end_seconds": 169.9225
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "Goose",
+        "start_seconds": 169.9225,
+        "end_seconds": 170.235
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "might",
+        "start_seconds": 170.235,
+        "end_seconds": 170.4225
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "be",
+        "start_seconds": 170.4225,
+        "end_seconds": 170.53500000000003
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "worth",
+        "start_seconds": 170.53500000000003,
+        "end_seconds": 170.7975
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "a",
+        "start_seconds": 170.7975,
+        "end_seconds": 170.86
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "test,",
+        "start_seconds": 170.86,
+        "end_seconds": 171.66000000000003
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "but",
+        "start_seconds": 171.66000000000003,
+        "end_seconds": 171.81
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "you",
+        "start_seconds": 171.81,
+        "end_seconds": 171.935
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "should",
+        "start_seconds": 171.935,
+        "end_seconds": 172.085
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "verify",
+        "start_seconds": 172.085,
+        "end_seconds": 172.53500000000003
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "the",
+        "start_seconds": 172.53500000000003,
+        "end_seconds": 172.63500000000002
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "numbers",
+        "start_seconds": 172.63500000000002,
+        "end_seconds": 172.97250000000003
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "on",
+        "start_seconds": 172.97250000000003,
+        "end_seconds": 173.07250000000002
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "your",
+        "start_seconds": 173.07250000000002,
+        "end_seconds": 173.235
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "own",
+        "start_seconds": 173.235,
+        "end_seconds": 173.485
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "workloads",
+        "start_seconds": 173.485,
+        "end_seconds": 174.06
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "before",
+        "start_seconds": 174.06,
+        "end_seconds": 174.38500000000002
+      },
+      {
+        "segment_id": "goose-language-brief-segment",
+        "text": "committing.",
+        "start_seconds": 174.38500000000002,
+        "end_seconds": 175.53500000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "And",
+        "start_seconds": 176.71,
+        "end_seconds": 176.86
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "finally,",
+        "start_seconds": 176.86,
+        "end_seconds": 177.36
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "our",
+        "start_seconds": 177.36,
+        "end_seconds": 177.51000000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "last",
+        "start_seconds": 177.51000000000002,
+        "end_seconds": 177.78500000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "story.",
+        "start_seconds": 177.78500000000003,
+        "end_seconds": 178.7475
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Vim",
+        "start_seconds": 178.7475,
+        "end_seconds": 178.985
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Classic",
+        "start_seconds": 178.985,
+        "end_seconds": 179.38500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "8.3.0",
+        "start_seconds": 179.38500000000002,
+        "end_seconds": 180.16000000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "hit",
+        "start_seconds": 180.16000000000003,
+        "end_seconds": 180.32250000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "the",
+        "start_seconds": 180.32250000000002,
+        "end_seconds": 180.41000000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "streets",
+        "start_seconds": 180.41000000000003,
+        "end_seconds": 180.7725
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "on",
+        "start_seconds": 180.7725,
+        "end_seconds": 180.94750000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "June",
+        "start_seconds": 180.94750000000002,
+        "end_seconds": 181.2475
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "two,",
+        "start_seconds": 181.2475,
+        "end_seconds": 181.71
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "twenty",
+        "start_seconds": 181.71,
+        "end_seconds": 182.03500000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "twenty‑six,",
+        "start_seconds": 182.03500000000003,
+        "end_seconds": 183.13500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "marking",
+        "start_seconds": 183.13500000000002,
+        "end_seconds": 183.44750000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "the",
+        "start_seconds": 183.44750000000002,
+        "end_seconds": 183.5475
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "first",
+        "start_seconds": 183.5475,
+        "end_seconds": 183.86
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "stable",
+        "start_seconds": 183.86,
+        "end_seconds": 184.2725
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "fork",
+        "start_seconds": 184.2725,
+        "end_seconds": 184.585
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "that",
+        "start_seconds": 184.585,
+        "end_seconds": 184.71
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "locks",
+        "start_seconds": 184.71,
+        "end_seconds": 185.01000000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "in",
+        "start_seconds": 185.01000000000002,
+        "end_seconds": 185.16000000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Vim",
+        "start_seconds": 185.16000000000003,
+        "end_seconds": 185.38500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "eight",
+        "start_seconds": 185.38500000000002,
+        "end_seconds": 185.63500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "point",
+        "start_seconds": 185.63500000000002,
+        "end_seconds": 185.96
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "x",
+        "start_seconds": 185.96,
+        "end_seconds": 186.2475
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "without",
+        "start_seconds": 186.2475,
+        "end_seconds": 186.56
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "any",
+        "start_seconds": 186.56,
+        "end_seconds": 186.76000000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "generative‑AI",
+        "start_seconds": 186.76000000000002,
+        "end_seconds": 187.71
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "bells",
+        "start_seconds": 187.71,
+        "end_seconds": 188.0475
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "and",
+        "start_seconds": 188.0475,
+        "end_seconds": 188.16000000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "whistles.",
+        "start_seconds": 188.16000000000003,
+        "end_seconds": 189.16000000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "The",
+        "start_seconds": 189.16000000000003,
+        "end_seconds": 189.26000000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "community",
+        "start_seconds": 189.26000000000002,
+        "end_seconds": 189.78500000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "runs",
+        "start_seconds": 189.78500000000003,
+        "end_seconds": 190.0475
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "the",
+        "start_seconds": 190.0475,
+        "end_seconds": 190.13500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "code",
+        "start_seconds": 190.13500000000002,
+        "end_seconds": 190.4225
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "on",
+        "start_seconds": 190.4225,
+        "end_seconds": 190.57250000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "SourceHut,",
+        "start_seconds": 190.57250000000002,
+        "end_seconds": 191.485
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "keeps",
+        "start_seconds": 191.485,
+        "end_seconds": 191.76000000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "the",
+        "start_seconds": 191.76000000000002,
+        "end_seconds": 191.86
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "docs",
+        "start_seconds": 191.86,
+        "end_seconds": 192.16000000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "online,",
+        "start_seconds": 192.16000000000003,
+        "end_seconds": 192.935
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "and",
+        "start_seconds": 192.935,
+        "end_seconds": 193.07250000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "fields",
+        "start_seconds": 193.07250000000002,
+        "end_seconds": 193.435
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "questions",
+        "start_seconds": 193.435,
+        "end_seconds": 193.9225
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "on",
+        "start_seconds": 193.9225,
+        "end_seconds": 194.0225
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "its",
+        "start_seconds": 194.0225,
+        "end_seconds": 194.185
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "mailing",
+        "start_seconds": 194.185,
+        "end_seconds": 194.53500000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "lists,",
+        "start_seconds": 194.53500000000003,
+        "end_seconds": 195.335
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "so",
+        "start_seconds": 195.335,
+        "end_seconds": 195.46
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "you",
+        "start_seconds": 195.46,
+        "end_seconds": 195.585
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "get",
+        "start_seconds": 195.585,
+        "end_seconds": 195.7475
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "the",
+        "start_seconds": 195.7475,
+        "end_seconds": 195.84750000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "same",
+        "start_seconds": 195.84750000000003,
+        "end_seconds": 196.16000000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Vim",
+        "start_seconds": 196.16000000000003,
+        "end_seconds": 196.4225
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "feel",
+        "start_seconds": 196.4225,
+        "end_seconds": 196.72250000000003
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "with",
+        "start_seconds": 196.72250000000003,
+        "end_seconds": 196.82250000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "a",
+        "start_seconds": 196.82250000000002,
+        "end_seconds": 196.88500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "predictable",
+        "start_seconds": 196.88500000000002,
+        "end_seconds": 197.485
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "maintenance",
+        "start_seconds": 197.485,
+        "end_seconds": 197.9975
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "schedule.",
+        "start_seconds": 197.9975,
+        "end_seconds": 199.1225
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Here's",
+        "start_seconds": 199.58,
+        "end_seconds": 199.88000000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "why",
+        "start_seconds": 199.88000000000002,
+        "end_seconds": 200.055
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "that",
+        "start_seconds": 200.055,
+        "end_seconds": 200.25500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "matters:",
+        "start_seconds": 200.25500000000002,
+        "end_seconds": 201.2175
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "teams",
+        "start_seconds": 201.2175,
+        "end_seconds": 201.6175
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "that",
+        "start_seconds": 201.6175,
+        "end_seconds": 201.73000000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "need",
+        "start_seconds": 201.73000000000002,
+        "end_seconds": 201.94250000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "a",
+        "start_seconds": 201.94250000000002,
+        "end_seconds": 202.00500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "steady",
+        "start_seconds": 202.00500000000002,
+        "end_seconds": 202.33
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "editor",
+        "start_seconds": 202.33,
+        "end_seconds": 202.68
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "lifecycle",
+        "start_seconds": 202.68,
+        "end_seconds": 203.305
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "can",
+        "start_seconds": 203.305,
+        "end_seconds": 203.43
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "adopt",
+        "start_seconds": 203.43,
+        "end_seconds": 203.805
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Vim",
+        "start_seconds": 203.805,
+        "end_seconds": 204.00500000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Classic",
+        "start_seconds": 204.00500000000002,
+        "end_seconds": 204.69250000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "and",
+        "start_seconds": 204.69250000000002,
+        "end_seconds": 204.83
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "dodge",
+        "start_seconds": 204.83,
+        "end_seconds": 205.1175
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "future",
+        "start_seconds": 205.1175,
+        "end_seconds": 205.56750000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "AI‑driven",
+        "start_seconds": 205.56750000000002,
+        "end_seconds": 206.31750000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "changes",
+        "start_seconds": 206.31750000000002,
+        "end_seconds": 207.2175
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "while",
+        "start_seconds": 207.2175,
+        "end_seconds": 207.405
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "keeping",
+        "start_seconds": 207.405,
+        "end_seconds": 207.79250000000002
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "full",
+        "start_seconds": 207.79250000000002,
+        "end_seconds": 208.0925
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Vim",
+        "start_seconds": 208.0925,
+        "end_seconds": 208.33
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "functionality.",
+        "start_seconds": 208.33,
+        "end_seconds": 209.805
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "And",
+        "start_seconds": 210.98,
+        "end_seconds": 211.13
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "that's",
+        "start_seconds": 211.13,
+        "end_seconds": 211.38
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "your",
+        "start_seconds": 211.38,
+        "end_seconds": 211.555
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Daywire",
+        "start_seconds": 211.555,
+        "end_seconds": 212.005
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "briefing.",
+        "start_seconds": 212.005,
+        "end_seconds": 212.93
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "You'll",
+        "start_seconds": 212.93,
+        "end_seconds": 213.105
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "find",
+        "start_seconds": 213.105,
+        "end_seconds": 213.3675
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "the",
+        "start_seconds": 213.3675,
+        "end_seconds": 213.4675
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "full",
+        "start_seconds": 213.4675,
+        "end_seconds": 213.73
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "stories",
+        "start_seconds": 213.73,
+        "end_seconds": 214.1925
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "and",
+        "start_seconds": 214.1925,
+        "end_seconds": 214.3175
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "sources",
+        "start_seconds": 214.3175,
+        "end_seconds": 214.805
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "in",
+        "start_seconds": 214.805,
+        "end_seconds": 214.905
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "today's",
+        "start_seconds": 214.905,
+        "end_seconds": 215.28
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "newspaper.",
+        "start_seconds": 215.28,
+        "end_seconds": 216.26749999999998
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Thanks",
+        "start_seconds": 216.26749999999998,
+        "end_seconds": 216.605
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "for",
+        "start_seconds": 216.605,
+        "end_seconds": 216.73
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "listening.",
+        "start_seconds": 216.73,
+        "end_seconds": 217.4925
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "Take",
+        "start_seconds": 217.4925,
+        "end_seconds": 217.805
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "care,",
+        "start_seconds": 217.805,
+        "end_seconds": 218.0675
+      },
+      {
+        "segment_id": "vim-classic-8-3-launch",
+        "text": "everyone.",
+        "start_seconds": 218.0675,
+        "end_seconds": 219.23
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}

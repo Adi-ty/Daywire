@@ -1,0 +1,2300 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-25",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-10-25T19:11:59.189087Z",
+  "coverage": {
+    "from": "2026-10-24T06:00:00+05:30",
+    "until": "2026-10-25T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel"
+    ],
+    "candidate_count": 16,
+    "evidence_count": 12
+  },
+  "content": {
+    "title": "Node.js Middleware Risks and Go’s SIMD Leap",
+    "introduction": "Critical denial‑of‑service flaws have been uncovered in popular Node.js middleware packages body‑parser and multer, prompting urgent upgrades. Meanwhile, Go 1.27’s experimental SIMD libraries promise a new performance frontier for pure‑Go numeric code.",
+    "articles": [
+      {
+        "id": "body-parser-dos-2026-10-25",
+        "section": "Security",
+        "headline": "body-parser versions <2.4.0 and <1.20.9 vulnerable to denial-of-service via trailing bytes in compressed requests",
+        "summary": "A single crafted compressed request can crash any Express app using body-parser default options, affecting versions ≥2.0.0 < 2.4.0 and < 1.20.9.",
+        "paragraphs": [
+          "The OpenJS Security Advisories published a new advisory (CVE‑2026‑111181) on 22 Oct 2026 reporting that body-parser ≥ 2.0.0 < 2.4.0 and < 1.20.9 can be forced to crash an application with a single crafted request. When a request includes a Content‑Encoding such as gzip, body-parser streams the payload to a decompressor. If the compressed frame is followed by trailing bytes, the decoder finishes, then receives the extra bytes, emits an error without a listener, and the error bubbles up as an uncaught exception, terminating the Node process. No authentication or route matching is required because parsing occurs before routing.",
+          "The issue is fixed in body-parser 2.4.0 and 1.20.9. Upgrading to either version eliminates the crash. As a temporary mitigation, applications can pass inflate: false to the middleware to reject compressed bodies entirely, at the cost of losing support for gzip/deflate payloads."
+        ],
+        "implication": "Engineers should upgrade body-parser to 2.4.0 or 1.20.9 immediately, or disable compression handling, to prevent unexpected process termination in production services.",
+        "source_ids": [
+          "source-9692ad25f5f8c106"
+        ]
+      },
+      {
+        "id": "multer-dos-2-5-0",
+        "section": "Security",
+        "headline": "multer 2.5.0 patches denial‑of‑service crash caused by pending async fileFilter",
+        "summary": "A high‑severity DoS bug in multer 2.0‑2.4.x that crashes Node.js when an async fileFilter is pending during request teardown is fixed in version 2.5.0.",
+        "paragraphs": [
+          "The OpenJS advisory (CVE‑2026‑113872, published 2026‑10‑22) reports that any multer configuration using an asynchronous fileFilter can be forced to crash the process. If a request is aborted while another file’s async filter is still pending, the callback resumes a parsing stream that busboy has already torn down, emitting an unhandled error event that terminates Node.js. A single unauthenticated request is sufficient, affecting all applications that rely on async fileFilter regardless of storage engine. Synchronous fileFilters are not vulnerable.",
+          "The fix is released in multer 2.5.0; upgrading eliminates the race condition. As a temporary mitigation, developers can replace async fileFilters with synchronous ones until they can apply the update. The advisory notes the vulnerability’s CVSS score of 7.5 (High)."
+        ],
+        "implication": "Engineers should upgrade to multer 2.5.0 or later, or switch to a synchronous fileFilter, to prevent unexpected process termination in production services handling file uploads.",
+        "source_ids": [
+          "source-1894525c23df7b36"
+        ]
+      },
+      {
+        "id": "go-simd-experimental-2026-10-25",
+        "section": "Engineering",
+        "headline": "Go 1.27 adds experimental SIMD packages, enabling vectorized loops in pure Go",
+        "summary": "Go 1.27 introduces experimental simd/archsimd and portable simd packages that let developers write ordinary Go loops which compile to SIMD instructions, boosting numeric loop performance on amd64.",
+        "paragraphs": [
+          "The new simd/archsimd package (available since Go 1.26) and its higher‑level portable simd wrapper (Go 1.27) turn a plain loop that adds two []float32 slices into code that uses the CPU’s eight‑wide SIMD units. Previously this required hand‑written assembly; now the compiler emits vector instructions when the GOEXPERIMENT=simd flag is set. The packages are experimental, limited to amd64, and their names may change in future releases.",
+          "Because the feature is gated behind an experiment flag, developers must opt‑in and accept that the API could evolve. Benchmarks in the article show noticeable speedups for simple element‑wise addition, but the benefit depends on data alignment and the specific CPU’s SIMD capabilities."
+        ],
+        "implication": "Engineers can prototype vectorized numeric code in Go without writing assembly, but must enable GOEXPERIMENT=simd, target amd64, and be prepared for possible API changes as the packages mature.",
+        "source_ids": [
+          "source-684f2a3488952453"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "trailing-bytes-dos-body-parser",
+        "title": "Trailing bytes after decompression can crash Express apps",
+        "paragraphs": [
+          "When an Express application uses body‑parser with its default settings, any incoming request that claims to be compressed (e.g., with `Content‑Encoding: gzip`) is piped straight into a decompression stream. The middleware does not attach an error listener to that stream, assuming the decoder will finish cleanly.",
+          "If the compressed payload ends with a valid gzip frame followed by arbitrary trailing bytes, the decoder finishes the first frame, then receives the extra data and emits an error. Because no listener is present, the error propagates as an uncaught exception, crashing the Node process before routing or authentication can occur."
+        ],
+        "example": "POST /api/data HTTP/1.1\\nHost: example.com\\nContent-Encoding: gzip\\nContent-Length: 42\\n\\n<gzip‑compressed‑frame><trailing‑bytes>",
+        "takeaway": "Upgrade body‑parser to 2.4.0 or 1.20.9, or set `inflate: false` to reject compressed bodies, preventing the uncaught‑exception crash.",
+        "article_ids": [
+          "body-parser-dos-2026-10-25"
+        ],
+        "source_ids": [
+          "source-9692ad25f5f8c106"
+        ]
+      },
+      {
+        "id": "async-filefilter-race-condition",
+        "title": "Async fileFilter callbacks can race with request teardown, causing unhandled errors",
+        "paragraphs": [
+          "Multer parses multipart uploads with busboy. When a fileFilter is declared async, Multer invokes it and waits for the callback before continuing. If the client aborts the request while that callback is still pending, Multer tears down the busboy stream. Later, the pending callback tries to resume the same stream, which now has no error listener. Busboy emits an \"error\" event that Node treats as unhandled, terminating the process.",
+          "The situation is a classic race condition: the request‑teardown path and the asynchronous filter completion path intersect. Because the error event is emitted after the stream has been destroyed, Node raises an uncaught exception, resulting in a denial‑of‑service crash. Upgrading to Multer 2.5.0 clears pending callbacks, and using a synchronous fileFilter avoids the race entirely."
+        ],
+        "example": "// async fileFilter that delays validation\nfunction asyncFilter(req, file, cb) {\n  setTimeout(() => {\n    // simulate async check\n    if (file.mimetype !== 'image/png') return cb(null, false);\n    cb(null, true);\n  }, 1000);\n}\n// If the client aborts the upload within that second, Multer 2.0‑2.4 will crash.\n",
+        "takeaway": "Never let asynchronous validation continue after a request is closed; either use synchronous filters or ensure the callback is cancelled, and keep Multer updated to the patched version.",
+        "article_ids": [
+          "multer-dos-2-5-0"
+        ],
+        "source_ids": [
+          "source-1894525c23df7b36"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-001",
+        "lesson_id": "trailing-bytes-dos-body-parser",
+        "prompt": "What condition in a gzip‑compressed request causes the uncaught‑exception crash when using body‑parser with default settings?",
+        "options": [
+          "The request lacks a Content‑Encoding header",
+          "The compressed payload ends with a valid gzip frame followed by arbitrary trailing bytes",
+          "The request body exceeds the size limit configured in body‑parser",
+          "The JSON payload is malformed"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that when the gzip payload finishes a valid frame but includes extra trailing bytes, the decoder emits an error that has no listener, leading to an uncaught exception."
+      },
+      {
+        "id": "quiz-1-002",
+        "lesson_id": "trailing-bytes-dos-body-parser",
+        "prompt": "Which mitigation does the lesson recommend to stop the crash caused by trailing bytes?",
+        "options": [
+          "Upgrade body‑parser to version 2.4.0 (or 1.20.9)",
+          "Disable gzip compression on the client side",
+          "Increase Node.js memory allocation",
+          "Add a custom error listener to the decompression stream"
+        ],
+        "answer": 0,
+        "explanation": "The takeaway specifies upgrading body‑parser to 2.4.0 or 1.20.9 (or setting inflate:false) as the fix; the other options do not address the specific vulnerability."
+      },
+      {
+        "id": "quiz-1-003",
+        "lesson_id": "trailing-bytes-dos-body-parser",
+        "prompt": "Why does the error from the decompression stream become an uncaught exception?",
+        "options": [
+          "Because body‑parser attaches an error listener that rethrows the error",
+          "Because body‑parser does not attach any error listener to the decompression stream",
+          "Because Node.js treats all stream errors as uncaught by default",
+          "Because Express catches the error and then rethrows it"
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that the middleware assumes the decoder will finish cleanly and does not attach an error listener, so the emitted error propagates uncaught."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "async-filefilter-race-condition",
+        "prompt": "What causes the process to crash when an async fileFilter is pending and the client aborts the request?",
+        "options": [
+          "The async filter never invokes its callback",
+          "The pending callback tries to resume a destroyed busboy stream",
+          "Multer does not support multipart uploads",
+          "Node.js lacks a default error listener for streams"
+        ],
+        "answer": 1,
+        "explanation": "When the client aborts, Multer tears down the busboy stream. The async fileFilter’s pending callback then attempts to resume that stream, which has no error listener, causing an unhandled error and crash."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "async-filefilter-race-condition",
+        "prompt": "Which approach avoids the race condition by removing the asynchronous step?",
+        "options": [
+          "Upgrade Multer to version 2.5.0",
+          "Use a synchronous fileFilter",
+          "Add an error listener to the busboy stream",
+          "Increase the async filter’s timeout"
+        ],
+        "answer": 1,
+        "explanation": "Using a synchronous fileFilter eliminates the pending callback that could race with request teardown, thereby preventing the race condition."
+      }
+    ],
+    "segments": [
+      {
+        "id": "radio-1",
+        "title": "body-parser crash via trailing bytes",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's October twenty five, two thousand twenty six.\n\nWe begin with our lead story. A single crafted gzip request can bring down any Express app that uses body-parser’s default settings. Versions greater than or equal to two point zero point zero but less than two point four point zero, and any version below one point twenty point nine, will stream the payload to a decompressor, hit trailing bytes, emit an uncaught error and kill the Node process. The fix lands in body-parser version two point four point zero and one point twenty point nine. Upgrade now, or flip the inflate option to false if you can live without compressed payloads.",
+        "article_ids": [
+          "body-parser-dos-2026-10-25"
+        ]
+      },
+      {
+        "id": "multer-dos-2-5-0-story",
+        "title": "Multer 2.5.0 Stops Crash From Async File Filters",
+        "text": "Next on the bulletin. Multer version two point five point zero patches a high‑severity denial‑of‑service bug that could bring a Node jay ess process down. If an upload request is aborted while an asynchronous fileFilter is still waiting, the library tries to resume a parsing stream that Busboy has already torn down, throwing an unhandled error that kills the process. The fix removes that race condition, so upgrading eliminates the crash. Until you can update, swap any async fileFilters for synchronous ones. Here’s why that matters: it keeps your file‑upload services running reliably.\n",
+        "article_ids": [
+          "multer-dos-2-5-0"
+        ]
+      },
+      {
+        "id": "go-simd-experimental-2026-10-25-segment",
+        "title": "Go 1.27 brings experimental SIMD loops",
+        "text": "And finally, our last story. Go 1.27 rolls out experimental simd packages that let you write ordinary loops over float slices and have the compiler emit vector instructions. Turn on the GOEXPERIMENT=simd flag and, on amd64, the simple addition loop will run on the CPU’s eight‑wide SIMD units instead of scalar code. It’s still experimental, so the API may shift and you have to opt in, but it gives Go engineers a way to prototype vectorized numeric work without dropping into assembly. Here’s why that matters: you can get noticeable speedups on aligned data, but you need to stay on amd64 and be ready for future changes.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "go-simd-experimental-2026-10-25"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a server rack under a looming, fragmented data packet that appears to be splitting apart, symbolizing the DoS threat in the body‑parser vulnerability, with faint geometric vector arrows in the background hinting at the SIMD acceleration in Go."
+  },
+  "sources": [
+    {
+      "id": "source-9692ad25f5f8c106",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-111181: body-parser vulnerable to Denial of Service via trailing bytes after a compressed request body",
+      "url": "https://github.com/expressjs/body-parser/security/advisories/GHSA-27r3-jxmh-p828",
+      "published_at": "2026-10-22T14:29:56Z",
+      "discovered_at": "2026-10-25T17:26:18.150429Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-684f2a3488952453",
+      "name": "Lobsters",
+      "title": "SIMD and Go",
+      "url": "https://internals-for-interns.com/posts/go-simd/",
+      "published_at": null,
+      "discovered_at": "2026-10-24T18:11:40.472-05:00",
+      "discussion_url": "https://lobste.rs/s/whgofc/simd_go"
+    },
+    {
+      "id": "source-1894525c23df7b36",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-113872: multer vulnerable to Denial of Service via a pending asynchronous fileFilter after request teardown",
+      "url": "https://github.com/expressjs/multer/security/advisories/GHSA-q7qp-rjg7-q26m",
+      "published_at": "2026-10-22T14:20:18Z",
+      "discovered_at": "2026-10-25T17:26:18.150429Z",
+      "discussion_url": null
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-10-25/92b71ebc984c2e758c80074b13c9468a52dac10cf24a992efef63051e5a69aa7.mp3",
+    "duration_seconds": 133.11,
+    "script_hash": "e97add493ecf71ac1ab0862ebb50a15078d15d4809ebe2cd06634a5fff70e793",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.6,
+        "end_seconds": 1.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.15,
+        "end_seconds": 1.3125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 1.3125,
+        "end_seconds": 1.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 1.75,
+        "end_seconds": 1.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 1.875,
+        "end_seconds": 2.8125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 2.8125,
+        "end_seconds": 3.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 3.1,
+        "end_seconds": 3.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 3.3375,
+        "end_seconds": 3.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 3.6625,
+        "end_seconds": 3.7375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 3.7375,
+        "end_seconds": 3.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 3.825,
+        "end_seconds": 4.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 4.075,
+        "end_seconds": 4.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 4.825,
+        "end_seconds": 5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "October",
+        "start_seconds": 5,
+        "end_seconds": 5.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 5.45,
+        "end_seconds": 5.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five,",
+        "start_seconds": 5.775,
+        "end_seconds": 6.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 6.1875,
+        "end_seconds": 6.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 6.425,
+        "end_seconds": 6.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 6.7875,
+        "end_seconds": 7.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 7.0875,
+        "end_seconds": 8.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 9.35,
+        "end_seconds": 9.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 9.475,
+        "end_seconds": 9.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 9.825,
+        "end_seconds": 9.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 9.9625,
+        "end_seconds": 10.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 10.1,
+        "end_seconds": 10.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 10.35,
+        "end_seconds": 11.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "A",
+        "start_seconds": 11.2875,
+        "end_seconds": 11.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "single",
+        "start_seconds": 11.4125,
+        "end_seconds": 11.774999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "crafted",
+        "start_seconds": 11.774999999999999,
+        "end_seconds": 12.2375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "gzip",
+        "start_seconds": 12.2375,
+        "end_seconds": 12.6375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "request",
+        "start_seconds": 12.6375,
+        "end_seconds": 13.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 13.1,
+        "end_seconds": 13.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bring",
+        "start_seconds": 13.225,
+        "end_seconds": 13.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "down",
+        "start_seconds": 13.45,
+        "end_seconds": 13.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 13.725,
+        "end_seconds": 13.925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Express",
+        "start_seconds": 13.925,
+        "end_seconds": 14.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "app",
+        "start_seconds": 14.35,
+        "end_seconds": 14.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 14.625,
+        "end_seconds": 14.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "uses",
+        "start_seconds": 14.75,
+        "end_seconds": 15.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "body-parser’s",
+        "start_seconds": 15.075,
+        "end_seconds": 15.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "default",
+        "start_seconds": 15.725,
+        "end_seconds": 16.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "settings.",
+        "start_seconds": 16.2,
+        "end_seconds": 17.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Versions",
+        "start_seconds": 17.1875,
+        "end_seconds": 18.049999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "greater",
+        "start_seconds": 17.1875,
+        "end_seconds": 18.049999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "than",
+        "start_seconds": 18.049999999999997,
+        "end_seconds": 18.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 18.2,
+        "end_seconds": 18.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "equal",
+        "start_seconds": 18.35,
+        "end_seconds": 18.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 18.725,
+        "end_seconds": 18.862499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 18.862499999999997,
+        "end_seconds": 19.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 19.075,
+        "end_seconds": 19.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 19.375,
+        "end_seconds": 19.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 19.725,
+        "end_seconds": 20.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 20.025,
+        "end_seconds": 20.6375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 20.6375,
+        "end_seconds": 20.799999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "less",
+        "start_seconds": 20.799999999999997,
+        "end_seconds": 21.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "than",
+        "start_seconds": 21.025,
+        "end_seconds": 21.2125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 21.2125,
+        "end_seconds": 21.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 21.45,
+        "end_seconds": 21.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 21.75,
+        "end_seconds": 21.95
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 21.95,
+        "end_seconds": 22.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero,",
+        "start_seconds": 22.25,
+        "end_seconds": 23.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 23.075,
+        "end_seconds": 23.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 23.2,
+        "end_seconds": 23.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 23.4,
+        "end_seconds": 23.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "below",
+        "start_seconds": 23.775,
+        "end_seconds": 24.049999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 24.049999999999997,
+        "end_seconds": 24.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 24.275,
+        "end_seconds": 24.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 24.549999999999997,
+        "end_seconds": 24.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 24.875,
+        "end_seconds": 25.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nine,",
+        "start_seconds": 25.15,
+        "end_seconds": 25.924999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 25.924999999999997,
+        "end_seconds": 26.075000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stream",
+        "start_seconds": 26.075000000000003,
+        "end_seconds": 26.387500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 26.387500000000003,
+        "end_seconds": 26.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "payload",
+        "start_seconds": 26.475,
+        "end_seconds": 26.950000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 26.950000000000003,
+        "end_seconds": 27.049999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 27.049999999999997,
+        "end_seconds": 27.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "decompressor,",
+        "start_seconds": 27.15,
+        "end_seconds": 28.075000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hit",
+        "start_seconds": 28.075000000000003,
+        "end_seconds": 28.299999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "trailing",
+        "start_seconds": 28.299999999999997,
+        "end_seconds": 28.700000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bytes,",
+        "start_seconds": 28.700000000000003,
+        "end_seconds": 29.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "emit",
+        "start_seconds": 29.5,
+        "end_seconds": 29.737499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 29.737499999999997,
+        "end_seconds": 29.8375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "uncaught",
+        "start_seconds": 29.8375,
+        "end_seconds": 30.325000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "error",
+        "start_seconds": 30.325000000000003,
+        "end_seconds": 30.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 30.7875,
+        "end_seconds": 30.987499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kill",
+        "start_seconds": 30.987499999999997,
+        "end_seconds": 31.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 31.275,
+        "end_seconds": 31.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Node",
+        "start_seconds": 31.375,
+        "end_seconds": 31.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "process.",
+        "start_seconds": 31.625,
+        "end_seconds": 32.8875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 33.32,
+        "end_seconds": 33.4325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fix",
+        "start_seconds": 33.4325,
+        "end_seconds": 33.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lands",
+        "start_seconds": 33.72,
+        "end_seconds": 34.0325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 34.0325,
+        "end_seconds": 34.144999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "body-parser",
+        "start_seconds": 34.144999999999996,
+        "end_seconds": 34.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 34.72,
+        "end_seconds": 35.1575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 35.1575,
+        "end_seconds": 35.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 35.42,
+        "end_seconds": 35.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 35.72,
+        "end_seconds": 35.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 35.945,
+        "end_seconds": 36.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 36.245,
+        "end_seconds": 36.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 36.97,
+        "end_seconds": 37.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 37.12,
+        "end_seconds": 37.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 37.345,
+        "end_seconds": 37.62
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 37.62,
+        "end_seconds": 37.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 37.945,
+        "end_seconds": 38.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nine.",
+        "start_seconds": 38.22,
+        "end_seconds": 39.1325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Upgrade",
+        "start_seconds": 39.1325,
+        "end_seconds": 39.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now,",
+        "start_seconds": 39.67,
+        "end_seconds": 40.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 40.345,
+        "end_seconds": 40.5075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flip",
+        "start_seconds": 40.5075,
+        "end_seconds": 40.769999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 40.769999999999996,
+        "end_seconds": 40.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "inflate",
+        "start_seconds": 40.92,
+        "end_seconds": 41.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "option",
+        "start_seconds": 41.345,
+        "end_seconds": 41.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 41.72,
+        "end_seconds": 41.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "false",
+        "start_seconds": 41.845,
+        "end_seconds": 42.195
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "if",
+        "start_seconds": 42.195,
+        "end_seconds": 42.3075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 42.3075,
+        "end_seconds": 42.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 42.42,
+        "end_seconds": 42.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "live",
+        "start_seconds": 42.57,
+        "end_seconds": 42.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "without",
+        "start_seconds": 42.7825,
+        "end_seconds": 43.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "compressed",
+        "start_seconds": 43.12,
+        "end_seconds": 43.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "payloads.",
+        "start_seconds": 43.545,
+        "end_seconds": 44.795
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "Next",
+        "start_seconds": 46.019999999999996,
+        "end_seconds": 46.2825
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "on",
+        "start_seconds": 46.2825,
+        "end_seconds": 46.3825
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "the",
+        "start_seconds": 46.3825,
+        "end_seconds": 46.47
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "bulletin.",
+        "start_seconds": 46.47,
+        "end_seconds": 47.482499999999995
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "Multer",
+        "start_seconds": 47.482499999999995,
+        "end_seconds": 47.845
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "version",
+        "start_seconds": 47.845,
+        "end_seconds": 48.2825
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "two",
+        "start_seconds": 48.2825,
+        "end_seconds": 48.519999999999996
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "point",
+        "start_seconds": 48.519999999999996,
+        "end_seconds": 48.82
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "five",
+        "start_seconds": 48.82,
+        "end_seconds": 49.095
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "point",
+        "start_seconds": 49.095,
+        "end_seconds": 49.394999999999996
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "zero",
+        "start_seconds": 49.394999999999996,
+        "end_seconds": 50.07
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "patches",
+        "start_seconds": 50.07,
+        "end_seconds": 50.457499999999996
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "a",
+        "start_seconds": 50.457499999999996,
+        "end_seconds": 50.519999999999996
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "high‑severity",
+        "start_seconds": 50.519999999999996,
+        "end_seconds": 51.294999999999995
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "denial‑of‑service",
+        "start_seconds": 51.294999999999995,
+        "end_seconds": 52.195
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "bug",
+        "start_seconds": 52.195,
+        "end_seconds": 52.495
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "that",
+        "start_seconds": 52.495,
+        "end_seconds": 52.62
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "could",
+        "start_seconds": 52.62,
+        "end_seconds": 52.745
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "bring",
+        "start_seconds": 52.745,
+        "end_seconds": 52.9075
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "a",
+        "start_seconds": 52.9075,
+        "end_seconds": 52.97
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "Node",
+        "start_seconds": 52.97,
+        "end_seconds": 53.3075
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "jay",
+        "start_seconds": 53.3075,
+        "end_seconds": 53.544999999999995
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "ess",
+        "start_seconds": 53.544999999999995,
+        "end_seconds": 53.745
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "process",
+        "start_seconds": 53.745,
+        "end_seconds": 54.22
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "down.",
+        "start_seconds": 54.22,
+        "end_seconds": 55.06999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "If",
+        "start_seconds": 55.06999999999999,
+        "end_seconds": 55.207499999999996
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "an",
+        "start_seconds": 55.207499999999996,
+        "end_seconds": 55.295
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "upload",
+        "start_seconds": 55.295,
+        "end_seconds": 55.6825
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "request",
+        "start_seconds": 55.6825,
+        "end_seconds": 56.0325
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "is",
+        "start_seconds": 56.0325,
+        "end_seconds": 56.144999999999996
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "aborted",
+        "start_seconds": 56.144999999999996,
+        "end_seconds": 56.69499999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "while",
+        "start_seconds": 56.69499999999999,
+        "end_seconds": 56.88249999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "an",
+        "start_seconds": 56.88249999999999,
+        "end_seconds": 56.9825
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "asynchronous",
+        "start_seconds": 56.9825,
+        "end_seconds": 57.56999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "fileFilter",
+        "start_seconds": 57.56999999999999,
+        "end_seconds": 58.17
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "is",
+        "start_seconds": 58.17,
+        "end_seconds": 58.295
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "still",
+        "start_seconds": 58.295,
+        "end_seconds": 58.545
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "waiting,",
+        "start_seconds": 58.545,
+        "end_seconds": 59.44499999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "the",
+        "start_seconds": 59.44499999999999,
+        "end_seconds": 59.56999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "library",
+        "start_seconds": 59.56999999999999,
+        "end_seconds": 59.995
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "tries",
+        "start_seconds": 59.995,
+        "end_seconds": 60.31999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "to",
+        "start_seconds": 60.31999999999999,
+        "end_seconds": 60.42
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "resume",
+        "start_seconds": 60.42,
+        "end_seconds": 60.75749999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "a",
+        "start_seconds": 60.75749999999999,
+        "end_seconds": 60.81999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "parsing",
+        "start_seconds": 60.81999999999999,
+        "end_seconds": 61.269999999999996
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "stream",
+        "start_seconds": 61.269999999999996,
+        "end_seconds": 61.62
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "that",
+        "start_seconds": 61.62,
+        "end_seconds": 61.745
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "Busboy",
+        "start_seconds": 61.745,
+        "end_seconds": 62.17
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "has",
+        "start_seconds": 62.17,
+        "end_seconds": 62.31999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "already",
+        "start_seconds": 62.31999999999999,
+        "end_seconds": 62.6575
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "torn",
+        "start_seconds": 62.6575,
+        "end_seconds": 62.97
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "down,",
+        "start_seconds": 62.97,
+        "end_seconds": 63.707499999999996
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "throwing",
+        "start_seconds": 63.707499999999996,
+        "end_seconds": 64.0825
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "an",
+        "start_seconds": 64.0825,
+        "end_seconds": 64.17
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "unhandled",
+        "start_seconds": 64.17,
+        "end_seconds": 64.7825
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "error",
+        "start_seconds": 64.7825,
+        "end_seconds": 65.07
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "that",
+        "start_seconds": 65.07,
+        "end_seconds": 65.245
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "kills",
+        "start_seconds": 65.245,
+        "end_seconds": 65.5825
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "the",
+        "start_seconds": 65.5825,
+        "end_seconds": 65.67
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "process.",
+        "start_seconds": 65.67,
+        "end_seconds": 66.77
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "The",
+        "start_seconds": 66.77,
+        "end_seconds": 66.9075
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "fix",
+        "start_seconds": 66.9075,
+        "end_seconds": 67.195
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "removes",
+        "start_seconds": 67.195,
+        "end_seconds": 67.67
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "that",
+        "start_seconds": 67.67,
+        "end_seconds": 67.845
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "race",
+        "start_seconds": 67.845,
+        "end_seconds": 68.145
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "condition,",
+        "start_seconds": 68.145,
+        "end_seconds": 69.02
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "so",
+        "start_seconds": 69.02,
+        "end_seconds": 69.195
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "upgrading",
+        "start_seconds": 69.195,
+        "end_seconds": 69.82
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "eliminates",
+        "start_seconds": 69.82,
+        "end_seconds": 70.3575
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "the",
+        "start_seconds": 70.3575,
+        "end_seconds": 70.445
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "crash.",
+        "start_seconds": 70.445,
+        "end_seconds": 71.5325
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "Until",
+        "start_seconds": 71.99,
+        "end_seconds": 72.28999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "you",
+        "start_seconds": 72.28999999999999,
+        "end_seconds": 72.41499999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "can",
+        "start_seconds": 72.41499999999999,
+        "end_seconds": 72.52749999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "update,",
+        "start_seconds": 72.52749999999999,
+        "end_seconds": 73.14
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "swap",
+        "start_seconds": 73.14,
+        "end_seconds": 73.41499999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "any",
+        "start_seconds": 73.41499999999999,
+        "end_seconds": 73.615
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "async",
+        "start_seconds": 73.615,
+        "end_seconds": 74.015
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "fileFilters",
+        "start_seconds": 74.015,
+        "end_seconds": 74.69
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "for",
+        "start_seconds": 74.69,
+        "end_seconds": 74.815
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "synchronous",
+        "start_seconds": 74.815,
+        "end_seconds": 75.265
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "ones.",
+        "start_seconds": 75.265,
+        "end_seconds": 76.0525
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "Here’s",
+        "start_seconds": 76.0525,
+        "end_seconds": 76.71499999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "why",
+        "start_seconds": 76.71499999999999,
+        "end_seconds": 76.89
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "that",
+        "start_seconds": 76.89,
+        "end_seconds": 77.08999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "matters:",
+        "start_seconds": 77.08999999999999,
+        "end_seconds": 77.9525
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "it",
+        "start_seconds": 77.9525,
+        "end_seconds": 78.08999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "keeps",
+        "start_seconds": 78.08999999999999,
+        "end_seconds": 78.3275
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "your",
+        "start_seconds": 78.3275,
+        "end_seconds": 78.5025
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "file‑upload",
+        "start_seconds": 78.5025,
+        "end_seconds": 79.265
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "services",
+        "start_seconds": 79.265,
+        "end_seconds": 79.83999999999999
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "running",
+        "start_seconds": 79.83999999999999,
+        "end_seconds": 80.14
+      },
+      {
+        "segment_id": "multer-dos-2-5-0-story",
+        "text": "reliably.",
+        "start_seconds": 80.14,
+        "end_seconds": 81.33999999999999
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "And",
+        "start_seconds": 82.515,
+        "end_seconds": 82.665
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "finally,",
+        "start_seconds": 82.665,
+        "end_seconds": 83.215
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "our",
+        "start_seconds": 83.215,
+        "end_seconds": 83.36500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "last",
+        "start_seconds": 83.36500000000001,
+        "end_seconds": 83.61500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "story.",
+        "start_seconds": 83.61500000000001,
+        "end_seconds": 84.5775
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "Go",
+        "start_seconds": 84.5775,
+        "end_seconds": 84.765
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "1.27",
+        "start_seconds": 84.765,
+        "end_seconds": 85.69000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "rolls",
+        "start_seconds": 85.69000000000001,
+        "end_seconds": 86.04
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "out",
+        "start_seconds": 86.04,
+        "end_seconds": 86.29
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "experimental",
+        "start_seconds": 86.29,
+        "end_seconds": 87.0275
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "simd",
+        "start_seconds": 87.0275,
+        "end_seconds": 87.265
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "packages",
+        "start_seconds": 87.265,
+        "end_seconds": 88.1525
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "that",
+        "start_seconds": 88.1525,
+        "end_seconds": 88.29
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "let",
+        "start_seconds": 88.29,
+        "end_seconds": 88.44000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "you",
+        "start_seconds": 88.44000000000001,
+        "end_seconds": 88.56500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "write",
+        "start_seconds": 88.56500000000001,
+        "end_seconds": 88.79
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "ordinary",
+        "start_seconds": 88.79,
+        "end_seconds": 89.215
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "loops",
+        "start_seconds": 89.215,
+        "end_seconds": 89.4775
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "over",
+        "start_seconds": 89.4775,
+        "end_seconds": 89.715
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "float",
+        "start_seconds": 89.715,
+        "end_seconds": 89.99000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "slices",
+        "start_seconds": 89.99000000000001,
+        "end_seconds": 90.8525
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "and",
+        "start_seconds": 90.8525,
+        "end_seconds": 90.99000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "have",
+        "start_seconds": 90.99000000000001,
+        "end_seconds": 91.1525
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "the",
+        "start_seconds": 91.1525,
+        "end_seconds": 91.24000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "compiler",
+        "start_seconds": 91.24000000000001,
+        "end_seconds": 91.74000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "emit",
+        "start_seconds": 91.74000000000001,
+        "end_seconds": 92.015
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "vector",
+        "start_seconds": 92.015,
+        "end_seconds": 92.3275
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "instructions.",
+        "start_seconds": 92.3275,
+        "end_seconds": 93.6025
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "Turn",
+        "start_seconds": 93.6025,
+        "end_seconds": 93.87750000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "on",
+        "start_seconds": 93.87750000000001,
+        "end_seconds": 93.9775
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "the",
+        "start_seconds": 93.9775,
+        "end_seconds": 94.06500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "GOEXPERIMENT=simd",
+        "start_seconds": 94.06500000000001,
+        "end_seconds": 95.465
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "flag",
+        "start_seconds": 95.465,
+        "end_seconds": 96.24000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "and,",
+        "start_seconds": 96.24000000000001,
+        "end_seconds": 96.42750000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "on",
+        "start_seconds": 96.42750000000001,
+        "end_seconds": 96.5775
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "amd64,",
+        "start_seconds": 96.5775,
+        "end_seconds": 98.165
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "the",
+        "start_seconds": 98.165,
+        "end_seconds": 98.30250000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "simple",
+        "start_seconds": 98.30250000000001,
+        "end_seconds": 98.665
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "addition",
+        "start_seconds": 98.665,
+        "end_seconds": 99.01500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "loop",
+        "start_seconds": 99.01500000000001,
+        "end_seconds": 99.26500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "will",
+        "start_seconds": 99.26500000000001,
+        "end_seconds": 99.44
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "run",
+        "start_seconds": 99.44,
+        "end_seconds": 99.6275
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "on",
+        "start_seconds": 99.6275,
+        "end_seconds": 99.7275
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "the",
+        "start_seconds": 99.7275,
+        "end_seconds": 99.82750000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "CPU’s",
+        "start_seconds": 99.82750000000001,
+        "end_seconds": 100.44
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "eight‑wide",
+        "start_seconds": 100.44,
+        "end_seconds": 101.01500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "SIMD",
+        "start_seconds": 101.01500000000001,
+        "end_seconds": 101.74000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "units",
+        "start_seconds": 101.74000000000001,
+        "end_seconds": 102.19
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "instead",
+        "start_seconds": 102.19,
+        "end_seconds": 102.55250000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "of",
+        "start_seconds": 102.55250000000001,
+        "end_seconds": 102.64000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "scalar",
+        "start_seconds": 102.64000000000001,
+        "end_seconds": 103.04
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "code.",
+        "start_seconds": 103.04,
+        "end_seconds": 104.1025
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "It’s",
+        "start_seconds": 104.535,
+        "end_seconds": 104.6975
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "still",
+        "start_seconds": 104.6975,
+        "end_seconds": 104.96000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "experimental,",
+        "start_seconds": 104.96000000000001,
+        "end_seconds": 106.035
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "so",
+        "start_seconds": 106.035,
+        "end_seconds": 106.1725
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "the",
+        "start_seconds": 106.1725,
+        "end_seconds": 106.31
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "API",
+        "start_seconds": 106.31,
+        "end_seconds": 106.83500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "may",
+        "start_seconds": 106.83500000000001,
+        "end_seconds": 107.035
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "shift",
+        "start_seconds": 107.035,
+        "end_seconds": 107.39750000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "and",
+        "start_seconds": 107.39750000000001,
+        "end_seconds": 107.4975
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "you",
+        "start_seconds": 107.4975,
+        "end_seconds": 107.5975
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "have",
+        "start_seconds": 107.5975,
+        "end_seconds": 107.735
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "to",
+        "start_seconds": 107.735,
+        "end_seconds": 107.83500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "opt",
+        "start_seconds": 107.83500000000001,
+        "end_seconds": 108.0725
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "in,",
+        "start_seconds": 108.0725,
+        "end_seconds": 108.71000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "but",
+        "start_seconds": 108.71000000000001,
+        "end_seconds": 108.8475
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "it",
+        "start_seconds": 108.8475,
+        "end_seconds": 108.9225
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "gives",
+        "start_seconds": 108.9225,
+        "end_seconds": 109.11
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "Go",
+        "start_seconds": 109.11,
+        "end_seconds": 109.31
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "engineers",
+        "start_seconds": 109.31,
+        "end_seconds": 109.89750000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "a",
+        "start_seconds": 109.89750000000001,
+        "end_seconds": 109.96000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "way",
+        "start_seconds": 109.96000000000001,
+        "end_seconds": 110.135
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "to",
+        "start_seconds": 110.135,
+        "end_seconds": 110.235
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "prototype",
+        "start_seconds": 110.235,
+        "end_seconds": 110.83500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "vectorized",
+        "start_seconds": 110.83500000000001,
+        "end_seconds": 111.435
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "numeric",
+        "start_seconds": 111.435,
+        "end_seconds": 111.91
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "work",
+        "start_seconds": 111.91,
+        "end_seconds": 112.1725
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "without",
+        "start_seconds": 112.1725,
+        "end_seconds": 112.485
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "dropping",
+        "start_seconds": 112.485,
+        "end_seconds": 112.8475
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "into",
+        "start_seconds": 112.8475,
+        "end_seconds": 113.0475
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "assembly.",
+        "start_seconds": 113.0475,
+        "end_seconds": 114.1725
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "Here’s",
+        "start_seconds": 114.1725,
+        "end_seconds": 115.06
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "why",
+        "start_seconds": 115.06,
+        "end_seconds": 115.235
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "that",
+        "start_seconds": 115.235,
+        "end_seconds": 115.435
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "matters:",
+        "start_seconds": 115.435,
+        "end_seconds": 116.31
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "you",
+        "start_seconds": 116.31,
+        "end_seconds": 116.435
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "can",
+        "start_seconds": 116.435,
+        "end_seconds": 116.58500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "get",
+        "start_seconds": 116.58500000000001,
+        "end_seconds": 116.785
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "noticeable",
+        "start_seconds": 116.785,
+        "end_seconds": 117.33500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "speedups",
+        "start_seconds": 117.33500000000001,
+        "end_seconds": 117.7975
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "on",
+        "start_seconds": 117.7975,
+        "end_seconds": 117.91
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "aligned",
+        "start_seconds": 117.91,
+        "end_seconds": 118.285
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "data,",
+        "start_seconds": 118.285,
+        "end_seconds": 119.08500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "but",
+        "start_seconds": 119.08500000000001,
+        "end_seconds": 119.235
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "you",
+        "start_seconds": 119.235,
+        "end_seconds": 119.36
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "need",
+        "start_seconds": 119.36,
+        "end_seconds": 119.535
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "to",
+        "start_seconds": 119.535,
+        "end_seconds": 119.635
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "stay",
+        "start_seconds": 119.635,
+        "end_seconds": 119.89750000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "on",
+        "start_seconds": 119.89750000000001,
+        "end_seconds": 120.0475
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "amd64",
+        "start_seconds": 120.0475,
+        "end_seconds": 121.33500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "and",
+        "start_seconds": 121.33500000000001,
+        "end_seconds": 121.4475
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "be",
+        "start_seconds": 121.4475,
+        "end_seconds": 121.56
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "ready",
+        "start_seconds": 121.56,
+        "end_seconds": 121.83500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "for",
+        "start_seconds": 121.83500000000001,
+        "end_seconds": 121.96000000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "future",
+        "start_seconds": 121.96000000000001,
+        "end_seconds": 122.33500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "changes.",
+        "start_seconds": 122.33500000000001,
+        "end_seconds": 123.58500000000001
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "And",
+        "start_seconds": 124.75999999999999,
+        "end_seconds": 124.91
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "that's",
+        "start_seconds": 124.91,
+        "end_seconds": 125.16
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "your",
+        "start_seconds": 125.16,
+        "end_seconds": 125.335
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "Daywire",
+        "start_seconds": 125.335,
+        "end_seconds": 125.785
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "briefing.",
+        "start_seconds": 125.785,
+        "end_seconds": 126.71
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "You'll",
+        "start_seconds": 126.71,
+        "end_seconds": 126.88499999999999
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "find",
+        "start_seconds": 126.88499999999999,
+        "end_seconds": 127.1475
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "the",
+        "start_seconds": 127.1475,
+        "end_seconds": 127.2475
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "full",
+        "start_seconds": 127.2475,
+        "end_seconds": 127.50999999999999
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "stories",
+        "start_seconds": 127.50999999999999,
+        "end_seconds": 127.9725
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "and",
+        "start_seconds": 127.9725,
+        "end_seconds": 128.0975
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "sources",
+        "start_seconds": 128.0975,
+        "end_seconds": 128.585
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "in",
+        "start_seconds": 128.585,
+        "end_seconds": 128.685
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "today's",
+        "start_seconds": 128.685,
+        "end_seconds": 129.06
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "newspaper.",
+        "start_seconds": 129.06,
+        "end_seconds": 130.04749999999999
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "Thanks",
+        "start_seconds": 130.04749999999999,
+        "end_seconds": 130.385
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "for",
+        "start_seconds": 130.385,
+        "end_seconds": 130.51
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "listening.",
+        "start_seconds": 130.51,
+        "end_seconds": 131.2725
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "Take",
+        "start_seconds": 131.2725,
+        "end_seconds": 131.585
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "care,",
+        "start_seconds": 131.585,
+        "end_seconds": 131.8475
+      },
+      {
+        "segment_id": "go-simd-experimental-2026-10-25-segment",
+        "text": "everyone.",
+        "start_seconds": 131.8475,
+        "end_seconds": 133.01
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
