@@ -4,6 +4,7 @@ import Story from './Story.astro';
 import Sources from './Sources.astro';
 import Quiz from './Quiz.astro';
 import Icon from './Icon.astro';
+import '../styles/newspaper.css';
 import { dateLabel, weekday, href, readingMinutes, today } from '../lib/editions';
 import type { Edition } from '../lib/types';
 interface Props { edition?: Edition; isLatest?: boolean }
@@ -12,23 +13,38 @@ const lessonCount = edition?.content.lessons.length ?? 0;
 const questionCount = edition?.content.quiz.length ?? 0;
 const lessonLabel = lessonCount === 1 ? 'Learn one thing' : 'Learn two things';
 const [lead, ...rest] = edition?.content.articles ?? [];
+const reports = rest.slice(0, 2);
+const briefs = rest.slice(2);
+const desks = [...new Set(briefs.map(article => article.section))].map(name => ({
+  name, id: `desk-${name.toLowerCase()}`, stories: briefs.filter(article => article.section === name),
+}));
+const contents = edition?.content.articles.slice(0, 3) ?? [];
 ---
 <Page title={edition ? `${dateLabel(edition.date)} · Newspaper` : 'The newspaper'} mode="news" edition={edition}>
-  <section class="masthead" aria-label="Daywire newspaper"><p>Independent curiosity.<br />A daily perspective.</p><a href={href('news/')} class="masthead-name">Daywire<span>.</span></a><p>Read the news.<br />Keep the understanding.</p></section>
+  <div class="newspaper-surface">
+  <section class="masthead" aria-label="Daywire newspaper"><p>Technology, in perspective.<br />New editions around 6am.</p><h1><a href={href('news/')} class="masthead-name">Daywire<span>.</span></a></h1><p>A daily read.<br />Something to take away.</p></section>
   {edition ? <>
     <div class="edition-line"><span>{weekday(edition.date)}, {dateLabel(edition.date)}</span><span>{edition.content.articles.length} {edition.content.articles.length === 1 ? 'story' : 'stories'}{lessonCount > 0 && ` · ${lessonCount} ${lessonCount === 1 ? 'lesson' : 'lessons'}`}</span><span>About {readingMinutes(edition)} min to read</span></div>
     {isLatest && edition.date !== today && !edition.demo && <p class="coverage-note">The latest available edition is dated {dateLabel(edition.date)}. A newer edition has not been published.</p>}
     <div class="edition-intro"><p>{edition.content.introduction}</p><a href={href(`radio/${edition.date}/`)}>Take it with you <Icon name="headphones" /></a></div>
-    <nav class="contents-nav" aria-label="In this edition"><span>Inside this edition</span><a href="#top-stories">The front page</a>{lessonCount > 0 && <a href="#learn">{lessonLabel}</a>}{questionCount > 0 && <a href="#quiz">Quick recall</a>}<a href="#coverage">About this edition</a></nav>
+    <nav class="contents-nav" aria-label="In this edition"><span>Inside this edition</span><a href="#top-stories">The front page</a>{desks.map(desk => <a href={`#${desk.id}`}>{desk.name}</a>)}{lessonCount > 0 && <a href="#learn">{lessonLabel}</a>}{questionCount > 0 && <a href="#quiz">Quick recall</a>}<a href="#coverage">About this edition</a></nav>
+    {contents.length > 1 && <nav class="headline-index" aria-label="Today's headlines">{contents.map(article => <a href={`#${article.id}`}><span>{article.headline}</span><span>{article.section}</span><Icon name="arrow" size={18} /></a>)}</nav>}
     <section id="top-stories" class="front-page" aria-label="Top stories">
       {lead && <Story article={lead} edition={edition} lead />}
-      {rest.length > 0 && <div class="story-grid">{rest.map(article => <Story article={article} edition={edition} />)}</div>}
+      {reports.length > 0 && <div class="story-grid">{reports.map(article => <Story article={article} edition={edition} />)}</div>}
     </section>
+    {desks.length > 0 && <section class="briefing-desks" aria-labelledby="briefs-heading">
+      <div class="section-heading"><h2 id="briefs-heading">Elsewhere in tech.</h2><p>The details worth a few more minutes.</p></div>
+      {desks.map(desk => <section class="brief-desk" id={desk.id} aria-labelledby={`${desk.id}-heading`}>
+        <h3 id={`${desk.id}-heading`}>{desk.name}</h3>
+        <div class="brief-list">{desk.stories.map(article => <Story article={article} edition={edition} brief />)}</div>
+      </section>)}
+    </section>}
     {lessonCount > 0 && <section class="learning-section" id="learn" aria-labelledby="learn-heading">
       <div class="section-heading"><h2 id="learn-heading">Leave knowing more.</h2><p>{lessonCount === 1 ? 'One idea behind the headlines.' : 'Two ideas behind the headlines.'}</p></div>
       <div class="lesson-grid">{edition.content.lessons.map((lesson, index) => <article class="lesson" id={lesson.id}>
         <h3>{lesson.title}</h3><p class="lesson-number">Lesson {index + 1} · From this edition</p>
-        {lesson.paragraphs.map(p => <p>{p}</p>)}<pre class="lesson-example"><code>{lesson.example}</code></pre>
+        {lesson.paragraphs.map(p => <p>{p}</p>)}<figure class="lesson-example"><figcaption>In practice</figcaption><p>{lesson.example}</p></figure>
         <p class="takeaway"><strong>Keep this.</strong> {lesson.takeaway}</p><Sources ids={lesson.source_ids} sources={edition.sources} demo={edition.demo} />
       </article>)}</div>
     </section>}
@@ -40,5 +56,6 @@ const [lead, ...rest] = edition?.content.articles ?? [];
         <p>Collected {dateLabel(edition.coverage.from.slice(0, 10))}–{dateLabel(edition.coverage.until.slice(0, 10))}. Stories may refer to earlier events.</p>
       </div>
     </details>
-  </> : <section class="empty-state"><h1>The first edition is on its way.</h1><p>A daily selection of technology stories, two useful ideas, and a radio bulletin. Published editions will appear here with their actual dates.</p><a href={href('news/archive/')}>Visit the archive <Icon name="arrow" /></a></section>}
+  </> : <section class="empty-state"><h2>The first edition is on its way.</h2><p>A daily selection of technology stories, useful ideas, and a radio bulletin. Published editions will appear here with their actual dates.</p><a href={href('news/archive/')}>Visit the archive <Icon name="arrow" /></a></section>}
+  </div>
 </Page>

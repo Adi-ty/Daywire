@@ -23,6 +23,10 @@ func generateValidated(ctx context.Context, model Model, system string, input, o
 			return total, err
 		}
 		switch out := output.(type) {
+		case *selectionOutput:
+			*out = selectionOutput{}
+		case *rankingOutput:
+			*out = rankingOutput{}
 		case *lessonOutput:
 			*out = lessonOutput{}
 		case *radioOutput:
@@ -43,6 +47,11 @@ func generateValidated(ctx context.Context, model Model, system string, input, o
 			return total, fmt.Errorf("stage structural correction exhausted: %w", err)
 		}
 		progress(model, "Stage failed local validation (%s); correcting once before dependent stages", invalid.Reason)
+		switch output.(type) {
+		case *selectionOutput, *rankingOutput:
+			system += " Local contract correction: " + invalid.Reason + ". Use only supplied IDs, once each; respect the requested count and return the complete JSON result."
+			continue
+		}
 		if _, ok := output.(*radioOutput); ok {
 			system += " Local contract correction: " + invalid.Reason + ". Return only the story body, with its original identity and references."
 			continue

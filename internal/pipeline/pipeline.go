@@ -259,7 +259,10 @@ func History(dir, date string) ([]string, map[string]bool, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	for _, entry := range entries {
+	// Edition filenames sort chronologically. Put the most recent coverage
+	// first so a bounded novelty prompt does not prefer week-old headlines.
+	for index := len(entries) - 1; index >= 0; index-- {
+		entry := entries[index]
 		if entry.IsDir() || filepath.Ext(entry.Name()) != ".json" {
 			continue
 		}

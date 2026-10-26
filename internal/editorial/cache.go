@@ -92,6 +92,30 @@ func (m *CachedModel) Generate(ctx context.Context, system string, input, output
 	return used, store.JSON(path, stageCheckpoint{key, string(raw), used})
 }
 func validStage(input, output any) error {
+	if out, ok := output.(*selectionOutput); ok {
+		if packet, ok := input.(selectionPacket); ok {
+			return validateSelection(packet, *out)
+		}
+	}
+	if out, ok := output.(*rankingOutput); ok {
+		packet, ok := input.([]articlePreview)
+		if !ok {
+			return errors.New("ranking input type mismatch")
+		}
+		wanted := map[string]bool{}
+		for _, a := range packet {
+			wanted[a.ID] = true
+		}
+		if len(out.ArticleIDs) != len(packet) {
+			return &StageValidationError{"ranking must include every supplied article exactly once"}
+		}
+		for _, id := range out.ArticleIDs {
+			if !wanted[id] {
+				return &StageValidationError{"ranking contains an unknown or repeated article ID"}
+			}
+			delete(wanted, id)
+		}
+	}
 	if out, ok := output.(*radioOutput); ok {
 		if err := radioBodyError(out.Segment.Text); err != nil {
 			return err

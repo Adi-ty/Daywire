@@ -1,9 +1,11 @@
 ---
 import type { Source } from '../lib/types';
-interface Props { ids: string[]; sources: Source[]; demo?: boolean }
-const { ids, sources, demo = false } = Astro.props;
+interface Props { ids: string[]; sources: Source[]; demo?: boolean; showDates?: boolean }
+const { ids, sources, demo = false, showDates = false } = Astro.props;
 const selected = ids.map(id => sources.find(s => s.id === id)).filter((s): s is Source => Boolean(s));
+const shortDate = (date: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(date));
+const publisher = (source: Source) => showDates && ['Hacker News', 'Lobsters'].includes(source.name) ? new URL(source.url).hostname.replace(/^www\./, '') : source.name;
 ---
 <ul class="source-list" aria-label="Sources">
-  {selected.map(s => <li>{demo ? <span>{s.name} · example</span> : <a href={s.url} rel="noopener noreferrer">{s.name}</a>}{s.discussion_url && !demo && <a class="discussion" href={s.discussion_url} rel="noopener noreferrer">Discussion</a>}</li>)}
+  {selected.map(s => <li>{demo ? <span>{s.name} · example</span> : <a href={s.url} rel="noopener noreferrer">{publisher(s)}</a>}{showDates && !demo && <span>{s.published_at ? 'Published' : 'Shared'} <time datetime={s.published_at ?? s.discovered_at}>{shortDate(s.published_at ?? s.discovered_at)}</time></span>}{s.discussion_url && !demo && <a class="discussion" href={s.discussion_url} rel="noopener noreferrer">Discussion</a>}</li>)}
 </ul>

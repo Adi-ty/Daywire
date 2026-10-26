@@ -55,6 +55,12 @@ func (f *fakeModel) Generate(_ context.Context, prompt string, input any, out an
 				groups = append(groups, a.SourceIDs)
 			}
 			response = map[string]any{"source_groups": groups}
+		case "ArticleIDs":
+			ids := []string{}
+			for _, a := range f.draft.Articles {
+				ids = append(ids, a.ID)
+			}
+			response = map[string]any{"article_ids": ids}
 		case "Article":
 			response = map[string]any{"article": f.draft.Articles[f.article]}
 			f.article++
@@ -123,7 +129,7 @@ func TestResumeDoesNotRepeatCompletedGeneration(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if model.calls != 30 || e.Demo {
+	if model.calls != 31 || e.Demo {
 		t.Fatalf("calls=%d demo=%v", model.calls, e.Demo)
 	}
 	path := filepath.Join(o.OutputDir, o.Date+".json")
@@ -133,13 +139,13 @@ func TestResumeDoesNotRepeatCompletedGeneration(t *testing.T) {
 	if _, err := Run(context.Background(), o); err != nil {
 		t.Fatal(err)
 	}
-	if model.calls != 30 {
+	if model.calls != 31 {
 		t.Fatalf("repeated paid work: %d", model.calls)
 	}
 	if _, err := Run(context.Background(), o); err != nil {
 		t.Fatal(err)
 	}
-	if model.calls != 30 {
+	if model.calls != 31 {
 		t.Fatal("existing edition regenerated")
 	}
 }
@@ -154,7 +160,7 @@ func TestRejectedReviewCannotPublish(t *testing.T) {
 	if _, err := Run(context.Background(), o); err == nil {
 		t.Fatal("cached rejection accepted")
 	}
-	if model.calls != 32 {
+	if model.calls != 33 {
 		t.Fatalf("expected one bounded repair and verification, got %d calls", model.calls)
 	}
 }
@@ -210,7 +216,7 @@ func TestRejectedDraftCanPublishOnlyAfterRepairPasses(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !model.repaired || edition.Content.Title == model.draft.Title || model.calls != 32 {
+	if !model.repaired || edition.Content.Title == model.draft.Title || model.calls != 33 {
 		t.Fatalf("repair not verified: calls=%d", model.calls)
 	}
 	dir := filepath.Join(o.StateDir, o.Date)
@@ -228,7 +234,7 @@ func TestRejectedDraftCanPublishOnlyAfterRepairPasses(t *testing.T) {
 	if _, err := Run(context.Background(), o); err != nil {
 		t.Fatal(err)
 	}
-	if model.calls != 32 {
+	if model.calls != 33 {
 		t.Fatal("rerun repeated paid repair")
 	}
 }

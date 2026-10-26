@@ -46,6 +46,10 @@ func (m *stagedWriter) Generate(_ context.Context, system string, in, out any) (
 				v.Groups = append(v.Groups, a.SourceIDs)
 			}
 		}
+	case *rankingOutput:
+		for _, a := range in.([]articlePreview) {
+			v.ArticleIDs = append(v.ArticleIDs, a.ID)
+		}
 	case *articleOutput:
 		m.articleInputs = append(m.articleInputs, in.(Input))
 		v.Article = m.draft.Articles[m.article]
@@ -85,7 +89,7 @@ func TestSelectionBoundsStorySourcesBeforeWriting(t *testing.T) {
 		e.Content.Lessons[i].ArticleIDs = []string{e.Content.Articles[0].ID}
 		e.Content.Lessons[i].SourceIDs = ids[:2]
 	}
-	model := &stagedWriter{draft: e.Content, groups: [][]string{ids}, budget: true}
+	model := &stagedWriter{draft: e.Content, groups: [][]string{ids[:2]}, budget: true}
 	var draft content.Draft
 	if _, err := GenerateDraft(context.Background(), model, input, &draft, nil); err != nil {
 		t.Fatal(err)
@@ -103,7 +107,7 @@ func TestSelectionBoundsStorySourcesBeforeWriting(t *testing.T) {
 	}
 	// A writer cannot expand its source set beyond the actual supplied packet.
 	e.Content.Articles[0].SourceIDs = ids[2:3]
-	model = &stagedWriter{draft: e.Content, groups: [][]string{ids}, budget: true}
+	model = &stagedWriter{draft: e.Content, groups: [][]string{ids[:2]}, budget: true}
 	if _, err := GenerateDraft(context.Background(), model, input, &draft, nil); err == nil {
 		t.Fatal("article cited a source it was not given")
 	}

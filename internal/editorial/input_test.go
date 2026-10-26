@@ -2,7 +2,7 @@ package editorial
 
 import (
 	"context"
-	"encoding/json"
+
 	"errors"
 	"github.com/Adi-ty/daywire/internal/content"
 	"github.com/Adi-ty/daywire/internal/store"
@@ -17,11 +17,11 @@ func TestPrepareInputIsBoundedAndPreservesSnapshot(t *testing.T) {
 		input.Evidence = append(input.Evidence, content.Evidence{Text: strings.Repeat("Evidence café. ", 1000), Kind: "article_excerpt", Hash: "original"})
 	}
 	result := PrepareInput(input)
-	if len(result.Evidence) != 6 || input.Evidence[0].Hash != "original" {
+	if len(result.Evidence) != 12 || input.Evidence[0].Hash != "original" {
 		t.Fatal("working set mutated original")
 	}
 	for _, e := range result.Evidence {
-		if !utf8.ValidString(e.Text) || len([]rune(e.Text)) > 1600 || !strings.HasSuffix(e.Kind, "_truncated") || content.Hash([]byte(e.Text)) != e.Hash {
+		if !utf8.ValidString(e.Text) || len([]rune(e.Text)) > 2400 || !strings.HasSuffix(e.Kind, "_truncated") || content.Hash([]byte(e.Text)) != e.Hash {
 			t.Fatal("invalid shortened evidence")
 		}
 	}
@@ -74,8 +74,14 @@ func TestDraftRequestBudgetAfterPreparation(t *testing.T) {
 	for i := 0; i < 12; i++ {
 		input.Evidence = append(input.Evidence, content.Evidence{Source: content.Source{ID: "source-example", Name: "Publisher", Title: "A technical article", URL: "https://example.com/article"}, Text: strings.Repeat("Evidence sentence. ", 1000)})
 	}
-	raw, _ := json.Marshal(PrepareInput(input))
-	if len(raw) > 14000 {
-		t.Fatalf("prepared input grew to %d bytes", len(raw))
+	prepared := PrepareInput(input)
+	// The corpus is deliberately larger than a single request. Only bounded
+	// metadata batches go through selection; writing receives one story's sources.
+	if len(prepared.Evidence) != 12 {
+		t.Fatal("evidence silently dropped")
+	}
+	packet := previews(Input{Date: input.Date, Evidence: prepared.Evidence[:8]}, 4)
+	if _, _, _, err := requestBody("openai/gpt-oss-120b", stageRules+selectionRules, packet, &selectionOutput{}); err != nil {
+		t.Fatal(err)
 	}
 }

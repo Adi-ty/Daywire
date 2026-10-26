@@ -67,5 +67,101 @@
     "name": "Vercel Blog",
     "kind": "rss",
     "url": "https://vercel.com/atom"
+  },
+  {
+    "id": "hacker-news-new",
+    "name": "Hacker News",
+    "kind": "hn",
+    "url": "https://hacker-news.firebaseio.com/v0/newstories.json"
+  },
+  {
+    "id": "github-engineering",
+    "name": "GitHub Engineering",
+    "kind": "rss",
+    "url": "https://github.blog/engineering/feed/"
+  },
+  {
+    "id": "google-research",
+    "name": "Google Research",
+    "kind": "rss",
+    "url": "https://research.google/blog/rss/"
+  },
+  {
+    "id": "google-ai",
+    "name": "Google AI",
+    "kind": "rss",
+    "url": "https://blog.google/technology/ai/rss/"
+  },
+  {
+    "id": "deepmind",
+    "name": "Google DeepMind",
+    "kind": "rss",
+    "url": "https://deepmind.google/blog/rss.xml"
+  },
+  {
+    "id": "openai",
+    "name": "OpenAI News",
+    "kind": "rss",
+    "url": "https://openai.com/news/rss.xml"
+  },
+  {
+    "id": "nvidia-developer",
+    "name": "NVIDIA Developer",
+    "kind": "rss",
+    "url": "https://developer.nvidia.com/blog/feed/"
+  },
+  {
+    "id": "aws-architecture",
+    "name": "AWS Architecture",
+    "kind": "rss",
+    "url": "https://aws.amazon.com/blogs/architecture/feed/"
+  },
+  {
+    "id": "meta-engineering",
+    "name": "Meta Engineering",
+    "kind": "rss",
+    "url": "https://engineering.fb.com/feed/"
+  },
+  {
+    "id": "spotify-engineering",
+    "name": "Spotify Engineering",
+    "kind": "rss",
+    "url": "https://engineering.atspotify.com/feed/"
+  },
+  {
+    "id": "rust",
+    "name": "Rust Blog",
+    "kind": "rss",
+    "url": "https://blog.rust-lang.org/feed.xml"
+  },
+  {
+    "id": "kubernetes",
+    "name": "Kubernetes Blog",
+    "kind": "rss",
+    "url": "https://kubernetes.io/feed.xml"
+  },
+  {
+    "id": "webkit",
+    "name": "WebKit",
+    "kind": "rss",
+    "url": "https://webkit.org/feed/"
+  },
+  {
+    "id": "postgresql",
+    "name": "PostgreSQL News",
+    "kind": "rss",
+    "url": "https://www.postgresql.org/news.rss"
+  },
+  {
+    "id": "martin-fowler",
+    "name": "Martin Fowler",
+    "kind": "rss",
+    "url": "https://martinfowler.com/feed.atom"
+  },
+  {
+    "id": "julia-evans",
+    "name": "Julia Evans",
+    "kind": "rss",
+    "url": "https://jvns.ca/atom.xml"
   }
 ]

@@ -30,12 +30,16 @@ type Candidate struct {
 	Excerpt  string         `json:"excerpt"`
 	CatchUp  bool           `json:"catch_up,omitempty"`
 	Priority bool           `json:"priority,omitempty"`
+	Score    int            `json:"score,omitempty"`
 }
 type Report struct {
 	Candidates  []Candidate `json:"candidates"`
 	Unavailable []string    `json:"unavailable"`
 }
 type Collector struct{ Client *http.Client }
+
+const MaxEvidence = 36
+const maxCandidates = 72
 
 // Run uses bounded workers and preserves partial source failures. Cancellation
 // is fatal and waits for workers; no goroutine outlives this call.
@@ -109,7 +113,7 @@ func (c Collector) Run(ctx context.Context, configs []Config, from, until time.T
 				item.Priority = true
 				item.CatchUp = fresh.Before(from)
 			}
-			if !fresh.Before(start) && !fresh.After(until) {
+			if !fresh.Before(start) && fresh.Before(until) {
 				report.Candidates = append(report.Candidates, item)
 			}
 		}
@@ -125,7 +129,7 @@ func (c Collector) Run(ctx context.Context, configs []Config, from, until time.T
 	perPublisher := map[string]int{}
 	// First take one candidate per publisher, then a second/third pass. Feed
 	// fetch completion order must not decide which publishers reach the model.
-	for pass := 0; pass < 6; pass++ {
+	for pass := 0; pass < 12; pass++ {
 		for _, item := range report.Candidates {
 			if seen[item.Source.URL] || perPublisher[item.Source.Name] != pass {
 				continue
@@ -133,11 +137,11 @@ func (c Collector) Run(ctx context.Context, configs []Config, from, until time.T
 			seen[item.Source.URL] = true
 			perPublisher[item.Source.Name]++
 			unique = append(unique, item)
-			if len(unique) == 32 {
+			if len(unique) == maxCandidates {
 				break
 			}
 		}
-		if len(unique) == 32 {
+		if len(unique) == maxCandidates {
 			break
 		}
 	}
@@ -152,6 +156,11 @@ func sortCandidates(items []Candidate) {
 		a, b := items[i], items[j]
 		if a.Priority != b.Priority {
 			return a.Priority
+		}
+		// Community voting is only a discovery signal. Publisher round-robin
+		// below prevents it from crowding out primary feeds.
+		if a.Score != b.Score {
+			return a.Score > b.Score
 		}
 		at, bt := a.Source.DiscoveredAt, b.Source.DiscoveredAt
 		if a.Source.PublishedAt != nil {
@@ -169,7 +178,7 @@ func sortCandidates(items []Candidate) {
 
 func makeCandidate(cfg Config, title, link, text string, published *time.Time, discovered time.Time, discussion *string) Candidate {
 	link = fetch.Canonical(link)
-	return Candidate{Source: content.Source{ID: "source-" + content.Hash([]byte(link))[:16], Name: cfg.Name, Title: Plain(title), URL: link, PublishedAt: published, DiscoveredAt: discovered, DiscussionURL: discussion}, Excerpt: Plain(text)}
+	return Candidate{Source: content.Source{ID: "source-" + content.Hash([]byte(link))[:16], Name: cfg.Name, Title: Plain(title), URL: link, PublishedAt: published, DiscoveredAt: discovered, DiscussionURL: discussion}, Excerpt: paragraphs(text)}
 }
 
 func (c Collector) read(ctx context.Context, cfg Config, now time.Time) ([]Candidate, error) {
@@ -246,27 +255,12 @@ func (c Collector) read(ctx context.Context, cfg Config, now time.Time) ([]Candi
 		if err := json.Unmarshal(data, &ids); err != nil {
 			return nil, err
 		}
-		if len(ids) > 30 {
-			ids = ids[:30]
+		if len(ids) > 100 {
+			ids = ids[:100]
 		}
-		for _, id := range ids {
-			raw, err := fetch.Get(ctx, c.Client, fmt.Sprintf("https://hacker-news.firebaseio.com/v0/item/%d.json", id), 128<<10)
-			if err != nil {
-				return nil, err
-			}
-			var i struct {
-				Title, URL, Type string
-				Time             int64
-				Dead, Deleted    bool
-			}
-			if err := json.Unmarshal(raw, &i); err != nil {
-				return nil, err
-			}
-			if i.Type != "story" || i.Dead || i.Deleted || i.URL == "" {
-				continue
-			}
-			discussion := fmt.Sprintf("https://news.ycombinator.com/item?id=%d", id)
-			items = append(items, makeCandidate(cfg, i.Title, i.URL, "", nil, time.Unix(i.Time, 0), &discussion))
+		items, err = c.hackerNewsItems(ctx, cfg, ids)
+		if err != nil {
+			return nil, err
 		}
 	case "lobsters":
 		var entries []struct {
@@ -315,43 +309,83 @@ func Plain(raw string) string {
 	return strings.Join(strings.Fields(raw), " ")
 }
 
+// Keep paragraph boundaries for evidence selection without allowing source HTML
+// to cross the content boundary. Plain still normalizes titles to one line.
+func paragraphs(raw string) string {
+	raw = unsafeBlocks.ReplaceAllString(raw, "")
+	raw = breaks.ReplaceAllString(raw, "\n")
+	raw = html.UnescapeString(tags.ReplaceAllString(raw, " "))
+	parts := []string{}
+	for _, line := range strings.Split(raw, "\n") {
+		if line = strings.Join(strings.Fields(line), " "); line != "" {
+			parts = append(parts, line)
+		}
+	}
+	return strings.Join(parts, "\n\n")
+}
+
 // Evidence reads a bounded article excerpt. It never invents a publication date
 // for a community submission, and records when only feed text is available.
 func (c Collector) Evidence(ctx context.Context, items []Candidate) ([]content.Evidence, []string, error) {
 	all := []content.Evidence{}
 	failed := []string{}
-	for _, item := range items {
+	// Fetch four pages at a time; commit results in candidate order, never in
+	// network completion order. Deadline and bounded batches limit slow sites.
+	for start := 0; start < len(items) && len(all) < MaxEvidence; start += 4 {
+		batch := items[start:min(start+4, len(items))]
+		evidence := make([]content.Evidence, len(batch))
+		unavailable := make([]bool, len(batch))
+		var wg sync.WaitGroup
+		for i, item := range batch {
+			wg.Add(1)
+			go func(i int, item Candidate) {
+				defer wg.Done()
+				task, cancel := context.WithTimeout(ctx, 20*time.Second)
+				defer cancel()
+				evidence[i], unavailable[i] = c.evidenceFor(task, item)
+			}(i, item)
+		}
+		wg.Wait()
 		if ctx.Err() != nil {
 			return nil, failed, ctx.Err()
 		}
-		text := item.Excerpt
-		kind := "feed_excerpt"
-		if len(text) < 600 {
-			data, err := fetch.Get(ctx, c.Client, item.Source.URL, 2<<20)
-			if err == nil {
-				raw := string(data)
-				if match := mainBlock.FindStringSubmatch(raw); len(match) > 1 {
-					raw = match[1]
-				}
-				text = Plain(raw)
-				kind = "article_excerpt"
+		for i, e := range evidence {
+			if unavailable[i] {
+				failed = append(failed, batch[i].Source.ID)
 			}
-		}
-		if len(text) < 160 {
-			failed = append(failed, item.Source.ID)
-			continue
-		}
-		runes := []rune(text)
-		if len(runes) > 10000 {
-			text = string(runes[:10000])
-		}
-		if item.CatchUp {
-			kind = "security_catchup_" + kind
-		}
-		all = append(all, content.Evidence{Source: item.Source, Text: text, Hash: content.Hash([]byte(text)), Kind: kind})
-		if len(all) == 12 {
-			break
+			if e.Text != "" && len(all) < MaxEvidence {
+				all = append(all, e)
+			}
 		}
 	}
 	return all, failed, nil
+}
+
+func (c Collector) evidenceFor(ctx context.Context, item Candidate) (content.Evidence, bool) {
+	text, kind, failed := item.Excerpt, "feed_excerpt", false
+	// RSS teasers often omit the mechanism or important caveat. Prefer a fuller
+	// article when available, retaining the feed excerpt if the page is blocked.
+	if len([]rune(text)) < 2400 {
+		data, err := fetch.Get(ctx, c.Client, item.Source.URL, 2<<20)
+		failed = err != nil
+		if err == nil {
+			raw := string(data)
+			if match := mainBlock.FindStringSubmatch(raw); len(match) > 1 {
+				raw = match[1]
+			}
+			if full := paragraphs(raw); len(full) > len(text) {
+				text, kind = full, "article_excerpt"
+			}
+		}
+	}
+	if len(text) < 160 {
+		return content.Evidence{}, true
+	}
+	if runes := []rune(text); len(runes) > 10000 {
+		text = string(runes[:10000])
+	}
+	if item.CatchUp {
+		kind = "security_catchup_" + kind
+	}
+	return content.Evidence{Source: item.Source, Text: text, Hash: content.Hash([]byte(text)), Kind: kind}, failed
 }

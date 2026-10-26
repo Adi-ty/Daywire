@@ -3,6 +3,7 @@ package editorial
 import (
 	"strings"
 
+	"github.com/Adi-ty/daywire/internal/collect"
 	"github.com/Adi-ty/daywire/internal/content"
 )
 
@@ -11,10 +12,10 @@ import (
 func PrepareInput(input Input) Input {
 	result := Input{Date: input.Date, Evidence: []content.Evidence{}, PreviousHeadlines: []string{}}
 	for i, e := range input.Evidence {
-		if i == 6 {
+		if i == collect.MaxEvidence {
 			break
 		}
-		shortened := excerpt(e.Text, 1600)
+		shortened := evidenceExcerpt(e.Text, e.Source.Title, 2400)
 		if shortened != e.Text {
 			e.Text = shortened
 			e.Hash = content.Hash([]byte(shortened))
@@ -130,7 +131,9 @@ func verificationSubset(input Input, draft content.Draft, targets []string) Veri
 	subset := Input{Date: input.Date, Evidence: []content.Evidence{}, PreviousHeadlines: []string{}}
 	if wanted["edition"] {
 		d.Title, d.Introduction, d.ArtworkBrief = draft.Title, draft.Introduction, draft.ArtworkBrief
-		subset.PreviousHeadlines = input.PreviousHeadlines
+		for _, headline := range input.PreviousHeadlines[:min(12, len(input.PreviousHeadlines))] {
+			subset.PreviousHeadlines = append(subset.PreviousHeadlines, excerpt(headline, 100))
+		}
 	}
 	for _, q := range draft.Quiz {
 		if wanted[q.ID] {
@@ -164,6 +167,7 @@ func verificationSubset(input Input, draft content.Draft, targets []string) Veri
 				// Verify requires a separate successful source review of every article.
 				a.Paragraphs = []string{}
 				a.Implication = ""
+				a.Summary = excerpt(a.Summary, 360)
 			} else {
 				for _, id := range a.SourceIDs {
 					sourceIDs[id] = true

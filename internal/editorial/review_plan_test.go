@@ -80,8 +80,12 @@ func TestReviewPlanUsesDirectPremisesAndPreservesSourceChecks(t *testing.T) {
 				}
 			}
 		case "edition":
-			if len(b.Input.Evidence) != 0 || len(b.Draft.Articles) != len(e.Content.Articles) || !reflect.DeepEqual(b.Input.PreviousHeadlines, input.PreviousHeadlines) {
-				t.Fatal("edition composition needs all summaries and novelty context")
+			wantPrevious := []string{}
+			for _, h := range input.PreviousHeadlines[:min(12, len(input.PreviousHeadlines))] {
+				wantPrevious = append(wantPrevious, excerpt(h, 100))
+			}
+			if len(b.Input.Evidence) != 0 || len(b.Draft.Articles) != len(e.Content.Articles) || !reflect.DeepEqual(b.Input.PreviousHeadlines, wantPrevious) {
+				t.Fatal("edition composition needs summaries and bounded novelty context")
 			}
 		}
 	}

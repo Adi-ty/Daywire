@@ -87,7 +87,7 @@ func correctTarget(ctx context.Context, model Model, input Input, draft *content
 	for i, a := range draft.Articles {
 		if a.ID == id {
 			var out articleOutput
-			u, err := call(repairRules+Prompt("article"), &out)
+			u, err := call(repairRules+Prompt("article")+articleDepth(i), &out)
 			if err != nil {
 				return u, err
 			}
@@ -136,7 +136,7 @@ func correctTarget(ctx context.Context, model Model, input Input, draft *content
 			if out.Segment.ID != id || !reflect.DeepEqual(out.Segment.ArticleIDs, s.ArticleIDs) {
 				return u, changed
 			}
-			draft.Segments[i] = frameRadio(out.Segment, input.Date, i+1, len(draft.Articles))
+			draft.Segments[i] = frameRadio(out.Segment, input.Date, i+1, min(5, len(draft.Articles)))
 			return u, nil
 		}
 	}

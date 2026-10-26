@@ -20,7 +20,7 @@ func (e *RequestTooLarge) Error() string { return e.Detail }
 
 func completionBudget(output any) int {
 	switch output.(type) {
-	case *selectionOutput:
+	case *selectionOutput, *rankingOutput:
 		return 1000
 	case *Review:
 		return 1600
@@ -138,11 +138,30 @@ func (g *Groq) observe(h http.Header) {
 // Accept still enforces uniqueness and exhaustive coverage after decoding.
 func outputSchema(input, output any) map[string]any {
 	schema := dereferenceSchema(output)
+	props := schema["properties"].(map[string]any)
+	if packet, ok := input.(selectionPacket); ok {
+		if _, selecting := output.(*selectionOutput); selecting && len(packet.Stories) > 0 {
+			ids := []string{}
+			for _, story := range packet.Stories {
+				ids = append(ids, story.ID)
+			}
+			groups := props["source_groups"].(map[string]any)
+			groups["items"].(map[string]any)["items"].(map[string]any)["enum"] = ids
+		}
+	}
+	if packet, ok := input.([]articlePreview); ok {
+		if _, ranking := output.(*rankingOutput); ranking && len(packet) > 0 {
+			ids := []string{}
+			for _, article := range packet {
+				ids = append(ids, article.ID)
+			}
+			props["article_ids"].(map[string]any)["items"].(map[string]any)["enum"] = ids
+		}
+	}
 	batch, ok := input.(VerificationInput)
 	if _, review := output.(*Review); !ok || !review || len(batch.Targets) == 0 {
 		return schema
 	}
-	props := schema["properties"].(map[string]any)
 	verdicts := props["verdicts"].(map[string]any)
 	fields := verdicts["items"].(map[string]any)["properties"].(map[string]any)
 	fields["target_id"].(map[string]any)["enum"] = batch.Targets
