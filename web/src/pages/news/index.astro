@@ -1,5 +1,4 @@
 ---
-import Newspaper from '../../components/Newspaper.astro';
-import { latest } from '../../lib/editions';
+import { href } from '../../lib/editions';
+return Astro.redirect(href(''), 301);
 ---
-<Newspaper edition={latest} isLatest />

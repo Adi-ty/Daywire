@@ -27,6 +27,10 @@ export const latest: Edition | undefined = latestEdition(editions, today, proces
 export function dateLabel(date: string) { return new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${date}T12:00:00Z`)); }
 export function weekday(date: string) { return new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', weekday: 'long' }).format(new Date(`${date}T12:00:00Z`)); }
 export function href(path: string) { return `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`; }
+export function editionHref(mode: 'news' | 'radio', date?: string) {
+  if (!date || date === latest?.date) return href(mode === 'news' ? '' : 'radio/');
+  return href(`${mode}/${date}/`);
+}
 export function readingMinutes(edition: Edition) {
   const text = [edition.content.introduction, ...edition.content.articles.flatMap(a => [a.headline, a.summary, ...a.paragraphs, a.implication]), ...edition.content.lessons.flatMap(l => [l.title, ...l.paragraphs, l.example, l.takeaway])].join(' ');
   return Math.max(1, Math.ceil(text.split(/\s+/).length / 220));

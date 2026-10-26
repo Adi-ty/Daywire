@@ -5,7 +5,7 @@ import Sources from './Sources.astro';
 import Quiz from './Quiz.astro';
 import Icon from './Icon.astro';
 import '../styles/newspaper.css';
-import { dateLabel, weekday, href, readingMinutes, today } from '../lib/editions';
+import { dateLabel, weekday, href, readingMinutes, today, editionHref } from '../lib/editions';
 import type { Edition } from '../lib/types';
 interface Props { edition?: Edition; isLatest?: boolean }
 const { edition, isLatest = false } = Astro.props;
@@ -22,11 +22,11 @@ const contents = edition?.content.articles.slice(0, 3) ?? [];
 ---
 <Page title={edition ? `${dateLabel(edition.date)} · Newspaper` : 'The newspaper'} mode="news" edition={edition}>
   <div class="newspaper-surface">
-  <section class="masthead" aria-label="Daywire newspaper"><p>Technology, in perspective.<br />New editions around 6am.</p><h1><a href={href('news/')} class="masthead-name">Daywire<span>.</span></a></h1><p>A daily read.<br />Something to take away.</p></section>
+  <section class="masthead" aria-label="Daywire newspaper"><p>Technology, in perspective.<br />New editions around 6am.</p><h1><a href={href('')} class="masthead-name">Daywire<span>.</span></a></h1><p>A daily read.<br />Something to take away.</p></section>
   {edition ? <>
     <div class="edition-line"><span>{weekday(edition.date)}, {dateLabel(edition.date)}</span><span>{edition.content.articles.length} {edition.content.articles.length === 1 ? 'story' : 'stories'}{lessonCount > 0 && ` · ${lessonCount} ${lessonCount === 1 ? 'lesson' : 'lessons'}`}</span><span>About {readingMinutes(edition)} min to read</span></div>
     {isLatest && edition.date !== today && !edition.demo && <p class="coverage-note">The latest available edition is dated {dateLabel(edition.date)}. A newer edition has not been published.</p>}
-    <div class="edition-intro"><p>{edition.content.introduction}</p><a href={href(`radio/${edition.date}/`)}>Take it with you <Icon name="headphones" /></a></div>
+    <div class="edition-intro"><p>{edition.content.introduction}</p><a href={editionHref('radio', edition.date)}>Take it with you <Icon name="headphones" /></a></div>
     <nav class="contents-nav" aria-label="In this edition"><span>Inside this edition</span><a href="#top-stories">The front page</a>{desks.map(desk => <a href={`#${desk.id}`}>{desk.name}</a>)}{lessonCount > 0 && <a href="#learn">{lessonLabel}</a>}{questionCount > 0 && <a href="#quiz">Quick recall</a>}<a href="#coverage">About this edition</a></nav>
     {contents.length > 1 && <nav class="headline-index" aria-label="Today's headlines">{contents.map(article => <a href={`#${article.id}`}><span>{article.headline}</span><span>{article.section}</span><Icon name="arrow" size={18} /></a>)}</nav>}
     <section id="top-stories" class="front-page" aria-label="Top stories">

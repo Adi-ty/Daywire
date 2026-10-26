@@ -3,7 +3,7 @@ import '@fontsource-variable/source-serif-4';
 import '@fontsource-variable/public-sans';
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
-import { editions, dateLabel, href } from '../lib/editions';
+import { editions, dateLabel, href, editionHref } from '../lib/editions';
 import type { Edition } from '../lib/types';
 interface Props { title: string; mode: 'news' | 'radio'; edition?: Edition }
 const { title, edition } = Astro.props;
@@ -11,7 +11,6 @@ const mode = Astro.url.pathname.split('/').includes('radio') ? 'radio' : 'news';
 const currentIndex = edition ? editions.findIndex(e => e.date === edition.date) : -1;
 const older = currentIndex >= 0 ? editions[currentIndex + 1] : undefined;
 const newer = currentIndex > 0 ? editions[currentIndex - 1] : undefined;
-const selected = edition ? `/${edition.date}/` : '/';
 ---
 <!doctype html>
 <html lang="en" data-theme="dark">
@@ -31,10 +30,10 @@ const selected = edition ? `/${edition.date}/` : '/';
     <a class="skip-link" href="#main">Skip to the edition</a>
     <div class="page-shell">
       <header class="site-header">
-        <a class="wordmark" href={href('news/')} aria-label="Daywire home">daywire<span aria-hidden="true">.</span></a>
+        <a class="wordmark" href={href('')} aria-label="Daywire home">daywire<span aria-hidden="true">.</span></a>
         <nav class="mode-nav" aria-label="Read or listen">
-          <a href={href(`news${selected}`)} aria-current={mode === 'news' ? 'page' : undefined}>Newspaper</a>
-          <a href={href(`radio${selected}`)} aria-current={mode === 'radio' ? 'page' : undefined}>Radio <Icon name="headphones" size={17} /></a>
+          <a href={editionHref('news', edition?.date)} aria-current={mode === 'news' ? 'page' : undefined}>Newspaper</a>
+          <a href={editionHref('radio', edition?.date)} aria-current={mode === 'radio' ? 'page' : undefined}>Radio <Icon name="headphones" size={17} /></a>
         </nav>
         <div class="edition-controls">
           <details class="date-picker">
@@ -53,7 +52,7 @@ const selected = edition ? `/${edition.date}/` : '/';
         {older && <a class="previous-edition" href={href(`${mode}/${older.date}/`)}><Icon name="arrow" size={16} /> <span>Previous edition · {dateLabel(older.date)}</span></a>}
         {newer && <a class="next-edition" href={href(`${mode}/${newer.date}/`)}><span>Next edition · {dateLabel(newer.date)}</span> <Icon name="arrow" size={16} /></a>}
       </nav>}
-      <footer class="site-footer"><a class="wordmark" href={href('news/')}>daywire<span>.</span></a><p>New edition daily, around 6am.</p><a href={href('news/archive/')}>Browse the archive <Icon name="arrow" size={16} /></a><p class="footer-note">AI-assisted reporting. Sources beside every story.</p></footer>
+      <footer class="site-footer"><a class="wordmark" href={href('')}>daywire<span>.</span></a><p>New edition daily, around 6am.</p><a href={href('news/archive/')}>Browse the archive <Icon name="arrow" size={16} /></a><p class="footer-note">AI-assisted reporting. Sources beside every story.</p></footer>
     </div>
     <script>
       const button = document.querySelector<HTMLButtonElement>('.theme-toggle');

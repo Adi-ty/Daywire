@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import cover from '../assets/radio-cover.png';
 import Page from '../layouts/Page.astro';
 import Icon from './Icon.astro';
-import { dateLabel, href, today } from '../lib/editions';
+import { dateLabel, href, today, editionHref } from '../lib/editions';
 import type { Edition } from '../lib/types';
 import '../styles/radio.css';
 interface Props { edition?: Edition; isLatest?: boolean }
@@ -35,7 +35,7 @@ const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.fl
           <div class="playback-options"><span>{cues.length ? 'Transcript follows the audio' : 'Read along below'}</span><label class="speed-control">Speed <select data-speed disabled={!ready}><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label></div>
         </div>
         <p class="playback-status" data-playback-status role="status">{ready ? 'Press play. Make a little space for the day.' : edition.demo ? 'Demo edition · Listen controls become available when narration is published. The full transcript is ready to read.' : edition.radio.status === 'failed' ? 'Audio is temporarily unavailable. Read the complete transcript alongside.' : 'Narration is being prepared. The full transcript is ready to read.'}</p>
-        <div class="deck-links"><a href={href(`news/${edition.date}/`)}>Read the newspaper <Icon name="arrow" size={17} /></a></div>
+        <div class="deck-links"><a href={editionHref('news', edition.date)}>Read the newspaper <Icon name="arrow" size={17} /></a></div>
       </section>
       <section class="readalong" aria-labelledby="transcript-heading">
         <div class="readalong-heading"><div><h2 id="transcript-heading">The transcript</h2><p>{cues.length ? 'Read along as the story unfolds.' : 'Every word, with links to the stories.'}</p></div></div>
@@ -44,13 +44,13 @@ const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.fl
           {edition.content.segments.map((segment, index) => { const words = cues.map((cue, i) => ({ ...cue, index: i })).filter(cue => cue.segment_id === segment.id); return <article id={segment.id} class="spoken-segment" data-segment={segment.id}>
             <div class="segment-heading"><span>{String(index+1).padStart(2,'0')}</span><h3>{segment.title}</h3>{words.length > 0 && <button type="button" data-jump={words[0].start_seconds} aria-label={`Play ${segment.title}`} hidden>{clock(words[0].start_seconds)} <Icon name="play" size={14} /></button>}</div>
             <p class="spoken-text">{words.length ? words.map(word => <><span data-cue={word.index} data-start={word.start_seconds} data-end={word.end_seconds}>{word.text}</span>{' '}</>) : segment.text}</p>
-            <div class="spoken-sources"><span>In the newspaper</span>{segment.article_ids.map(id => { const article = edition.content.articles.find(a => a.id === id); return article && <a href={href(`news/${edition.date}/#${id}`)}>{article.headline}<Icon name="arrow" size={15} /></a>; })}</div>
+            <div class="spoken-sources"><span>In the newspaper</span>{segment.article_ids.map(id => { const article = edition.content.articles.find(a => a.id === id); return article && <a href={`${editionHref('news', edition.date)}#${id}`}>{article.headline}<Icon name="arrow" size={15} /></a>; })}</div>
           </article>; })}
-          <p class="transcript-end">You’re all caught up.<br /><a href={href(`news/${edition.date}/${edition.content.lessons.length ? '#learn' : ''}`)}>{edition.content.lessons.length ? 'Explore the ideas behind the news' : 'Return to the newspaper'} <Icon name="arrow" size={16} /></a></p>
+          <p class="transcript-end">You’re all caught up.<br /><a href={`${editionHref('news', edition.date)}${edition.content.lessons.length ? '#learn' : ''}`}>{edition.content.lessons.length ? 'Explore the ideas behind the news' : 'Return to the newspaper'} <Icon name="arrow" size={16} /></a></p>
         </div>
       </section>
     </div>
-  </> : <section class="empty-state"><h2>A little quiet before the first broadcast.</h2><p>Each edition will have its own transcript and audio. Previous episodes will stay in the archive.</p><a href={href('news/')}>Visit the newspaper <Icon name="arrow" /></a></section>}
+  </> : <section class="empty-state"><h2>A little quiet before the first broadcast.</h2><p>Each edition will have its own transcript and audio. Previous episodes will stay in the archive.</p><a href={href('')}>Visit the newspaper <Icon name="arrow" /></a></section>}
 </Page>
 <script>
   import { setupPlayer } from '../scripts/radio-player';

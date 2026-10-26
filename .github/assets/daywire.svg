@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="title description">
+  <title id="title">Daywire — technology, in perspective.</title>
+  <desc id="description">An ivory Daywire masthead on charcoal, beside newspaper columns that become an audio waveform.</desc>
+  <rect width="1200" height="400" fill="#171916"/>
+  <path d="M56 48H1144M56 352H1144" stroke="#44483e"/>
+  <text x="56" y="205" fill="#efeee5" font-family="Georgia, 'Times New Roman', serif" font-size="126" font-weight="700" letter-spacing="-5">daywire<tspan fill="#d5a079">.</tspan></text>
+  <text x="62" y="264" fill="#b7bbb0" font-family="Arial, sans-serif" font-size="25">Technology, in perspective.</text>
+  <g fill="none" stroke="#efeee5" stroke-width="3">
+    <path d="M776 116H930M776 127H930"/>
+    <path d="M776 153H841M776 168H841M776 183H841M776 198H841M776 213H841M776 228H841M776 243H841M776 258H841M776 273H841" opacity=".6"/>
+    <path d="M858 153H923M858 168H923M858 183H908M858 198H895M858 213H883M858 228H883M858 243H895M858 258H908M858 273H923" opacity=".6"/>
+  </g>
+  <g stroke="#d5a079" stroke-width="5" stroke-linecap="round">
+    <path d="M946 204V222M962 188V238M978 167V259M994 146V280M1010 181V245M1026 197V229M1042 174V252M1058 157V269M1074 190V236M1090 203V223"/>
+  </g>
+</svg>
