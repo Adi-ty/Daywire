@@ -19,14 +19,11 @@ const [lead, ...rest] = edition?.content.articles ?? [];
     <div class="edition-line"><span>{weekday(edition.date)}, {dateLabel(edition.date)}</span><span>{edition.content.articles.length} {edition.content.articles.length === 1 ? 'story' : 'stories'}{lessonCount > 0 && ` · ${lessonCount} ${lessonCount === 1 ? 'lesson' : 'lessons'}`}</span><span>About {readingMinutes(edition)} min to read</span></div>
     {isLatest && edition.date !== today && !edition.demo && <p class="coverage-note">The latest available edition is dated {dateLabel(edition.date)}. A newer edition has not been published.</p>}
     <div class="edition-intro"><p>{edition.content.introduction}</p><a href={href(`radio/${edition.date}/`)}>Take it with you <Icon name="headphones" /></a></div>
-    <nav class="contents-nav" aria-label="In this edition"><span>Inside this edition</span><a href="#top-stories">The front page</a>{lessonCount > 0 && <a href="#learn">{lessonLabel}</a>}{questionCount > 0 && <a href="#quiz">Quick recall</a>}<a href="#coverage">Sources & coverage</a></nav>
+    <nav class="contents-nav" aria-label="In this edition"><span>Inside this edition</span><a href="#top-stories">The front page</a>{lessonCount > 0 && <a href="#learn">{lessonLabel}</a>}{questionCount > 0 && <a href="#quiz">Quick recall</a>}<a href="#coverage">About this edition</a></nav>
     <section id="top-stories" class="front-page" aria-label="Top stories">
-      <div class="lead-column">{lead && <Story article={lead} edition={edition} lead />}</div>
-      <div class="supporting-column">{rest.slice(0, 2).map(article => <Story article={article} edition={edition} />)}
-        {!rest.length && <aside class="quiet-day"><h2>A shorter edition.</h2><p>One supported story is worth more than a page of filler.</p>{lessonCount > 0 && <a href="#learn">Go deeper in the learning section <Icon name="arrow" /></a>}</aside>}
-      </div>
+      {lead && <Story article={lead} edition={edition} lead />}
+      {rest.length > 0 && <div class="story-grid">{rest.map(article => <Story article={article} edition={edition} />)}</div>}
     </section>
-    {rest.length > 2 && <section class="more-stories" aria-label="More from this edition">{rest.slice(2).map(article => <Story article={article} edition={edition} />)}</section>}
     {lessonCount > 0 && <section class="learning-section" id="learn" aria-labelledby="learn-heading">
       <div class="section-heading"><h2 id="learn-heading">Leave knowing more.</h2><p>{lessonCount === 1 ? 'One idea behind the headlines.' : 'Two ideas behind the headlines.'}</p></div>
       <div class="lesson-grid">{edition.content.lessons.map((lesson, index) => <article class="lesson" id={lesson.id}>
@@ -36,6 +33,12 @@ const [lead, ...rest] = edition?.content.articles ?? [];
       </article>)}</div>
     </section>}
     {questionCount > 0 && <Quiz edition={edition} />}
-    <section class="coverage-section" id="coverage" aria-labelledby="coverage-heading"><h2 id="coverage-heading">The notes behind the newspaper.</h2><div><p>This edition draws on {edition.sources.length} source documents selected from {edition.coverage.candidate_count} candidates. It covers a curated set of sources, not every technology story.</p><p>Collection window: {dateLabel(edition.coverage.from.slice(0, 10))} to {dateLabel(edition.coverage.until.slice(0, 10))}.</p>{edition.sources.some(source => source.published_at && new Date(source.published_at) < new Date(edition.coverage.from)) && <p>Includes earlier coverage. Original publication dates are shown beside the sources.</p>}{edition.coverage.status === 'partial' && <p class="coverage-note">Partial coverage: {edition.coverage.unavailable_sources.length} source or article fetches were unavailable. The edition includes only material successfully retrieved.</p>}<p>AI-assisted writing is checked against retrieved evidence. Those checks can miss errors; original sources remain the reference.</p></div></section>
+    <details class="edition-notes" id="coverage">
+      <summary>About this edition <span>{edition.sources.length} {edition.sources.length === 1 ? 'source' : 'sources'} <Icon name="chevron" size={16} /></span></summary>
+      <div class="edition-notes-body">
+        <p>A curated selection of technology stories, with original reporting linked beneath each article. Written with AI assistance and checked against those sources.</p>
+        <p>Collected {dateLabel(edition.coverage.from.slice(0, 10))}–{dateLabel(edition.coverage.until.slice(0, 10))}. Stories may refer to earlier events.</p>
+      </div>
+    </details>
   </> : <section class="empty-state"><h1>The first edition is on its way.</h1><p>A daily selection of technology stories, two useful ideas, and a radio bulletin. Published editions will appear here with their actual dates.</p><a href={href('news/archive/')}>Visit the archive <Icon name="arrow" /></a></section>}
 </Page>

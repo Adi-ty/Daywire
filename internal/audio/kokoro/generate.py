@@ -143,7 +143,7 @@ def synthesize(request, destination):
                     raise ValueError("unsupported phoneme chunk; revise the script (no truncation performed)")
                 for chunk_index, (_, phonemes, chunk_tokens) in enumerate(chunks):
                     if index > 0 and chunk_index == 0:
-                        append_audio(np.zeros(round(0.3 * sample_rate)))
+                        append_audio(np.zeros(round(0.85 * sample_rate)))
                     elif chunk_index > 0:
                         append_audio(np.zeros(round(0.12 * sample_rate)))
                     offset = samples / sample_rate

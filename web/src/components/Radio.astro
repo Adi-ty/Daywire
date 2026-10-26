@@ -20,20 +20,25 @@ const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.fl
     <div class="listening-room" data-radio-player>
       <section class="listening-deck" aria-labelledby="episode-heading">
         <figure class="episode-cover">
-          {edition.artwork.status === 'ready' && edition.artwork.url ? <img src={edition.artwork.url} alt={edition.artwork.alt} width="1200" height="1200" fetchpriority="high" /> : <Image src={cover} alt="An orange paper ribbon passing through a silver ring. Conceptual Daywire cover art." widths={[400, 640, 900]} sizes="(max-width: 760px) 90vw, 440px" format="webp" loading="eager" />}
+          {edition.artwork.status === 'ready' && edition.artwork.url ? <img src={edition.artwork.url} alt={edition.artwork.alt} width="1200" height="1200" fetchpriority="high" /> : <Image src={cover} alt="An orange paper ribbon passing through a silver ring. Conceptual Daywire cover art." widths={[400, 640, 900]} sizes="(max-width: 700px) 90vw, (max-width: 900px) 640px, 470px" format="webp" loading="eager" />}
           <figcaption><span>daywire<span class="cover-dot">.</span></span><span>THE LISTENING EDITION</span></figcaption>
         </figure>
         <div class="episode-details"><p class="listening-date"><time datetime={edition.date}>{dateLabel(edition.date)}</time><span>{duration ? `${clock(duration)} · AI narration` : `${edition.content.segments.length} segments`}</span></p><h2 id="episode-heading">{edition.content.title}</h2><p class="listening-description">{edition.content.introduction}</p></div>
         {ready ? <audio controls preload="metadata" src={edition.radio.audio_url!} data-storage-key={`daywire-radio-${edition.date}-${edition.radio.script_hash}`} aria-label={`Daywire for ${dateLabel(edition.date)}`}></audio> : null}
         <div class="deck-controls" hidden={ready} data-custom-controls>
           <div class="seek-row"><label class="visually-hidden" for="radio-seek">Playback position</label><input id="radio-seek" type="range" min="0" max={duration || 1} value="0" step="0.1" disabled={!ready} /><div class="playback-times"><span data-elapsed>0:00</span><span data-duration>{duration ? clock(duration) : '—:—'}</span></div></div>
-          <div class="transport-row"><button type="button" class="skip-audio" data-skip="-15" aria-label="Rewind 15 seconds" disabled={!ready}><Icon name="back" size={22} /><span>15</span></button><button type="button" class="play-audio" data-play aria-label="Play episode" disabled={!ready}><span data-play-icon><Icon name="play" size={24} /></span><span data-pause-icon hidden><Icon name="pause" size={24} /></span><span data-play-label>{ready ? 'Play episode' : 'Audio unavailable'}</span></button><button type="button" class="skip-audio" data-skip="15" aria-label="Forward 15 seconds" disabled={!ready}><Icon name="forward" size={22} /><span>15</span></button><label class="speed-control"><span class="visually-hidden">Playback speed</span><select data-speed disabled={!ready}><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label></div>
+          <div class="transport-row">
+            <button type="button" class="skip-audio" data-skip="-15" aria-label="Rewind 15 seconds" disabled={!ready}><Icon name="back" size={24} /><span aria-hidden="true">15s</span></button>
+            <button type="button" class="play-audio" data-play aria-label="Play episode" disabled={!ready}><span data-play-icon><Icon name="play" size={22} /></span><span data-pause-icon hidden><Icon name="pause" size={22} /></span><span data-play-label>{ready ? 'Play episode' : 'Audio unavailable'}</span></button>
+            <button type="button" class="skip-audio" data-skip="15" aria-label="Forward 15 seconds" disabled={!ready}><Icon name="forward" size={24} /><span aria-hidden="true">15s</span></button>
+          </div>
+          <div class="playback-options"><span>{cues.length ? 'Transcript follows the audio' : 'Read along below'}</span><label class="speed-control">Speed <select data-speed disabled={!ready}><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label></div>
         </div>
         <p class="playback-status" data-playback-status role="status">{ready ? 'Press play. Make a little space for the day.' : edition.demo ? 'Demo edition · Listen controls become available when narration is published. The full transcript is ready to read.' : edition.radio.status === 'failed' ? 'Audio is temporarily unavailable. Read the complete transcript alongside.' : 'Narration is being prepared. The full transcript is ready to read.'}</p>
-        <div class="deck-links"><a href={href(`news/${edition.date}/`)}>Read the newspaper <Icon name="arrow" size={17} /></a>{ready && <a href={edition.radio.audio_url!} aria-label="Open episode audio file"><Icon name="external" size={17} /> Audio file</a>}</div>
+        <div class="deck-links"><a href={href(`news/${edition.date}/`)}>Read the newspaper <Icon name="arrow" size={17} /></a></div>
       </section>
       <section class="readalong" aria-labelledby="transcript-heading">
-        <div class="readalong-heading"><div><h2 id="transcript-heading">The transcript</h2><p>{cues.length ? 'Follow the voice, or read at your own pace.' : 'Every word. Every source. At your own pace.'}</p></div><button type="button" class="follow-toggle" data-follow aria-pressed="true" hidden>Follow audio</button></div>
+        <div class="readalong-heading"><div><h2 id="transcript-heading">The transcript</h2><p>{cues.length ? 'Read along as the story unfolds.' : 'Every word, with links to the stories.'}</p></div></div>
         <nav class="chapter-index" aria-label="Episode chapters">{edition.content.segments.map((segment, index) => <a href={`#${segment.id}`} data-chapter-link={segment.id}><span>{String(index+1).padStart(2,'0')}</span>{segment.title}</a>)}</nav>
         <div class="transcript-scroll" tabindex="0" role="region" aria-label="Episode transcript">
           {edition.content.segments.map((segment, index) => { const words = cues.map((cue, i) => ({ ...cue, index: i })).filter(cue => cue.segment_id === segment.id); return <article id={segment.id} class="spoken-segment" data-segment={segment.id}>
@@ -41,7 +46,7 @@ const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.fl
             <p class="spoken-text">{words.length ? words.map(word => <><span data-cue={word.index} data-start={word.start_seconds} data-end={word.end_seconds}>{word.text}</span>{' '}</>) : segment.text}</p>
             <div class="spoken-sources"><span>In the newspaper</span>{segment.article_ids.map(id => { const article = edition.content.articles.find(a => a.id === id); return article && <a href={href(`news/${edition.date}/#${id}`)}>{article.headline}<Icon name="arrow" size={15} /></a>; })}</div>
           </article>; })}
-          <p class="transcript-end">You’re all caught up.<br /><a href={href(`news/${edition.date}/#learn`)}>Take two ideas with you in the newspaper <Icon name="arrow" size={16} /></a></p>
+          <p class="transcript-end">You’re all caught up.<br /><a href={href(`news/${edition.date}/${edition.content.lessons.length ? '#learn' : ''}`)}>{edition.content.lessons.length ? 'Explore the ideas behind the news' : 'Return to the newspaper'} <Icon name="arrow" size={16} /></a></p>
         </div>
       </section>
     </div>

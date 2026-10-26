@@ -49,12 +49,11 @@ const selected = edition ? `/${edition.date}/` : '/';
       </header>
       {edition?.demo && <aside class="demo-notice">Demonstration edition · The stories and sources below are fictional examples.</aside>}
       <main id="main"><slot /></main>
-      {edition && <nav class="edition-pager" aria-label="Previous and next editions">
-        {older ? <a href={href(`${mode}/${older.date}/`)}><span aria-hidden="true">←</span> {dateLabel(older.date)}</a> : <span>Beginning of the archive</span>}
-        <a href={href('news/archive/')}>All editions</a>
-        {newer ? <a href={href(`${mode}/${newer.date}/`)}>{dateLabel(newer.date)} <Icon name="arrow" size={16} /></a> : <span>Latest edition</span>}
+      {edition && (older || newer) && <nav class="edition-pager" aria-label="Previous and next editions">
+        {older && <a class="previous-edition" href={href(`${mode}/${older.date}/`)}><Icon name="arrow" size={16} /> <span>Previous edition · {dateLabel(older.date)}</span></a>}
+        {newer && <a class="next-edition" href={href(`${mode}/${newer.date}/`)}><span>Next edition · {dateLabel(newer.date)}</span> <Icon name="arrow" size={16} /></a>}
       </nav>}
-      <footer class="site-footer"><a class="wordmark" href={href('news/')}>daywire<span>.</span></a><p>Today in tech. Worth your attention.</p><a href={href('news/archive/')}>The archive</a><p class="footer-note">AI-assisted reporting. Sources beside every story.</p></footer>
+      <footer class="site-footer"><a class="wordmark" href={href('news/')}>daywire<span>.</span></a><p>New edition daily, around 6am.</p><a href={href('news/archive/')}>Browse the archive <Icon name="arrow" size={16} /></a><p class="footer-note">AI-assisted reporting. Sources beside every story.</p></footer>
     </div>
     <script>
       const button = document.querySelector<HTMLButtonElement>('.theme-toggle');

@@ -25,11 +25,11 @@ let source = readFileSync(scriptURL,'utf8').replace('../lib/playback.mjs',new UR
 const code = ts.transpileModule(source,{ compilerOptions: { module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022 } }).outputText;
 const { setupPlayer } = await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`);
 
-test('player handles playback, seeking, manual reading, failures, and saved progress', async () => {
+test('player handles playback, seeking, automatic transcript following, failures, and saved progress', async () => {
   const root=new Element(), audio=new Audio(), pane=new Element();
   audio.dataset.storageKey='test-episode'; pane.clientHeight=400;pane.scrollTop=0;
   root.children.set('audio',audio); root.children.set('.transcript-scroll',pane);
-  for (const key of ['[data-play]','[data-play-label]','#radio-seek','[data-playback-status]','[data-follow]','[data-duration]','[data-elapsed]','[data-play-icon]','[data-pause-icon]','[data-speed]','[data-custom-controls]']) root.children.set(key,new Element());
+  for (const key of ['[data-play]','[data-play-label]','#radio-seek','[data-playback-status]','[data-duration]','[data-elapsed]','[data-play-icon]','[data-pause-icon]','[data-speed]','[data-custom-controls]']) root.children.set(key,new Element());
   const segment = new Element(); segment.dataset.segment='chapter';
   const word = new Element();word.dataset={start:'1',end:'2'};word.segment=segment;
   const chapter = new Element();chapter.dataset.chapterLink='chapter';
@@ -46,9 +46,19 @@ test('player handles playback, seeking, manual reading, failures, and saved prog
     audio.dispatchEvent(new Event('loadedmetadata'));assert.equal(audio.currentTime,4);
     get('[data-play]').dispatchEvent(new Event('click'));await Promise.resolve();assert.equal(audio.paused,false);assert.equal(get('[data-play-label]').textContent,'Pause episode');
     audio.currentTime=1.5;audio.dispatchEvent(new Event('timeupdate'));assert.ok(word.classes.has('is-current'));
-    pane.dispatchEvent(new Event('wheel'));assert.equal(get('[data-follow]').attrs.get('aria-pressed'),'false');assert.match(get('[data-playback-status]').textContent,/own pace/);
-    get('[data-follow]').dispatchEvent(new Event('click'));assert.equal(get('[data-follow]').attrs.get('aria-pressed'),'true');assert.match(get('[data-playback-status]').textContent,/follows/);
-    pane.dispatchEvent(new Event('pointerdown'));assert.equal(get('[data-follow]').attrs.get('aria-pressed'),'false');
+    // Scrolling manually must not disable following; only the transcript pane scrolls.
+    pane.dispatchEvent(new Event('wheel'));
+    pane.dispatchEvent(new Event('touchmove'));
+    assert.match(get('[data-playback-status]').textContent,/follows/);
+    word.getBoundingClientRect=()=>({top:700,bottom:724});
+    audio.currentTime=3;audio.dispatchEvent(new Event('timeupdate'));
+    audio.currentTime=1.5;audio.dispatchEvent(new Event('timeupdate'));
+    assert.equal(pane.scrolled.top,560);
+    assert.equal(pane.scrolled.behavior,'instant');
+    audio.pause();
+    chapter.dispatchEvent(new Event('click', {cancelable:true}));
+    assert.equal(audio.currentTime,1);
+    assert.equal(audio.paused,true);
     get('#radio-seek').value='3';get('#radio-seek').dispatchEvent(new Event('input'));assert.equal(audio.currentTime,3);assert.equal(word.classes.has('is-current'),false);
     skip.dispatchEvent(new Event('click'));assert.equal(audio.currentTime,18);
     get('[data-speed]').value='1.5';get('[data-speed]').dispatchEvent(new Event('change'));assert.equal(audio.playbackRate,1.5);

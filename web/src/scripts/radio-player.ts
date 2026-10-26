@@ -8,25 +8,18 @@ export function setupPlayer() {
   const label = root.querySelector<HTMLElement>('[data-play-label]')!;
   const seek = root.querySelector<HTMLInputElement>('#radio-seek')!;
   const status = root.querySelector<HTMLElement>('[data-playback-status]')!;
-  const follow = root.querySelector<HTMLButtonElement>('[data-follow]')!;
   const pane = root.querySelector<HTMLElement>('.transcript-scroll')!;
   const words = Array.from(root.querySelectorAll<HTMLElement>('[data-cue]'));
   const cues = words.map(word => ({ start: Number(word.dataset.start), end: Number(word.dataset.end) }));
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const key = audio.dataset.storageKey!;
-  let active = -1, activeSegment: HTMLElement | null = null, followEnabled = true, frame = 0, lastSave = 0;
+  let active = -1, activeSegment: HTMLElement | null = null, frame = 0, lastSave = 0;
 
   function savePosition() {
     try { if (audio!.ended) localStorage.removeItem(key); else localStorage.setItem(key, String(audio!.currentTime)); } catch { /* Private browsing can deny storage. */ }
   }
-  function setFollow(enabled: boolean) {
-    followEnabled = enabled;
-    follow.setAttribute('aria-pressed', String(enabled));
-    follow.textContent = enabled ? 'Following audio' : 'Follow audio';
-    if (!audio!.paused) playingStatus();
-  }
   function playingStatus() {
-    status.textContent = words.length && followEnabled ? 'Playing · The transcript follows the narration.' : 'Playing · Read the transcript at your own pace.';
+    status.textContent = words.length ? 'Playing · The transcript follows the narration.' : 'Playing · Read along in the transcript.';
   }
   function revealWord(word: HTMLElement) {
     const bounds = pane.getBoundingClientRect(), target = word.getBoundingClientRect();
@@ -60,7 +53,7 @@ export function setupPlayer() {
             else link.removeAttribute('aria-current');
           });
         }
-        if (followEnabled && !audio!.paused) revealWord(word);
+        if (!audio!.paused) revealWord(word);
       }
     }
   }
@@ -72,12 +65,15 @@ export function setupPlayer() {
     label.textContent = playing ? 'Pause episode' : audio!.ended ? 'Play again' : 'Play episode';
     play.setAttribute('aria-label', label.textContent);
     cancelAnimationFrame(frame);
-    if (playing) frame = requestAnimationFrame(animate);
+    if (playing) {
+      if (active >= 0) revealWord(words[active]);
+      frame = requestAnimationFrame(animate);
+    }
   }
   async function start() {
     status.textContent = 'Loading audio…';
     try { await audio!.play(); }
-    catch { status.textContent = 'Playback could not start. Try Play again, open the audio file, or read the transcript.'; playbackState(); }
+    catch { status.textContent = 'Playback could not start. Try Play again or read the transcript.'; playbackState(); }
   }
   play.addEventListener('click', () => { if (audio.paused) void start(); else audio.pause(); });
   seek.addEventListener('input', () => { audio.currentTime = Number(seek.value); update(); });
@@ -90,14 +86,16 @@ export function setupPlayer() {
     button.hidden = false;
     button.addEventListener('click', () => { audio.currentTime = Number(button.dataset.jump); update(); void start(); });
   });
-  follow.hidden = !words.length;
-  setFollow(true);
-  follow.addEventListener('click', () => { setFollow(!followEnabled); if (followEnabled && active >= 0) revealWord(words[active]); });
-  pane.addEventListener('pointerdown', event => { if (event.target === pane) setFollow(false); });
-  pane.addEventListener('wheel', () => setFollow(false), { passive: true });
-  pane.addEventListener('touchmove', () => setFollow(false), { passive: true });
-  pane.addEventListener('keydown', event => { if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(event.key)) setFollow(false); });
-  root.querySelectorAll('[data-chapter-link]').forEach(link => link.addEventListener('click', () => setFollow(false)));
+  // A chapter selects the matching audio position when cues are available.
+  // Without cues its native fragment link still scrolls to the transcript.
+  root.querySelectorAll<HTMLAnchorElement>('[data-chapter-link]').forEach(link => link.addEventListener('click', event => {
+    const index = words.findIndex(word => word.closest<HTMLElement>('[data-segment]')?.dataset.segment === link.dataset.chapterLink);
+    if (index < 0) return;
+    event.preventDefault();
+    audio.currentTime = cues[index].start;
+    update();
+    revealWord(words[index]);
+  }));
   function restorePosition() {
     try { const saved = Number(localStorage.getItem(key)); if (saved > 0 && saved < audio!.duration - 2) audio!.currentTime = saved; } catch {}
     update();
@@ -111,7 +109,7 @@ export function setupPlayer() {
   audio.addEventListener('waiting', () => { status.textContent = 'Buffering audio…'; });
   audio.addEventListener('pause', () => { playbackState(); savePosition(); status.textContent = 'Paused. Pick up whenever you’re ready.'; });
   audio.addEventListener('ended', () => { playbackState(); update(); savePosition(); status.textContent = 'You’re all caught up. Thanks for listening.'; });
-  audio.addEventListener('error', () => { playbackState(); status.textContent = 'The audio could not load. Try Play again, open the audio file, or read the transcript.'; });
+  audio.addEventListener('error', () => { playbackState(); status.textContent = 'The audio could not load. Try Play again or read the transcript.'; });
   window.addEventListener('pagehide', () => { savePosition(); cancelAnimationFrame(frame); audio.pause(); });
   root.querySelector<HTMLElement>('[data-custom-controls]')!.hidden = false;
   audio.hidden = true; // Native controls remain available when JavaScript is disabled.
