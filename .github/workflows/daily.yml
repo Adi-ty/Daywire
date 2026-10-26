@@ -78,7 +78,8 @@ jobs:
         uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
         with:
           path: ${{ runner.temp }}/daywire-models
-          key: kokoro-${{ runner.os }}-${{ hashFiles('internal/audio/kokoro/model.json', 'internal/audio/kokoro/requirements.txt') }}-${{ vars.KOKORO_VOICE || 'af_heart' }}
+          # Reuse large model weights across voices; missing voices are small downloads.
+          key: kokoro-shared-${{ runner.os }}-${{ hashFiles('internal/audio/kokoro/model.json', 'internal/audio/kokoro/requirements.txt') }}
       - name: Install speech runtime
         id: speech_runtime
         if: vars.DAYWIRE_RADIO_ENABLED == 'true'
@@ -102,7 +103,7 @@ jobs:
         env:
           EDITION_DATE: ${{ steps.date.outputs.date }}
           TTS_PROVIDER: ${{ vars.TTS_PROVIDER || 'kokoro' }}
-          KOKORO_VOICE: ${{ vars.KOKORO_VOICE || 'af_heart' }}
+          KOKORO_VOICE: ${{ vars.KOKORO_VOICE || 'cycle' }}
           KOKORO_SPEED: ${{ vars.KOKORO_SPEED || '1.0' }}
           KOKORO_DEVICE: cpu
           HF_HOME: ${{ runner.temp }}/daywire-models
@@ -114,7 +115,28 @@ jobs:
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: ${{ vars.R2_BUCKET }}
           MEDIA_PUBLIC_URL: ${{ vars.MEDIA_PUBLIC_URL }}
-        run: go run ./cmd/daywire radio --file "content/editions/$EDITION_DATE.json"
+        run: |
+          if [ "$TTS_PROVIDER" = kokoro ]; then
+            voices=(bf_isabella bf_emma bf_alice bf_lily af_heart af_bella af_alloy af_aoede af_jessica af_kore af_nicole af_nova af_river af_sarah af_sky)
+            if [ "$KOKORO_VOICE" = cycle ]; then
+              # Date-based rotation: retries keep the same voice. UTC arithmetic
+              # avoids DST; EDITION_DATE is already frozen in Asia/Kolkata.
+              day=$(( $(date -u -d "$EDITION_DATE" +%s) / 86400 ))
+              start=$(( $(date -u -d '2026-10-26' +%s) / 86400 ))
+              index=$(( ((day - start) % ${#voices[@]} + ${#voices[@]}) % ${#voices[@]} ))
+              export KOKORO_VOICE="${voices[$index]}"
+            fi
+            found=false
+            for voice in "${voices[@]}"; do
+              if [ "$voice" = "$KOKORO_VOICE" ]; then found=true; break; fi
+            done
+            if [ "$found" != true ]; then
+              echo 'KOKORO_VOICE must be cycle or a supported English female voice' >&2
+              exit 1
+            fi
+            echo "Kokoro narrator for $EDITION_DATE: $KOKORO_VOICE (ready audio is preserved)"
+          fi
+          go run ./cmd/daywire radio --file "content/editions/$EDITION_DATE.json"
       - name: Report unavailable narration
         if: vars.DAYWIRE_RADIO_ENABLED == 'true' && (steps.speech_runtime.outcome != 'success' || steps.radio.outcome != 'success')
         run: echo '::warning::Radio was not generated. The newspaper will still be built and preserved; inspect the speech steps before retrying.'
@@ -174,3 +196,14 @@ jobs:
           path: content/editions
       - name: Commit only validated public editions
         run: bash scripts/content-branch.sh save
+      - name: Request Vercel rebuild after saving the archive
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$VERCEL_DEPLOY_HOOK" ]; then
+            curl --fail --silent --show-error --retry 3 --max-time 30 \
+              --request POST "$VERCEL_DEPLOY_HOOK" > /dev/null
+            echo 'Vercel rebuild requested. Check Vercel for deployment completion.'
+          else
+            echo 'VERCEL_DEPLOY_HOOK is unset; archive saved without requesting deployment.'
+          fi
