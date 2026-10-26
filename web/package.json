@@ -9,7 +9,7 @@
     "dev": "astro dev",
     "prebuild": "node scripts/validate-content.mjs",
     "build": "astro check && astro build",
-    "build:vercel": "cd .. && bash scripts/content-branch.sh restore && cd web && astro check && astro build",
+    "build:vercel": "cd .. && bash scripts/content-branch.sh restore-public && cd web && astro check && astro build",
     "preview": "astro preview",
     "test": "node --test scripts/*.test.mjs"
   },
