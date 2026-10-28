@@ -1,4 +1,8 @@
 import math
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
 from types import SimpleNamespace as Token
 import unittest
 from unittest.mock import Mock
@@ -7,6 +11,23 @@ from generate import alignment, prepare_segments, validate_tokens
 
 
 class SpeechContractTests(unittest.TestCase):
+    def test_runtime_check_loads_sibling_helper_in_isolated_python(self):
+        runtime = Path(__file__).with_name("check_runtime.py").resolve()
+        with tempfile.TemporaryDirectory(prefix="daywire-isolated-check-") as cwd:
+            # Neither cwd nor PYTHONPATH should be needed to resolve the helper.
+            Path(cwd, "generate.py").write_text("raise RuntimeError('wrong helper')\n")
+            result = subprocess.run([
+                sys.executable, "-I", "-c",
+                "import pathlib, runpy, sys; "
+                "namespace = runpy.run_path(sys.argv[1]); "
+                "helper = namespace['prepare_segments']; "
+                "assert pathlib.Path(helper.__globals__['__file__']).resolve() == "
+                "pathlib.Path(sys.argv[1]).with_name('generate.py'); "
+                "assert callable(namespace['check'])",
+                str(runtime),
+            ], cwd=cwd, capture_output=True, text=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_word_timing_preserves_punctuation_and_chunk_offsets(self):
         result = alignment("Node.js isn't slow.\n\nNext story.", [
             ("Node.js", 0.1, 0.6), ("is", 0.65, 0.7), ("n't", 0.7, 0.85),

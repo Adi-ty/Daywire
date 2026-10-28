@@ -1,12 +1,16 @@
 """Exercise installed dependencies without downloading speech model weights."""
 import importlib.metadata
 from pathlib import Path
+import runpy
 import subprocess
 import sys
 import tempfile
 import wave
 
-from generate import prepare_segments
+# setup-kokoro.sh uses python -I: sibling modules are deliberately absent from
+# sys.path. Load this exact helper without weakening isolation or importing a
+# same-named module from the working directory. Its CLI entry point stays idle.
+prepare_segments = runpy.run_path(str(Path(__file__).resolve().with_name("generate.py")))["prepare_segments"]
 
 
 def check():
