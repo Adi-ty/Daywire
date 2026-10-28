@@ -1,5 +1,6 @@
 import math
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -7,10 +8,51 @@ from types import SimpleNamespace as Token
 import unittest
 from unittest.mock import Mock
 
-from generate import alignment, prepare_segments, validate_tokens
+from generate import alignment, normalized, prepare_segments, pronunciation_text, validate_tokens
 
 
 class SpeechContractTests(unittest.TestCase):
+    def test_quote_spacing_preserves_contractions_numbers_and_all_characters(self):
+        for quote in ("'", "‘", "’"):
+            text = f"app.use({quote}/admin{quote},authMiddleware)"
+            spaced = pronunciation_text(text)
+            with self.subTest(quote=quote):
+                self.assertIn(f"( {quote} /admin {quote} ,", spaced)
+                self.assertEqual(normalized(spaced), normalized(text))
+        text = "isn't isn’t O'Connor O’Connor users' 'tis 1.2.4 -1.5 <=2.0 /admin"
+        self.assertEqual(pronunciation_text(text), text)
+
+    def test_lost_contraction_apostrophe_or_code_character_still_rejected(self):
+        for original, changed in [
+            ("isn't", "isnt"), ("app.use('/admin',authMiddleware)", "app.use('admin',authMiddleware)"),
+            ("version 1.2.4", "version 124"), ("-1.5", "1.5"), ("<=2.0", "<2.0"),
+        ]:
+            with self.subTest(original=original), self.assertRaisesRegex(ValueError, "changed the script"):
+                validate_tokens(original, [Token(text=changed, whitespace="", phonemes="abc")])
+
+    def test_code_quotes_survive_pronunciation_and_keep_original_word_cues(self):
+        text = "Use scoped app.use('/admin',authMiddleware). It isn't public."
+        pipeline = Mock()
+
+        def g2p(value, *, preprocess):
+            # Reproduce the reported loss: Misaki's subtoken regex cannot
+            # match a single apostrophe between '(' and '/'. Spacing it as
+            # its own token avoids that case without removing any character.
+            value = value.replace("('/", "(/")
+            tokens = [Token(text=m.group(1), whitespace=m.group(2), phonemes="abc")
+                      for m in re.finditer(r"(\S+)(\s*)", value)]
+            return "abc", tokens
+
+        pipeline.g2p.side_effect = g2p
+        pipeline.en_tokenize.side_effect = lambda tokens: [("", "abc", tokens)]
+        chunks = prepare_segments(pipeline, text)[0]
+        tokens = chunks[0][2]
+        validate_tokens(text, tokens)
+        self.assertIn("isn't", pipeline.g2p.call_args.args[0])
+        timing = alignment(text, [(token.text, i, i + 0.5) for i, token in enumerate(tokens)])
+        self.assertIsNotNone(timing)
+        self.assertEqual(timing["characters"][::2], text.split())
+
     def test_runtime_check_loads_sibling_helper_in_isolated_python(self):
         runtime = Path(__file__).with_name("check_runtime.py").resolve()
         with tempfile.TemporaryDirectory(prefix="daywire-isolated-check-") as cwd:

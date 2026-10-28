@@ -24,6 +24,15 @@ def normalized(text):
     return "".join(text.split())
 
 
+def pronunciation_text(text):
+    # Misaki 0.9.4's subtoken regex can drop a single apostrophe between
+    # punctuation, as in app.use('/admin',authMiddleware). Give quotes next
+    # to punctuation their own whitespace boundary. Do not strip punctuation,
+    # rewrite code, or split word-internal apostrophes (isn't, O'Connor).
+    # Validation and alignment still compare against the ORIGINAL transcript.
+    return re.sub(r"(?<=[^\w\s])['‘’]|['‘’](?=[^\w\s])", r" \g<0> ", text)
+
+
 def validate_tokens(text, tokens):
     # Misaki supports markup that can change/omit input. Our script is plain text:
     # never silently lose words or accept the library's long-token truncation.
@@ -51,7 +60,7 @@ def prepare_segments(pipeline, text):
             # Misaki defaults to interpreting [text](...) as pronunciation
             # markup, removing the parenthesized text. Daywire is plain text;
             # pass it literally and preserve the original transcript/timings.
-            _, tokens = pipeline.g2p(segment, preprocess=False)
+            _, tokens = pipeline.g2p(pronunciation_text(segment), preprocess=False)
             validate_tokens(segment, tokens)
             chunks = list(pipeline.en_tokenize(tokens))
             if not chunks or any(not ps or len(ps) > 510 for _, ps, _ in chunks):
