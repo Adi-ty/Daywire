@@ -1,0 +1,408 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-28",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-10-28T06:12:57.896996904Z",
+  "coverage": {
+    "from": "2026-10-27T06:00:00+05:30",
+    "until": "2026-10-28T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-1e3ebf94e41ebe19",
+      "source-c417f8e3d39d0b89",
+      "source-b7bdac3bb4ce8ed2"
+    ],
+    "candidate_count": 44,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "Sleep Framework Extends LLM Context While Fractional GPU Sharing Improves Resource Efficiency",
+    "introduction": "Google’s new sleep framework lets large language models periodically consolidate short‑term context into long‑term parameters, extending usable context to 10 M tokens and reducing forgetting. At the same time, NVIDIA’s CUDA 13.4 introduces transparent memory limits for fractional GPU sharing, and the KAI Scheduler enables Kubernetes pods to claim precise GPU memory fractions, improving efficiency for high‑end AI workloads on shared infrastructure.",
+    "articles": [
+      {
+        "id": "fastify-express-bypass-fix-2026-10-28",
+        "section": "Security",
+        "headline": "Fastify Express middleware bypass patched in 4.0.9",
+        "summary": "Versions ≥ 4.0.5 and \u003c 4.0.9 of @fastify/express allow unauthenticated access when Fastify’s ignoreDuplicateSlashes option is enabled.",
+        "paragraphs": [
+          "The OpenJS Security Advisory (CVE‑2026‑112362) details a path‑scoped middleware bypass that occurs only when Fastify is configured with routerOptions.ignoreDuplicateSlashes set to true. In that mode Fastify’s router normalises an absolute‑form request target (e.g., GET http://host/admin/dashboard) to “/admin/dashboard” and dispatches the handler, while the Express layer no longer matches the scoped middleware such as app.use('/admin', authMiddleware). The result is that authentication, authorization, or rate‑limiting middleware is skipped entirely.",
+          "The vulnerability affects @fastify/express versions ≥ 4.0.5 and \u003c 4.0.9. Upgrading to 4.0.9 eliminates the mismatch by adjusting the router’s normalisation logic. The advisory also notes that leaving ignoreDuplicateSlashes at its default (off) or enforcing auth in a Fastify preHandler hook are viable mitigations for existing deployments."
+        ],
+        "implication": "Projects that rely on scoped Express middleware must upgrade to @fastify/express 4.0.9 or disable ignoreDuplicateSlashes, otherwise requests using absolute‑form URLs can bypass security checks.",
+        "source_ids": [
+          "source-756fb73b9dc42247"
+        ]
+      },
+      {
+        "id": "cuda-13-4-gpu-fractioning-kai-0-18-0",
+        "section": "Engineering",
+        "headline": "CUDA 13.4 adds transparent memory limits for fractional GPU sharing",
+        "summary": "NVIDIA’s CUDA 13.4 now enforces per‑container memory boundaries, and KAI Scheduler v0.18.0 leverages this to let Kubernetes pods claim exact GPU memory fractions.",
+        "paragraphs": [
+          "The CUDA 13.4 release introduces a memory‑boundary enforcement layer that is invisible to applications. Workloads receive a guaranteed amount of GPU memory, can burst up to a defined maximum, and may choose between a new time‑slicing compute mode or the existing sm‑sharing mode. The feature works alongside NVIDIA’s Multi‑Process Service (MPS) and reports usage per GPU fraction rather than per whole device.",
+          "KAI Scheduler v0.18.0 integrates the capability through its NvFractions mode. Administrators enable it with a Helm flag, and pods annotate their GPU needs—memory request, optional limit, compute mode, and device list. The operator reads these annotations and configures the GPU Operator to enforce the limits on each node.",
+          "By allocating only the memory a workload truly needs, clusters can host more AI jobs on the same hardware, reducing idle GPU capacity without modifying application code."
+        ],
+        "implication": "Kubernetes clusters that adopt CUDA 13.4 and KAI Scheduler 0.18.0 can increase GPU utilization by assigning precise memory slices to pods, allowing more concurrent AI workloads on existing infrastructure.",
+        "source_ids": [
+          "source-08b65e1468b74e86"
+        ]
+      },
+      {
+        "id": "llm-fuzzing-v8-2026",
+        "section": "Security",
+        "headline": "LLM‑based bug finder outpaces fuzzer in V8 vulnerability hunting",
+        "summary": "Google’s Project Zero reports that its LLM tool BigSleep discovered 45 V8 bugs in six months, surpassing the generative fuzzer Fuzzilli’s 37.",
+        "paragraphs": [
+          "The comparison, limited to Chrome’s V8 engine from April to September 2026, shows a 25 % overlap in reported bugs, with a separate experiment suggesting up to 60 % overlap; either way, many vulnerabilities were unique to one technique, confirming that fuzzing and LLM analysis remain complementary."
+        ],
+        "implication": "Security teams should run both a dedicated JavaScript engine fuzzer and an LLM‑driven analysis pipeline to capture the widest set of bugs.",
+        "source_ids": [
+          "source-4b134cedffabe49d"
+        ]
+      },
+      {
+        "id": "k8s-workload-conformance-wg-announcement",
+        "section": "Engineering",
+        "headline": "Kubernetes launches Workload Conformance Working Group",
+        "summary": "The Kubernetes community has formed a Working Group to draft an objective test‑driven standard for how workloads run on clusters.",
+        "paragraphs": [
+          "The new Workload Conformance Working Group will produce a specification covering security, resilience, resource use, networking, storage, API usage and observability, with every requirement tied to an executable test binary. SIG Architecture will own the spec and tooling, and the group will coordinate with other SIGs when requirements overlap. Application logic remains out of scope, keeping the focus on runtime behavior."
+        ],
+        "implication": "Cluster operators and tool developers can expect a future, testable conformance layer that standardizes runtime expectations without dictating workload functionality.",
+        "source_ids": [
+          "source-ab88661a74761e9b"
+        ]
+      },
+      {
+        "id": "sleep-framework-continual-learning",
+        "section": "AI",
+        "headline": "Google introduces a “sleep” phase for continual‑learning LLMs",
+        "summary": "Google Research’s new sleep framework lets large language models periodically consolidate short‑term context into long‑term parameters, reducing forgetting while extending usable context to 10 M tokens.",
+        "paragraphs": [
+          "The paper released on 27 Oct 2026 describes a two‑stage lifecycle—wake (active interaction) and sleep (offline consolidation)—that mimics human memory processing. During sleep, the model updates its weights with recently observed facts, turning fragile, context‑window knowledge into stable parameters. Experiments show the approach lets LLMs continuously ingest new information without the catastrophic forgetting that typically follows naïve fine‑tuning.",
+          "Benchmarks report retained performance on prior tasks while expanding effective context length from a few thousand tokens to roughly ten million. The authors stress that the method requires a dedicated offline consolidation step, so it is not a drop‑in change for already‑deployed services."
+        ],
+        "implication": "Engineers building long‑running AI assistants can adopt the sleep cycle to keep models up‑to‑date without sacrificing earlier capabilities, provided they allocate periodic offline compute for consolidation.",
+        "source_ids": [
+          "source-b49ec3bd8394c6fb"
+        ]
+      },
+      {
+        "id": "liquid-foundation-models-3-release",
+        "section": "AI",
+        "headline": "Hugging Face launches LFM3 multimodal models",
+        "summary": "Hugging Face’s new LFM3 family offers 2 B‑parameter text, vision, audio, omni and decision models that can be fine‑tuned on a single GPU and run on‑device.",
+        "paragraphs": [
+          "The LFM3 series builds on LFM2’s hybrid convolution‑attention design but adds a hardware‑in‑the‑loop architecture search covering 14 device‑backend combos, from phones and Raspberry Pi 5 to cloud GPUs and Qualcomm Hexagon NPUs. Each 2 B‑class model (e.g., LFM3‑VL‑2B for video‑aware vision) shares a common backbone and uses Partial RoPE to keep high‑frequency attention while preserving content alignment. The vision model raises benchmark scores from 57.6 to 71.4, matching a 12 B‑parameter Gemma‑4 model, yet runs on a single GPU for fine‑tuning and on‑device inference."
+        ],
+        "implication": "Developers can now prototype specialized multimodal agents with far fewer parameters and hardware requirements, enabling on‑device robotics or edge AI without the cost of large‑scale cloud models.",
+        "source_ids": [
+          "source-1c5b51464767c2ad"
+        ]
+      },
+      {
+        "id": "nemotron-local-fine-tuning-2026-10-28",
+        "section": "AI",
+        "headline": "NVIDIA releases LoRA‑based workflow to fine‑tune Nemotron 3.5 for local markets",
+        "summary": "Developers can now adapt Nemotron 3.5 Lightning to country‑specific rules and culture using NVIDIA’s Nemotron‑Personas datasets and a LoRA fine‑tuning pipeline.",
+        "paragraphs": [
+          "The new guide shows how to combine synthetic persona data for France and Belgium with a behavior contract and official procedure text, then fine‑tune Nemotron 3.5 Lightning on NVIDIA NeMo using LoRA adapters. After merging the adapter, the model is evaluated on a frozen test set. The workflow runs on a single DGX Station GB300 or DGX Spark, but can be ported to other NVIDIA GPU systems."
+        ],
+        "implication": "Teams building region‑specific assistants can achieve higher accuracy without collecting large real‑world datasets, leveraging publicly available persona collections and a lightweight LoRA update.",
+        "source_ids": [
+          "source-73f1440d47c57bf1"
+        ]
+      },
+      {
+        "id": "dlss5-rtx-spark-2026",
+        "section": "AI",
+        "headline": "DLSS 5’s 3D‑Guided Neural Rendering arrives on NVIDIA RTX Spark",
+        "summary": "NVIDIA adds DLSS 5 with 3D‑Guided Neural Rendering to the RTX Spark platform, debuting in NBA 2K27 and cutting GPU overhead and VRAM use at 4K.",
+        "paragraphs": [
+          "The RTX Spark Windows PC platform now runs DLSS 5’s 3D‑Guided Neural Rendering, delivering a 2× speed boost over the September build, halving GPU overhead and reducing 4K VRAM consumption by 20% in NBA 2K27. The update also bundles eight neural‑rendering SDKs—including RTX Neural Texture Compression and RTX Character Rendering—so developers can target strand‑based hair and skin with path‑traced realism on laptops and compact desktops equipped with up to 128 GB unified memory."
+        ],
+        "implication": "Game developers can leverage higher‑quality, lower‑cost AI‑enhanced rendering on mainstream hardware, but the benefits are limited to titles that integrate the new DLSS 5 pipeline, starting with NBA 2K27.",
+        "source_ids": [
+          "source-f4247e9fd2a272b2"
+        ]
+      },
+      {
+        "id": "ai-typing-survey-2026",
+        "section": "Engineering",
+        "headline": "AI‑generated type hints are paired with multiple static checkers",
+        "summary": "Meta’s 2026 Python Typing Survey finds developers are combining AI‑assisted type annotation with both Pyright and Mypy in their workflows.",
+        "paragraphs": [
+          "The survey of 1,794 Python developers notes that AI coding tools are now being used to write type hints, and many teams run more than one checker—often Pyright locally for its deep library understanding and Mypy in CI for consistent linting. The Pyrefly team highlighted this hybrid approach at the Python Typing Summit, pointing out that while AI‑driven type generation can streamline local feedback, coordinating configurations across tools remains a challenge."
+        ],
+        "implication": "Teams may benefit from a hybrid setup that uses AI‑suggested types for rapid local checks while keeping a single, stable linter such as Mypy for CI pipelines.",
+        "source_ids": [
+          "source-277005c67ec2bf44"
+        ]
+      },
+      {
+        "id": "visualsign-nitro-enclaves-brief",
+        "section": "Engineering",
+        "headline": "VisualSign runs inside AWS Nitro Enclaves for attested transaction parsing",
+        "summary": "Anchorage Digital and Turnkey deployed the open‑source VisualSign parser in Nitro Enclaves, using attestation documents and reproducible builds to prove the exact software that processed each transaction.",
+        "paragraphs": [
+          "The VisualSign parser, a cross‑chain transaction interpreter, now executes inside AWS Nitro Enclaves as part of Turnkey Verifiable Cloud. Enclave attestation documents expose Platform Configuration Registers that reflect deterministic PCR measurements of the enclave image, kernel and the parser binary, which is built reproducibly so the measurements stay constant across rebuilds. Clients can compare these values against known good hashes, eliminating the need to trust Turnkey’s infrastructure."
+        ],
+        "implication": "Developers can outsource high‑trust computation to Nitro Enclaves while retaining cryptographic proof of the exact code version that ran, enabling verifiable services beyond crypto without sharing secret keys.",
+        "source_ids": [
+          "source-49cd37b8aa0b9cd2"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "fastify-express-middleware-bypass-mechanism",
+        "title": "Why absolute‑form URLs can slip past scoped middleware in Fastify Express",
+        "paragraphs": [
+          "When Fastify is started with routerOptions.ignoreDuplicateSlashes set to true, its router normalises any duplicate slashes in the request target. For an absolute‑form request such as `GET http://host//admin/dashboard`, the router collapses the double slash after the scheme and treats the path as `/admin/dashboard`. It then dispatches the handler directly. The Express layer, however, receives the already‑normalised path and no longer matches the original scoped middleware declaration (`app.use('/admin', authMiddleware)`), so the middleware is never invoked.",
+          "The mismatch only appears in @fastify/express versions ≥ 4.0.5 and \u003c 4.0.9 because those releases relied on the router’s normalisation without reconciling it with Express’s path‑scoping. Upgrading to 4.0.9 or disabling ignoreDuplicateSlashes restores consistent path handling, ensuring that scoped middleware runs for every request."
+        ],
+        "example": "A request `GET http://example.com//admin/settings` reaches the route handler, but the `authMiddleware` attached to `/admin` is skipped, granting unauthenticated access.",
+        "takeaway": "Always keep @fastify/express updated and avoid non‑default router options that alter URL normalisation, or enforce security checks in a Fastify preHandler hook.",
+        "article_ids": [
+          "fastify-express-bypass-fix-2026-10-28"
+        ],
+        "source_ids": [
+          "source-756fb73b9dc42247"
+        ]
+      },
+      {
+        "id": "gpu-memory-boundary-enforcement",
+        "title": "How CUDA 13.4 enforces per‑container GPU memory boundaries",
+        "paragraphs": [
+          "CUDA 13.4 adds a transparent memory‑boundary layer that sits between the application and the GPU’s physical memory. When a pod specifies a memory request and an optional limit, the driver creates a virtual address space that caps the visible memory to the requested amount, while still allowing a burst up to the limit if spare memory exists. This enforcement works regardless of the application’s allocation calls, so the workload never sees more memory than it is allowed.",
+          "The mechanism is activated by the NVIDIA GPU Operator together with Multi‑Process Service (MPS). The operator configures each GPU fraction with the requested limits and selects a compute mode (time‑slicing or sm‑sharing). Because the limit is enforced at the driver level, multiple pods can safely share a single GPU without risking out‑of‑memory crashes."
+        ],
+        "example": "A pod annotates nvidia.com/container.myapp.gpu-memory.request: \"20Gi\" and nvidia.com/container.myapp.gpu-memory.limit: \"30Gi\". The driver presents only 20 GiB of memory to the container; if other pods are idle, the container may temporarily allocate up to 30 GiB, after which further allocations are blocked.",
+        "takeaway": "By enforcing memory caps inside the driver, CUDA 13.4 lets Kubernetes allocate exact GPU memory slices, increasing utilization while preserving isolation for each workload.",
+        "article_ids": [
+          "cuda-13-4-gpu-fractioning-kai-0-18-0"
+        ],
+        "source_ids": [
+          "source-08b65e1468b74e86"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-absolute-form-bypass",
+        "lesson_id": "fastify-express-middleware-bypass-mechanism",
+        "prompt": "What causes the authMiddleware scoped to '/admin' to be skipped for a request like `GET http://host//admin/dashboard`?",
+        "options": [
+          "Fastify's router normalises duplicate slashes before Express matches the path",
+          "Express ignores the HTTP method when matching routes",
+          "The request uses the absolute‑form which Express cannot parse",
+          "Fastify disables all middleware when ignoreDuplicateSlashes is true"
+        ],
+        "answer": 0,
+        "explanation": "When ignoreDuplicateSlashes is true, Fastify collapses the double slash and passes the normalized path '/admin/dashboard' to Express, which no longer matches the original '/admin' scoped middleware declaration."
+      },
+      {
+        "id": "quiz-1-version-impact",
+        "lesson_id": "fastify-express-middleware-bypass-mechanism",
+        "prompt": "Which version range of @fastify/express exhibits the middleware bypass issue?",
+        "options": [
+          "≥ 4.0.5 and \u003c 4.0.9",
+          "All versions prior to 4.0.0",
+          "Only version 4.0.9",
+          "≥ 4.1.0"
+        ],
+        "answer": 0,
+        "explanation": "The problem appears only in @fastify/express versions ≥ 4.0.5 and \u003c 4.0.9 because those releases relied on the router’s normalisation without reconciling it with Express’s path‑scoping."
+      },
+      {
+        "id": "quiz-1-mitigation",
+        "lesson_id": "fastify-express-middleware-bypass-mechanism",
+        "prompt": "Which mitigation restores the expected execution of scoped middleware for duplicate‑slash URLs?",
+        "options": [
+          "Upgrade @fastify/express to version 4.0.9 or later",
+          "Set routerOptions.ignoreDuplicateSlashes to false",
+          "Both A and B",
+          "Disable the Express plugin entirely"
+        ],
+        "answer": 2,
+        "explanation": "Both upgrading to @fastify/express 4.0.9 (or later) and disabling ignoreDuplicateSlashes prevent the path normalisation mismatch, ensuring scoped middleware runs."
+      },
+      {
+        "id": "quiz-2-gpu-boundary-enforcement-1",
+        "lesson_id": "gpu-memory-boundary-enforcement",
+        "prompt": "What determines the maximum amount of GPU memory a container can temporarily exceed its requested memory in CUDA 13.4?",
+        "options": [
+          "The amount of spare memory available on the GPU at allocation time",
+          "The number of pods sharing the same GPU",
+          "The compute mode (time‑slicing vs sm‑sharing) selected by the operator",
+          "The physical memory size of the GPU"
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that the driver allows a burst up to the limit only if spare memory exists, so the temporary excess depends on available spare memory."
+      },
+      {
+        "id": "quiz-2-gpu-boundary-enforcement-2",
+        "lesson_id": "gpu-memory-boundary-enforcement",
+        "prompt": "How does CUDA 13.4 enforce GPU memory isolation between pods?",
+        "options": [
+          "By creating a virtual address space that caps visible memory to the pod's request",
+          "By limiting the number of CUDA kernels a pod can launch",
+          "By assigning each pod a dedicated physical GPU",
+          "By throttling the GPU clock frequency for each pod"
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that the driver creates a virtual address space that caps visible memory to the requested amount, providing isolation regardless of allocation calls."
+      }
+    ],
+    "segments": [
+      {
+        "id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "title": "Fastify Express middleware bypass patched in 4.0.9",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's October twenty eight, two thousand twenty six.\n\nWe begin with our lead story. Fastify Express middleware bypass patched in version four point zero point nine.\n\nIf you’ve turned on the ignoreDuplicateSlashes router option, Fastify will rewrite an absolute‑form URL like GET http://host/admin/dashboard to “/admin/dashboard” and hand it off before the Express layer sees the scoped app.use('/admin', authMiddleware). That means authentication or rate‑limiting can be skipped entirely. The OpenJS Security Advisory flags this in versions greater than or equal to four point zero point five but less than four point zero point nine. Upgrading to four point zero point nine or disabling ignoreDuplicateSlashes restores the expected security checks.",
+        "article_ids": [
+          "fastify-express-bypass-fix-2026-10-28"
+        ]
+      },
+      {
+        "id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "title": "CUDA 13.4 Enables Fractional GPU Memory Sharing",
+        "text": "Next on the bulletin. NVIDIA just rolled out CUDA version thirteen point four with a new transparent memory limit layer that lets containers claim exact slices of GPU memory.\n\nPods can now ask for a specific memory request, an optional limit, and even pick a time‑slicing compute mode, all enforced by the KAI Scheduler version zero point one eight point zero in its NvFractions mode. The operator reads those annotations and programs the GPU Operator to keep each slice within its bounds.\n\nHere’s why that matters: you can pack more AI jobs onto the same hardware without touching the code, but you’ll need CUDA thirteen point four and the KAI Scheduler update to make it work.",
+        "article_ids": [
+          "cuda-13-4-gpu-fractioning-kai-0-18-0"
+        ]
+      },
+      {
+        "id": "llm-fuzzing-v8-2026-segment",
+        "title": "LLM bug finder outpaces fuzzer in V8",
+        "text": "Turning to our next story. Google’s Project Zero says its new L L M tool BigSleep uncovered forty‑five V8 bugs in six months, beating the generative fuzzer Fuzzilli’s thirty‑seven. The study looked at Chrome’s V8 engine from April to September twenty twenty‑six and found only twenty‑five percent overlap between the two methods, meaning most findings were unique. Here’s why that matters: fuzzing and L L M analysis still complement each other, so security teams should keep both a dedicated JavaScript engine fuzzer and an L L M‑driven pipeline running.\n",
+        "article_ids": [
+          "llm-fuzzing-v8-2026"
+        ]
+      },
+      {
+        "id": "k8s-workload-conformance-wg-announcement-segment",
+        "title": "Kubernetes launches Workload Conformance Working Group",
+        "text": "Next on the bulletin. Kubernetes just announced a new Workload Conformance Working Group. The group’s job is to write a test‑driven spec that checks how workloads behave on a cluster – things like security, resilience, resource use, networking, storage, API usage and observability. Every rule will be tied to an executable test binary, and SIG Architecture will own both the spec and the tooling. Application code stays out of scope, so the focus stays on runtime behavior alone.\n\nHere’s why that matters: operators and tool makers will soon have a concrete, testable layer to verify that clusters meet consistent runtime expectations, without being forced into any particular workload design.",
+        "article_ids": [
+          "k8s-workload-conformance-wg-announcement"
+        ]
+      },
+      {
+        "id": "sleep-framework-continual-learning-segment",
+        "title": "Google adds a sleep phase for LLMs",
+        "text": "And finally, our last story. Google Research unveiled a new \"sleep\" framework that lets large language models periodically consolidate short‑term context into long‑term parameters. After a burst of interaction, the model goes offline and updates its weights with the facts it just saw, turning fragile, window‑limited knowledge into stable memory. The authors report that this keeps prior skills intact while stretching usable context to roughly ten million tokens. \n\nHere's why that matters: developers can keep AI assistants fresh without constant fine‑tuning, as long as they set aside dedicated offline compute for the sleep step.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "sleep-framework-continual-learning"
+        ]
+      }
+    ],
+    "artwork_brief": "Illustrate a neural network icon in a relaxed, sleeping pose next to a GPU chip divided into colored slices labeled with fractional percentages, set against a subtle data‑center background to convey both the sleep phase and fractional GPU sharing concepts."
+  },
+  "sources": [
+    {
+      "id": "source-756fb73b9dc42247",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-112362: @fastify/express vulnerable to path-scoped middleware bypass via absolute-form request targets",
+      "url": "https://github.com/fastify/fastify-express/security/advisories/GHSA-6h42-57hq-9746",
+      "published_at": "2026-10-27T11:27:59Z",
+      "discovered_at": "2026-10-28T05:58:58.643601702Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-08b65e1468b74e86",
+      "name": "NVIDIA Developer",
+      "title": "Memory-Enforced GPU Sharing in Kubernetes with NVIDIA CUDA 13.4",
+      "url": "https://developer.nvidia.com/blog/memory-enforced-gpu-sharing-in-kubernetes-with-nvidia-cuda-13-4/",
+      "published_at": "2026-10-27T20:50:39Z",
+      "discovered_at": "2026-10-28T05:58:59.55048551Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-b49ec3bd8394c6fb",
+      "name": "Google Research",
+      "title": "The sleep framework: A new way for LLMs to retain knowledge in continual learning",
+      "url": "https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/",
+      "published_at": "2026-10-27T17:35:00Z",
+      "discovered_at": "2026-10-28T05:58:59.16763993Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-1c5b51464767c2ad",
+      "name": "Hugging Face",
+      "title": "Build specialized multimodal models with LFM3",
+      "url": "https://huggingface.co/blog/LiquidAI/lfm3",
+      "published_at": "2026-10-27T17:16:52Z",
+      "discovered_at": "2026-10-28T05:58:58.397413216Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-ab88661a74761e9b",
+      "name": "Kubernetes Blog",
+      "title": "Announcing the Workload Conformance Working Group",
+      "url": "https://kubernetes.io/blog/2026/10/27/announcing-workload-conformance-wg/",
+      "published_at": "2026-10-27T04:30:00Z",
+      "discovered_at": "2026-10-28T05:58:59.83746944Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-4b134cedffabe49d",
+      "name": "Lobsters",
+      "title": "Fuzzers vs. AI: Comparing Fuzzilli and BigSleep on JavaScript Engines",
+      "url": "https://projectzero.google/2026/10/fuzzing-v-AI.html",
+      "published_at": null,
+      "discovered_at": "2026-10-27T14:08:23.211-05:00",
+      "discussion_url": "https://lobste.rs/s/rswyzt/fuzzers_vs_ai_comparing_fuzzilli"
+    },
+    {
+      "id": "source-f4247e9fd2a272b2",
+      "name": "NVIDIA Developer",
+      "title": "NVIDIA RTX Spark Powers Neural Rendering and AI Characters in Games",
+      "url": "https://developer.nvidia.com/blog/nvidia-rtx-spark-powers-neural-rendering-and-ai-characters-in-games/",
+      "published_at": "2026-10-27T17:00:00Z",
+      "discovered_at": "2026-10-28T05:58:59.55048551Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-277005c67ec2bf44",
+      "name": "Meta Engineering",
+      "title": "Python Typing Survey 2026: AI Tools and the Shifting Checker Landscape",
+      "url": "https://engineering.fb.com/2026/10/27/developer-tools/python-typing-survey-2026-ai-tools-checker-landscape/",
+      "published_at": "2026-10-27T15:59:24Z",
+      "discovered_at": "2026-10-28T05:58:59.757542909Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-49cd37b8aa0b9cd2",
+      "name": "AWS Architecture",
+      "title": "How Anchorage Digital and Turnkey verify code with AWS Nitro Enclaves",
+      "url": "https://aws.amazon.com/blogs/architecture/how-anchorage-digital-and-turnkey-verify-code-with-aws-nitro-enclaves/",
+      "published_at": "2026-10-27T17:10:35Z",
+      "discovered_at": "2026-10-28T05:58:59.615616729Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-73f1440d47c57bf1",
+      "name": "NVIDIA Developer",
+      "title": "Fine-Tuning NVIDIA Nemotron to Know Local Rules, Not Just Local Languages",
+      "url": "https://developer.nvidia.com/blog/fine-tuning-nvidia-nemotron-to-know-local-rules-not-just-local-languages/",
+      "published_at": "2026-10-27T16:00:00Z",
+      "discovered_at": "2026-10-28T05:58:59.55048551Z",
+      "discussion_url": null
+    }
+  ],
+  "radio": {
+    "status": "failed",
+    "audio_url": null,
+    "duration_seconds": null,
+    "script_hash": "a10493926db71f432f1d5e9d11f8bfdba078996a53c2d98c1432f87ac5852d77"
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
