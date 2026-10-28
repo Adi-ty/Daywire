@@ -27,10 +27,41 @@ def normalized(text):
 def validate_tokens(text, tokens):
     # Misaki supports markup that can change/omit input. Our script is plain text:
     # never silently lose words or accept the library's long-token truncation.
-    if normalized("".join(t.text + t.whitespace for t in tokens)) != normalized(text):
-        raise ValueError("pronunciation tokenization changed the script; revise that radio segment")
+    expected = normalized(text)
+    actual = normalized("".join(t.text + t.whitespace for t in tokens))
+    if actual != expected:
+        offset = next((i for i, (a, b) in enumerate(zip(expected, actual)) if a != b), min(len(expected), len(actual)))
+        # A bounded, escaped excerpt makes punctuation/Unicode loss diagnosable
+        # without dumping the entire script into CI logs.
+        raise ValueError(
+            f"pronunciation tokenization changed the script at non-whitespace character {offset + 1}: "
+            f"expected {ascii(expected[max(0, offset - 12):offset + 24])}, "
+            f"received {ascii(actual[max(0, offset - 12):offset + 24])}"
+        )
     if any(any(c.isalnum() for c in t.text) and not t.phonemes for t in tokens):
         raise ValueError("a script word has no pronunciation; revise that radio segment")
+
+
+def prepare_segments(pipeline, text):
+    """Preflight the entire plain-text script before downloading/inferencing weights."""
+    segments = [part for part in re.split(r"\n\s*\n", text) if part.strip()]
+    prepared = []
+    for index, segment in enumerate(segments):
+        try:
+            # Misaki defaults to interpreting [text](...) as pronunciation
+            # markup, removing the parenthesized text. Daywire is plain text;
+            # pass it literally and preserve the original transcript/timings.
+            _, tokens = pipeline.g2p(segment, preprocess=False)
+            validate_tokens(segment, tokens)
+            chunks = list(pipeline.en_tokenize(tokens))
+            if not chunks or any(not ps or len(ps) > 510 for _, ps, _ in chunks):
+                raise ValueError("unsupported phoneme chunk; revise the script (no truncation performed)")
+            # Validate tokens surviving chunking too, not just the G2P input.
+            validate_tokens(segment, [token for _, _, chunk in chunks for token in chunk])
+        except ValueError as error:
+            raise ValueError(f"text block {index + 1}/{len(segments)}: {error}") from error
+        prepared.append(chunks)
+    return prepared
 
 
 def alignment(text, timed_tokens):
@@ -110,13 +141,14 @@ def synthesize(request, destination):
     # Tokenizer/native dependency errors must fail before expensive downloads.
     log("initializing English pronunciation")
     pipeline = KPipeline(lang_code=voice[0], repo_id=recipe["repo"], model=False)
+    segments = prepare_segments(pipeline, text)
+    log(f"pronunciation checked: {len(segments)} text blocks")
     log("loading pinned model (first run downloads weights)")
     model = KModel(repo_id=recipe["repo"], config=download("config.json"), model=download(recipe["weights"])).to(device).eval()
     log(f"loading voice {voice}")
     voice_pack = torch.load(download(f"voices/{voice}.pt"), map_location="cpu", weights_only=True)
     sample_rate = recipe["sample_rate"]
     tokens_with_times = []
-    segments = [part for part in re.split(r"\n\s*\n", text) if part.strip()]
     samples = 0
     with tempfile.TemporaryDirectory(prefix="daywire-wave-", dir=destination.parent) as work:
         wav_path, mp3_path = Path(work) / "speech.wav", Path(work) / "speech.mp3"
@@ -134,13 +166,8 @@ def synthesize(request, destination):
                     raise ValueError("audio exceeds five minutes; revise the script before regenerating")
                 wav.writeframes((np.clip(audio, -1, 1) * 32767).astype("<i2").tobytes())
 
-            for index, segment in enumerate(segments):
+            for index, chunks in enumerate(segments):
                 log(f"segment {index + 1}/{len(segments)}")
-                _, tokens = pipeline.g2p(segment)
-                validate_tokens(segment, tokens)
-                chunks = list(pipeline.en_tokenize(tokens))
-                if not chunks or any(not ps or len(ps) > 510 for _, ps, _ in chunks):
-                    raise ValueError("unsupported phoneme chunk; revise the script (no truncation performed)")
                 for chunk_index, (_, phonemes, chunk_tokens) in enumerate(chunks):
                     if index > 0 and chunk_index == 0:
                         append_audio(np.zeros(round(0.85 * sample_rate)))

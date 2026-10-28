@@ -6,6 +6,8 @@ import sys
 import tempfile
 import wave
 
+from generate import prepare_segments
+
 
 def check():
     # pip check validates declared metadata, not imports or native libraries.
@@ -40,9 +42,11 @@ def check():
         espeak.EspeakFallback(british=lang == "b")
         # Exercise the same pipeline constructor as narration, without weights.
         pipeline = KPipeline(lang_code=lang, repo_id="hexgrad/Kokoro-82M", model=False)
-        phonemes, tokens = pipeline.g2p("Daywire covers technology, Node.js and security updates.")
-        if not phonemes or not tokens:
-            raise RuntimeError("English pronunciation check returned empty output")
+        # Exercise the production plain-text path, including syntax Misaki's
+        # default preprocessor would interpret as pronunciation instructions.
+        prepare_segments(pipeline, "Daywire covers technology, Node.js and security updates.\n\n"
+                         "It’s ready—version one point two point four.\n\n"
+                         "The label is [release](candidate).")
     with tempfile.TemporaryDirectory(prefix="daywire-runtime-check-") as work:
         wav_path, mp3_path = Path(work) / "check.wav", Path(work) / "check.mp3"
         with wave.open(str(wav_path), "wb") as audio:

@@ -1,8 +1,9 @@
 import math
 from types import SimpleNamespace as Token
 import unittest
+from unittest.mock import Mock
 
-from generate import alignment, validate_tokens
+from generate import alignment, prepare_segments, validate_tokens
 
 
 class SpeechContractTests(unittest.TestCase):
@@ -39,6 +40,44 @@ class SpeechContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "changed the script"):
             validate_tokens("UnusualAPI is new", tokens)
         validate_tokens("  UnusualAPI\n", tokens)
+
+    def test_plain_text_bypasses_pronunciation_markup(self):
+        text = "The label is [release](candidate)."
+        token = Token(text=text, whitespace="", phonemes="abc")
+        pipeline = Mock()
+        pipeline.g2p.return_value = ("abc", [token])
+        pipeline.en_tokenize.return_value = [(text, "abc", [token])]
+        self.assertEqual(len(prepare_segments(pipeline, text)), 1)
+        pipeline.g2p.assert_called_once_with(text, preprocess=False)
+
+    def test_preflight_reports_later_block_without_accepting_text_loss(self):
+        pipeline = Mock()
+        def g2p(text, *, preprocess):
+            self.assertFalse(preprocess)
+            actual = text.replace("not ", "")
+            return "abc", [Token(text=actual, whitespace="", phonemes="abc")]
+        pipeline.g2p.side_effect = g2p
+        pipeline.en_tokenize.side_effect = lambda tokens: [("", "abc", tokens)]
+        with self.assertRaisesRegex(ValueError, "text block 3/3:.*expected.*notready.*received.*ready"):
+            prepare_segments(pipeline, "First.\n\nSecond.\n\nIt is not ready.")
+
+    def test_chunker_cannot_drop_or_change_script(self):
+        pipeline = Mock()
+        original = "version 1.2.4"
+        pipeline.g2p.return_value = ("abc", [Token(text=original, whitespace="", phonemes="abc")])
+        for changed in ["version 1.2", "version 1.2.5", ""]:
+            pipeline.en_tokenize.return_value = [(changed, "abc", [Token(text=changed, whitespace="", phonemes="abc")])]
+            with self.subTest(changed=changed), self.assertRaisesRegex(ValueError, "changed the script"):
+                prepare_segments(pipeline, original)
+
+    def test_preflight_checks_chunk_limits(self):
+        token = Token(text="Ready", whitespace="", phonemes="abc")
+        pipeline = Mock()
+        pipeline.g2p.return_value = ("abc", [token])
+        for chunks in [[], [("Ready", "", [token])], [("Ready", "x" * 511, [token])]]:
+            pipeline.en_tokenize.return_value = chunks
+            with self.subTest(chunks=chunks), self.assertRaisesRegex(ValueError, "unsupported phoneme chunk"):
+                prepare_segments(pipeline, "Ready")
 
 
 if __name__ == "__main__":
