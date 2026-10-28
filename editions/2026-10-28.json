@@ -395,10 +395,3312 @@
     }
   ],
   "radio": {
-    "status": "failed",
-    "audio_url": null,
-    "duration_seconds": null,
-    "script_hash": "a10493926db71f432f1d5e9d11f8bfdba078996a53c2d98c1432f87ac5852d77"
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-10-28/325b6cfb1729f31b22ca375781b20c4a08d563b467d89647ef290a53f11f8d7a.mp3",
+    "duration_seconds": 225.89,
+    "script_hash": "a10493926db71f432f1d5e9d11f8bfdba078996a53c2d98c1432f87ac5852d77",
+    "cues": [
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6375
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "everyone,",
+        "start_seconds": 0.6375,
+        "end_seconds": 1.225
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "and",
+        "start_seconds": 1.225,
+        "end_seconds": 1.4125
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "welcome",
+        "start_seconds": 1.4125,
+        "end_seconds": 1.85
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "to",
+        "start_seconds": 1.85,
+        "end_seconds": 1.975
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Daywire.",
+        "start_seconds": 1.975,
+        "end_seconds": 2.75
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Let's",
+        "start_seconds": 2.75,
+        "end_seconds": 3.025
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "make",
+        "start_seconds": 3.025,
+        "end_seconds": 3.2625
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "sense",
+        "start_seconds": 3.2625,
+        "end_seconds": 3.5875
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "of",
+        "start_seconds": 3.5875,
+        "end_seconds": 3.6625
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "the",
+        "start_seconds": 3.6625,
+        "end_seconds": 3.7875
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "tech",
+        "start_seconds": 3.7875,
+        "end_seconds": 4.1
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "news.",
+        "start_seconds": 4.1,
+        "end_seconds": 4.8
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "It's",
+        "start_seconds": 4.8,
+        "end_seconds": 4.975
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "October",
+        "start_seconds": 4.975,
+        "end_seconds": 5.45
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "twenty",
+        "start_seconds": 5.45,
+        "end_seconds": 5.775
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "eight,",
+        "start_seconds": 5.775,
+        "end_seconds": 6.0375
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "two",
+        "start_seconds": 6.0375,
+        "end_seconds": 6.275
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "thousand",
+        "start_seconds": 6.275,
+        "end_seconds": 6.65
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "twenty",
+        "start_seconds": 6.65,
+        "end_seconds": 6.9625
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "six.",
+        "start_seconds": 6.9625,
+        "end_seconds": 7.85
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "We",
+        "start_seconds": 9.025,
+        "end_seconds": 9.15
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "begin",
+        "start_seconds": 9.15,
+        "end_seconds": 9.525
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "with",
+        "start_seconds": 9.525,
+        "end_seconds": 9.662500000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "our",
+        "start_seconds": 9.662500000000001,
+        "end_seconds": 9.8
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "lead",
+        "start_seconds": 9.8,
+        "end_seconds": 10.075000000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "story.",
+        "start_seconds": 10.075000000000001,
+        "end_seconds": 10.8625
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Fastify",
+        "start_seconds": 10.8625,
+        "end_seconds": 11.475000000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Express",
+        "start_seconds": 11.475000000000001,
+        "end_seconds": 11.9375
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "middleware",
+        "start_seconds": 11.9375,
+        "end_seconds": 12.325000000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "bypass",
+        "start_seconds": 12.325000000000001,
+        "end_seconds": 12.8375
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "patched",
+        "start_seconds": 12.8375,
+        "end_seconds": 13.225000000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "in",
+        "start_seconds": 13.225000000000001,
+        "end_seconds": 13.375
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "version",
+        "start_seconds": 13.375,
+        "end_seconds": 13.825000000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "four",
+        "start_seconds": 13.825000000000001,
+        "end_seconds": 14.075000000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "point",
+        "start_seconds": 14.075000000000001,
+        "end_seconds": 14.387500000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "zero",
+        "start_seconds": 14.387500000000001,
+        "end_seconds": 14.8
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "point",
+        "start_seconds": 14.8,
+        "end_seconds": 15.075000000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "nine.",
+        "start_seconds": 15.075000000000001,
+        "end_seconds": 15.975000000000001
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "If",
+        "start_seconds": 17.150000000000002,
+        "end_seconds": 17.2875
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "you’ve",
+        "start_seconds": 17.2875,
+        "end_seconds": 17.45
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "turned",
+        "start_seconds": 17.45,
+        "end_seconds": 17.7625
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "on",
+        "start_seconds": 17.7625,
+        "end_seconds": 17.8625
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "the",
+        "start_seconds": 17.8625,
+        "end_seconds": 17.975
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "ignoreDuplicateSlashes",
+        "start_seconds": 17.975,
+        "end_seconds": 19.2
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "router",
+        "start_seconds": 19.2,
+        "end_seconds": 19.475
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "option,",
+        "start_seconds": 19.475,
+        "end_seconds": 20.1
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Fastify",
+        "start_seconds": 20.1,
+        "end_seconds": 20.650000000000002
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "will",
+        "start_seconds": 20.650000000000002,
+        "end_seconds": 20.825
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "rewrite",
+        "start_seconds": 20.825,
+        "end_seconds": 21.2125
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "an",
+        "start_seconds": 21.2125,
+        "end_seconds": 21.3375
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "absolute‑form",
+        "start_seconds": 21.3375,
+        "end_seconds": 22.0875
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "URL",
+        "start_seconds": 22.0875,
+        "end_seconds": 22.6
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "like",
+        "start_seconds": 22.6,
+        "end_seconds": 22.825000000000003
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "GET",
+        "start_seconds": 22.825000000000003,
+        "end_seconds": 23.0625
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "http://host/admin/dashboard",
+        "start_seconds": 23.0625,
+        "end_seconds": 26.575000000000003
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "to",
+        "start_seconds": 26.575000000000003,
+        "end_seconds": 26.700000000000003
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "“/admin/dashboard”",
+        "start_seconds": 26.700000000000003,
+        "end_seconds": 27.825000000000003
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "and",
+        "start_seconds": 27.825000000000003,
+        "end_seconds": 27.950000000000003
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "hand",
+        "start_seconds": 27.950000000000003,
+        "end_seconds": 28.1875
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "it",
+        "start_seconds": 28.1875,
+        "end_seconds": 28.2875
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "off",
+        "start_seconds": 28.2875,
+        "end_seconds": 28.475
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "before",
+        "start_seconds": 28.475,
+        "end_seconds": 28.762500000000003
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "the",
+        "start_seconds": 28.762500000000003,
+        "end_seconds": 28.875
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Express",
+        "start_seconds": 28.875,
+        "end_seconds": 29.325000000000003
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "layer",
+        "start_seconds": 29.325000000000003,
+        "end_seconds": 29.65
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "sees",
+        "start_seconds": 29.65,
+        "end_seconds": 29.9375
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "the",
+        "start_seconds": 29.9375,
+        "end_seconds": 30.025
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "scoped",
+        "start_seconds": 30.025,
+        "end_seconds": 30.35
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "app.use('/admin',",
+        "start_seconds": 30.35,
+        "end_seconds": 31.887500000000003
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "authMiddleware).",
+        "start_seconds": 31.887500000000003,
+        "end_seconds": 32.9
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "That",
+        "start_seconds": 32.9,
+        "end_seconds": 33.1
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "means",
+        "start_seconds": 33.1,
+        "end_seconds": 33.4125
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "authentication",
+        "start_seconds": 33.4125,
+        "end_seconds": 34.3125
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "or",
+        "start_seconds": 34.3125,
+        "end_seconds": 34.475
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "rate‑limiting",
+        "start_seconds": 34.475,
+        "end_seconds": 35.225
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "can",
+        "start_seconds": 35.225,
+        "end_seconds": 35.337500000000006
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "be",
+        "start_seconds": 35.337500000000006,
+        "end_seconds": 35.462500000000006
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "skipped",
+        "start_seconds": 35.462500000000006,
+        "end_seconds": 35.875
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "entirely.",
+        "start_seconds": 35.875,
+        "end_seconds": 37.0375
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "The",
+        "start_seconds": 37.47,
+        "end_seconds": 37.595
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "OpenJS",
+        "start_seconds": 37.595,
+        "end_seconds": 38.269999999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Security",
+        "start_seconds": 38.269999999999996,
+        "end_seconds": 38.845
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Advisory",
+        "start_seconds": 38.845,
+        "end_seconds": 39.457499999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "flags",
+        "start_seconds": 39.457499999999996,
+        "end_seconds": 39.845
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "this",
+        "start_seconds": 39.845,
+        "end_seconds": 40.07
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "in",
+        "start_seconds": 40.07,
+        "end_seconds": 40.22
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "versions",
+        "start_seconds": 40.22,
+        "end_seconds": 40.707499999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "greater",
+        "start_seconds": 40.707499999999996,
+        "end_seconds": 41.357499999999995
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "than",
+        "start_seconds": 41.357499999999995,
+        "end_seconds": 41.582499999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "or",
+        "start_seconds": 41.582499999999996,
+        "end_seconds": 41.7575
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "equal",
+        "start_seconds": 41.7575,
+        "end_seconds": 42.144999999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "to",
+        "start_seconds": 42.144999999999996,
+        "end_seconds": 42.294999999999995
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "four",
+        "start_seconds": 42.294999999999995,
+        "end_seconds": 42.544999999999995
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "point",
+        "start_seconds": 42.544999999999995,
+        "end_seconds": 42.857499999999995
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "zero",
+        "start_seconds": 42.857499999999995,
+        "end_seconds": 43.269999999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "point",
+        "start_seconds": 43.269999999999996,
+        "end_seconds": 43.607499999999995
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "five",
+        "start_seconds": 43.607499999999995,
+        "end_seconds": 44.2575
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "but",
+        "start_seconds": 44.2575,
+        "end_seconds": 44.419999999999995
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "less",
+        "start_seconds": 44.419999999999995,
+        "end_seconds": 44.72
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "than",
+        "start_seconds": 44.72,
+        "end_seconds": 44.919999999999995
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "four",
+        "start_seconds": 44.919999999999995,
+        "end_seconds": 45.195
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "point",
+        "start_seconds": 45.195,
+        "end_seconds": 45.50749999999999
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "zero",
+        "start_seconds": 45.50749999999999,
+        "end_seconds": 45.92
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "point",
+        "start_seconds": 45.92,
+        "end_seconds": 46.22
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "nine.",
+        "start_seconds": 46.22,
+        "end_seconds": 47.06999999999999
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "Upgrading",
+        "start_seconds": 47.06999999999999,
+        "end_seconds": 47.644999999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "to",
+        "start_seconds": 47.644999999999996,
+        "end_seconds": 47.7825
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "four",
+        "start_seconds": 47.7825,
+        "end_seconds": 48.019999999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "point",
+        "start_seconds": 48.019999999999996,
+        "end_seconds": 48.31999999999999
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "zero",
+        "start_seconds": 48.31999999999999,
+        "end_seconds": 48.69499999999999
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "point",
+        "start_seconds": 48.69499999999999,
+        "end_seconds": 48.97
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "nine",
+        "start_seconds": 48.97,
+        "end_seconds": 49.495
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "or",
+        "start_seconds": 49.495,
+        "end_seconds": 49.67
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "disabling",
+        "start_seconds": 49.67,
+        "end_seconds": 50.345
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "ignoreDuplicateSlashes",
+        "start_seconds": 50.345,
+        "end_seconds": 51.8575
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "restores",
+        "start_seconds": 51.8575,
+        "end_seconds": 52.42
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "the",
+        "start_seconds": 52.42,
+        "end_seconds": 52.545
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "expected",
+        "start_seconds": 52.545,
+        "end_seconds": 53.144999999999996
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "security",
+        "start_seconds": 53.144999999999996,
+        "end_seconds": 53.8075
+      },
+      {
+        "segment_id": "fastify-express-bypass-fix-2026-10-28-segment",
+        "text": "checks.",
+        "start_seconds": 53.8075,
+        "end_seconds": 54.72
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "Next",
+        "start_seconds": 55.92,
+        "end_seconds": 56.2075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "on",
+        "start_seconds": 56.2075,
+        "end_seconds": 56.307500000000005
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "the",
+        "start_seconds": 56.307500000000005,
+        "end_seconds": 56.395
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "bulletin.",
+        "start_seconds": 56.395,
+        "end_seconds": 57.3575
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "NVIDIA",
+        "start_seconds": 57.3575,
+        "end_seconds": 57.870000000000005
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "just",
+        "start_seconds": 57.870000000000005,
+        "end_seconds": 58.145
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "rolled",
+        "start_seconds": 58.145,
+        "end_seconds": 58.47
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "out",
+        "start_seconds": 58.47,
+        "end_seconds": 58.72
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "CUDA",
+        "start_seconds": 58.72,
+        "end_seconds": 59.395
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "version",
+        "start_seconds": 59.395,
+        "end_seconds": 59.845
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "thirteen",
+        "start_seconds": 59.845,
+        "end_seconds": 60.370000000000005
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "point",
+        "start_seconds": 60.370000000000005,
+        "end_seconds": 60.7075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "four",
+        "start_seconds": 60.7075,
+        "end_seconds": 61.2575
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "with",
+        "start_seconds": 61.2575,
+        "end_seconds": 61.4075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "a",
+        "start_seconds": 61.4075,
+        "end_seconds": 61.5075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "new",
+        "start_seconds": 61.5075,
+        "end_seconds": 61.745000000000005
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "transparent",
+        "start_seconds": 61.745000000000005,
+        "end_seconds": 62.370000000000005
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "memory",
+        "start_seconds": 62.370000000000005,
+        "end_seconds": 62.745000000000005
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "limit",
+        "start_seconds": 62.745000000000005,
+        "end_seconds": 63.02
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "layer",
+        "start_seconds": 63.02,
+        "end_seconds": 63.5825
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "that",
+        "start_seconds": 63.5825,
+        "end_seconds": 63.745000000000005
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "lets",
+        "start_seconds": 63.745000000000005,
+        "end_seconds": 64.02
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "containers",
+        "start_seconds": 64.02,
+        "end_seconds": 64.645
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "claim",
+        "start_seconds": 64.645,
+        "end_seconds": 64.9825
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "exact",
+        "start_seconds": 64.9825,
+        "end_seconds": 65.50750000000001
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "slices",
+        "start_seconds": 65.50750000000001,
+        "end_seconds": 66.02
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "of",
+        "start_seconds": 66.02,
+        "end_seconds": 66.19500000000001
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "GPU",
+        "start_seconds": 66.19500000000001,
+        "end_seconds": 66.82000000000001
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "memory.",
+        "start_seconds": 66.82000000000001,
+        "end_seconds": 67.745
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "Pods",
+        "start_seconds": 68.91999999999999,
+        "end_seconds": 69.24499999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "can",
+        "start_seconds": 69.24499999999999,
+        "end_seconds": 69.395
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "now",
+        "start_seconds": 69.395,
+        "end_seconds": 69.57
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "ask",
+        "start_seconds": 69.57,
+        "end_seconds": 69.8325
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "for",
+        "start_seconds": 69.8325,
+        "end_seconds": 69.93249999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "a",
+        "start_seconds": 69.93249999999999,
+        "end_seconds": 69.99499999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "specific",
+        "start_seconds": 69.99499999999999,
+        "end_seconds": 70.49499999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "memory",
+        "start_seconds": 70.49499999999999,
+        "end_seconds": 70.86999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "request,",
+        "start_seconds": 70.86999999999999,
+        "end_seconds": 71.57
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "an",
+        "start_seconds": 71.57,
+        "end_seconds": 71.7075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "optional",
+        "start_seconds": 71.7075,
+        "end_seconds": 72.145
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "limit,",
+        "start_seconds": 72.145,
+        "end_seconds": 72.77
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "and",
+        "start_seconds": 72.77,
+        "end_seconds": 72.895
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "even",
+        "start_seconds": 72.895,
+        "end_seconds": 73.22
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "pick",
+        "start_seconds": 73.22,
+        "end_seconds": 73.4075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "a",
+        "start_seconds": 73.4075,
+        "end_seconds": 73.47
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "time‑slicing",
+        "start_seconds": 73.47,
+        "end_seconds": 74.27
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "compute",
+        "start_seconds": 74.27,
+        "end_seconds": 74.66999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "mode,",
+        "start_seconds": 74.66999999999999,
+        "end_seconds": 75.36999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "all",
+        "start_seconds": 75.36999999999999,
+        "end_seconds": 75.57
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "enforced",
+        "start_seconds": 75.57,
+        "end_seconds": 76.11999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "by",
+        "start_seconds": 76.11999999999999,
+        "end_seconds": 76.27
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "the",
+        "start_seconds": 76.27,
+        "end_seconds": 76.4075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "KAI",
+        "start_seconds": 76.4075,
+        "end_seconds": 76.7075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "Scheduler",
+        "start_seconds": 76.7075,
+        "end_seconds": 77.11999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "version",
+        "start_seconds": 77.11999999999999,
+        "end_seconds": 77.55749999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "zero",
+        "start_seconds": 77.55749999999999,
+        "end_seconds": 78.0075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "point",
+        "start_seconds": 78.0075,
+        "end_seconds": 78.29499999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "one",
+        "start_seconds": 78.29499999999999,
+        "end_seconds": 78.52
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "eight",
+        "start_seconds": 78.52,
+        "end_seconds": 78.77
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "point",
+        "start_seconds": 78.77,
+        "end_seconds": 79.0825
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "zero",
+        "start_seconds": 79.0825,
+        "end_seconds": 79.55749999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "in",
+        "start_seconds": 79.55749999999999,
+        "end_seconds": 79.68249999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "its",
+        "start_seconds": 79.68249999999999,
+        "end_seconds": 79.86999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "NvFractions",
+        "start_seconds": 79.86999999999999,
+        "end_seconds": 80.845
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "mode.",
+        "start_seconds": 80.845,
+        "end_seconds": 81.66999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "The",
+        "start_seconds": 81.66999999999999,
+        "end_seconds": 81.82
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "operator",
+        "start_seconds": 81.82,
+        "end_seconds": 82.35749999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "reads",
+        "start_seconds": 82.35749999999999,
+        "end_seconds": 82.66999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "those",
+        "start_seconds": 82.66999999999999,
+        "end_seconds": 82.91999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "annotations",
+        "start_seconds": 82.91999999999999,
+        "end_seconds": 83.79499999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "and",
+        "start_seconds": 83.79499999999999,
+        "end_seconds": 83.91999999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "programs",
+        "start_seconds": 83.91999999999999,
+        "end_seconds": 84.52
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "the",
+        "start_seconds": 84.52,
+        "end_seconds": 84.6575
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "GPU",
+        "start_seconds": 84.6575,
+        "end_seconds": 85.27
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "Operator",
+        "start_seconds": 85.27,
+        "end_seconds": 85.82
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "to",
+        "start_seconds": 85.82,
+        "end_seconds": 85.945
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "keep",
+        "start_seconds": 85.945,
+        "end_seconds": 86.2075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "each",
+        "start_seconds": 86.2075,
+        "end_seconds": 86.48249999999999
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "slice",
+        "start_seconds": 86.48249999999999,
+        "end_seconds": 86.895
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "within",
+        "start_seconds": 86.895,
+        "end_seconds": 87.195
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "its",
+        "start_seconds": 87.195,
+        "end_seconds": 87.395
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "bounds.",
+        "start_seconds": 87.395,
+        "end_seconds": 88.395
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "Here’s",
+        "start_seconds": 89.595,
+        "end_seconds": 90.145
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "why",
+        "start_seconds": 90.145,
+        "end_seconds": 90.345
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "that",
+        "start_seconds": 90.345,
+        "end_seconds": 90.57
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "matters:",
+        "start_seconds": 90.57,
+        "end_seconds": 91.395
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "you",
+        "start_seconds": 91.395,
+        "end_seconds": 91.52
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "can",
+        "start_seconds": 91.52,
+        "end_seconds": 91.695
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "pack",
+        "start_seconds": 91.695,
+        "end_seconds": 92.0075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "more",
+        "start_seconds": 92.0075,
+        "end_seconds": 92.2575
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "AI",
+        "start_seconds": 92.2575,
+        "end_seconds": 92.6825
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "jobs",
+        "start_seconds": 92.6825,
+        "end_seconds": 93.0825
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "onto",
+        "start_seconds": 93.0825,
+        "end_seconds": 93.2825
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "the",
+        "start_seconds": 93.2825,
+        "end_seconds": 93.4075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "same",
+        "start_seconds": 93.4075,
+        "end_seconds": 93.72
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "hardware",
+        "start_seconds": 93.72,
+        "end_seconds": 94.22
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "without",
+        "start_seconds": 94.22,
+        "end_seconds": 94.545
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "touching",
+        "start_seconds": 94.545,
+        "end_seconds": 94.9075
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "the",
+        "start_seconds": 94.9075,
+        "end_seconds": 94.995
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "code,",
+        "start_seconds": 94.995,
+        "end_seconds": 95.695
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "but",
+        "start_seconds": 95.695,
+        "end_seconds": 95.845
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "you’ll",
+        "start_seconds": 95.845,
+        "end_seconds": 96.02
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "need",
+        "start_seconds": 96.02,
+        "end_seconds": 96.32
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "CUDA",
+        "start_seconds": 96.32,
+        "end_seconds": 97.07
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "thirteen",
+        "start_seconds": 97.07,
+        "end_seconds": 97.595
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "point",
+        "start_seconds": 97.595,
+        "end_seconds": 97.9325
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "four",
+        "start_seconds": 97.9325,
+        "end_seconds": 98.4575
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "and",
+        "start_seconds": 98.4575,
+        "end_seconds": 98.5825
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "the",
+        "start_seconds": 98.5825,
+        "end_seconds": 98.6825
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "KAI",
+        "start_seconds": 98.6825,
+        "end_seconds": 98.995
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "Scheduler",
+        "start_seconds": 98.995,
+        "end_seconds": 99.4575
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "update",
+        "start_seconds": 99.4575,
+        "end_seconds": 99.92
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "to",
+        "start_seconds": 99.92,
+        "end_seconds": 100.02
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "make",
+        "start_seconds": 100.02,
+        "end_seconds": 100.2325
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "it",
+        "start_seconds": 100.2325,
+        "end_seconds": 100.37
+      },
+      {
+        "segment_id": "cuda-13-4-gpu-fractioning-kai-0-18-0-segment",
+        "text": "work.",
+        "start_seconds": 100.37,
+        "end_seconds": 101.245
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "Turning",
+        "start_seconds": 102.445,
+        "end_seconds": 102.77
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "to",
+        "start_seconds": 102.77,
+        "end_seconds": 102.9075
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "our",
+        "start_seconds": 102.9075,
+        "end_seconds": 103.04499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "next",
+        "start_seconds": 103.04499999999999,
+        "end_seconds": 103.32
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "story.",
+        "start_seconds": 103.32,
+        "end_seconds": 104.095
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "Google’s",
+        "start_seconds": 104.095,
+        "end_seconds": 104.49499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "Project",
+        "start_seconds": 104.49499999999999,
+        "end_seconds": 104.91999999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "Zero",
+        "start_seconds": 104.91999999999999,
+        "end_seconds": 105.27
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "says",
+        "start_seconds": 105.27,
+        "end_seconds": 105.49499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "its",
+        "start_seconds": 105.49499999999999,
+        "end_seconds": 105.7075
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "new",
+        "start_seconds": 105.7075,
+        "end_seconds": 106.0075
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "L",
+        "start_seconds": 106.0075,
+        "end_seconds": 106.2825
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "L",
+        "start_seconds": 106.2825,
+        "end_seconds": 106.55749999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "M",
+        "start_seconds": 106.55749999999999,
+        "end_seconds": 106.79499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "tool",
+        "start_seconds": 106.79499999999999,
+        "end_seconds": 107.04499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "BigSleep",
+        "start_seconds": 107.04499999999999,
+        "end_seconds": 107.5825
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "uncovered",
+        "start_seconds": 107.5825,
+        "end_seconds": 108.095
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "forty‑five",
+        "start_seconds": 108.095,
+        "end_seconds": 108.77
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "V8",
+        "start_seconds": 108.77,
+        "end_seconds": 109.22
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "bugs",
+        "start_seconds": 109.22,
+        "end_seconds": 109.595
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "in",
+        "start_seconds": 109.595,
+        "end_seconds": 109.7575
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "six",
+        "start_seconds": 109.7575,
+        "end_seconds": 110.07
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "months,",
+        "start_seconds": 110.07,
+        "end_seconds": 110.645
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "beating",
+        "start_seconds": 110.645,
+        "end_seconds": 110.98249999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "the",
+        "start_seconds": 110.98249999999999,
+        "end_seconds": 111.0825
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "generative",
+        "start_seconds": 111.0825,
+        "end_seconds": 111.595
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "fuzzer",
+        "start_seconds": 111.595,
+        "end_seconds": 111.895
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "Fuzzilli’s",
+        "start_seconds": 111.895,
+        "end_seconds": 112.43249999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "thirty‑seven.",
+        "start_seconds": 112.43249999999999,
+        "end_seconds": 113.61999999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "The",
+        "start_seconds": 113.61999999999999,
+        "end_seconds": 113.74499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "study",
+        "start_seconds": 113.74499999999999,
+        "end_seconds": 114.07
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "looked",
+        "start_seconds": 114.07,
+        "end_seconds": 114.2825
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "at",
+        "start_seconds": 114.2825,
+        "end_seconds": 114.36999999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "Chrome’s",
+        "start_seconds": 114.36999999999999,
+        "end_seconds": 114.79499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "V8",
+        "start_seconds": 114.79499999999999,
+        "end_seconds": 115.2825
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "engine",
+        "start_seconds": 115.2825,
+        "end_seconds": 115.695
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "from",
+        "start_seconds": 115.695,
+        "end_seconds": 115.8825
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "April",
+        "start_seconds": 115.8825,
+        "end_seconds": 116.29499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "to",
+        "start_seconds": 116.29499999999999,
+        "end_seconds": 116.41999999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "September",
+        "start_seconds": 116.41999999999999,
+        "end_seconds": 116.945
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "twenty",
+        "start_seconds": 116.945,
+        "end_seconds": 117.24499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "twenty‑six",
+        "start_seconds": 117.24499999999999,
+        "end_seconds": 118.2075
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "and",
+        "start_seconds": 118.2075,
+        "end_seconds": 118.345
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "found",
+        "start_seconds": 118.345,
+        "end_seconds": 118.61999999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "only",
+        "start_seconds": 118.61999999999999,
+        "end_seconds": 118.93249999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "twenty‑five",
+        "start_seconds": 118.93249999999999,
+        "end_seconds": 119.595
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "percent",
+        "start_seconds": 119.595,
+        "end_seconds": 120.0325
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "overlap",
+        "start_seconds": 120.0325,
+        "end_seconds": 120.52
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "between",
+        "start_seconds": 120.52,
+        "end_seconds": 120.80749999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "the",
+        "start_seconds": 120.80749999999999,
+        "end_seconds": 120.9075
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "two",
+        "start_seconds": 120.9075,
+        "end_seconds": 121.11999999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "methods,",
+        "start_seconds": 121.11999999999999,
+        "end_seconds": 121.895
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "meaning",
+        "start_seconds": 121.895,
+        "end_seconds": 122.22
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "most",
+        "start_seconds": 122.22,
+        "end_seconds": 122.54499999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "findings",
+        "start_seconds": 122.54499999999999,
+        "end_seconds": 123.07
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "were",
+        "start_seconds": 123.07,
+        "end_seconds": 123.195
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "unique.",
+        "start_seconds": 123.195,
+        "end_seconds": 124.18249999999999
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "Here’s",
+        "start_seconds": 124.64,
+        "end_seconds": 125.165
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "why",
+        "start_seconds": 125.165,
+        "end_seconds": 125.34
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "that",
+        "start_seconds": 125.34,
+        "end_seconds": 125.59
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "matters:",
+        "start_seconds": 125.59,
+        "end_seconds": 126.5025
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "fuzzing",
+        "start_seconds": 126.5025,
+        "end_seconds": 126.965
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "and",
+        "start_seconds": 126.965,
+        "end_seconds": 127.1275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "L",
+        "start_seconds": 127.1275,
+        "end_seconds": 127.4025
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "L",
+        "start_seconds": 127.4025,
+        "end_seconds": 127.6775
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "M",
+        "start_seconds": 127.6775,
+        "end_seconds": 127.94
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "analysis",
+        "start_seconds": 127.94,
+        "end_seconds": 128.515
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "still",
+        "start_seconds": 128.515,
+        "end_seconds": 128.8025
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "complement",
+        "start_seconds": 128.8025,
+        "end_seconds": 129.3275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "each",
+        "start_seconds": 129.3275,
+        "end_seconds": 129.5275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "other,",
+        "start_seconds": 129.5275,
+        "end_seconds": 130.09
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "so",
+        "start_seconds": 130.09,
+        "end_seconds": 130.265
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "security",
+        "start_seconds": 130.265,
+        "end_seconds": 130.865
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "teams",
+        "start_seconds": 130.865,
+        "end_seconds": 131.29
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "should",
+        "start_seconds": 131.29,
+        "end_seconds": 131.49
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "keep",
+        "start_seconds": 131.49,
+        "end_seconds": 131.74
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "both",
+        "start_seconds": 131.74,
+        "end_seconds": 132.015
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "a",
+        "start_seconds": 132.015,
+        "end_seconds": 132.1275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "dedicated",
+        "start_seconds": 132.1275,
+        "end_seconds": 132.8025
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "JavaScript",
+        "start_seconds": 132.8025,
+        "end_seconds": 133.5275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "engine",
+        "start_seconds": 133.5275,
+        "end_seconds": 133.9525
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "fuzzer",
+        "start_seconds": 133.9525,
+        "end_seconds": 134.7025
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "and",
+        "start_seconds": 134.7025,
+        "end_seconds": 134.9025
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "an",
+        "start_seconds": 134.9025,
+        "end_seconds": 135.0275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "L",
+        "start_seconds": 135.0275,
+        "end_seconds": 135.3275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "L",
+        "start_seconds": 135.3275,
+        "end_seconds": 135.6275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "M‑driven",
+        "start_seconds": 135.6275,
+        "end_seconds": 136.3275
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "pipeline",
+        "start_seconds": 136.3275,
+        "end_seconds": 136.865
+      },
+      {
+        "segment_id": "llm-fuzzing-v8-2026-segment",
+        "text": "running.",
+        "start_seconds": 136.865,
+        "end_seconds": 137.765
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Next",
+        "start_seconds": 138.965,
+        "end_seconds": 139.2275
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "on",
+        "start_seconds": 139.2275,
+        "end_seconds": 139.32750000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "the",
+        "start_seconds": 139.32750000000001,
+        "end_seconds": 139.415
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "bulletin.",
+        "start_seconds": 139.415,
+        "end_seconds": 140.215
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Kubernetes",
+        "start_seconds": 140.215,
+        "end_seconds": 140.89000000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "just",
+        "start_seconds": 140.89000000000001,
+        "end_seconds": 141.09
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "announced",
+        "start_seconds": 141.09,
+        "end_seconds": 141.465
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "a",
+        "start_seconds": 141.465,
+        "end_seconds": 141.57750000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "new",
+        "start_seconds": 141.57750000000001,
+        "end_seconds": 141.865
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Workload",
+        "start_seconds": 141.865,
+        "end_seconds": 142.34
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Conformance",
+        "start_seconds": 142.34,
+        "end_seconds": 142.94
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Working",
+        "start_seconds": 142.94,
+        "end_seconds": 143.29
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Group.",
+        "start_seconds": 143.29,
+        "end_seconds": 143.865
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "The",
+        "start_seconds": 143.865,
+        "end_seconds": 143.965
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "group’s",
+        "start_seconds": 143.965,
+        "end_seconds": 144.29
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "job",
+        "start_seconds": 144.29,
+        "end_seconds": 144.5275
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "is",
+        "start_seconds": 144.5275,
+        "end_seconds": 144.64000000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "to",
+        "start_seconds": 144.64000000000001,
+        "end_seconds": 144.74
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "write",
+        "start_seconds": 144.74,
+        "end_seconds": 144.9275
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "a",
+        "start_seconds": 144.9275,
+        "end_seconds": 145.0025
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "test‑driven",
+        "start_seconds": 145.0025,
+        "end_seconds": 145.615
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "spec",
+        "start_seconds": 145.615,
+        "end_seconds": 145.94
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "that",
+        "start_seconds": 145.94,
+        "end_seconds": 146.1025
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "checks",
+        "start_seconds": 146.1025,
+        "end_seconds": 146.3775
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "how",
+        "start_seconds": 146.3775,
+        "end_seconds": 146.54
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "workloads",
+        "start_seconds": 146.54,
+        "end_seconds": 146.99
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "behave",
+        "start_seconds": 146.99,
+        "end_seconds": 147.3775
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "on",
+        "start_seconds": 147.3775,
+        "end_seconds": 147.4775
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "a",
+        "start_seconds": 147.4775,
+        "end_seconds": 147.54
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "cluster",
+        "start_seconds": 147.54,
+        "end_seconds": 148.09
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "–",
+        "start_seconds": 148.09,
+        "end_seconds": 148.165
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "things",
+        "start_seconds": 148.165,
+        "end_seconds": 148.4025
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "like",
+        "start_seconds": 148.4025,
+        "end_seconds": 148.615
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "security,",
+        "start_seconds": 148.615,
+        "end_seconds": 149.215
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "resilience,",
+        "start_seconds": 149.215,
+        "end_seconds": 149.76500000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "resource",
+        "start_seconds": 149.76500000000001,
+        "end_seconds": 150.165
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "use,",
+        "start_seconds": 150.165,
+        "end_seconds": 150.39000000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "networking,",
+        "start_seconds": 150.39000000000001,
+        "end_seconds": 150.915
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "storage,",
+        "start_seconds": 150.915,
+        "end_seconds": 151.365
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "API",
+        "start_seconds": 151.365,
+        "end_seconds": 151.89000000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "usage",
+        "start_seconds": 151.89000000000001,
+        "end_seconds": 152.2525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "and",
+        "start_seconds": 152.2525,
+        "end_seconds": 152.3525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "observability.",
+        "start_seconds": 152.3525,
+        "end_seconds": 153.49
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Every",
+        "start_seconds": 153.49,
+        "end_seconds": 153.79
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "rule",
+        "start_seconds": 153.79,
+        "end_seconds": 154.0025
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "will",
+        "start_seconds": 154.0025,
+        "end_seconds": 154.1025
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "be",
+        "start_seconds": 154.1025,
+        "end_seconds": 154.215
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "tied",
+        "start_seconds": 154.215,
+        "end_seconds": 154.465
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "to",
+        "start_seconds": 154.465,
+        "end_seconds": 154.5525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "an",
+        "start_seconds": 154.5525,
+        "end_seconds": 154.64000000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "executable",
+        "start_seconds": 154.64000000000001,
+        "end_seconds": 155.315
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "test",
+        "start_seconds": 155.315,
+        "end_seconds": 155.59
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "binary,",
+        "start_seconds": 155.59,
+        "end_seconds": 156.01500000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "and",
+        "start_seconds": 156.01500000000001,
+        "end_seconds": 156.1525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "SIG",
+        "start_seconds": 156.1525,
+        "end_seconds": 156.39000000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Architecture",
+        "start_seconds": 156.39000000000001,
+        "end_seconds": 156.99
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "will",
+        "start_seconds": 156.99,
+        "end_seconds": 157.115
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "own",
+        "start_seconds": 157.115,
+        "end_seconds": 157.315
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "both",
+        "start_seconds": 157.315,
+        "end_seconds": 157.5525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "the",
+        "start_seconds": 157.5525,
+        "end_seconds": 157.6525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "spec",
+        "start_seconds": 157.6525,
+        "end_seconds": 158.07750000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "and",
+        "start_seconds": 158.07750000000001,
+        "end_seconds": 158.2275
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "the",
+        "start_seconds": 158.2275,
+        "end_seconds": 158.315
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "tooling.",
+        "start_seconds": 158.315,
+        "end_seconds": 159.14000000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Application",
+        "start_seconds": 159.14000000000001,
+        "end_seconds": 159.815
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "code",
+        "start_seconds": 159.815,
+        "end_seconds": 160.14000000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "stays",
+        "start_seconds": 160.14000000000001,
+        "end_seconds": 160.465
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "out",
+        "start_seconds": 160.465,
+        "end_seconds": 160.6275
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "of",
+        "start_seconds": 160.6275,
+        "end_seconds": 160.715
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "scope,",
+        "start_seconds": 160.715,
+        "end_seconds": 161.215
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "so",
+        "start_seconds": 161.215,
+        "end_seconds": 161.32750000000001
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "the",
+        "start_seconds": 161.32750000000001,
+        "end_seconds": 161.415
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "focus",
+        "start_seconds": 161.415,
+        "end_seconds": 161.79
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "stays",
+        "start_seconds": 161.79,
+        "end_seconds": 162.1275
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "on",
+        "start_seconds": 162.1275,
+        "end_seconds": 162.29
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "runtime",
+        "start_seconds": 162.29,
+        "end_seconds": 162.7275
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "behavior",
+        "start_seconds": 162.7275,
+        "end_seconds": 163.24
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "alone.",
+        "start_seconds": 163.24,
+        "end_seconds": 164.24
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "Here’s",
+        "start_seconds": 165.44,
+        "end_seconds": 166.065
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "why",
+        "start_seconds": 166.065,
+        "end_seconds": 166.265
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "that",
+        "start_seconds": 166.265,
+        "end_seconds": 166.49
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "matters:",
+        "start_seconds": 166.49,
+        "end_seconds": 167.3775
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "operators",
+        "start_seconds": 167.3775,
+        "end_seconds": 168.04
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "and",
+        "start_seconds": 168.04,
+        "end_seconds": 168.2025
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "tool",
+        "start_seconds": 168.2025,
+        "end_seconds": 168.49
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "makers",
+        "start_seconds": 168.49,
+        "end_seconds": 168.99
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "will",
+        "start_seconds": 168.99,
+        "end_seconds": 169.1775
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "soon",
+        "start_seconds": 169.1775,
+        "end_seconds": 169.49
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "have",
+        "start_seconds": 169.49,
+        "end_seconds": 169.6525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "a",
+        "start_seconds": 169.6525,
+        "end_seconds": 169.7525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "concrete,",
+        "start_seconds": 169.7525,
+        "end_seconds": 170.39
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "testable",
+        "start_seconds": 170.39,
+        "end_seconds": 170.915
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "layer",
+        "start_seconds": 170.915,
+        "end_seconds": 171.24
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "to",
+        "start_seconds": 171.24,
+        "end_seconds": 171.365
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "verify",
+        "start_seconds": 171.365,
+        "end_seconds": 171.915
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "that",
+        "start_seconds": 171.915,
+        "end_seconds": 172.065
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "clusters",
+        "start_seconds": 172.065,
+        "end_seconds": 172.5525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "meet",
+        "start_seconds": 172.5525,
+        "end_seconds": 172.815
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "consistent",
+        "start_seconds": 172.815,
+        "end_seconds": 173.515
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "runtime",
+        "start_seconds": 173.515,
+        "end_seconds": 173.99
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "expectations,",
+        "start_seconds": 173.99,
+        "end_seconds": 175.365
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "without",
+        "start_seconds": 175.365,
+        "end_seconds": 175.715
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "being",
+        "start_seconds": 175.715,
+        "end_seconds": 176.015
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "forced",
+        "start_seconds": 176.015,
+        "end_seconds": 176.4025
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "into",
+        "start_seconds": 176.4025,
+        "end_seconds": 176.6525
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "any",
+        "start_seconds": 176.6525,
+        "end_seconds": 176.965
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "particular",
+        "start_seconds": 176.965,
+        "end_seconds": 177.515
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "workload",
+        "start_seconds": 177.515,
+        "end_seconds": 178.015
+      },
+      {
+        "segment_id": "k8s-workload-conformance-wg-announcement-segment",
+        "text": "design.",
+        "start_seconds": 178.015,
+        "end_seconds": 179.09
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "And",
+        "start_seconds": 180.265,
+        "end_seconds": 180.39
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "finally,",
+        "start_seconds": 180.39,
+        "end_seconds": 180.86499999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "our",
+        "start_seconds": 180.86499999999998,
+        "end_seconds": 181.015
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "last",
+        "start_seconds": 181.015,
+        "end_seconds": 181.315
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "story.",
+        "start_seconds": 181.315,
+        "end_seconds": 182.09
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "Google",
+        "start_seconds": 182.09,
+        "end_seconds": 182.39
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "Research",
+        "start_seconds": 182.39,
+        "end_seconds": 182.8275
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "unveiled",
+        "start_seconds": 182.8275,
+        "end_seconds": 183.2525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "a",
+        "start_seconds": 183.2525,
+        "end_seconds": 183.3525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "new",
+        "start_seconds": 183.3525,
+        "end_seconds": 183.61499999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "\"sleep\"",
+        "start_seconds": 183.61499999999998,
+        "end_seconds": 183.965
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "framework",
+        "start_seconds": 183.965,
+        "end_seconds": 184.3775
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "that",
+        "start_seconds": 184.3775,
+        "end_seconds": 184.4775
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "lets",
+        "start_seconds": 184.4775,
+        "end_seconds": 184.73999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "large",
+        "start_seconds": 184.73999999999998,
+        "end_seconds": 185.065
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "language",
+        "start_seconds": 185.065,
+        "end_seconds": 185.415
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "models",
+        "start_seconds": 185.415,
+        "end_seconds": 185.80249999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "periodically",
+        "start_seconds": 185.80249999999998,
+        "end_seconds": 186.515
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "consolidate",
+        "start_seconds": 186.515,
+        "end_seconds": 187.1525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "short‑term",
+        "start_seconds": 187.1525,
+        "end_seconds": 187.64
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "context",
+        "start_seconds": 187.64,
+        "end_seconds": 188.1525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "into",
+        "start_seconds": 188.1525,
+        "end_seconds": 188.36499999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "long‑term",
+        "start_seconds": 188.36499999999998,
+        "end_seconds": 188.84
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "parameters.",
+        "start_seconds": 188.84,
+        "end_seconds": 189.89
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "After",
+        "start_seconds": 189.89,
+        "end_seconds": 190.1275
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "a",
+        "start_seconds": 190.1275,
+        "end_seconds": 190.19
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "burst",
+        "start_seconds": 190.19,
+        "end_seconds": 190.4775
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "of",
+        "start_seconds": 190.4775,
+        "end_seconds": 190.55249999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "interaction,",
+        "start_seconds": 190.55249999999998,
+        "end_seconds": 191.1525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "the",
+        "start_seconds": 191.1525,
+        "end_seconds": 191.23999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "model",
+        "start_seconds": 191.23999999999998,
+        "end_seconds": 191.54
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "goes",
+        "start_seconds": 191.54,
+        "end_seconds": 191.765
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "offline",
+        "start_seconds": 191.765,
+        "end_seconds": 192.29
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "and",
+        "start_seconds": 192.29,
+        "end_seconds": 192.4025
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "updates",
+        "start_seconds": 192.4025,
+        "end_seconds": 192.80249999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "its",
+        "start_seconds": 192.80249999999998,
+        "end_seconds": 192.94
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "weights",
+        "start_seconds": 192.94,
+        "end_seconds": 193.2275
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "with",
+        "start_seconds": 193.2275,
+        "end_seconds": 193.3275
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "the",
+        "start_seconds": 193.3275,
+        "end_seconds": 193.42749999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "facts",
+        "start_seconds": 193.42749999999998,
+        "end_seconds": 193.7525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "it",
+        "start_seconds": 193.7525,
+        "end_seconds": 193.84
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "just",
+        "start_seconds": 193.84,
+        "end_seconds": 194.05249999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "saw,",
+        "start_seconds": 194.05249999999998,
+        "end_seconds": 194.39
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "turning",
+        "start_seconds": 194.39,
+        "end_seconds": 194.7525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "fragile,",
+        "start_seconds": 194.7525,
+        "end_seconds": 195.165
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "window‑limited",
+        "start_seconds": 195.165,
+        "end_seconds": 195.915
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "knowledge",
+        "start_seconds": 195.915,
+        "end_seconds": 196.2775
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "into",
+        "start_seconds": 196.2775,
+        "end_seconds": 196.48999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "stable",
+        "start_seconds": 196.48999999999998,
+        "end_seconds": 196.89
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "memory.",
+        "start_seconds": 196.89,
+        "end_seconds": 197.715
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "The",
+        "start_seconds": 197.715,
+        "end_seconds": 197.86499999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "authors",
+        "start_seconds": 197.86499999999998,
+        "end_seconds": 198.19
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "report",
+        "start_seconds": 198.19,
+        "end_seconds": 198.6025
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "that",
+        "start_seconds": 198.6025,
+        "end_seconds": 198.715
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "this",
+        "start_seconds": 198.715,
+        "end_seconds": 198.915
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "keeps",
+        "start_seconds": 198.915,
+        "end_seconds": 199.23999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "prior",
+        "start_seconds": 199.23999999999998,
+        "end_seconds": 199.565
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "skills",
+        "start_seconds": 199.565,
+        "end_seconds": 199.98999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "intact",
+        "start_seconds": 199.98999999999998,
+        "end_seconds": 200.54
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "while",
+        "start_seconds": 200.54,
+        "end_seconds": 200.69
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "stretching",
+        "start_seconds": 200.69,
+        "end_seconds": 201.165
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "usable",
+        "start_seconds": 201.165,
+        "end_seconds": 201.59
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "context",
+        "start_seconds": 201.59,
+        "end_seconds": 202.215
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "to",
+        "start_seconds": 202.215,
+        "end_seconds": 202.34
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "roughly",
+        "start_seconds": 202.34,
+        "end_seconds": 202.7025
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "ten",
+        "start_seconds": 202.7025,
+        "end_seconds": 202.965
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "million",
+        "start_seconds": 202.965,
+        "end_seconds": 203.34
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "tokens.",
+        "start_seconds": 203.34,
+        "end_seconds": 204.4525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "Here's",
+        "start_seconds": 205.64,
+        "end_seconds": 205.98999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "why",
+        "start_seconds": 205.98999999999998,
+        "end_seconds": 206.19
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "that",
+        "start_seconds": 206.19,
+        "end_seconds": 206.415
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "matters:",
+        "start_seconds": 206.415,
+        "end_seconds": 207.23999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "developers",
+        "start_seconds": 207.23999999999998,
+        "end_seconds": 207.83999999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "can",
+        "start_seconds": 207.83999999999997,
+        "end_seconds": 208.04
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "keep",
+        "start_seconds": 208.04,
+        "end_seconds": 208.33999999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "AI",
+        "start_seconds": 208.33999999999997,
+        "end_seconds": 208.79
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "assistants",
+        "start_seconds": 208.79,
+        "end_seconds": 209.40249999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "fresh",
+        "start_seconds": 209.40249999999997,
+        "end_seconds": 209.79
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "without",
+        "start_seconds": 209.79,
+        "end_seconds": 210.15249999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "constant",
+        "start_seconds": 210.15249999999997,
+        "end_seconds": 210.71499999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "fine‑tuning,",
+        "start_seconds": 210.71499999999997,
+        "end_seconds": 211.83999999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "as",
+        "start_seconds": 211.83999999999997,
+        "end_seconds": 211.98999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "long",
+        "start_seconds": 211.98999999999998,
+        "end_seconds": 212.21499999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "as",
+        "start_seconds": 212.21499999999997,
+        "end_seconds": 212.36499999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "they",
+        "start_seconds": 212.36499999999998,
+        "end_seconds": 212.54
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "set",
+        "start_seconds": 212.54,
+        "end_seconds": 212.815
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "aside",
+        "start_seconds": 212.815,
+        "end_seconds": 213.30249999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "dedicated",
+        "start_seconds": 213.30249999999998,
+        "end_seconds": 213.98999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "offline",
+        "start_seconds": 213.98999999999998,
+        "end_seconds": 214.515
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "compute",
+        "start_seconds": 214.515,
+        "end_seconds": 215.015
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "for",
+        "start_seconds": 215.015,
+        "end_seconds": 215.1275
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "the",
+        "start_seconds": 215.1275,
+        "end_seconds": 215.2525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "sleep",
+        "start_seconds": 215.2525,
+        "end_seconds": 215.58999999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "step.",
+        "start_seconds": 215.58999999999997,
+        "end_seconds": 216.44
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "And",
+        "start_seconds": 217.61499999999998,
+        "end_seconds": 217.765
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "that's",
+        "start_seconds": 217.765,
+        "end_seconds": 218.04
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "your",
+        "start_seconds": 218.04,
+        "end_seconds": 218.23999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "Daywire",
+        "start_seconds": 218.23999999999998,
+        "end_seconds": 218.71499999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "briefing.",
+        "start_seconds": 218.71499999999997,
+        "end_seconds": 219.44
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "You'll",
+        "start_seconds": 219.44,
+        "end_seconds": 219.61499999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "find",
+        "start_seconds": 219.61499999999998,
+        "end_seconds": 219.8775
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "the",
+        "start_seconds": 219.8775,
+        "end_seconds": 219.98999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "full",
+        "start_seconds": 219.98999999999998,
+        "end_seconds": 220.29
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "stories",
+        "start_seconds": 220.29,
+        "end_seconds": 220.815
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "and",
+        "start_seconds": 220.815,
+        "end_seconds": 220.9525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "sources",
+        "start_seconds": 220.9525,
+        "end_seconds": 221.46499999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "in",
+        "start_seconds": 221.46499999999997,
+        "end_seconds": 221.61499999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "today's",
+        "start_seconds": 221.61499999999998,
+        "end_seconds": 221.98999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "newspaper.",
+        "start_seconds": 221.98999999999998,
+        "end_seconds": 222.92749999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "Thanks",
+        "start_seconds": 222.92749999999998,
+        "end_seconds": 223.265
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "for",
+        "start_seconds": 223.265,
+        "end_seconds": 223.39
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "listening.",
+        "start_seconds": 223.39,
+        "end_seconds": 224.02749999999997
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "Take",
+        "start_seconds": 224.02749999999997,
+        "end_seconds": 224.3525
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "care,",
+        "start_seconds": 224.3525,
+        "end_seconds": 224.73999999999998
+      },
+      {
+        "segment_id": "sleep-framework-continual-learning-segment",
+        "text": "everyone.",
+        "start_seconds": 224.73999999999998,
+        "end_seconds": 225.79
+      }
+    ]
   },
   "artwork": {
     "status": "pending",
