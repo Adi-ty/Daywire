@@ -29,12 +29,40 @@ type Source struct {
 	DiscussionURL *string    `json:"discussion_url"`
 }
 
+// HNEngagement is discovery metadata, never evidence for factual claims.
+// Points dominate; discussion adds a bounded bonus so controversy alone cannot win.
+type HNEngagement struct {
+	Points   int `json:"points"`
+	Comments int `json:"comments"`
+}
+
+func (h *HNEngagement) Weight() int {
+	if h == nil {
+		return 0
+	}
+	return max(0, h.Points)*4 + min(max(0, h.Comments), max(0, h.Points))
+}
+
+// StrongerHN keeps one observation, never sums duplicate feeds or related sources.
+func StrongerHN(a, b *HNEngagement) *HNEngagement {
+	if a == nil {
+		return b
+	}
+	if b != nil && (b.Weight() > a.Weight() ||
+		(b.Weight() == a.Weight() && (b.Points > a.Points ||
+			(b.Points == a.Points && b.Comments > a.Comments)))) {
+		return b
+	}
+	return a
+}
+
 // Evidence stays in private run state; only Source metadata enters the website.
 type Evidence struct {
-	Source Source `json:"source"`
-	Text   string `json:"text"`
-	Hash   string `json:"hash"`
-	Kind   string `json:"kind"`
+	HN     *HNEngagement `json:"hn_engagement,omitempty"`
+	Source Source        `json:"source"`
+	Text   string        `json:"text"`
+	Hash   string        `json:"hash"`
+	Kind   string        `json:"kind"`
 }
 
 type Article struct {

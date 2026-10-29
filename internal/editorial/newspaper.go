@@ -14,12 +14,13 @@ type stageCall func(label, prompt string, in, out any) error
 // Selection uses small metadata packets, never the full evidence corpus. A
 // two-level shortlist gives later feeds a chance without growing any request.
 type storyPreview struct {
-	ID        string     `json:"id"`
-	Title     string     `json:"title"`
-	Publisher string     `json:"publisher"`
-	Published *time.Time `json:"published_at"`
-	Kind      string     `json:"kind"`
-	Excerpt   string     `json:"excerpt"`
+	HN        *content.HNEngagement `json:"hn_engagement,omitempty"`
+	ID        string                `json:"id"`
+	Title     string                `json:"title"`
+	Publisher string                `json:"publisher"`
+	Published *time.Time            `json:"published_at"`
+	Kind      string                `json:"kind"`
+	Excerpt   string                `json:"excerpt"`
 }
 type selectionPacket struct {
 	Date     string         `json:"date"`
@@ -28,12 +29,14 @@ type selectionPacket struct {
 	Limit    int            `json:"limit"`
 }
 
-const selectionRules = `Select distinct useful developments for software engineers. Return groups of exact source IDs; combine coverage of the same event, primary source first, at most two sources per group. Do not repeat a source. Rank concrete developer impact, evidence quality, technical insight and novelty relative to previous headlines. Include useful engineering explanations and tools alongside consequential AI and security developments; avoid letting one prolific publisher or repeated advisories crowd out equally useful stories. Preview or vendor claims must remain attributed. Old discoveries are reading recommendations, not new announcements. Choose fewer stories if the material is weak; never fill a quota with hype. The writer receives longer evidence separately. `
+const engagementRules = `Treat hn_engagement as a strong audience-interest signal in selection and ordering: prioritize highly upvoted, relevant HN stories over routine updates with comparable evidence and impact. Weight points primarily; comments add a secondary bonus capped at the points count (4 * points + min(comments, points)). Major technology launches and substantive investigations can matter to developers beyond code releases. Missing engagement means unknown, not unpopular; preserve strong primary-source reporting and topic variety. Engagement is not evidence of truth: never promote unsupported, sensational or irrelevant claims because they are popular, and never report these counts as article facts. `
+
+const selectionRules = engagementRules + `Select distinct useful developments for software engineers. Return groups of exact source IDs; combine coverage of the same event, primary source first, at most two sources per group. Do not repeat a source. Rank concrete developer impact, evidence quality, technical insight and novelty relative to previous headlines. Include useful engineering explanations and tools alongside consequential AI and security developments; avoid letting one prolific publisher or repeated advisories crowd out equally useful stories. Preview or vendor claims must remain attributed. Old discoveries are reading recommendations, not new announcements. Choose fewer stories if the material is weak; never fill a quota with hype. The writer receives longer evidence separately. `
 
 func previews(input Input, limit int) selectionPacket {
 	p := selectionPacket{Date: input.Date, Limit: limit, Stories: []storyPreview{}, Previous: []string{}}
 	for _, e := range input.Evidence {
-		p.Stories = append(p.Stories, storyPreview{e.Source.ID, excerpt(e.Source.Title, 140), excerpt(e.Source.Name, 50), e.Source.PublishedAt, e.Kind, excerpt(e.Text, 320)})
+		p.Stories = append(p.Stories, storyPreview{e.HN, e.Source.ID, excerpt(e.Source.Title, 140), excerpt(e.Source.Name, 50), e.Source.PublishedAt, e.Kind, excerpt(e.Text, 320)})
 	}
 	for _, h := range input.PreviousHeadlines[:min(12, len(input.PreviousHeadlines))] {
 		p.Previous = append(p.Previous, excerpt(h, 100))
@@ -59,6 +62,14 @@ func selectStories(input Input, call stageCall) (selectionOutput, error) {
 				companions[group[0]] = group
 				for _, e := range batch.Evidence {
 					if e.Source.ID == group[0] {
+						// A primary source can represent an HN-linked companion.
+						for _, companion := range batch.Evidence {
+							for _, id := range group {
+								if companion.Source.ID == id {
+									e.HN = content.StrongerHN(e.HN, companion.HN)
+								}
+							}
+						}
 						pool.Evidence = append(pool.Evidence, e)
 						break
 					}
@@ -95,20 +106,29 @@ func articleDepth(position int) string {
 }
 
 type articlePreview struct {
-	ID          string `json:"id"`
-	Section     string `json:"section"`
-	Headline    string `json:"headline"`
-	Summary     string `json:"summary"`
-	Implication string `json:"implication"`
+	HN          *content.HNEngagement `json:"hn_engagement,omitempty"`
+	ID          string                `json:"id"`
+	Section     string                `json:"section"`
+	Headline    string                `json:"headline"`
+	Summary     string                `json:"summary"`
+	Implication string                `json:"implication"`
 }
 type rankingOutput struct {
 	ArticleIDs []string `json:"article_ids"`
 }
 
-func rankingInput(articles []content.Article) []articlePreview {
+func rankingInput(articles []content.Article, evidence ...content.Evidence) []articlePreview {
 	result := []articlePreview{}
 	for _, a := range articles {
-		result = append(result, articlePreview{a.ID, a.Section, excerpt(a.Headline, 140), excerpt(a.Summary, 240), excerpt(a.Implication, 180)})
+		var hn *content.HNEngagement
+		for _, e := range evidence {
+			for _, id := range a.SourceIDs {
+				if e.Source.ID == id {
+					hn = content.StrongerHN(hn, e.HN)
+				}
+			}
+		}
+		result = append(result, articlePreview{hn, a.ID, a.Section, excerpt(a.Headline, 140), excerpt(a.Summary, 240), excerpt(a.Implication, 180)})
 	}
 	return result
 }

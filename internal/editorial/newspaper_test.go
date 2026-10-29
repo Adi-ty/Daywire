@@ -12,7 +12,7 @@ import (
 func TestBroadSelectionConsidersEveryBatchWithinBudget(t *testing.T) {
 	input := Input{Date: "2026-10-26"}
 	for i := 0; i < 36; i++ {
-		input.Evidence = append(input.Evidence, content.Evidence{Source: content.Source{
+		input.Evidence = append(input.Evidence, content.Evidence{HN: &content.HNEngagement{Points: 1500, Comments: 900}, Source: content.Source{
 			ID: fmt.Sprintf("source-%02d", i), Title: strings.Repeat("A developer-facing improvement ", 8), Name: "An engineering publisher",
 		}, Text: strings.Repeat("A supported mechanism and an important limitation. ", 100), Kind: "article_excerpt_truncated"})
 	}
@@ -187,4 +187,101 @@ func (m *expandedWriter) Generate(ctx context.Context, prompt string, in, out an
 		return Usage{}, nil
 	}
 	return m.stagedWriter.Generate(ctx, prompt, in, out)
+}
+
+// Signals must survive grouping under a primary publisher, preparation, and final
+// ordering; a second observation must not double-count the same audience.
+func TestHNEngagementSurvivesSelectionAndRanking(t *testing.T) {
+	input := Input{Date: "2026-10-29"}
+	for i := 0; i < 9; i++ {
+		input.Evidence = append(input.Evidence, content.Evidence{
+			Source: content.Source{ID: fmt.Sprintf("source-%d", i)}, Text: "Supported reporting.",
+		})
+	}
+	input.Evidence[1].HN = &content.HNEngagement{Points: 600, Comments: 250}
+	input = PrepareInput(input)
+	finalSeen := false
+	_, err := selectStories(input, func(label, prompt string, in, out any) error {
+		p := in.(selectionPacket)
+		if !strings.Contains(prompt, engagementRules) {
+			t.Fatal("engagement policy missing")
+		}
+		result := out.(*selectionOutput)
+		switch label {
+		case "shortlist 1/2":
+			if p.Stories[0].HN != nil || p.Stories[1].HN.Points != 600 {
+				t.Fatal("missing or invented signals")
+			}
+			result.Groups = [][]string{{"source-0", "source-1"}}
+		case "shortlist 2/2":
+			result.Groups = [][]string{{"source-8"}}
+		case "selection":
+			finalSeen = true
+			if p.Stories[0].HN == nil || p.Stories[0].HN.Points != 600 {
+				t.Fatal("companion signal lost")
+			}
+			result.Groups = [][]string{{"source-0"}}
+		}
+		return nil
+	})
+	if err != nil || !finalSeen {
+		t.Fatalf("selection: %v", err)
+	}
+	articles := []content.Article{{ID: "story", SourceIDs: []string{"source-0", "source-1"}}}
+	ranked := rankingInput(articles, input.Evidence...)
+	if ranked[0].HN == nil || ranked[0].HN.Points != 600 {
+		t.Fatal("ranking lost engagement")
+	}
+	if input.Evidence[0].HN != nil {
+		t.Fatal("selection mutated original evidence")
+	}
+	// Old snapshots remain readable and do not pretend zero means unpopular.
+	legacy := previews(Input{Evidence: []content.Evidence{{Source: content.Source{ID: "old"}}}}, 12)
+	if legacy.Stories[0].HN != nil {
+		t.Fatal("invented legacy engagement")
+	}
+}
+
+type engagementSelectionModel struct{ calls int }
+
+func (m *engagementSelectionModel) Generate(_ context.Context, _ string, in, out any) (Usage, error) {
+	m.calls++
+	p := in.(selectionPacket)
+	out.(*selectionOutput).Groups = [][]string{{p.Stories[0].ID}}
+	return Usage{}, nil
+}
+
+func TestSelectionCacheIncludesHNObservation(t *testing.T) {
+	backend := &engagementSelectionModel{}
+	cache := &CachedModel{Model: backend, Directory: t.TempDir(), Identity: "test"}
+	input := Input{Evidence: []content.Evidence{{Source: content.Source{ID: "one"}}}}
+	run := func() {
+		t.Helper()
+		var result selectionOutput
+		if _, err := cache.Generate(context.Background(), stageRules+selectionRules, previews(input, 12), &result); err != nil {
+			t.Fatal(err)
+		}
+	}
+	run() // Legacy snapshot with no signals.
+	input.Evidence[0].HN = &content.HNEngagement{Points: 600, Comments: 200}
+	run() // Adding signals must invalidate selection, even though evidence text is unchanged.
+	run() // Identical observation should reuse the cache.
+	if backend.calls != 2 {
+		t.Fatalf("calls=%d, want 2", backend.calls)
+	}
+}
+
+func TestEngagementRankingFitsRequestBudget(t *testing.T) {
+	var articles []content.Article
+	var evidence []content.Evidence
+	for i := 0; i < 12; i++ {
+		id := fmt.Sprintf("source-%d", i)
+		articles = append(articles, content.Article{ID: fmt.Sprintf("article-%d", i), SourceIDs: []string{id},
+			Headline: strings.Repeat("Headline ", 20), Summary: strings.Repeat("Summary ", 40), Implication: strings.Repeat("Impact ", 40)})
+		evidence = append(evidence, content.Evidence{Source: content.Source{ID: id}, HN: &content.HNEngagement{Points: 1500, Comments: 1000}})
+	}
+	packet := rankingInput(articles, evidence...)
+	if _, _, _, err := requestBody("openai/gpt-oss-120b", stageRules+engagementRules+"Order every article ID exactly once.", packet, &rankingOutput{}); err != nil {
+		t.Fatal(err)
+	}
 }

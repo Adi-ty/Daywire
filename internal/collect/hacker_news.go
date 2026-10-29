@@ -8,6 +8,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Adi-ty/daywire/internal/content"
 	"github.com/Adi-ty/daywire/internal/fetch"
 )
 
@@ -43,6 +44,7 @@ func (c Collector) hackerNewsItems(ctx context.Context, cfg Config, ids []int) (
 					Title, URL, Type string
 					Time             int64
 					Score            int
+					Descendants      int
 					Dead, Deleted    bool
 				}
 				if err := json.Unmarshal(raw, &story); err != nil {
@@ -55,6 +57,7 @@ func (c Collector) hackerNewsItems(ctx context.Context, cfg Config, ids []int) (
 				discussion := fmt.Sprintf("https://news.ycombinator.com/item?id=%d", id)
 				item := makeCandidate(cfg, story.Title, story.URL, "", nil, time.Unix(story.Time, 0), &discussion)
 				item.Score = max(0, story.Score)
+				item.HN = &content.HNEngagement{Points: item.Score, Comments: max(0, story.Descendants)}
 				results[index].item = item
 			}
 		}()

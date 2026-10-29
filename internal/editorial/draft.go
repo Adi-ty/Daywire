@@ -160,8 +160,8 @@ func generateDraft(ctx context.Context, model Model, input Input, draft *content
 	}
 	if len(d.Articles) > 1 {
 		var order rankingOutput
-		packet := rankingInput(d.Articles)
-		if err := call("front-page order", "Order every supplied article ID exactly once. Lead with the most consequential supported development for working developers; then mix useful engineering, AI, security and tools when present. Consider summaries and implications, not sensational headlines. Do not write or change any article text. Avoid a run of near-identical topics unless the evidence warrants it.", packet, &order); err != nil {
+		packet := rankingInput(d.Articles, input.Evidence...)
+		if err := call("front-page order", engagementRules+"Order every supplied article ID exactly once. Lead with the most consequential supported development for working developers; then mix useful engineering, AI, security and tools when present. Consider summaries and implications, not sensational headlines. Do not write or change any article text. Avoid a run of near-identical topics unless the evidence warrants it.", packet, &order); err != nil {
 			return total, err
 		}
 		ordered := make([]content.Article, 0, len(d.Articles))

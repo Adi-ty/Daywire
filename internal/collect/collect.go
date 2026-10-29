@@ -26,11 +26,12 @@ type Config struct {
 	Security bool   `json:"security,omitempty"`
 }
 type Candidate struct {
-	Source   content.Source `json:"source"`
-	Excerpt  string         `json:"excerpt"`
-	CatchUp  bool           `json:"catch_up,omitempty"`
-	Priority bool           `json:"priority,omitempty"`
-	Score    int            `json:"score,omitempty"`
+	HN       *content.HNEngagement `json:"hn_engagement,omitempty"`
+	Source   content.Source        `json:"source"`
+	Excerpt  string                `json:"excerpt"`
+	CatchUp  bool                  `json:"catch_up,omitempty"`
+	Priority bool                  `json:"priority,omitempty"`
+	Score    int                   `json:"score,omitempty"`
 }
 type Report struct {
 	Candidates  []Candidate `json:"candidates"`
@@ -123,6 +124,14 @@ func (c Collector) Run(ctx context.Context, configs []Config, from, until time.T
 		return report, ctx.Err()
 	}
 	sort.Strings(report.Unavailable)
+	// Preserve HN signals even when URL deduplication keeps a primary feed.
+	engagements := map[string]*content.HNEngagement{}
+	for _, item := range report.Candidates {
+		engagements[item.Source.URL] = content.StrongerHN(engagements[item.Source.URL], item.HN)
+	}
+	for i := range report.Candidates {
+		report.Candidates[i].HN = engagements[report.Candidates[i].Source.URL]
+	}
 	sortCandidates(report.Candidates)
 	seen := map[string]bool{}
 	unique := []Candidate{}
@@ -159,6 +168,9 @@ func sortCandidates(items []Candidate) {
 		}
 		// Community voting is only a discovery signal. Publisher round-robin
 		// below prevents it from crowding out primary feeds.
+		if a.HN.Weight() != b.HN.Weight() {
+			return a.HN.Weight() > b.HN.Weight()
+		}
 		if a.Score != b.Score {
 			return a.Score > b.Score
 		}
@@ -387,5 +399,5 @@ func (c Collector) evidenceFor(ctx context.Context, item Candidate) (content.Evi
 	if item.CatchUp {
 		kind = "security_catchup_" + kind
 	}
-	return content.Evidence{Source: item.Source, Text: text, Hash: content.Hash([]byte(text)), Kind: kind}, failed
+	return content.Evidence{HN: item.HN, Source: item.Source, Text: text, Hash: content.Hash([]byte(text)), Kind: kind}, failed
 }

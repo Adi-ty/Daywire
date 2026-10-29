@@ -124,3 +124,15 @@ func TestOptionalEnrichmentStillRequiresValidReferences(t *testing.T) {
 		})
 	}
 }
+
+func TestHNObservationChoiceIsIndependentOfFeedCompletionOrder(t *testing.T) {
+	a := &HNEngagement{Points: 100, Comments: 120}
+	b := &HNEngagement{Points: 100, Comments: 140}
+	// Both have the same capped weight; keep the fuller observation consistently.
+	if StrongerHN(a, b) != b || StrongerHN(b, a) != b {
+		t.Fatal("duplicate feed completion order changed the selected observation")
+	}
+	if StrongerHN(nil, a) != a || StrongerHN(a, nil) != a || StrongerHN(nil, nil) != nil {
+		t.Fatal("missing engagement handled incorrectly")
+	}
+}
