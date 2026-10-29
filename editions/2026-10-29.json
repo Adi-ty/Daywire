@@ -1,0 +1,3504 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-29",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-10-29T06:26:12.160084724Z",
+  "coverage": {
+    "from": "2026-10-28T06:00:00+05:30",
+    "until": "2026-10-29T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-a395c7da350b5086",
+      "source-e2ed7680c50ae3f0",
+      "source-709cc8e2bd467b79",
+      "source-b6ef72a535891f68",
+      "source-6d5a4af9b29e3176",
+      "source-5d2a2027ecbb796f",
+      "source-9f876b814d3c7d26"
+    ],
+    "candidate_count": 36,
+    "evidence_count": 28
+  },
+  "content": {
+    "title": "Fastify Session Fix and Meta’s One‑GPU Ads Engine",
+    "introduction": "Security researchers patched a race‑condition flaw in Fastify’s session library that let attackers replay cookies after logout, while Meta unveiled a GPU‑only stack that collapses its ads‑retrieval pipeline onto a single processor, slashing request traffic dramatically. Both stories illustrate how tight code fixes and bold hardware co‑design are reshaping performance and safety in modern web services.",
+    "articles": [
+      {
+        "id": "fastify-session-race-condition-2026-10-29",
+        "section": "Security",
+        "headline": "Fastify session library fixes logout race condition",
+        "summary": "Versions of @fastify/session before 11.1.6 allowed an attacker with a valid cookie to replay it after logout by exploiting a race condition.",
+        "paragraphs": [
+          "The OpenJS Security Advisory (CVE‑2026‑117499) reports that @fastify/session versions earlier than 11.1.6 suffer from a logout race condition. When rolling is enabled, a request that restores a session just before a logout can later write its copy back to the store, recreating the destroyed identifier and letting the attacker reuse the original signed cookie. The flaw does not involve cookie theft or signature forgery; the attacker must already possess the victim’s cookie and keep a request in flight across the logout.",
+          "Fastify addressed the issue in version 11.1.6 by adding a generation marker to each session and requiring stores to perform a conditional write. This prevents a pre‑logout request from overwriting the current entry. Custom session stores must implement the new conditional write API to remain compatible."
+        ],
+        "implication": "Upgrading to @fastify/session ≥ 11.1.6 is required for any application that relies on session revocation, otherwise an attacker with a stolen cookie could regain access after a user logs out.",
+        "source_ids": [
+          "source-bf7c6f46534937b5"
+        ]
+      },
+      {
+        "id": "uefi-pxe-boot-flaw-2026-97631",
+        "section": "Security",
+        "headline": "UEFI PXE driver buffer overflow enables remote code execution",
+        "summary": "CVE‑2026‑97631 is a 16‑year‑old overflow in the PXE‑Base Code driver that lets attackers inject ring‑0 code during network boot on EDK2‑based servers.",
+        "paragraphs": [
+          "The flaw resides in NetworkPkg/UefiPxeBcDxe, which fails to cap a memory copy at 504 bytes when processing ICMP error packets. An unicast packet sent during the PXE boot sequence can overwrite adjacent data, corrupt the IUEFI module and execute arbitrary code with full CPU privileges. The vulnerability only affects systems that boot from a network using the default PXE implementation in EDK2 firmware, not typical desktop or laptop machines."
+        ],
+        "implication": "Enterprises that rely on network‑booted servers must verify whether their firmware uses the vulnerable PXE driver and apply vendor patches or disable PXE to block this attack vector.",
+        "source_ids": [
+          "source-041404daf6ce6d0b"
+        ]
+      },
+      {
+        "id": "gitlab-cve-2026-97229-incident",
+        "section": "Security",
+        "headline": "GitLab instance rebuilt after attempted CVE‑2026‑97229 exploit",
+        "summary": "An attacker tried to exploit a critical regex bug (CVE‑2026‑97229) on an Alpine‑hosted GitLab server shortly after the fix was released, prompting a full rebuild.",
+        "paragraphs": [
+          "The exploit targeted GitLab’s use of the Onigmo regex engine in Ruby; the fix landed in Ruby 3.3.13, 3.4.12 and 4.0.9 on October 23, but GitLab 19.3.6 (released October 22) did not include the patch because it relies on GitLab‑provided Ruby packages. The Alpine instance ran standard Ruby, so the vulnerability remained until the server was rebuilt with a patched Ruby version."
+        ],
+        "implication": "Operators must verify that their GitLab deployments use the GitLab‑bundled Ruby or otherwise upgrade to Ruby 3.3.13+; otherwise the CVE‑2026‑97229 fix will not be present even in the latest GitLab release.",
+        "source_ids": [
+          "source-fd6c7c6c47f5d504"
+        ]
+      },
+      {
+        "id": "svg-sanitizer-bypass-2026",
+        "section": "Security",
+        "headline": "New header‑based XSS bypass defeats most SVG sanitizers",
+        "summary": "PortSwigger researchers showed that six of eight tested SVG sanitizers can be evaded using a crafted response header and XSLT payload.",
+        "paragraphs": [
+          "The study examined eight popular SVG sanitizers—including cloudflare/svg-hush, cure53/DOMPurify, bgalek/safe-svg, and others—and successfully bypassed six. By embedding malicious XSLT in an otherwise harmless XML response and leveraging a response header, JavaScript execution is triggered in Firefox; a GIF‑to‑SVG polyglot achieves the same effect in Safari. The technique relies on a feature that is deprecated and scheduled for removal in November 2026."
+        ],
+        "implication": "When the deprecated feature is removed in November 2026, the bypass will no longer work, potentially restoring the intended protection of affected sanitizers.",
+        "source_ids": [
+          "source-6af8be674919171a"
+        ]
+      },
+      {
+        "id": "revinate-api-gateway-portal-adoption",
+        "section": "Engineering",
+        "headline": "Revinate adopts Amazon API Gateway Portal to streamline partner integrations",
+        "summary": "Revinate moved its hospitality data APIs to Amazon API Gateway with the newly released Portal, cutting manual provisioning and aligning costs with usage.",
+        "paragraphs": [
+          "Facing a growing partner ecosystem, Revinate—serving 12,500 hotels and 1.25 billion guest profiles—found its in‑house API stack too costly to scale. The company switched to Amazon API Gateway, leveraging the just‑released API Gateway Portal to provide a self‑service developer experience and eliminate custom security wiring for each new integration.",
+          "The portal lets Revinate expose guest‑profile and reservation endpoints while Terraform scripts provision the gateway as code, keeping operational overhead low. Pay‑per‑use pricing and usage‑plan analytics give clear cost attribution per hotel or partner, replacing fixed‑term licensing fees.",
+          "For teams that need rapid API onboarding without managing infrastructure, the portal demonstrates how a managed gateway can turn API management into a scalable, usage‑driven service."
+        ],
+        "implication": "Engineering groups can replace bespoke API gateways with Amazon API Gateway Portal to reduce manual setup, gain per‑consumer cost visibility, and scale partner access without fixed licensing commitments.",
+        "source_ids": [
+          "source-c60b6c4589845cfd"
+        ]
+      },
+      {
+        "id": "meta-andromeda-gpu-co-design-2026",
+        "section": "Engineering",
+        "headline": "Meta collapses ads‑retrieval stack onto a single GPU",
+        "summary": "Meta’s Andromeda engine now runs index matching, scoring and top‑K selection on one GPU, cutting request traffic by about 100×.",
+        "paragraphs": [
+          "The new architecture co‑locates the entire retrieval pipeline on a single GPU server, sending only user features and a targeting query instead of large candidate lists. This model‑system co‑design, done with NVIDIA, lets the system score a billion ads per second—a 100× throughput lift over the 2024 version—while keeping compute costs in check."
+        ],
+        "implication": "The redesign demonstrates that collapsing retrieval stages onto a single GPU can dramatically reduce network traffic and boost throughput, illustrating the potential of tight model‑system‑hardware co‑design for large‑scale ad pipelines.",
+        "source_ids": [
+          "source-7697a5d09074ae52"
+        ]
+      },
+      {
+        "id": "nemotron-3-5-transcribe-multilingual",
+        "section": "AI",
+        "headline": "NVIDIA releases open‑weight Nemotron 3.5 Transcribe for multilingual, promptable speech-to-text",
+        "summary": "The new Nemotron 3.5 Transcribe model can transcribe up to an hour of audio in 40 languages, translate 31 of them, and attribute up to eight speakers, all from a single checkpoint.",
+        "paragraphs": [
+          "Developers can steer output with natural‑language prompts, choose local or cloud processing, and fine‑tune the model to domain vocabularies and accents. In a benchmark on a single RTX PRO 6000 Blackwell GPU, the forthcoming NVFP4‑quantized version processed 100 hours of 30‑second clips in under three minutes, while achieving the lowest diarization error rate among 14 open‑weight systems on the David AI DAI‑ASR‑I18N leaderboard."
+        ],
+        "implication": "Engineers building multilingual voice assistants or analytics pipelines now have a single, open‑weight model that combines transcription, translation, and speaker diarization, reducing the need to stitch together separate services.",
+        "source_ids": [
+          "source-ec733f799e1aaee3"
+        ]
+      },
+      {
+        "id": "qwenputer-riscv-cpu-experiment",
+        "section": "Engineering",
+        "headline": "Qwen3.5 embeds a deterministic RISC‑V CPU in its weights",
+        "summary": "A hobbyist has added a fully functional RISC‑V processor to the Qwen 3.5‑4B model, using Gated DeltaNet heads as RAM.",
+        "paragraphs": [
+          "The modified checkpoint, dubbed Qwenputer, expands the base model to 18.8 GB and requires a small driver (RvChat) to initialise the firmware; it cannot be invoked with a plain generate() call. The CPU runs inside forward passes, executing C and MicroPython code, but each instruction costs several decoded tokens, yielding roughly 3,200 CPU‑tokens per second on an L4 GPU, so large calculations take seconds rather than milliseconds."
+        ],
+        "implication": "Developers can experiment with on‑model computation without external runtimes, but must accept higher latency and the need for custom boot code.",
+        "source_ids": [
+          "source-871d193932e07498"
+        ]
+      },
+      {
+        "id": "alpinebsd-intro-2026-10-29",
+        "section": "Tools",
+        "headline": "AlpineBSD offers a NetBSD‑based, AI‑free BSD distribution",
+        "summary": "AlpineBSD is a NetBSD‑kernel operating system that adopts Alpine Linux‑style userspace while deliberately omitting LLM‑generated software.",
+        "paragraphs": [
+          "The project provides the NetBSD kernel, libc, and essential platform tools such as mount, together with the apk‑tools package manager and busybox. It currently uses the s6 init system and plans to add OpenRC as an alternative. No installer is shipped yet, so installation must follow a high‑level guide. Hardware support follows NetBSD’s list, which is more limited than Linux’s."
+        ],
+        "implication": "Users seeking a lightweight BSD system without AI‑generated components can try AlpineBSD, but must handle manual installation and verify hardware compatibility beforehand.",
+        "source_ids": [
+          "source-d92bc2aaae8bdddc"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "session-race-condition-mechanism-2026-10-29",
+        "title": "Understanding the logout race condition in @fastify/session",
+        "paragraphs": [
+          "When a request restores a session just before a logout, the library’s default rolling behavior writes the session back to the store after the logout completes. Because the store write is unconditional, the pre‑logout request can recreate the destroyed session identifier, allowing the original signed cookie to be replayed and the user to be logged back in without any new authentication.",
+          "The fix introduces a generation marker for each session and requires stores to perform a conditional write that only succeeds if the stored generation matches. This ensures that a request that began before the logout cannot overwrite the newer session entry, effectively closing the timing window that the attacker exploited."
+        ],
+        "example": "Imagine a user logs out while a background AJAX call that had started earlier still holds the old session data. Without the generation check, that call writes the old data back, reviving the session; with the generation marker, the store rejects the write because the session’s generation has changed.",
+        "takeaway": "Always use session stores that enforce conditional writes or upgrade to @fastify/session ≥ 11.1.6 to prevent race‑condition‑based session revocation bypasses.",
+        "article_ids": [
+          "fastify-session-race-condition-2026-10-29"
+        ],
+        "source_ids": [
+          "source-bf7c6f46534937b5"
+        ]
+      },
+      {
+        "id": "pxe-buffer-overflow-mechanism",
+        "title": "How an unchecked copy length in the PXE driver leads to ring‑0 code execution",
+        "paragraphs": [
+          "During the pre‑execution environment boot, the PXE‑Base Code driver (NetworkPkg/UefiPxeBcDxe) copies data from incoming ICMP error packets into a fixed buffer. The driver assumes the packet will never exceed 504 bytes, but it never enforces this limit. When a malicious packet is larger, the extra bytes spill into adjacent memory, corrupting the IUEFI module that runs on the CPU.",
+          "Because the IUEFI module operates at ring 0, the overwritten data can be crafted to become executable code. An attacker who can send a packet during the brief PXE boot window—common in data‑center servers that network‑boot—can therefore inject arbitrary kernel‑level instructions, bypassing attestation and gaining full control of the machine."
+        ],
+        "example": "Imagine a server that expects a 500‑byte ICMP error message. An attacker sends a 600‑byte packet; the extra 100 bytes overwrite the next memory region, which the firmware later treats as a function pointer. When the firmware calls that pointer, the attacker’s code runs with ring‑0 privileges.",
+        "takeaway": "Always validate input lengths in low‑level firmware components; a missing bound check can turn a harmless network error into a complete system compromise.",
+        "article_ids": [
+          "uefi-pxe-boot-flaw-2026-97631"
+        ],
+        "source_ids": [
+          "source-041404daf6ce6d0b"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-session-race-condition-mechanism-2026-10-29-1",
+        "lesson_id": "session-race-condition-mechanism-2026-10-29",
+        "prompt": "What does the generation marker introduced in the fix prevent?",
+        "options": [
+          "It prevents the session cookie from being signed.",
+          "It prevents a pre‑logout request from overwriting a newer session entry after logout.",
+          "It prevents the server from creating new sessions entirely.",
+          "It prevents the client from sending AJAX requests."
+        ],
+        "answer": 1,
+        "explanation": "The generation marker is used so that stores only accept a write if the stored generation matches, which stops a request that began before logout from overwriting the newer session entry."
+      },
+      {
+        "id": "quiz-1-session-race-condition-mechanism-2026-10-29-2",
+        "lesson_id": "session-race-condition-mechanism-2026-10-29",
+        "prompt": "Why does the default rolling behavior of @fastify/session contribute to the race‑condition vulnerability?",
+        "options": [
+          "It signs the cookie with a weak algorithm.",
+          "It writes the session back to the store unconditionally after each request.",
+          "It disables the use of session stores entirely.",
+          "It encrypts session data before storing it."
+        ],
+        "answer": 1,
+        "explanation": "The default rolling behavior writes the session back to the store unconditionally, so a request that restores a session just before logout can rewrite the destroyed session, enabling the bypass."
+      },
+      {
+        "id": "quiz-2-pxe-overflow-cause",
+        "lesson_id": "pxe-buffer-overflow-mechanism",
+        "prompt": "What specific condition allows the PXE‑Base Code driver to overwrite adjacent memory during boot?",
+        "options": [
+          "The driver copies data from ICMP error packets without checking the packet length against the 504‑byte buffer size.",
+          "The driver uses a deprecated network protocol that is vulnerable to replay attacks.",
+          "The driver runs in user mode and lacks sufficient privileges to enforce bounds.",
+          "The driver encrypts incoming packets, causing buffer misalignment."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that the driver assumes packets will never exceed 504 bytes and never enforces this limit, so an oversized packet spills into adjacent memory."
+      },
+      {
+        "id": "quiz-2-pxe-overflow-impact",
+        "lesson_id": "pxe-buffer-overflow-mechanism",
+        "prompt": "Why does overwriting the IUEFI module enable an attacker to execute code with ring‑0 privileges?",
+        "options": [
+          "The IUEFI module runs at ring 0, so corrupted data can become executable code that the CPU runs with kernel privileges.",
+          "The IUEFI module automatically escalates any user‑provided code to ring 0 regardless of its content.",
+          "The IUEFI module contains a backdoor that grants ring 0 access when any memory is modified.",
+          "The IUEFI module validates all code signatures, allowing only signed code to run at ring 0."
+        ],
+        "answer": 0,
+        "explanation": "According to the lesson, the IUEFI module operates at ring 0; when its memory is overwritten, the attacker can place executable code that the firmware will run with full kernel privileges."
+      }
+    ],
+    "segments": [
+      {
+        "id": "fastify-session-race-fix-2026-10-29",
+        "title": "Fastify session library patches logout race",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's October twenty nine, two thousand twenty six.\n\nWe begin with our lead story. Fastify just patched a sneaky logout race in its session library. Versions before eleven point one point six let anyone who already had a valid cookie replay it after the user logged out, because a request in flight could write the old session back into the store. The fix adds a generation marker and forces stores to do a conditional write, so the pre‑logout request can’t overwrite the new entry. If you rely on session revocation, upgrade to version eleven point one point six or newer – otherwise a stolen cookie could still get you back in.",
+        "article_ids": [
+          "fastify-session-race-condition-2026-10-29"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "UEFI PXE driver overflow lets remote code run",
+        "text": "Next on the bulletin. A 16‑year‑old buffer overflow in the PXE‑Base Code driver of EDK2 firmware can let an attacker inject ring‑zero code during a network boot. If a malicious unicast ICMP error packet arrives while the server is pulling down its PXE image, the driver copies more than 504 bytes and overwrites the IUEFI module, handing the attacker full CPU privileges. This only hits machines that use the default PXE implementation in EDK2, not typical desktops. Enterprises running network‑booted servers should check their firmware version, apply any vendor patches, or simply disable PXE to close the door.",
+        "article_ids": [
+          "uefi-pxe-boot-flaw-2026-97631"
+        ]
+      },
+      {
+        "id": "gitlab-cve-2026-97229-incident-segment",
+        "title": "GitLab rebuilt after attempted CVE‑2026‑97229 exploit",
+        "text": "Turning to our next story. GitLab’s Alpine‑hosted instance was torn down and rebuilt after an attacker tried to hit a critical regex bug, CVE‑2026‑97229. The fix landed in Ruby version three point three point thirteen, three point four point twelve and four point zero point nine on October twenty‑three, but the GitLab nineteen point three point six release from October twenty‑two still used the unpatched Ruby packages. Because the server ran the standard Ruby, the vulnerability lingered until the rebuild. Operators need to confirm they’re using the GitLab‑bundled Ruby or upgrade to Ruby three point three point thirteen or newer, or the fix won’t be present.",
+        "article_ids": [
+          "gitlab-cve-2026-97229-incident"
+        ]
+      },
+      {
+        "id": "svg-sanitizer-bypass-2026-story",
+        "title": "Header‑Based SVG XSS Bypass Uncovers Sanitizer Gaps",
+        "text": "Next on the bulletin. PortSwigger researchers found a new way to slip past most SVG sanitizers using a crafted response header and an XSLT payload. By hiding malicious XSLT inside a benign XML response, they can trigger JavaScript in Firefox, and a GIF‑to‑SVG polyglot does the same in Safari. Six of eight popular sanitizers, including cloudflare/svg‑hush and cure53/DOMPurify, fell to the trick. The exploit leans on a feature slated for removal in November twenty twenty‑six, so once that deprecation lands, the bypass should stop working.",
+        "article_ids": [
+          "svg-sanitizer-bypass-2026"
+        ]
+      },
+      {
+        "id": "revinate-gateway-portal-adoption",
+        "title": "Revinate adopts Amazon API Gateway Portal",
+        "text": "And finally, our last story. Revinate has rolled out Amazon API Gateway Portal for its hospitality data APIs. Partners can now spin up access to guest‑profile and reservation endpoints themselves, while Revinate’s Terraform scripts keep the gateway wired as code. Because the portal charges per request, each hotel sees a usage‑based bill instead of a flat license fee. This lets teams replace custom security plumbing and scale integrations without adding headcount.\n\nHere's the takeaway: a managed, pay‑per‑use gateway can turn API management into a scalable, usage‑driven service.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "revinate-api-gateway-portal-adoption"
+        ]
+      }
+    ],
+    "artwork_brief": "A split‑screen illustration: left side shows a stylized Fastify server icon with a broken lock being sealed, right side depicts a single powerful GPU surrounded by flowing data streams representing ad queries converging into it."
+  },
+  "sources": [
+    {
+      "id": "source-c60b6c4589845cfd",
+      "name": "AWS Architecture",
+      "title": "How Revinate accelerated API adoption with Amazon API Gateway",
+      "url": "https://aws.amazon.com/blogs/architecture/how-revinate-accelerated-api-adoption-with-amazon-api-gateway/",
+      "published_at": "2026-10-28T18:32:34Z",
+      "discovered_at": "2026-10-29T06:05:43.262080391Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-7697a5d09074ae52",
+      "name": "Meta Engineering",
+      "title": "Meta Andromeda: Powering the Next Generation of Ads Retrieval Through Model-System Co-Design",
+      "url": "https://engineering.fb.com/2026/10/28/ml-applications/meta-andromeda-next-gen-ads-retrieval-gpu-co-design/",
+      "published_at": "2026-10-28T16:00:01Z",
+      "discovered_at": "2026-10-29T06:05:43.478836348Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-ec733f799e1aaee3",
+      "name": "Hugging Face",
+      "title": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
+      "url": "https://huggingface.co/blog/nvidia/nemotron-transcribe-granary",
+      "published_at": "2026-10-28T14:58:17Z",
+      "discovered_at": "2026-10-29T06:05:41.513050713Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-bf7c6f46534937b5",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-117499: @fastify/session vulnerable to session revocation bypass via a logout race condition",
+      "url": "https://github.com/fastify/session/security/advisories/GHSA-2hw7-jxfh-4rm3",
+      "published_at": "2026-10-27T11:19:22Z",
+      "discovered_at": "2026-10-29T06:05:41.804909549Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-fd6c7c6c47f5d504",
+      "name": "Lobsters",
+      "title": "GitLab security incident: attempted exploitation of CVE-2026-97229",
+      "url": "https://alpinelinux.org/posts/GitLab-security-incident-CVE-2026-97229.html",
+      "published_at": null,
+      "discovered_at": "2026-10-28T18:01:26.314-05:00",
+      "discussion_url": "https://lobste.rs/s/2zsjwt/gitlab_security_incident_attempted"
+    },
+    {
+      "id": "source-d92bc2aaae8bdddc",
+      "name": "Lobsters",
+      "title": "AlpineBSD",
+      "url": "https://wiki.alpinebsd.org/",
+      "published_at": null,
+      "discovered_at": "2026-10-28T05:34:55.669-05:00",
+      "discussion_url": "https://lobste.rs/s/yxuvie/alpinebsd"
+    },
+    {
+      "id": "source-871d193932e07498",
+      "name": "Hacker News",
+      "title": "Qwenputer: A functioning, deterministic RISC-V CPU inside Qwen3.5",
+      "url": "https://divagr.com/blog/qwenputer",
+      "published_at": null,
+      "discovered_at": "2026-10-29T00:25:45Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50282838"
+    },
+    {
+      "id": "source-041404daf6ce6d0b",
+      "name": "Lobsters",
+      "title": "Code-execution flaw in UEFI firmware affects most servers on planet Earth",
+      "url": "https://arstechnica.com/security/2026/10/code-execution-flaw-in-uefi-firmware-threatens-most-servers-on-planet-earth/",
+      "published_at": null,
+      "discovered_at": "2026-10-28T04:18:31.981-05:00",
+      "discussion_url": "https://lobste.rs/s/0gomue/code_execution_flaw_uefi_firmware"
+    },
+    {
+      "id": "source-6af8be674919171a",
+      "name": "Lobsters",
+      "title": "Scalable Vector Grief",
+      "url": "https://portswigger.net/research/scalable-vector-grief",
+      "published_at": null,
+      "discovered_at": "2026-10-28T02:26:03.185-05:00",
+      "discussion_url": "https://lobste.rs/s/vekgyd/scalable_vector_grief"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-10-29/14750ff0d6c9fdfffa02582339e6757507b3589978e86217b9ad5e2d90ff0a0c.mp3",
+    "duration_seconds": 204.325,
+    "script_hash": "016f2e118b3d6aad21ac5c7f44bd9dd649a4c828a4d49c9a76d326c683d4dbbd",
+    "cues": [
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6375
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "everyone,",
+        "start_seconds": 0.6375,
+        "end_seconds": 1.225
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "and",
+        "start_seconds": 1.225,
+        "end_seconds": 1.35
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "welcome",
+        "start_seconds": 1.35,
+        "end_seconds": 1.775
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "to",
+        "start_seconds": 1.775,
+        "end_seconds": 1.9
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "Daywire.",
+        "start_seconds": 1.9,
+        "end_seconds": 2.65
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "Let's",
+        "start_seconds": 2.65,
+        "end_seconds": 2.925
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "make",
+        "start_seconds": 2.925,
+        "end_seconds": 3.1625
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "sense",
+        "start_seconds": 3.1625,
+        "end_seconds": 3.4875
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "of",
+        "start_seconds": 3.4875,
+        "end_seconds": 3.5625
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "the",
+        "start_seconds": 3.5625,
+        "end_seconds": 3.6875
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "tech",
+        "start_seconds": 3.6875,
+        "end_seconds": 3.975
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "news.",
+        "start_seconds": 3.975,
+        "end_seconds": 4.7
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "It's",
+        "start_seconds": 4.7,
+        "end_seconds": 4.9
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "October",
+        "start_seconds": 4.9,
+        "end_seconds": 5.35
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "twenty",
+        "start_seconds": 5.35,
+        "end_seconds": 5.675
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "nine,",
+        "start_seconds": 5.675,
+        "end_seconds": 6.0625
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "two",
+        "start_seconds": 6.0625,
+        "end_seconds": 6.3
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "thousand",
+        "start_seconds": 6.3,
+        "end_seconds": 6.6625
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "twenty",
+        "start_seconds": 6.6625,
+        "end_seconds": 6.9875
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "six.",
+        "start_seconds": 6.9875,
+        "end_seconds": 7.85
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "We",
+        "start_seconds": 9.025,
+        "end_seconds": 9.15
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "begin",
+        "start_seconds": 9.15,
+        "end_seconds": 9.5
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "with",
+        "start_seconds": 9.5,
+        "end_seconds": 9.637500000000001
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "our",
+        "start_seconds": 9.637500000000001,
+        "end_seconds": 9.775
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "lead",
+        "start_seconds": 9.775,
+        "end_seconds": 10.05
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "story.",
+        "start_seconds": 10.05,
+        "end_seconds": 10.8
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "Fastify",
+        "start_seconds": 10.8,
+        "end_seconds": 11.350000000000001
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "just",
+        "start_seconds": 11.350000000000001,
+        "end_seconds": 11.525
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "patched",
+        "start_seconds": 11.525,
+        "end_seconds": 11.8125
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "a",
+        "start_seconds": 11.8125,
+        "end_seconds": 11.912500000000001
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "sneaky",
+        "start_seconds": 11.912500000000001,
+        "end_seconds": 12.325000000000001
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "logout",
+        "start_seconds": 12.325000000000001,
+        "end_seconds": 12.675
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "race",
+        "start_seconds": 12.675,
+        "end_seconds": 12.9625
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "in",
+        "start_seconds": 12.9625,
+        "end_seconds": 13.037500000000001
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "its",
+        "start_seconds": 13.037500000000001,
+        "end_seconds": 13.175
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "session",
+        "start_seconds": 13.175,
+        "end_seconds": 13.525
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "library.",
+        "start_seconds": 13.525,
+        "end_seconds": 14.375
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "Versions",
+        "start_seconds": 14.375,
+        "end_seconds": 14.825000000000001
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "before",
+        "start_seconds": 14.825000000000001,
+        "end_seconds": 15.125
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "eleven",
+        "start_seconds": 15.125,
+        "end_seconds": 15.475000000000001
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "point",
+        "start_seconds": 15.475000000000001,
+        "end_seconds": 15.75
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "one",
+        "start_seconds": 15.75,
+        "end_seconds": 15.950000000000001
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "point",
+        "start_seconds": 15.950000000000001,
+        "end_seconds": 16.2375
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "six",
+        "start_seconds": 16.2375,
+        "end_seconds": 16.55
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "let",
+        "start_seconds": 16.55,
+        "end_seconds": 16.75
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "anyone",
+        "start_seconds": 16.75,
+        "end_seconds": 17.0875
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "who",
+        "start_seconds": 17.0875,
+        "end_seconds": 17.225
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "already",
+        "start_seconds": 17.225,
+        "end_seconds": 17.575000000000003
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "had",
+        "start_seconds": 17.575000000000003,
+        "end_seconds": 17.7375
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "a",
+        "start_seconds": 17.7375,
+        "end_seconds": 17.8
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "valid",
+        "start_seconds": 17.8,
+        "end_seconds": 18.15
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "cookie",
+        "start_seconds": 18.15,
+        "end_seconds": 18.425
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "replay",
+        "start_seconds": 18.425,
+        "end_seconds": 18.8
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "it",
+        "start_seconds": 18.8,
+        "end_seconds": 18.950000000000003
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "after",
+        "start_seconds": 18.950000000000003,
+        "end_seconds": 19.1875
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "the",
+        "start_seconds": 19.1875,
+        "end_seconds": 19.275
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "user",
+        "start_seconds": 19.275,
+        "end_seconds": 19.55
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "logged",
+        "start_seconds": 19.55,
+        "end_seconds": 19.825000000000003
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "out,",
+        "start_seconds": 19.825000000000003,
+        "end_seconds": 20.225
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "because",
+        "start_seconds": 20.225,
+        "end_seconds": 20.4625
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "a",
+        "start_seconds": 20.4625,
+        "end_seconds": 20.525
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "request",
+        "start_seconds": 20.525,
+        "end_seconds": 20.9125
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "in",
+        "start_seconds": 20.9125,
+        "end_seconds": 21.05
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "flight",
+        "start_seconds": 21.05,
+        "end_seconds": 21.375
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "could",
+        "start_seconds": 21.375,
+        "end_seconds": 21.525
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "write",
+        "start_seconds": 21.525,
+        "end_seconds": 21.7125
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "the",
+        "start_seconds": 21.7125,
+        "end_seconds": 21.825000000000003
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "old",
+        "start_seconds": 21.825000000000003,
+        "end_seconds": 22.075000000000003
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "session",
+        "start_seconds": 22.075000000000003,
+        "end_seconds": 22.475
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "back",
+        "start_seconds": 22.475,
+        "end_seconds": 22.6875
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "into",
+        "start_seconds": 22.6875,
+        "end_seconds": 22.887500000000003
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "the",
+        "start_seconds": 22.887500000000003,
+        "end_seconds": 22.975
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "store.",
+        "start_seconds": 22.975,
+        "end_seconds": 23.8
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "The",
+        "start_seconds": 23.8,
+        "end_seconds": 23.9375
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "fix",
+        "start_seconds": 23.9375,
+        "end_seconds": 24.225
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "adds",
+        "start_seconds": 24.225,
+        "end_seconds": 24.4625
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "a",
+        "start_seconds": 24.4625,
+        "end_seconds": 24.525
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "generation",
+        "start_seconds": 24.525,
+        "end_seconds": 25.1
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "marker",
+        "start_seconds": 25.1,
+        "end_seconds": 25.6125
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "and",
+        "start_seconds": 25.6125,
+        "end_seconds": 25.7625
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "forces",
+        "start_seconds": 25.7625,
+        "end_seconds": 26.125
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "stores",
+        "start_seconds": 26.125,
+        "end_seconds": 26.55
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "to",
+        "start_seconds": 26.55,
+        "end_seconds": 26.650000000000002
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "do",
+        "start_seconds": 26.650000000000002,
+        "end_seconds": 26.7875
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "a",
+        "start_seconds": 26.7875,
+        "end_seconds": 26.85
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "conditional",
+        "start_seconds": 26.85,
+        "end_seconds": 27.45
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "write,",
+        "start_seconds": 27.45,
+        "end_seconds": 28.075
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "so",
+        "start_seconds": 28.075,
+        "end_seconds": 28.1875
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "the",
+        "start_seconds": 28.1875,
+        "end_seconds": 28.275000000000002
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "pre‑logout",
+        "start_seconds": 28.275000000000002,
+        "end_seconds": 28.837500000000002
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "request",
+        "start_seconds": 28.837500000000002,
+        "end_seconds": 29.225
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "can’t",
+        "start_seconds": 29.225,
+        "end_seconds": 29.575
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "overwrite",
+        "start_seconds": 29.575,
+        "end_seconds": 30.025000000000002
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "the",
+        "start_seconds": 30.025000000000002,
+        "end_seconds": 30.125
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "new",
+        "start_seconds": 30.125,
+        "end_seconds": 30.35
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "entry.",
+        "start_seconds": 30.35,
+        "end_seconds": 31.3125
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "If",
+        "start_seconds": 31.745,
+        "end_seconds": 31.919999999999998
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "you",
+        "start_seconds": 31.919999999999998,
+        "end_seconds": 32.045
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "rely",
+        "start_seconds": 32.045,
+        "end_seconds": 32.445
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "on",
+        "start_seconds": 32.445,
+        "end_seconds": 32.6325
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "session",
+        "start_seconds": 32.6325,
+        "end_seconds": 33.019999999999996
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "revocation,",
+        "start_seconds": 33.019999999999996,
+        "end_seconds": 33.97
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "upgrade",
+        "start_seconds": 33.97,
+        "end_seconds": 34.445
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "to",
+        "start_seconds": 34.445,
+        "end_seconds": 34.57
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "version",
+        "start_seconds": 34.57,
+        "end_seconds": 35.0075
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "eleven",
+        "start_seconds": 35.0075,
+        "end_seconds": 35.445
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "point",
+        "start_seconds": 35.445,
+        "end_seconds": 35.72
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "one",
+        "start_seconds": 35.72,
+        "end_seconds": 35.945
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "point",
+        "start_seconds": 35.945,
+        "end_seconds": 36.2575
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "six",
+        "start_seconds": 36.2575,
+        "end_seconds": 36.582499999999996
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "or",
+        "start_seconds": 36.582499999999996,
+        "end_seconds": 36.745
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "newer",
+        "start_seconds": 36.745,
+        "end_seconds": 37.3825
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "–",
+        "start_seconds": 37.3825,
+        "end_seconds": 37.47
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "otherwise",
+        "start_seconds": 37.47,
+        "end_seconds": 37.97
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "a",
+        "start_seconds": 37.97,
+        "end_seconds": 38.07
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "stolen",
+        "start_seconds": 38.07,
+        "end_seconds": 38.519999999999996
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "cookie",
+        "start_seconds": 38.519999999999996,
+        "end_seconds": 38.87
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "could",
+        "start_seconds": 38.87,
+        "end_seconds": 39.045
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "still",
+        "start_seconds": 39.045,
+        "end_seconds": 39.32
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "get",
+        "start_seconds": 39.32,
+        "end_seconds": 39.495
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "you",
+        "start_seconds": 39.495,
+        "end_seconds": 39.62
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "back",
+        "start_seconds": 39.62,
+        "end_seconds": 39.9075
+      },
+      {
+        "segment_id": "fastify-session-race-fix-2026-10-29",
+        "text": "in.",
+        "start_seconds": 39.9075,
+        "end_seconds": 40.644999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 41.845,
+        "end_seconds": 42.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 42.1075,
+        "end_seconds": 42.207499999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 42.207499999999996,
+        "end_seconds": 42.295
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 42.295,
+        "end_seconds": 43.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "A",
+        "start_seconds": 43.17,
+        "end_seconds": 43.269999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "16‑year‑old",
+        "start_seconds": 43.269999999999996,
+        "end_seconds": 44.144999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "buffer",
+        "start_seconds": 44.144999999999996,
+        "end_seconds": 44.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "overflow",
+        "start_seconds": 44.42,
+        "end_seconds": 44.8825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 44.8825,
+        "end_seconds": 44.957499999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 44.957499999999996,
+        "end_seconds": 45.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PXE‑Base",
+        "start_seconds": 45.045,
+        "end_seconds": 45.82
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Code",
+        "start_seconds": 45.82,
+        "end_seconds": 46.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "driver",
+        "start_seconds": 46.07,
+        "end_seconds": 46.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 46.42,
+        "end_seconds": 46.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "EDK2",
+        "start_seconds": 46.57,
+        "end_seconds": 47.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "firmware",
+        "start_seconds": 47.245,
+        "end_seconds": 47.707499999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 47.707499999999996,
+        "end_seconds": 47.87
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "let",
+        "start_seconds": 47.87,
+        "end_seconds": 48.0575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 48.0575,
+        "end_seconds": 48.144999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "attacker",
+        "start_seconds": 48.144999999999996,
+        "end_seconds": 48.62
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "inject",
+        "start_seconds": 48.62,
+        "end_seconds": 49.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ring‑zero",
+        "start_seconds": 49.045,
+        "end_seconds": 49.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "code",
+        "start_seconds": 49.595,
+        "end_seconds": 49.8825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "during",
+        "start_seconds": 49.8825,
+        "end_seconds": 50.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 50.1075,
+        "end_seconds": 50.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "network",
+        "start_seconds": 50.17,
+        "end_seconds": 50.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "boot.",
+        "start_seconds": 50.57,
+        "end_seconds": 51.295
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "If",
+        "start_seconds": 51.295,
+        "end_seconds": 51.4325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 51.4325,
+        "end_seconds": 51.4825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "malicious",
+        "start_seconds": 51.4825,
+        "end_seconds": 51.894999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "unicast",
+        "start_seconds": 51.894999999999996,
+        "end_seconds": 52.457499999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ICMP",
+        "start_seconds": 52.457499999999996,
+        "end_seconds": 53.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "error",
+        "start_seconds": 53.095,
+        "end_seconds": 53.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "packet",
+        "start_seconds": 53.345,
+        "end_seconds": 53.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "arrives",
+        "start_seconds": 53.695,
+        "end_seconds": 54.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "while",
+        "start_seconds": 54.1075,
+        "end_seconds": 54.2575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 54.2575,
+        "end_seconds": 54.3825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "server",
+        "start_seconds": 54.3825,
+        "end_seconds": 54.745
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "is",
+        "start_seconds": 54.745,
+        "end_seconds": 54.894999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pulling",
+        "start_seconds": 54.894999999999996,
+        "end_seconds": 55.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "down",
+        "start_seconds": 55.17,
+        "end_seconds": 55.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 55.4075,
+        "end_seconds": 55.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PXE",
+        "start_seconds": 55.57,
+        "end_seconds": 56.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "image,",
+        "start_seconds": 56.095,
+        "end_seconds": 56.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 56.795,
+        "end_seconds": 56.894999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "driver",
+        "start_seconds": 56.894999999999996,
+        "end_seconds": 57.295
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "copies",
+        "start_seconds": 57.295,
+        "end_seconds": 57.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "more",
+        "start_seconds": 57.67,
+        "end_seconds": 57.832499999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "than",
+        "start_seconds": 57.832499999999996,
+        "end_seconds": 58.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "504",
+        "start_seconds": 58.0075,
+        "end_seconds": 58.82
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bytes",
+        "start_seconds": 58.82,
+        "end_seconds": 59.195
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 59.195,
+        "end_seconds": 59.32
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "overwrites",
+        "start_seconds": 59.32,
+        "end_seconds": 59.832499999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 59.832499999999996,
+        "end_seconds": 59.9825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "IUEFI",
+        "start_seconds": 59.9825,
+        "end_seconds": 60.644999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "module,",
+        "start_seconds": 60.644999999999996,
+        "end_seconds": 61.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "handing",
+        "start_seconds": 61.345,
+        "end_seconds": 61.6825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 61.6825,
+        "end_seconds": 61.769999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "attacker",
+        "start_seconds": 61.769999999999996,
+        "end_seconds": 62.269999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "full",
+        "start_seconds": 62.269999999999996,
+        "end_seconds": 62.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "CPU",
+        "start_seconds": 62.595,
+        "end_seconds": 63.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "privileges.",
+        "start_seconds": 63.12,
+        "end_seconds": 64.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "This",
+        "start_seconds": 64.815,
+        "end_seconds": 65.0025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "only",
+        "start_seconds": 65.0025,
+        "end_seconds": 65.315
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hits",
+        "start_seconds": 65.315,
+        "end_seconds": 65.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "machines",
+        "start_seconds": 65.59,
+        "end_seconds": 66.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 66.19,
+        "end_seconds": 66.34
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "use",
+        "start_seconds": 66.34,
+        "end_seconds": 66.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 66.615,
+        "end_seconds": 66.715
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "default",
+        "start_seconds": 66.715,
+        "end_seconds": 67.2025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PXE",
+        "start_seconds": 67.2025,
+        "end_seconds": 67.8025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "implementation",
+        "start_seconds": 67.8025,
+        "end_seconds": 68.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 68.64,
+        "end_seconds": 68.78999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "EDK2,",
+        "start_seconds": 68.78999999999999,
+        "end_seconds": 70.09
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "not",
+        "start_seconds": 70.09,
+        "end_seconds": 70.315
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "typical",
+        "start_seconds": 70.315,
+        "end_seconds": 70.715
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "desktops.",
+        "start_seconds": 70.715,
+        "end_seconds": 71.9275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Enterprises",
+        "start_seconds": 71.9275,
+        "end_seconds": 72.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "running",
+        "start_seconds": 72.64,
+        "end_seconds": 72.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "network‑booted",
+        "start_seconds": 72.965,
+        "end_seconds": 73.715
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "servers",
+        "start_seconds": 73.715,
+        "end_seconds": 74.22749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "should",
+        "start_seconds": 74.22749999999999,
+        "end_seconds": 74.4525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "check",
+        "start_seconds": 74.4525,
+        "end_seconds": 74.715
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "their",
+        "start_seconds": 74.715,
+        "end_seconds": 74.9275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "firmware",
+        "start_seconds": 74.9275,
+        "end_seconds": 75.315
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version,",
+        "start_seconds": 75.315,
+        "end_seconds": 76.115
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "apply",
+        "start_seconds": 76.115,
+        "end_seconds": 76.47749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 76.47749999999999,
+        "end_seconds": 76.69
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vendor",
+        "start_seconds": 76.69,
+        "end_seconds": 77.03999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patches,",
+        "start_seconds": 77.03999999999999,
+        "end_seconds": 77.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 77.74,
+        "end_seconds": 77.91499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "simply",
+        "start_seconds": 77.91499999999999,
+        "end_seconds": 78.28999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "disable",
+        "start_seconds": 78.28999999999999,
+        "end_seconds": 78.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PXE",
+        "start_seconds": 78.84,
+        "end_seconds": 79.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 79.515,
+        "end_seconds": 79.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "close",
+        "start_seconds": 79.64,
+        "end_seconds": 79.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 79.965,
+        "end_seconds": 80.065
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "door.",
+        "start_seconds": 80.065,
+        "end_seconds": 80.94
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Turning",
+        "start_seconds": 82.14,
+        "end_seconds": 82.515
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "to",
+        "start_seconds": 82.515,
+        "end_seconds": 82.665
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "our",
+        "start_seconds": 82.665,
+        "end_seconds": 82.815
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "next",
+        "start_seconds": 82.815,
+        "end_seconds": 83.09
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "story.",
+        "start_seconds": 83.09,
+        "end_seconds": 83.965
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "GitLab’s",
+        "start_seconds": 83.965,
+        "end_seconds": 84.4775
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Alpine‑hosted",
+        "start_seconds": 84.4775,
+        "end_seconds": 85.315
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "instance",
+        "start_seconds": 85.315,
+        "end_seconds": 85.84
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "was",
+        "start_seconds": 85.84,
+        "end_seconds": 86.0275
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "torn",
+        "start_seconds": 86.0275,
+        "end_seconds": 86.365
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "down",
+        "start_seconds": 86.365,
+        "end_seconds": 87.0025
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "and",
+        "start_seconds": 87.0025,
+        "end_seconds": 87.14
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "rebuilt",
+        "start_seconds": 87.14,
+        "end_seconds": 87.6275
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "after",
+        "start_seconds": 87.6275,
+        "end_seconds": 87.9275
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "an",
+        "start_seconds": 87.9275,
+        "end_seconds": 88.015
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "attacker",
+        "start_seconds": 88.015,
+        "end_seconds": 88.49
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "tried",
+        "start_seconds": 88.49,
+        "end_seconds": 88.765
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "to",
+        "start_seconds": 88.765,
+        "end_seconds": 88.865
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "hit",
+        "start_seconds": 88.865,
+        "end_seconds": 89.0525
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "a",
+        "start_seconds": 89.0525,
+        "end_seconds": 89.14
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "critical",
+        "start_seconds": 89.14,
+        "end_seconds": 89.59
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "regex",
+        "start_seconds": 89.59,
+        "end_seconds": 89.99
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "bug,",
+        "start_seconds": 89.99,
+        "end_seconds": 90.7275
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "CVE‑2026‑97229.",
+        "start_seconds": 90.7275,
+        "end_seconds": 95.7775
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "The",
+        "start_seconds": 96.21,
+        "end_seconds": 96.3225
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "fix",
+        "start_seconds": 96.3225,
+        "end_seconds": 96.61
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "landed",
+        "start_seconds": 96.61,
+        "end_seconds": 97.01
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "in",
+        "start_seconds": 97.01,
+        "end_seconds": 97.16
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Ruby",
+        "start_seconds": 97.16,
+        "end_seconds": 97.46
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "version",
+        "start_seconds": 97.46,
+        "end_seconds": 97.9225
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "three",
+        "start_seconds": 97.9225,
+        "end_seconds": 98.16
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 98.16,
+        "end_seconds": 98.4475
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "three",
+        "start_seconds": 98.4475,
+        "end_seconds": 98.66
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 98.66,
+        "end_seconds": 98.935
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "thirteen,",
+        "start_seconds": 98.935,
+        "end_seconds": 99.7975
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "three",
+        "start_seconds": 99.7975,
+        "end_seconds": 100.035
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 100.035,
+        "end_seconds": 100.31
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "four",
+        "start_seconds": 100.31,
+        "end_seconds": 100.535
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 100.535,
+        "end_seconds": 100.81
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "twelve",
+        "start_seconds": 100.81,
+        "end_seconds": 101.26
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "and",
+        "start_seconds": 101.26,
+        "end_seconds": 101.3975
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "four",
+        "start_seconds": 101.3975,
+        "end_seconds": 101.635
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 101.635,
+        "end_seconds": 101.91
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "zero",
+        "start_seconds": 101.91,
+        "end_seconds": 102.26
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 102.26,
+        "end_seconds": 102.535
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "nine",
+        "start_seconds": 102.535,
+        "end_seconds": 102.7975
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "on",
+        "start_seconds": 102.7975,
+        "end_seconds": 102.91
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "October",
+        "start_seconds": 102.91,
+        "end_seconds": 103.31
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "twenty‑three,",
+        "start_seconds": 103.31,
+        "end_seconds": 104.285
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "but",
+        "start_seconds": 104.285,
+        "end_seconds": 104.4225
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "the",
+        "start_seconds": 104.4225,
+        "end_seconds": 104.51
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "GitLab",
+        "start_seconds": 104.51,
+        "end_seconds": 104.935
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "nineteen",
+        "start_seconds": 104.935,
+        "end_seconds": 105.41
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 105.41,
+        "end_seconds": 105.6975
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "three",
+        "start_seconds": 105.6975,
+        "end_seconds": 105.91
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 105.91,
+        "end_seconds": 106.1975
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "six",
+        "start_seconds": 106.1975,
+        "end_seconds": 106.485
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "release",
+        "start_seconds": 106.485,
+        "end_seconds": 106.835
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "from",
+        "start_seconds": 106.835,
+        "end_seconds": 106.985
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "October",
+        "start_seconds": 106.985,
+        "end_seconds": 107.385
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "twenty‑two",
+        "start_seconds": 107.385,
+        "end_seconds": 108.16
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "still",
+        "start_seconds": 108.16,
+        "end_seconds": 108.5725
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "used",
+        "start_seconds": 108.5725,
+        "end_seconds": 108.8975
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "the",
+        "start_seconds": 108.8975,
+        "end_seconds": 109.035
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "unpatched",
+        "start_seconds": 109.035,
+        "end_seconds": 109.61
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Ruby",
+        "start_seconds": 109.61,
+        "end_seconds": 109.86
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "packages.",
+        "start_seconds": 109.86,
+        "end_seconds": 110.96
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Because",
+        "start_seconds": 110.96,
+        "end_seconds": 111.285
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "the",
+        "start_seconds": 111.285,
+        "end_seconds": 111.4225
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "server",
+        "start_seconds": 111.4225,
+        "end_seconds": 111.81
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "ran",
+        "start_seconds": 111.81,
+        "end_seconds": 112.0475
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "the",
+        "start_seconds": 112.0475,
+        "end_seconds": 112.13499999999999
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "standard",
+        "start_seconds": 112.13499999999999,
+        "end_seconds": 112.61
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Ruby,",
+        "start_seconds": 112.61,
+        "end_seconds": 113.185
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "the",
+        "start_seconds": 113.185,
+        "end_seconds": 113.285
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "vulnerability",
+        "start_seconds": 113.285,
+        "end_seconds": 114.08500000000001
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "lingered",
+        "start_seconds": 114.08500000000001,
+        "end_seconds": 114.435
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "until",
+        "start_seconds": 114.435,
+        "end_seconds": 114.7975
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "the",
+        "start_seconds": 114.7975,
+        "end_seconds": 114.88499999999999
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "rebuild.",
+        "start_seconds": 114.88499999999999,
+        "end_seconds": 115.9975
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Operators",
+        "start_seconds": 116.455,
+        "end_seconds": 117.03
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "need",
+        "start_seconds": 117.03,
+        "end_seconds": 117.23
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "to",
+        "start_seconds": 117.23,
+        "end_seconds": 117.33
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "confirm",
+        "start_seconds": 117.33,
+        "end_seconds": 117.855
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "they’re",
+        "start_seconds": 117.855,
+        "end_seconds": 118.05499999999999
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "using",
+        "start_seconds": 118.05499999999999,
+        "end_seconds": 118.3425
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "the",
+        "start_seconds": 118.3425,
+        "end_seconds": 118.42999999999999
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "GitLab‑bundled",
+        "start_seconds": 118.42999999999999,
+        "end_seconds": 119.42999999999999
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Ruby",
+        "start_seconds": 119.42999999999999,
+        "end_seconds": 119.98
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "or",
+        "start_seconds": 119.98,
+        "end_seconds": 120.155
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "upgrade",
+        "start_seconds": 120.155,
+        "end_seconds": 120.655
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "to",
+        "start_seconds": 120.655,
+        "end_seconds": 120.78
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "Ruby",
+        "start_seconds": 120.78,
+        "end_seconds": 121.13
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "three",
+        "start_seconds": 121.13,
+        "end_seconds": 121.38
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 121.38,
+        "end_seconds": 121.6675
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "three",
+        "start_seconds": 121.6675,
+        "end_seconds": 121.905
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "point",
+        "start_seconds": 121.905,
+        "end_seconds": 122.17999999999999
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "thirteen",
+        "start_seconds": 122.17999999999999,
+        "end_seconds": 122.73
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "or",
+        "start_seconds": 122.73,
+        "end_seconds": 122.88
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "newer,",
+        "start_seconds": 122.88,
+        "end_seconds": 123.605
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "or",
+        "start_seconds": 123.605,
+        "end_seconds": 123.7175
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "the",
+        "start_seconds": 123.7175,
+        "end_seconds": 123.8425
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "fix",
+        "start_seconds": 123.8425,
+        "end_seconds": 124.13
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "won’t",
+        "start_seconds": 124.13,
+        "end_seconds": 124.3175
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "be",
+        "start_seconds": 124.3175,
+        "end_seconds": 124.42999999999999
+      },
+      {
+        "segment_id": "gitlab-cve-2026-97229-incident-segment",
+        "text": "present.",
+        "start_seconds": 124.42999999999999,
+        "end_seconds": 125.405
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "Next",
+        "start_seconds": 126.605,
+        "end_seconds": 126.8675
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "on",
+        "start_seconds": 126.8675,
+        "end_seconds": 126.9675
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "the",
+        "start_seconds": 126.9675,
+        "end_seconds": 127.055
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "bulletin.",
+        "start_seconds": 127.055,
+        "end_seconds": 127.83
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "PortSwigger",
+        "start_seconds": 127.83,
+        "end_seconds": 128.35500000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "researchers",
+        "start_seconds": 128.35500000000002,
+        "end_seconds": 128.93
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "found",
+        "start_seconds": 128.93,
+        "end_seconds": 129.1425
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "a",
+        "start_seconds": 129.1425,
+        "end_seconds": 129.205
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "new",
+        "start_seconds": 129.205,
+        "end_seconds": 129.3675
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "way",
+        "start_seconds": 129.3675,
+        "end_seconds": 129.53
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "to",
+        "start_seconds": 129.53,
+        "end_seconds": 129.655
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "slip",
+        "start_seconds": 129.655,
+        "end_seconds": 129.88
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "past",
+        "start_seconds": 129.88,
+        "end_seconds": 130.205
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "most",
+        "start_seconds": 130.205,
+        "end_seconds": 130.455
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "SVG",
+        "start_seconds": 130.455,
+        "end_seconds": 131.005
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "sanitizers",
+        "start_seconds": 131.005,
+        "end_seconds": 131.63
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "using",
+        "start_seconds": 131.63,
+        "end_seconds": 131.8925
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "a",
+        "start_seconds": 131.8925,
+        "end_seconds": 131.955
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "crafted",
+        "start_seconds": 131.955,
+        "end_seconds": 132.3675
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "response",
+        "start_seconds": 132.3675,
+        "end_seconds": 132.78
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "header",
+        "start_seconds": 132.78,
+        "end_seconds": 133.055
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "and",
+        "start_seconds": 133.055,
+        "end_seconds": 133.16750000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "an",
+        "start_seconds": 133.16750000000002,
+        "end_seconds": 133.255
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "XSLT",
+        "start_seconds": 133.255,
+        "end_seconds": 133.98000000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "payload.",
+        "start_seconds": 133.98000000000002,
+        "end_seconds": 134.755
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "By",
+        "start_seconds": 134.755,
+        "end_seconds": 134.905
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "hiding",
+        "start_seconds": 134.905,
+        "end_seconds": 135.2175
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "malicious",
+        "start_seconds": 135.2175,
+        "end_seconds": 135.60500000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "XSLT",
+        "start_seconds": 135.60500000000002,
+        "end_seconds": 136.3175
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "inside",
+        "start_seconds": 136.3175,
+        "end_seconds": 136.66750000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "a",
+        "start_seconds": 136.66750000000002,
+        "end_seconds": 136.73000000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "benign",
+        "start_seconds": 136.73000000000002,
+        "end_seconds": 137.13
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "XML",
+        "start_seconds": 137.13,
+        "end_seconds": 137.6425
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "response,",
+        "start_seconds": 137.6425,
+        "end_seconds": 138.33
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "they",
+        "start_seconds": 138.33,
+        "end_seconds": 138.48000000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "can",
+        "start_seconds": 138.48000000000002,
+        "end_seconds": 138.60500000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "trigger",
+        "start_seconds": 138.60500000000002,
+        "end_seconds": 138.905
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "JavaScript",
+        "start_seconds": 138.905,
+        "end_seconds": 139.5175
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "in",
+        "start_seconds": 139.5175,
+        "end_seconds": 139.655
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "Firefox,",
+        "start_seconds": 139.655,
+        "end_seconds": 140.33
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "and",
+        "start_seconds": 140.33,
+        "end_seconds": 140.4425
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "a",
+        "start_seconds": 140.4425,
+        "end_seconds": 140.505
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "GIF‑to‑SVG",
+        "start_seconds": 140.505,
+        "end_seconds": 141.405
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "polyglot",
+        "start_seconds": 141.405,
+        "end_seconds": 141.905
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "does",
+        "start_seconds": 141.905,
+        "end_seconds": 142.0925
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "the",
+        "start_seconds": 142.0925,
+        "end_seconds": 142.205
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "same",
+        "start_seconds": 142.205,
+        "end_seconds": 142.4425
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "in",
+        "start_seconds": 142.4425,
+        "end_seconds": 142.555
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "Safari.",
+        "start_seconds": 142.555,
+        "end_seconds": 143.5675
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "Six",
+        "start_seconds": 143.5675,
+        "end_seconds": 143.79250000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "of",
+        "start_seconds": 143.79250000000002,
+        "end_seconds": 143.88
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "eight",
+        "start_seconds": 143.88,
+        "end_seconds": 144.08
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "popular",
+        "start_seconds": 144.08,
+        "end_seconds": 144.48000000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "sanitizers,",
+        "start_seconds": 144.48000000000002,
+        "end_seconds": 145.2175
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "including",
+        "start_seconds": 145.2175,
+        "end_seconds": 145.68
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "cloudflare/svg‑hush",
+        "start_seconds": 145.68,
+        "end_seconds": 147.455
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "and",
+        "start_seconds": 147.455,
+        "end_seconds": 147.58
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "cure53/DOMPurify,",
+        "start_seconds": 147.58,
+        "end_seconds": 149.88
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "fell",
+        "start_seconds": 149.88,
+        "end_seconds": 150.10500000000002
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "to",
+        "start_seconds": 150.10500000000002,
+        "end_seconds": 150.1925
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "the",
+        "start_seconds": 150.1925,
+        "end_seconds": 150.28
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "trick.",
+        "start_seconds": 150.28,
+        "end_seconds": 151.1175
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "The",
+        "start_seconds": 151.54999999999998,
+        "end_seconds": 151.6875
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "exploit",
+        "start_seconds": 151.6875,
+        "end_seconds": 152.225
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "leans",
+        "start_seconds": 152.225,
+        "end_seconds": 152.61249999999998
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "on",
+        "start_seconds": 152.61249999999998,
+        "end_seconds": 152.71249999999998
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "a",
+        "start_seconds": 152.71249999999998,
+        "end_seconds": 152.825
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "feature",
+        "start_seconds": 152.825,
+        "end_seconds": 153.33749999999998
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "slated",
+        "start_seconds": 153.33749999999998,
+        "end_seconds": 153.85
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "for",
+        "start_seconds": 153.85,
+        "end_seconds": 153.975
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "removal",
+        "start_seconds": 153.975,
+        "end_seconds": 154.5375
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "in",
+        "start_seconds": 154.5375,
+        "end_seconds": 154.6625
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "November",
+        "start_seconds": 154.6625,
+        "end_seconds": 155.125
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "twenty",
+        "start_seconds": 155.125,
+        "end_seconds": 155.45
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "twenty‑six,",
+        "start_seconds": 155.45,
+        "end_seconds": 156.54999999999998
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "so",
+        "start_seconds": 156.54999999999998,
+        "end_seconds": 156.725
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "once",
+        "start_seconds": 156.725,
+        "end_seconds": 157.02499999999998
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "that",
+        "start_seconds": 157.02499999999998,
+        "end_seconds": 157.225
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "deprecation",
+        "start_seconds": 157.225,
+        "end_seconds": 157.89999999999998
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "lands,",
+        "start_seconds": 157.89999999999998,
+        "end_seconds": 158.475
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "the",
+        "start_seconds": 158.475,
+        "end_seconds": 158.575
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "bypass",
+        "start_seconds": 158.575,
+        "end_seconds": 159.1
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "should",
+        "start_seconds": 159.1,
+        "end_seconds": 159.29999999999998
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "stop",
+        "start_seconds": 159.29999999999998,
+        "end_seconds": 159.625
+      },
+      {
+        "segment_id": "svg-sanitizer-bypass-2026-story",
+        "text": "working.",
+        "start_seconds": 159.625,
+        "end_seconds": 160.625
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "And",
+        "start_seconds": 161.79999999999998,
+        "end_seconds": 161.92499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "finally,",
+        "start_seconds": 161.92499999999998,
+        "end_seconds": 162.36249999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "our",
+        "start_seconds": 162.36249999999998,
+        "end_seconds": 162.5
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "last",
+        "start_seconds": 162.5,
+        "end_seconds": 162.77499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "story.",
+        "start_seconds": 162.77499999999998,
+        "end_seconds": 163.54999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Revinate",
+        "start_seconds": 163.54999999999998,
+        "end_seconds": 163.98749999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "has",
+        "start_seconds": 163.98749999999998,
+        "end_seconds": 164.14999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "rolled",
+        "start_seconds": 164.14999999999998,
+        "end_seconds": 164.39999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "out",
+        "start_seconds": 164.39999999999998,
+        "end_seconds": 164.625
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Amazon",
+        "start_seconds": 164.625,
+        "end_seconds": 165.02499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "API",
+        "start_seconds": 165.02499999999998,
+        "end_seconds": 165.52499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Gateway",
+        "start_seconds": 165.52499999999998,
+        "end_seconds": 165.875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Portal",
+        "start_seconds": 165.875,
+        "end_seconds": 166.25
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "for",
+        "start_seconds": 166.25,
+        "end_seconds": 166.36249999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "its",
+        "start_seconds": 166.36249999999998,
+        "end_seconds": 166.475
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "hospitality",
+        "start_seconds": 166.475,
+        "end_seconds": 167.14999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "data",
+        "start_seconds": 167.14999999999998,
+        "end_seconds": 167.475
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "APIs.",
+        "start_seconds": 167.475,
+        "end_seconds": 168.45
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Partners",
+        "start_seconds": 168.45,
+        "end_seconds": 168.875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "can",
+        "start_seconds": 168.875,
+        "end_seconds": 168.98749999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "now",
+        "start_seconds": 168.98749999999998,
+        "end_seconds": 169.14999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "spin",
+        "start_seconds": 169.14999999999998,
+        "end_seconds": 169.36249999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "up",
+        "start_seconds": 169.36249999999998,
+        "end_seconds": 169.5
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "access",
+        "start_seconds": 169.5,
+        "end_seconds": 169.89999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "to",
+        "start_seconds": 169.89999999999998,
+        "end_seconds": 170
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "guest‑profile",
+        "start_seconds": 170,
+        "end_seconds": 170.6625
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "and",
+        "start_seconds": 170.6625,
+        "end_seconds": 170.7625
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "reservation",
+        "start_seconds": 170.7625,
+        "end_seconds": 171.2875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "endpoints",
+        "start_seconds": 171.2875,
+        "end_seconds": 171.6875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "themselves,",
+        "start_seconds": 171.6875,
+        "end_seconds": 172.42499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "while",
+        "start_seconds": 172.42499999999998,
+        "end_seconds": 172.625
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Revinate’s",
+        "start_seconds": 172.625,
+        "end_seconds": 173.14999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Terraform",
+        "start_seconds": 173.14999999999998,
+        "end_seconds": 173.6
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "scripts",
+        "start_seconds": 173.6,
+        "end_seconds": 173.92499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "keep",
+        "start_seconds": 173.92499999999998,
+        "end_seconds": 174.08749999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "the",
+        "start_seconds": 174.08749999999998,
+        "end_seconds": 174.17499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "gateway",
+        "start_seconds": 174.17499999999998,
+        "end_seconds": 174.52499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "wired",
+        "start_seconds": 174.52499999999998,
+        "end_seconds": 174.8125
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "as",
+        "start_seconds": 174.8125,
+        "end_seconds": 174.95
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "code.",
+        "start_seconds": 174.95,
+        "end_seconds": 175.6
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Because",
+        "start_seconds": 175.6,
+        "end_seconds": 175.86249999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "the",
+        "start_seconds": 175.86249999999998,
+        "end_seconds": 175.95
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "portal",
+        "start_seconds": 175.95,
+        "end_seconds": 176.325
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "charges",
+        "start_seconds": 176.325,
+        "end_seconds": 176.75
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "per",
+        "start_seconds": 176.75,
+        "end_seconds": 176.8875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "request,",
+        "start_seconds": 176.8875,
+        "end_seconds": 177.52499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "each",
+        "start_seconds": 177.52499999999998,
+        "end_seconds": 177.75
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "hotel",
+        "start_seconds": 177.75,
+        "end_seconds": 178.2
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "sees",
+        "start_seconds": 178.2,
+        "end_seconds": 178.4375
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "a",
+        "start_seconds": 178.4375,
+        "end_seconds": 178.5
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "usage‑based",
+        "start_seconds": 178.5,
+        "end_seconds": 179.2
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "bill",
+        "start_seconds": 179.2,
+        "end_seconds": 179.45
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "instead",
+        "start_seconds": 179.45,
+        "end_seconds": 179.7875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "of",
+        "start_seconds": 179.7875,
+        "end_seconds": 179.86249999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "a",
+        "start_seconds": 179.86249999999998,
+        "end_seconds": 179.9375
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "flat",
+        "start_seconds": 179.9375,
+        "end_seconds": 180.2
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "license",
+        "start_seconds": 180.2,
+        "end_seconds": 180.64999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "fee.",
+        "start_seconds": 180.64999999999998,
+        "end_seconds": 181.27499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "This",
+        "start_seconds": 181.27499999999998,
+        "end_seconds": 181.5
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "lets",
+        "start_seconds": 181.5,
+        "end_seconds": 181.77499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "teams",
+        "start_seconds": 181.77499999999998,
+        "end_seconds": 182.125
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "replace",
+        "start_seconds": 182.125,
+        "end_seconds": 182.5
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "custom",
+        "start_seconds": 182.5,
+        "end_seconds": 182.89999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "security",
+        "start_seconds": 182.89999999999998,
+        "end_seconds": 183.475
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "plumbing",
+        "start_seconds": 183.475,
+        "end_seconds": 183.875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "and",
+        "start_seconds": 183.875,
+        "end_seconds": 184
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "scale",
+        "start_seconds": 184,
+        "end_seconds": 184.3125
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "integrations",
+        "start_seconds": 184.3125,
+        "end_seconds": 185.075
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "without",
+        "start_seconds": 185.075,
+        "end_seconds": 185.42499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "adding",
+        "start_seconds": 185.42499999999998,
+        "end_seconds": 185.725
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "headcount.",
+        "start_seconds": 185.725,
+        "end_seconds": 186.75
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Here's",
+        "start_seconds": 187.95,
+        "end_seconds": 188.25
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "the",
+        "start_seconds": 188.25,
+        "end_seconds": 188.35
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "takeaway:",
+        "start_seconds": 188.35,
+        "end_seconds": 189.17499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "a",
+        "start_seconds": 189.17499999999998,
+        "end_seconds": 189.27499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "managed,",
+        "start_seconds": 189.27499999999998,
+        "end_seconds": 189.89999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "pay‑per‑use",
+        "start_seconds": 189.89999999999998,
+        "end_seconds": 190.52499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "gateway",
+        "start_seconds": 190.52499999999998,
+        "end_seconds": 190.92499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "can",
+        "start_seconds": 190.92499999999998,
+        "end_seconds": 191.1
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "turn",
+        "start_seconds": 191.1,
+        "end_seconds": 191.4125
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "API",
+        "start_seconds": 191.4125,
+        "end_seconds": 192
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "management",
+        "start_seconds": 192,
+        "end_seconds": 192.5375
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "into",
+        "start_seconds": 192.5375,
+        "end_seconds": 192.73749999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "a",
+        "start_seconds": 192.73749999999998,
+        "end_seconds": 192.8125
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "scalable,",
+        "start_seconds": 192.8125,
+        "end_seconds": 193.48749999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "usage‑driven",
+        "start_seconds": 193.48749999999998,
+        "end_seconds": 194.2625
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "service.",
+        "start_seconds": 194.2625,
+        "end_seconds": 195.27499999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "And",
+        "start_seconds": 196.45,
+        "end_seconds": 196.5875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "that's",
+        "start_seconds": 196.5875,
+        "end_seconds": 196.85
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "your",
+        "start_seconds": 196.85,
+        "end_seconds": 197.04999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Daywire",
+        "start_seconds": 197.04999999999998,
+        "end_seconds": 197.5
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "briefing.",
+        "start_seconds": 197.5,
+        "end_seconds": 198.2
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "You'll",
+        "start_seconds": 198.2,
+        "end_seconds": 198.375
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "find",
+        "start_seconds": 198.375,
+        "end_seconds": 198.6375
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "the",
+        "start_seconds": 198.6375,
+        "end_seconds": 198.73749999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "full",
+        "start_seconds": 198.73749999999998,
+        "end_seconds": 199
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "stories",
+        "start_seconds": 199,
+        "end_seconds": 199.5125
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "and",
+        "start_seconds": 199.5125,
+        "end_seconds": 199.6375
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "sources",
+        "start_seconds": 199.6375,
+        "end_seconds": 200.15
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "in",
+        "start_seconds": 200.15,
+        "end_seconds": 200.275
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "today's",
+        "start_seconds": 200.275,
+        "end_seconds": 200.65
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "newspaper.",
+        "start_seconds": 200.65,
+        "end_seconds": 201.54999999999998
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Thanks",
+        "start_seconds": 201.54999999999998,
+        "end_seconds": 201.875
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "for",
+        "start_seconds": 201.875,
+        "end_seconds": 202
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "listening.",
+        "start_seconds": 202,
+        "end_seconds": 202.6
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "Take",
+        "start_seconds": 202.6,
+        "end_seconds": 202.9
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "care,",
+        "start_seconds": 202.9,
+        "end_seconds": 203.2
+      },
+      {
+        "segment_id": "revinate-gateway-portal-adoption",
+        "text": "everyone.",
+        "start_seconds": 203.2,
+        "end_seconds": 204.225
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
