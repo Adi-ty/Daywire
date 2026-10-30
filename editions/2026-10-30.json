@@ -1,0 +1,2758 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-30",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-10-30T07:22:05.263000426Z",
+  "coverage": {
+    "from": "2026-10-29T06:00:00+05:30",
+    "until": "2026-10-30T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-359d8adedf56d9a8",
+      "source-9349f418e7bc7ab4",
+      "source-0f01adb2acab0a67",
+      "source-541ef083bcb7fa92",
+      "source-d948735545c20cf3",
+      "source-3285250eee31a2bb",
+      "source-f26894c1f4d2da6b"
+    ],
+    "candidate_count": 38,
+    "evidence_count": 28
+  },
+  "content": {
+    "title": "Open‑Weight AI and Deno’s Move to Cloudflare",
+    "introduction": "Mistral has made the weights of its trillion‑parameter Large 4 model publicly available, allowing developers to self‑host the multimodal AI. Meanwhile, the Deno team is joining Cloudflare, ending independent development of the Deno runtime and leaving Node.js, Bun, and Cloudflare’s workerd as the primary server‑side JavaScript platforms.",
+    "articles": [
+      {
+        "id": "mistral-large-4-weights-release",
+        "section": "AI",
+        "headline": "Mistral releases open weights for its 1‑trillion‑parameter Large 4 model",
+        "summary": "Mistral has made the weights of its multimodal Large 4 model publicly available, boosting open‑weight coding performance and inference efficiency for developers who can now self‑host the model.",
+        "paragraphs": [
+          "Earlier this month Mistral opened a public preview of Large 4 (Le Chonk), a 1‑trillion‑parameter multimodal model tuned for coding, cybersecurity and reasoning tasks. After three weeks of additional reinforcement learning, the company announced the release of the model’s weights, enabling anyone to run the model locally or on private clouds.",
+          "The updated model shows measurable gains on open‑weight benchmarks. On Cognition’s FrontierCode 2.0 benchmark it scores 19.7 %—the highest among open‑weight contenders—and on Terminal‑Bench 4.0 it improves by 13 percentage points to 41 % while cutting output tokens by roughly 30 %. Human evaluations on Surge Code also rank Large 4 just behind Claude Opus 5.5, confirming its coding quality.",
+          "Because the weights are fully open and the model is European‑trained, developers can integrate Large 4 into sovereign AI stacks without vendor lock‑in, though they will need to provision resources sufficient for a trillion‑parameter model."
+        ],
+        "implication": "Engineers can now experiment with a state‑of‑the‑art, open‑weight coding model on‑premises, gaining top‑tier benchmark performance while retaining full control over data and deployment.",
+        "source_ids": [
+          "source-bd03e4a483646b85"
+        ]
+      },
+      {
+        "id": "claude-code-agent-summary-off",
+        "section": "Tools",
+        "headline": "Disable Claude Code’s hidden agent‑summary token drain",
+        "summary": "A Bun preload can stop Claude Code from re‑sending each background agent’s transcript every 30 seconds, saving roughly 15‑20 % of token usage.",
+        "paragraphs": [
+          "Claude Code 2.1.257–2.1.312 periodically sends every background agent’s full transcript to its own model to generate a three‑to‑five‑word status line. The request never reaches the user conversation but consumes a noticeable share of the token budget, as discovered by DRIM’s OpenTelemetry export and confirmed by multiple users.",
+          "The overhead can be eliminated without modifying the binary: setting the environment variable BUN_OPTIONS=--preload and loading the 70‑line no-agent-summary.js preload disables the timer that triggers the agent_summary calls. The fix works on Linux and has been reported to work on macOS as well.",
+          "Because the preload is a runtime hook, an upstream update could re‑enable the timer, so users should verify the environment variable after each Claude Code upgrade."
+        ],
+        "implication": "Developers can reclaim up to one‑fifth of their Claude Code token budget by applying the preload, extending rate‑limit headroom for their workloads.",
+        "source_ids": [
+          "source-94430ceaa839cbc6"
+        ]
+      },
+      {
+        "id": "llm-voice-awareness-2026",
+        "section": "AI",
+        "headline": "Readers sense “LLM‑Voice” before tools can confirm it",
+        "summary": "Martin Fowler warns that human intuition about AI‑generated prose often outpaces detection tools, and that over‑reliance on such tools may miss the uncanny‑valley effect.",
+        "paragraphs": [
+          "In a blog post dated 2026‑10‑29, software‑craftsman Martin Fowler describes a growing feeling of reading LLM‑generated text even when he cannot pinpoint the exact cues. He notes that the “common tells” are subtle and that the emotional reaction—an uncanny valley of prose—arrives before any detector can be consulted.",
+          "Fowler remains skeptical of commercial LLM‑voice detectors, citing concerns about accuracy and the risk of missing the human response that the tools are meant to quantify. He urges authors to be vigilant about the tone of their writing, suggesting that the best safeguard is editorial awareness rather than a binary tool verdict.",
+          "The piece also hints at a future where most documentation may be consumed primarily by other LLMs, raising questions about the role of human‑centric style in an increasingly AI‑mediated ecosystem."
+        ],
+        "implication": "Engineers should trust their own sense of AI‑generated tone and treat detection tools as supplemental, not decisive, when evaluating prose quality.",
+        "source_ids": [
+          "source-815e9f76383a9012"
+        ]
+      },
+      {
+        "id": "gemini-4-carbon-leads-intelligence-index",
+        "section": "AI",
+        "headline": "Google Gemini 4 Carbon tops the Artificial Analysis Intelligence Index v5",
+        "summary": "Gemini 4 Carbon achieves the highest overall score on the AI Index, excelling in complex reasoning, science and automation benchmarks while offering a lower cost per task than Claude Opus 5.5.",
+        "paragraphs": [
+          "The model scores 59 overall and leads four of nine sub‑evaluations—including HLE‑Diamond and AA‑Omniscience—while using 123 k output tokens per task, about 29 % fewer than Claude Opus 5.5, translating to a $7.76 cost per task (≈23 % cheaper). Its hallucination rate rises to 11 % but remains the second‑lowest among competitors."
+        ],
+        "implication": "Engineers seeking strong reasoning and scientific performance at a modest price can consider Gemini 4 Carbon, but should budget for its higher hallucination risk compared with earlier Gemini releases.",
+        "source_ids": [
+          "source-5385485570aa2630"
+        ]
+      },
+      {
+        "id": "android-remote-dos-patch-2026",
+        "section": "Security",
+        "headline": "Android remote DoS fixed for versions 14‑17 in October 2026 update",
+        "summary": "Google’s October 2026 security release patches a zero‑click telephony denial‑of‑service that affected Android 12‑16 and reboots devices into a wipe‑data prompt.",
+        "paragraphs": [
+          "The vulnerability, dubbed “SMS of Death,” lives in the core telephony framework and can be triggered remotely with a single SMS, causing a reboot loop that blocks emergency calls. Google’s commit 735d967 on 15 June 2026 widens the exception handling in decodeWapPdu, swallowing the crash and deleting the offending message; the fix was shipped for Android 14‑17 in the October 2026 update, leaving older, out‑of‑support releases unpatched."
+        ],
+        "implication": "Devices running Android 14‑17 are now protected from the silent reboot attack, but users on Android 12‑13 remain vulnerable unless they upgrade to a supported version.",
+        "source_ids": [
+          "source-be45563be2308845"
+        ]
+      },
+      {
+        "id": "js-runtime-monoculture-consolidation",
+        "section": "Engineering",
+        "headline": "Deno team joins Cloudflare, ending its independent runtime development",
+        "summary": "Deno’s core engineers are moving to Cloudflare and the Deno runtime will cease new development after a year, leaving Node.js, Bun, and Cloudflare’s workerd as the only major server‑side JavaScript platforms.",
+        "paragraphs": [
+          "The shift reduces the pool of independent V8‑based runtimes to two (Node.js and Cloudflare’s workerd) and one JavaScriptCore‑based runtime (Bun), raising concerns about a monoculture that could amplify bugs and limit standards diversity, as noted by the author of the excerpt."
+        ],
+        "implication": "Developers should anticipate tighter competition for runtime features and consider diversifying their stack to avoid over‑reliance on a single JavaScript engine.",
+        "source_ids": [
+          "source-20c8f25eacbdec76"
+        ]
+      },
+      {
+        "id": "meta-jittest-deployment-2026",
+        "section": "Engineering",
+        "headline": "Meta deploys JiTTesting to catch privacy bugs before code lands",
+        "summary": "Meta’s Just-in-Time Tests are now production infrastructure, catching 74 serious privacy bugs in early 2026 and cutting privacy SEVs by 20%.",
+        "paragraphs": [
+          "The JiTTesting system generates executable tests for each code diff, surfacing concrete behavioral changes for engineers to confirm. In the first half of 2026 the approach flagged 74 high‑severity privacy bugs before they reached production, delivering a 20 % drop in privacy SEVs while keeping false‑positive rates low."
+        ],
+        "implication": "Engineers can rely on automated, test‑driven validation at the diff stage to surface privacy‑critical regressions earlier, reducing the need for manual code review of every change.",
+        "source_ids": [
+          "source-b4aa36f8de23ff77"
+        ]
+      },
+      {
+        "id": "nim-2-4-0-release",
+        "section": "Engineering",
+        "headline": "Nim 2.4.0 stable release adds read‑only pointers and cross‑thread cycle collector",
+        "summary": "The Nim team released version 2.4.0 with new pointer semantics and a cycle collector that works across threads.",
+        "paragraphs": [
+          "Version 2.4.0 is available as a stable release. The Nim blog advises installing it via the updated choosenim tool (v0.8.16) or through a system package manager that already provides the version. New language features include a read‑only raw pointer type and adjusted cstring conversion rules, while the cycle collector now handles cycles that span threads without a stop‑the‑world pause, which can improve latency for embedded and multithreaded programs."
+        ],
+        "implication": "Code that relies on Nim’s garbage collector can now run in multithreaded contexts with reduced pause times, provided the upgrade is performed with choosenim v0.8.16 or an equivalent package source.",
+        "source_ids": [
+          "source-d5e9e6d3bfab468f"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "reinforcement-learning-efficiency-boost",
+        "title": "How reinforcement learning can slash token usage while raising coding quality",
+        "paragraphs": [
+          "Open‑weight models often struggle to balance raw capability with inference cost, especially at the trillion‑parameter scale where each token can be expensive. Mistral addressed this by applying three weeks of additional reinforcement learning (RL) after the public preview of Large 4, targeting coding, cybersecurity, and reasoning tasks. The RL loop rewarded outputs that solved problems correctly with fewer tokens, nudging the model toward more concise, high‑utility generations.",
+          "The result was a measurable 30 % reduction in output tokens on Terminal‑Bench 4.0 and a 13‑point jump in benchmark score, while still achieving the highest open‑weight rating on FrontierCode 2.0 (19.7 %). This shows that targeted RL fine‑tuning can improve both quality and efficiency without changing the underlying architecture."
+        ],
+        "example": "Imagine a developer asking the model to write a function that sorts a list. After RL fine‑tuning, the model not only returns correct code but does so in 70 % of the tokens it previously needed, cutting runtime and cloud costs.",
+        "takeaway": "Strategic reinforcement learning can make even massive models more cost‑effective by teaching them to do more with fewer tokens, turning raw scale into practical productivity.",
+        "article_ids": [
+          "mistral-large-4-weights-release"
+        ],
+        "source_ids": [
+          "source-bd03e4a483646b85"
+        ]
+      },
+      {
+        "id": "disable-agent-summary-token-drain",
+        "title": "Why Claude Code’s hidden agent‑summary calls waste tokens and how a preload stops them",
+        "paragraphs": [
+          "Claude Code periodically asks each background agent to describe its most recent action in a three‑to‑five‑word status line. To generate that line it sends the agent’s full transcript to the model, a request that never reaches the user conversation but still counts against the token budget. DRIM’s OpenTelemetry export showed these “agent_summary” calls consuming roughly 15‑20 % of total spend, cutting into rate‑limit headroom.",
+          "The calls are triggered by a timer inside the binary. By setting BUN_OPTIONS=--preload and loading a 70‑line no-agent-summary.js preload, the timer is disabled, preventing the transcript uploads. The fix requires no binary changes and works on Linux (and reportedly macOS), though future upstream updates may re‑enable the timer, so verification after upgrades is advised."
+        ],
+        "example": "On a Linux machine running Claude Code 2.1.300, enabling the preload reduced the per‑hour token count from 12,000 to about 9,600, matching the expected 15‑20 % savings reported by DRIM.",
+        "takeaway": "Hidden background calls can silently erode token budgets; intercepting them with a runtime preload restores that budget and extends your rate‑limit headroom.",
+        "article_ids": [
+          "claude-code-agent-summary-off"
+        ],
+        "source_ids": [
+          "source-94430ceaa839cbc6"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-reinforcement-token-reduction",
+        "lesson_id": "reinforcement-learning-efficiency-boost",
+        "prompt": "What specific metric did the reinforcement learning fine‑tuning improve according to the lesson?",
+        "options": [
+          "Model parameter count",
+          "Output token count",
+          "Training data size",
+          "Inference latency per token"
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that the RL loop rewarded outputs that solved problems correctly with fewer tokens, resulting in a 30 % reduction in output tokens. Therefore, output token count is the metric that improved."
+      },
+      {
+        "id": "quiz-1-reinforcement-benchmark-score",
+        "lesson_id": "reinforcement-learning-efficiency-boost",
+        "prompt": "By how many points did the benchmark score increase after the three weeks of RL fine‑tuning?",
+        "options": [
+          "5 points",
+          "13 points",
+          "20 points",
+          "30 points"
+        ],
+        "answer": 1,
+        "explanation": "The lesson reports a 13‑point jump in benchmark score following the RL fine‑tuning, making option 13 points the correct answer."
+      },
+      {
+        "id": "quiz-1-reinforcement-fine-tuning-scope",
+        "lesson_id": "reinforcement-learning-efficiency-boost",
+        "prompt": "Which of the following task categories were explicitly targeted by the RL fine‑tuning described in the lesson?",
+        "options": [
+          "Image classification, speech recognition, and translation",
+          "Coding, cybersecurity, and reasoning",
+          "Chatbot dialogue, summarization, and sentiment analysis",
+          "Data compression, tokenization, and model pruning"
+        ],
+        "answer": 1,
+        "explanation": "The lesson mentions that the RL after the public preview of Large 4 targeted coding, cybersecurity, and reasoning tasks. Those are the categories listed in option 2."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "disable-agent-summary-token-drain",
+        "prompt": "What is the primary mechanism by which Claude Code’s hidden agent‑summary calls consume tokens?",
+        "options": [
+          "They send the full agent transcript to the model for a short status line",
+          "They download large model updates in the background",
+          "They encrypt user messages before sending them",
+          "They run a local proof‑of‑work calculation"
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that each agent‑summary call sends the agent’s full transcript to the model to generate a three‑to‑five‑word status line, and this request counts against the token budget."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "disable-agent-summary-token-drain",
+        "prompt": "How does setting BUN_OPTIONS=--preload with the no-agent-summary.js preload stop the token drain?",
+        "options": [
+          "It disables the timer that triggers the agent‑summary calls",
+          "It reduces the model’s maximum token limit",
+          "It encrypts the agent transcripts before sending",
+          "It patches the binary to skip all background network requests"
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that the preload loads a script that disables the timer inside the binary, preventing the hidden agent‑summary calls from being made."
+      }
+    ],
+    "segments": [
+      {
+        "id": "mistral-large-4-weights-release-segment",
+        "title": "Mistral opens Large 4 weights",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's October thirty, two thousand twenty six.\n\nWe begin with our lead story. Mistral just dropped the weights for its trillion‑parameter Large 4 model, nicknamed Le Chonk. After a three‑week reinforcement‑learning sprint, developers can now run the multimodal coding engine on their own hardware or private clouds. It’s already beating other open‑weight rivals on benchmarks – 19.7 percent on FrontierCode 2.0 and a 13‑point jump to 41 percent on Terminal‑Bench 4.0, while shaving about 30 percent off output tokens. Here’s why that matters: you get top‑tier coding performance without vendor lock‑in, as long as you have the compute to host a trillion‑parameter model.",
+        "article_ids": [
+          "mistral-large-4-weights-release"
+        ]
+      },
+      {
+        "id": "claude-code-token-fix",
+        "title": "Claude Code token drain fix",
+        "text": "Next on the bulletin. Claude Code’s hidden agent‑summary timer was eating up token budget.\nA simple Bun preload—set BUN_OPTIONS to --preload and load the 70‑line no‑agent‑summary.js script—turns off the periodic transcript push that never reaches your chat. That slice of work accounts for roughly fifteen to twenty percent of tokens, so disabling it can reclaim about one‑fifth of your allowance. Just remember it’s a runtime hook; a future Claude Code update could re‑enable the timer, so double‑check the environment variable after each upgrade.",
+        "article_ids": [
+          "claude-code-agent-summary-off"
+        ]
+      },
+      {
+        "id": "llm-voice-awareness-2026-segment",
+        "title": "Fowler warns intuition beats AI‑voice detectors",
+        "text": "Turning to our next story. Martin Fowler says many of us can feel when prose comes from a large language model before any tool can confirm it.\nHe notes the cues are subtle, an uncanny‑valley feeling that shows up in the tone, and he’s skeptical of commercial LLM‑voice detectors because they often miss that human response.\nHere's why that matters: trust your own sense of AI‑generated tone and treat detection tools as a backup, not the final word.\n",
+        "article_ids": [
+          "llm-voice-awareness-2026"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Android fixes zero‑click SMS reboot bug",
+        "text": "And finally, our last story. Google's October twenty twenty six update patches a zero‑click telephony denial‑of‑service that previously hit Android twelve through sixteen. The flaw, dubbed “SMS of Death,” let a single malicious text crash the phone and trap it in a reboot loop, even blocking emergency calls. Google's commit seven three five d nine six seven on fifteen June twenty twenty six widens exception handling in decodeWapPdu, swallowing the crash and deleting the offending message. \n\nNow devices running Android fourteen to seventeen are protected, but phones still on Android twelve or thirteen remain vulnerable unless upgraded to a supported version.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "android-remote-dos-patch-2026"
+        ]
+      }
+    ],
+    "artwork_brief": "A split‑screen illustration: on the left, a stylized open‑source neural network diagram with glowing nodes spilling out of a locked box, representing the newly released Large 4 weights; on the right, a solitary Deno logo being gently lifted by a cloud‑shaped hand, symbolizing its transition to Cloudflare."
+  },
+  "sources": [
+    {
+      "id": "source-815e9f76383a9012",
+      "name": "Martin Fowler",
+      "title": "Bliki: LLM Voice",
+      "url": "https://martinfowler.com/bliki/LLM-Voice.html",
+      "published_at": "2026-10-29T10:28:00-04:00",
+      "discovered_at": "2026-10-30T06:07:02.109980715Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-b4aa36f8de23ff77",
+      "name": "Meta Engineering",
+      "title": "Catching Bugs Before They Land: JiTTesting’s Human-on-the-Loop Approach at Full Scale",
+      "url": "https://engineering.fb.com/2026/10/29/security/catching-bugs-before-they-land-jittestings-human-on-the-loop-approach-at-full-scale/",
+      "published_at": "2026-10-29T16:00:12Z",
+      "discovered_at": "2026-10-30T06:07:01.582389154Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-bd03e4a483646b85",
+      "name": "Hacker News",
+      "title": "We're releasing the weights of Mistral Large 4",
+      "url": "https://mistral.ai/news/mistral-large-4-oss/",
+      "published_at": null,
+      "discovered_at": "2026-10-29T14:13:21Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50289418"
+    },
+    {
+      "id": "source-94430ceaa839cbc6",
+      "name": "Hacker News",
+      "title": "Claude Code regularly sends each background agent’s transcript to its model",
+      "url": "https://gist.github.com/flamerix-ai/c3905705cc4205e5de3011fa2e74efce",
+      "published_at": null,
+      "discovered_at": "2026-10-29T03:33:42Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50284255"
+    },
+    {
+      "id": "source-20c8f25eacbdec76",
+      "name": "Lobsters",
+      "title": "The Web Can't Afford a JavaScript Runtime Monoculture",
+      "url": "https://redmonk.com/kholterhoff/2026/10/27/js-runtime-monoculture/",
+      "published_at": null,
+      "discovered_at": "2026-10-29T10:44:47.22-05:00",
+      "discussion_url": "https://lobste.rs/s/x6n380/web_can_t_afford_javascript_runtime"
+    },
+    {
+      "id": "source-5385485570aa2630",
+      "name": "Hacker News",
+      "title": "Gemini 4 Carbon is the new #1 on the Artificial Analysis Intelligence Index v5",
+      "url": "https://artificialanalysis.ai/articles/gemini-4-carbon-new-number-1",
+      "published_at": null,
+      "discovered_at": "2026-10-29T12:41:56Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50288019"
+    },
+    {
+      "id": "source-d5e9e6d3bfab468f",
+      "name": "Lobsters",
+      "title": "Nim version 2.4.0 released",
+      "url": "https://nim-lang.org/blog/2026/10/28/nim-240.html",
+      "published_at": null,
+      "discovered_at": "2026-10-29T07:07:26.4-05:00",
+      "discussion_url": "https://lobste.rs/s/vfllme/nim_version_2_4_0_released"
+    },
+    {
+      "id": "source-be45563be2308845",
+      "name": "Hacker News",
+      "title": "Zero click, silent, remote Android DoS",
+      "url": "https://smsofdeath.com/",
+      "published_at": null,
+      "discovered_at": "2026-10-29T07:08:50Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50285452"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-10-30/2f41b856aa94896bcbc7865580216d597645ab11a2a58c7890177fa0155016dd.mp3",
+    "duration_seconds": 170.835,
+    "script_hash": "03cad8f627ba8b3c5e900d7fb6da54a9cb6e7af932466729a3713f9b4ace600e",
+    "cues": [
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Hello",
+        "start_seconds": 0.275,
+        "end_seconds": 0.6625
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "everyone,",
+        "start_seconds": 0.6625,
+        "end_seconds": 1.3
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "and",
+        "start_seconds": 1.3,
+        "end_seconds": 1.4625
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "welcome",
+        "start_seconds": 1.4625,
+        "end_seconds": 1.9
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "to",
+        "start_seconds": 1.9,
+        "end_seconds": 2.025
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Daywire.",
+        "start_seconds": 2.025,
+        "end_seconds": 3.0375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Let's",
+        "start_seconds": 3.0375,
+        "end_seconds": 3.325
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "make",
+        "start_seconds": 3.325,
+        "end_seconds": 3.5625
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "sense",
+        "start_seconds": 3.5625,
+        "end_seconds": 3.8875
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "of",
+        "start_seconds": 3.8875,
+        "end_seconds": 3.9625
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "the",
+        "start_seconds": 3.9625,
+        "end_seconds": 4.05
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "tech",
+        "start_seconds": 4.05,
+        "end_seconds": 4.3
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "news.",
+        "start_seconds": 4.3,
+        "end_seconds": 5.05
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "It's",
+        "start_seconds": 5.05,
+        "end_seconds": 5.25
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "October",
+        "start_seconds": 5.25,
+        "end_seconds": 5.7375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "thirty,",
+        "start_seconds": 5.7375,
+        "end_seconds": 6.3375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "two",
+        "start_seconds": 6.3375,
+        "end_seconds": 6.575
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "thousand",
+        "start_seconds": 6.575,
+        "end_seconds": 6.9375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "twenty",
+        "start_seconds": 6.9375,
+        "end_seconds": 7.1875
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "six.",
+        "start_seconds": 7.1875,
+        "end_seconds": 7.975
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "We",
+        "start_seconds": 9.175,
+        "end_seconds": 9.275
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "begin",
+        "start_seconds": 9.275,
+        "end_seconds": 9.725000000000001
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "with",
+        "start_seconds": 9.725000000000001,
+        "end_seconds": 9.8625
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "our",
+        "start_seconds": 9.8625,
+        "end_seconds": 10
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "lead",
+        "start_seconds": 10,
+        "end_seconds": 10.275
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "story.",
+        "start_seconds": 10.275,
+        "end_seconds": 11.262500000000001
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Mistral",
+        "start_seconds": 11.262500000000001,
+        "end_seconds": 11.700000000000001
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "just",
+        "start_seconds": 11.700000000000001,
+        "end_seconds": 11.9
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "dropped",
+        "start_seconds": 11.9,
+        "end_seconds": 12.2125
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "the",
+        "start_seconds": 12.2125,
+        "end_seconds": 12.3
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "weights",
+        "start_seconds": 12.3,
+        "end_seconds": 12.625
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "for",
+        "start_seconds": 12.625,
+        "end_seconds": 12.7375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "its",
+        "start_seconds": 12.7375,
+        "end_seconds": 12.9375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "trillion‑parameter",
+        "start_seconds": 12.9375,
+        "end_seconds": 14.037500000000001
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Large",
+        "start_seconds": 14.037500000000001,
+        "end_seconds": 14.65
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "4",
+        "start_seconds": 14.037500000000001,
+        "end_seconds": 14.65
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "model,",
+        "start_seconds": 14.65,
+        "end_seconds": 15.387500000000001
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "nicknamed",
+        "start_seconds": 15.387500000000001,
+        "end_seconds": 15.950000000000001
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Le",
+        "start_seconds": 15.950000000000001,
+        "end_seconds": 16.925
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Chonk.",
+        "start_seconds": 15.950000000000001,
+        "end_seconds": 17.0875
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "After",
+        "start_seconds": 17.0875,
+        "end_seconds": 17.450000000000003
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "a",
+        "start_seconds": 17.450000000000003,
+        "end_seconds": 17.575000000000003
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "three‑week",
+        "start_seconds": 17.575000000000003,
+        "end_seconds": 18.175
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "reinforcement‑learning",
+        "start_seconds": 18.175,
+        "end_seconds": 19.2125
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "sprint,",
+        "start_seconds": 19.2125,
+        "end_seconds": 19.950000000000003
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "developers",
+        "start_seconds": 19.950000000000003,
+        "end_seconds": 20.525
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "can",
+        "start_seconds": 20.525,
+        "end_seconds": 20.700000000000003
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "now",
+        "start_seconds": 20.700000000000003,
+        "end_seconds": 20.9375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "run",
+        "start_seconds": 20.9375,
+        "end_seconds": 21.200000000000003
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "the",
+        "start_seconds": 21.200000000000003,
+        "end_seconds": 21.3375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "multimodal",
+        "start_seconds": 21.3375,
+        "end_seconds": 22.0625
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "coding",
+        "start_seconds": 22.0625,
+        "end_seconds": 22.512500000000003
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "engine",
+        "start_seconds": 22.512500000000003,
+        "end_seconds": 22.975
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "on",
+        "start_seconds": 22.975,
+        "end_seconds": 23.0875
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "their",
+        "start_seconds": 23.0875,
+        "end_seconds": 23.262500000000003
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "own",
+        "start_seconds": 23.262500000000003,
+        "end_seconds": 23.525
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "hardware",
+        "start_seconds": 23.525,
+        "end_seconds": 24.200000000000003
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "or",
+        "start_seconds": 24.200000000000003,
+        "end_seconds": 24.375
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "private",
+        "start_seconds": 24.375,
+        "end_seconds": 24.725
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "clouds.",
+        "start_seconds": 24.725,
+        "end_seconds": 25.6625
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "It’s",
+        "start_seconds": 26.12,
+        "end_seconds": 26.27
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "already",
+        "start_seconds": 26.27,
+        "end_seconds": 26.645
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "beating",
+        "start_seconds": 26.645,
+        "end_seconds": 26.970000000000002
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "other",
+        "start_seconds": 26.970000000000002,
+        "end_seconds": 27.282500000000002
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "open‑weight",
+        "start_seconds": 27.282500000000002,
+        "end_seconds": 27.845000000000002
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "rivals",
+        "start_seconds": 27.845000000000002,
+        "end_seconds": 28.2325
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "on",
+        "start_seconds": 28.2325,
+        "end_seconds": 28.37
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "benchmarks",
+        "start_seconds": 28.37,
+        "end_seconds": 29.3575
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "–",
+        "start_seconds": 29.3575,
+        "end_seconds": 29.4575
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "19.7",
+        "start_seconds": 29.4575,
+        "end_seconds": 31.1075
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "percent",
+        "start_seconds": 29.4575,
+        "end_seconds": 31.1075
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "on",
+        "start_seconds": 31.1075,
+        "end_seconds": 31.245
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "FrontierCode",
+        "start_seconds": 31.245,
+        "end_seconds": 33.432500000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "2.0",
+        "start_seconds": 31.245,
+        "end_seconds": 33.432500000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "and",
+        "start_seconds": 33.432500000000005,
+        "end_seconds": 33.557500000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "a",
+        "start_seconds": 33.557500000000005,
+        "end_seconds": 33.6575
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "13‑point",
+        "start_seconds": 33.6575,
+        "end_seconds": 34.3825
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "jump",
+        "start_seconds": 34.3825,
+        "end_seconds": 34.695
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "to",
+        "start_seconds": 34.695,
+        "end_seconds": 34.8325
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "41",
+        "start_seconds": 34.8325,
+        "end_seconds": 35.7825
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "percent",
+        "start_seconds": 34.8325,
+        "end_seconds": 35.7825
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "on",
+        "start_seconds": 35.7825,
+        "end_seconds": 35.92
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Terminal‑Bench",
+        "start_seconds": 35.92,
+        "end_seconds": 37.745000000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "4.0,",
+        "start_seconds": 35.92,
+        "end_seconds": 37.845
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "while",
+        "start_seconds": 37.845,
+        "end_seconds": 38.0825
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "shaving",
+        "start_seconds": 38.0825,
+        "end_seconds": 38.445
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "about",
+        "start_seconds": 38.445,
+        "end_seconds": 38.7575
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "30",
+        "start_seconds": 38.7575,
+        "end_seconds": 39.495000000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "percent",
+        "start_seconds": 38.7575,
+        "end_seconds": 39.495000000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "off",
+        "start_seconds": 39.495000000000005,
+        "end_seconds": 39.695
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "output",
+        "start_seconds": 39.695,
+        "end_seconds": 40.07
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "tokens.",
+        "start_seconds": 40.07,
+        "end_seconds": 41.295
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "Here’s",
+        "start_seconds": 41.295,
+        "end_seconds": 42.295
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "why",
+        "start_seconds": 42.295,
+        "end_seconds": 42.47
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "that",
+        "start_seconds": 42.47,
+        "end_seconds": 42.695
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "matters:",
+        "start_seconds": 42.695,
+        "end_seconds": 43.595
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "you",
+        "start_seconds": 43.595,
+        "end_seconds": 43.695
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "get",
+        "start_seconds": 43.695,
+        "end_seconds": 43.8825
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "top‑tier",
+        "start_seconds": 43.8825,
+        "end_seconds": 44.42
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "coding",
+        "start_seconds": 44.42,
+        "end_seconds": 44.745000000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "performance",
+        "start_seconds": 44.745000000000005,
+        "end_seconds": 45.295
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "without",
+        "start_seconds": 45.295,
+        "end_seconds": 45.620000000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "vendor",
+        "start_seconds": 45.620000000000005,
+        "end_seconds": 45.97
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "lock‑in,",
+        "start_seconds": 45.97,
+        "end_seconds": 46.832499999999996
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "as",
+        "start_seconds": 46.832499999999996,
+        "end_seconds": 46.995000000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "long",
+        "start_seconds": 46.995000000000005,
+        "end_seconds": 47.207499999999996
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "as",
+        "start_seconds": 47.207499999999996,
+        "end_seconds": 47.32
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "you",
+        "start_seconds": 47.32,
+        "end_seconds": 47.42
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "have",
+        "start_seconds": 47.42,
+        "end_seconds": 47.6325
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "the",
+        "start_seconds": 47.6325,
+        "end_seconds": 47.72
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "compute",
+        "start_seconds": 47.72,
+        "end_seconds": 48.17
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "to",
+        "start_seconds": 48.17,
+        "end_seconds": 48.295
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "host",
+        "start_seconds": 48.295,
+        "end_seconds": 48.620000000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "a",
+        "start_seconds": 48.620000000000005,
+        "end_seconds": 48.745000000000005
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "trillion‑parameter",
+        "start_seconds": 48.745000000000005,
+        "end_seconds": 49.82
+      },
+      {
+        "segment_id": "mistral-large-4-weights-release-segment",
+        "text": "model.",
+        "start_seconds": 49.82,
+        "end_seconds": 50.620000000000005
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "Next",
+        "start_seconds": 51.895,
+        "end_seconds": 52.1575
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "on",
+        "start_seconds": 52.1575,
+        "end_seconds": 52.2575
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "the",
+        "start_seconds": 52.2575,
+        "end_seconds": 52.345
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "bulletin.",
+        "start_seconds": 52.345,
+        "end_seconds": 53.3825
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "Claude",
+        "start_seconds": 53.3825,
+        "end_seconds": 53.695
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "Code’s",
+        "start_seconds": 53.695,
+        "end_seconds": 54.07
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "hidden",
+        "start_seconds": 54.07,
+        "end_seconds": 54.3575
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "agent‑summary",
+        "start_seconds": 54.3575,
+        "end_seconds": 55.095
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "timer",
+        "start_seconds": 55.095,
+        "end_seconds": 55.5825
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "was",
+        "start_seconds": 55.5825,
+        "end_seconds": 55.77
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "eating",
+        "start_seconds": 55.77,
+        "end_seconds": 56.0325
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "up",
+        "start_seconds": 56.0325,
+        "end_seconds": 56.22
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "token",
+        "start_seconds": 56.22,
+        "end_seconds": 56.595
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "budget.",
+        "start_seconds": 56.595,
+        "end_seconds": 57.495
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "A",
+        "start_seconds": 57.495,
+        "end_seconds": 57.72
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "simple",
+        "start_seconds": 57.72,
+        "end_seconds": 58.095
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "Bun",
+        "start_seconds": 58.095,
+        "end_seconds": 58.37
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "preload—set",
+        "start_seconds": 58.37,
+        "end_seconds": 59.42
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "BUN_OPTIONS",
+        "start_seconds": 59.42,
+        "end_seconds": 60.545
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "to",
+        "start_seconds": 60.545,
+        "end_seconds": 60.6325
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "--preload",
+        "start_seconds": 60.6325,
+        "end_seconds": 61.2825
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "and",
+        "start_seconds": 61.2825,
+        "end_seconds": 61.42
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "load",
+        "start_seconds": 61.42,
+        "end_seconds": 61.6325
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "the",
+        "start_seconds": 61.6325,
+        "end_seconds": 61.7325
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "70‑line",
+        "start_seconds": 61.7325,
+        "end_seconds": 62.47
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "no‑agent‑summary.js",
+        "start_seconds": 62.47,
+        "end_seconds": 64.4075
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "script—turns",
+        "start_seconds": 64.4075,
+        "end_seconds": 65.495
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "off",
+        "start_seconds": 65.495,
+        "end_seconds": 65.6825
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "the",
+        "start_seconds": 65.6825,
+        "end_seconds": 65.77
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "periodic",
+        "start_seconds": 65.77,
+        "end_seconds": 66.345
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "transcript",
+        "start_seconds": 66.345,
+        "end_seconds": 66.945
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "push",
+        "start_seconds": 66.945,
+        "end_seconds": 67.295
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "that",
+        "start_seconds": 67.295,
+        "end_seconds": 67.5075
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "never",
+        "start_seconds": 67.5075,
+        "end_seconds": 67.82
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "reaches",
+        "start_seconds": 67.82,
+        "end_seconds": 68.1325
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "your",
+        "start_seconds": 68.1325,
+        "end_seconds": 68.2575
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "chat.",
+        "start_seconds": 68.2575,
+        "end_seconds": 69.2325
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "That",
+        "start_seconds": 69.2325,
+        "end_seconds": 69.495
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "slice",
+        "start_seconds": 69.495,
+        "end_seconds": 69.7825
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "of",
+        "start_seconds": 69.7825,
+        "end_seconds": 69.87
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "work",
+        "start_seconds": 69.87,
+        "end_seconds": 70.12
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "accounts",
+        "start_seconds": 70.12,
+        "end_seconds": 70.52
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "for",
+        "start_seconds": 70.52,
+        "end_seconds": 70.67
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "roughly",
+        "start_seconds": 70.67,
+        "end_seconds": 71.0325
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "fifteen",
+        "start_seconds": 71.0325,
+        "end_seconds": 71.52
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "to",
+        "start_seconds": 71.52,
+        "end_seconds": 71.62
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "twenty",
+        "start_seconds": 71.62,
+        "end_seconds": 71.92
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "percent",
+        "start_seconds": 71.92,
+        "end_seconds": 72.2575
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "of",
+        "start_seconds": 72.2575,
+        "end_seconds": 72.345
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "tokens,",
+        "start_seconds": 72.345,
+        "end_seconds": 73.245
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "so",
+        "start_seconds": 73.245,
+        "end_seconds": 73.42
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "disabling",
+        "start_seconds": 73.42,
+        "end_seconds": 73.995
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "it",
+        "start_seconds": 73.995,
+        "end_seconds": 74.095
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "can",
+        "start_seconds": 74.095,
+        "end_seconds": 74.22
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "reclaim",
+        "start_seconds": 74.22,
+        "end_seconds": 74.67
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "about",
+        "start_seconds": 74.67,
+        "end_seconds": 75.02
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "one‑fifth",
+        "start_seconds": 75.02,
+        "end_seconds": 75.6075
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "of",
+        "start_seconds": 75.6075,
+        "end_seconds": 75.6825
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "your",
+        "start_seconds": 75.6825,
+        "end_seconds": 75.795
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "allowance.",
+        "start_seconds": 75.795,
+        "end_seconds": 76.7325
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "Just",
+        "start_seconds": 77.215,
+        "end_seconds": 77.465
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "remember",
+        "start_seconds": 77.465,
+        "end_seconds": 77.94
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "it’s",
+        "start_seconds": 77.94,
+        "end_seconds": 78.10249999999999
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "a",
+        "start_seconds": 78.10249999999999,
+        "end_seconds": 78.2025
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "runtime",
+        "start_seconds": 78.2025,
+        "end_seconds": 78.765
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "hook;",
+        "start_seconds": 78.765,
+        "end_seconds": 79.5775
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "a",
+        "start_seconds": 79.5775,
+        "end_seconds": 79.7025
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "future",
+        "start_seconds": 79.7025,
+        "end_seconds": 80.1275
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "Claude",
+        "start_seconds": 80.1275,
+        "end_seconds": 80.5025
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "Code",
+        "start_seconds": 80.5025,
+        "end_seconds": 80.78999999999999
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "update",
+        "start_seconds": 80.78999999999999,
+        "end_seconds": 81.3275
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "could",
+        "start_seconds": 81.3275,
+        "end_seconds": 81.515
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "re‑enable",
+        "start_seconds": 81.515,
+        "end_seconds": 82.1525
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "the",
+        "start_seconds": 82.1525,
+        "end_seconds": 82.24
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "timer,",
+        "start_seconds": 82.24,
+        "end_seconds": 83.0525
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "so",
+        "start_seconds": 83.0525,
+        "end_seconds": 83.2525
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "double‑check",
+        "start_seconds": 83.2525,
+        "end_seconds": 83.89
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "the",
+        "start_seconds": 83.89,
+        "end_seconds": 84.03999999999999
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "environment",
+        "start_seconds": 84.03999999999999,
+        "end_seconds": 84.615
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "variable",
+        "start_seconds": 84.615,
+        "end_seconds": 85.24
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "after",
+        "start_seconds": 85.24,
+        "end_seconds": 85.64
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "each",
+        "start_seconds": 85.64,
+        "end_seconds": 85.89
+      },
+      {
+        "segment_id": "claude-code-token-fix",
+        "text": "upgrade.",
+        "start_seconds": 85.89,
+        "end_seconds": 86.89
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "Turning",
+        "start_seconds": 88.11500000000001,
+        "end_seconds": 88.465
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "to",
+        "start_seconds": 88.465,
+        "end_seconds": 88.55250000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "our",
+        "start_seconds": 88.55250000000001,
+        "end_seconds": 88.69
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "next",
+        "start_seconds": 88.69,
+        "end_seconds": 88.9525
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "story.",
+        "start_seconds": 88.9525,
+        "end_seconds": 89.92750000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "Martin",
+        "start_seconds": 89.92750000000001,
+        "end_seconds": 90.29
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "Fowler",
+        "start_seconds": 90.29,
+        "end_seconds": 90.665
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "says",
+        "start_seconds": 90.665,
+        "end_seconds": 90.89
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "many",
+        "start_seconds": 90.89,
+        "end_seconds": 91.1025
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "of",
+        "start_seconds": 91.1025,
+        "end_seconds": 91.17750000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "us",
+        "start_seconds": 91.17750000000001,
+        "end_seconds": 91.36500000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "can",
+        "start_seconds": 91.36500000000001,
+        "end_seconds": 91.55250000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "feel",
+        "start_seconds": 91.55250000000001,
+        "end_seconds": 91.80250000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "when",
+        "start_seconds": 91.80250000000001,
+        "end_seconds": 91.9775
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "prose",
+        "start_seconds": 91.9775,
+        "end_seconds": 92.36500000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "comes",
+        "start_seconds": 92.36500000000001,
+        "end_seconds": 92.61500000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "from",
+        "start_seconds": 92.61500000000001,
+        "end_seconds": 92.7525
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "a",
+        "start_seconds": 92.7525,
+        "end_seconds": 92.84
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "large",
+        "start_seconds": 92.84,
+        "end_seconds": 93.19
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "language",
+        "start_seconds": 93.19,
+        "end_seconds": 93.565
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "model",
+        "start_seconds": 93.565,
+        "end_seconds": 93.9775
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "before",
+        "start_seconds": 93.9775,
+        "end_seconds": 94.315
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "any",
+        "start_seconds": 94.315,
+        "end_seconds": 94.5275
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "tool",
+        "start_seconds": 94.5275,
+        "end_seconds": 94.815
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "can",
+        "start_seconds": 94.815,
+        "end_seconds": 94.965
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "confirm",
+        "start_seconds": 94.965,
+        "end_seconds": 95.44
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "it.",
+        "start_seconds": 95.44,
+        "end_seconds": 96.14
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "He",
+        "start_seconds": 96.14,
+        "end_seconds": 96.265
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "notes",
+        "start_seconds": 96.265,
+        "end_seconds": 96.54
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "the",
+        "start_seconds": 96.54,
+        "end_seconds": 96.6525
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "cues",
+        "start_seconds": 96.6525,
+        "end_seconds": 97.015
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "are",
+        "start_seconds": 97.015,
+        "end_seconds": 97.17750000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "subtle,",
+        "start_seconds": 97.17750000000001,
+        "end_seconds": 97.89
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "an",
+        "start_seconds": 97.89,
+        "end_seconds": 98.0275
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "uncanny‑valley",
+        "start_seconds": 98.0275,
+        "end_seconds": 98.9525
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "feeling",
+        "start_seconds": 98.9525,
+        "end_seconds": 99.34
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "that",
+        "start_seconds": 99.34,
+        "end_seconds": 99.5025
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "shows",
+        "start_seconds": 99.5025,
+        "end_seconds": 99.80250000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "up",
+        "start_seconds": 99.80250000000001,
+        "end_seconds": 99.9525
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "in",
+        "start_seconds": 99.9525,
+        "end_seconds": 100.0275
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "the",
+        "start_seconds": 100.0275,
+        "end_seconds": 100.11500000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "tone,",
+        "start_seconds": 100.11500000000001,
+        "end_seconds": 100.89
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "and",
+        "start_seconds": 100.89,
+        "end_seconds": 101.015
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "he’s",
+        "start_seconds": 101.015,
+        "end_seconds": 101.2025
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "skeptical",
+        "start_seconds": 101.2025,
+        "end_seconds": 101.765
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "of",
+        "start_seconds": 101.765,
+        "end_seconds": 101.89
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "commercial",
+        "start_seconds": 101.89,
+        "end_seconds": 102.42750000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "LLM‑voice",
+        "start_seconds": 102.42750000000001,
+        "end_seconds": 103.24000000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "detectors",
+        "start_seconds": 103.24000000000001,
+        "end_seconds": 104.0775
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "because",
+        "start_seconds": 104.0775,
+        "end_seconds": 104.3525
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "they",
+        "start_seconds": 104.3525,
+        "end_seconds": 104.5025
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "often",
+        "start_seconds": 104.5025,
+        "end_seconds": 104.89
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "miss",
+        "start_seconds": 104.89,
+        "end_seconds": 105.11500000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "that",
+        "start_seconds": 105.11500000000001,
+        "end_seconds": 105.3525
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "human",
+        "start_seconds": 105.3525,
+        "end_seconds": 105.715
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "response.",
+        "start_seconds": 105.715,
+        "end_seconds": 106.89
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "Here's",
+        "start_seconds": 106.89,
+        "end_seconds": 107.24000000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "why",
+        "start_seconds": 107.24000000000001,
+        "end_seconds": 107.44
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "that",
+        "start_seconds": 107.44,
+        "end_seconds": 107.61500000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "matters:",
+        "start_seconds": 107.61500000000001,
+        "end_seconds": 108.6275
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "trust",
+        "start_seconds": 108.6275,
+        "end_seconds": 108.92750000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "your",
+        "start_seconds": 108.92750000000001,
+        "end_seconds": 109.04
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "own",
+        "start_seconds": 109.04,
+        "end_seconds": 109.30250000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "sense",
+        "start_seconds": 109.30250000000001,
+        "end_seconds": 109.6275
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "of",
+        "start_seconds": 109.6275,
+        "end_seconds": 109.7525
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "AI‑generated",
+        "start_seconds": 109.7525,
+        "end_seconds": 110.86500000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "tone",
+        "start_seconds": 110.86500000000001,
+        "end_seconds": 111.4025
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "and",
+        "start_seconds": 111.4025,
+        "end_seconds": 111.55250000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "treat",
+        "start_seconds": 111.55250000000001,
+        "end_seconds": 111.815
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "detection",
+        "start_seconds": 111.815,
+        "end_seconds": 112.29
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "tools",
+        "start_seconds": 112.29,
+        "end_seconds": 112.665
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "as",
+        "start_seconds": 112.665,
+        "end_seconds": 112.7775
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "a",
+        "start_seconds": 112.7775,
+        "end_seconds": 112.84
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "backup,",
+        "start_seconds": 112.84,
+        "end_seconds": 113.61500000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "not",
+        "start_seconds": 113.61500000000001,
+        "end_seconds": 113.80250000000001
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "the",
+        "start_seconds": 113.80250000000001,
+        "end_seconds": 113.9025
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "final",
+        "start_seconds": 113.9025,
+        "end_seconds": 114.29
+      },
+      {
+        "segment_id": "llm-voice-awareness-2026-segment",
+        "text": "word.",
+        "start_seconds": 114.29,
+        "end_seconds": 115.065
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "And",
+        "start_seconds": 116.265,
+        "end_seconds": 116.4025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "finally,",
+        "start_seconds": 116.4025,
+        "end_seconds": 117.04
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "our",
+        "start_seconds": 117.04,
+        "end_seconds": 117.19
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "last",
+        "start_seconds": 117.19,
+        "end_seconds": 117.49
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "story.",
+        "start_seconds": 117.49,
+        "end_seconds": 118.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Google's",
+        "start_seconds": 118.565,
+        "end_seconds": 119.0275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "October",
+        "start_seconds": 119.0275,
+        "end_seconds": 119.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twenty",
+        "start_seconds": 119.44,
+        "end_seconds": 119.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twenty",
+        "start_seconds": 119.69,
+        "end_seconds": 120.0025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "six",
+        "start_seconds": 120.0025,
+        "end_seconds": 120.4525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "update",
+        "start_seconds": 120.4525,
+        "end_seconds": 120.9525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "patches",
+        "start_seconds": 120.9525,
+        "end_seconds": 121.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 121.365,
+        "end_seconds": 121.5025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "zero‑click",
+        "start_seconds": 121.5025,
+        "end_seconds": 122.29
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "telephony",
+        "start_seconds": 122.29,
+        "end_seconds": 122.84
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "denial‑of‑service",
+        "start_seconds": 122.84,
+        "end_seconds": 123.84
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 123.84,
+        "end_seconds": 123.99
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "previously",
+        "start_seconds": 123.99,
+        "end_seconds": 124.54
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "hit",
+        "start_seconds": 124.54,
+        "end_seconds": 124.7775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Android",
+        "start_seconds": 124.7775,
+        "end_seconds": 125.3025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twelve",
+        "start_seconds": 125.3025,
+        "end_seconds": 125.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "through",
+        "start_seconds": 125.665,
+        "end_seconds": 125.865
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sixteen.",
+        "start_seconds": 125.865,
+        "end_seconds": 127.0525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 127.0525,
+        "end_seconds": 127.215
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "flaw,",
+        "start_seconds": 127.215,
+        "end_seconds": 127.8025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "dubbed",
+        "start_seconds": 127.8025,
+        "end_seconds": 128.2775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "“SMS",
+        "start_seconds": 128.2775,
+        "end_seconds": 128.8525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "of",
+        "start_seconds": 128.8525,
+        "end_seconds": 128.94
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Death,”",
+        "start_seconds": 128.94,
+        "end_seconds": 129.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "let",
+        "start_seconds": 129.665,
+        "end_seconds": 129.8275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 129.8275,
+        "end_seconds": 129.94
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "single",
+        "start_seconds": 129.94,
+        "end_seconds": 130.315
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "malicious",
+        "start_seconds": 130.315,
+        "end_seconds": 130.7775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "text",
+        "start_seconds": 130.7775,
+        "end_seconds": 131.2025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "crash",
+        "start_seconds": 131.2025,
+        "end_seconds": 131.54
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 131.54,
+        "end_seconds": 131.6525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "phone",
+        "start_seconds": 131.6525,
+        "end_seconds": 132.1275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 132.1275,
+        "end_seconds": 132.2775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "trap",
+        "start_seconds": 132.2775,
+        "end_seconds": 132.64
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "it",
+        "start_seconds": 132.64,
+        "end_seconds": 132.79
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 132.79,
+        "end_seconds": 132.8775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 132.8775,
+        "end_seconds": 132.9775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "reboot",
+        "start_seconds": 132.9775,
+        "end_seconds": 133.415
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "loop,",
+        "start_seconds": 133.415,
+        "end_seconds": 134.015
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "even",
+        "start_seconds": 134.015,
+        "end_seconds": 134.315
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "blocking",
+        "start_seconds": 134.315,
+        "end_seconds": 134.765
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "emergency",
+        "start_seconds": 134.765,
+        "end_seconds": 135.29
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "calls.",
+        "start_seconds": 135.29,
+        "end_seconds": 136.1775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Google's",
+        "start_seconds": 136.66,
+        "end_seconds": 137.08499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "commit",
+        "start_seconds": 137.08499999999998,
+        "end_seconds": 137.45999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seven",
+        "start_seconds": 137.45999999999998,
+        "end_seconds": 137.83499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "three",
+        "start_seconds": 137.83499999999998,
+        "end_seconds": 138.0725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "five",
+        "start_seconds": 138.0725,
+        "end_seconds": 138.41
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "d",
+        "start_seconds": 138.41,
+        "end_seconds": 138.58499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "nine",
+        "start_seconds": 138.58499999999998,
+        "end_seconds": 138.92249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "six",
+        "start_seconds": 138.92249999999999,
+        "end_seconds": 139.16
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seven",
+        "start_seconds": 139.16,
+        "end_seconds": 139.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 139.885,
+        "end_seconds": 140.1225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fifteen",
+        "start_seconds": 140.1225,
+        "end_seconds": 140.6225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "June",
+        "start_seconds": 140.6225,
+        "end_seconds": 140.95999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twenty",
+        "start_seconds": 140.95999999999998,
+        "end_seconds": 141.26
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twenty",
+        "start_seconds": 141.26,
+        "end_seconds": 141.5725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "six",
+        "start_seconds": 141.5725,
+        "end_seconds": 142.3225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "widens",
+        "start_seconds": 142.3225,
+        "end_seconds": 142.76
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "exception",
+        "start_seconds": 142.76,
+        "end_seconds": 143.3475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "handling",
+        "start_seconds": 143.3475,
+        "end_seconds": 143.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 143.885,
+        "end_seconds": 144.035
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "decodeWapPdu,",
+        "start_seconds": 144.035,
+        "end_seconds": 145.91
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "swallowing",
+        "start_seconds": 145.91,
+        "end_seconds": 146.42249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 146.42249999999999,
+        "end_seconds": 146.51
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "crash",
+        "start_seconds": 146.51,
+        "end_seconds": 147.02249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 147.02249999999998,
+        "end_seconds": 147.16
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "deleting",
+        "start_seconds": 147.16,
+        "end_seconds": 147.5725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 147.5725,
+        "end_seconds": 147.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "offending",
+        "start_seconds": 147.685,
+        "end_seconds": 148.16
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "message.",
+        "start_seconds": 148.16,
+        "end_seconds": 149.04749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Now",
+        "start_seconds": 150.31,
+        "end_seconds": 150.51000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "devices",
+        "start_seconds": 150.51000000000002,
+        "end_seconds": 151.07250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "running",
+        "start_seconds": 151.07250000000002,
+        "end_seconds": 151.44750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Android",
+        "start_seconds": 151.44750000000002,
+        "end_seconds": 151.94750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fourteen",
+        "start_seconds": 151.94750000000002,
+        "end_seconds": 152.485
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 152.485,
+        "end_seconds": 152.61
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seventeen",
+        "start_seconds": 152.61,
+        "end_seconds": 153.3725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "are",
+        "start_seconds": 153.3725,
+        "end_seconds": 153.51000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "protected,",
+        "start_seconds": 153.51000000000002,
+        "end_seconds": 154.61
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "but",
+        "start_seconds": 154.61,
+        "end_seconds": 154.7975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "phones",
+        "start_seconds": 154.7975,
+        "end_seconds": 155.2475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "still",
+        "start_seconds": 155.2475,
+        "end_seconds": 155.56
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 155.56,
+        "end_seconds": 155.7475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Android",
+        "start_seconds": 155.7475,
+        "end_seconds": 156.19750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twelve",
+        "start_seconds": 156.19750000000002,
+        "end_seconds": 156.7475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 156.7475,
+        "end_seconds": 156.91000000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "thirteen",
+        "start_seconds": 156.91000000000003,
+        "end_seconds": 157.485
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "remain",
+        "start_seconds": 157.485,
+        "end_seconds": 157.9225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "vulnerable",
+        "start_seconds": 157.9225,
+        "end_seconds": 158.84750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "unless",
+        "start_seconds": 158.84750000000003,
+        "end_seconds": 159.2725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "upgraded",
+        "start_seconds": 159.2725,
+        "end_seconds": 159.835
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 159.835,
+        "end_seconds": 159.96
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 159.96,
+        "end_seconds": 160.06
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "supported",
+        "start_seconds": 160.06,
+        "end_seconds": 160.53500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "version.",
+        "start_seconds": 160.53500000000003,
+        "end_seconds": 161.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "And",
+        "start_seconds": 162.66,
+        "end_seconds": 162.79749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that's",
+        "start_seconds": 162.79749999999999,
+        "end_seconds": 163.035
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 163.035,
+        "end_seconds": 163.185
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Daywire",
+        "start_seconds": 163.185,
+        "end_seconds": 163.60999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "briefing.",
+        "start_seconds": 163.60999999999999,
+        "end_seconds": 164.45999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "You'll",
+        "start_seconds": 164.45999999999998,
+        "end_seconds": 164.635
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "find",
+        "start_seconds": 164.635,
+        "end_seconds": 164.8725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 164.8725,
+        "end_seconds": 164.9725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "full",
+        "start_seconds": 164.9725,
+        "end_seconds": 165.23499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stories",
+        "start_seconds": 165.23499999999999,
+        "end_seconds": 165.73499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 165.73499999999999,
+        "end_seconds": 165.8725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sources",
+        "start_seconds": 165.8725,
+        "end_seconds": 166.385
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 166.385,
+        "end_seconds": 166.48499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "today's",
+        "start_seconds": 166.48499999999999,
+        "end_seconds": 166.85999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "newspaper.",
+        "start_seconds": 166.85999999999999,
+        "end_seconds": 167.8725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Thanks",
+        "start_seconds": 167.8725,
+        "end_seconds": 168.16
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 168.16,
+        "end_seconds": 168.285
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "listening.",
+        "start_seconds": 168.285,
+        "end_seconds": 169.02249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Take",
+        "start_seconds": 169.02249999999998,
+        "end_seconds": 169.3475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "care,",
+        "start_seconds": 169.3475,
+        "end_seconds": 169.785
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "everyone.",
+        "start_seconds": 169.785,
+        "end_seconds": 170.73499999999999
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
