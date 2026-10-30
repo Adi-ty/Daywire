@@ -226,19 +226,30 @@ func generateDraft(ctx context.Context, model Model, input Input, draft *content
 	for i, a := range radioArticles {
 		var out radioOutput
 		packet := radioWritingInput{Date: input.Date, Position: i + 1, Total: len(radioArticles), Article: a}
-		if i > 0 {
-			words := strings.Fields(d.Segments[i-1].Text)
+		if len(d.Segments) > 0 {
+			words := strings.Fields(d.Segments[len(d.Segments)-1].Text)
 			packet.PreviousEnding = strings.Join(words[max(0, len(words)-35):], " ")
 		}
 		if err := call(fmt.Sprintf("radio %d/%d", i+1, len(radioArticles)), Prompt("radio"), packet, &out); err != nil {
 			return total, err
 		}
 		out.Segment.ID = assignID("radio", out.Segment.ID)
-		out.Segment = frameRadio(out.Segment, input.Date, i+1, len(radioArticles))
 		d.Segments = append(d.Segments, out.Segment)
 		if err := gate(out.Segment.ID); err != nil {
-			return total, err
+			if !omit("radio segment", out.Segment.ID, err) {
+				return total, err
+			}
+			d.Segments = d.Segments[:len(d.Segments)-1]
 		}
+	}
+	if len(d.Segments) == 0 {
+		return total, errors.New("no radio stories passed evidence review; no edition generated")
+	}
+	// Frame only the accepted running order, so a rejected first/last story
+	// cannot remove the welcome or sign-off. Review strips only this exact,
+	// application-owned frame; the factual body's verdict remains reusable.
+	for i := range d.Segments {
+		d.Segments[i] = frameRadio(d.Segments[i], input.Date, i+1, len(d.Segments))
 	}
 	var heading headingOutput
 	if err := call("heading", "Write a specific, short edition title and a two-sentence introduction orienting the reader to the strongest developments in these summaries. Avoid a list of headlines, generic tech-roundup language, hype or a manufactured common theme. Also describe one conceptual editorial illustration based on the lead article, without text, logos or purported documentary scenes. Never add facts.", verificationSubset(input, d, []string{"edition"}), &heading); err != nil {

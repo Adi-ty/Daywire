@@ -10,10 +10,16 @@ import (
 
 // Show metadata belongs to the application, not to the factual story writer.
 func frameRadio(segment content.Segment, date string, position, total int) content.Segment {
+	prefix, suffix := radioFraming(date, position, total)
+	segment.Text = prefix + segment.Text + suffix
+	return segment
+}
+
+func radioFraming(date string, position, total int) (prefix, suffix string) {
 	if position == 1 {
 		day, err := time.Parse("2006-01-02", date)
 		if err == nil {
-			segment.Text = fmt.Sprintf("Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's %s %s, %s.\n\nWe begin with our lead story. %s", day.Month(), spokenNumber(day.Day()), spokenNumber(day.Year()), segment.Text)
+			prefix = fmt.Sprintf("Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's %s %s, %s.\n\nWe begin with our lead story. ", day.Month(), spokenNumber(day.Day()), spokenNumber(day.Year()))
 		}
 	}
 	if position > 1 {
@@ -23,12 +29,23 @@ func frameRadio(segment content.Segment, date string, position, total int) conte
 		} else if position%2 == 1 {
 			transition = "Turning to our next story. "
 		}
-		segment.Text = transition + segment.Text
+		prefix = transition
 	}
 	if position == total {
-		segment.Text += "\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone."
+		suffix = "\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone."
 	}
-	return segment
+	return prefix, suffix
+}
+
+// Strip only the exact application-owned frame for this date and position.
+// This preserves the factual body's review cache after assembling the show.
+// Wrong dates, altered handoffs, and any added claims remain visible to review.
+func radioReviewBody(text, date string, position, total int) string {
+	prefix, suffix := radioFraming(date, position, total)
+	if prefix == "" || !strings.HasPrefix(text, prefix) || !strings.HasSuffix(text, suffix) || len(text) < len(prefix)+len(suffix) {
+		return text
+	}
+	return strings.TrimSuffix(strings.TrimPrefix(text, prefix), suffix)
 }
 
 func spokenNumber(n int) string {

@@ -21,7 +21,7 @@ func Prompt(name string) string {
 	return string(data)
 }
 func PromptHash() string {
-	return content.Hash([]byte("newsroom-v8-newspaper-selection-and-depth" + stageRules + selectionRules + articleDepth(0) + articleDepth(1) + articleDepth(3) + Prompt("draft") + Prompt("article") + Prompt("radio") + Prompt("quiz") + Prompt("verify")))
+	return content.Hash([]byte("newsroom-v9-radio-omissions-before-framing" + stageRules + selectionRules + articleDepth(0) + articleDepth(1) + articleDepth(3) + Prompt("draft") + Prompt("article") + Prompt("radio") + Prompt("quiz") + Prompt("verify")))
 }
 
 // Separate review identity preserves saved drafts when review policy changes.

@@ -91,7 +91,7 @@ func Repair(ctx context.Context, model Model, input Input, original content.Draf
 		if logf != nil {
 			logf("Repair pass 1/1: %s", id)
 		}
-		used, err := correctTarget(ctx, model, input, &draft, id, Review{Verdicts: feedback})
+		used, err := correctTarget(ctx, model, input, &draft, id, Review{Verdicts: feedback}, true)
 		usage.PromptTokens += used.PromptTokens
 		usage.CompletionTokens += used.CompletionTokens
 		usage.TotalTokens += used.TotalTokens

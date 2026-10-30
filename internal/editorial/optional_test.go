@@ -166,19 +166,13 @@ func TestOptionalContentDoesNotSwallowOperationalErrors(t *testing.T) {
 	}
 }
 
-func TestMandatoryHeadingAndRadioRejectionStillStop(t *testing.T) {
-	for _, kind := range []string{"heading", "radio"} {
-		e, input, _ := repairFixture(t)
-		id := "edition"
-		if kind == "radio" {
-			id = "radio-" + e.Content.Articles[0].ID
-		}
-		m := &optionalWriter{stagedWriter: stagedWriter{draft: e.Content}, rejected: map[string]bool{id: true}}
-		var draft content.Draft
-		_, report, err := GenerateDraftWithReport(context.Background(), m, input, &draft, nil)
-		var rejection *exhaustedTarget
-		if !errors.As(err, &rejection) || report.Status != "incomplete" || report.Error == "" || len(report.Omissions) != 0 {
-			t.Fatalf("mandatory rejection was ignored: %v %+v", err, report)
-		}
+func TestMandatoryHeadingRejectionStillStops(t *testing.T) {
+	e, input, _ := repairFixture(t)
+	m := &optionalWriter{stagedWriter: stagedWriter{draft: e.Content}, rejected: map[string]bool{"edition": true}}
+	var draft content.Draft
+	_, report, err := GenerateDraftWithReport(context.Background(), m, input, &draft, nil)
+	var rejection *exhaustedTarget
+	if !errors.As(err, &rejection) || report.Status != "incomplete" || report.Error == "" || len(report.Omissions) != 0 {
+		t.Fatalf("mandatory rejection was ignored: %v %+v", err, report)
 	}
 }

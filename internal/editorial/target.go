@@ -55,7 +55,7 @@ func settleTarget(ctx context.Context, model Model, input Input, draft *content.
 			return total, &exhaustedTarget{id: id, cause: err, verdict: rejection.Verdict, reason: reason}
 		}
 		progress(model, "Correcting %s before generating dependent content", id)
-		u, err = correctTarget(ctx, model, input, draft, id, review)
+		u, err = correctTarget(ctx, model, input, draft, id, review, false)
 		add(u)
 		if err != nil {
 			return total, err
@@ -64,7 +64,9 @@ func settleTarget(ctx context.Context, model Model, input Input, draft *content.
 	panic("unreachable")
 }
 
-func correctTarget(ctx context.Context, model Model, input Input, draft *content.Draft, id string, review Review) (Usage, error) {
+// Radio bodies are settled before show framing during drafting. Repair of a
+// complete saved edition must restore framing using its actual retained order.
+func correctTarget(ctx context.Context, model Model, input Input, draft *content.Draft, id string, review Review, framedRadio bool) (Usage, error) {
 	subset := reviewSubset(input, *draft, []string{id})
 	relevant := map[string]bool{id: true}
 	for _, a := range subset.Draft.Articles {
@@ -136,7 +138,10 @@ func correctTarget(ctx context.Context, model Model, input Input, draft *content
 			if out.Segment.ID != id || !reflect.DeepEqual(out.Segment.ArticleIDs, s.ArticleIDs) {
 				return u, changed
 			}
-			draft.Segments[i] = frameRadio(out.Segment, input.Date, i+1, min(5, len(draft.Articles)))
+			draft.Segments[i] = out.Segment
+			if framedRadio {
+				draft.Segments[i] = frameRadio(out.Segment, input.Date, i+1, len(draft.Segments))
+			}
 			return u, nil
 		}
 	}

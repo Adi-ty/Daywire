@@ -118,6 +118,14 @@ func reviewSubset(input Input, draft content.Draft, targets []string) Verificati
 		packet.Draft.Articles = []content.Article{}
 	case "radio":
 		packet.Input.Evidence = []content.Evidence{}
+		for i := range packet.Draft.Segments {
+			for position, segment := range draft.Segments {
+				if segment.ID == packet.Draft.Segments[i].ID {
+					packet.Draft.Segments[i].Text = radioReviewBody(segment.Text, input.Date, position+1, len(draft.Segments))
+					break
+				}
+			}
+		}
 	}
 	return packet
 }
