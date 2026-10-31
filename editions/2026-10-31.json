@@ -1,0 +1,3502 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-31",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-10-31T08:36:41.369830917Z",
+  "coverage": {
+    "from": "2026-10-30T06:00:00+05:30",
+    "until": "2026-10-31T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-84abd1857de5dfd9",
+      "source-a86d24c59c826150",
+      "source-12defed6cdddc1dd"
+    ],
+    "candidate_count": 35,
+    "evidence_count": 32
+  },
+  "content": {
+    "title": "Massive Binance hack and Azure cross‑tenant flaw dominate security headlines",
+    "introduction": "Hackers siphoned $6.3 billion from Binance in a rapid, multi‑chain attack, forcing the exchange to halt all deposits and withdrawals. Meanwhile, researchers uncovered cross‑tenant takeover paths in Azure Logic Apps API Connections that could let attackers hijack critical services across cloud tenants.",
+    "articles": [
+      {
+        "id": "backdoor-claude-code-vscode-extension",
+        "section": "Security",
+        "headline": "Claude Code VS Code extension versions 2.1.312 and 2.1.313 contain a persistent SSH backdoor",
+        "summary": "Phorion discovered that the official Claude Code extension for VS Code on the Cursor Marketplace drops a persistent SSH backdoor on macOS, Linux and Windows, and Cursor has removed the affected releases.",
+        "paragraphs": [
+          "Phorion’s analysis of the Claude Code for VS Code bundle distributed through the Cursor Marketplace uncovered malicious code that writes SSH keys to the user’s home directory and attempts to enable Remote Login. The backdoor is present in versions 2.1.312 and 2.1.313 and persists across reboots on macOS, Linux and Windows. Because extensions inherit the IDE’s user permissions, the payload gains immediate read‑write access to source files and developer tooling once the extension loads.",
+          "The malicious installer assumes it can query the current Remote Login state without elevated rights. On macOS, the command `systemsetup -getremotelogin` returns an administrator‑access error but exits with status 0, causing the script’s check for “Off” to fail. Consequently, the backdoor drops the SSH keys but does not enable the SSH daemon on systems where it was previously disabled, limiting inbound access while still leaving credentials on the host.",
+          "Cursor responded by pulling the compromised packages from its marketplace and issuing a security notice that explicitly lists the two affected versions. Organizations using Claude Code should audit installed extensions, verify they are not on 2.1.312 or 2.1.313, and engage incident response if the extension is found."
+        ],
+        "implication": "Developers who have installed Claude Code version 2.1.312 or 2.1.313 should treat any machine where the extension ran as potentially compromised and conduct a full SSH key audit and host review.",
+        "source_ids": [
+          "source-a13f736d98945685"
+        ]
+      },
+      {
+        "id": "ai-deskilling-sre-2026-10-31",
+        "section": "AI",
+        "headline": "AI assistants risk deskilling SREs",
+        "summary": "A SigNoz‑authored analysis warns that AI‑driven incident tools can erode the hands‑on expertise of site‑reliability engineers.",
+        "paragraphs": [
+          "In a recent internal newsletter, the SigNoz team observes that AI agents are already handling routine correlation of metrics, logs, and traces, as well as autonomous root‑cause suggestions and predictive incident alerts. While these capabilities appear as productivity gains, the authors argue they prevent SREs from reading raw logs, forming hypotheses, and building mental models of system architecture—skills traditionally honed through repeated Tier‑3 incident response.",
+          "The piece stresses that the trade‑off is not a rejection of AI but a deliberate, guarded rollout: an AI assistant will augment SREs while keeping humans in control, with plans for greater autonomy only after trust is earned. The authors see this as a pivotal design decision for their open‑source observability platform."
+        ],
+        "implication": "SRE teams should treat AI‑assisted tooling as a complement, not a replacement, and preserve opportunities for engineers to engage directly with raw data to maintain deep system intuition.",
+        "source_ids": [
+          "source-55737272f83db8f2"
+        ]
+      },
+      {
+        "id": "northflank-ai-key-breach-2026-10-31",
+        "section": "Security",
+        "headline": "Northflank confirms unauthorized use of AI API keys",
+        "summary": "Northflank disclosed a breach affecting AI credentials stored in environment variables and urged immediate secret rotation for all users.",
+        "paragraphs": [
+          "On October 30‑31, 2026 Northflank reported that attackers accessed AI API keys supplied by customers to the platform. The incident triggered a major outage and prompted the company to enable audit logs for every account, including free tiers. Users were instructed to treat all environment variables as compromised, revoke and replace credentials with their providers, and update secrets in workloads, secret groups, and global stores.",
+          "Northflank also activated automatic rotation for PostgreSQL and MongoDB secrets and recommended disabling public exposure on add‑ons. The breach aligns with patterns described in Wiz’s “Black October” report, which highlights a wave of attacks targeting AI credentials."
+        ],
+        "implication": "Developers using Northflank must assume their AI keys are exposed and rotate them immediately, while also tightening add‑on exposure settings to prevent further credential leakage.",
+        "source_ids": [
+          "source-b49e140ae02cf75c"
+        ]
+      },
+      {
+        "id": "azure-logic-apps-api-connections-cross-tenant-vuln",
+        "section": "Security",
+        "headline": "Azure Logic Apps API Connections expose cross‑tenant takeover paths",
+        "summary": "A set of flaws in Azure Logic Apps’ API Connections let an attacker hijack any connection, including Key Vault and Azure SQL, across tenants.",
+        "paragraphs": [
+          "The author of a recent series on Azure’s “Weakest Link” demonstrated that API Connections lack proper isolation, allowing a malicious Logic App to invoke or list any other tenant’s connection endpoints. Microsoft’s fix simply blocked the affected endpoints, but no deeper mitigation was added, meaning the attack surface could reappear if the endpoints are reopened."
+        ],
+        "implication": "Developers must treat Consumption‑mode Logic Apps as untrusted and avoid exposing sensitive back‑ends through API Connections until Microsoft adds granular endpoint controls.",
+        "source_ids": [
+          "source-0d3b5aac153790f5"
+        ]
+      },
+      {
+        "id": "binance-hack-2026-brief",
+        "section": "Security",
+        "headline": "Binance freezes deposits after $6.3 B hack",
+        "summary": "Hackers drained roughly $6.3 billion from Binance wallets across ten blockchains in a 20‑minute burst on Oct 29, prompting the exchange to suspend all deposits and withdrawals.",
+        "paragraphs": [
+          "TRM Labs traced the theft to a single attacker who tested three small withdrawals before launching the full‑scale drain, which began about 4 pm ET and lasted only minutes. Binance responded by halting all inbound and outbound transfers while it works with law‑enforcement to freeze roughly half of the stolen funds."
+        ],
+        "implication": "Engineers building on Binance APIs must anticipate temporary service outages and design fallback mechanisms for deposit‑dependent workflows.",
+        "source_ids": [
+          "source-e0174682f4170dd9"
+        ]
+      },
+      {
+        "id": "herdr-native-app-release",
+        "section": "Tools",
+        "headline": "Herdr launches native desktop app for terminals and coding agents",
+        "summary": "Herdr’s new native client installs on macOS, Windows and Linux, letting users keep terminal sessions alive while the UI window is closed.",
+        "paragraphs": [
+          "The installer adds a Herdr binary to the user’s PATH (~/\\.local/bin on Linux/macOS, %LOCALAPPDATA%\\\\Programs\\\\herdr‑app on Windows) and places a GUI bundle in the standard applications folder. It also pulls in the supporting herdr‑core component if missing, and provides a PowerShell one‑liner for Windows users."
+        ],
+        "implication": "Developers can now run long‑running terminal workloads without keeping a terminal window open, simplifying remote agent management across all major desktop platforms.",
+        "source_ids": [
+          "source-8dff2cf2a4582063"
+        ]
+      },
+      {
+        "id": "nesformer-weights-2026-10-31",
+        "section": "Engineering",
+        "headline": "NES CPU runs inside a Qwen 3.5 model using 1 GB of weights",
+        "summary": "A GitHub project packages a fully functional NES CPU as quantized weights for the open‑source Qwen3.5‑4B model, letting the model execute classic NROM games without recompilation.",
+        "paragraphs": [
+          "The repository provides a zip of ~1 GB of Qwen3.5‑4B weights (nesformer‑weights.zip) that encode the NES CPU logic. When placed alongside the nesformer package, the CLI can load any NROM ROM and render frames directly in the terminal. The system reuses the Qwenputer compiler, which previously compiled CHIP‑8 and a RISC‑V CPU into Qwen3.5, and adds a lightweight runtime that maps the ROM into the model’s state at startup. Non‑NROM boards are rejected with a clear “Limitations” notice."
+        ],
+        "implication": "Developers can experiment with running legacy console code inside large language model checkpoints, opening a low‑cost path to explore hardware emulation via model weights rather than traditional interpreters.",
+        "source_ids": [
+          "source-44da56d320b41406"
+        ]
+      },
+      {
+        "id": "tangled-federated-code-forge-brief",
+        "section": "Tools",
+        "headline": "Tangled launches the first truly federated code forge",
+        "summary": "Tangled lets teams self‑host Git, CI and APIs while still collaborating across independent servers.",
+        "paragraphs": [
+          "Built on the AT Protocol, Tangled combines email‑style open communication with modern UI polish, letting users pick which components—Git hosting, CI runners, API server, or UI—to run locally. Projects remain discoverable and interoperable because every forge speaks the same protocol, but each operator retains full control over uptime and extensions."
+        ],
+        "implication": "Developers can avoid vendor lock‑in and tailor their development stack without sacrificing the ability to work with external contributors.",
+        "source_ids": [
+          "source-6055dc2671b073d0"
+        ]
+      },
+      {
+        "id": "cloudflare-private-origins-ga",
+        "section": "Engineering",
+        "headline": "Cloudflare private origins become generally available",
+        "summary": "Cloudflare now lets you point a proxied DNS record at a private IP and still get WAF, caching, bot management and Workers without exposing the origin.",
+        "paragraphs": [
+          "The GA release adds a “private_routing” flag: when Cloudflare’s edge sees it, traffic is handed to the private networking layer (IPsec, GRE, Cloudflare Tunnel, CNI or Cloudflare Mesh) instead of the public Internet. All standard application services work as they do for public origins, but Argo Smart Routing and Dedicated CDN Egress IPs remain unsupported and health checks still require Load Balancing."
+        ],
+        "implication": "Enterprises can now protect on‑premises apps with Cloudflare’s full suite of security and performance features while keeping the origin IP hidden, though they must continue using Load Balancing for health checks and cannot rely on Argo‑accelerated routing.",
+        "source_ids": [
+          "source-4d4206ade98bad0a"
+        ]
+      },
+      {
+        "id": "nvidia-trtedge-cli-edge-llm-2026-10-31",
+        "section": "Tools",
+        "headline": "TensorRT Edge‑LLM lets developers run Nemotron‑3.5 on DGX Spark with a single CLI command",
+        "summary": "NVIDIA’s new trtedge command‑line tool downloads a model, builds an optimized TensorRT engine and launches a chat session on the DGX Spark 64 GB system.",
+        "paragraphs": [
+          "The trtedge CLI pulls a Nemotron‑3.5 Lightning model, compiles it for the DGX Spark’s TensorRT Edge‑LLM runtime and starts an interactive terminal chat or API server in just a few commands. Benchmarks run on DGX OS 7.6.0 (Ubuntu 24.04.4 LTS) show average input lengths of 1,153 tokens (SpeedBench 1K) and 2,247 tokens (SpeedBench 2K) with speculative decoding enabled, using batch size 1 and a 128‑token output limit."
+        ],
+        "implication": "Embedded AI teams can prototype large‑language‑model agents on a single workstation without manual engine tuning, accelerating edge‑centric development cycles.",
+        "source_ids": [
+          "source-ba4f0ba987a7b511"
+        ]
+      },
+      {
+        "id": "gds-diag-toolkit-2026",
+        "section": "Tools",
+        "headline": "NVIDIA releases open‑source gds‑diag for GPUDirect Storage validation",
+        "summary": "The new gds‑diag command‑line utility lets Linux users with Python 3.8+ verify GPU, CUDA 12.2+, and storage configurations for GPUDirect Storage.",
+        "paragraphs": [
+          "gds‑diag, published by NVIDIA’s GPUDirect Storage team, runs on any Linux host with Python 3.8 or newer and checks for supported datacenter‑class GPUs and CUDA Toolkit 12.2 or later, though those components are not required for the tool itself. It reports environment mismatches, suggests fixes, and offers subcommands such as pre‑install and support‑matrix to map storage targets before deployment."
+        ],
+        "implication": "Engineers can now script health checks for GPUDirect Storage without manual inspection, reducing setup time and avoiding mis‑configurations that would otherwise degrade bandwidth and latency.",
+        "source_ids": [
+          "source-1f8c31d7527badfd"
+        ]
+      },
+      {
+        "id": "go-1-28-http2-parking",
+        "section": "Engineering",
+        "headline": "Go 1.28 introduces HTTP/2 parking to cut memory per idle connection",
+        "summary": "Go 1.28’s HTTP/2 server can park idle connections, letting the serving goroutine exit and reducing both RSS and goroutine count.",
+        "paragraphs": [
+          "A Lobsters contributor measured the effect by running the same Go 1.28 binary with parking on and off for 0, 1,000 and 5,000 idle HTTP/2 connections. With 5,000 idle connections, parking saved roughly 85–93 MiB of RSS, eliminated 5,000 goroutines, and cut about 78 MiB of stack memory, based on median values from ten‑round runs repeated three times on a single Linux host."
+        ],
+        "implication": "Upgrading to Go 1.28 and enabling HTTP/2 parking lets services that maintain thousands of idle connections lower their memory footprint without code changes.",
+        "source_ids": [
+          "source-71530bd0339b4fed"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "validate-ssh-enable-check",
+        "title": "Never trust a command’s exit status without verifying its output",
+        "paragraphs": [
+          "The Claude Code VS Code extension dropped SSH keys on macOS and then tried to turn on Remote Login by running `systemsetup -getremotelogin`. The script assumed a zero exit code meant the command succeeded and that the output would be either “On” or “Off”. On a standard user account the command prints an administrator‑access error but still exits with status 0, so the script’s `/Off/i.test(output)` check fails and the enable‑SSH step is skipped. This logic error left the backdoor’s credentials on the host while preventing the attacker’s inbound path on machines where SSH was previously disabled.",
+          "A robust check must examine both the exit code and the actual text returned, and it should explicitly handle error messages. For example:\n\n```\nresult=$(systemsetup -getremotelogin 2\u003e/dev/null)\nif [[ $? -ne 0 ]]; then\n  echo \"Unable to query Remote Login – abort\"\n  exit 1\nfi\nif [[ $result =~ Off ]]; then\n  sudo systemsetup -setremotelogin on\nfi\n```\n\nThis ensures the script only proceeds when it can reliably determine the current state."
+        ],
+        "example": "A script that runs `systemsetup -getremotelogin`, checks `$?` for non‑zero, and only then parses the output for \"Off\" before calling `sudo systemsetup -setremotelogin on`.",
+        "takeaway": "Always validate both exit codes and output when scripting privileged system checks; otherwise a malicious payload can silently fail to activate its intended behavior while still leaving harmful artifacts on the host.",
+        "article_ids": [
+          "backdoor-claude-code-vscode-extension"
+        ],
+        "source_ids": [
+          "source-a13f736d98945685"
+        ]
+      },
+      {
+        "id": "ai-deskilling-mechanism-2026-10-31",
+        "title": "How AI automation can erode SRE expertise",
+        "paragraphs": [
+          "When AI agents automatically correlate metrics, logs, and traces and then suggest root‑cause hypotheses, SREs spend less time reading raw log streams or manually building dependency graphs. That short‑circuiting removes the repetitive exposure that creates intuition about system behavior, so engineers lose the ability to recognize subtle failure patterns that fall outside the AI’s trained scenarios.",
+          "The article notes that this shift can lead to a feedback loop: automation handles the easy work, and the human’s skill set atrophies, making future incidents harder to resolve without direct engagement with raw data."
+        ],
+        "example": "An SRE relies on an AI‑generated summary that identifies a latency spike as a downstream database timeout. Because the AI provides the conclusion, the SRE does not open the raw log streams to verify the details, missing the opportunity to deepen their understanding of the system’s behavior in that incident.",
+        "takeaway": "Treat AI‑assisted tooling as a supplement, not a substitute; deliberately schedule manual investigations to keep mental models sharp and ensure resilience when novel failures arise.",
+        "article_ids": [
+          "ai-deskilling-sre-2026-10-31"
+        ],
+        "source_ids": [
+          "source-55737272f83db8f2"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-validate-ssh-exit-code",
+        "lesson_id": "validate-ssh-enable-check",
+        "prompt": "Why is checking only the exit code of `systemsetup -getremotelogin` insufficient on a standard macOS user account?",
+        "options": [
+          "Because the command always returns a non‑zero exit code even when successful",
+          "Because the command may exit with status 0 while printing an administrator‑access error",
+          "Because the exit code is overwritten by the shell before the script can read it",
+          "Because macOS disables exit codes for privileged commands"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that on a standard user account `systemsetup -getremotelogin` prints an administrator‑access error but still exits with status 0, so relying only on the exit code misses the failure."
+      },
+      {
+        "id": "quiz-1-ssh-output-validation",
+        "lesson_id": "validate-ssh-enable-check",
+        "prompt": "What additional check should a script perform after confirming a zero exit code from `systemsetup -getremotelogin`?",
+        "options": [
+          "Verify that the output contains the word \"On\"",
+          "Verify that the output contains the word \"Off\"",
+          "Verify that the command was run with sudo",
+          "Verify that the system clock is synchronized"
+        ],
+        "answer": 1,
+        "explanation": "The lesson’s example shows that after a successful exit code, the script must parse the output for \"Off\" before enabling Remote Login."
+      },
+      {
+        "id": "quiz-1-robust-ssh-check",
+        "lesson_id": "validate-ssh-enable-check",
+        "prompt": "Which of the following best describes the recommended robust approach for enabling Remote Login?",
+        "options": [
+          "Run `systemsetup -setremotelogin on` unconditionally and ignore any errors",
+          "Check the exit code, then parse the output for \"Off\", and only then run the enable command with sudo",
+          "Only check the output string and ignore the exit code",
+          "Use `sudo` to run `systemsetup -getremotelogin` and assume it always succeeds"
+        ],
+        "answer": 1,
+        "explanation": "The lesson advises a two‑step validation: first ensure the command succeeded (non‑zero exit code aborts), then examine the output for \"Off\" before invoking `sudo systemsetup -setremotelogin on`."
+      },
+      {
+        "id": "quiz-2-01",
+        "lesson_id": "ai-deskilling-mechanism-2026-10-31",
+        "prompt": "According to the lesson, what is the primary risk of SREs relying on AI‑generated incident summaries without reviewing raw logs?",
+        "options": [
+          "They may miss subtle failure patterns that the AI was not trained to detect.",
+          "They will reduce the overall incident resolution time.",
+          "The AI will automatically fix the underlying issue.",
+          "Their on‑call schedules will become shorter."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that skipping raw‑log review removes exposure that builds intuition, causing engineers to miss subtle patterns outside the AI’s trained scenarios."
+      },
+      {
+        "id": "quiz-2-02",
+        "lesson_id": "ai-deskilling-mechanism-2026-10-31",
+        "prompt": "What mitigation does the article recommend to prevent skill atrophy in SREs using AI assistance?",
+        "options": [
+          "Schedule regular manual investigations of incidents.",
+          "Disable AI tools during on‑call shifts.",
+          "Only use AI for non‑critical systems.",
+          "Replace all metric dashboards with AI summaries."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway advises treating AI tools as a supplement and deliberately scheduling manual investigations to keep mental models sharp."
+      }
+    ],
+    "segments": [
+      {
+        "id": "backdoor-claude-code-vscode-extension-story",
+        "title": "Claude Code Extension Leaves SSH Backdoor",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's October thirty one, two thousand twenty six.\n\nWe begin with our lead story. Claude Code for VS Code versions two point one three twelve and two point one three thirteen were found to drop SSH keys onto a developer’s machine and try to turn on Remote Login. The code runs with the IDE’s permissions, so it can read and write source files as soon as the extension loads. It even tricks macOS into thinking Remote Login is already on, leaving credentials behind without actually opening the daemon. Here’s why that matters: any system that ran those versions should be treated as potentially compromised and audited for stray SSH keys.",
+        "article_ids": [
+          "backdoor-claude-code-vscode-extension"
+        ]
+      },
+      {
+        "id": "ai-deskilling-sre-2026-10-31-segment",
+        "title": "AI assistants risk deskilling SREs",
+        "text": "Next on the bulletin. AI tools are already sorting metrics, logs and traces and even suggesting root causes, says the SigNoz team. That sounds like a boost, but the authors warn it can keep site reliability engineers from actually reading raw logs and building mental models of their systems. They’re not calling for a ban, just a careful rollout – keep a human in the loop until trust is earned. Here’s why that matters: keep some hands‑on incident work, or you risk losing the deep intuition that only experience builds.",
+        "article_ids": [
+          "ai-deskilling-sre-2026-10-31"
+        ]
+      },
+      {
+        "id": "northflank-ai-key-breach-2026-10-31-segment",
+        "title": "Northflank AI keys exposed, rotate now",
+        "text": "Turning to our next story. Northflank says attackers stole AI API keys from customers' environment variables.\n\nThe breach hit on October thirtieth and thirty‑first, knocked services offline and forced the platform to turn on audit logs for every account, even free ones. Users are told to treat every environment variable as compromised, revoke the keys with their providers and replace them in workloads, secret groups and global stores. Automatic rotation was also enabled for PostgreSQL and MongoDB secrets, and public add‑on exposure should be disabled.\n\nBottom line: if you run on Northflank, rotate all AI credentials today and double‑check your add‑on exposure settings.",
+        "article_ids": [
+          "northflank-ai-key-breach-2026-10-31"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Azure Logic Apps API Connections expose cross‑tenant takeover paths",
+        "text": "Next on the bulletin. Azure Logic Apps’ API Connections have a flaw that lets a malicious Logic App reach into another tenant’s connections, even ones pointing at Key Vault or Azure SQL. Microsoft’s patch simply blocks the vulnerable endpoints, but it doesn’t add any finer‑grained controls, so the risk could return if those endpoints are opened again. \nHere's why that matters: if you’re using Consumption‑mode Logic Apps, treat them as untrusted and keep sensitive back‑ends away from API Connections until Microsoft tightens the isolation.",
+        "article_ids": [
+          "azure-logic-apps-api-connections-cross-tenant-vuln"
+        ]
+      },
+      {
+        "id": "binance-hack-2026-brief-segment",
+        "title": "Binance freezes deposits after $6.3 billion hack",
+        "text": "And finally, our last story. Binance halted every deposit and withdrawal after a massive hack that siphoned roughly six point three billion dollars from wallets on ten blockchains. The breach unfolded in a twenty‑minute window on October twenty‑nine, with the attacker testing three tiny pulls before the full drain at about four p.m. Eastern time. Binance says it’s working with law‑enforcement to lock down about half of the stolen cash. \n\nIf you rely on Binance APIs, expect short‑term outages and build fallback paths for any deposit‑driven processes.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "binance-hack-2026-brief"
+        ]
+      }
+    ],
+    "artwork_brief": "A split‑screen illustration: on the left, a stylized Binance logo cracked open with streams of digital coins spilling out; on the right, a cloud icon with tangled, glowing threads connecting multiple tenant silhouettes, hinting at a hidden breach path."
+  },
+  "sources": [
+    {
+      "id": "source-a13f736d98945685",
+      "name": "Hacker News",
+      "title": "Backdoor in Claude Code for VS Code extension on the Cursor Marketplace",
+      "url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
+      "published_at": null,
+      "discovered_at": "2026-10-30T07:09:12Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50300683"
+    },
+    {
+      "id": "source-6055dc2671b073d0",
+      "name": "Lobsters",
+      "title": "The federated code forge",
+      "url": "https://tangled.org/blog/forge/",
+      "published_at": null,
+      "discovered_at": "2026-10-30T12:57:54.165-05:00",
+      "discussion_url": "https://lobste.rs/s/ukj8mm/federated_code_forge"
+    },
+    {
+      "id": "source-55737272f83db8f2",
+      "name": "Hacker News",
+      "title": "AI isn't replacing SREs, it's deskilling them",
+      "url": "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling",
+      "published_at": null,
+      "discovered_at": "2026-10-30T15:52:18Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50305693"
+    },
+    {
+      "id": "source-ba4f0ba987a7b511",
+      "name": "NVIDIA Developer",
+      "title": "Run AI Models for Edge Application Development with Just a Few Commands",
+      "url": "https://developer.nvidia.com/blog/run-ai-models-for-edge-application-development-with-just-a-few-commands/",
+      "published_at": "2026-10-30T20:33:18Z",
+      "discovered_at": "2026-10-31T06:00:53.489284519Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-4d4206ade98bad0a",
+      "name": "Cloudflare Blog",
+      "title": "Cloudflare services for private origins is now generally available",
+      "url": "https://blog.cloudflare.com/private-origins-public-to-private/",
+      "published_at": "2026-10-30T14:23:43Z",
+      "discovered_at": "2026-10-31T06:00:52.01127865Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-b49e140ae02cf75c",
+      "name": "Hacker News",
+      "title": "Northflank Breached",
+      "url": "https://status.northflank.com",
+      "published_at": null,
+      "discovered_at": "2026-10-30T15:10:31Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50305025"
+    },
+    {
+      "id": "source-e0174682f4170dd9",
+      "name": "Hacker News",
+      "title": "The $6.3B Binance hack was pulled off in just 20 minutes",
+      "url": "https://www.wired.com/story/the-dollar63-billion-binance-hack-was-pulled-off-in-just-20-minutes/",
+      "published_at": null,
+      "discovered_at": "2026-10-30T12:50:01Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50303172"
+    },
+    {
+      "id": "source-1f8c31d7527badfd",
+      "name": "NVIDIA Developer",
+      "title": "How to Check and Configure NVIDIA GPUDirect Storage for Your Platform",
+      "url": "https://developer.nvidia.com/blog/how-to-check-and-configure-nvidia-gpudirect-storage-for-your-platform/",
+      "published_at": "2026-10-30T15:01:36Z",
+      "discovered_at": "2026-10-31T06:00:53.489284519Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-8dff2cf2a4582063",
+      "name": "Hacker News",
+      "title": "Herdr has released native app",
+      "url": "https://github.com/herdrdev/herdr-app",
+      "published_at": null,
+      "discovered_at": "2026-10-30T00:42:41Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50298436"
+    },
+    {
+      "id": "source-0d3b5aac153790f5",
+      "name": "Hacker News",
+      "title": "Azure's Weakest Link – Five Full Cross-Tenant Compromises",
+      "url": "https://www.binarysecurity.no/posts/2026/10/one-root-case",
+      "published_at": null,
+      "discovered_at": "2026-10-30T10:06:15Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50301854"
+    },
+    {
+      "id": "source-71530bd0339b4fed",
+      "name": "Lobsters",
+      "title": "Go 1.28's HTTP/2 Parking: Measuring Memory Savings",
+      "url": "https://abdolirad.me/articles/go-1-28-http2-parking-memory/",
+      "published_at": null,
+      "discovered_at": "2026-10-30T10:39:37.924-05:00",
+      "discussion_url": "https://lobste.rs/s/mhmqky/go_1_28_s_http_2_parking_measuring_memory"
+    },
+    {
+      "id": "source-44da56d320b41406",
+      "name": "Hacker News",
+      "title": "Show HN: A working Nintendo in ~1GB of Qwen weights",
+      "url": "https://github.com/dbreunig/nesformer",
+      "published_at": null,
+      "discovered_at": "2026-10-30T16:40:22Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50306442"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-10-31/9ab74bdfe7b6f2990eae243a8042224d21bd4ef1b3e523712808fb8bda190be7.mp3",
+    "duration_seconds": 215.735,
+    "script_hash": "bd341f6346702f69df82c8c4512921756bb64737ddd18ee47dd68eff4136b7ce",
+    "cues": [
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Hello",
+        "start_seconds": 0.375,
+        "end_seconds": 0.7625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "everyone,",
+        "start_seconds": 0.7625,
+        "end_seconds": 1.375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "and",
+        "start_seconds": 1.375,
+        "end_seconds": 1.5125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "welcome",
+        "start_seconds": 1.5125,
+        "end_seconds": 1.95
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "to",
+        "start_seconds": 1.95,
+        "end_seconds": 2.075
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Daywire.",
+        "start_seconds": 2.075,
+        "end_seconds": 3.1625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Let's",
+        "start_seconds": 3.1625,
+        "end_seconds": 3.45
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "make",
+        "start_seconds": 3.45,
+        "end_seconds": 3.6875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "sense",
+        "start_seconds": 3.6875,
+        "end_seconds": 4.0125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "of",
+        "start_seconds": 4.0125,
+        "end_seconds": 4.0875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "the",
+        "start_seconds": 4.0875,
+        "end_seconds": 4.1875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "tech",
+        "start_seconds": 4.1875,
+        "end_seconds": 4.45
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "news.",
+        "start_seconds": 4.45,
+        "end_seconds": 5.25
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "It's",
+        "start_seconds": 5.25,
+        "end_seconds": 5.425
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "October",
+        "start_seconds": 5.425,
+        "end_seconds": 5.9625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "thirty",
+        "start_seconds": 5.9625,
+        "end_seconds": 6.3125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "one,",
+        "start_seconds": 6.3125,
+        "end_seconds": 6.8875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "two",
+        "start_seconds": 6.8875,
+        "end_seconds": 7.125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "thousand",
+        "start_seconds": 7.125,
+        "end_seconds": 7.5125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "twenty",
+        "start_seconds": 7.5125,
+        "end_seconds": 7.7875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "six.",
+        "start_seconds": 7.7875,
+        "end_seconds": 8.675
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "We",
+        "start_seconds": 9.975,
+        "end_seconds": 10.075
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "begin",
+        "start_seconds": 10.075,
+        "end_seconds": 10.45
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "with",
+        "start_seconds": 10.45,
+        "end_seconds": 10.5875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "our",
+        "start_seconds": 10.5875,
+        "end_seconds": 10.725
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "lead",
+        "start_seconds": 10.725,
+        "end_seconds": 11
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "story.",
+        "start_seconds": 11,
+        "end_seconds": 12.0125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Claude",
+        "start_seconds": 12.0125,
+        "end_seconds": 12.325
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Code",
+        "start_seconds": 12.325,
+        "end_seconds": 12.65
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "for",
+        "start_seconds": 12.65,
+        "end_seconds": 12.775
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "VS",
+        "start_seconds": 12.775,
+        "end_seconds": 13.075
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Code",
+        "start_seconds": 13.075,
+        "end_seconds": 13.35
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "versions",
+        "start_seconds": 13.35,
+        "end_seconds": 13.9125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "two",
+        "start_seconds": 13.9125,
+        "end_seconds": 14.125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "point",
+        "start_seconds": 14.125,
+        "end_seconds": 14.4
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "one",
+        "start_seconds": 14.4,
+        "end_seconds": 14.625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "three",
+        "start_seconds": 14.625,
+        "end_seconds": 14.85
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "twelve",
+        "start_seconds": 14.85,
+        "end_seconds": 15.5375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "and",
+        "start_seconds": 15.5375,
+        "end_seconds": 15.6875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "two",
+        "start_seconds": 15.6875,
+        "end_seconds": 15.925
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "point",
+        "start_seconds": 15.925,
+        "end_seconds": 16.2
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "one",
+        "start_seconds": 16.2,
+        "end_seconds": 16.425
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "three",
+        "start_seconds": 16.425,
+        "end_seconds": 16.65
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "thirteen",
+        "start_seconds": 16.65,
+        "end_seconds": 17.5125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "were",
+        "start_seconds": 17.5125,
+        "end_seconds": 17.65
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "found",
+        "start_seconds": 17.65,
+        "end_seconds": 17.9375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "to",
+        "start_seconds": 17.9375,
+        "end_seconds": 18.025
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "drop",
+        "start_seconds": 18.025,
+        "end_seconds": 18.325
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "SSH",
+        "start_seconds": 18.325,
+        "end_seconds": 18.9625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "keys",
+        "start_seconds": 18.9625,
+        "end_seconds": 19.375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "onto",
+        "start_seconds": 19.375,
+        "end_seconds": 19.6125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "a",
+        "start_seconds": 19.6125,
+        "end_seconds": 19.6625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "developer’s",
+        "start_seconds": 19.6625,
+        "end_seconds": 20.2
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "machine",
+        "start_seconds": 20.2,
+        "end_seconds": 21.0125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "and",
+        "start_seconds": 21.0125,
+        "end_seconds": 21.15
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "try",
+        "start_seconds": 21.15,
+        "end_seconds": 21.3625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "to",
+        "start_seconds": 21.3625,
+        "end_seconds": 21.45
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "turn",
+        "start_seconds": 21.45,
+        "end_seconds": 21.7125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "on",
+        "start_seconds": 21.7125,
+        "end_seconds": 21.825
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Remote",
+        "start_seconds": 21.825,
+        "end_seconds": 22.2
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Login.",
+        "start_seconds": 22.2,
+        "end_seconds": 23.3375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "The",
+        "start_seconds": 23.3375,
+        "end_seconds": 23.4875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "code",
+        "start_seconds": 23.4875,
+        "end_seconds": 23.8625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "runs",
+        "start_seconds": 23.8625,
+        "end_seconds": 24.2375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "with",
+        "start_seconds": 24.2375,
+        "end_seconds": 24.3375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "the",
+        "start_seconds": 24.3375,
+        "end_seconds": 24.45
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "IDE’s",
+        "start_seconds": 24.45,
+        "end_seconds": 25.025
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "permissions,",
+        "start_seconds": 25.025,
+        "end_seconds": 26.025
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "so",
+        "start_seconds": 26.025,
+        "end_seconds": 26.1625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "it",
+        "start_seconds": 26.1625,
+        "end_seconds": 26.2375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "can",
+        "start_seconds": 26.2375,
+        "end_seconds": 26.4125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "read",
+        "start_seconds": 26.4125,
+        "end_seconds": 26.8
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "and",
+        "start_seconds": 26.8,
+        "end_seconds": 26.925
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "write",
+        "start_seconds": 26.925,
+        "end_seconds": 27.2375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "source",
+        "start_seconds": 27.2375,
+        "end_seconds": 27.575
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "files",
+        "start_seconds": 27.575,
+        "end_seconds": 28.025
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "as",
+        "start_seconds": 28.025,
+        "end_seconds": 28.15
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "soon",
+        "start_seconds": 28.15,
+        "end_seconds": 28.3375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "as",
+        "start_seconds": 28.3375,
+        "end_seconds": 28.4375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "the",
+        "start_seconds": 28.4375,
+        "end_seconds": 28.575
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "extension",
+        "start_seconds": 28.575,
+        "end_seconds": 29.15
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "loads.",
+        "start_seconds": 29.15,
+        "end_seconds": 30.1
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "It",
+        "start_seconds": 30.1,
+        "end_seconds": 30.2375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "even",
+        "start_seconds": 30.2375,
+        "end_seconds": 30.475
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "tricks",
+        "start_seconds": 30.475,
+        "end_seconds": 30.775
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "macOS",
+        "start_seconds": 30.775,
+        "end_seconds": 31.3875
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "into",
+        "start_seconds": 31.3875,
+        "end_seconds": 31.6375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "thinking",
+        "start_seconds": 31.6375,
+        "end_seconds": 32
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Remote",
+        "start_seconds": 32,
+        "end_seconds": 32.375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Login",
+        "start_seconds": 32.375,
+        "end_seconds": 32.9
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "is",
+        "start_seconds": 32.9,
+        "end_seconds": 33.05
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "already",
+        "start_seconds": 33.05,
+        "end_seconds": 33.45
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "on,",
+        "start_seconds": 33.45,
+        "end_seconds": 34.1625
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "leaving",
+        "start_seconds": 34.1625,
+        "end_seconds": 34.5
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "credentials",
+        "start_seconds": 34.5,
+        "end_seconds": 35.075
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "behind",
+        "start_seconds": 35.075,
+        "end_seconds": 35.575
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "without",
+        "start_seconds": 35.575,
+        "end_seconds": 35.9375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "actually",
+        "start_seconds": 35.9375,
+        "end_seconds": 36.4125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "opening",
+        "start_seconds": 36.4125,
+        "end_seconds": 36.8375
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "the",
+        "start_seconds": 36.8375,
+        "end_seconds": 36.925
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "daemon.",
+        "start_seconds": 36.925,
+        "end_seconds": 37.9125
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "Here’s",
+        "start_seconds": 38.47,
+        "end_seconds": 39.22
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "why",
+        "start_seconds": 39.22,
+        "end_seconds": 39.394999999999996
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "that",
+        "start_seconds": 39.394999999999996,
+        "end_seconds": 39.62
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "matters:",
+        "start_seconds": 39.62,
+        "end_seconds": 40.607499999999995
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "any",
+        "start_seconds": 40.607499999999995,
+        "end_seconds": 40.9325
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "system",
+        "start_seconds": 40.9325,
+        "end_seconds": 41.294999999999995
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "that",
+        "start_seconds": 41.294999999999995,
+        "end_seconds": 41.445
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "ran",
+        "start_seconds": 41.445,
+        "end_seconds": 41.794999999999995
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "those",
+        "start_seconds": 41.794999999999995,
+        "end_seconds": 42.044999999999995
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "versions",
+        "start_seconds": 42.044999999999995,
+        "end_seconds": 42.595
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "should",
+        "start_seconds": 42.595,
+        "end_seconds": 42.732499999999995
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "be",
+        "start_seconds": 42.732499999999995,
+        "end_seconds": 42.8825
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "treated",
+        "start_seconds": 42.8825,
+        "end_seconds": 43.32
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "as",
+        "start_seconds": 43.32,
+        "end_seconds": 43.47
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "potentially",
+        "start_seconds": 43.47,
+        "end_seconds": 44.07
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "compromised",
+        "start_seconds": 44.07,
+        "end_seconds": 45.144999999999996
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "and",
+        "start_seconds": 45.144999999999996,
+        "end_seconds": 45.332499999999996
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "audited",
+        "start_seconds": 45.332499999999996,
+        "end_seconds": 45.794999999999995
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "for",
+        "start_seconds": 45.794999999999995,
+        "end_seconds": 45.957499999999996
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "stray",
+        "start_seconds": 45.957499999999996,
+        "end_seconds": 46.42
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "SSH",
+        "start_seconds": 46.42,
+        "end_seconds": 47.0575
+      },
+      {
+        "segment_id": "backdoor-claude-code-vscode-extension-story",
+        "text": "keys.",
+        "start_seconds": 47.0575,
+        "end_seconds": 48.019999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "Next",
+        "start_seconds": 49.37,
+        "end_seconds": 49.6575
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "on",
+        "start_seconds": 49.6575,
+        "end_seconds": 49.7825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "the",
+        "start_seconds": 49.7825,
+        "end_seconds": 49.87
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "bulletin.",
+        "start_seconds": 49.87,
+        "end_seconds": 50.945
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "AI",
+        "start_seconds": 50.945,
+        "end_seconds": 51.3825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "tools",
+        "start_seconds": 51.3825,
+        "end_seconds": 51.795
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "are",
+        "start_seconds": 51.795,
+        "end_seconds": 51.894999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "already",
+        "start_seconds": 51.894999999999996,
+        "end_seconds": 52.2825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "sorting",
+        "start_seconds": 52.2825,
+        "end_seconds": 52.695
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "metrics,",
+        "start_seconds": 52.695,
+        "end_seconds": 53.5575
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "logs",
+        "start_seconds": 53.5575,
+        "end_seconds": 54.0575
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 54.0575,
+        "end_seconds": 54.17
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "traces",
+        "start_seconds": 54.17,
+        "end_seconds": 54.769999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 54.769999999999996,
+        "end_seconds": 54.894999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "even",
+        "start_seconds": 54.894999999999996,
+        "end_seconds": 55.195
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "suggesting",
+        "start_seconds": 55.195,
+        "end_seconds": 55.769999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "root",
+        "start_seconds": 55.769999999999996,
+        "end_seconds": 55.995
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "causes,",
+        "start_seconds": 55.995,
+        "end_seconds": 56.8575
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "says",
+        "start_seconds": 56.8575,
+        "end_seconds": 57.12
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "the",
+        "start_seconds": 57.12,
+        "end_seconds": 57.269999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "SigNoz",
+        "start_seconds": 57.269999999999996,
+        "end_seconds": 57.9325
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "team.",
+        "start_seconds": 57.9325,
+        "end_seconds": 58.9325
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "That",
+        "start_seconds": 58.9325,
+        "end_seconds": 59.195
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "sounds",
+        "start_seconds": 59.195,
+        "end_seconds": 59.4825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "like",
+        "start_seconds": 59.4825,
+        "end_seconds": 59.6325
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "a",
+        "start_seconds": 59.6325,
+        "end_seconds": 59.707499999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "boost,",
+        "start_seconds": 59.707499999999996,
+        "end_seconds": 60.47
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "but",
+        "start_seconds": 60.47,
+        "end_seconds": 60.6075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "the",
+        "start_seconds": 60.6075,
+        "end_seconds": 60.7575
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "authors",
+        "start_seconds": 60.7575,
+        "end_seconds": 61.1825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "warn",
+        "start_seconds": 61.1825,
+        "end_seconds": 61.5075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "it",
+        "start_seconds": 61.5075,
+        "end_seconds": 61.595
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "can",
+        "start_seconds": 61.595,
+        "end_seconds": 61.769999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "keep",
+        "start_seconds": 61.769999999999996,
+        "end_seconds": 62.0075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "site",
+        "start_seconds": 62.0075,
+        "end_seconds": 62.295
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "reliability",
+        "start_seconds": 62.295,
+        "end_seconds": 63.144999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "engineers",
+        "start_seconds": 63.144999999999996,
+        "end_seconds": 63.769999999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "from",
+        "start_seconds": 63.769999999999996,
+        "end_seconds": 63.957499999999996
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "actually",
+        "start_seconds": 63.957499999999996,
+        "end_seconds": 64.395
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "reading",
+        "start_seconds": 64.395,
+        "end_seconds": 64.72
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "raw",
+        "start_seconds": 64.72,
+        "end_seconds": 64.995
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "logs",
+        "start_seconds": 64.995,
+        "end_seconds": 65.7075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 65.7075,
+        "end_seconds": 65.845
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "building",
+        "start_seconds": 65.845,
+        "end_seconds": 66.195
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "mental",
+        "start_seconds": 66.195,
+        "end_seconds": 66.57
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "models",
+        "start_seconds": 66.57,
+        "end_seconds": 66.9325
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "of",
+        "start_seconds": 66.9325,
+        "end_seconds": 67.0075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "their",
+        "start_seconds": 67.0075,
+        "end_seconds": 67.2075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "systems.",
+        "start_seconds": 67.2075,
+        "end_seconds": 68.4325
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "They’re",
+        "start_seconds": 68.4325,
+        "end_seconds": 68.5825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "not",
+        "start_seconds": 68.5825,
+        "end_seconds": 68.7825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "calling",
+        "start_seconds": 68.7825,
+        "end_seconds": 69.17
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "for",
+        "start_seconds": 69.17,
+        "end_seconds": 69.2825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "a",
+        "start_seconds": 69.2825,
+        "end_seconds": 69.345
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "ban,",
+        "start_seconds": 69.345,
+        "end_seconds": 70.095
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "just",
+        "start_seconds": 70.095,
+        "end_seconds": 70.3075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "a",
+        "start_seconds": 70.3075,
+        "end_seconds": 70.4075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "careful",
+        "start_seconds": 70.4075,
+        "end_seconds": 70.845
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "rollout",
+        "start_seconds": 70.845,
+        "end_seconds": 71.5825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "–",
+        "start_seconds": 71.5825,
+        "end_seconds": 71.67
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "keep",
+        "start_seconds": 71.67,
+        "end_seconds": 71.8575
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "a",
+        "start_seconds": 71.8575,
+        "end_seconds": 71.9325
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "human",
+        "start_seconds": 71.9325,
+        "end_seconds": 72.3075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "in",
+        "start_seconds": 72.3075,
+        "end_seconds": 72.3825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "the",
+        "start_seconds": 72.3825,
+        "end_seconds": 72.4825
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "loop",
+        "start_seconds": 72.4825,
+        "end_seconds": 72.7575
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "until",
+        "start_seconds": 72.7575,
+        "end_seconds": 73.0575
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "trust",
+        "start_seconds": 73.0575,
+        "end_seconds": 73.4325
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "is",
+        "start_seconds": 73.4325,
+        "end_seconds": 73.57
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "earned.",
+        "start_seconds": 73.57,
+        "end_seconds": 74.5075
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "Here’s",
+        "start_seconds": 75.09,
+        "end_seconds": 75.79
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "why",
+        "start_seconds": 75.79,
+        "end_seconds": 75.965
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "that",
+        "start_seconds": 75.965,
+        "end_seconds": 76.19
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "matters:",
+        "start_seconds": 76.19,
+        "end_seconds": 77.1525
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "keep",
+        "start_seconds": 77.1525,
+        "end_seconds": 77.39
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "some",
+        "start_seconds": 77.39,
+        "end_seconds": 77.6025
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "hands‑on",
+        "start_seconds": 77.6025,
+        "end_seconds": 78.215
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "incident",
+        "start_seconds": 78.215,
+        "end_seconds": 78.665
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "work,",
+        "start_seconds": 78.665,
+        "end_seconds": 79.315
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "or",
+        "start_seconds": 79.315,
+        "end_seconds": 79.465
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "you",
+        "start_seconds": 79.465,
+        "end_seconds": 79.61500000000001
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "risk",
+        "start_seconds": 79.61500000000001,
+        "end_seconds": 79.92750000000001
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "losing",
+        "start_seconds": 79.92750000000001,
+        "end_seconds": 80.315
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "the",
+        "start_seconds": 80.315,
+        "end_seconds": 80.465
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "deep",
+        "start_seconds": 80.465,
+        "end_seconds": 80.7525
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "intuition",
+        "start_seconds": 80.7525,
+        "end_seconds": 81.39
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "that",
+        "start_seconds": 81.39,
+        "end_seconds": 81.54
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "only",
+        "start_seconds": 81.54,
+        "end_seconds": 81.86500000000001
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "experience",
+        "start_seconds": 81.86500000000001,
+        "end_seconds": 82.565
+      },
+      {
+        "segment_id": "ai-deskilling-sre-2026-10-31-segment",
+        "text": "builds.",
+        "start_seconds": 82.565,
+        "end_seconds": 83.59
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "Turning",
+        "start_seconds": 84.89,
+        "end_seconds": 85.24000000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "to",
+        "start_seconds": 85.24000000000001,
+        "end_seconds": 85.3275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "our",
+        "start_seconds": 85.3275,
+        "end_seconds": 85.465
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "next",
+        "start_seconds": 85.465,
+        "end_seconds": 85.74000000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "story.",
+        "start_seconds": 85.74000000000001,
+        "end_seconds": 86.765
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "Northflank",
+        "start_seconds": 86.765,
+        "end_seconds": 87.34
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "says",
+        "start_seconds": 87.34,
+        "end_seconds": 87.54
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "attackers",
+        "start_seconds": 87.54,
+        "end_seconds": 88.11500000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "stole",
+        "start_seconds": 88.11500000000001,
+        "end_seconds": 88.55250000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "AI",
+        "start_seconds": 88.55250000000001,
+        "end_seconds": 89.0775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "API",
+        "start_seconds": 89.0775,
+        "end_seconds": 89.75250000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "keys",
+        "start_seconds": 89.75250000000001,
+        "end_seconds": 90.39
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "from",
+        "start_seconds": 90.39,
+        "end_seconds": 90.59
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "customers'",
+        "start_seconds": 90.59,
+        "end_seconds": 91.11500000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "environment",
+        "start_seconds": 91.11500000000001,
+        "end_seconds": 91.69000000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "variables.",
+        "start_seconds": 91.69000000000001,
+        "end_seconds": 92.81500000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "The",
+        "start_seconds": 94.115,
+        "end_seconds": 94.19
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "breach",
+        "start_seconds": 94.19,
+        "end_seconds": 94.49
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "hit",
+        "start_seconds": 94.49,
+        "end_seconds": 94.6275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "on",
+        "start_seconds": 94.6275,
+        "end_seconds": 94.74
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "October",
+        "start_seconds": 94.74,
+        "end_seconds": 95.2025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "thirtieth",
+        "start_seconds": 95.2025,
+        "end_seconds": 95.6775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 95.6775,
+        "end_seconds": 95.79
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "thirty‑first,",
+        "start_seconds": 95.79,
+        "end_seconds": 96.8775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "knocked",
+        "start_seconds": 96.8775,
+        "end_seconds": 97.2525
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "services",
+        "start_seconds": 97.2525,
+        "end_seconds": 97.8275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "offline",
+        "start_seconds": 97.8275,
+        "end_seconds": 98.415
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 98.415,
+        "end_seconds": 98.5525
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "forced",
+        "start_seconds": 98.5525,
+        "end_seconds": 98.8525
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "the",
+        "start_seconds": 98.8525,
+        "end_seconds": 98.94
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "platform",
+        "start_seconds": 98.94,
+        "end_seconds": 99.515
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "to",
+        "start_seconds": 99.515,
+        "end_seconds": 99.615
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "turn",
+        "start_seconds": 99.615,
+        "end_seconds": 99.8775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "on",
+        "start_seconds": 99.8775,
+        "end_seconds": 100.0275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "audit",
+        "start_seconds": 100.0275,
+        "end_seconds": 100.315
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "logs",
+        "start_seconds": 100.315,
+        "end_seconds": 100.74
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "for",
+        "start_seconds": 100.74,
+        "end_seconds": 100.865
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "every",
+        "start_seconds": 100.865,
+        "end_seconds": 101.165
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "account,",
+        "start_seconds": 101.165,
+        "end_seconds": 101.965
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "even",
+        "start_seconds": 101.965,
+        "end_seconds": 102.2775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "free",
+        "start_seconds": 102.2775,
+        "end_seconds": 102.515
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "ones.",
+        "start_seconds": 102.515,
+        "end_seconds": 103.54
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "Users",
+        "start_seconds": 103.54,
+        "end_seconds": 103.9275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "are",
+        "start_seconds": 103.9275,
+        "end_seconds": 104.015
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "told",
+        "start_seconds": 104.015,
+        "end_seconds": 104.3025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "to",
+        "start_seconds": 104.3025,
+        "end_seconds": 104.39
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "treat",
+        "start_seconds": 104.39,
+        "end_seconds": 104.6775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "every",
+        "start_seconds": 104.6775,
+        "end_seconds": 104.9775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "environment",
+        "start_seconds": 104.9775,
+        "end_seconds": 105.5775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "variable",
+        "start_seconds": 105.5775,
+        "end_seconds": 106.065
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "as",
+        "start_seconds": 106.065,
+        "end_seconds": 106.215
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "compromised,",
+        "start_seconds": 106.215,
+        "end_seconds": 107.39
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "revoke",
+        "start_seconds": 107.39,
+        "end_seconds": 107.74
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "the",
+        "start_seconds": 107.74,
+        "end_seconds": 107.8525
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "keys",
+        "start_seconds": 107.8525,
+        "end_seconds": 108.2275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "with",
+        "start_seconds": 108.2275,
+        "end_seconds": 108.3275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "their",
+        "start_seconds": 108.3275,
+        "end_seconds": 108.465
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "providers",
+        "start_seconds": 108.465,
+        "end_seconds": 109.44
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 109.44,
+        "end_seconds": 109.5775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "replace",
+        "start_seconds": 109.5775,
+        "end_seconds": 109.99000000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "them",
+        "start_seconds": 109.99000000000001,
+        "end_seconds": 110.19
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "in",
+        "start_seconds": 110.19,
+        "end_seconds": 110.34
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "workloads,",
+        "start_seconds": 110.34,
+        "end_seconds": 111.41499999999999
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "secret",
+        "start_seconds": 111.41499999999999,
+        "end_seconds": 111.815
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "groups",
+        "start_seconds": 111.815,
+        "end_seconds": 112.215
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 112.215,
+        "end_seconds": 112.34
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "global",
+        "start_seconds": 112.34,
+        "end_seconds": 112.72749999999999
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "stores.",
+        "start_seconds": 112.72749999999999,
+        "end_seconds": 113.9025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "Automatic",
+        "start_seconds": 113.9025,
+        "end_seconds": 114.515
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "rotation",
+        "start_seconds": 114.515,
+        "end_seconds": 115.16499999999999
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "was",
+        "start_seconds": 115.16499999999999,
+        "end_seconds": 115.28999999999999
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "also",
+        "start_seconds": 115.28999999999999,
+        "end_seconds": 115.69
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "enabled",
+        "start_seconds": 115.69,
+        "end_seconds": 116.14
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "for",
+        "start_seconds": 116.14,
+        "end_seconds": 116.30250000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "PostgreSQL",
+        "start_seconds": 116.30250000000001,
+        "end_seconds": 117.49000000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 117.49000000000001,
+        "end_seconds": 117.61500000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "MongoDB",
+        "start_seconds": 117.61500000000001,
+        "end_seconds": 118.2025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "secrets,",
+        "start_seconds": 118.2025,
+        "end_seconds": 119.16499999999999
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 119.16499999999999,
+        "end_seconds": 119.28999999999999
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "public",
+        "start_seconds": 119.28999999999999,
+        "end_seconds": 119.67750000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "add‑on",
+        "start_seconds": 119.67750000000001,
+        "end_seconds": 120.0025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "exposure",
+        "start_seconds": 120.0025,
+        "end_seconds": 120.61500000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "should",
+        "start_seconds": 120.61500000000001,
+        "end_seconds": 120.7525
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "be",
+        "start_seconds": 120.7525,
+        "end_seconds": 120.89
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "disabled.",
+        "start_seconds": 120.89,
+        "end_seconds": 122.015
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "Bottom",
+        "start_seconds": 123.34,
+        "end_seconds": 123.69
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "line:",
+        "start_seconds": 123.69,
+        "end_seconds": 124.55250000000001
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "if",
+        "start_seconds": 124.55250000000001,
+        "end_seconds": 124.69
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "you",
+        "start_seconds": 124.69,
+        "end_seconds": 124.815
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "run",
+        "start_seconds": 124.815,
+        "end_seconds": 125.0025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "on",
+        "start_seconds": 125.0025,
+        "end_seconds": 125.165
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "Northflank,",
+        "start_seconds": 125.165,
+        "end_seconds": 126.0775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "rotate",
+        "start_seconds": 126.0775,
+        "end_seconds": 126.6025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "all",
+        "start_seconds": 126.6025,
+        "end_seconds": 126.9025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "AI",
+        "start_seconds": 126.9025,
+        "end_seconds": 127.315
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "credentials",
+        "start_seconds": 127.315,
+        "end_seconds": 127.89
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "today",
+        "start_seconds": 127.89,
+        "end_seconds": 128.4775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "and",
+        "start_seconds": 128.4775,
+        "end_seconds": 128.6275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "double‑check",
+        "start_seconds": 128.6275,
+        "end_seconds": 129.2275
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "your",
+        "start_seconds": 129.2275,
+        "end_seconds": 129.3775
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "add‑on",
+        "start_seconds": 129.3775,
+        "end_seconds": 129.79
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "exposure",
+        "start_seconds": 129.79,
+        "end_seconds": 130.4025
+      },
+      {
+        "segment_id": "northflank-ai-key-breach-2026-10-31-segment",
+        "text": "settings.",
+        "start_seconds": 130.4025,
+        "end_seconds": 131.415
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 132.76500000000001,
+        "end_seconds": 133.0525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 133.0525,
+        "end_seconds": 133.1775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 133.1775,
+        "end_seconds": 133.26500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 133.26500000000001,
+        "end_seconds": 134.34
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Azure",
+        "start_seconds": 134.34,
+        "end_seconds": 134.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Logic",
+        "start_seconds": 134.74,
+        "end_seconds": 135.10250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Apps’",
+        "start_seconds": 135.10250000000002,
+        "end_seconds": 135.7775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "API",
+        "start_seconds": 135.7775,
+        "end_seconds": 136.41500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Connections",
+        "start_seconds": 136.41500000000002,
+        "end_seconds": 137.04000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 137.04000000000002,
+        "end_seconds": 137.20250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 137.20250000000001,
+        "end_seconds": 137.29000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flaw",
+        "start_seconds": 137.29000000000002,
+        "end_seconds": 137.66500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 137.66500000000002,
+        "end_seconds": 137.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lets",
+        "start_seconds": 137.815,
+        "end_seconds": 138.0275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 138.0275,
+        "end_seconds": 138.09
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "malicious",
+        "start_seconds": 138.09,
+        "end_seconds": 138.6525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Logic",
+        "start_seconds": 138.6525,
+        "end_seconds": 139.01500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "App",
+        "start_seconds": 139.01500000000001,
+        "end_seconds": 139.3025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "reach",
+        "start_seconds": 139.3025,
+        "end_seconds": 139.60250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "into",
+        "start_seconds": 139.60250000000002,
+        "end_seconds": 139.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "another",
+        "start_seconds": 139.84,
+        "end_seconds": 140.215
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tenant’s",
+        "start_seconds": 140.215,
+        "end_seconds": 140.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "connections,",
+        "start_seconds": 140.615,
+        "end_seconds": 141.70250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "even",
+        "start_seconds": 141.70250000000001,
+        "end_seconds": 141.99
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ones",
+        "start_seconds": 141.99,
+        "end_seconds": 142.3025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pointing",
+        "start_seconds": 142.3025,
+        "end_seconds": 142.76500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "at",
+        "start_seconds": 142.76500000000001,
+        "end_seconds": 142.9275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Key",
+        "start_seconds": 142.9275,
+        "end_seconds": 143.20250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Vault",
+        "start_seconds": 143.20250000000001,
+        "end_seconds": 143.6525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 143.6525,
+        "end_seconds": 143.82750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Azure",
+        "start_seconds": 143.82750000000001,
+        "end_seconds": 144.22750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "SQL.",
+        "start_seconds": 144.22750000000002,
+        "end_seconds": 145.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Microsoft’s",
+        "start_seconds": 145.365,
+        "end_seconds": 146.1525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patch",
+        "start_seconds": 146.1525,
+        "end_seconds": 146.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "simply",
+        "start_seconds": 146.565,
+        "end_seconds": 146.9275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "blocks",
+        "start_seconds": 146.9275,
+        "end_seconds": 147.34
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 147.34,
+        "end_seconds": 147.47750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vulnerable",
+        "start_seconds": 147.47750000000002,
+        "end_seconds": 148.065
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "endpoints,",
+        "start_seconds": 148.065,
+        "end_seconds": 149.09
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 149.09,
+        "end_seconds": 149.22750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 149.22750000000002,
+        "end_seconds": 149.3025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "doesn’t",
+        "start_seconds": 149.3025,
+        "end_seconds": 149.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "add",
+        "start_seconds": 149.565,
+        "end_seconds": 149.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 149.815,
+        "end_seconds": 150.07750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "finer‑grained",
+        "start_seconds": 150.07750000000001,
+        "end_seconds": 150.76500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "controls,",
+        "start_seconds": 150.76500000000001,
+        "end_seconds": 151.76500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "so",
+        "start_seconds": 151.76500000000001,
+        "end_seconds": 151.91500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 151.91500000000002,
+        "end_seconds": 152.04000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "risk",
+        "start_seconds": 152.04000000000002,
+        "end_seconds": 152.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "could",
+        "start_seconds": 152.365,
+        "end_seconds": 152.51500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "return",
+        "start_seconds": 152.51500000000001,
+        "end_seconds": 153.01500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "if",
+        "start_seconds": 153.01500000000001,
+        "end_seconds": 153.16500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "those",
+        "start_seconds": 153.16500000000002,
+        "end_seconds": 153.45250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "endpoints",
+        "start_seconds": 153.45250000000001,
+        "end_seconds": 153.95250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 153.95250000000001,
+        "end_seconds": 154.04000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "opened",
+        "start_seconds": 154.04000000000002,
+        "end_seconds": 154.39000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "again.",
+        "start_seconds": 154.39000000000001,
+        "end_seconds": 155.32750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 155.885,
+        "end_seconds": 156.185
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 156.185,
+        "end_seconds": 156.385
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 156.385,
+        "end_seconds": 156.60999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 156.60999999999999,
+        "end_seconds": 157.6475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "if",
+        "start_seconds": 157.6475,
+        "end_seconds": 157.785
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you’re",
+        "start_seconds": 157.785,
+        "end_seconds": 157.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "using",
+        "start_seconds": 157.91,
+        "end_seconds": 158.285
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Consumption‑mode",
+        "start_seconds": 158.285,
+        "end_seconds": 159.2225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Logic",
+        "start_seconds": 159.2225,
+        "end_seconds": 159.6225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Apps,",
+        "start_seconds": 159.6225,
+        "end_seconds": 160.3225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "treat",
+        "start_seconds": 160.3225,
+        "end_seconds": 160.60999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "them",
+        "start_seconds": 160.60999999999999,
+        "end_seconds": 160.835
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 160.835,
+        "end_seconds": 160.9975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "untrusted",
+        "start_seconds": 160.9975,
+        "end_seconds": 161.9725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 161.9725,
+        "end_seconds": 162.10999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "keep",
+        "start_seconds": 162.10999999999999,
+        "end_seconds": 162.41
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sensitive",
+        "start_seconds": 162.41,
+        "end_seconds": 162.96
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "back‑ends",
+        "start_seconds": 162.96,
+        "end_seconds": 163.51
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "away",
+        "start_seconds": 163.51,
+        "end_seconds": 163.885
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 163.885,
+        "end_seconds": 164.0975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "API",
+        "start_seconds": 164.0975,
+        "end_seconds": 164.73499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Connections",
+        "start_seconds": 164.73499999999999,
+        "end_seconds": 165.7225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "until",
+        "start_seconds": 165.7225,
+        "end_seconds": 166.035
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Microsoft",
+        "start_seconds": 166.035,
+        "end_seconds": 166.79749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tightens",
+        "start_seconds": 166.79749999999999,
+        "end_seconds": 167.26
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 167.26,
+        "end_seconds": 167.41
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "isolation.",
+        "start_seconds": 167.41,
+        "end_seconds": 168.685
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "And",
+        "start_seconds": 169.98499999999999,
+        "end_seconds": 170.1225
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "finally,",
+        "start_seconds": 170.1225,
+        "end_seconds": 170.83499999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "our",
+        "start_seconds": 170.83499999999998,
+        "end_seconds": 170.98499999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "last",
+        "start_seconds": 170.98499999999999,
+        "end_seconds": 171.31
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "story.",
+        "start_seconds": 171.31,
+        "end_seconds": 172.3475
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "Binance",
+        "start_seconds": 172.3475,
+        "end_seconds": 172.83499999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "halted",
+        "start_seconds": 172.83499999999998,
+        "end_seconds": 173.20999999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "every",
+        "start_seconds": 173.20999999999998,
+        "end_seconds": 173.51
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "deposit",
+        "start_seconds": 173.51,
+        "end_seconds": 174.06
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "and",
+        "start_seconds": 174.06,
+        "end_seconds": 174.185
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "withdrawal",
+        "start_seconds": 174.185,
+        "end_seconds": 174.76
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "after",
+        "start_seconds": 174.76,
+        "end_seconds": 175.02249999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "a",
+        "start_seconds": 175.02249999999998,
+        "end_seconds": 175.08499999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "massive",
+        "start_seconds": 175.08499999999998,
+        "end_seconds": 175.51
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "hack",
+        "start_seconds": 175.51,
+        "end_seconds": 175.83499999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "that",
+        "start_seconds": 175.83499999999998,
+        "end_seconds": 175.9975
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "siphoned",
+        "start_seconds": 175.9975,
+        "end_seconds": 176.435
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "roughly",
+        "start_seconds": 176.435,
+        "end_seconds": 176.83499999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "six",
+        "start_seconds": 176.83499999999998,
+        "end_seconds": 177.135
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "point",
+        "start_seconds": 177.135,
+        "end_seconds": 177.42249999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "three",
+        "start_seconds": 177.42249999999999,
+        "end_seconds": 177.67249999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "billion",
+        "start_seconds": 177.67249999999999,
+        "end_seconds": 178.08499999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "dollars",
+        "start_seconds": 178.08499999999998,
+        "end_seconds": 178.48499999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "from",
+        "start_seconds": 178.48499999999999,
+        "end_seconds": 178.685
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "wallets",
+        "start_seconds": 178.685,
+        "end_seconds": 179.135
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "on",
+        "start_seconds": 179.135,
+        "end_seconds": 179.3475
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "ten",
+        "start_seconds": 179.3475,
+        "end_seconds": 179.60999999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "blockchains.",
+        "start_seconds": 179.60999999999999,
+        "end_seconds": 180.9475
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "The",
+        "start_seconds": 180.9475,
+        "end_seconds": 181.06
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "breach",
+        "start_seconds": 181.06,
+        "end_seconds": 181.35999999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "unfolded",
+        "start_seconds": 181.35999999999999,
+        "end_seconds": 181.91
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "in",
+        "start_seconds": 181.91,
+        "end_seconds": 181.9975
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "a",
+        "start_seconds": 181.9975,
+        "end_seconds": 182.06
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "twenty‑minute",
+        "start_seconds": 182.06,
+        "end_seconds": 182.635
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "window",
+        "start_seconds": 182.635,
+        "end_seconds": 183.08499999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "on",
+        "start_seconds": 183.08499999999998,
+        "end_seconds": 183.20999999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "October",
+        "start_seconds": 183.20999999999998,
+        "end_seconds": 183.635
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "twenty‑nine,",
+        "start_seconds": 183.635,
+        "end_seconds": 184.685
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "with",
+        "start_seconds": 184.685,
+        "end_seconds": 184.79749999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "the",
+        "start_seconds": 184.79749999999999,
+        "end_seconds": 184.91
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "attacker",
+        "start_seconds": 184.91,
+        "end_seconds": 185.385
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "testing",
+        "start_seconds": 185.385,
+        "end_seconds": 185.81
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "three",
+        "start_seconds": 185.81,
+        "end_seconds": 186.1225
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "tiny",
+        "start_seconds": 186.1225,
+        "end_seconds": 186.54749999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "pulls",
+        "start_seconds": 186.54749999999999,
+        "end_seconds": 187.01
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "before",
+        "start_seconds": 187.01,
+        "end_seconds": 187.29749999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "the",
+        "start_seconds": 187.29749999999999,
+        "end_seconds": 187.39749999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "full",
+        "start_seconds": 187.39749999999998,
+        "end_seconds": 187.67249999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "drain",
+        "start_seconds": 187.67249999999999,
+        "end_seconds": 188.26
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "at",
+        "start_seconds": 188.26,
+        "end_seconds": 188.3475
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "about",
+        "start_seconds": 188.3475,
+        "end_seconds": 188.66
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "four",
+        "start_seconds": 188.66,
+        "end_seconds": 188.9725
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "p.m.",
+        "start_seconds": 188.9725,
+        "end_seconds": 189.4725
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "Eastern",
+        "start_seconds": 189.4725,
+        "end_seconds": 189.935
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "time.",
+        "start_seconds": 189.935,
+        "end_seconds": 190.9475
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "Binance",
+        "start_seconds": 190.9475,
+        "end_seconds": 191.48499999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "says",
+        "start_seconds": 191.48499999999999,
+        "end_seconds": 191.67249999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "it’s",
+        "start_seconds": 191.67249999999999,
+        "end_seconds": 191.81
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "working",
+        "start_seconds": 191.81,
+        "end_seconds": 192.14749999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "with",
+        "start_seconds": 192.14749999999998,
+        "end_seconds": 192.3225
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "law‑enforcement",
+        "start_seconds": 192.3225,
+        "end_seconds": 193.16
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "to",
+        "start_seconds": 193.16,
+        "end_seconds": 193.285
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "lock",
+        "start_seconds": 193.285,
+        "end_seconds": 193.56
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "down",
+        "start_seconds": 193.56,
+        "end_seconds": 193.8225
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "about",
+        "start_seconds": 193.8225,
+        "end_seconds": 194.04749999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "half",
+        "start_seconds": 194.04749999999999,
+        "end_seconds": 194.3225
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "of",
+        "start_seconds": 194.3225,
+        "end_seconds": 194.39749999999998
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "the",
+        "start_seconds": 194.39749999999998,
+        "end_seconds": 194.48499999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "stolen",
+        "start_seconds": 194.48499999999999,
+        "end_seconds": 194.9725
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "cash.",
+        "start_seconds": 194.9725,
+        "end_seconds": 195.92249999999999
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "If",
+        "start_seconds": 197.21,
+        "end_seconds": 197.36
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "you",
+        "start_seconds": 197.36,
+        "end_seconds": 197.485
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "rely",
+        "start_seconds": 197.485,
+        "end_seconds": 197.91000000000003
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "on",
+        "start_seconds": 197.91000000000003,
+        "end_seconds": 198.085
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "Binance",
+        "start_seconds": 198.085,
+        "end_seconds": 198.61
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "APIs,",
+        "start_seconds": 198.61,
+        "end_seconds": 199.7975
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "expect",
+        "start_seconds": 199.7975,
+        "end_seconds": 200.32250000000002
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "short‑term",
+        "start_seconds": 200.32250000000002,
+        "end_seconds": 200.88500000000002
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "outages",
+        "start_seconds": 200.88500000000002,
+        "end_seconds": 201.69750000000002
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "and",
+        "start_seconds": 201.69750000000002,
+        "end_seconds": 201.835
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "build",
+        "start_seconds": 201.835,
+        "end_seconds": 202.1225
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "fallback",
+        "start_seconds": 202.1225,
+        "end_seconds": 202.6725
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "paths",
+        "start_seconds": 202.6725,
+        "end_seconds": 203.16000000000003
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "for",
+        "start_seconds": 203.16000000000003,
+        "end_seconds": 203.31
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "any",
+        "start_seconds": 203.31,
+        "end_seconds": 203.53500000000003
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "deposit‑driven",
+        "start_seconds": 203.53500000000003,
+        "end_seconds": 204.485
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "processes.",
+        "start_seconds": 204.485,
+        "end_seconds": 205.735
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "And",
+        "start_seconds": 207.035,
+        "end_seconds": 207.1725
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "that's",
+        "start_seconds": 207.1725,
+        "end_seconds": 207.41
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "your",
+        "start_seconds": 207.41,
+        "end_seconds": 207.56
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "Daywire",
+        "start_seconds": 207.56,
+        "end_seconds": 208.01
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "briefing.",
+        "start_seconds": 208.01,
+        "end_seconds": 208.9725
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "You'll",
+        "start_seconds": 208.9725,
+        "end_seconds": 209.135
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "find",
+        "start_seconds": 209.135,
+        "end_seconds": 209.3975
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "the",
+        "start_seconds": 209.3975,
+        "end_seconds": 209.51
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "full",
+        "start_seconds": 209.51,
+        "end_seconds": 209.8475
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "stories",
+        "start_seconds": 209.8475,
+        "end_seconds": 210.3725
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "and",
+        "start_seconds": 210.3725,
+        "end_seconds": 210.4975
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "sources",
+        "start_seconds": 210.4975,
+        "end_seconds": 210.985
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "in",
+        "start_seconds": 210.985,
+        "end_seconds": 211.11
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "today's",
+        "start_seconds": 211.11,
+        "end_seconds": 211.5475
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "newspaper.",
+        "start_seconds": 211.5475,
+        "end_seconds": 212.5975
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "Thanks",
+        "start_seconds": 212.5975,
+        "end_seconds": 212.885
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "for",
+        "start_seconds": 212.885,
+        "end_seconds": 213.01
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "listening.",
+        "start_seconds": 213.01,
+        "end_seconds": 213.8225
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "Take",
+        "start_seconds": 213.8225,
+        "end_seconds": 214.1475
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "care,",
+        "start_seconds": 214.1475,
+        "end_seconds": 214.585
+      },
+      {
+        "segment_id": "binance-hack-2026-brief-segment",
+        "text": "everyone.",
+        "start_seconds": 214.585,
+        "end_seconds": 215.635
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
