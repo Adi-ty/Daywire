@@ -3,7 +3,7 @@ import '@fontsource-variable/source-serif-4';
 import '@fontsource-variable/public-sans';
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
-import { editions, dateLabel, href, editionHref } from '../lib/editions';
+import { editions, dateLabel, weekday, href, editionHref } from '../lib/editions';
 import type { Edition } from '../lib/types';
 interface Props { title: string; mode: 'news' | 'radio'; edition?: Edition }
 const { title, edition } = Astro.props;
@@ -11,6 +11,8 @@ const mode = Astro.url.pathname.split('/').includes('radio') ? 'radio' : 'news';
 const currentIndex = edition ? editions.findIndex(e => e.date === edition.date) : -1;
 const older = currentIndex >= 0 ? editions[currentIndex + 1] : undefined;
 const newer = currentIndex > 0 ? editions[currentIndex - 1] : undefined;
+const recentEditions = editions.slice(0, 30);
+const pickerEditions = edition && currentIndex >= 30 ? [...recentEditions, edition] : recentEditions;
 ---
 <!doctype html>
 <html lang="en" data-theme="dark">
@@ -37,13 +39,28 @@ const newer = currentIndex > 0 ? editions[currentIndex - 1] : undefined;
         </nav>
         <div class="edition-controls">
           <details class="date-picker">
-            <summary>{edition ? dateLabel(edition.date) : 'Choose an edition'} <Icon name="chevron" size={16} /></summary>
-            <nav aria-label="Edition dates">
-              {editions.length ? editions.map(e => <a href={href(`${mode}/${e.date}/`)} aria-current={e.date === edition?.date ? 'date' : undefined}>{dateLabel(e.date)}{e.demo ? ' · Demo' : ''}</a>) : <p>No editions published yet.</p>}
-              <a href={href('news/archive/')}>Browse the archive <Icon name="arrow" size={16} /></a>
+            <summary aria-controls="edition-dates">
+              <Icon name="calendar" size={17} />
+              <span>{edition ? dateLabel(edition.date) : 'Choose an edition'}</span>
+              <Icon name="chevron" size={14} />
+            </summary>
+            <nav id="edition-dates" aria-label="Edition dates">
+              <p class="date-menu-title">Choose an edition</p>
+              <div class="date-options">
+                {pickerEditions.length ? pickerEditions.map(e => (
+                  <a class="date-option" href={href(`${mode}/${e.date}/`)} aria-current={e.date === edition?.date ? 'date' : undefined}>
+                    <span><time datetime={e.date}>{dateLabel(e.date)}</time><span class="date-option-meta">{weekday(e.date)}{e.demo ? ' · Demo' : ''}</span></span>
+                    {e.date === edition?.date && <Icon name="check" size={17} />}
+                  </a>
+                )) : <p class="date-empty">No editions published yet.</p>}
+              </div>
+              <a class="date-archive" href={href('news/archive/')}>Browse the archive <Icon name="arrow" size={16} /></a>
             </nav>
           </details>
-          <button class="theme-toggle" type="button" aria-label="Switch to light theme" hidden><Icon name="sun" size={19} /></button>
+          <button class="theme-toggle" type="button" aria-label="Switch to light theme" hidden>
+            <span class="theme-dark"><Icon name="moon" size={17} /><span>Dark</span></span>
+            <span class="theme-light"><Icon name="sun" size={17} /><span>Light</span></span>
+          </button>
         </div>
       </header>
       {edition?.demo && <aside class="demo-notice">Demonstration edition · The stories and sources below are fictional examples.</aside>}
@@ -55,10 +72,36 @@ const newer = currentIndex > 0 ? editions[currentIndex - 1] : undefined;
       <footer class="site-footer"><a class="wordmark" href={href('')}>daywire<span>.</span></a><p>New edition daily, around 6am.</p><a href={href('news/archive/')}>Browse the archive <Icon name="arrow" size={16} /></a><p class="footer-note">AI-assisted reporting. Sources beside every story.</p></footer>
     </div>
     <script>
+      const picker = document.querySelector<HTMLDetailsElement>('.date-picker');
+      if (picker) {
+        const closePicker = () => { picker.open = false; };
+        document.addEventListener('pointerdown', (event) => {
+          if (event.target instanceof Node && !picker.contains(event.target)) closePicker();
+        });
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          if (!picker.contains(event.target) || event.target.closest('a')) closePicker();
+        });
+        document.addEventListener('focusin', (event) => {
+          if (event.target instanceof Node && !picker.contains(event.target)) closePicker();
+        });
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && picker.open) {
+            closePicker();
+            picker.querySelector('summary')?.focus();
+          }
+        });
+        window.addEventListener('pageshow', closePicker);
+      }
+
       const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
       if (button) {
         button.hidden = false;
-        const label = () => button.setAttribute('aria-label', `Switch to ${document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'} theme`);
+        const label = () => {
+          const action = `Switch to ${document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'} theme`;
+          button.setAttribute('aria-label', action);
+          button.title = action;
+        };
         label();
         button.addEventListener('click', () => { const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = theme; try { localStorage.setItem('daywire-theme', theme); } catch {} label(); });
       }
