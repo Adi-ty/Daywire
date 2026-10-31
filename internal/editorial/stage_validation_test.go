@@ -80,11 +80,11 @@ type invalidLessonRepair struct{ calls int }
 
 func (m *invalidLessonRepair) Generate(_ context.Context, _ string, in, out any) (Usage, error) {
 	m.calls++
-	v, ok := out.(*lessonOutput)
+	v, ok := out.(*lessonRepairOutput)
 	if !ok {
 		return Usage{}, errors.New("dependent stage ran before lesson was valid")
 	}
-	v.Lesson = in.(repairInput).Packet.Draft.Lessons[0]
+	copyRepairFields(in.(repairInput).Packet.Draft.Lessons[0], &v.Lesson)
 	v.Lesson.Example = ""
 	return Usage{TotalTokens: 1}, nil
 }

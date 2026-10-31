@@ -84,10 +84,10 @@ func TestRicherEvidenceAndFullEditionFitWritingReviewAndRepair(t *testing.T) {
 		if _, _, _, err := requestBody("openai/gpt-oss-120b", verificationPrompt(packet), packet, &Review{}); err != nil {
 			t.Fatalf("review %s: %v", id, err)
 		}
-		var output any = &articleOutput{}
+		var output any = &articleRepairOutput{}
 		prompt := repairRules + Prompt("article")
 		if id != a.ID {
-			output = &lessonOutput{}
+			output = &lessonRepairOutput{}
 			prompt = repairRules + lessonRepairRules
 		}
 		if _, _, _, err := requestBody("openai/gpt-oss-120b", prompt, repairInput{Packet: packet, Feedback: []Verdict{{id, "insufficient_evidence", "An unsupported claim needs a correction."}}}, output); err != nil {

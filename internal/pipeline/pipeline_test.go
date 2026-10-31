@@ -258,7 +258,7 @@ func (m *ambiguousQuestionModel) Generate(ctx context.Context, prompt string, in
 	if reflect.TypeOf(out).Elem().Field(0).Name == "Question" {
 		q := m.question
 		q.Prompt = "A rewritten but still ambiguous question?"
-		raw, _ := json.Marshal(map[string]any{"question": q})
+		raw, _ := json.Marshal(map[string]any{"question": map[string]any{"prompt": q.Prompt, "options": q.Options, "answer": q.Answer, "explanation": q.Explanation}})
 		return editorial.Usage{}, content.Decode(bytes.NewReader(raw), out)
 	}
 	return m.fakeModel.Generate(ctx, prompt, in, out)

@@ -24,15 +24,15 @@ func completionBudget(output any) int {
 		return 1000
 	case *Review:
 		return 1600
-	case *articleOutput:
+	case *articleOutput, *articleRepairOutput:
 		return 1800
-	case *lessonOutput:
+	case *lessonOutput, *lessonRepairOutput:
 		return 1600
-	case *questionOutput:
+	case *questionRepairOutput:
 		return 1200
 	case *quizOutput:
 		return 1600
-	case *radioOutput:
+	case *radioOutput, *radioRepairOutput:
 		// The completion allowance includes reasoning, not just spoken text.
 		return 2000
 	case *headingOutput:

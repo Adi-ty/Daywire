@@ -70,6 +70,10 @@ func (m *CachedModel) Generate(ctx context.Context, system string, input, output
 				*out = lessonOutput{}
 			case *radioOutput:
 				*out = radioOutput{}
+			case *lessonRepairOutput:
+				*out = lessonRepairOutput{}
+			case *radioRepairOutput:
+				*out = radioRepairOutput{}
 			}
 		}
 	} else if !os.IsNotExist(err) {
@@ -123,6 +127,16 @@ func validStage(input, output any) error {
 	}
 	if out, ok := output.(*lessonOutput); ok {
 		if err := content.ValidateLessonText(out.Lesson); err != nil {
+			return &StageValidationError{err.Error()}
+		}
+	}
+	if out, ok := output.(*radioRepairOutput); ok {
+		if err := radioBodyError(out.Segment.Text); err != nil {
+			return err
+		}
+	}
+	if out, ok := output.(*lessonRepairOutput); ok {
+		if err := content.ValidateLessonText(out.Lesson.apply(content.Lesson{})); err != nil {
 			return &StageValidationError{err.Error()}
 		}
 	}

@@ -10,25 +10,21 @@ import (
 )
 
 type repairModel struct {
-	ids    []string
-	tamper bool
+	ids []string
 }
 
 func (m *repairModel) Generate(_ context.Context, _ string, in, out any) (Usage, error) {
 	packet := in.(repairInput).Packet
 	m.ids = append(m.ids, packet.Targets[0])
 	switch v := out.(type) {
-	case *lessonOutput:
-		v.Lesson = packet.Draft.Lessons[0]
+	case *lessonRepairOutput:
+		copyRepairFields(packet.Draft.Lessons[0], &v.Lesson)
 		v.Lesson.Example = "Corrected example grounded in evidence"
-		if m.tamper {
-			v.Lesson.ID = "changed-id"
-		}
-	case *questionOutput:
-		v.Question = packet.Draft.Quiz[0]
+	case *questionRepairOutput:
+		copyRepairFields(packet.Draft.Quiz[0], &v.Question)
 		v.Question.Explanation = "Corrected explanation following the updated lesson"
-	case *radioOutput:
-		v.Segment = packet.Draft.Segments[0]
+	case *radioRepairOutput:
+		copyRepairFields(packet.Draft.Segments[0], &v.Segment)
 		v.Segment.Text = "Corrected radio wording grounded in evidence"
 	}
 	return Usage{TotalTokens: 10}, nil
@@ -84,10 +80,11 @@ func TestRepairUpdatesDependenciesAndPreservesOriginal(t *testing.T) {
 		t.Fatal(err)
 	}
 }
-func TestRepairRefusesChangedIdentityAndIncompleteReview(t *testing.T) {
+func TestRepairOwnsIdentityAndRefusesIncompleteReview(t *testing.T) {
 	e, input, review := repairFixture(t)
-	if _, _, err := Repair(context.Background(), &repairModel{tamper: true}, input, e.Content, review, nil); err == nil {
-		t.Fatal("repair changed target ID")
+	repaired, _, err := Repair(context.Background(), &repairModel{}, input, e.Content, review, nil)
+	if err != nil || repaired.Lessons[0].ID != e.Content.Lessons[0].ID {
+		t.Fatal("repair did not preserve application-owned identity", err)
 	}
 	review.Verdicts = review.Verdicts[:1]
 	model := &repairModel{}

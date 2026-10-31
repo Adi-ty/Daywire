@@ -35,17 +35,17 @@ func (m *optionalWriter) Generate(ctx context.Context, prompt string, in, out an
 	}
 	if packet, ok := in.(repairInput); ok {
 		switch o := out.(type) {
-		case *lessonOutput:
-			o.Lesson = packet.Packet.Draft.Lessons[0]
+		case *lessonRepairOutput:
+			copyRepairFields(packet.Packet.Draft.Lessons[0], &o.Lesson)
 			o.Lesson.Example = "A corrected example."
-		case *questionOutput:
+		case *questionRepairOutput:
 			if !strings.Contains(prompt, "Replace the flawed question and its options completely") {
 				return Usage{}, errors.New("quiz repair lacks replacement instruction")
 			}
-			o.Question = packet.Packet.Draft.Quiz[0]
+			copyRepairFields(packet.Packet.Draft.Quiz[0], &o.Question)
 			o.Question.Prompt = "A rewritten question?"
-		case *radioOutput:
-			o.Segment = packet.Packet.Draft.Segments[0]
+		case *radioRepairOutput:
+			copyRepairFields(packet.Packet.Draft.Segments[0], &o.Segment)
 			o.Segment.Text = "A rewritten story."
 		case *headingOutput:
 			*o = headingOutput{"A rewritten heading", "An introduction.", "A conceptual illustration."}

@@ -31,6 +31,14 @@ func generateValidated(ctx context.Context, model Model, system string, input, o
 			*out = lessonOutput{}
 		case *radioOutput:
 			*out = radioOutput{}
+		case *articleRepairOutput:
+			*out = articleRepairOutput{}
+		case *lessonRepairOutput:
+			*out = lessonRepairOutput{}
+		case *questionRepairOutput:
+			*out = questionRepairOutput{}
+		case *radioRepairOutput:
+			*out = radioRepairOutput{}
 		}
 		used, err := model.Generate(ctx, system, input, output)
 		total.PromptTokens += used.PromptTokens
@@ -52,8 +60,9 @@ func generateValidated(ctx context.Context, model Model, system string, input, o
 			system += " Local contract correction: " + invalid.Reason + ". Use only supplied IDs, once each; respect the requested count and return the complete JSON result."
 			continue
 		}
-		if _, ok := output.(*radioOutput); ok {
-			system += " Local contract correction: " + invalid.Reason + ". Return only the story body, with its original identity and references."
+		switch output.(type) {
+		case *radioOutput, *radioRepairOutput:
+			system += " Local contract correction: " + invalid.Reason + ". Return only the story body using its original premises and the exact supplied output schema."
 			continue
 		}
 		system += " Local contract correction: " + invalid.Reason + ". Return the complete lesson. Keep title, paragraphs, example and takeaway nonempty and concise. Replace unsupported examples with a plain-language illustration supported by the supplied evidence; never invent facts merely to fill a field."

@@ -193,14 +193,14 @@ func (m *budgetRepairer) Generate(_ context.Context, prompt string, in, out any)
 	p := in.(repairInput).Packet
 	m.t.Logf("repair %s: estimated_input=%d completion=%d", p.Targets[0], estimate, completion)
 	switch v := out.(type) {
-	case *articleOutput:
-		v.Article = p.Draft.Articles[0]
-	case *lessonOutput:
-		v.Lesson = p.Draft.Lessons[0]
-	case *questionOutput:
-		v.Question = p.Draft.Quiz[0]
-	case *radioOutput:
-		v.Segment = p.Draft.Segments[0]
+	case *articleRepairOutput:
+		copyRepairFields(p.Draft.Articles[0], &v.Article)
+	case *lessonRepairOutput:
+		copyRepairFields(p.Draft.Lessons[0], &v.Lesson)
+	case *questionRepairOutput:
+		copyRepairFields(p.Draft.Quiz[0], &v.Question)
+	case *radioRepairOutput:
+		copyRepairFields(p.Draft.Segments[0], &v.Segment)
 		v.Segment.Text = p.Draft.Articles[0].Summary
 	case *headingOutput:
 		*v = headingOutput{p.Draft.Title, p.Draft.Introduction, p.Draft.ArtworkBrief}

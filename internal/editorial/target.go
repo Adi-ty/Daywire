@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"reflect"
 
 	"github.com/Adi-ty/daywire/internal/content"
 )
@@ -83,64 +82,54 @@ func correctTarget(ctx context.Context, model Model, input Input, draft *content
 	}
 	packet := repairInput{subset, feedback}
 	call := func(rules string, out any) (Usage, error) {
-		return generateValidated(ctx, model, rules, packet, out)
+		return generateValidated(ctx, model, rules+repairContentRules, packet, out)
 	}
-	changed := errors.New("correction changed target identity or references")
+	// Identity and provenance belong to the application, not the writer. The
+	// repair wire schema excludes them; bind the editable result to the original
+	// target before review. Facts are still checked against these same premises.
 	for i, a := range draft.Articles {
 		if a.ID == id {
-			var out articleOutput
+			var out articleRepairOutput
 			u, err := call(repairRules+Prompt("article")+articleDepth(i), &out)
 			if err != nil {
 				return u, err
 			}
-			if out.Article.ID != id || !reflect.DeepEqual(out.Article.SourceIDs, a.SourceIDs) {
-				return u, changed
-			}
-			draft.Articles[i] = out.Article
+			draft.Articles[i] = out.Article.apply(a)
 			return u, nil
 		}
 	}
 	for i, l := range draft.Lessons {
 		if l.ID == id {
-			var out lessonOutput
+			var out lessonRepairOutput
 			u, err := call(repairRules+lessonRepairRules, &out)
 			if err != nil {
 				return u, err
 			}
-			if out.Lesson.ID != id || !reflect.DeepEqual(out.Lesson.SourceIDs, l.SourceIDs) || !reflect.DeepEqual(out.Lesson.ArticleIDs, l.ArticleIDs) {
-				return u, changed
-			}
-			draft.Lessons[i] = out.Lesson
+			draft.Lessons[i] = out.Lesson.apply(l)
 			return u, nil
 		}
 	}
 	for i, q := range draft.Quiz {
 		if q.ID == id {
-			var out questionOutput
-			u, err := call(derivedRepairRules+Prompt("quiz")+" Replace the flawed question and its options completely when it is ambiguous. Do not merely add words such as combination, best, only, or fully to salvage overlapping options. Choose a different, directly supported learning objective if necessary. Keep the original question ID and lesson ID.", &out)
+			var out questionRepairOutput
+			u, err := call(derivedRepairRules+Prompt("quiz")+" Replace the flawed question and its options completely when it is ambiguous. Do not merely add words such as combination, best, only, or fully to salvage overlapping options. Choose a different, directly supported learning objective if necessary.", &out)
 			if err != nil {
 				return u, err
 			}
-			if out.Question.ID != id || out.Question.LessonID != q.LessonID {
-				return u, changed
-			}
-			draft.Quiz[i] = out.Question
+			draft.Quiz[i] = out.Question.apply(q)
 			return u, nil
 		}
 	}
 	for i, s := range draft.Segments {
 		if s.ID == id {
-			var out radioOutput
+			var out radioRepairOutput
 			u, err := call(derivedRepairRules+Prompt("radio"), &out)
 			if err != nil {
 				return u, err
 			}
-			if out.Segment.ID != id || !reflect.DeepEqual(out.Segment.ArticleIDs, s.ArticleIDs) {
-				return u, changed
-			}
-			draft.Segments[i] = out.Segment
+			draft.Segments[i] = out.Segment.apply(s)
 			if framedRadio {
-				draft.Segments[i] = frameRadio(out.Segment, input.Date, i+1, len(draft.Segments))
+				draft.Segments[i] = frameRadio(draft.Segments[i], input.Date, i+1, len(draft.Segments))
 			}
 			return u, nil
 		}

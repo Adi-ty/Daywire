@@ -35,17 +35,17 @@ func (m *gatedWriter) Generate(ctx context.Context, prompt string, in, out any) 
 	}
 	if packet, ok := in.(repairInput); ok {
 		switch o := out.(type) {
-		case *articleOutput:
+		case *articleRepairOutput:
 			if !strings.Contains(prompt, Prompt("article")) {
 				return Usage{}, errors.New("article repair rules missing")
 			}
-			o.Article = packet.Packet.Draft.Articles[0]
+			copyRepairFields(packet.Packet.Draft.Articles[0], &o.Article)
 			o.Article.Summary = "Corrected supported summary"
-		case *lessonOutput:
+		case *lessonRepairOutput:
 			if !strings.Contains(prompt, lessonRepairRules) {
 				return Usage{}, errors.New("lesson repair rules missing")
 			}
-			o.Lesson = packet.Packet.Draft.Lessons[0]
+			copyRepairFields(packet.Packet.Draft.Lessons[0], &o.Lesson)
 			o.Lesson.Example = "Corrected supported example"
 		default:
 			return Usage{}, errors.New("unexpected correction")
