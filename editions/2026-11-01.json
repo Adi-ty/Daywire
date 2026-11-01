@@ -1,0 +1,3588 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-01",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-01T06:45:24.147935501Z",
+  "coverage": {
+    "from": "2026-10-31T06:00:00+05:30",
+    "until": "2026-11-01T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-9e9070e438511010",
+      "source-ac9efc1c4f60d94a",
+      "source-b1b5dd45fcabe7b5"
+    ],
+    "candidate_count": 24,
+    "evidence_count": 21
+  },
+  "content": {
+    "title": "Critical kernel patch and AI hijack expose new attack surface",
+    "introduction": "Linux kernel maintainers rolled out a critical TCP use‑after‑free fix (CVE‑2026‑98432) across versions 5.10.272 to 7.3, yet many distributions remain vulnerable. Meanwhile, Parameter AI demonstrated that a crafted HTML Preview link can hijack ChatGPT sessions, highlighting fresh risks in AI‑driven collaboration tools.",
+    "articles": [
+      {
+        "id": "linux-tcp-uaf-fix-2026-10",
+        "section": "Security",
+        "headline": "Linux kernels receive critical TCP use‑after‑free patch",
+        "summary": "Kernel releases 5.10.272 through 7.3 fix CVE‑2026‑98432, a remote code‑execution flaw in the IPv4 TCP handshake, but major distributions still show vulnerable status.",
+        "paragraphs": [
+          "The Linux kernel CNA disclosed CVE‑2026‑98432 on October 15, describing a use‑after‑free of IPv4 option data during the TCP three‑way handshake. The bug, present since Linux 4.4, allows an unauthenticated remote attacker to corrupt kernel memory, leak heap contents, or achieve remote code execution. Upstream developers Eric Dumazet and Kuniyuki Iwashima submitted a four‑line fix that landed in stable branches on October 11 (7.2.10, 6.18.56) and October 15 (5.10.272, 5.15.223, 6.1.190, 6.6.159, 6.12.113), with a follow‑up release 7.3 on October 18.",
+          "Despite the upstream patches, distribution kernels remain unpatched: as of 5:15 PM CDT on October 31, Ubuntu’s tracker lists every release as vulnerable, and Red Hat Enterprise Linux 8‑10 shows no fix. AlmaLinux’s patches are still in testing, and any branch that ended before 5.10 receives no backport. The vulnerability carries a CVSS 3.1 score of 9.8 (Critical) from both the kernel CNA and Red Hat, with other vendors rating it High to Important."
+        ],
+        "implication": "Operators of Linux servers must verify they run one of the patched kernel versions or apply vendor backports; otherwise they remain exposed to remote code execution via crafted TCP packets.",
+        "source_ids": [
+          "source-5545fe355a55d4d0"
+        ]
+      },
+      {
+        "id": "chatgpt-account-takeover-2026",
+        "section": "Security",
+        "headline": "Parameter AI shows HTML Preview can hijack ChatGPT accounts",
+        "summary": "A Parameter AI lab demonstration reveals that a crafted public‑share link can seize a victim’s ChatGPT session via the HTML Preview feature.",
+        "paragraphs": [
+          "The researchers embedded malicious JavaScript in an HTML block that the Preview feature renders as a tiny webpage inside a restricted iframe. When a user opens a public‑share link and either clicks Preview or lets the block auto‑preview, the script can call the authenticated ChatGPT APIs as the logged‑in user, enumerate conversation lists, read private chats, and exfiltrate data to an external server. The payload relies on MathLive loading a message listener in the main page; it retries messages until the listener is ready, then fires once.",
+          "The team reproduced the exploit three times, including after a hard refresh, observing the malicious alert after roughly 4.5 seconds. The attack hinges on the combination of the public‑share attachment, HTML Preview auto‑load, and the MathLive listener."
+        ],
+        "implication": "Developers should treat any HTML block shared via ChatGPT’s public‑share as untrusted code, because it can be leveraged to execute actions on behalf of a signed‑in user.",
+        "source_ids": [
+          "source-1c640f88e053cb51"
+        ]
+      },
+      {
+        "id": "ai-malware-victim-prioritization",
+        "section": "Security",
+        "headline": "Volta stealer adds LLM‑driven victim appraisal",
+        "summary": "The VOLTA infostealer now sends credential dumps to an LLM via OpenRouter, which returns a ranked “worth” assessment and opsec rating for each victim.",
+        "paragraphs": [
+          "Researchers observed that VOLTA serializes harvested credentials and POSTs them to an OpenRouter model under a system prompt that asks the model to act as a forensic analyst. The model’s response includes a “WHAT THEY’RE WORTH” tier (low/medium/high) and a “THEIR OPSEC” rating, giving operators a ready‑made dossier for each compromised account.",
+          "The malware’s binary is built from a template with six swappable slots that hold API keys and Telegram credentials. Although the keys are encrypted with a SHA‑256 hash of two constants, reverse engineering can recover them, indicating the encryption is more about appearance than real protection.",
+          "Volta’s new AI layer is not about speed but about displacing analyst effort, a pattern also seen in other recent implants. Defenders should note that the LLM call occurs after credential collection, turning raw logs into monetizable intelligence without additional human triage."
+        ],
+        "implication": "Security teams must now monitor outbound traffic to LLM services like OpenRouter, as such calls can reveal when a stealer has moved from raw data exfiltration to automated victim valuation.",
+        "source_ids": [
+          "source-ef006b6d1900eae3"
+        ]
+      },
+      {
+        "id": "signal-molly-vulnerability-2026-11-01",
+        "section": "Security",
+        "headline": "Molly fork lags behind Signal’s latest fixes",
+        "summary": "The Molly Signal fork has not been updated for three months and remains vulnerable to attacks patched in Signal 8.27.1.",
+        "paragraphs": [
+          "A Hacker News post on 31 Oct 2026 notes that Molly, a community‑maintained Signal fork, still contains the exploit disclosed in October that was fixed in mainline Signal 8.27.1. The fork’s developers have not released a new version in three months, leaving users exposed to the same vulnerability.",
+          "Users of Molly should treat it as unpatched until the maintainers issue a release that incorporates Signal 8.27.1 or later; otherwise they remain at risk."
+        ],
+        "implication": "Running Molly instead of the official Signal app now carries a known security gap, so developers and users should prefer the up‑to‑date official client until the fork catches up.",
+        "source_ids": [
+          "source-f70b44b5822e23f9"
+        ]
+      },
+      {
+        "id": "anthropic-blocks-research-automation",
+        "section": "Engineering",
+        "headline": "Anthropic blocks users who touch RFT or SFT pipelines",
+        "summary": "Anthropic is now denying access to any session that involves reinforcement‑from‑human feedback (RFT), supervised fine‑tuning (SFT), or training larger models, downgrading Opus 5.5 to Opus 5 or terminating the session outright.",
+        "paragraphs": [
+          "A user on X reported that after attempting to use Claude Opus 5.5 for research automation, the session was flagged as “training a competitor” and the model was automatically downgraded to Opus 5, or the job was killed. The block applies to any workflow that touches RFT, SFT, or larger‑scale model training, even when the user is merely orchestrating jobs with an open‑source model and using Claude only for analysis."
+        ],
+        "implication": "Researchers who rely on Anthropic’s API for pipeline orchestration must either avoid any RFT/SFT steps or switch to a different provider, as the policy will interrupt or downgrade their workloads without warning.",
+        "source_ids": [
+          "source-3c488a5d9e8fc9b7"
+        ]
+      },
+      {
+        "id": "gcc-switch-lowering-2024",
+        "section": "Engineering",
+        "headline": "GCC skips jump tables for sparse switches despite heuristic",
+        "summary": "A 2024 analysis shows GCC’s -O3 optimizer prefers a chain of comparisons over a jump table for a 20‑case switch spanning values 0‑87.",
+        "paragraphs": [
+          "Examining GCC’s output, the author found that a switch with 20 case labels spread across 0‑87 was lowered to a series of comparisons rather than an 88‑entry jump table, even though the heuristic (entries \u003c cases × 8) suggests the table would be cheaper. The pass_lower_switch routine, which calls analyze_switch_statement, bases its decision on the number of case labels instead of the number of comparisons, causing the missed optimization."
+        ],
+        "implication": "When performance matters, developers should verify the generated assembly for large, sparsely populated switches rather than assuming GCC will automatically select a jump table.",
+        "source_ids": [
+          "source-4e37f26bbf227fb7"
+        ]
+      },
+      {
+        "id": "particledb-1-1-4-jepsen-report",
+        "section": "Engineering",
+        "headline": "Jepsen finds single‑node ParticleDB 1.1.4 falls short of ACID claims",
+        "summary": "Jepsen’s analysis of ParticleDB 1.1.4 shows the database’s single‑node mode does not uphold the advertised full ACID guarantees.",
+        "paragraphs": [
+          "Orkes’ ParticleDB 1.1.4 was tested with Jepsen’s suite, focusing on single‑node operation because its consensus‑based replication is unavailable in that mode. The report notes the system advertises “Full ACID. 159K TPS” and a TLA+ proof, yet the tests reveal transaction isolation is governed by a custom “snapshot isolation” mechanism that does not enforce true ACID semantics, and crashes or disk corruption can violate consistency."
+        ],
+        "implication": "Developers relying on ParticleDB’s single‑node deployment for strict ACID guarantees should treat those claims as unverified and consider alternative storage or add replication for stronger consistency.",
+        "source_ids": [
+          "source-26ad248a14cd0c08"
+        ]
+      },
+      {
+        "id": "prospero-coding-harness-2026",
+        "section": "Tools",
+        "headline": "Prospero offers a lean AI coding harness for low‑memory environments",
+        "summary": "Prospero is a new AI‑driven coding harness that runs headlessly with minimal RAM, targeting developers who need a lightweight alternative to existing harnesses.",
+        "paragraphs": [
+          "The open‑source tool lets an LLM converse with external utilities via a simple chat‑style protocol, and it can spawn sub‑agents for parallel builds. Its headless engine avoids a terminal UI, so the process can be terminated by the Linux OOM killer without pulling down a full IDE, a benefit highlighted in a recent Hacker News discussion (source‑5da3c88e003c6fce)."
+        ],
+        "implication": "Developers on constrained machines can experiment with AI‑assisted coding without the memory overhead of traditional harnesses, though they must still provide their own editor or terminal for code entry.",
+        "source_ids": [
+          "source-5da3c88e003c6fce"
+        ]
+      },
+      {
+        "id": "two-commit-bugfix-workflow",
+        "section": "Engineering",
+        "headline": "Two‑commit bugfix workflow cuts regression risk",
+        "summary": "Jordi’s “Kluever Maneuver” recommends writing a failing test and fixing both code and test in separate commits to ensure bug fixes are verifiable.",
+        "paragraphs": [
+          "The method proposes three steps: add a test that captures the current buggy behaviour, commit it, then commit a second change that corrects the implementation and updates the test. By separating the test‑creation and fix commits, developers get a clear proof that the defect is resolved before merging.",
+          "The approach is simple to adopt in any language or CI pipeline, but it relies on disciplined test writing; without a failing test the maneuver provides no safety net."
+        ],
+        "implication": "Teams that embed this two‑commit pattern into their pull‑request workflow can catch regressions early, reducing post‑release bugs caused by unnoticed logic errors.",
+        "source_ids": [
+          "source-330e4e2d06fa88a4"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "tcp-handshake-uaf-mechanism",
+        "title": "Why the TCP Handshake Can Leak Kernel Memory",
+        "paragraphs": [
+          "During the three‑way TCP handshake the kernel allocates a data structure to hold IPv4 option information. The code mistakenly frees this structure while it may still be referenced, creating a use‑after‑free condition. An attacker who can send a specially‑crafted SYN packet can trigger the free and then cause the kernel to access the now‑dangling pointer, leading to memory disclosure or corruption.",
+          "Because the freed memory is part of the kernel heap, the attacker can cause the kernel to read its contents (revealing kernel addresses and data) or overwrite it with malicious values that may lead to remote code execution. The vulnerability is present in many stable kernel releases and was fixed upstream with a small patch, but distribution kernels may remain vulnerable until they back‑port the fix."
+        ],
+        "example": "An attacker sends a SYN packet with a malformed TCP option that causes the kernel to free the option buffer. Later, the attacker sends another packet that references the same buffer, causing the kernel to read from or write to memory that has already been freed, which can leak kernel data or enable code execution.",
+        "takeaway": "Even small memory‑management errors in core networking code can expose the entire kernel; always verify that your distribution has back‑ported the upstream fix before assuming a system is safe.",
+        "article_ids": [
+          "linux-tcp-uaf-fix-2026-10"
+        ],
+        "source_ids": [
+          "source-5545fe355a55d4d0"
+        ]
+      },
+      {
+        "id": "html-preview-api-leak-2026",
+        "title": "How ChatGPT’s HTML Preview can be abused to call authenticated APIs",
+        "paragraphs": [
+          "When a user opens a public‑share link, ChatGPT renders any HTML block inside its Preview feature as a tiny webpage hosted in a restricted iframe. The preview loads MathLive, which injects a message listener into the main ChatGPT page. Because the listener runs in the parent context, malicious JavaScript inside the preview can send messages to it, triggering code that runs with the victim’s authenticated session.",
+          "The researchers showed that the script can invoke ChatGPT’s private APIs—enumerating conversation lists, reading unseen chats, and exfiltrating data—once the listener is ready. A retry loop ensures the payload fires even if the listener loads slightly later, making the attack reliable after a single click or automatic preview."
+        ],
+        "example": "A crafted public‑share link contains an HTML block that, when previewed, runs: `window.parent.postMessage({type:\"run\",payload:{action:\"listConversations\"}},\"*\");`. The parent’s MathLive listener receives the message and calls the logged‑in user’s API to return all conversation IDs, which the script then sends to an attacker‑controlled server.",
+        "takeaway": "Treat any HTML rendered via ChatGPT’s Preview as untrusted; the combination of iframe rendering and a parent‑page listener can let malicious code act as the signed‑in user and steal private data.",
+        "article_ids": [
+          "chatgpt-account-takeover-2026"
+        ],
+        "source_ids": [
+          "source-1c640f88e053cb51"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-use-after-free",
+        "lesson_id": "tcp-handshake-uaf-mechanism",
+        "prompt": "What specific mistake in the TCP handshake code creates the vulnerability?",
+        "options": [
+          "The kernel allocates the option buffer twice.",
+          "The kernel frees the IPv4 option structure while it may still be referenced.",
+          "The kernel never frees the IPv4 option structure, causing a memory leak.",
+          "The kernel validates TCP options before freeing them."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that the code mistakenly frees the IPv4 option structure while it may still be referenced, creating a use‑after‑free condition."
+      },
+      {
+        "id": "quiz-1-attacker-action",
+        "lesson_id": "tcp-handshake-uaf-mechanism",
+        "prompt": "How does an attacker exploit the use‑after‑free condition after triggering the free?",
+        "options": [
+          "By sending a FIN packet to close the connection.",
+          "By sending another packet that references the same freed buffer.",
+          "By restarting the TCP handshake with a normal SYN packet.",
+          "By modifying the kernel source code remotely."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that after the free, the attacker sends another packet that references the same buffer, causing the kernel to read from or write to the freed memory."
+      },
+      {
+        "id": "quiz-1-mitigation-focus",
+        "lesson_id": "tcp-handshake-uaf-mechanism",
+        "prompt": "According to the takeaway, what is the recommended action to ensure a system is not vulnerable?",
+        "options": [
+          "Recompile the kernel with custom memory‑management patches.",
+          "Verify that the distribution has back‑ported the upstream fix.",
+          "Disable all TCP options in the kernel configuration.",
+          "Upgrade to the latest hardware firmware."
+        ],
+        "answer": 1,
+        "explanation": "The takeaway advises always verifying that your distribution has back‑ported the upstream fix before assuming a system is safe."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "html-preview-api-leak-2026",
+        "prompt": "What enables malicious JavaScript in a ChatGPT preview iframe to act with the victim’s authenticated session?",
+        "options": [
+          "The iframe is allowed to access the parent page’s cookies directly",
+          "The MathLive script injects a message listener into the parent page that processes postMessage events from the iframe",
+          "The preview runs with elevated privileges granted by the browser’s same‑origin policy",
+          "The HTML block is executed as a browser extension with user permissions"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that MathLive injects a message listener into the main ChatGPT page; malicious code in the preview iframe can send postMessage events to this listener, causing the parent page to execute API calls using the logged‑in user’s session."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "html-preview-api-leak-2026",
+        "prompt": "Which mitigation directly addresses the core issue described in the HTML preview attack?",
+        "options": [
+          "Disabling all iframes on the ChatGPT site",
+          "Treating any HTML rendered via the preview as untrusted and preventing it from posting messages to the parent",
+          "Requiring users to re‑authenticate before each API call",
+          "Encrypting the data sent from the preview iframe to the parent page"
+        ],
+        "answer": 1,
+        "explanation": "The takeaway advises treating HTML rendered in the preview as untrusted; the specific risk comes from the iframe’s ability to postMessage to the parent listener, so blocking or sanitizing such messages mitigates the attack."
+      }
+    ],
+    "segments": [
+      {
+        "id": "radio-1",
+        "title": "Linux kernels patched for critical TCP flaw",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November one, two thousand twenty six.\n\nWe begin with our lead story. Linux kernels got a critical fix for a use‑after‑free bug in the IPv4 TCP handshake. The four‑line patch landed in stable branches like version 5 point 10 point 272, 5 point 15 point 223 and 7 point 2 point 10, and a follow‑up in version 7 point 3. But as of October thirty‑first, Ubuntu and Red Hat Enterprise Linux still list their releases as vulnerable, with AlmaLinux testing patches. Here's why that matters: if you’re running an unpatched kernel, a crafted TCP packet could let an attacker execute code on your server.",
+        "article_ids": [
+          "linux-tcp-uaf-fix-2026-10"
+        ]
+      },
+      {
+        "id": "parameter-ai-html-preview-hijack",
+        "title": "Parameter AI shows HTML Preview can hijack ChatGPT accounts",
+        "text": "Next on the bulletin. Parameter AI demonstrated a crafted public‑share link that can seize a ChatGPT session via the HTML Preview feature.\n\nWhen the link is opened, the embedded JavaScript runs inside a tiny iframe, waits for MathLive’s message listener, then calls the logged‑in user’s A P I to list conversations, read private chats and exfiltrate data. The researchers reproduced the exploit three times, even after a hard refresh, seeing the malicious alert after about four point five seconds. \n\nThe takeaway: any HTML block shared through ChatGPT’s public‑share should be treated as untrusted code because it can act on behalf of a signed‑in user.",
+        "article_ids": [
+          "chatgpt-account-takeover-2026"
+        ]
+      },
+      {
+        "id": "volta-llm-victim-appraisal",
+        "title": "Volta stealer adds LLM‑driven victim appraisal",
+        "text": "Turning to our next story. Volta stealer now uses a large language model to rank victims.\n\nResearchers found the malware bundles harvested credentials, posts them to an OpenRouter model, and gets back a \"WHAT THEY’RE WORTH\" tier and a \"THEIR OPSEC\" rating. The binary swaps in API keys and Telegram credentials, but the keys are only lightly protected with a SHA‑256 hash of two constants, so reverse engineers can still pull them out. This AI step isn’t about speed; it automates the analyst’s job, turning raw dumps into monetizable intel. Watch outbound traffic to LLM services – that’s the new indicator of a stealer moving from data theft to automated valuation.",
+        "article_ids": [
+          "ai-malware-victim-prioritization"
+        ]
+      },
+      {
+        "id": "signal-molly-vulnerability-2026-11-01-segment",
+        "title": "Molly fork lags behind Signal’s latest fixes",
+        "text": "Next on the bulletin. Molly, the community‑maintained Signal fork, still carries the October exploit that Signal patched in version eight point twenty‑seven point one. A Hacker News post on thirty‑first October notes no new Molly release in three months, so the vulnerability remains unaddressed. That means anyone running Molly is exposed until the maintainers push an update that includes at least Signal version eight point twenty‑seven point one. Here’s why that matters: stick with the official Signal client for now, or you’re taking a known security risk.",
+        "article_ids": [
+          "signal-molly-vulnerability-2026-11-01"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Anthropic blocks RFT and SFT pipelines",
+        "text": "And finally, our last story. Anthropic has started cutting off any session that touches reinforcement‑from‑human feedback or supervised fine‑tuning, even if you’re just using Claude for analysis. A user on X saw Claude Opus version five point five automatically downgraded to Opus five, or the whole job killed, when the system flagged it as “training a competitor.”\n\nThat means anyone orchestrating research automation with Anthropic’s API now has to strip out every RFT or SFT step, or move to a different provider, because the block will interrupt or downgrade workloads without warning.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "anthropic-blocks-research-automation"
+        ]
+      }
+    ],
+    "artwork_brief": "A split‑screen illustration: on the left, a stylized kernel code tree with a highlighted patch node; on the right, a ghostly hand reaching from a web link into a glowing ChatGPT avatar, symbolizing the hijack vector."
+  },
+  "sources": [
+    {
+      "id": "source-26ad248a14cd0c08",
+      "name": "Lobsters",
+      "title": "Jepsen: ParticleDB 1.1.4",
+      "url": "https://jepsen.io/analyses/particledb-1.1.4",
+      "published_at": null,
+      "discovered_at": "2026-10-31T08:39:52.161-05:00",
+      "discussion_url": "https://lobste.rs/s/drwd4j/jepsen_particledb_1_1_4"
+    },
+    {
+      "id": "source-5545fe355a55d4d0",
+      "name": "Hacker News",
+      "title": "TCP Use-After-Free: CVE-2026-98432 / CVSS 9.8",
+      "url": "https://atlasum.net/blog/cve-2026-98432-linux-ipv4-tcp-uaf",
+      "published_at": null,
+      "discovered_at": "2026-10-31T19:16:30Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50319143"
+    },
+    {
+      "id": "source-f70b44b5822e23f9",
+      "name": "Hacker News",
+      "title": "Molly (Signal fork) has not been updated since 3 months and is vulnerable",
+      "url": "https://piefed.world/post/1503394",
+      "published_at": null,
+      "discovered_at": "2026-10-31T10:23:41Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50314666"
+    },
+    {
+      "id": "source-1c640f88e053cb51",
+      "name": "Hacker News",
+      "title": "Do the math: How we took over ChatGPT accounts",
+      "url": "https://www.parameter.ai/labs/we-found-a-gap-at-openai",
+      "published_at": null,
+      "discovered_at": "2026-10-31T10:30:11Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50314699"
+    },
+    {
+      "id": "source-3c488a5d9e8fc9b7",
+      "name": "Hacker News",
+      "title": "Anthropic blocks users for anything touching training larger models",
+      "url": "https://twitter.com/jiahaoshao1/status/2116475922190922088",
+      "published_at": null,
+      "discovered_at": "2026-10-31T19:39:19Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50319358"
+    },
+    {
+      "id": "source-ef006b6d1900eae3",
+      "name": "Hacker News",
+      "title": "Malware uses LLMs to rank victims by how much they're worth",
+      "url": "https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/",
+      "published_at": null,
+      "discovered_at": "2026-10-31T14:29:03Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50316531"
+    },
+    {
+      "id": "source-5da3c88e003c6fce",
+      "name": "Hacker News",
+      "title": "Prospero: A new coding harness for a more civilized age",
+      "url": "https://nullprogram.com/blog/2026/10/31/",
+      "published_at": null,
+      "discovered_at": "2026-10-31T11:54:59Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50315226"
+    },
+    {
+      "id": "source-4e37f26bbf227fb7",
+      "name": "Hacker News",
+      "title": "Switch Lowering in GCC",
+      "url": "https://xoranth.net/gcc-switch/",
+      "published_at": null,
+      "discovered_at": "2026-10-31T08:02:26Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50314085"
+    },
+    {
+      "id": "source-330e4e2d06fa88a4",
+      "name": "Lobsters",
+      "title": "The Kluever Maneuver",
+      "url": "https://jordi.inversethought.com/blog/the-kluever-maneuver/",
+      "published_at": null,
+      "discovered_at": "2026-10-31T10:05:04.54-05:00",
+      "discussion_url": "https://lobste.rs/s/rpiu3w/kluever_maneuver"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-01/4b3b1b8c3222f653cd5742d5925b92eb2d51ec3b18a9e89b210df29f94431c04.mp3",
+    "duration_seconds": 202.985,
+    "script_hash": "56e1aa466e21bf79c48280c00cfdba4acc5951c812ab0d6073ea0f4731b45fad",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.225,
+        "end_seconds": 0.5875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.5875,
+        "end_seconds": 1.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.15,
+        "end_seconds": 1.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 1.275,
+        "end_seconds": 1.675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 1.675,
+        "end_seconds": 1.8
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 1.8,
+        "end_seconds": 2.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 2.575,
+        "end_seconds": 2.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 2.85,
+        "end_seconds": 3.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 3.0875,
+        "end_seconds": 3.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 3.4125,
+        "end_seconds": 3.4875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 3.4875,
+        "end_seconds": 3.5875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 3.5875,
+        "end_seconds": 3.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 3.85,
+        "end_seconds": 4.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 4.45,
+        "end_seconds": 4.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 4.65,
+        "end_seconds": 5.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one,",
+        "start_seconds": 5.15,
+        "end_seconds": 5.5125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 5.5125,
+        "end_seconds": 5.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 5.75,
+        "end_seconds": 6.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 6.1125,
+        "end_seconds": 6.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 6.3875,
+        "end_seconds": 7.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 8.625,
+        "end_seconds": 8.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 8.725,
+        "end_seconds": 9.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 9.1,
+        "end_seconds": 9.2375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 9.2375,
+        "end_seconds": 9.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 9.375,
+        "end_seconds": 9.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 9.6,
+        "end_seconds": 10.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Linux",
+        "start_seconds": 10.375,
+        "end_seconds": 10.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kernels",
+        "start_seconds": 10.7,
+        "end_seconds": 11.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "got",
+        "start_seconds": 11.075,
+        "end_seconds": 11.2125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 11.2125,
+        "end_seconds": 11.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "critical",
+        "start_seconds": 11.275,
+        "end_seconds": 11.7125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fix",
+        "start_seconds": 11.7125,
+        "end_seconds": 12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 12,
+        "end_seconds": 12.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 12.1125,
+        "end_seconds": 12.175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "use‑after‑free",
+        "start_seconds": 12.175,
+        "end_seconds": 12.975000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bug",
+        "start_seconds": 12.975000000000001,
+        "end_seconds": 13.2625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 13.2625,
+        "end_seconds": 13.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 13.3375,
+        "end_seconds": 13.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "IPv4",
+        "start_seconds": 13.425,
+        "end_seconds": 13.912500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "TCP",
+        "start_seconds": 13.912500000000001,
+        "end_seconds": 14.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "handshake.",
+        "start_seconds": 14.5,
+        "end_seconds": 15.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 15.45,
+        "end_seconds": 15.5625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four‑line",
+        "start_seconds": 15.5625,
+        "end_seconds": 16.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patch",
+        "start_seconds": 16.1,
+        "end_seconds": 16.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "landed",
+        "start_seconds": 16.425,
+        "end_seconds": 16.8125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 16.8125,
+        "end_seconds": 16.950000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stable",
+        "start_seconds": 16.950000000000003,
+        "end_seconds": 17.3
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "branches",
+        "start_seconds": 17.3,
+        "end_seconds": 17.8
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "like",
+        "start_seconds": 17.8,
+        "end_seconds": 18
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 18,
+        "end_seconds": 18.3625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "5",
+        "start_seconds": 18.3625,
+        "end_seconds": 18.700000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 18.700000000000003,
+        "end_seconds": 18.950000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "10",
+        "start_seconds": 18.950000000000003,
+        "end_seconds": 19.175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 19.175,
+        "end_seconds": 19.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "272,",
+        "start_seconds": 19.425,
+        "end_seconds": 20.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "5",
+        "start_seconds": 20.6875,
+        "end_seconds": 21.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 21.025,
+        "end_seconds": 21.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "15",
+        "start_seconds": 21.2875,
+        "end_seconds": 21.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 21.725,
+        "end_seconds": 22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "223",
+        "start_seconds": 22,
+        "end_seconds": 22.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 22.975,
+        "end_seconds": 23.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "7",
+        "start_seconds": 23.1125,
+        "end_seconds": 23.450000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 23.450000000000003,
+        "end_seconds": 23.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "2",
+        "start_seconds": 23.725,
+        "end_seconds": 23.925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 23.925,
+        "end_seconds": 24.2125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "10,",
+        "start_seconds": 24.2125,
+        "end_seconds": 24.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 24.775,
+        "end_seconds": 24.887500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 24.887500000000003,
+        "end_seconds": 24.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "follow‑up",
+        "start_seconds": 24.9625,
+        "end_seconds": 25.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 25.5,
+        "end_seconds": 25.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 25.65,
+        "end_seconds": 26.0625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "7",
+        "start_seconds": 26.0625,
+        "end_seconds": 26.424999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 26.424999999999997,
+        "end_seconds": 26.7125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "3.",
+        "start_seconds": 26.7125,
+        "end_seconds": 27.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "But",
+        "start_seconds": 28.195,
+        "end_seconds": 28.32
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 28.32,
+        "end_seconds": 28.4325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 28.4325,
+        "end_seconds": 28.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "October",
+        "start_seconds": 28.52,
+        "end_seconds": 28.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thirty‑first,",
+        "start_seconds": 28.945,
+        "end_seconds": 29.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Ubuntu",
+        "start_seconds": 29.795,
+        "end_seconds": 30.295
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 30.295,
+        "end_seconds": 30.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Red",
+        "start_seconds": 30.42,
+        "end_seconds": 30.595000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Hat",
+        "start_seconds": 30.595000000000002,
+        "end_seconds": 30.82
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Enterprise",
+        "start_seconds": 30.82,
+        "end_seconds": 31.345000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Linux",
+        "start_seconds": 31.345000000000002,
+        "end_seconds": 31.657500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "still",
+        "start_seconds": 31.657500000000002,
+        "end_seconds": 31.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "list",
+        "start_seconds": 31.945,
+        "end_seconds": 32.1575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "their",
+        "start_seconds": 32.1575,
+        "end_seconds": 32.32
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "releases",
+        "start_seconds": 32.32,
+        "end_seconds": 32.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 32.845,
+        "end_seconds": 33.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vulnerable,",
+        "start_seconds": 33.0075,
+        "end_seconds": 33.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 33.72,
+        "end_seconds": 33.895
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AlmaLinux",
+        "start_seconds": 33.895,
+        "end_seconds": 34.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "testing",
+        "start_seconds": 34.57,
+        "end_seconds": 34.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patches.",
+        "start_seconds": 34.97,
+        "end_seconds": 35.932500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 35.932500000000005,
+        "end_seconds": 36.27
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 36.27,
+        "end_seconds": 36.445
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 36.445,
+        "end_seconds": 36.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 36.645,
+        "end_seconds": 37.295
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "if",
+        "start_seconds": 37.295,
+        "end_seconds": 37.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you’re",
+        "start_seconds": 37.4075,
+        "end_seconds": 37.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "running",
+        "start_seconds": 37.545,
+        "end_seconds": 37.8325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 37.8325,
+        "end_seconds": 37.9575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "unpatched",
+        "start_seconds": 37.9575,
+        "end_seconds": 38.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kernel,",
+        "start_seconds": 38.52,
+        "end_seconds": 39.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 39.07,
+        "end_seconds": 39.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "crafted",
+        "start_seconds": 39.17,
+        "end_seconds": 39.6575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "TCP",
+        "start_seconds": 39.6575,
+        "end_seconds": 40.27
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "packet",
+        "start_seconds": 40.27,
+        "end_seconds": 40.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "could",
+        "start_seconds": 40.645,
+        "end_seconds": 40.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "let",
+        "start_seconds": 40.795,
+        "end_seconds": 40.932500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 40.932500000000005,
+        "end_seconds": 41.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "attacker",
+        "start_seconds": 41.0075,
+        "end_seconds": 41.4825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "execute",
+        "start_seconds": 41.4825,
+        "end_seconds": 42.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "code",
+        "start_seconds": 42.0075,
+        "end_seconds": 42.307500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 42.307500000000005,
+        "end_seconds": 42.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 42.4075,
+        "end_seconds": 42.557500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "server.",
+        "start_seconds": 42.557500000000005,
+        "end_seconds": 43.67
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "Next",
+        "start_seconds": 44.87,
+        "end_seconds": 45.1575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "on",
+        "start_seconds": 45.1575,
+        "end_seconds": 45.2575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "the",
+        "start_seconds": 45.2575,
+        "end_seconds": 45.345
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "bulletin.",
+        "start_seconds": 45.345,
+        "end_seconds": 46.195
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "Parameter",
+        "start_seconds": 46.195,
+        "end_seconds": 46.7825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "AI",
+        "start_seconds": 46.7825,
+        "end_seconds": 47.232499999999995
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "demonstrated",
+        "start_seconds": 47.232499999999995,
+        "end_seconds": 47.9075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "a",
+        "start_seconds": 47.9075,
+        "end_seconds": 48.0075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "crafted",
+        "start_seconds": 48.0075,
+        "end_seconds": 48.495
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "public‑share",
+        "start_seconds": 48.495,
+        "end_seconds": 49.169999999999995
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "link",
+        "start_seconds": 49.169999999999995,
+        "end_seconds": 49.495
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "that",
+        "start_seconds": 49.495,
+        "end_seconds": 49.6325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "can",
+        "start_seconds": 49.6325,
+        "end_seconds": 49.8075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "seize",
+        "start_seconds": 49.8075,
+        "end_seconds": 50.107499999999995
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "a",
+        "start_seconds": 50.107499999999995,
+        "end_seconds": 50.207499999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "ChatGPT",
+        "start_seconds": 50.207499999999996,
+        "end_seconds": 51.0325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "session",
+        "start_seconds": 51.0325,
+        "end_seconds": 51.582499999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "via",
+        "start_seconds": 51.582499999999996,
+        "end_seconds": 51.832499999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "the",
+        "start_seconds": 51.832499999999996,
+        "end_seconds": 51.957499999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "HTML",
+        "start_seconds": 51.957499999999996,
+        "end_seconds": 52.769999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "Preview",
+        "start_seconds": 52.769999999999996,
+        "end_seconds": 53.1575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "feature.",
+        "start_seconds": 53.1575,
+        "end_seconds": 54.269999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "When",
+        "start_seconds": 55.445,
+        "end_seconds": 55.5575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "the",
+        "start_seconds": 55.5575,
+        "end_seconds": 55.644999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "link",
+        "start_seconds": 55.644999999999996,
+        "end_seconds": 55.832499999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "is",
+        "start_seconds": 55.832499999999996,
+        "end_seconds": 55.97
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "opened,",
+        "start_seconds": 55.97,
+        "end_seconds": 56.3575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "the",
+        "start_seconds": 56.3575,
+        "end_seconds": 56.445
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "embedded",
+        "start_seconds": 56.445,
+        "end_seconds": 56.894999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "JavaScript",
+        "start_seconds": 56.894999999999996,
+        "end_seconds": 57.5325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "runs",
+        "start_seconds": 57.5325,
+        "end_seconds": 57.87
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "inside",
+        "start_seconds": 57.87,
+        "end_seconds": 58.2325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "a",
+        "start_seconds": 58.2325,
+        "end_seconds": 58.295
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "tiny",
+        "start_seconds": 58.295,
+        "end_seconds": 58.644999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "iframe,",
+        "start_seconds": 58.644999999999996,
+        "end_seconds": 59.37
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "waits",
+        "start_seconds": 59.37,
+        "end_seconds": 59.644999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "for",
+        "start_seconds": 59.644999999999996,
+        "end_seconds": 59.769999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "MathLive’s",
+        "start_seconds": 59.769999999999996,
+        "end_seconds": 60.37
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "message",
+        "start_seconds": 60.37,
+        "end_seconds": 60.745
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "listener,",
+        "start_seconds": 60.745,
+        "end_seconds": 61.345
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "then",
+        "start_seconds": 61.345,
+        "end_seconds": 61.495
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "calls",
+        "start_seconds": 61.495,
+        "end_seconds": 61.7825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "the",
+        "start_seconds": 61.7825,
+        "end_seconds": 61.894999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "logged‑in",
+        "start_seconds": 61.894999999999996,
+        "end_seconds": 62.32
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "user’s",
+        "start_seconds": 62.32,
+        "end_seconds": 62.695
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "A",
+        "start_seconds": 62.695,
+        "end_seconds": 62.8825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "P",
+        "start_seconds": 62.8825,
+        "end_seconds": 63.144999999999996
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "I",
+        "start_seconds": 63.144999999999996,
+        "end_seconds": 63.32
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "to",
+        "start_seconds": 63.32,
+        "end_seconds": 63.4075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "list",
+        "start_seconds": 63.4075,
+        "end_seconds": 63.62
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "conversations,",
+        "start_seconds": 63.62,
+        "end_seconds": 64.645
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "read",
+        "start_seconds": 64.645,
+        "end_seconds": 64.87
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "private",
+        "start_seconds": 64.87,
+        "end_seconds": 65.2325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "chats",
+        "start_seconds": 65.2325,
+        "end_seconds": 65.6075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "and",
+        "start_seconds": 65.6075,
+        "end_seconds": 65.7075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "exfiltrate",
+        "start_seconds": 65.7075,
+        "end_seconds": 66.295
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "data.",
+        "start_seconds": 66.295,
+        "end_seconds": 67.095
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "The",
+        "start_seconds": 67.095,
+        "end_seconds": 67.195
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "researchers",
+        "start_seconds": 67.195,
+        "end_seconds": 67.795
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "reproduced",
+        "start_seconds": 67.795,
+        "end_seconds": 68.3075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "the",
+        "start_seconds": 68.3075,
+        "end_seconds": 68.42
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "exploit",
+        "start_seconds": 68.42,
+        "end_seconds": 68.9325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "three",
+        "start_seconds": 68.9325,
+        "end_seconds": 69.17
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "times,",
+        "start_seconds": 69.17,
+        "end_seconds": 69.72
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "even",
+        "start_seconds": 69.72,
+        "end_seconds": 69.9575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "after",
+        "start_seconds": 69.9575,
+        "end_seconds": 70.2075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "a",
+        "start_seconds": 70.2075,
+        "end_seconds": 70.27
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "hard",
+        "start_seconds": 70.27,
+        "end_seconds": 70.545
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "refresh,",
+        "start_seconds": 70.545,
+        "end_seconds": 71.2075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "seeing",
+        "start_seconds": 71.2075,
+        "end_seconds": 71.4825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "the",
+        "start_seconds": 71.4825,
+        "end_seconds": 71.5575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "malicious",
+        "start_seconds": 71.5575,
+        "end_seconds": 71.995
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "alert",
+        "start_seconds": 71.995,
+        "end_seconds": 72.37
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "after",
+        "start_seconds": 72.37,
+        "end_seconds": 72.6325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "about",
+        "start_seconds": 72.6325,
+        "end_seconds": 72.9075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "four",
+        "start_seconds": 72.9075,
+        "end_seconds": 73.145
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "point",
+        "start_seconds": 73.145,
+        "end_seconds": 73.395
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "five",
+        "start_seconds": 73.395,
+        "end_seconds": 73.695
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "seconds.",
+        "start_seconds": 73.695,
+        "end_seconds": 74.9075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "The",
+        "start_seconds": 76.07,
+        "end_seconds": 76.145
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "takeaway:",
+        "start_seconds": 76.145,
+        "end_seconds": 76.795
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "any",
+        "start_seconds": 76.795,
+        "end_seconds": 77.0575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "HTML",
+        "start_seconds": 77.0575,
+        "end_seconds": 77.895
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "block",
+        "start_seconds": 77.895,
+        "end_seconds": 78.2825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "shared",
+        "start_seconds": 78.2825,
+        "end_seconds": 78.595
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "through",
+        "start_seconds": 78.595,
+        "end_seconds": 78.7825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "ChatGPT’s",
+        "start_seconds": 78.7825,
+        "end_seconds": 79.72
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "public‑share",
+        "start_seconds": 79.72,
+        "end_seconds": 80.5325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "should",
+        "start_seconds": 80.5325,
+        "end_seconds": 80.6825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "be",
+        "start_seconds": 80.6825,
+        "end_seconds": 80.8325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "treated",
+        "start_seconds": 80.8325,
+        "end_seconds": 81.2575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "as",
+        "start_seconds": 81.2575,
+        "end_seconds": 81.445
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "untrusted",
+        "start_seconds": 81.445,
+        "end_seconds": 82.1075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "code",
+        "start_seconds": 82.1075,
+        "end_seconds": 82.8325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "because",
+        "start_seconds": 82.8325,
+        "end_seconds": 83.1075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "it",
+        "start_seconds": 83.1075,
+        "end_seconds": 83.1825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "can",
+        "start_seconds": 83.1825,
+        "end_seconds": 83.3325
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "act",
+        "start_seconds": 83.3325,
+        "end_seconds": 83.5825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "on",
+        "start_seconds": 83.5825,
+        "end_seconds": 83.7075
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "behalf",
+        "start_seconds": 83.7075,
+        "end_seconds": 84.0825
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "of",
+        "start_seconds": 84.0825,
+        "end_seconds": 84.1575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "a",
+        "start_seconds": 84.1575,
+        "end_seconds": 84.2575
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "signed‑in",
+        "start_seconds": 84.2575,
+        "end_seconds": 84.795
+      },
+      {
+        "segment_id": "parameter-ai-html-preview-hijack",
+        "text": "user.",
+        "start_seconds": 84.795,
+        "end_seconds": 85.845
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "Turning",
+        "start_seconds": 87.02,
+        "end_seconds": 87.395
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "to",
+        "start_seconds": 87.395,
+        "end_seconds": 87.50750000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "our",
+        "start_seconds": 87.50750000000001,
+        "end_seconds": 87.645
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "next",
+        "start_seconds": 87.645,
+        "end_seconds": 87.92
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "story.",
+        "start_seconds": 87.92,
+        "end_seconds": 88.8075
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "Volta",
+        "start_seconds": 88.8075,
+        "end_seconds": 89.17
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "stealer",
+        "start_seconds": 89.17,
+        "end_seconds": 89.57000000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "now",
+        "start_seconds": 89.57000000000001,
+        "end_seconds": 89.795
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "uses",
+        "start_seconds": 89.795,
+        "end_seconds": 90.12
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "a",
+        "start_seconds": 90.12,
+        "end_seconds": 90.2325
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "large",
+        "start_seconds": 90.2325,
+        "end_seconds": 90.62
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "language",
+        "start_seconds": 90.62,
+        "end_seconds": 91.045
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "model",
+        "start_seconds": 91.045,
+        "end_seconds": 91.42
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "to",
+        "start_seconds": 91.42,
+        "end_seconds": 91.545
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "rank",
+        "start_seconds": 91.545,
+        "end_seconds": 91.795
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "victims.",
+        "start_seconds": 91.795,
+        "end_seconds": 92.995
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "Researchers",
+        "start_seconds": 94.16999999999999,
+        "end_seconds": 94.74499999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "found",
+        "start_seconds": 94.74499999999999,
+        "end_seconds": 94.98249999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "the",
+        "start_seconds": 94.98249999999999,
+        "end_seconds": 95.07
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "malware",
+        "start_seconds": 95.07,
+        "end_seconds": 95.445
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "bundles",
+        "start_seconds": 95.445,
+        "end_seconds": 95.845
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "harvested",
+        "start_seconds": 95.845,
+        "end_seconds": 96.345
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "credentials,",
+        "start_seconds": 96.345,
+        "end_seconds": 97.24499999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "posts",
+        "start_seconds": 97.24499999999999,
+        "end_seconds": 97.5325
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "them",
+        "start_seconds": 97.5325,
+        "end_seconds": 97.72
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "to",
+        "start_seconds": 97.72,
+        "end_seconds": 97.80749999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "an",
+        "start_seconds": 97.80749999999999,
+        "end_seconds": 97.895
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "OpenRouter",
+        "start_seconds": 97.895,
+        "end_seconds": 98.395
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "model,",
+        "start_seconds": 98.395,
+        "end_seconds": 98.9075
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "and",
+        "start_seconds": 98.9075,
+        "end_seconds": 99.02
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "gets",
+        "start_seconds": 99.02,
+        "end_seconds": 99.27
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "back",
+        "start_seconds": 99.27,
+        "end_seconds": 99.5075
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "a",
+        "start_seconds": 99.5075,
+        "end_seconds": 99.57
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "\"WHAT",
+        "start_seconds": 99.57,
+        "end_seconds": 99.845
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "THEY’RE",
+        "start_seconds": 99.845,
+        "end_seconds": 100.07
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "WORTH\"",
+        "start_seconds": 100.07,
+        "end_seconds": 100.35749999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "tier",
+        "start_seconds": 100.35749999999999,
+        "end_seconds": 100.6575
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "and",
+        "start_seconds": 100.6575,
+        "end_seconds": 100.7575
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "a",
+        "start_seconds": 100.7575,
+        "end_seconds": 100.80749999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "\"THEIR",
+        "start_seconds": 100.80749999999999,
+        "end_seconds": 101.04499999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "OPSEC\"",
+        "start_seconds": 101.04499999999999,
+        "end_seconds": 101.845
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "rating.",
+        "start_seconds": 101.845,
+        "end_seconds": 102.77
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "The",
+        "start_seconds": 102.77,
+        "end_seconds": 102.86999999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "binary",
+        "start_seconds": 102.86999999999999,
+        "end_seconds": 103.30749999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "swaps",
+        "start_seconds": 103.30749999999999,
+        "end_seconds": 103.6325
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "in",
+        "start_seconds": 103.6325,
+        "end_seconds": 103.74499999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "API",
+        "start_seconds": 103.74499999999999,
+        "end_seconds": 104.195
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "keys",
+        "start_seconds": 104.195,
+        "end_seconds": 104.48249999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "and",
+        "start_seconds": 104.48249999999999,
+        "end_seconds": 104.595
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "Telegram",
+        "start_seconds": 104.595,
+        "end_seconds": 105.07
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "credentials,",
+        "start_seconds": 105.07,
+        "end_seconds": 105.74499999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "but",
+        "start_seconds": 105.74499999999999,
+        "end_seconds": 105.8825
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "the",
+        "start_seconds": 105.8825,
+        "end_seconds": 105.97
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "keys",
+        "start_seconds": 105.97,
+        "end_seconds": 106.23249999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "are",
+        "start_seconds": 106.23249999999999,
+        "end_seconds": 106.32
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "only",
+        "start_seconds": 106.32,
+        "end_seconds": 106.61999999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "lightly",
+        "start_seconds": 106.61999999999999,
+        "end_seconds": 106.945
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "protected",
+        "start_seconds": 106.945,
+        "end_seconds": 107.43249999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "with",
+        "start_seconds": 107.43249999999999,
+        "end_seconds": 107.55749999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "a",
+        "start_seconds": 107.55749999999999,
+        "end_seconds": 107.6575
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "SHA‑256",
+        "start_seconds": 107.6575,
+        "end_seconds": 108.79499999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "hash",
+        "start_seconds": 108.79499999999999,
+        "end_seconds": 109.05749999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "of",
+        "start_seconds": 109.05749999999999,
+        "end_seconds": 109.145
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "two",
+        "start_seconds": 109.145,
+        "end_seconds": 109.345
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "constants,",
+        "start_seconds": 109.345,
+        "end_seconds": 110.04499999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "so",
+        "start_seconds": 110.04499999999999,
+        "end_seconds": 110.22
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "reverse",
+        "start_seconds": 110.22,
+        "end_seconds": 110.6325
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "engineers",
+        "start_seconds": 110.6325,
+        "end_seconds": 111.145
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "can",
+        "start_seconds": 111.145,
+        "end_seconds": 111.29499999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "still",
+        "start_seconds": 111.29499999999999,
+        "end_seconds": 111.57
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "pull",
+        "start_seconds": 111.57,
+        "end_seconds": 111.7575
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "them",
+        "start_seconds": 111.7575,
+        "end_seconds": 111.895
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "out.",
+        "start_seconds": 111.895,
+        "end_seconds": 112.57
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "This",
+        "start_seconds": 112.57,
+        "end_seconds": 112.7825
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "AI",
+        "start_seconds": 112.7825,
+        "end_seconds": 113.145
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "step",
+        "start_seconds": 113.145,
+        "end_seconds": 113.445
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "isn’t",
+        "start_seconds": 113.445,
+        "end_seconds": 113.68249999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "about",
+        "start_seconds": 113.68249999999999,
+        "end_seconds": 113.93249999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "speed;",
+        "start_seconds": 113.93249999999999,
+        "end_seconds": 114.61999999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "it",
+        "start_seconds": 114.61999999999999,
+        "end_seconds": 114.72
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "automates",
+        "start_seconds": 114.72,
+        "end_seconds": 115.2075
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "the",
+        "start_seconds": 115.2075,
+        "end_seconds": 115.32
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "analyst’s",
+        "start_seconds": 115.32,
+        "end_seconds": 115.85749999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "job,",
+        "start_seconds": 115.85749999999999,
+        "end_seconds": 116.27
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "turning",
+        "start_seconds": 116.27,
+        "end_seconds": 116.61999999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "raw",
+        "start_seconds": 116.61999999999999,
+        "end_seconds": 116.85749999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "dumps",
+        "start_seconds": 116.85749999999999,
+        "end_seconds": 117.2075
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "into",
+        "start_seconds": 117.2075,
+        "end_seconds": 117.41999999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "monetizable",
+        "start_seconds": 117.41999999999999,
+        "end_seconds": 118.16999999999999
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "intel.",
+        "start_seconds": 118.16999999999999,
+        "end_seconds": 119.3325
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "Watch",
+        "start_seconds": 119.79,
+        "end_seconds": 120.09
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "outbound",
+        "start_seconds": 120.09,
+        "end_seconds": 120.515
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "traffic",
+        "start_seconds": 120.515,
+        "end_seconds": 121.05250000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "to",
+        "start_seconds": 121.05250000000001,
+        "end_seconds": 121.2275
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "LLM",
+        "start_seconds": 121.2275,
+        "end_seconds": 121.75250000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "services",
+        "start_seconds": 121.75250000000001,
+        "end_seconds": 122.665
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "–",
+        "start_seconds": 122.665,
+        "end_seconds": 122.74000000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "that’s",
+        "start_seconds": 122.74000000000001,
+        "end_seconds": 123.015
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "the",
+        "start_seconds": 123.015,
+        "end_seconds": 123.11500000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "new",
+        "start_seconds": 123.11500000000001,
+        "end_seconds": 123.29
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "indicator",
+        "start_seconds": 123.29,
+        "end_seconds": 123.8275
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "of",
+        "start_seconds": 123.8275,
+        "end_seconds": 123.9025
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "a",
+        "start_seconds": 123.9025,
+        "end_seconds": 124.00250000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "stealer",
+        "start_seconds": 124.00250000000001,
+        "end_seconds": 124.4775
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "moving",
+        "start_seconds": 124.4775,
+        "end_seconds": 124.81500000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "from",
+        "start_seconds": 124.81500000000001,
+        "end_seconds": 125.015
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "data",
+        "start_seconds": 125.015,
+        "end_seconds": 125.36500000000001
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "theft",
+        "start_seconds": 125.36500000000001,
+        "end_seconds": 125.8275
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "to",
+        "start_seconds": 125.8275,
+        "end_seconds": 125.9775
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "automated",
+        "start_seconds": 125.9775,
+        "end_seconds": 126.54
+      },
+      {
+        "segment_id": "volta-llm-victim-appraisal",
+        "text": "valuation.",
+        "start_seconds": 126.54,
+        "end_seconds": 127.89
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Next",
+        "start_seconds": 129.09,
+        "end_seconds": 129.32750000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "on",
+        "start_seconds": 129.32750000000001,
+        "end_seconds": 129.4275
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "the",
+        "start_seconds": 129.4275,
+        "end_seconds": 129.51500000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "bulletin.",
+        "start_seconds": 129.51500000000001,
+        "end_seconds": 130.3025
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Molly,",
+        "start_seconds": 130.3025,
+        "end_seconds": 130.70250000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "the",
+        "start_seconds": 130.70250000000001,
+        "end_seconds": 130.79
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "community‑maintained",
+        "start_seconds": 130.79,
+        "end_seconds": 131.7525
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Signal",
+        "start_seconds": 131.7525,
+        "end_seconds": 132.1275
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "fork,",
+        "start_seconds": 132.1275,
+        "end_seconds": 132.615
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "still",
+        "start_seconds": 132.615,
+        "end_seconds": 132.865
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "carries",
+        "start_seconds": 132.865,
+        "end_seconds": 133.1775
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "the",
+        "start_seconds": 133.1775,
+        "end_seconds": 133.2775
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "October",
+        "start_seconds": 133.2775,
+        "end_seconds": 133.74
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "exploit",
+        "start_seconds": 133.74,
+        "end_seconds": 134.215
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "that",
+        "start_seconds": 134.215,
+        "end_seconds": 134.3775
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Signal",
+        "start_seconds": 134.3775,
+        "end_seconds": 134.74
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "patched",
+        "start_seconds": 134.74,
+        "end_seconds": 135.115
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "in",
+        "start_seconds": 135.115,
+        "end_seconds": 135.24
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "version",
+        "start_seconds": 135.24,
+        "end_seconds": 135.59
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "eight",
+        "start_seconds": 135.59,
+        "end_seconds": 135.79
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "point",
+        "start_seconds": 135.79,
+        "end_seconds": 136.04
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "twenty‑seven",
+        "start_seconds": 136.04,
+        "end_seconds": 136.51500000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "point",
+        "start_seconds": 136.51500000000001,
+        "end_seconds": 136.76500000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "one.",
+        "start_seconds": 136.76500000000001,
+        "end_seconds": 137.51500000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "A",
+        "start_seconds": 137.51500000000001,
+        "end_seconds": 137.59
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Hacker",
+        "start_seconds": 137.59,
+        "end_seconds": 137.915
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "News",
+        "start_seconds": 137.915,
+        "end_seconds": 138.19
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "post",
+        "start_seconds": 138.19,
+        "end_seconds": 138.45250000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "on",
+        "start_seconds": 138.45250000000001,
+        "end_seconds": 138.6025
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "thirty‑first",
+        "start_seconds": 138.6025,
+        "end_seconds": 139.165
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "October",
+        "start_seconds": 139.165,
+        "end_seconds": 139.59
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "notes",
+        "start_seconds": 139.59,
+        "end_seconds": 139.865
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "no",
+        "start_seconds": 139.865,
+        "end_seconds": 140.04
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "new",
+        "start_seconds": 140.04,
+        "end_seconds": 140.215
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Molly",
+        "start_seconds": 140.215,
+        "end_seconds": 140.49
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "release",
+        "start_seconds": 140.49,
+        "end_seconds": 140.82750000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "in",
+        "start_seconds": 140.82750000000001,
+        "end_seconds": 140.965
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "three",
+        "start_seconds": 140.965,
+        "end_seconds": 141.19
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "months,",
+        "start_seconds": 141.19,
+        "end_seconds": 141.665
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "so",
+        "start_seconds": 141.665,
+        "end_seconds": 141.7775
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "the",
+        "start_seconds": 141.7775,
+        "end_seconds": 141.865
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "vulnerability",
+        "start_seconds": 141.865,
+        "end_seconds": 142.565
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "remains",
+        "start_seconds": 142.565,
+        "end_seconds": 142.965
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "unaddressed.",
+        "start_seconds": 142.965,
+        "end_seconds": 143.94
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "That",
+        "start_seconds": 143.94,
+        "end_seconds": 144.1025
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "means",
+        "start_seconds": 144.1025,
+        "end_seconds": 144.365
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "anyone",
+        "start_seconds": 144.365,
+        "end_seconds": 144.665
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "running",
+        "start_seconds": 144.665,
+        "end_seconds": 144.965
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Molly",
+        "start_seconds": 144.965,
+        "end_seconds": 145.2275
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "is",
+        "start_seconds": 145.2275,
+        "end_seconds": 145.34
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "exposed",
+        "start_seconds": 145.34,
+        "end_seconds": 145.95250000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "until",
+        "start_seconds": 145.95250000000001,
+        "end_seconds": 146.1775
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "the",
+        "start_seconds": 146.1775,
+        "end_seconds": 146.2525
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "maintainers",
+        "start_seconds": 146.2525,
+        "end_seconds": 146.865
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "push",
+        "start_seconds": 146.865,
+        "end_seconds": 147.0525
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "an",
+        "start_seconds": 147.0525,
+        "end_seconds": 147.14000000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "update",
+        "start_seconds": 147.14000000000001,
+        "end_seconds": 147.615
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "that",
+        "start_seconds": 147.615,
+        "end_seconds": 147.7275
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "includes",
+        "start_seconds": 147.7275,
+        "end_seconds": 148.115
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "at",
+        "start_seconds": 148.115,
+        "end_seconds": 148.215
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "least",
+        "start_seconds": 148.215,
+        "end_seconds": 148.51500000000001
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Signal",
+        "start_seconds": 148.51500000000001,
+        "end_seconds": 148.915
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "version",
+        "start_seconds": 148.915,
+        "end_seconds": 149.3525
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "eight",
+        "start_seconds": 149.3525,
+        "end_seconds": 149.615
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "point",
+        "start_seconds": 149.615,
+        "end_seconds": 149.865
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "twenty‑seven",
+        "start_seconds": 149.865,
+        "end_seconds": 150.34
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "point",
+        "start_seconds": 150.34,
+        "end_seconds": 150.615
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "one.",
+        "start_seconds": 150.615,
+        "end_seconds": 151.6275
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Here’s",
+        "start_seconds": 152.085,
+        "end_seconds": 152.66
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "why",
+        "start_seconds": 152.66,
+        "end_seconds": 152.835
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "that",
+        "start_seconds": 152.835,
+        "end_seconds": 153.085
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "matters:",
+        "start_seconds": 153.085,
+        "end_seconds": 153.8975
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "stick",
+        "start_seconds": 153.8975,
+        "end_seconds": 154.19750000000002
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "with",
+        "start_seconds": 154.19750000000002,
+        "end_seconds": 154.32250000000002
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "the",
+        "start_seconds": 154.32250000000002,
+        "end_seconds": 154.46
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "official",
+        "start_seconds": 154.46,
+        "end_seconds": 154.94750000000002
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "Signal",
+        "start_seconds": 154.94750000000002,
+        "end_seconds": 155.335
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "client",
+        "start_seconds": 155.335,
+        "end_seconds": 155.685
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "for",
+        "start_seconds": 155.685,
+        "end_seconds": 155.81
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "now,",
+        "start_seconds": 155.81,
+        "end_seconds": 156.235
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "or",
+        "start_seconds": 156.235,
+        "end_seconds": 156.36
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "you’re",
+        "start_seconds": 156.36,
+        "end_seconds": 156.485
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "taking",
+        "start_seconds": 156.485,
+        "end_seconds": 156.81
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "a",
+        "start_seconds": 156.81,
+        "end_seconds": 156.9225
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "known",
+        "start_seconds": 156.9225,
+        "end_seconds": 157.235
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "security",
+        "start_seconds": 157.235,
+        "end_seconds": 157.735
+      },
+      {
+        "segment_id": "signal-molly-vulnerability-2026-11-01-segment",
+        "text": "risk.",
+        "start_seconds": 157.735,
+        "end_seconds": 158.785
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "And",
+        "start_seconds": 159.935,
+        "end_seconds": 160.07250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "finally,",
+        "start_seconds": 160.07250000000002,
+        "end_seconds": 160.5475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "our",
+        "start_seconds": 160.5475,
+        "end_seconds": 160.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "last",
+        "start_seconds": 160.685,
+        "end_seconds": 160.96
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "story.",
+        "start_seconds": 160.96,
+        "end_seconds": 161.7975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Anthropic",
+        "start_seconds": 161.7975,
+        "end_seconds": 162.32250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "has",
+        "start_seconds": 162.32250000000002,
+        "end_seconds": 162.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "started",
+        "start_seconds": 162.435,
+        "end_seconds": 162.735
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "cutting",
+        "start_seconds": 162.735,
+        "end_seconds": 163.0475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "off",
+        "start_seconds": 163.0475,
+        "end_seconds": 163.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "any",
+        "start_seconds": 163.235,
+        "end_seconds": 163.44750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "session",
+        "start_seconds": 163.44750000000002,
+        "end_seconds": 163.82250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 163.82250000000002,
+        "end_seconds": 163.935
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "touches",
+        "start_seconds": 163.935,
+        "end_seconds": 164.335
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "reinforcement‑from‑human",
+        "start_seconds": 164.335,
+        "end_seconds": 165.5475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "feedback",
+        "start_seconds": 165.5475,
+        "end_seconds": 166.03500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 166.03500000000003,
+        "end_seconds": 166.19750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "supervised",
+        "start_seconds": 166.19750000000002,
+        "end_seconds": 166.78500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fine‑tuning,",
+        "start_seconds": 166.78500000000003,
+        "end_seconds": 167.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "even",
+        "start_seconds": 167.685,
+        "end_seconds": 167.9225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "if",
+        "start_seconds": 167.9225,
+        "end_seconds": 168.0225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you’re",
+        "start_seconds": 168.0225,
+        "end_seconds": 168.13500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "just",
+        "start_seconds": 168.13500000000002,
+        "end_seconds": 168.31
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "using",
+        "start_seconds": 168.31,
+        "end_seconds": 168.61
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Claude",
+        "start_seconds": 168.61,
+        "end_seconds": 168.91000000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 168.91000000000003,
+        "end_seconds": 169.0225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "analysis.",
+        "start_seconds": 169.0225,
+        "end_seconds": 170.13500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "A",
+        "start_seconds": 170.13500000000002,
+        "end_seconds": 170.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "user",
+        "start_seconds": 170.235,
+        "end_seconds": 170.5225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 170.5225,
+        "end_seconds": 170.66000000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "X",
+        "start_seconds": 170.66000000000003,
+        "end_seconds": 170.88500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "saw",
+        "start_seconds": 170.88500000000002,
+        "end_seconds": 171.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Claude",
+        "start_seconds": 171.11,
+        "end_seconds": 171.41000000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Opus",
+        "start_seconds": 171.41000000000003,
+        "end_seconds": 171.735
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "version",
+        "start_seconds": 171.735,
+        "end_seconds": 172.09750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "five",
+        "start_seconds": 172.09750000000003,
+        "end_seconds": 172.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 172.435,
+        "end_seconds": 172.72250000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "five",
+        "start_seconds": 172.72250000000003,
+        "end_seconds": 173.1225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "automatically",
+        "start_seconds": 173.1225,
+        "end_seconds": 173.81
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "downgraded",
+        "start_seconds": 173.81,
+        "end_seconds": 174.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 174.36,
+        "end_seconds": 174.485
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Opus",
+        "start_seconds": 174.485,
+        "end_seconds": 174.84750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "five,",
+        "start_seconds": 174.84750000000003,
+        "end_seconds": 175.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 175.36,
+        "end_seconds": 175.47250000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 175.47250000000003,
+        "end_seconds": 175.56
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "whole",
+        "start_seconds": 175.56,
+        "end_seconds": 175.81
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "job",
+        "start_seconds": 175.81,
+        "end_seconds": 176.09750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "killed,",
+        "start_seconds": 176.09750000000003,
+        "end_seconds": 176.5475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "when",
+        "start_seconds": 176.5475,
+        "end_seconds": 176.6725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 176.6725,
+        "end_seconds": 176.7725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "system",
+        "start_seconds": 176.7725,
+        "end_seconds": 177.1475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "flagged",
+        "start_seconds": 177.1475,
+        "end_seconds": 177.51000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "it",
+        "start_seconds": 177.51000000000002,
+        "end_seconds": 177.6725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "as",
+        "start_seconds": 177.6725,
+        "end_seconds": 177.835
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "“training",
+        "start_seconds": 177.835,
+        "end_seconds": 178.2475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 178.2475,
+        "end_seconds": 178.31
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "competitor.”",
+        "start_seconds": 178.31,
+        "end_seconds": 179.585
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "That",
+        "start_seconds": 180.76,
+        "end_seconds": 180.8975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "means",
+        "start_seconds": 180.8975,
+        "end_seconds": 181.17249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "anyone",
+        "start_seconds": 181.17249999999999,
+        "end_seconds": 181.635
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "orchestrating",
+        "start_seconds": 181.635,
+        "end_seconds": 182.285
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "research",
+        "start_seconds": 182.285,
+        "end_seconds": 182.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "automation",
+        "start_seconds": 182.685,
+        "end_seconds": 183.31
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "with",
+        "start_seconds": 183.31,
+        "end_seconds": 183.46
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Anthropic’s",
+        "start_seconds": 183.46,
+        "end_seconds": 184.0725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "API",
+        "start_seconds": 184.0725,
+        "end_seconds": 184.79749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "now",
+        "start_seconds": 184.79749999999999,
+        "end_seconds": 185.035
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "has",
+        "start_seconds": 185.035,
+        "end_seconds": 185.23499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 185.23499999999999,
+        "end_seconds": 185.35999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "strip",
+        "start_seconds": 185.35999999999999,
+        "end_seconds": 185.6475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "out",
+        "start_seconds": 185.6475,
+        "end_seconds": 185.8475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "every",
+        "start_seconds": 185.8475,
+        "end_seconds": 186.1975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "RFT",
+        "start_seconds": 186.1975,
+        "end_seconds": 186.8725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 186.8725,
+        "end_seconds": 187.035
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "SFT",
+        "start_seconds": 187.035,
+        "end_seconds": 187.585
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "step,",
+        "start_seconds": 187.585,
+        "end_seconds": 188.23499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 188.23499999999999,
+        "end_seconds": 188.385
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "move",
+        "start_seconds": 188.385,
+        "end_seconds": 188.66
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 188.66,
+        "end_seconds": 188.7475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 188.7475,
+        "end_seconds": 188.81
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "different",
+        "start_seconds": 188.81,
+        "end_seconds": 189.10999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "provider,",
+        "start_seconds": 189.10999999999999,
+        "end_seconds": 189.85999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "because",
+        "start_seconds": 189.85999999999999,
+        "end_seconds": 190.1475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 190.1475,
+        "end_seconds": 190.23499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "block",
+        "start_seconds": 190.23499999999999,
+        "end_seconds": 190.5225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "will",
+        "start_seconds": 190.5225,
+        "end_seconds": 190.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "interrupt",
+        "start_seconds": 190.685,
+        "end_seconds": 191.29749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 191.29749999999999,
+        "end_seconds": 191.4725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "downgrade",
+        "start_seconds": 191.4725,
+        "end_seconds": 191.98499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "workloads",
+        "start_seconds": 191.98499999999999,
+        "end_seconds": 192.535
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "without",
+        "start_seconds": 192.535,
+        "end_seconds": 192.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "warning.",
+        "start_seconds": 192.885,
+        "end_seconds": 193.98499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "And",
+        "start_seconds": 195.16,
+        "end_seconds": 195.2725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that's",
+        "start_seconds": 195.2725,
+        "end_seconds": 195.51
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 195.51,
+        "end_seconds": 195.66
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Daywire",
+        "start_seconds": 195.66,
+        "end_seconds": 196.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "briefing.",
+        "start_seconds": 196.11,
+        "end_seconds": 196.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "You'll",
+        "start_seconds": 196.885,
+        "end_seconds": 197.06
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "find",
+        "start_seconds": 197.06,
+        "end_seconds": 197.2975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 197.2975,
+        "end_seconds": 197.3975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "full",
+        "start_seconds": 197.3975,
+        "end_seconds": 197.6975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stories",
+        "start_seconds": 197.6975,
+        "end_seconds": 198.1725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 198.1725,
+        "end_seconds": 198.2975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sources",
+        "start_seconds": 198.2975,
+        "end_seconds": 198.785
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 198.785,
+        "end_seconds": 198.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "today's",
+        "start_seconds": 198.885,
+        "end_seconds": 199.26
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "newspaper.",
+        "start_seconds": 199.26,
+        "end_seconds": 200.0975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Thanks",
+        "start_seconds": 200.0975,
+        "end_seconds": 200.385
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 200.385,
+        "end_seconds": 200.51
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "listening.",
+        "start_seconds": 200.51,
+        "end_seconds": 201.06
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Take",
+        "start_seconds": 201.06,
+        "end_seconds": 201.3475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "care,",
+        "start_seconds": 201.3475,
+        "end_seconds": 201.71
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "everyone.",
+        "start_seconds": 201.71,
+        "end_seconds": 202.885
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
