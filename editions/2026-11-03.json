@@ -1,0 +1,3666 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-03",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-03T07:14:39.505141244Z",
+  "coverage": {
+    "from": "2026-11-02T06:00:00+05:30",
+    "until": "2026-11-03T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-0d297090385ad5a7",
+      "source-bca108e4c77bd86b",
+      "source-277870ffc8d71544",
+      "source-5d33ed0c66ace544",
+      "source-5a014341bc3fc0f1",
+      "source-7e4abe26de7f0b91",
+      "source-0db7b6f459a78855",
+      "source-e09de74dab1c4907",
+      "source-47224c461ea0e786"
+    ],
+    "candidate_count": 48,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "AI weight editing and unified AI workloads",
+    "introduction": "Astra demonstrates a new way to improve large‑language‑model math ability by directly editing raw model weights, while NVIDIA’s Workload Map brings a single Kubernetes schema for scheduling diverse AI jobs. Both advances point to tighter integration between model internals and orchestration platforms.",
+    "articles": [
+      {
+        "id": "astra-weight-editing-2026",
+        "section": "AI",
+        "headline": "Astra edits LLM weights to boost Qwen math performance",
+        "summary": "Astra can read and write raw neural‑network weights, fixing a small fraction of Qwen‑3.5‑0.8B’s parameters to raise its MATH‑500 score from 7.9 % to 48.1 %.",
+        "paragraphs": [
+          "In a Hacker News‑linked blog post, researcher Rikiyat demonstrates “weight‑space programming” where the Astra system receives a model’s raw weight tensor as a prompt and directly edits it. When tasked with improving Qwen‑3.5‑0.8B’s math ability without gradients, Astra identified a problematic weight pattern that caused reasoning loops—an issue noted in the model’s own card—and altered just 0.016 % of the parameters. The edit lifted the model’s MATH‑500 accuracy from 7.9 % to 48.1 % while also tripling its IFEval instruction‑following score, all with the same sampling settings.",
+          "The experiment shows that LLMs can act as weight‑analysis agents, even when only the middle transformer blocks are exposed. By stripping input and output layers and giving Astra only the four internal blocks, the authors proved the approach works without needing to run the network, though they acknowledge this middle‑layer‑only strategy may not yet scale to larger language models."
+        ],
+        "implication": "Engineers can explore direct weight manipulation as a low‑compute alternative to gradient‑based fine‑tuning, but current methods rely on small models and limited layer access, so broader adoption will require more scalable tooling.",
+        "source_ids": [
+          "source-f9ecf66c18226a74"
+        ]
+      },
+      {
+        "id": "ubuntu-cve-2026-98432-delay",
+        "section": "Security",
+        "headline": "Ubuntu LTS kernels still lack fix for critical CVE‑2026‑98432",
+        "summary": "Canonical has not released patched kernels for CVE‑2026‑98432 on any supported Ubuntu LTS release, leaving servers exposed.",
+        "paragraphs": [
+          "The Linux kernel TCP bug CVE‑2026‑98432, rated CVSS 9.8, has been present since 2016 and a working remote‑root exploit was demonstrated by Anthropic. Debian shipped a fix on October 16, but as of 2026‑11‑02 Ubuntu 22.04, 24.04 and the upcoming 26.04 LTS still list the vulnerability as “Vulnerable” and provide no patched kernel packages.",
+          "Canonical has not announced an ETA, so administrators of internet‑facing or multi‑tenant Ubuntu servers must either remain on the vulnerable stock kernel, seek out‑of‑tree mitigations, or migrate workloads to distributions that already include the patch. The delay contradicts Ubuntu’s public promise of “timely patches for critical vulnerabilities.”"
+        ],
+        "implication": "Operators relying on Ubuntu LTS kernels should consider temporary mitigation strategies or moving to patched distributions until Canonical releases an official update.",
+        "source_ids": [
+          "source-8125ab012eafaabe",
+          "source-81a05a5d9bd4a463"
+        ]
+      },
+      {
+        "id": "fastify-handler-timeout-dos-2026-11-03",
+        "section": "Security",
+        "headline": "Fastify 5.12.8 patches streaming‑response DoS bug",
+        "summary": "Fastify versions ≥ 5.8.0 \u003c 5.12.8 can crash when a streaming response exceeds a non‑zero handlerTimeout, and the fix lands in 5.12.8.",
+        "paragraphs": [
+          "Fastify’s handlerTimeout feature aborts long‑running handlers, but a corner case surfaced when a route returns a streaming response. If the stream has already sent headers and then stays open past the timeout, Fastify tries to send a new error response, triggering an uncaught ERR_HTTP_HEADERS_SENT exception that terminates the Node.js process. The vulnerability (CVE‑2026‑120216) is moderate in severity and can be exploited by an unauthenticated client with a single request to any affected streaming endpoint. The default setting, handlerTimeout 0, is not vulnerable.",
+          "The issue is resolved by upgrading to Fastify ≥ 5.12.8, which guards against sending a second response after headers are sent. As a workaround, operators can disable the timeout path by explicitly setting handlerTimeout to 0 until they can apply the patched release."
+        ],
+        "implication": "Upgrading to Fastify 5.12.8 eliminates the crash risk for services that use streaming responses with non‑zero handlerTimeouts, preserving process stability without changing existing timeout logic.",
+        "source_ids": [
+          "source-68309a3f45f8e2a4"
+        ]
+      },
+      {
+        "id": "nvidia-workload-map-brief",
+        "section": "Engineering",
+        "headline": "NVIDIA Workload Map unifies Kubernetes AI job definitions",
+        "summary": "NVIDIA’s Workload Map adds a common Kubernetes workload description that lets schedulers and controllers handle multiple AI frameworks without per‑framework adapters.",
+        "paragraphs": [
+          "The new Workload Map CLI reads a single JobSet definition and supplies gang‑scheduling via KAI Scheduler and unified management in NVIDIA Run:ai, eliminating the need to write separate adapters for each custom resource such as JobSet or LeaderWorkerSet. By exposing podTemplateSpecPath, scaleDefinition and instanceIdPath in a standard schema, developers only implement one adapter per workload type, turning framework support from a roadmap item into a reusable component."
+        ],
+        "implication": "Teams can onboard new AI frameworks faster and lower engineering overhead, as the same parsing logic now serves all supported workloads on Kubernetes.",
+        "source_ids": [
+          "source-d8e3c61d1ed07fc2"
+        ]
+      },
+      {
+        "id": "nvidia-recovery-automated-workload",
+        "section": "Engineering",
+        "headline": "NVIDIA Recovery adds automated workload recovery for distributed training",
+        "summary": "NVIDIA’s Recovery layer ties infrastructure remediation to job restart in Kubernetes and Slurm clusters, automating fault detection and node isolation.",
+        "paragraphs": [
+          "The Recovery component sits in the DSX OS stack and integrates NVSentinel GPU health monitoring, the slurm‑operator health scripts, and the NVRx in‑job library. When a GPU XID event or similar fault occurs, the system automatically cordons and drains the affected node, then coordinates checkpoint restoration and placement of the job on healthy nodes, while tracking recovery latency and success metrics."
+        ],
+        "implication": "Adopting NVIDIA Recovery lets cluster operators delegate fault handling to an automated control loop, reducing the need for manual log analysis and node‑by‑node intervention.",
+        "source_ids": [
+          "source-84a791d3975ddc36"
+        ]
+      },
+      {
+        "id": "zone-builder-memory-optimisation",
+        "section": "Engineering",
+        "headline": "Cloudflare avoids full DNS zone builds for massive zones",
+        "summary": "Cloudflare’s Zone Builder now skips full builds on zones larger than a set record count, rebuilding only affected apex and metadata keys.",
+        "paragraphs": [
+          "The 2026 update to Cloudflare’s DNS pipeline notes that zones can now hold tens of millions of records, exceeding available memory for a full rebuild. When a zone passes a fixed record‑count threshold, the builder reads and writes only the changed apex, metadata, and names touched by queued events, rather than loading the entire zone into memory. This trade‑off prevents build stalls that would block other changes on the same Kafka partition."
+        ],
+        "implication": "Operators of very large zones will see faster incremental updates but must manually trigger full rebuilds for rare cases that affect the entire zone.",
+        "source_ids": [
+          "source-3017d51cc49fa391"
+        ]
+      },
+      {
+        "id": "aws-drs-agent-lifecycle-automation",
+        "section": "Tools",
+        "headline": "AWS DRS agent lifecycle now fully automated via SSM",
+        "summary": "AWS introduced SSM Automation documents that install, heal stalled agents, and offboard AWS DRS replication agents based on a single EC2 tag.",
+        "paragraphs": [
+          "The new workflow uses three SSM Automation documents triggered by EventBridge or a 30‑minute State Manager schedule. Tag values (yes, pause, no) dictate whether an instance is onboarded, healed when replication stalls, or offboarded when removed from DR scope, eliminating the need for custom Lambda functions and ensuring billing stops for des‑coped servers."
+        ],
+        "implication": "Operators can manage large EC2 fleets with a single tag and built‑in automation, reducing manual effort and preventing hidden replication costs.",
+        "source_ids": [
+          "source-498b9a7ec4e4c061"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "weight-space-programming-mechanism",
+        "title": "How direct weight editing lets LLMs fix themselves",
+        "paragraphs": [
+          "Astra treats a model’s raw weight tensor as readable text and uses a language model to locate patterns that cause undesirable behavior. By scanning the middle transformer blocks—without running the network—it can pinpoint a small set of parameters responsible for reasoning loops and rewrite them, effectively performing a targeted, gradient‑free correction.",
+          "The experiment with Qwen‑3.5‑0.8B showed that editing just 0.016 % of the weights raised its MATH‑500 accuracy from 7.9 % to 48.1 % and tripled its IFEval score, demonstrating that precise weight edits can dramatically improve performance without full fine‑tuning."
+        ],
+        "example": "Imagine a 100‑parameter model where parameter 42 is set to -0.5, causing the model to always predict \"no\". A language model reads the parameter list, spots the outlier, and changes it to 0.5, instantly fixing the bug.",
+        "takeaway": "Direct weight editing offers a low‑compute path to repair or enhance models, but it currently works best on small models and limited layers, so scaling the technique will be the next challenge.",
+        "article_ids": [
+          "astra-weight-editing-2026"
+        ],
+        "source_ids": [
+          "source-f9ecf66c18226a74"
+        ]
+      },
+      {
+        "id": "ubuntu-patch-delay-mechanism",
+        "title": "Why delayed kernel patches can leave servers exposed",
+        "paragraphs": [
+          "When a critical kernel flaw like CVE‑2026‑98432 is discovered, the fix must be back‑ported into each supported distribution release. If the upstream maintainer (Canonical for Ubuntu) does not ship the patched kernel promptly, the vulnerable code remains in the running kernel, and any remote‑root exploit that works against the unpatched TCP stack can be used against every server that has not been manually mitigated.",
+          "Ubuntu’s LTS releases (22.04, 24.04, 26.04) still list the bug as “Vulnerable” weeks after Debian released a fix and after a working exploit was demonstrated. Without an official package, administrators either keep the risky kernel, apply out‑of‑tree mitigations, or migrate to a distribution that already includes the patch, each option carrying operational cost and security risk."
+        ],
+        "example": "A VPS provider running Ubuntu 22.04 with the default kernel receives a connection on port 80. An attacker sends a specially crafted TCP packet that triggers the CVE‑2026‑98432 bug, gaining root privileges and taking control of the host because no patched kernel is available.",
+        "takeaway": "Timely kernel updates are essential; when a vendor delays a fix, operators must treat the vulnerability as an active threat and either apply custom mitigations or move workloads to a patched platform.",
+        "article_ids": [
+          "ubuntu-cve-2026-98432-delay"
+        ],
+        "source_ids": [
+          "source-8125ab012eafaabe",
+          "source-81a05a5d9bd4a463"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-weight-editing-effectiveness",
+        "lesson_id": "weight-space-programming-mechanism",
+        "prompt": "According to the lesson, what was the primary performance change observed after editing 0.016 % of the weights in Qwen‑3.5‑0.8B?",
+        "options": [
+          "The model's MATH‑500 accuracy increased from 7.9 % to 48.1 %.",
+          "The model's overall parameter count decreased by 0.016 %.",
+          "The model's inference speed doubled.",
+          "The model's IFEval score dropped by half."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that editing just 0.016 % of the weights raised Qwen‑3.5‑0.8B's MATH‑500 accuracy from 7.9 % to 48.1 %, which is the specific performance change described."
+      },
+      {
+        "id": "quiz-1-weight-editing-scope",
+        "lesson_id": "weight-space-programming-mechanism",
+        "prompt": "What limitation of the direct weight editing approach is highlighted in the takeaway?",
+        "options": [
+          "It only works on small models and a limited number of layers.",
+          "It requires full fine‑tuning of the entire network.",
+          "It can only modify bias terms, not weight matrices.",
+          "It needs gradient information to locate problematic parameters."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway notes that direct weight editing currently works best on small models and limited layers, indicating scalability as the main limitation."
+      },
+      {
+        "id": "quiz-1-weight-editing-mechanism",
+        "lesson_id": "weight-space-programming-mechanism",
+        "prompt": "How does Astra locate the parameters responsible for undesirable behavior without running the network?",
+        "options": [
+          "It treats the raw weight tensor as readable text and uses a language model to find patterns.",
+          "It performs a gradient‑based backpropagation pass to compute importance scores.",
+          "It runs a full inference pass and logs activations to identify hotspots.",
+          "It randomly samples parameters until the behavior changes."
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that Astra reads the weight tensor as text and employs a language model to locate patterns causing issues, enabling gradient‑free correction."
+      },
+      {
+        "id": "quiz-2-delay-mechanism-1",
+        "lesson_id": "ubuntu-patch-delay-mechanism",
+        "prompt": "What is the primary security consequence when the upstream maintainer delays shipping a patched kernel for a critical flaw?",
+        "options": [
+          "The vulnerability is automatically mitigated by the distribution’s security tools.",
+          "The vulnerable code remains in the running kernel, allowing remote‑root exploits to succeed.",
+          "Only older, unsupported releases are affected by the delay.",
+          "The delay forces all administrators to downgrade to an earlier kernel version."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that if the upstream maintainer does not ship the patched kernel promptly, the vulnerable code stays in the running kernel, enabling remote‑root exploits against servers that have not been manually mitigated."
+      },
+      {
+        "id": "quiz-2-delay-mechanism-2",
+        "lesson_id": "ubuntu-patch-delay-mechanism",
+        "prompt": "According to the article, which action is NOT a recommended response for operators when a kernel patch is delayed?",
+        "options": [
+          "Apply out‑of‑tree mitigations to the existing kernel.",
+          "Migrate workloads to a distribution that already includes the patch.",
+          "Continue using the unpatched kernel without any additional measures.",
+          "Manually back‑port the fix if feasible."
+        ],
+        "answer": 2,
+        "explanation": "The lesson’s takeaway emphasizes that operators must treat the vulnerability as an active threat and either apply custom mitigations, move to a patched platform, or back‑port the fix. Continuing to use the unpatched kernel without mitigation is not recommended."
+      }
+    ],
+    "segments": [
+      {
+        "id": "astra-weight-editing-2026-segment",
+        "title": "Astra boosts Qwen math via weight edits",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November three, two thousand twenty six.\n\nWe begin with our lead story. Astra rewrites a sliver of Qwen‑3.5‑0.8B's weights and the model's math score jumps dramatically.\nThe researcher fed the raw weight tensor to Astra as a prompt, let it spot a looping pattern in the middle transformer blocks, and changed just 0.016 percent of the parameters. That tiny tweak lifted the MATH‑500 accuracy from 7.9 percent to 48.1 percent and even tripled its IFEval instruction‑following score, all without running the network.\nHere's why that matters: direct weight editing could become a low‑compute shortcut to fine‑tuning, though it currently works only on small models with limited layer access.",
+        "article_ids": [
+          "astra-weight-editing-2026"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Ubuntu LTS kernels still lack fix for critical CVE‑2026‑98432",
+        "text": "Next on the bulletin. Ubuntu’s long‑term releases are still sitting on a critical kernel flaw. The TCP bug CVE‑2026‑98432, rated nine point eight on the CVSS scale, has been exploitable since 2016 and a working remote‑root exploit was shown by Anthropic. Debian patched it on October sixteenth, but as of November two, Ubuntu 22.04, 24.04 and the upcoming 26.04 all list the issue as vulnerable and no patched packages exist. Here’s why that matters: administrators either have to live with the stock kernel, hunt for out‑of‑tree mitigations, or move workloads to a distribution that already includes the fix until Canonical publishes an official update.",
+        "article_ids": [
+          "ubuntu-cve-2026-98432-delay"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Fastify 5.12.8 Stops Streaming Crash",
+        "text": "Turning to our next story. Fastify version five point twelve point eight patches a denial‑of‑service bug that could bring a Node jay ess service down. When a route streams a response, lets the headers go out, and then runs past a non‑zero handlerTimeout, Fastify tried to send a second error response and blew up with an uncaught ERR_HTTP_HEADERS_SENT exception. The flaw, catalogued as C V E 2026‑120216, is moderate severity and can be triggered by an unauthenticated client with a single request. Upgrading to Fastify five point twelve point eight, or temporarily setting handlerTimeout to zero, prevents the crash and keeps your process alive.",
+        "article_ids": [
+          "fastify-handler-timeout-dos-2026-11-03"
+        ]
+      },
+      {
+        "id": "nvidia-workload-map-brief-segment",
+        "title": "NVIDIA Workload Map simplifies AI job handling on Kubernetes",
+        "text": "Next on the bulletin. NVIDIA just rolled out a Workload Map command line tool that lets you describe an AI job once and have Kubernetes schedulers and controllers understand it across frameworks. The CLI reads a single JobSet definition, then hands off gang‑scheduling to KAI Scheduler and unified management to NVIDIA Run:ai, so you no longer need a custom adapter for each resource type. By standardising fields like podTemplateSpecPath, scaleDefinition and instanceIdPath, developers only write one adapter per workload type. That means teams can bring new AI frameworks on board faster and cut down the engineering overhead of juggling multiple adapters.",
+        "article_ids": [
+          "nvidia-workload-map-brief"
+        ]
+      },
+      {
+        "id": "radio-3",
+        "title": "NVIDIA Recovery automates fault handling in AI clusters",
+        "text": "And finally, our last story. NVIDIA Recovery now plugs into Kubernetes and Slurm to automatically detect GPU faults and spin up fresh nodes. When a GPU XID event hits, the system cordons and drains the bad node, restores the checkpoint and lands the job on a healthy machine, all while logging latency and success. \n\nThat means operators can step back from digging through logs and manually moving pods – the control loop does the heavy lifting. The trade‑off is you need the Recovery component in the DSX OS stack and compatible health scripts, otherwise you won’t see the automation.\n\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "nvidia-recovery-automated-workload"
+        ]
+      }
+    ],
+    "artwork_brief": "A split‑screen illustration: left side shows a stylized neural‑network weight matrix being tweaked by a robotic arm; right side displays a Kubernetes pod diagram with a single unified AI workload icon connecting multiple framework symbols."
+  },
+  "sources": [
+    {
+      "id": "source-68309a3f45f8e2a4",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-120216: fastify vulnerable to Denial of Service via uncaught exception on handlerTimeout with streaming responses",
+      "url": "https://github.com/fastify/fastify/security/advisories/GHSA-3qgw-9275-xf8w",
+      "published_at": "2026-11-02T11:08:00Z",
+      "discovered_at": "2026-11-03T07:02:55.273666366Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-f9ecf66c18226a74",
+      "name": "Hacker News",
+      "title": "Astra can read and write weights to improve Qwen",
+      "url": "https://rikiyat.github.io/blog/weight-space-programming/",
+      "published_at": null,
+      "discovered_at": "2026-11-02T18:21:28Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50341174"
+    },
+    {
+      "id": "source-3017d51cc49fa391",
+      "name": "Cloudflare Blog",
+      "title": "How we halved DNS build delay and cut memory use by 85%",
+      "url": "https://blog.cloudflare.com/dns-targeted-zone-builds/",
+      "published_at": "2026-11-02T14:00:00Z",
+      "discovered_at": "2026-11-03T07:02:54.951356958Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-8125ab012eafaabe",
+      "name": "Hacker News",
+      "title": "WTF Ubuntu?",
+      "url": "https://chalmovsky.com/posts/wtf-ubuntu",
+      "published_at": null,
+      "discovered_at": "2026-11-02T14:52:00Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50337608"
+    },
+    {
+      "id": "source-84a791d3975ddc36",
+      "name": "NVIDIA Developer",
+      "title": "Keep Distributed Training Running with Automated Workload Recovery",
+      "url": "https://developer.nvidia.com/blog/keep-distributed-training-running-with-automated-workload-recovery/",
+      "published_at": "2026-11-02T22:43:05Z",
+      "discovered_at": "2026-11-03T07:02:55.922311158Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-498b9a7ec4e4c061",
+      "name": "AWS Architecture",
+      "title": "Automating the full AWS DRS agent lifecycle: Install, heal, and offboard",
+      "url": "https://aws.amazon.com/blogs/architecture/automating-the-full-aws-drs-agent-lifecycle-install-heal-and-offboard/",
+      "published_at": "2026-11-02T17:21:29Z",
+      "discovered_at": "2026-11-03T07:02:56.048620718Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-81a05a5d9bd4a463",
+      "name": "Hacker News",
+      "title": "Ubuntu still has not released patch for Linux 0day RCE in almost 3 weeks",
+      "url": "https://freenode.net/article/ubuntu-lts-kernels-still-unfixed-for-critical-cve-2026-98432",
+      "published_at": null,
+      "discovered_at": "2026-11-02T18:39:38Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50341462"
+    },
+    {
+      "id": "source-d8e3c61d1ed07fc2",
+      "name": "NVIDIA Developer",
+      "title": "Support New AI Frameworks Faster Using NVIDIA Workload Map",
+      "url": "https://developer.nvidia.com/blog/support-new-ai-frameworks-faster-using-nvidia-workload-map/",
+      "published_at": "2026-11-02T16:00:00Z",
+      "discovered_at": "2026-11-03T07:02:55.922311158Z",
+      "discussion_url": null
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-03/ef1f2196c9bf7c325adbce801dd7c91e4ff53250babe7ddf928c5ed2681f91c0.mp3",
+    "duration_seconds": 202.055,
+    "script_hash": "fd319f635f1d4ae070505057601a73c2f2fa1b635ea42f6ef3a50de975c33cee",
+    "cues": [
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.575
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "everyone,",
+        "start_seconds": 0.575,
+        "end_seconds": 1.125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "and",
+        "start_seconds": 1.125,
+        "end_seconds": 1.25
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "welcome",
+        "start_seconds": 1.25,
+        "end_seconds": 1.625
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "to",
+        "start_seconds": 1.625,
+        "end_seconds": 1.725
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "Daywire.",
+        "start_seconds": 1.725,
+        "end_seconds": 2.575
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "Let's",
+        "start_seconds": 2.575,
+        "end_seconds": 2.7625
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "make",
+        "start_seconds": 2.7625,
+        "end_seconds": 2.975
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "sense",
+        "start_seconds": 2.975,
+        "end_seconds": 3.2875
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "of",
+        "start_seconds": 3.2875,
+        "end_seconds": 3.3625
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "the",
+        "start_seconds": 3.3625,
+        "end_seconds": 3.45
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "tech",
+        "start_seconds": 3.45,
+        "end_seconds": 3.7
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "news.",
+        "start_seconds": 3.7,
+        "end_seconds": 4.275
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "It's",
+        "start_seconds": 4.275,
+        "end_seconds": 4.4375
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "November",
+        "start_seconds": 4.4375,
+        "end_seconds": 4.8875
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "three,",
+        "start_seconds": 4.8875,
+        "end_seconds": 5.225
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "two",
+        "start_seconds": 5.225,
+        "end_seconds": 5.425
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "thousand",
+        "start_seconds": 5.425,
+        "end_seconds": 5.7875
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "twenty",
+        "start_seconds": 5.7875,
+        "end_seconds": 6.025
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "six.",
+        "start_seconds": 6.025,
+        "end_seconds": 6.925
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "We",
+        "start_seconds": 8.1,
+        "end_seconds": 8.2
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "begin",
+        "start_seconds": 8.2,
+        "end_seconds": 8.5125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "with",
+        "start_seconds": 8.5125,
+        "end_seconds": 8.6375
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "our",
+        "start_seconds": 8.6375,
+        "end_seconds": 8.775
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "lead",
+        "start_seconds": 8.775,
+        "end_seconds": 9
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "story.",
+        "start_seconds": 9,
+        "end_seconds": 9.8625
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "Astra",
+        "start_seconds": 9.8625,
+        "end_seconds": 10.25
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "rewrites",
+        "start_seconds": 10.25,
+        "end_seconds": 10.6375
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "a",
+        "start_seconds": 10.6375,
+        "end_seconds": 10.7
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "sliver",
+        "start_seconds": 10.7,
+        "end_seconds": 11.0125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "of",
+        "start_seconds": 11.0125,
+        "end_seconds": 11.1
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "Qwen‑3.5‑0.8B's",
+        "start_seconds": 11.1,
+        "end_seconds": 13.2
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "weights",
+        "start_seconds": 13.2,
+        "end_seconds": 13.5125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "and",
+        "start_seconds": 13.5125,
+        "end_seconds": 13.6125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "the",
+        "start_seconds": 13.6125,
+        "end_seconds": 13.7
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "model's",
+        "start_seconds": 13.7,
+        "end_seconds": 14.075
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "math",
+        "start_seconds": 14.075,
+        "end_seconds": 14.35
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "score",
+        "start_seconds": 14.35,
+        "end_seconds": 14.65
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "jumps",
+        "start_seconds": 14.65,
+        "end_seconds": 14.925
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "dramatically.",
+        "start_seconds": 14.925,
+        "end_seconds": 16.075
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "The",
+        "start_seconds": 16.075,
+        "end_seconds": 16.15
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "researcher",
+        "start_seconds": 16.15,
+        "end_seconds": 16.675
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "fed",
+        "start_seconds": 16.675,
+        "end_seconds": 16.8625
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "the",
+        "start_seconds": 16.8625,
+        "end_seconds": 16.95
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "raw",
+        "start_seconds": 16.95,
+        "end_seconds": 17.175
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "weight",
+        "start_seconds": 17.175,
+        "end_seconds": 17.375
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "tensor",
+        "start_seconds": 17.375,
+        "end_seconds": 17.7
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "to",
+        "start_seconds": 17.7,
+        "end_seconds": 17.825
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "Astra",
+        "start_seconds": 17.825,
+        "end_seconds": 18.2
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "as",
+        "start_seconds": 18.2,
+        "end_seconds": 18.3125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "a",
+        "start_seconds": 18.3125,
+        "end_seconds": 18.375
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "prompt,",
+        "start_seconds": 18.375,
+        "end_seconds": 18.95
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "let",
+        "start_seconds": 18.95,
+        "end_seconds": 19.0875
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "it",
+        "start_seconds": 19.0875,
+        "end_seconds": 19.175
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "spot",
+        "start_seconds": 19.175,
+        "end_seconds": 19.4125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "a",
+        "start_seconds": 19.4125,
+        "end_seconds": 19.475
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "looping",
+        "start_seconds": 19.475,
+        "end_seconds": 19.8
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "pattern",
+        "start_seconds": 19.8,
+        "end_seconds": 20.1875
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "in",
+        "start_seconds": 20.1875,
+        "end_seconds": 20.2625
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "the",
+        "start_seconds": 20.2625,
+        "end_seconds": 20.35
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "middle",
+        "start_seconds": 20.35,
+        "end_seconds": 20.55
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "transformer",
+        "start_seconds": 20.55,
+        "end_seconds": 21.175
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "blocks,",
+        "start_seconds": 21.175,
+        "end_seconds": 21.6125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "and",
+        "start_seconds": 21.6125,
+        "end_seconds": 21.725
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "changed",
+        "start_seconds": 21.725,
+        "end_seconds": 22.125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "just",
+        "start_seconds": 22.125,
+        "end_seconds": 22.325
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "0.016",
+        "start_seconds": 22.325,
+        "end_seconds": 24.1125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "percent",
+        "start_seconds": 22.325,
+        "end_seconds": 24.1125
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "of",
+        "start_seconds": 24.1125,
+        "end_seconds": 24.1875
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "the",
+        "start_seconds": 24.1875,
+        "end_seconds": 24.275
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "parameters.",
+        "start_seconds": 24.275,
+        "end_seconds": 25.5375
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "That",
+        "start_seconds": 25.970000000000002,
+        "end_seconds": 26.12
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "tiny",
+        "start_seconds": 26.12,
+        "end_seconds": 26.42
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "tweak",
+        "start_seconds": 26.42,
+        "end_seconds": 26.695
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "lifted",
+        "start_seconds": 26.695,
+        "end_seconds": 26.9825
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "the",
+        "start_seconds": 26.9825,
+        "end_seconds": 27.07
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "MATH‑500",
+        "start_seconds": 27.07,
+        "end_seconds": 27.92
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "accuracy",
+        "start_seconds": 27.92,
+        "end_seconds": 28.37
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "from",
+        "start_seconds": 28.37,
+        "end_seconds": 28.5825
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "7.9",
+        "start_seconds": 28.5825,
+        "end_seconds": 29.895000000000003
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "percent",
+        "start_seconds": 28.5825,
+        "end_seconds": 29.895000000000003
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "to",
+        "start_seconds": 29.895000000000003,
+        "end_seconds": 29.995
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "48.1",
+        "start_seconds": 29.995,
+        "end_seconds": 31.195
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "percent",
+        "start_seconds": 29.995,
+        "end_seconds": 31.195
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "and",
+        "start_seconds": 31.195,
+        "end_seconds": 31.3075
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "even",
+        "start_seconds": 31.3075,
+        "end_seconds": 31.57
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "tripled",
+        "start_seconds": 31.57,
+        "end_seconds": 31.9325
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "its",
+        "start_seconds": 31.9325,
+        "end_seconds": 32.095
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "IFEval",
+        "start_seconds": 32.095,
+        "end_seconds": 32.5075
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "instruction‑following",
+        "start_seconds": 32.5075,
+        "end_seconds": 33.47
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "score,",
+        "start_seconds": 33.47,
+        "end_seconds": 33.845
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "all",
+        "start_seconds": 33.845,
+        "end_seconds": 34.0075
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "without",
+        "start_seconds": 34.0075,
+        "end_seconds": 34.32
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "running",
+        "start_seconds": 34.32,
+        "end_seconds": 34.557500000000005
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "the",
+        "start_seconds": 34.557500000000005,
+        "end_seconds": 34.645
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "network.",
+        "start_seconds": 34.645,
+        "end_seconds": 35.495000000000005
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "Here's",
+        "start_seconds": 35.495000000000005,
+        "end_seconds": 35.7325
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "why",
+        "start_seconds": 35.7325,
+        "end_seconds": 35.8825
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "that",
+        "start_seconds": 35.8825,
+        "end_seconds": 36.07
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "matters:",
+        "start_seconds": 36.07,
+        "end_seconds": 36.895
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "direct",
+        "start_seconds": 36.895,
+        "end_seconds": 37.27
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "weight",
+        "start_seconds": 37.27,
+        "end_seconds": 37.495000000000005
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "editing",
+        "start_seconds": 37.495000000000005,
+        "end_seconds": 37.895
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "could",
+        "start_seconds": 37.895,
+        "end_seconds": 38.0075
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "become",
+        "start_seconds": 38.0075,
+        "end_seconds": 38.2825
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "a",
+        "start_seconds": 38.2825,
+        "end_seconds": 38.370000000000005
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "low‑compute",
+        "start_seconds": 38.370000000000005,
+        "end_seconds": 39.0075
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "shortcut",
+        "start_seconds": 39.0075,
+        "end_seconds": 39.47
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "to",
+        "start_seconds": 39.47,
+        "end_seconds": 39.595
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "fine‑tuning,",
+        "start_seconds": 39.595,
+        "end_seconds": 40.52
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "though",
+        "start_seconds": 40.52,
+        "end_seconds": 40.6575
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "it",
+        "start_seconds": 40.6575,
+        "end_seconds": 40.745000000000005
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "currently",
+        "start_seconds": 40.745000000000005,
+        "end_seconds": 41.07
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "works",
+        "start_seconds": 41.07,
+        "end_seconds": 41.370000000000005
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "only",
+        "start_seconds": 41.370000000000005,
+        "end_seconds": 41.6325
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "on",
+        "start_seconds": 41.6325,
+        "end_seconds": 41.82
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "small",
+        "start_seconds": 41.82,
+        "end_seconds": 42.120000000000005
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "models",
+        "start_seconds": 42.120000000000005,
+        "end_seconds": 42.519999999999996
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "with",
+        "start_seconds": 42.519999999999996,
+        "end_seconds": 42.695
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "limited",
+        "start_seconds": 42.695,
+        "end_seconds": 43.095
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "layer",
+        "start_seconds": 43.095,
+        "end_seconds": 43.42
+      },
+      {
+        "segment_id": "astra-weight-editing-2026-segment",
+        "text": "access.",
+        "start_seconds": 43.42,
+        "end_seconds": 44.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 45.77,
+        "end_seconds": 46.032500000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 46.032500000000006,
+        "end_seconds": 46.1325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 46.1325,
+        "end_seconds": 46.220000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 46.220000000000006,
+        "end_seconds": 47.182500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Ubuntu’s",
+        "start_seconds": 47.182500000000005,
+        "end_seconds": 47.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "long‑term",
+        "start_seconds": 47.695,
+        "end_seconds": 48.182500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "releases",
+        "start_seconds": 48.182500000000005,
+        "end_seconds": 48.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 48.645,
+        "end_seconds": 48.745000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "still",
+        "start_seconds": 48.745000000000005,
+        "end_seconds": 49.032500000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sitting",
+        "start_seconds": 49.032500000000006,
+        "end_seconds": 49.307500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 49.307500000000005,
+        "end_seconds": 49.407500000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 49.407500000000006,
+        "end_seconds": 49.470000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "critical",
+        "start_seconds": 49.470000000000006,
+        "end_seconds": 49.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kernel",
+        "start_seconds": 49.92,
+        "end_seconds": 50.220000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flaw.",
+        "start_seconds": 50.220000000000006,
+        "end_seconds": 51.02
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 51.02,
+        "end_seconds": 51.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "TCP",
+        "start_seconds": 51.120000000000005,
+        "end_seconds": 51.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bug",
+        "start_seconds": 51.695,
+        "end_seconds": 52.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "CVE‑2026‑98432,",
+        "start_seconds": 52.0075,
+        "end_seconds": 55.870000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "rated",
+        "start_seconds": 55.870000000000005,
+        "end_seconds": 56.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nine",
+        "start_seconds": 56.17,
+        "end_seconds": 56.44500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 56.44500000000001,
+        "end_seconds": 56.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "eight",
+        "start_seconds": 56.72,
+        "end_seconds": 56.9075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 56.9075,
+        "end_seconds": 57.00750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 57.00750000000001,
+        "end_seconds": 57.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "CVSS",
+        "start_seconds": 57.095,
+        "end_seconds": 57.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "scale,",
+        "start_seconds": 57.77,
+        "end_seconds": 58.19500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "has",
+        "start_seconds": 58.19500000000001,
+        "end_seconds": 58.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "been",
+        "start_seconds": 58.3575,
+        "end_seconds": 58.4575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "exploitable",
+        "start_seconds": 58.4575,
+        "end_seconds": 59.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "since",
+        "start_seconds": 59.095,
+        "end_seconds": 59.32000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "2016",
+        "start_seconds": 59.32000000000001,
+        "end_seconds": 60.25750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 60.25750000000001,
+        "end_seconds": 60.38250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 60.38250000000001,
+        "end_seconds": 60.44500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "working",
+        "start_seconds": 60.44500000000001,
+        "end_seconds": 60.745000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "remote‑root",
+        "start_seconds": 60.745000000000005,
+        "end_seconds": 61.32000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "exploit",
+        "start_seconds": 61.32000000000001,
+        "end_seconds": 61.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "was",
+        "start_seconds": 61.7825,
+        "end_seconds": 61.895
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shown",
+        "start_seconds": 61.895,
+        "end_seconds": 62.145
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "by",
+        "start_seconds": 62.145,
+        "end_seconds": 62.32000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Anthropic.",
+        "start_seconds": 62.32000000000001,
+        "end_seconds": 63.50750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Debian",
+        "start_seconds": 63.965,
+        "end_seconds": 64.29
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patched",
+        "start_seconds": 64.29,
+        "end_seconds": 64.5775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 64.5775,
+        "end_seconds": 64.6525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 64.6525,
+        "end_seconds": 64.765
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "October",
+        "start_seconds": 64.765,
+        "end_seconds": 65.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sixteenth,",
+        "start_seconds": 65.14,
+        "end_seconds": 65.8275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 65.8275,
+        "end_seconds": 65.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 65.965,
+        "end_seconds": 66.0775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 66.0775,
+        "end_seconds": 66.1525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 66.1525,
+        "end_seconds": 66.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two,",
+        "start_seconds": 66.515,
+        "end_seconds": 66.79
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Ubuntu",
+        "start_seconds": 66.79,
+        "end_seconds": 67.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "22.04,",
+        "start_seconds": 67.14,
+        "end_seconds": 68.315
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "24.04",
+        "start_seconds": 68.315,
+        "end_seconds": 69.42750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 69.42750000000001,
+        "end_seconds": 69.5275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 69.5275,
+        "end_seconds": 69.6025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "upcoming",
+        "start_seconds": 69.6025,
+        "end_seconds": 69.99000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "26.04",
+        "start_seconds": 69.99000000000001,
+        "end_seconds": 71.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "all",
+        "start_seconds": 71.14,
+        "end_seconds": 71.30250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "list",
+        "start_seconds": 71.30250000000001,
+        "end_seconds": 71.4775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 71.4775,
+        "end_seconds": 71.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "issue",
+        "start_seconds": 71.59,
+        "end_seconds": 71.89
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 71.89,
+        "end_seconds": 72.04
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vulnerable",
+        "start_seconds": 72.04,
+        "end_seconds": 72.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 72.565,
+        "end_seconds": 72.67750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "no",
+        "start_seconds": 72.67750000000001,
+        "end_seconds": 72.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patched",
+        "start_seconds": 72.84,
+        "end_seconds": 73.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "packages",
+        "start_seconds": 73.14,
+        "end_seconds": 73.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "exist.",
+        "start_seconds": 73.565,
+        "end_seconds": 74.465
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here’s",
+        "start_seconds": 74.465,
+        "end_seconds": 74.8775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 74.8775,
+        "end_seconds": 75.0025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 75.0025,
+        "end_seconds": 75.1525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 75.1525,
+        "end_seconds": 75.915
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "administrators",
+        "start_seconds": 75.915,
+        "end_seconds": 76.61500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "either",
+        "start_seconds": 76.61500000000001,
+        "end_seconds": 76.8275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 76.8275,
+        "end_seconds": 76.99000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 76.99000000000001,
+        "end_seconds": 77.09
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "live",
+        "start_seconds": 77.09,
+        "end_seconds": 77.2525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 77.2525,
+        "end_seconds": 77.3525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 77.3525,
+        "end_seconds": 77.44
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stock",
+        "start_seconds": 77.44,
+        "end_seconds": 77.765
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kernel,",
+        "start_seconds": 77.765,
+        "end_seconds": 78.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hunt",
+        "start_seconds": 78.19,
+        "end_seconds": 78.3775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 78.3775,
+        "end_seconds": 78.49000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "out‑of‑tree",
+        "start_seconds": 78.49000000000001,
+        "end_seconds": 78.8775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "mitigations,",
+        "start_seconds": 78.8775,
+        "end_seconds": 79.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 79.64,
+        "end_seconds": 79.765
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "move",
+        "start_seconds": 79.765,
+        "end_seconds": 79.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "workloads",
+        "start_seconds": 79.965,
+        "end_seconds": 80.49000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 80.49000000000001,
+        "end_seconds": 80.5775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 80.5775,
+        "end_seconds": 80.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "distribution",
+        "start_seconds": 80.64,
+        "end_seconds": 81.30250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 81.30250000000001,
+        "end_seconds": 81.4025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "already",
+        "start_seconds": 81.4025,
+        "end_seconds": 81.7525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "includes",
+        "start_seconds": 81.7525,
+        "end_seconds": 82.1275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 82.1275,
+        "end_seconds": 82.2275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fix",
+        "start_seconds": 82.2275,
+        "end_seconds": 82.55250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "until",
+        "start_seconds": 82.55250000000001,
+        "end_seconds": 82.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Canonical",
+        "start_seconds": 82.84,
+        "end_seconds": 83.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "publishes",
+        "start_seconds": 83.39,
+        "end_seconds": 83.9525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 83.9525,
+        "end_seconds": 84.0275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "official",
+        "start_seconds": 84.0275,
+        "end_seconds": 84.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "update.",
+        "start_seconds": 84.39,
+        "end_seconds": 85.415
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Turning",
+        "start_seconds": 86.615,
+        "end_seconds": 86.89
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 86.89,
+        "end_seconds": 86.97749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "our",
+        "start_seconds": 86.97749999999999,
+        "end_seconds": 87.10249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "next",
+        "start_seconds": 87.10249999999999,
+        "end_seconds": 87.35249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "story.",
+        "start_seconds": 87.35249999999999,
+        "end_seconds": 88.19
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Fastify",
+        "start_seconds": 88.19,
+        "end_seconds": 88.71499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "version",
+        "start_seconds": 88.71499999999999,
+        "end_seconds": 89.065
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "five",
+        "start_seconds": 89.065,
+        "end_seconds": 89.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 89.365,
+        "end_seconds": 89.5775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twelve",
+        "start_seconds": 89.5775,
+        "end_seconds": 89.83999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 89.83999999999999,
+        "end_seconds": 90.115
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "eight",
+        "start_seconds": 90.115,
+        "end_seconds": 90.315
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "patches",
+        "start_seconds": 90.315,
+        "end_seconds": 90.65249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 90.65249999999999,
+        "end_seconds": 90.71499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "denial‑of‑service",
+        "start_seconds": 90.71499999999999,
+        "end_seconds": 91.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bug",
+        "start_seconds": 91.565,
+        "end_seconds": 91.77749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 91.77749999999999,
+        "end_seconds": 91.8775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "could",
+        "start_seconds": 91.8775,
+        "end_seconds": 91.99
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bring",
+        "start_seconds": 91.99,
+        "end_seconds": 92.15249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 92.15249999999999,
+        "end_seconds": 92.21499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Node",
+        "start_seconds": 92.21499999999999,
+        "end_seconds": 92.46499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "jay",
+        "start_seconds": 92.46499999999999,
+        "end_seconds": 92.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ess",
+        "start_seconds": 92.69,
+        "end_seconds": 92.865
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "service",
+        "start_seconds": 92.865,
+        "end_seconds": 93.21499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "down.",
+        "start_seconds": 93.21499999999999,
+        "end_seconds": 94.03999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "When",
+        "start_seconds": 94.03999999999999,
+        "end_seconds": 94.1775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 94.1775,
+        "end_seconds": 94.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "route",
+        "start_seconds": 94.24,
+        "end_seconds": 94.4275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "streams",
+        "start_seconds": 94.4275,
+        "end_seconds": 94.72749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 94.72749999999999,
+        "end_seconds": 94.77749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "response,",
+        "start_seconds": 94.77749999999999,
+        "end_seconds": 95.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "lets",
+        "start_seconds": 95.365,
+        "end_seconds": 95.5525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 95.5525,
+        "end_seconds": 95.64
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "headers",
+        "start_seconds": 95.64,
+        "end_seconds": 95.99
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "go",
+        "start_seconds": 95.99,
+        "end_seconds": 96.16499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "out,",
+        "start_seconds": 96.16499999999999,
+        "end_seconds": 96.49
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 96.49,
+        "end_seconds": 96.60249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "then",
+        "start_seconds": 96.60249999999999,
+        "end_seconds": 96.74
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "runs",
+        "start_seconds": 96.74,
+        "end_seconds": 97.03999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "past",
+        "start_seconds": 97.03999999999999,
+        "end_seconds": 97.35249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 97.35249999999999,
+        "end_seconds": 97.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "non‑zero",
+        "start_seconds": 97.44,
+        "end_seconds": 98.065
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "handlerTimeout,",
+        "start_seconds": 98.065,
+        "end_seconds": 98.865
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Fastify",
+        "start_seconds": 98.865,
+        "end_seconds": 99.41499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "tried",
+        "start_seconds": 99.41499999999999,
+        "end_seconds": 99.6775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 99.6775,
+        "end_seconds": 99.765
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "send",
+        "start_seconds": 99.765,
+        "end_seconds": 99.9525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 99.9525,
+        "end_seconds": 100.015
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "second",
+        "start_seconds": 100.015,
+        "end_seconds": 100.33999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "error",
+        "start_seconds": 100.33999999999999,
+        "end_seconds": 100.60249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "response",
+        "start_seconds": 100.60249999999999,
+        "end_seconds": 101.21499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 101.21499999999999,
+        "end_seconds": 101.33999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "blew",
+        "start_seconds": 101.33999999999999,
+        "end_seconds": 101.5525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "up",
+        "start_seconds": 101.5525,
+        "end_seconds": 101.7025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "with",
+        "start_seconds": 101.7025,
+        "end_seconds": 101.8275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "an",
+        "start_seconds": 101.8275,
+        "end_seconds": 101.9275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "uncaught",
+        "start_seconds": 101.9275,
+        "end_seconds": 102.35249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ERR_HTTP_HEADERS_SENT",
+        "start_seconds": 102.35249999999999,
+        "end_seconds": 103.7525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "exception.",
+        "start_seconds": 103.7525,
+        "end_seconds": 104.8775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 105.30999999999999,
+        "end_seconds": 105.38499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "flaw,",
+        "start_seconds": 105.38499999999999,
+        "end_seconds": 105.75999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "catalogued",
+        "start_seconds": 105.75999999999999,
+        "end_seconds": 106.335
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "as",
+        "start_seconds": 106.335,
+        "end_seconds": 106.4725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "C",
+        "start_seconds": 106.4725,
+        "end_seconds": 106.7225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "V",
+        "start_seconds": 106.7225,
+        "end_seconds": 106.96
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "E",
+        "start_seconds": 106.96,
+        "end_seconds": 107.12249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "2026‑120216,",
+        "start_seconds": 107.12249999999999,
+        "end_seconds": 110.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "is",
+        "start_seconds": 110.36,
+        "end_seconds": 110.50999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "moderate",
+        "start_seconds": 110.50999999999999,
+        "end_seconds": 110.86
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "severity",
+        "start_seconds": 110.86,
+        "end_seconds": 111.41
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 111.41,
+        "end_seconds": 111.5225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "can",
+        "start_seconds": 111.5225,
+        "end_seconds": 111.62249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "be",
+        "start_seconds": 111.62249999999999,
+        "end_seconds": 111.735
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "triggered",
+        "start_seconds": 111.735,
+        "end_seconds": 112.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "by",
+        "start_seconds": 112.11,
+        "end_seconds": 112.24749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "an",
+        "start_seconds": 112.24749999999999,
+        "end_seconds": 112.335
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "unauthenticated",
+        "start_seconds": 112.335,
+        "end_seconds": 113.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "client",
+        "start_seconds": 113.11,
+        "end_seconds": 113.49749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "with",
+        "start_seconds": 113.49749999999999,
+        "end_seconds": 113.62249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 113.62249999999999,
+        "end_seconds": 113.7225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "single",
+        "start_seconds": 113.7225,
+        "end_seconds": 114.035
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "request.",
+        "start_seconds": 114.035,
+        "end_seconds": 115.13499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Upgrading",
+        "start_seconds": 115.13499999999999,
+        "end_seconds": 115.63499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 115.63499999999999,
+        "end_seconds": 115.75999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Fastify",
+        "start_seconds": 115.75999999999999,
+        "end_seconds": 116.30999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "five",
+        "start_seconds": 116.30999999999999,
+        "end_seconds": 116.585
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 116.585,
+        "end_seconds": 116.8475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twelve",
+        "start_seconds": 116.8475,
+        "end_seconds": 117.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 117.11,
+        "end_seconds": 117.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "eight,",
+        "start_seconds": 117.36,
+        "end_seconds": 117.80999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 117.80999999999999,
+        "end_seconds": 117.96
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "temporarily",
+        "start_seconds": 117.96,
+        "end_seconds": 118.50999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "setting",
+        "start_seconds": 118.50999999999999,
+        "end_seconds": 118.835
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "handlerTimeout",
+        "start_seconds": 118.835,
+        "end_seconds": 119.43499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 119.43499999999999,
+        "end_seconds": 119.55999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "zero,",
+        "start_seconds": 119.55999999999999,
+        "end_seconds": 120.05999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "prevents",
+        "start_seconds": 120.05999999999999,
+        "end_seconds": 120.4225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 120.4225,
+        "end_seconds": 120.50999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "crash",
+        "start_seconds": 120.50999999999999,
+        "end_seconds": 120.96
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 120.96,
+        "end_seconds": 121.085
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "keeps",
+        "start_seconds": 121.085,
+        "end_seconds": 121.3475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 121.3475,
+        "end_seconds": 121.46
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "process",
+        "start_seconds": 121.46,
+        "end_seconds": 121.935
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "alive.",
+        "start_seconds": 121.935,
+        "end_seconds": 122.935
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "Next",
+        "start_seconds": 124.135,
+        "end_seconds": 124.3725
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "on",
+        "start_seconds": 124.3725,
+        "end_seconds": 124.47250000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "the",
+        "start_seconds": 124.47250000000001,
+        "end_seconds": 124.56
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "bulletin.",
+        "start_seconds": 124.56,
+        "end_seconds": 125.47250000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "NVIDIA",
+        "start_seconds": 125.47250000000001,
+        "end_seconds": 125.86
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "just",
+        "start_seconds": 125.86,
+        "end_seconds": 126.03500000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "rolled",
+        "start_seconds": 126.03500000000001,
+        "end_seconds": 126.27250000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "out",
+        "start_seconds": 126.27250000000001,
+        "end_seconds": 126.39750000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "a",
+        "start_seconds": 126.39750000000001,
+        "end_seconds": 126.46000000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "Workload",
+        "start_seconds": 126.46000000000001,
+        "end_seconds": 126.8725
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "Map",
+        "start_seconds": 126.8725,
+        "end_seconds": 127.08500000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "command",
+        "start_seconds": 127.08500000000001,
+        "end_seconds": 127.39750000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "line",
+        "start_seconds": 127.39750000000001,
+        "end_seconds": 127.61
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "tool",
+        "start_seconds": 127.61,
+        "end_seconds": 127.91000000000001
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "that",
+        "start_seconds": 127.91000000000001,
+        "end_seconds": 128.0475
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "lets",
+        "start_seconds": 128.0475,
+        "end_seconds": 128.1975
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "you",
+        "start_seconds": 128.1975,
+        "end_seconds": 128.2725
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "describe",
+        "start_seconds": 128.2725,
+        "end_seconds": 128.6475
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "an",
+        "start_seconds": 128.6475,
+        "end_seconds": 128.735
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "AI",
+        "start_seconds": 128.735,
+        "end_seconds": 129.06
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "job",
+        "start_seconds": 129.06,
+        "end_seconds": 129.335
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "once",
+        "start_seconds": 129.335,
+        "end_seconds": 129.6225
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "and",
+        "start_seconds": 129.6225,
+        "end_seconds": 129.7225
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "have",
+        "start_seconds": 129.7225,
+        "end_seconds": 129.885
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "Kubernetes",
+        "start_seconds": 129.885,
+        "end_seconds": 130.41
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "schedulers",
+        "start_seconds": 130.41,
+        "end_seconds": 130.8975
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "and",
+        "start_seconds": 130.8975,
+        "end_seconds": 130.9975
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "controllers",
+        "start_seconds": 130.9975,
+        "end_seconds": 131.4725
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "understand",
+        "start_seconds": 131.4725,
+        "end_seconds": 131.9225
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "it",
+        "start_seconds": 131.9225,
+        "end_seconds": 131.9975
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "across",
+        "start_seconds": 131.9975,
+        "end_seconds": 132.31
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "frameworks.",
+        "start_seconds": 132.31,
+        "end_seconds": 133.31
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "The",
+        "start_seconds": 133.31,
+        "end_seconds": 133.435
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "CLI",
+        "start_seconds": 133.435,
+        "end_seconds": 133.91
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "reads",
+        "start_seconds": 133.91,
+        "end_seconds": 134.1475
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "a",
+        "start_seconds": 134.1475,
+        "end_seconds": 134.2225
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "single",
+        "start_seconds": 134.2225,
+        "end_seconds": 134.51
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "JobSet",
+        "start_seconds": 134.51,
+        "end_seconds": 134.8725
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "definition,",
+        "start_seconds": 134.8725,
+        "end_seconds": 135.56
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "then",
+        "start_seconds": 135.56,
+        "end_seconds": 135.71
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "hands",
+        "start_seconds": 135.71,
+        "end_seconds": 135.9475
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "off",
+        "start_seconds": 135.9475,
+        "end_seconds": 136.135
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "gang‑scheduling",
+        "start_seconds": 136.135,
+        "end_seconds": 136.81
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "to",
+        "start_seconds": 136.81,
+        "end_seconds": 136.91
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "KAI",
+        "start_seconds": 136.91,
+        "end_seconds": 137.435
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "Scheduler",
+        "start_seconds": 137.435,
+        "end_seconds": 137.935
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "and",
+        "start_seconds": 137.935,
+        "end_seconds": 138.06
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "unified",
+        "start_seconds": 138.06,
+        "end_seconds": 138.4975
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "management",
+        "start_seconds": 138.4975,
+        "end_seconds": 138.91
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "to",
+        "start_seconds": 138.91,
+        "end_seconds": 139.06
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "NVIDIA",
+        "start_seconds": 139.06,
+        "end_seconds": 139.46
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "Run:ai,",
+        "start_seconds": 139.46,
+        "end_seconds": 140.635
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "so",
+        "start_seconds": 140.635,
+        "end_seconds": 140.7475
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "you",
+        "start_seconds": 140.7475,
+        "end_seconds": 140.8225
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "no",
+        "start_seconds": 140.8225,
+        "end_seconds": 140.985
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "longer",
+        "start_seconds": 140.985,
+        "end_seconds": 141.2225
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "need",
+        "start_seconds": 141.2225,
+        "end_seconds": 141.3725
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "a",
+        "start_seconds": 141.3725,
+        "end_seconds": 141.435
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "custom",
+        "start_seconds": 141.435,
+        "end_seconds": 141.7975
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "adapter",
+        "start_seconds": 141.7975,
+        "end_seconds": 142.26
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "for",
+        "start_seconds": 142.26,
+        "end_seconds": 142.385
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "each",
+        "start_seconds": 142.385,
+        "end_seconds": 142.61
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "resource",
+        "start_seconds": 142.61,
+        "end_seconds": 143.06
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "type.",
+        "start_seconds": 143.06,
+        "end_seconds": 143.9475
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "By",
+        "start_seconds": 144.38,
+        "end_seconds": 144.53
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "standardising",
+        "start_seconds": 144.53,
+        "end_seconds": 145.205
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "fields",
+        "start_seconds": 145.205,
+        "end_seconds": 145.5175
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "like",
+        "start_seconds": 145.5175,
+        "end_seconds": 145.705
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "podTemplateSpecPath,",
+        "start_seconds": 145.705,
+        "end_seconds": 147.13
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "scaleDefinition",
+        "start_seconds": 147.13,
+        "end_seconds": 148.005
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "and",
+        "start_seconds": 148.005,
+        "end_seconds": 148.13
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "instanceIdPath,",
+        "start_seconds": 148.13,
+        "end_seconds": 149.355
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "developers",
+        "start_seconds": 149.355,
+        "end_seconds": 149.905
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "only",
+        "start_seconds": 149.905,
+        "end_seconds": 150.205
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "write",
+        "start_seconds": 150.205,
+        "end_seconds": 150.43
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "one",
+        "start_seconds": 150.43,
+        "end_seconds": 150.605
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "adapter",
+        "start_seconds": 150.605,
+        "end_seconds": 151.08
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "per",
+        "start_seconds": 151.08,
+        "end_seconds": 151.28
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "workload",
+        "start_seconds": 151.28,
+        "end_seconds": 151.68
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "type.",
+        "start_seconds": 151.68,
+        "end_seconds": 152.505
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "That",
+        "start_seconds": 152.505,
+        "end_seconds": 152.6675
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "means",
+        "start_seconds": 152.6675,
+        "end_seconds": 152.93
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "teams",
+        "start_seconds": 152.93,
+        "end_seconds": 153.33
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "can",
+        "start_seconds": 153.33,
+        "end_seconds": 153.4425
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "bring",
+        "start_seconds": 153.4425,
+        "end_seconds": 153.655
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "new",
+        "start_seconds": 153.655,
+        "end_seconds": 153.8675
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "AI",
+        "start_seconds": 153.8675,
+        "end_seconds": 154.255
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "frameworks",
+        "start_seconds": 154.255,
+        "end_seconds": 154.6925
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "on",
+        "start_seconds": 154.6925,
+        "end_seconds": 154.855
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "board",
+        "start_seconds": 154.855,
+        "end_seconds": 155.13
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "faster",
+        "start_seconds": 155.13,
+        "end_seconds": 155.7175
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "and",
+        "start_seconds": 155.7175,
+        "end_seconds": 155.855
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "cut",
+        "start_seconds": 155.855,
+        "end_seconds": 156.08
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "down",
+        "start_seconds": 156.08,
+        "end_seconds": 156.3175
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "the",
+        "start_seconds": 156.3175,
+        "end_seconds": 156.43
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "engineering",
+        "start_seconds": 156.43,
+        "end_seconds": 157.03
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "overhead",
+        "start_seconds": 157.03,
+        "end_seconds": 157.455
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "of",
+        "start_seconds": 157.455,
+        "end_seconds": 157.6175
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "juggling",
+        "start_seconds": 157.6175,
+        "end_seconds": 158.03
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "multiple",
+        "start_seconds": 158.03,
+        "end_seconds": 158.455
+      },
+      {
+        "segment_id": "nvidia-workload-map-brief-segment",
+        "text": "adapters.",
+        "start_seconds": 158.455,
+        "end_seconds": 159.605
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "And",
+        "start_seconds": 160.78,
+        "end_seconds": 160.905
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "finally,",
+        "start_seconds": 160.905,
+        "end_seconds": 161.3425
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "our",
+        "start_seconds": 161.3425,
+        "end_seconds": 161.48000000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "last",
+        "start_seconds": 161.48000000000002,
+        "end_seconds": 161.7425
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "story.",
+        "start_seconds": 161.7425,
+        "end_seconds": 162.5925
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "NVIDIA",
+        "start_seconds": 162.5925,
+        "end_seconds": 162.98000000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "Recovery",
+        "start_seconds": 162.98000000000002,
+        "end_seconds": 163.455
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "now",
+        "start_seconds": 163.455,
+        "end_seconds": 163.63
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "plugs",
+        "start_seconds": 163.63,
+        "end_seconds": 163.91750000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "into",
+        "start_seconds": 163.91750000000002,
+        "end_seconds": 164.08
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "Kubernetes",
+        "start_seconds": 164.08,
+        "end_seconds": 164.68
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "and",
+        "start_seconds": 164.68,
+        "end_seconds": 164.805
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "Slurm",
+        "start_seconds": 164.805,
+        "end_seconds": 165.155
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "to",
+        "start_seconds": 165.155,
+        "end_seconds": 165.28
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "automatically",
+        "start_seconds": 165.28,
+        "end_seconds": 165.955
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "detect",
+        "start_seconds": 165.955,
+        "end_seconds": 166.33
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "GPU",
+        "start_seconds": 166.33,
+        "end_seconds": 166.8175
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "faults",
+        "start_seconds": 166.8175,
+        "end_seconds": 167.1425
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "and",
+        "start_seconds": 167.1425,
+        "end_seconds": 167.255
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "spin",
+        "start_seconds": 167.255,
+        "end_seconds": 167.4425
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "up",
+        "start_seconds": 167.4425,
+        "end_seconds": 167.58
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "fresh",
+        "start_seconds": 167.58,
+        "end_seconds": 167.83
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "nodes.",
+        "start_seconds": 167.83,
+        "end_seconds": 168.705
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "When",
+        "start_seconds": 168.705,
+        "end_seconds": 168.8425
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "a",
+        "start_seconds": 168.8425,
+        "end_seconds": 168.905
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "GPU",
+        "start_seconds": 168.905,
+        "end_seconds": 169.43
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "XID",
+        "start_seconds": 169.43,
+        "end_seconds": 169.9675
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "event",
+        "start_seconds": 169.9675,
+        "end_seconds": 170.1925
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "hits,",
+        "start_seconds": 170.1925,
+        "end_seconds": 170.555
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 170.555,
+        "end_seconds": 170.655
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "system",
+        "start_seconds": 170.655,
+        "end_seconds": 171.005
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "cordons",
+        "start_seconds": 171.005,
+        "end_seconds": 171.505
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "and",
+        "start_seconds": 171.505,
+        "end_seconds": 171.63
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "drains",
+        "start_seconds": 171.63,
+        "end_seconds": 171.9675
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 171.9675,
+        "end_seconds": 172.055
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "bad",
+        "start_seconds": 172.055,
+        "end_seconds": 172.29250000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "node,",
+        "start_seconds": 172.29250000000002,
+        "end_seconds": 172.73000000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "restores",
+        "start_seconds": 172.73000000000002,
+        "end_seconds": 173.16750000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 173.16750000000002,
+        "end_seconds": 173.255
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "checkpoint",
+        "start_seconds": 173.255,
+        "end_seconds": 173.78
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "and",
+        "start_seconds": 173.78,
+        "end_seconds": 173.905
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "lands",
+        "start_seconds": 173.905,
+        "end_seconds": 174.16750000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 174.16750000000002,
+        "end_seconds": 174.255
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "job",
+        "start_seconds": 174.255,
+        "end_seconds": 174.5675
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "on",
+        "start_seconds": 174.5675,
+        "end_seconds": 174.66750000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "a",
+        "start_seconds": 174.66750000000002,
+        "end_seconds": 174.73000000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "healthy",
+        "start_seconds": 174.73000000000002,
+        "end_seconds": 175.04250000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "machine,",
+        "start_seconds": 175.04250000000002,
+        "end_seconds": 175.655
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "all",
+        "start_seconds": 175.655,
+        "end_seconds": 175.8175
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "while",
+        "start_seconds": 175.8175,
+        "end_seconds": 176.03
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "logging",
+        "start_seconds": 176.03,
+        "end_seconds": 176.43
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "latency",
+        "start_seconds": 176.43,
+        "end_seconds": 176.93
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "and",
+        "start_seconds": 176.93,
+        "end_seconds": 177.055
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "success.",
+        "start_seconds": 177.055,
+        "end_seconds": 178.16750000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "That",
+        "start_seconds": 179.32999999999998,
+        "end_seconds": 179.4675
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "means",
+        "start_seconds": 179.4675,
+        "end_seconds": 179.70499999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "operators",
+        "start_seconds": 179.70499999999998,
+        "end_seconds": 180.32999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "can",
+        "start_seconds": 180.32999999999998,
+        "end_seconds": 180.45499999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "step",
+        "start_seconds": 180.45499999999998,
+        "end_seconds": 180.70499999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "back",
+        "start_seconds": 180.70499999999998,
+        "end_seconds": 180.98
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "from",
+        "start_seconds": 180.98,
+        "end_seconds": 181.17999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "digging",
+        "start_seconds": 181.17999999999998,
+        "end_seconds": 181.505
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "through",
+        "start_seconds": 181.505,
+        "end_seconds": 181.70499999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "logs",
+        "start_seconds": 181.70499999999998,
+        "end_seconds": 182.155
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "and",
+        "start_seconds": 182.155,
+        "end_seconds": 182.28
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "manually",
+        "start_seconds": 182.28,
+        "end_seconds": 182.73
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "moving",
+        "start_seconds": 182.73,
+        "end_seconds": 183.03
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "pods",
+        "start_seconds": 183.03,
+        "end_seconds": 183.82999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "–",
+        "start_seconds": 183.82999999999998,
+        "end_seconds": 183.905
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 183.905,
+        "end_seconds": 184.005
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "control",
+        "start_seconds": 184.005,
+        "end_seconds": 184.48
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "loop",
+        "start_seconds": 184.48,
+        "end_seconds": 184.70499999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "does",
+        "start_seconds": 184.70499999999998,
+        "end_seconds": 184.9175
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 184.9175,
+        "end_seconds": 185.005
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "heavy",
+        "start_seconds": 185.005,
+        "end_seconds": 185.28
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "lifting.",
+        "start_seconds": 185.28,
+        "end_seconds": 186.23
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "The",
+        "start_seconds": 186.23,
+        "end_seconds": 186.38
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "trade‑off",
+        "start_seconds": 186.38,
+        "end_seconds": 186.92999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "is",
+        "start_seconds": 186.92999999999998,
+        "end_seconds": 187.05499999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "you",
+        "start_seconds": 187.05499999999998,
+        "end_seconds": 187.17999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "need",
+        "start_seconds": 187.17999999999998,
+        "end_seconds": 187.36749999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 187.36749999999998,
+        "end_seconds": 187.45499999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "Recovery",
+        "start_seconds": 187.45499999999998,
+        "end_seconds": 187.92999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "component",
+        "start_seconds": 187.92999999999998,
+        "end_seconds": 188.39249999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "in",
+        "start_seconds": 188.39249999999998,
+        "end_seconds": 188.4675
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 188.4675,
+        "end_seconds": 188.55499999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "DSX",
+        "start_seconds": 188.55499999999998,
+        "end_seconds": 189.14249999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "OS",
+        "start_seconds": 189.14249999999998,
+        "end_seconds": 189.505
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "stack",
+        "start_seconds": 189.505,
+        "end_seconds": 189.905
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "and",
+        "start_seconds": 189.905,
+        "end_seconds": 190.03
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "compatible",
+        "start_seconds": 190.03,
+        "end_seconds": 190.605
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "health",
+        "start_seconds": 190.605,
+        "end_seconds": 190.88
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "scripts,",
+        "start_seconds": 190.88,
+        "end_seconds": 191.57999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "otherwise",
+        "start_seconds": 191.57999999999998,
+        "end_seconds": 192.07999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "you",
+        "start_seconds": 192.07999999999998,
+        "end_seconds": 192.17999999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "won’t",
+        "start_seconds": 192.17999999999998,
+        "end_seconds": 192.38
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "see",
+        "start_seconds": 192.38,
+        "end_seconds": 192.51749999999998
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 192.51749999999998,
+        "end_seconds": 192.605
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "automation.",
+        "start_seconds": 192.605,
+        "end_seconds": 193.88
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "And",
+        "start_seconds": 195.055,
+        "end_seconds": 195.16750000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "that's",
+        "start_seconds": 195.16750000000002,
+        "end_seconds": 195.3925
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "your",
+        "start_seconds": 195.3925,
+        "end_seconds": 195.50500000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "Daywire",
+        "start_seconds": 195.50500000000002,
+        "end_seconds": 195.85500000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "briefing.",
+        "start_seconds": 195.85500000000002,
+        "end_seconds": 196.655
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "You'll",
+        "start_seconds": 196.655,
+        "end_seconds": 196.805
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "find",
+        "start_seconds": 196.805,
+        "end_seconds": 197.04250000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "the",
+        "start_seconds": 197.04250000000002,
+        "end_seconds": 197.13000000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "full",
+        "start_seconds": 197.13000000000002,
+        "end_seconds": 197.35500000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "stories",
+        "start_seconds": 197.35500000000002,
+        "end_seconds": 197.7425
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "and",
+        "start_seconds": 197.7425,
+        "end_seconds": 197.85500000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "sources",
+        "start_seconds": 197.85500000000002,
+        "end_seconds": 198.33
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "in",
+        "start_seconds": 198.33,
+        "end_seconds": 198.43
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "today's",
+        "start_seconds": 198.43,
+        "end_seconds": 198.805
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "newspaper.",
+        "start_seconds": 198.805,
+        "end_seconds": 199.53
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "Thanks",
+        "start_seconds": 199.53,
+        "end_seconds": 199.7425
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "for",
+        "start_seconds": 199.7425,
+        "end_seconds": 199.85500000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "listening.",
+        "start_seconds": 199.85500000000002,
+        "end_seconds": 200.35500000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "Take",
+        "start_seconds": 200.35500000000002,
+        "end_seconds": 200.60500000000002
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "care,",
+        "start_seconds": 200.60500000000002,
+        "end_seconds": 200.8925
+      },
+      {
+        "segment_id": "radio-3",
+        "text": "everyone.",
+        "start_seconds": 200.8925,
+        "end_seconds": 201.955
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
