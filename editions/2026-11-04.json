@@ -1,0 +1,3668 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-04",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-04T08:12:28.658720286Z",
+  "coverage": {
+    "from": "2026-11-03T06:00:00+05:30",
+    "until": "2026-11-04T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-25493a43cba550c7",
+      "source-34e7d62615202d0d",
+      "source-35eaf0d06c77e9dd",
+      "source-fc87a45dcfbf03d4",
+      "source-db83d0eb2b26ea41"
+    ],
+    "candidate_count": 41,
+    "evidence_count": 35
+  },
+  "content": {
+    "title": "Postman’s silent AI plugins spark fresh security alarm",
+    "introduction": "Postman 12.33.4 was found to auto‑install AI coding plugins without user consent, exposing developers to data‑routing risks. At the same time, a wave of Fastify security patches and novel AI tooling—from weight‑edited Qwen models to Nvidia’s open‑source Auto‑Ontology—highlight rapid shifts in both vulnerability management and model‑driven development.",
+    "articles": [
+      {
+        "id": "postman-auto-plugin-installation-security-2026",
+        "section": "Security",
+        "headline": "Postman desktop auto‑installs AI coding plugins without user consent",
+        "summary": "Postman 12.33.4 silently adds Codex and Claude Code plugins and a startup hook, exposing users to unintended data routing and consent violations.",
+        "paragraphs": [
+          "A GitHub issue filed on 2026‑10‑25 (source‑210b26f029f33a3e) documents that Postman 12.33.4 automatically installed the Codex 1.1.0 and Claude Code 2.0.1 plugins across the user’s profile. The installer script records a call to PostmanAgentPluginService~install, then invokes approvePostmanHook(system) to trust its own startup hook in other applications. Logs show the hook hash being written to hooks.state, and a CLI binary appears in the user’s ~/.local/bin directory. The reporter flags this as a “severe consent and trust‑boundary problem” because the changes occur without any explicit opt‑in.",
+          "The evidence does not prove data exfiltration, but it demonstrates that opening Postman can alter unrelated coding agents and redirect API calls through Postman‑managed skills. Users of Postman 12.33.4 and earlier should audit their ~/.claude settings and plugin directories for unexpected entries, and consider disabling automatic plugin installation via the application’s preferences if available."
+        ],
+        "implication": "Developers using Postman should verify that no AI plugins have been added without permission, as the silent installation can change how their code interacts with external APIs.",
+        "source_ids": [
+          "source-210b26f029f33a3e",
+          "source-c6b64c6f66589d18"
+        ]
+      },
+      {
+        "id": "fastify-reply-from-path-traversal-2026-11-04",
+        "section": "Security",
+        "headline": "Fastify reply‑from 12.8.1 patches backslash‑dot‑segment path traversal",
+        "summary": "Versions of @fastify/reply-from before 12.8.1 allowed attackers to bypass proxy‑path checks using backslash‑escaped “..” segments.",
+        "paragraphs": [
+          "The vulnerable buildURL() routine only filtered forward‑slash dot‑segments; backslashes (%5c) were normalized to “/” by the WHATWG URL parser, letting payloads like \"\\\\..\\\\\" slip past validation and reach unintended upstream endpoints. All releases up to 12.8.0 are affected. Upgrading to 12.8.1 adds backslash normalization and rejects any segment that resolves to “.” or “..”, as well as control characters and ambiguous whitespace."
+        ],
+        "implication": "Projects that proxy requests with @fastify/reply-from must upgrade to 12.8.1 immediately, or risk unauthenticated path‑traversal attacks against downstream services.",
+        "source_ids": [
+          "source-b3944596868c0961"
+        ]
+      },
+      {
+        "id": "fastify-multipart-dos-2026-11-04",
+        "section": "Security",
+        "headline": "Fastify multipart 10.1.7 patches DoS via hanging file streams",
+        "summary": "Versions ≥ 5.3.0 and \u003c 10.1.7 of @fastify/multipart can stall server resources when a malformed multipart upload leaves a file part open, and the issue is fixed in 10.1.7.",
+        "paragraphs": [
+          "The plugin failed to forward parser errors to the file stream when a request ended inside a file part without a closing boundary. Handlers that defer consumption of request.parts() end up with a stream that never emits error or end, leaving the connection open and allowing an attacker to exhaust resources with repeated malformed uploads. Upgrading to @fastify/multipart 10.1.7 restores error propagation, causing the stream to terminate promptly."
+        ],
+        "implication": "Deploy the 10.1.7 release promptly to avoid potential denial‑of‑service attacks on Fastify upload endpoints.",
+        "source_ids": [
+          "source-7db56de903b2cc12"
+        ]
+      },
+      {
+        "id": "fastify-http-proxy-path-escape-patch",
+        "section": "Security",
+        "headline": "Fastify http-proxy patches path‑escape vulnerabilities",
+        "summary": "Fastify released patches for @fastify/http‑proxy that close two prefix‑escape flaws affecting versions ≥ 9.0.0 \u003c 11.6.6 and ≥ 11.6.0 ≤ 11.6.2.",
+        "paragraphs": [
+          "The first issue (CVE‑2026‑120213) allowed decoded route parameters containing ‘#’ or ‘?’ to bypass a configured rewritePrefix, letting attackers strip the intended suffix and potentially trigger SSRF or authorization bypass. The second issue (CVE‑2026‑120214) let percent‑encoded backslash‑dot‑segments (%5C..%5C) escape the rewritePrefix boundary on back‑end systems that treat backslashes as path separators. Upgrading to @fastify/http‑proxy ≥ 11.6.6 fixes the former, and ≥ 11.6.3 fixes the latter; no workarounds are provided."
+        ],
+        "implication": "Projects that rely on prefix and rewritePrefix for URL isolation must upgrade immediately to the patched versions or risk path‑restriction bypass and downstream attacks.",
+        "source_ids": [
+          "source-35c18e417d2a380f",
+          "source-819d40518ca1359b"
+        ]
+      },
+      {
+        "id": "weight-editing-qwen-2026",
+        "section": "AI",
+        "headline": "Qwen 3.8 27B reads weights; Qwen 3.5‑0.8B edited for math boost",
+        "summary": "A hobbyist showed that Qwen 3.8 27B can interpret raw model parameters, while a separate weight edit on Qwen 3.5‑0.8B raised its MATH‑500 score from 7.9 % to 48.1 %.",
+        "paragraphs": [
+          "Simon Willison demonstrated that Qwen 3.8 27B running on a laptop can ingest a textual description of another model’s floating‑point weights – in this case GPT‑6 Astra – using the llm‑openrouter plugin. The same setup was used to apply a tiny 0.016 % weight modification to Qwen 3.5‑0.8B, fixing a reasoning loop identified in the model’s card. That edit lifted the model’s MATH‑500 accuracy from 7.9 % to 48.1 % and tripled its IFEval score, all without gradient updates.",
+          "A Hacker News critique notes that the math‑improvement experiment involved Python‑driven weight writes, whereas the raw‑weight reading tests did not alter network behavior, underscoring that the two capabilities were demonstrated on different models."
+        ],
+        "implication": "Engineers can experiment with non‑gradient weight‑editing to patch specific failures in smaller LLMs, but the technique currently requires custom tooling and does not yet generalise across model sizes.",
+        "source_ids": [
+          "source-f1a111e72742f0df",
+          "source-b61b7d0004aa5f86"
+        ]
+      },
+      {
+        "id": "nvidia-auto-ontology-open-source",
+        "section": "AI",
+        "headline": "Nvidia releases open‑source Auto‑Ontology service for database‑adjacent agents",
+        "summary": "Nvidia’s new Auto‑Ontology repo lets developers run a local ontology service alongside their databases to improve LLM‑driven query accuracy.",
+        "paragraphs": [
+          "The GitHub project provides Docker‑Compose scripts, a benchmark suite (auto‑ontology‑eval) and a reference PostgreSQL schema. It measures accuracy on the BIRD‑Interact multi‑turn benchmark, reporting which questions the ontology resolves and which it harms. Running the service requires an NVIDIA API key (nvapi‑…) from build.nvidia.com and a standard Postgres instance.",
+          "Early users note that the tool only scopes to the tables touched by a query, so it can miss cross‑table relationships unless the underlying schema is fully certified."
+        ],
+        "implication": "Engineers can experiment with tighter LLM grounding for SQL‑backed apps, but must supply a certified schema and an NVIDIA API key to see the reported accuracy gains.",
+        "source_ids": [
+          "source-834f867a45207691"
+        ]
+      },
+      {
+        "id": "statebench-long-context-tracking",
+        "section": "AI",
+        "headline": "StateBench measures long‑document state tracking in language models",
+        "summary": "Hugging Face released StateBench, a benchmark that evaluates how well models keep track of evolving entity information across lengthy texts.",
+        "paragraphs": [
+          "The benchmark defines four difficulty levels, from immutable assignments (R‑trivial) to chains of updates that require remembering multiple prior changes. It tests pretrained and frontier models, noting that Gated DeltaNet with restricted memory updates can solve all aperiodic tasks and some periodic ones, though its full capabilities and handling of dynamically introduced entities remain open questions."
+        ],
+        "implication": "Researchers can now quantify a model’s ability to maintain coherent state over long narratives, guiding development toward architectures that better handle variable reassignment and entity introduction.",
+        "source_ids": [
+          "source-8d86676710497099"
+        ]
+      },
+      {
+        "id": "palette-deck-builder-2026",
+        "section": "AI",
+        "headline": "Open‑weight 20B model fine‑tuned to generate design‑language decks",
+        "summary": "IBM Research shows a self‑hosted 20‑billion‑parameter model can produce slide decks in the IBM Design Language, outperforming larger frontier systems on PresentBench.",
+        "paragraphs": [
+          "The Palette project fine‑tuned a 20B open‑weight model on synthetic slides that follow IBM’s design language and paired it with a two‑stage harness: a designer writes a brief, then a coder model draws each slide in parallel. On the PresentBench benchmark the system ranked first in two of three measured domains, and the parallel coder stage runs 6–7× faster than a monolithic generation pass."
+        ],
+        "implication": "Engineers can achieve competitive, self‑hosted deck‑generation quality by training modest open models on domain‑specific synthetic data, but must retain a validation harness to catch the layout errors small models still produce.",
+        "source_ids": [
+          "source-4d3938441f216409"
+        ]
+      },
+      {
+        "id": "adaptive-dark-mode-safari-27-3",
+        "section": "Tools",
+        "headline": "Safari 27.3 beta adds Adaptive Dark Mode for bright sites",
+        "summary": "Safari 27.3 beta can automatically transform light‑only webpages into dark mode when the user’s system appearance is dark.",
+        "paragraphs": [
+          "Apple’s WebKit team announced Adaptive Dark Mode in the Safari 27.3 beta. When a user’s macOS or iOS is set to dark, Safari evaluates each page’s color palette; if the site lacks a dark‑mode declaration (via \u003cmeta name=\"color-scheme\" content=\"light dark\"\u003e or CSS color‑scheme), the engine rewrites the colors to a dark theme on the fly. The feature is built deep in WebKit, allowing fast, power‑efficient transformations while keeping user privacy intact.",
+          "Websites that already signal dark‑mode support are left untouched. Developers can explicitly opt out by using \u003cmeta name=\"color-scheme\" content=\"light only\"\u003e or the CSS rule color‑scheme: light only, though the “only” keyword is not yet supported in the first beta release.",
+          "The change matters for the roughly 40 % of page loads that occur in dark mode but lack native dark styling, offering a more consistent visual experience without requiring site owners to ship separate stylesheets."
+        ],
+        "implication": "Users will see darker, less glaring pages on Safari without any site changes, while developers retain control to prevent transformation where needed.",
+        "source_ids": [
+          "source-2746cbc5892115a5"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "silent-plugin-consent-mechanism",
+        "title": "Why Implicit Plugin Installation Undermines Trust Boundaries",
+        "paragraphs": [
+          "Postman 12.33.4’s installer script calls PostmanAgentPluginService~install and then runs approvePostmanHook(system), which writes the hook’s hash into a shared hooks.state file. By doing this, Postman adds its own startup hook inside unrelated coding agents (e.g., Claude Code) without a clear user‑initiated opt‑in.",
+          "When the hook is present, those agents can be configured to route API requests through Postman‑managed skills. The evidence shows that opening Postman resulted in modifications to Claude Code’s plugin configuration and the addition of a CLI binary, indicating that the installation altered the behavior of other tools."
+        ],
+        "example": "A developer opens Postman on their Mac. The Postman installer records a call to PostmanAgentPluginService~install and then writes a hook hash to hooks.state. After this, the developer’s Claude Code settings file (~/.claude/plugins/installed_plugins.json) contains an entry for a Postman plugin, and a Postman‑related executable appears in ~/.local/bin. Subsequent use of Claude Code may invoke the newly installed Postman plugin because the hook file now exists.",
+        "takeaway": "Software that modifies other applications must require an explicit, user‑initiated opt‑in; otherwise, silent hook registration can change data pipelines and breach trust boundaries.",
+        "article_ids": [
+          "postman-auto-plugin-installation-security-2026"
+        ],
+        "source_ids": [
+          "source-210b26f029f33a3e",
+          "source-c6b64c6f66589d18"
+        ]
+      },
+      {
+        "id": "backslash-dot-segment-traversal-mechanism",
+        "title": "How Backslash‑Encoded Dot‑Segments Bypass Path Checks",
+        "paragraphs": [
+          "The vulnerable buildURL() function only inspected forward‑slash \"..\" segments when validating a proxy path. Because the WHATWG URL parser automatically converts backslashes (\"\\\\\" or %5c) to forward slashes before any validation, an attacker can craft a path like \"\\\\..\\\\secret\" that appears safe to the check but is later normalized to \"/../secret\" and resolved outside the intended prefix.",
+          "Fastify fixed this in version 12.8.1 by normalizing backslashes early and rejecting any segment that resolves to \".\" or \"..\" as well as control characters. This ensures that the validation sees the true path structure before the URL parser rewrites it, closing the traversal loophole."
+        ],
+        "example": "An application proxies requests with reply.from('/api/' + req.params['*']). An attacker sends /api/\\\\..\\\\admin, which the old buildURL() lets through, reaching the upstream /admin endpoint. After the fix, the same request is rejected.",
+        "takeaway": "Always validate path components after normalizing all escape characters, not just before URL parsing, to prevent hidden traversal vectors.",
+        "article_ids": [
+          "fastify-reply-from-path-traversal-2026-11-04"
+        ],
+        "source_ids": [
+          "source-b3944596868c0961"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-implicit-install-trust",
+        "lesson_id": "silent-plugin-consent-mechanism",
+        "prompt": "What primary security risk does the silent installation of Postman's startup hook create?",
+        "options": [
+          "It allows Postman to execute code with elevated system privileges.",
+          "It modifies unrelated coding agents without explicit user consent, breaching trust boundaries.",
+          "It deletes existing plugins from other applications.",
+          "It encrypts user data making it inaccessible."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that Postman's installer writes a hook into other agents (e.g., Claude Code) without a clear opt‑in, changing their behavior and breaching trust boundaries."
+      },
+      {
+        "id": "quiz-1-hook-mechanism",
+        "lesson_id": "silent-plugin-consent-mechanism",
+        "prompt": "Which file does Postman's installer modify to register its startup hook in other applications?",
+        "options": [
+          "hooks.state",
+          "installed_plugins.json",
+          "postman.config",
+          "system.env"
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that the installer writes the hook’s hash into a shared \"hooks.state\" file, which is the mechanism for registering the hook."
+      },
+      {
+        "id": "quiz-1-opt-in-requirement",
+        "lesson_id": "silent-plugin-consent-mechanism",
+        "prompt": "According to the takeaway, what practice should software follow when modifying other applications?",
+        "options": [
+          "Automatically update all related plugins to the latest version.",
+          "Require an explicit, user‑initiated opt‑in before making changes.",
+          "Log all modifications to a central server for audit.",
+          "Provide a default configuration that can be overridden later."
+        ],
+        "answer": 1,
+        "explanation": "The takeaway emphasizes that software must require an explicit, user‑initiated opt‑in to avoid silent hook registration and trust breaches."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "backslash-dot-segment-traversal-mechanism",
+        "prompt": "Why does the original buildURL() function fail to block a path like \"\\\\..\\\\secret\"?",
+        "options": [
+          "It only checks for forward‑slash \"..\" segments before the URL parser rewrites backslashes.",
+          "It rejects any segment containing a backslash character.",
+          "It normalizes backslashes to forward slashes after validation.",
+          "It validates the path after the URL has been fully resolved."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states the function only inspected forward‑slash \"..\" segments before validation, while the WHATWG parser converts backslashes to forward slashes later, allowing the traversal to bypass the check."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "backslash-dot-segment-traversal-mechanism",
+        "prompt": "What change did Fastify version 12.8.1 introduce to prevent this traversal issue?",
+        "options": [
+          "It removed support for backslashes entirely from URLs.",
+          "It normalizes backslashes early and rejects any segment that resolves to \".\" or \"..\".",
+          "It adds a whitelist of allowed path prefixes after URL parsing.",
+          "It encrypts the path components before validation."
+        ],
+        "answer": 1,
+        "explanation": "According to the lesson, Fastify 12.8.1 normalizes backslashes early and rejects any segment that resolves to \".\" or \"..\", ensuring validation sees the true path before the parser rewrites it."
+      }
+    ],
+    "segments": [
+      {
+        "id": "radio-1",
+        "title": "Postman silently adds AI plugins",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November four, two thousand twenty six.\n\nWe begin with our lead story. Postman version twelve point thirty three point four started installing Codex version one point one point zero and Claude Code version two point zero point one without asking anyone. The installer calls PostmanAgentPluginService install, then trusts its own startup hook in other apps, dropping a binary into the user’s local bin folder. Here’s why that matters: those hidden plugins can reroute API calls through Postman‑managed AI skills. If you’re on that version, check your Claude settings and plugin folders, and turn off automatic plugin installs if you can.",
+        "article_ids": [
+          "postman-auto-plugin-installation-security-2026"
+        ]
+      },
+      {
+        "id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "title": "Fastify reply‑from fixes backslash path traversal",
+        "text": "Next on the bulletin. Fastify just shipped version twelve point eight point one of its @fastify/reply‑from plugin, sealing a backslash‑escaped path‑traversal flaw. The old buildURL routine only stripped forward‑slash dot segments, so a payload like backslash backslash dot dot backslash backslash could bypass validation and reach the upstream service you were proxying to. The new release normalizes backslashes and rejects any segment that resolves to “.” or “..”, as well as control characters and ambiguous whitespace. Upgrade now to avoid unauthenticated traversal attacks.",
+        "article_ids": [
+          "fastify-reply-from-path-traversal-2026-11-04"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Fastify multipart 10.1.7 stops upload DoS",
+        "text": "Turning to our next story. Fastify’s multipart plugin just got a fix that stops a denial‑of‑service trick. If a malformed multipart upload ends inside a file part without a closing boundary, the plugin used to leave the file stream hanging, never signalling error or end. That meant an attacker could keep connections open and drain server resources. Version ten point one point seven restores proper error propagation, so the stream shuts down right away. Deploy the ten point one point seven release now to keep your upload endpoints safe.",
+        "article_ids": [
+          "fastify-multipart-dos-2026-11-04"
+        ]
+      },
+      {
+        "id": "fastify-http-proxy-path-escape-patch-segment",
+        "title": "Fastify http-proxy patches path‑escape flaws",
+        "text": "Next on the bulletin. Fastify just shipped fixes for two path‑escape bugs in its http‑proxy plugin. One flaw let a decoded route parameter with a hash or question mark slip past a rewritePrefix, opening the door to SSRF or auth bypass. The other let a percent‑encoded backslash‑dot‑segment escape the same boundary on back‑ends that treat backslashes as separators. Upgrading to @fastify/http‑proxy version eleven point six point six or newer closes the first issue, and version eleven point six point three or newer closes the second. No workarounds exist, so the practical step is simple: bump the dependency now to keep your URL isolation intact.",
+        "article_ids": [
+          "fastify-http-proxy-path-escape-patch"
+        ]
+      },
+      {
+        "id": "weight-editing-qwen-2026-segment",
+        "title": "Qwen models read weights, tiny edit lifts math score",
+        "text": "And finally, our last story. Qwen three point eight twenty seven billion can actually ingest a textual dump of another model's floating point weights, and a minuscule weight tweak pushed Qwen three point five zero point eight billion's math benchmark from under eight percent to over forty eight percent.\n\nSimon Willison ran the read‑test on a laptop using the llm‑openrouter plugin, then applied a 0.016 percent edit that fixed a reasoning loop. The edit spiked the MATH‑500 score and tripled the IFEval rating, all without any gradient updates. Here's why that matters: engineers now have a proof‑of‑concept way to patch specific failures in smaller LLMs, but it still needs custom tooling and hasn't been shown to work on larger models.\n\nWatch for broader tool support if the approach proves scalable.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "weight-editing-qwen-2026"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a desktop computer with a glowing Postman envelope icon opening to reveal tiny AI robot figures slipping out, while a fast‑moving fox (Fastify) darts past a shield, and a sleek Nvidia chip glows beside a flowing ontology graph."
+  },
+  "sources": [
+    {
+      "id": "source-210b26f029f33a3e",
+      "name": "Hacker News",
+      "title": "Postman silently auto-installs AI plugins and attempts to share all API data",
+      "url": "https://github.com/postmanlabs/postman-app-support/issues/14370",
+      "published_at": null,
+      "discovered_at": "2026-11-03T17:22:37Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50354960"
+    },
+    {
+      "id": "source-f1a111e72742f0df",
+      "name": "Simon Willison",
+      "title": "Qwen 3.8 27B on my laptop can interpret model weights, too",
+      "url": "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
+      "published_at": "2026-11-03T16:29:48Z",
+      "discovered_at": "2026-11-04T06:45:48.520103117Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-2746cbc5892115a5",
+      "name": "WebKit",
+      "title": "Introducing Adaptive Dark Mode",
+      "url": "https://webkit.org/blog/18541/introducing-adaptive-dark-mode/",
+      "published_at": "2026-11-03T18:00:35Z",
+      "discovered_at": "2026-11-04T06:45:49.952695285Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-8d86676710497099",
+      "name": "Hugging Face",
+      "title": "StateBench: Testing how language models track state changes over long documents",
+      "url": "https://huggingface.co/blog/allenai/statebench",
+      "published_at": "2026-11-03T17:15:21Z",
+      "discovered_at": "2026-11-04T06:45:48.497948702Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-b3944596868c0961",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-117518: @fastify/reply-from vulnerable to path traversal via backslash dot-segment prefix escape",
+      "url": "https://github.com/fastify/fastify-reply-from/security/advisories/GHSA-vp2r-3vgv-32g9",
+      "published_at": "2026-11-02T10:39:22Z",
+      "discovered_at": "2026-11-04T06:45:48.666752184Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-b61b7d0004aa5f86",
+      "name": "Hacker News",
+      "title": "The 'Astra can read and write weights to improve Qwen' post is misleading",
+      "url": "https://honnibal.dev/blog/astra-read-write-misleading",
+      "published_at": null,
+      "discovered_at": "2026-11-03T12:21:17Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50351111"
+    },
+    {
+      "id": "source-4d3938441f216409",
+      "name": "Hugging Face",
+      "title": "Palette: teaching a small model to build decks in your design language",
+      "url": "https://huggingface.co/blog/ibm-research/palette-deck-building",
+      "published_at": "2026-11-03T16:35:36Z",
+      "discovered_at": "2026-11-04T06:45:48.497948702Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-7db56de903b2cc12",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-117531: @fastify/multipart vulnerable to Denial of Service via a malformed upload hanging delayed file consumers",
+      "url": "https://github.com/fastify/fastify-multipart/security/advisories/GHSA-5849-5m6q-9632",
+      "published_at": "2026-11-02T10:32:38Z",
+      "discovered_at": "2026-11-04T06:45:48.666752184Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-35c18e417d2a380f",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-120213: @fastify/http-proxy vulnerable to prefix escape via decoded route parameters",
+      "url": "https://github.com/fastify/fastify-http-proxy/security/advisories/GHSA-h3vp-4jfr-v364",
+      "published_at": "2026-11-02T10:15:08Z",
+      "discovered_at": "2026-11-04T06:45:48.666752184Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-c6b64c6f66589d18",
+      "name": "Hacker News",
+      "title": "Show HN: Hacker Times, a New York Times-inspired version of Hacker News",
+      "url": "https://hackertimes.ca/",
+      "published_at": null,
+      "discovered_at": "2026-11-03T01:53:34Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50346981"
+    },
+    {
+      "id": "source-819d40518ca1359b",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-120214: @fastify/http-proxy vulnerable to prefix escape via percent-encoded backslash dot-segments",
+      "url": "https://github.com/fastify/fastify-http-proxy/security/advisories/GHSA-hr26-gmr2-pwcv",
+      "published_at": "2026-11-02T10:07:08Z",
+      "discovered_at": "2026-11-04T06:45:48.666752184Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-834f867a45207691",
+      "name": "Hacker News",
+      "title": "Nvidia – open-source auto-ontology",
+      "url": "https://github.com/NVIDIA/auto-ontology",
+      "published_at": null,
+      "discovered_at": "2026-11-03T07:04:50Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50348962"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-04/a9d8be5da5822e486357451a5125125f335e97df3fcc5111c12601f63845bcec.mp3",
+    "duration_seconds": 203.28,
+    "script_hash": "11694e0022352f0d79c6f8cfd9db0ceae9fb3d368465ff02881846dc088b5c22",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.225,
+        "end_seconds": 0.6375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.6375,
+        "end_seconds": 1.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.325,
+        "end_seconds": 1.5125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 1.5125,
+        "end_seconds": 1.95
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 1.95,
+        "end_seconds": 2.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 2.075,
+        "end_seconds": 2.8375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 2.8375,
+        "end_seconds": 3.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 3.125,
+        "end_seconds": 3.3625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 3.3625,
+        "end_seconds": 3.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 3.7,
+        "end_seconds": 3.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 3.7875,
+        "end_seconds": 3.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 3.9125,
+        "end_seconds": 4.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 4.225,
+        "end_seconds": 4.8
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 4.8,
+        "end_seconds": 5.05
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 5.05,
+        "end_seconds": 5.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four,",
+        "start_seconds": 5.6,
+        "end_seconds": 6.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 6.0375,
+        "end_seconds": 6.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 6.2875,
+        "end_seconds": 6.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 6.6875,
+        "end_seconds": 6.9875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 6.9875,
+        "end_seconds": 8.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 9.275,
+        "end_seconds": 9.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 9.375,
+        "end_seconds": 9.7125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 9.7125,
+        "end_seconds": 9.8375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 9.8375,
+        "end_seconds": 9.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 9.975,
+        "end_seconds": 10.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 10.2,
+        "end_seconds": 10.924999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Postman",
+        "start_seconds": 10.924999999999999,
+        "end_seconds": 11.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 11.325,
+        "end_seconds": 11.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twelve",
+        "start_seconds": 11.6,
+        "end_seconds": 11.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 11.825,
+        "end_seconds": 12.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thirty",
+        "start_seconds": 12.075,
+        "end_seconds": 12.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "three",
+        "start_seconds": 12.325,
+        "end_seconds": 12.55
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 12.55,
+        "end_seconds": 12.774999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 12.774999999999999,
+        "end_seconds": 12.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "started",
+        "start_seconds": 12.975,
+        "end_seconds": 13.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "installing",
+        "start_seconds": 13.2875,
+        "end_seconds": 13.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Codex",
+        "start_seconds": 13.75,
+        "end_seconds": 14.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 14.1,
+        "end_seconds": 14.399999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 14.399999999999999,
+        "end_seconds": 14.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 14.625,
+        "end_seconds": 14.837499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 14.837499999999999,
+        "end_seconds": 14.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 14.975,
+        "end_seconds": 15.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 15.25,
+        "end_seconds": 15.7375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 15.7375,
+        "end_seconds": 15.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Claude",
+        "start_seconds": 15.875,
+        "end_seconds": 16.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Code",
+        "start_seconds": 16.15,
+        "end_seconds": 16.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 16.3875,
+        "end_seconds": 16.675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 16.675,
+        "end_seconds": 16.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 16.875,
+        "end_seconds": 17.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 17.0875,
+        "end_seconds": 17.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 17.35,
+        "end_seconds": 17.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 17.575,
+        "end_seconds": 17.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "without",
+        "start_seconds": 17.775,
+        "end_seconds": 18.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "asking",
+        "start_seconds": 18.075,
+        "end_seconds": 18.424999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "anyone.",
+        "start_seconds": 18.424999999999997,
+        "end_seconds": 19.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 19.15,
+        "end_seconds": 19.2625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "installer",
+        "start_seconds": 19.2625,
+        "end_seconds": 19.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "calls",
+        "start_seconds": 19.7,
+        "end_seconds": 19.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PostmanAgentPluginService",
+        "start_seconds": 19.975,
+        "end_seconds": 21.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "install,",
+        "start_seconds": 21.35,
+        "end_seconds": 22.0125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "then",
+        "start_seconds": 22.0125,
+        "end_seconds": 22.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "trusts",
+        "start_seconds": 22.15,
+        "end_seconds": 22.4375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 22.4375,
+        "end_seconds": 22.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "own",
+        "start_seconds": 22.549999999999997,
+        "end_seconds": 22.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "startup",
+        "start_seconds": 22.75,
+        "end_seconds": 23.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hook",
+        "start_seconds": 23.1,
+        "end_seconds": 23.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 23.2875,
+        "end_seconds": 23.362499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "other",
+        "start_seconds": 23.362499999999997,
+        "end_seconds": 23.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "apps,",
+        "start_seconds": 23.549999999999997,
+        "end_seconds": 23.924999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dropping",
+        "start_seconds": 23.924999999999997,
+        "end_seconds": 24.237499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 24.237499999999997,
+        "end_seconds": 24.299999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "binary",
+        "start_seconds": 24.299999999999997,
+        "end_seconds": 24.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "into",
+        "start_seconds": 24.6625,
+        "end_seconds": 24.8375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 24.8375,
+        "end_seconds": 24.924999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "user’s",
+        "start_seconds": 24.924999999999997,
+        "end_seconds": 25.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "local",
+        "start_seconds": 25.275,
+        "end_seconds": 25.575000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bin",
+        "start_seconds": 25.575000000000003,
+        "end_seconds": 25.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "folder.",
+        "start_seconds": 25.775,
+        "end_seconds": 26.450000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here’s",
+        "start_seconds": 26.450000000000003,
+        "end_seconds": 26.8375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 26.8375,
+        "end_seconds": 26.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 26.9625,
+        "end_seconds": 27.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 27.125,
+        "end_seconds": 27.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "those",
+        "start_seconds": 27.775,
+        "end_seconds": 27.9375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hidden",
+        "start_seconds": 27.9375,
+        "end_seconds": 28.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "plugins",
+        "start_seconds": 28.15,
+        "end_seconds": 28.575000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 28.575000000000003,
+        "end_seconds": 28.700000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "reroute",
+        "start_seconds": 28.700000000000003,
+        "end_seconds": 29.049999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "API",
+        "start_seconds": 29.049999999999997,
+        "end_seconds": 29.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "calls",
+        "start_seconds": 29.525,
+        "end_seconds": 29.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "through",
+        "start_seconds": 29.875,
+        "end_seconds": 30.049999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Postman‑managed",
+        "start_seconds": 30.049999999999997,
+        "end_seconds": 30.950000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 30.950000000000003,
+        "end_seconds": 31.299999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "skills.",
+        "start_seconds": 31.299999999999997,
+        "end_seconds": 32.3625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "If",
+        "start_seconds": 32.77,
+        "end_seconds": 32.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you’re",
+        "start_seconds": 32.945,
+        "end_seconds": 33.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 33.1075,
+        "end_seconds": 33.27
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 33.27,
+        "end_seconds": 33.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version,",
+        "start_seconds": 33.52,
+        "end_seconds": 34.0825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "check",
+        "start_seconds": 34.0825,
+        "end_seconds": 34.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 34.345,
+        "end_seconds": 34.5325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Claude",
+        "start_seconds": 34.5325,
+        "end_seconds": 34.9575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "settings",
+        "start_seconds": 34.9575,
+        "end_seconds": 35.445
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 35.445,
+        "end_seconds": 35.5825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "plugin",
+        "start_seconds": 35.5825,
+        "end_seconds": 36.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "folders,",
+        "start_seconds": 36.0075,
+        "end_seconds": 36.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 36.595,
+        "end_seconds": 36.7325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "turn",
+        "start_seconds": 36.7325,
+        "end_seconds": 37.02
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "off",
+        "start_seconds": 37.02,
+        "end_seconds": 37.2825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "automatic",
+        "start_seconds": 37.2825,
+        "end_seconds": 37.9325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "plugin",
+        "start_seconds": 37.9325,
+        "end_seconds": 38.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "installs",
+        "start_seconds": 38.345,
+        "end_seconds": 38.995
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "if",
+        "start_seconds": 38.995,
+        "end_seconds": 39.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 39.12,
+        "end_seconds": 39.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can.",
+        "start_seconds": 39.245,
+        "end_seconds": 40.345
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "Next",
+        "start_seconds": 41.495000000000005,
+        "end_seconds": 41.7825
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "on",
+        "start_seconds": 41.7825,
+        "end_seconds": 41.8825
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "the",
+        "start_seconds": 41.8825,
+        "end_seconds": 41.97
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "bulletin.",
+        "start_seconds": 41.97,
+        "end_seconds": 42.72
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "Fastify",
+        "start_seconds": 42.72,
+        "end_seconds": 43.245000000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "just",
+        "start_seconds": 43.245000000000005,
+        "end_seconds": 43.42
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "shipped",
+        "start_seconds": 43.42,
+        "end_seconds": 43.620000000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "version",
+        "start_seconds": 43.620000000000005,
+        "end_seconds": 43.895
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "twelve",
+        "start_seconds": 43.895,
+        "end_seconds": 44.17
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "point",
+        "start_seconds": 44.17,
+        "end_seconds": 44.42
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "eight",
+        "start_seconds": 44.42,
+        "end_seconds": 44.595
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "point",
+        "start_seconds": 44.595,
+        "end_seconds": 44.807500000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "one",
+        "start_seconds": 44.807500000000005,
+        "end_seconds": 44.932500000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "of",
+        "start_seconds": 44.932500000000005,
+        "end_seconds": 45.0075
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "its",
+        "start_seconds": 45.0075,
+        "end_seconds": 45.1075
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "@fastify/reply‑from",
+        "start_seconds": 45.1075,
+        "end_seconds": 46.52
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "plugin,",
+        "start_seconds": 46.52,
+        "end_seconds": 47.195
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "sealing",
+        "start_seconds": 47.195,
+        "end_seconds": 47.4825
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "a",
+        "start_seconds": 47.4825,
+        "end_seconds": 47.545
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "backslash‑escaped",
+        "start_seconds": 47.545,
+        "end_seconds": 48.445
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "path‑traversal",
+        "start_seconds": 48.445,
+        "end_seconds": 49.17
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "flaw.",
+        "start_seconds": 49.17,
+        "end_seconds": 49.82
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "The",
+        "start_seconds": 49.82,
+        "end_seconds": 49.945
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "old",
+        "start_seconds": 49.945,
+        "end_seconds": 50.17
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "buildURL",
+        "start_seconds": 50.17,
+        "end_seconds": 50.745000000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "routine",
+        "start_seconds": 50.745000000000005,
+        "end_seconds": 51.095
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "only",
+        "start_seconds": 51.095,
+        "end_seconds": 51.395
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "stripped",
+        "start_seconds": 51.395,
+        "end_seconds": 51.72
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "forward‑slash",
+        "start_seconds": 51.72,
+        "end_seconds": 52.370000000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "dot",
+        "start_seconds": 52.370000000000005,
+        "end_seconds": 52.595
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "segments,",
+        "start_seconds": 52.595,
+        "end_seconds": 53.27
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "so",
+        "start_seconds": 53.27,
+        "end_seconds": 53.3825
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "a",
+        "start_seconds": 53.3825,
+        "end_seconds": 53.445
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "payload",
+        "start_seconds": 53.445,
+        "end_seconds": 53.8325
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "like",
+        "start_seconds": 53.8325,
+        "end_seconds": 53.97
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "backslash",
+        "start_seconds": 53.97,
+        "end_seconds": 54.495000000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "backslash",
+        "start_seconds": 54.495000000000005,
+        "end_seconds": 55.02
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "dot",
+        "start_seconds": 55.02,
+        "end_seconds": 55.27
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "dot",
+        "start_seconds": 55.27,
+        "end_seconds": 55.4825
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "backslash",
+        "start_seconds": 55.4825,
+        "end_seconds": 55.995000000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "backslash",
+        "start_seconds": 55.995000000000005,
+        "end_seconds": 56.57
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "could",
+        "start_seconds": 56.57,
+        "end_seconds": 56.695
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "bypass",
+        "start_seconds": 56.695,
+        "end_seconds": 57.07
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "validation",
+        "start_seconds": 57.07,
+        "end_seconds": 57.695
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "and",
+        "start_seconds": 57.695,
+        "end_seconds": 57.82
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "reach",
+        "start_seconds": 57.82,
+        "end_seconds": 58.057500000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "the",
+        "start_seconds": 58.057500000000005,
+        "end_seconds": 58.17
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "upstream",
+        "start_seconds": 58.17,
+        "end_seconds": 58.620000000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "service",
+        "start_seconds": 58.620000000000005,
+        "end_seconds": 58.932500000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "you",
+        "start_seconds": 58.932500000000005,
+        "end_seconds": 59.0075
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "were",
+        "start_seconds": 59.0075,
+        "end_seconds": 59.120000000000005
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "proxying",
+        "start_seconds": 59.120000000000005,
+        "end_seconds": 59.645
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "to.",
+        "start_seconds": 59.645,
+        "end_seconds": 60.195
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "The",
+        "start_seconds": 60.195,
+        "end_seconds": 60.295
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "new",
+        "start_seconds": 60.295,
+        "end_seconds": 60.47
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "release",
+        "start_seconds": 60.47,
+        "end_seconds": 60.845
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "normalizes",
+        "start_seconds": 60.845,
+        "end_seconds": 61.445
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "backslashes",
+        "start_seconds": 61.445,
+        "end_seconds": 62.22
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "and",
+        "start_seconds": 62.22,
+        "end_seconds": 62.3325
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "rejects",
+        "start_seconds": 62.3325,
+        "end_seconds": 62.72
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "any",
+        "start_seconds": 62.72,
+        "end_seconds": 62.92
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "segment",
+        "start_seconds": 62.92,
+        "end_seconds": 63.2825
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "that",
+        "start_seconds": 63.2825,
+        "end_seconds": 63.42
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "resolves",
+        "start_seconds": 63.42,
+        "end_seconds": 63.9575
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "to",
+        "start_seconds": 63.9575,
+        "end_seconds": 64.2575
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "“.”",
+        "start_seconds": 64.2575,
+        "end_seconds": 64.445
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "or",
+        "start_seconds": 64.445,
+        "end_seconds": 64.92
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "“..”,",
+        "start_seconds": 64.92,
+        "end_seconds": 65.55250000000001
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "as",
+        "start_seconds": 65.55250000000001,
+        "end_seconds": 65.74000000000001
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "well",
+        "start_seconds": 65.74000000000001,
+        "end_seconds": 65.9775
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "as",
+        "start_seconds": 65.9775,
+        "end_seconds": 66.165
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "control",
+        "start_seconds": 66.165,
+        "end_seconds": 66.7025
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "characters",
+        "start_seconds": 66.7025,
+        "end_seconds": 67.37750000000001
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "and",
+        "start_seconds": 67.37750000000001,
+        "end_seconds": 67.55250000000001
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "ambiguous",
+        "start_seconds": 67.55250000000001,
+        "end_seconds": 68.3275
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "whitespace.",
+        "start_seconds": 68.3275,
+        "end_seconds": 69.3525
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "Upgrade",
+        "start_seconds": 69.3525,
+        "end_seconds": 69.89
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "now",
+        "start_seconds": 69.89,
+        "end_seconds": 70.19000000000001
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "to",
+        "start_seconds": 70.19000000000001,
+        "end_seconds": 70.34
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "avoid",
+        "start_seconds": 70.34,
+        "end_seconds": 70.7775
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "unauthenticated",
+        "start_seconds": 70.7775,
+        "end_seconds": 71.79
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "traversal",
+        "start_seconds": 71.79,
+        "end_seconds": 72.39
+      },
+      {
+        "segment_id": "fastify-reply-from-path-traversal-2026-11-04-segment",
+        "text": "attacks.",
+        "start_seconds": 72.39,
+        "end_seconds": 73.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Turning",
+        "start_seconds": 74.78999999999999,
+        "end_seconds": 75.065
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 75.065,
+        "end_seconds": 75.15249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "our",
+        "start_seconds": 75.15249999999999,
+        "end_seconds": 75.27749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "next",
+        "start_seconds": 75.27749999999999,
+        "end_seconds": 75.52749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "story.",
+        "start_seconds": 75.52749999999999,
+        "end_seconds": 76.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Fastify’s",
+        "start_seconds": 76.24,
+        "end_seconds": 76.83999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "multipart",
+        "start_seconds": 76.83999999999999,
+        "end_seconds": 77.33999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "plugin",
+        "start_seconds": 77.33999999999999,
+        "end_seconds": 77.66499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "just",
+        "start_seconds": 77.66499999999999,
+        "end_seconds": 77.8275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "got",
+        "start_seconds": 77.8275,
+        "end_seconds": 77.9525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 77.9525,
+        "end_seconds": 78.02749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fix",
+        "start_seconds": 78.02749999999999,
+        "end_seconds": 78.3025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 78.3025,
+        "end_seconds": 78.4275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stops",
+        "start_seconds": 78.4275,
+        "end_seconds": 78.7025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 78.7025,
+        "end_seconds": 78.765
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "denial‑of‑service",
+        "start_seconds": 78.765,
+        "end_seconds": 79.58999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "trick.",
+        "start_seconds": 79.58999999999999,
+        "end_seconds": 80.14
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "If",
+        "start_seconds": 80.14,
+        "end_seconds": 80.27749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 80.27749999999999,
+        "end_seconds": 80.33999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "malformed",
+        "start_seconds": 80.33999999999999,
+        "end_seconds": 80.865
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "multipart",
+        "start_seconds": 80.865,
+        "end_seconds": 81.41499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "upload",
+        "start_seconds": 81.41499999999999,
+        "end_seconds": 81.765
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ends",
+        "start_seconds": 81.765,
+        "end_seconds": 81.97749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "inside",
+        "start_seconds": 81.97749999999999,
+        "end_seconds": 82.3025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 82.3025,
+        "end_seconds": 82.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "file",
+        "start_seconds": 82.365,
+        "end_seconds": 82.615
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "part",
+        "start_seconds": 82.615,
+        "end_seconds": 82.8775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "without",
+        "start_seconds": 82.8775,
+        "end_seconds": 83.0775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 83.0775,
+        "end_seconds": 83.14
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "closing",
+        "start_seconds": 83.14,
+        "end_seconds": 83.515
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "boundary,",
+        "start_seconds": 83.515,
+        "end_seconds": 84.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 84.24,
+        "end_seconds": 84.33999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "plugin",
+        "start_seconds": 84.33999999999999,
+        "end_seconds": 84.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "used",
+        "start_seconds": 84.69,
+        "end_seconds": 84.85249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 84.85249999999999,
+        "end_seconds": 84.94
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "leave",
+        "start_seconds": 84.94,
+        "end_seconds": 85.1275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 85.1275,
+        "end_seconds": 85.21499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "file",
+        "start_seconds": 85.21499999999999,
+        "end_seconds": 85.515
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stream",
+        "start_seconds": 85.515,
+        "end_seconds": 85.815
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "hanging,",
+        "start_seconds": 85.815,
+        "end_seconds": 86.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "never",
+        "start_seconds": 86.24,
+        "end_seconds": 86.52749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "signalling",
+        "start_seconds": 86.52749999999999,
+        "end_seconds": 86.99
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "error",
+        "start_seconds": 86.99,
+        "end_seconds": 87.28999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 87.28999999999999,
+        "end_seconds": 87.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "end.",
+        "start_seconds": 87.44,
+        "end_seconds": 88.03999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "That",
+        "start_seconds": 88.03999999999999,
+        "end_seconds": 88.2025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "meant",
+        "start_seconds": 88.2025,
+        "end_seconds": 88.35249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "an",
+        "start_seconds": 88.35249999999999,
+        "end_seconds": 88.4275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "attacker",
+        "start_seconds": 88.4275,
+        "end_seconds": 88.865
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "could",
+        "start_seconds": 88.865,
+        "end_seconds": 88.99
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "keep",
+        "start_seconds": 88.99,
+        "end_seconds": 89.16499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "connections",
+        "start_seconds": 89.16499999999999,
+        "end_seconds": 89.71499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "open",
+        "start_seconds": 89.71499999999999,
+        "end_seconds": 90.0025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 90.0025,
+        "end_seconds": 90.115
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "drain",
+        "start_seconds": 90.115,
+        "end_seconds": 90.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "server",
+        "start_seconds": 90.44,
+        "end_seconds": 90.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "resources.",
+        "start_seconds": 90.69,
+        "end_seconds": 91.66499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Version",
+        "start_seconds": 91.66499999999999,
+        "end_seconds": 92.01499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ten",
+        "start_seconds": 92.01499999999999,
+        "end_seconds": 92.26499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 92.26499999999999,
+        "end_seconds": 92.49
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "one",
+        "start_seconds": 92.49,
+        "end_seconds": 92.63999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 92.63999999999999,
+        "end_seconds": 92.91499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seven",
+        "start_seconds": 92.91499999999999,
+        "end_seconds": 93.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "restores",
+        "start_seconds": 93.24,
+        "end_seconds": 93.63999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "proper",
+        "start_seconds": 93.63999999999999,
+        "end_seconds": 94.03999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "error",
+        "start_seconds": 94.03999999999999,
+        "end_seconds": 94.28999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "propagation,",
+        "start_seconds": 94.28999999999999,
+        "end_seconds": 95.115
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "so",
+        "start_seconds": 95.115,
+        "end_seconds": 95.22749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 95.22749999999999,
+        "end_seconds": 95.315
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stream",
+        "start_seconds": 95.315,
+        "end_seconds": 95.6775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "shuts",
+        "start_seconds": 95.6775,
+        "end_seconds": 95.99
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "down",
+        "start_seconds": 95.99,
+        "end_seconds": 96.26499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "right",
+        "start_seconds": 96.26499999999999,
+        "end_seconds": 96.49
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "away.",
+        "start_seconds": 96.49,
+        "end_seconds": 97.47749999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Deploy",
+        "start_seconds": 97.86,
+        "end_seconds": 98.21000000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 98.21000000000001,
+        "end_seconds": 98.3475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ten",
+        "start_seconds": 98.3475,
+        "end_seconds": 98.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 98.685,
+        "end_seconds": 98.9975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "one",
+        "start_seconds": 98.9975,
+        "end_seconds": 99.27250000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 99.27250000000001,
+        "end_seconds": 99.6225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seven",
+        "start_seconds": 99.6225,
+        "end_seconds": 99.985
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "release",
+        "start_seconds": 99.985,
+        "end_seconds": 100.4475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "now",
+        "start_seconds": 100.4475,
+        "end_seconds": 100.76
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 100.76,
+        "end_seconds": 100.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "keep",
+        "start_seconds": 100.885,
+        "end_seconds": 101.0975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 101.0975,
+        "end_seconds": 101.2475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "upload",
+        "start_seconds": 101.2475,
+        "end_seconds": 101.735
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "endpoints",
+        "start_seconds": 101.735,
+        "end_seconds": 102.2225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "safe.",
+        "start_seconds": 102.2225,
+        "end_seconds": 103.235
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "Next",
+        "start_seconds": 104.385,
+        "end_seconds": 104.64750000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "on",
+        "start_seconds": 104.64750000000001,
+        "end_seconds": 104.7475
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "the",
+        "start_seconds": 104.7475,
+        "end_seconds": 104.83500000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "bulletin.",
+        "start_seconds": 104.83500000000001,
+        "end_seconds": 105.6225
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "Fastify",
+        "start_seconds": 105.6225,
+        "end_seconds": 106.185
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "just",
+        "start_seconds": 106.185,
+        "end_seconds": 106.39750000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "shipped",
+        "start_seconds": 106.39750000000001,
+        "end_seconds": 106.66
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "fixes",
+        "start_seconds": 106.66,
+        "end_seconds": 107.08500000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "for",
+        "start_seconds": 107.08500000000001,
+        "end_seconds": 107.2475
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "two",
+        "start_seconds": 107.2475,
+        "end_seconds": 107.46000000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "path‑escape",
+        "start_seconds": 107.46000000000001,
+        "end_seconds": 108.06
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "bugs",
+        "start_seconds": 108.06,
+        "end_seconds": 108.3725
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "in",
+        "start_seconds": 108.3725,
+        "end_seconds": 108.4475
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "its",
+        "start_seconds": 108.4475,
+        "end_seconds": 108.56
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "http‑proxy",
+        "start_seconds": 108.56,
+        "end_seconds": 109.685
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "plugin.",
+        "start_seconds": 109.685,
+        "end_seconds": 110.4475
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "One",
+        "start_seconds": 110.4475,
+        "end_seconds": 110.685
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "flaw",
+        "start_seconds": 110.685,
+        "end_seconds": 110.96000000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "let",
+        "start_seconds": 110.96000000000001,
+        "end_seconds": 111.0975
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "a",
+        "start_seconds": 111.0975,
+        "end_seconds": 111.16
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "decoded",
+        "start_seconds": 111.16,
+        "end_seconds": 111.66
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "route",
+        "start_seconds": 111.66,
+        "end_seconds": 111.86
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "parameter",
+        "start_seconds": 111.86,
+        "end_seconds": 112.39750000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "with",
+        "start_seconds": 112.39750000000001,
+        "end_seconds": 112.52250000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "a",
+        "start_seconds": 112.52250000000001,
+        "end_seconds": 112.5975
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "hash",
+        "start_seconds": 112.5975,
+        "end_seconds": 112.9475
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "or",
+        "start_seconds": 112.9475,
+        "end_seconds": 113.035
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "question",
+        "start_seconds": 113.035,
+        "end_seconds": 113.46000000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "mark",
+        "start_seconds": 113.46000000000001,
+        "end_seconds": 113.71000000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "slip",
+        "start_seconds": 113.71000000000001,
+        "end_seconds": 113.985
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "past",
+        "start_seconds": 113.985,
+        "end_seconds": 114.27250000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "a",
+        "start_seconds": 114.27250000000001,
+        "end_seconds": 114.33500000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "rewritePrefix,",
+        "start_seconds": 114.33500000000001,
+        "end_seconds": 115.36
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "opening",
+        "start_seconds": 115.36,
+        "end_seconds": 115.7225
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "the",
+        "start_seconds": 115.7225,
+        "end_seconds": 115.81
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "door",
+        "start_seconds": 115.81,
+        "end_seconds": 116.06
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "to",
+        "start_seconds": 116.06,
+        "end_seconds": 116.185
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "SSRF",
+        "start_seconds": 116.185,
+        "end_seconds": 116.985
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "or",
+        "start_seconds": 116.985,
+        "end_seconds": 117.14750000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "auth",
+        "start_seconds": 117.14750000000001,
+        "end_seconds": 117.41
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "bypass.",
+        "start_seconds": 117.41,
+        "end_seconds": 118.21000000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "The",
+        "start_seconds": 118.21000000000001,
+        "end_seconds": 118.36
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "other",
+        "start_seconds": 118.36,
+        "end_seconds": 118.635
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "let",
+        "start_seconds": 118.635,
+        "end_seconds": 118.77250000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "a",
+        "start_seconds": 118.77250000000001,
+        "end_seconds": 118.83500000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "percent‑encoded",
+        "start_seconds": 118.83500000000001,
+        "end_seconds": 119.635
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "backslash‑dot‑segment",
+        "start_seconds": 119.635,
+        "end_seconds": 120.83500000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "escape",
+        "start_seconds": 120.83500000000001,
+        "end_seconds": 121.2225
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "the",
+        "start_seconds": 121.2225,
+        "end_seconds": 121.3475
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "same",
+        "start_seconds": 121.3475,
+        "end_seconds": 121.66
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "boundary",
+        "start_seconds": 121.66,
+        "end_seconds": 122.11
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "on",
+        "start_seconds": 122.11,
+        "end_seconds": 122.26
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "back‑ends",
+        "start_seconds": 122.26,
+        "end_seconds": 122.86
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "that",
+        "start_seconds": 122.86,
+        "end_seconds": 123.01
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "treat",
+        "start_seconds": 123.01,
+        "end_seconds": 123.285
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "backslashes",
+        "start_seconds": 123.285,
+        "end_seconds": 124.0475
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "as",
+        "start_seconds": 124.0475,
+        "end_seconds": 124.1975
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "separators.",
+        "start_seconds": 124.1975,
+        "end_seconds": 125.5975
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "Upgrading",
+        "start_seconds": 126.03,
+        "end_seconds": 126.6175
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "to",
+        "start_seconds": 126.6175,
+        "end_seconds": 126.81750000000001
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "@fastify/http‑proxy",
+        "start_seconds": 126.81750000000001,
+        "end_seconds": 129.4925
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "version",
+        "start_seconds": 129.4925,
+        "end_seconds": 129.93
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "eleven",
+        "start_seconds": 129.93,
+        "end_seconds": 130.35500000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "point",
+        "start_seconds": 130.35500000000002,
+        "end_seconds": 130.6425
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "six",
+        "start_seconds": 130.6425,
+        "end_seconds": 130.955
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "point",
+        "start_seconds": 130.955,
+        "end_seconds": 131.29250000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "six",
+        "start_seconds": 131.29250000000002,
+        "end_seconds": 131.6925
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "or",
+        "start_seconds": 131.6925,
+        "end_seconds": 131.8675
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "newer",
+        "start_seconds": 131.8675,
+        "end_seconds": 132.205
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "closes",
+        "start_seconds": 132.205,
+        "end_seconds": 132.63
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "the",
+        "start_seconds": 132.63,
+        "end_seconds": 132.7425
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "first",
+        "start_seconds": 132.7425,
+        "end_seconds": 133.055
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "issue,",
+        "start_seconds": 133.055,
+        "end_seconds": 133.655
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "and",
+        "start_seconds": 133.655,
+        "end_seconds": 133.78
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "version",
+        "start_seconds": 133.78,
+        "end_seconds": 134.18
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "eleven",
+        "start_seconds": 134.18,
+        "end_seconds": 134.60500000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "point",
+        "start_seconds": 134.60500000000002,
+        "end_seconds": 134.91750000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "six",
+        "start_seconds": 134.91750000000002,
+        "end_seconds": 135.23000000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "point",
+        "start_seconds": 135.23000000000002,
+        "end_seconds": 135.5175
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "three",
+        "start_seconds": 135.5175,
+        "end_seconds": 135.91750000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "or",
+        "start_seconds": 135.91750000000002,
+        "end_seconds": 136.0925
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "newer",
+        "start_seconds": 136.0925,
+        "end_seconds": 136.4425
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "closes",
+        "start_seconds": 136.4425,
+        "end_seconds": 136.93
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "the",
+        "start_seconds": 136.93,
+        "end_seconds": 137.0675
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "second.",
+        "start_seconds": 137.0675,
+        "end_seconds": 137.9675
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "No",
+        "start_seconds": 137.9675,
+        "end_seconds": 138.18
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "workarounds",
+        "start_seconds": 138.18,
+        "end_seconds": 138.73000000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "exist,",
+        "start_seconds": 138.73000000000002,
+        "end_seconds": 139.35500000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "so",
+        "start_seconds": 139.35500000000002,
+        "end_seconds": 139.5175
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "the",
+        "start_seconds": 139.5175,
+        "end_seconds": 139.60500000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "practical",
+        "start_seconds": 139.60500000000002,
+        "end_seconds": 140.155
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "step",
+        "start_seconds": 140.155,
+        "end_seconds": 140.48000000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "is",
+        "start_seconds": 140.48000000000002,
+        "end_seconds": 140.6175
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "simple:",
+        "start_seconds": 140.6175,
+        "end_seconds": 141.3175
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "bump",
+        "start_seconds": 141.3175,
+        "end_seconds": 141.60500000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "the",
+        "start_seconds": 141.60500000000002,
+        "end_seconds": 141.705
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "dependency",
+        "start_seconds": 141.705,
+        "end_seconds": 142.38
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "now",
+        "start_seconds": 142.38,
+        "end_seconds": 142.655
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "to",
+        "start_seconds": 142.655,
+        "end_seconds": 142.78
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "keep",
+        "start_seconds": 142.78,
+        "end_seconds": 143.0175
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "your",
+        "start_seconds": 143.0175,
+        "end_seconds": 143.16750000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "URL",
+        "start_seconds": 143.16750000000002,
+        "end_seconds": 143.755
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "isolation",
+        "start_seconds": 143.755,
+        "end_seconds": 144.48000000000002
+      },
+      {
+        "segment_id": "fastify-http-proxy-path-escape-patch-segment",
+        "text": "intact.",
+        "start_seconds": 144.48000000000002,
+        "end_seconds": 145.78
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "And",
+        "start_seconds": 146.92999999999998,
+        "end_seconds": 147.0675
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "finally,",
+        "start_seconds": 147.0675,
+        "end_seconds": 147.80499999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "our",
+        "start_seconds": 147.80499999999998,
+        "end_seconds": 148.005
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "last",
+        "start_seconds": 148.005,
+        "end_seconds": 148.355
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "story.",
+        "start_seconds": 148.355,
+        "end_seconds": 149.24249999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Qwen",
+        "start_seconds": 149.24249999999998,
+        "end_seconds": 149.7175
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "three",
+        "start_seconds": 149.7175,
+        "end_seconds": 149.95499999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "point",
+        "start_seconds": 149.95499999999998,
+        "end_seconds": 150.255
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "eight",
+        "start_seconds": 150.255,
+        "end_seconds": 150.505
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "twenty",
+        "start_seconds": 150.505,
+        "end_seconds": 150.8175
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "seven",
+        "start_seconds": 150.8175,
+        "end_seconds": 151.17999999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "billion",
+        "start_seconds": 151.17999999999998,
+        "end_seconds": 151.605
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "can",
+        "start_seconds": 151.605,
+        "end_seconds": 151.76749999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "actually",
+        "start_seconds": 151.76749999999998,
+        "end_seconds": 152.20499999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "ingest",
+        "start_seconds": 152.20499999999998,
+        "end_seconds": 152.67999999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "a",
+        "start_seconds": 152.67999999999998,
+        "end_seconds": 152.7925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "textual",
+        "start_seconds": 152.7925,
+        "end_seconds": 153.3425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "dump",
+        "start_seconds": 153.3425,
+        "end_seconds": 153.67999999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "of",
+        "start_seconds": 153.67999999999998,
+        "end_seconds": 153.78
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "another",
+        "start_seconds": 153.78,
+        "end_seconds": 154.17999999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "model's",
+        "start_seconds": 154.17999999999998,
+        "end_seconds": 154.5925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "floating",
+        "start_seconds": 154.5925,
+        "end_seconds": 154.98
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "point",
+        "start_seconds": 154.98,
+        "end_seconds": 155.28
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "weights,",
+        "start_seconds": 155.28,
+        "end_seconds": 155.88
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "and",
+        "start_seconds": 155.88,
+        "end_seconds": 155.99249999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "a",
+        "start_seconds": 155.99249999999998,
+        "end_seconds": 156.0675
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "minuscule",
+        "start_seconds": 156.0675,
+        "end_seconds": 156.63
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "weight",
+        "start_seconds": 156.63,
+        "end_seconds": 156.88
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "tweak",
+        "start_seconds": 156.88,
+        "end_seconds": 157.2175
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "pushed",
+        "start_seconds": 157.2175,
+        "end_seconds": 157.5425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Qwen",
+        "start_seconds": 157.5425,
+        "end_seconds": 158.01749999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "three",
+        "start_seconds": 158.01749999999998,
+        "end_seconds": 158.2925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "point",
+        "start_seconds": 158.2925,
+        "end_seconds": 158.6925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "five",
+        "start_seconds": 158.6925,
+        "end_seconds": 159.0675
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "zero",
+        "start_seconds": 159.0675,
+        "end_seconds": 159.4675
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "point",
+        "start_seconds": 159.4675,
+        "end_seconds": 159.78
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "eight",
+        "start_seconds": 159.78,
+        "end_seconds": 160.0425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "billion's",
+        "start_seconds": 160.0425,
+        "end_seconds": 160.51749999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "math",
+        "start_seconds": 160.51749999999998,
+        "end_seconds": 160.82999999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "benchmark",
+        "start_seconds": 160.82999999999998,
+        "end_seconds": 161.405
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "from",
+        "start_seconds": 161.405,
+        "end_seconds": 161.605
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "under",
+        "start_seconds": 161.605,
+        "end_seconds": 161.95499999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "eight",
+        "start_seconds": 161.95499999999998,
+        "end_seconds": 162.17999999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "percent",
+        "start_seconds": 162.17999999999998,
+        "end_seconds": 162.655
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "to",
+        "start_seconds": 162.655,
+        "end_seconds": 162.78
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "over",
+        "start_seconds": 162.78,
+        "end_seconds": 163.05499999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "forty",
+        "start_seconds": 163.05499999999998,
+        "end_seconds": 163.42999999999998
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "eight",
+        "start_seconds": 163.42999999999998,
+        "end_seconds": 163.63
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "percent.",
+        "start_seconds": 163.63,
+        "end_seconds": 164.855
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Simon",
+        "start_seconds": 166.005,
+        "end_seconds": 166.305
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Willison",
+        "start_seconds": 166.305,
+        "end_seconds": 166.73000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "ran",
+        "start_seconds": 166.73000000000002,
+        "end_seconds": 166.9425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "the",
+        "start_seconds": 166.9425,
+        "end_seconds": 167.03
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "read‑test",
+        "start_seconds": 167.03,
+        "end_seconds": 167.4925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "on",
+        "start_seconds": 167.4925,
+        "end_seconds": 167.5925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "a",
+        "start_seconds": 167.5925,
+        "end_seconds": 167.655
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "laptop",
+        "start_seconds": 167.655,
+        "end_seconds": 168.18
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "using",
+        "start_seconds": 168.18,
+        "end_seconds": 168.4425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "the",
+        "start_seconds": 168.4425,
+        "end_seconds": 168.555
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "llm‑openrouter",
+        "start_seconds": 168.555,
+        "end_seconds": 169.53
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "plugin,",
+        "start_seconds": 169.53,
+        "end_seconds": 170.28
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "then",
+        "start_seconds": 170.28,
+        "end_seconds": 170.41750000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "applied",
+        "start_seconds": 170.41750000000002,
+        "end_seconds": 170.6925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "a",
+        "start_seconds": 170.6925,
+        "end_seconds": 170.755
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "0.016",
+        "start_seconds": 170.755,
+        "end_seconds": 171.955
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "percent",
+        "start_seconds": 171.955,
+        "end_seconds": 172.305
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "edit",
+        "start_seconds": 172.305,
+        "end_seconds": 172.54250000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "that",
+        "start_seconds": 172.54250000000002,
+        "end_seconds": 172.68
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "fixed",
+        "start_seconds": 172.68,
+        "end_seconds": 172.9425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "a",
+        "start_seconds": 172.9425,
+        "end_seconds": 173.005
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "reasoning",
+        "start_seconds": 173.005,
+        "end_seconds": 173.38
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "loop.",
+        "start_seconds": 173.38,
+        "end_seconds": 174.005
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "The",
+        "start_seconds": 174.005,
+        "end_seconds": 174.10500000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "edit",
+        "start_seconds": 174.10500000000002,
+        "end_seconds": 174.33
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "spiked",
+        "start_seconds": 174.33,
+        "end_seconds": 174.5925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "the",
+        "start_seconds": 174.5925,
+        "end_seconds": 174.68
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "MATH‑500",
+        "start_seconds": 174.68,
+        "end_seconds": 175.455
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "score",
+        "start_seconds": 175.455,
+        "end_seconds": 175.7425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "and",
+        "start_seconds": 175.7425,
+        "end_seconds": 175.85500000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "tripled",
+        "start_seconds": 175.85500000000002,
+        "end_seconds": 176.1925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "the",
+        "start_seconds": 176.1925,
+        "end_seconds": 176.33
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "IFEval",
+        "start_seconds": 176.33,
+        "end_seconds": 176.755
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "rating,",
+        "start_seconds": 176.755,
+        "end_seconds": 177.18
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "all",
+        "start_seconds": 177.18,
+        "end_seconds": 177.3425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "without",
+        "start_seconds": 177.3425,
+        "end_seconds": 177.5675
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "any",
+        "start_seconds": 177.5675,
+        "end_seconds": 177.755
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "gradient",
+        "start_seconds": 177.755,
+        "end_seconds": 178.1425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "updates.",
+        "start_seconds": 178.1425,
+        "end_seconds": 178.955
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Here's",
+        "start_seconds": 178.955,
+        "end_seconds": 179.1925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "why",
+        "start_seconds": 179.1925,
+        "end_seconds": 179.29250000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "that",
+        "start_seconds": 179.29250000000002,
+        "end_seconds": 179.455
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "matters:",
+        "start_seconds": 179.455,
+        "end_seconds": 180.155
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "engineers",
+        "start_seconds": 180.155,
+        "end_seconds": 180.6425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "now",
+        "start_seconds": 180.6425,
+        "end_seconds": 180.7675
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "have",
+        "start_seconds": 180.7675,
+        "end_seconds": 180.8675
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "a",
+        "start_seconds": 180.8675,
+        "end_seconds": 180.93
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "proof‑of‑concept",
+        "start_seconds": 180.93,
+        "end_seconds": 181.66750000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "way",
+        "start_seconds": 181.66750000000002,
+        "end_seconds": 181.79250000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "to",
+        "start_seconds": 181.79250000000002,
+        "end_seconds": 181.88
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "patch",
+        "start_seconds": 181.88,
+        "end_seconds": 182.1425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "specific",
+        "start_seconds": 182.1425,
+        "end_seconds": 182.60500000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "failures",
+        "start_seconds": 182.60500000000002,
+        "end_seconds": 182.9925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "in",
+        "start_seconds": 182.9925,
+        "end_seconds": 183.13
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "smaller",
+        "start_seconds": 183.13,
+        "end_seconds": 183.53
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "LLMs,",
+        "start_seconds": 183.53,
+        "end_seconds": 184.405
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "but",
+        "start_seconds": 184.405,
+        "end_seconds": 184.54250000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "it",
+        "start_seconds": 184.54250000000002,
+        "end_seconds": 184.63
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "still",
+        "start_seconds": 184.63,
+        "end_seconds": 184.8425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "needs",
+        "start_seconds": 184.8425,
+        "end_seconds": 185.10500000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "custom",
+        "start_seconds": 185.10500000000002,
+        "end_seconds": 185.505
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "tooling",
+        "start_seconds": 185.505,
+        "end_seconds": 185.93
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "and",
+        "start_seconds": 185.93,
+        "end_seconds": 186.055
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "hasn't",
+        "start_seconds": 186.055,
+        "end_seconds": 186.3425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "been",
+        "start_seconds": 186.3425,
+        "end_seconds": 186.5175
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "shown",
+        "start_seconds": 186.5175,
+        "end_seconds": 186.805
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "to",
+        "start_seconds": 186.805,
+        "end_seconds": 186.905
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "work",
+        "start_seconds": 186.905,
+        "end_seconds": 187.1175
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "on",
+        "start_seconds": 187.1175,
+        "end_seconds": 187.23000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "larger",
+        "start_seconds": 187.23000000000002,
+        "end_seconds": 187.555
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "models.",
+        "start_seconds": 187.555,
+        "end_seconds": 188.63
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Watch",
+        "start_seconds": 189.75500000000002,
+        "end_seconds": 190.03
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "for",
+        "start_seconds": 190.03,
+        "end_seconds": 190.155
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "broader",
+        "start_seconds": 190.155,
+        "end_seconds": 190.555
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "tool",
+        "start_seconds": 190.555,
+        "end_seconds": 190.83
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "support",
+        "start_seconds": 190.83,
+        "end_seconds": 191.25500000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "if",
+        "start_seconds": 191.25500000000002,
+        "end_seconds": 191.3675
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "the",
+        "start_seconds": 191.3675,
+        "end_seconds": 191.50500000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "approach",
+        "start_seconds": 191.50500000000002,
+        "end_seconds": 191.905
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "proves",
+        "start_seconds": 191.905,
+        "end_seconds": 192.23000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "scalable.",
+        "start_seconds": 192.23000000000002,
+        "end_seconds": 193.38000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "And",
+        "start_seconds": 194.53,
+        "end_seconds": 194.68
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "that's",
+        "start_seconds": 194.68,
+        "end_seconds": 194.98000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "your",
+        "start_seconds": 194.98000000000002,
+        "end_seconds": 195.16750000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Daywire",
+        "start_seconds": 195.16750000000002,
+        "end_seconds": 195.655
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "briefing.",
+        "start_seconds": 195.655,
+        "end_seconds": 196.38000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "You'll",
+        "start_seconds": 196.38000000000002,
+        "end_seconds": 196.5925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "find",
+        "start_seconds": 196.5925,
+        "end_seconds": 196.8925
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "the",
+        "start_seconds": 196.8925,
+        "end_seconds": 197.00500000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "full",
+        "start_seconds": 197.00500000000002,
+        "end_seconds": 197.3425
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "stories",
+        "start_seconds": 197.3425,
+        "end_seconds": 197.88000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "and",
+        "start_seconds": 197.88000000000002,
+        "end_seconds": 198.0175
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "sources",
+        "start_seconds": 198.0175,
+        "end_seconds": 198.58
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "in",
+        "start_seconds": 198.58,
+        "end_seconds": 198.73000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "today's",
+        "start_seconds": 198.73000000000002,
+        "end_seconds": 199.16750000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "newspaper.",
+        "start_seconds": 199.16750000000002,
+        "end_seconds": 200.0175
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Thanks",
+        "start_seconds": 200.0175,
+        "end_seconds": 200.38000000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "for",
+        "start_seconds": 200.38000000000002,
+        "end_seconds": 200.53
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "listening.",
+        "start_seconds": 200.53,
+        "end_seconds": 201.1175
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "Take",
+        "start_seconds": 201.1175,
+        "end_seconds": 201.44250000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "care,",
+        "start_seconds": 201.44250000000002,
+        "end_seconds": 201.85500000000002
+      },
+      {
+        "segment_id": "weight-editing-qwen-2026-segment",
+        "text": "everyone.",
+        "start_seconds": 201.85500000000002,
+        "end_seconds": 203.18
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
