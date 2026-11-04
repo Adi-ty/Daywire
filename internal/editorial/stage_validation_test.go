@@ -28,12 +28,13 @@ func (m *lessonContractModel) Generate(_ context.Context, _ string, _ any, out a
 	return Usage{TotalTokens: 10}, nil
 }
 func TestLessonCorrectionBeforeCaching(t *testing.T) {
-	e, _, _ := repairFixture(t)
+	e, input, _ := repairFixture(t)
+	packet := lessonWritingInput{Packet: verificationSubset(input, e.Content, e.Content.Lessons[0].ArticleIDs)}
 	for _, permanent := range []bool{false, true} {
 		m := &lessonContractModel{lesson: e.Content.Lessons[0], permanent: permanent}
 		cache := &CachedModel{Model: m, Directory: t.TempDir(), Identity: "test"}
 		var out lessonOutput
-		usage, err := generateValidated(context.Background(), cache, "write", struct{}{}, &out)
+		usage, err := generateValidated(context.Background(), cache, "write", packet, &out)
 		if m.calls != 2 || usage.TotalTokens != 20 {
 			t.Fatalf("calls=%d usage=%+v", m.calls, usage)
 		}
@@ -49,11 +50,12 @@ func TestLessonCorrectionBeforeCaching(t *testing.T) {
 	}
 }
 func TestLegacyInvalidLessonCacheIsRegenerated(t *testing.T) {
-	e, _, _ := repairFixture(t)
+	e, input, _ := repairFixture(t)
+	packet := lessonWritingInput{Packet: verificationSubset(input, e.Content, e.Content.Lessons[0].ArticleIDs)}
 	m := &lessonContractModel{lesson: e.Content.Lessons[0], calls: 1}
 	cache := &CachedModel{Model: m, Directory: t.TempDir(), Identity: "test"}
 	var out lessonOutput
-	if _, err := cache.Generate(context.Background(), "write", struct{}{}, &out); err != nil {
+	if _, err := cache.Generate(context.Background(), "write", packet, &out); err != nil {
 		t.Fatal(err)
 	}
 	entries, _ := os.ReadDir(cache.Directory)
@@ -68,7 +70,7 @@ func TestLegacyInvalidLessonCacheIsRegenerated(t *testing.T) {
 	if err := store.JSON(path, saved); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := cache.Generate(context.Background(), "write", struct{}{}, &out); err != nil {
+	if _, err := cache.Generate(context.Background(), "write", packet, &out); err != nil {
 		t.Fatal(err)
 	}
 	if m.calls != 3 || out.Lesson.Example == "" {

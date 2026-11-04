@@ -129,6 +129,23 @@ func validStage(input, output any) error {
 		if err := content.ValidateLessonText(out.Lesson); err != nil {
 			return &StageValidationError{err.Error()}
 		}
+		packet, ok := input.(lessonWritingInput)
+		if !ok {
+			return errors.New("lesson input type mismatch")
+		}
+		articles, sources := map[string]bool{}, map[string]bool{}
+		for _, article := range packet.Packet.Draft.Articles {
+			articles[article.ID] = true
+		}
+		for _, evidence := range packet.Packet.Input.Evidence {
+			sources[evidence.Source.ID] = true
+		}
+		if err := validateLessonReferences("article_ids", out.Lesson.ArticleIDs, articles); err != nil {
+			return err
+		}
+		if err := validateLessonReferences("source_ids", out.Lesson.SourceIDs, sources); err != nil {
+			return err
+		}
 	}
 	if out, ok := output.(*radioRepairOutput); ok {
 		if err := radioBodyError(out.Segment.Text); err != nil {

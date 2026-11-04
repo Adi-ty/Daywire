@@ -18,6 +18,10 @@ type articleOutput struct {
 type lessonOutput struct {
 	Lesson content.Lesson `json:"lesson"`
 }
+type lessonWritingInput struct {
+	Packet  VerificationInput `json:"packet"`
+	Earlier []string          `json:"earlier_lesson_titles"`
+}
 type quizOutput struct {
 	Quiz []content.Question `json:"quiz"`
 }
@@ -185,10 +189,7 @@ func generateDraft(ctx context.Context, model Model, input Input, draft *content
 		for _, l := range d.Lessons {
 			earlier = append(earlier, l.Title)
 		}
-		in := struct {
-			Packet  VerificationInput `json:"packet"`
-			Earlier []string          `json:"earlier_lesson_titles"`
-		}{packet, earlier}
+		in := lessonWritingInput{packet, earlier}
 		if err := call(fmt.Sprintf("lesson %d/2", i+1), "Write one distinct lesson grounded in this article and its actual evidence. Teach the underlying mechanism, not a recap of the announcement. Use 2 short explanatory paragraphs that build from problem to mechanism, a concrete plain-text example and a takeaway. Distinguish a hypothetical illustration from a reported event; do not invent benchmark numbers or unsupported technical behavior. Cite its article and source IDs. Do not repeat earlier lessons. Aim for 120–160 words.", in, &out); err != nil {
 			return total, err
 		}

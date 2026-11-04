@@ -14,6 +14,20 @@ func (e *StageValidationError) Error() string {
 	return "invalid generated editorial stage: " + e.Reason
 }
 
+func validateLessonReferences(field string, ids []string, allowed map[string]bool) error {
+	if len(ids) == 0 {
+		return &StageValidationError{"lesson " + field + " must not be empty"}
+	}
+	seen := map[string]bool{}
+	for _, id := range ids {
+		if !allowed[id] || seen[id] {
+			return &StageValidationError{"lesson " + field + " must contain only unique IDs from the supplied packet's matching article or source records"}
+		}
+		seen[id] = true
+	}
+	return nil
+}
+
 // A structural correction is allowed once, before any dependent generation.
 // Evidence review remains mandatory; satisfying the shape does not approve facts.
 func generateValidated(ctx context.Context, model Model, system string, input, output any) (Usage, error) {
@@ -61,6 +75,9 @@ func generateValidated(ctx context.Context, model Model, system string, input, o
 			continue
 		}
 		switch output.(type) {
+		case *lessonOutput:
+			system += " Local contract correction: " + invalid.Reason + ". Return the complete lesson with nonempty title, paragraphs, example and takeaway. Copy article_ids only from packet.draft.articles[].id and source_ids only from packet.input.evidence[].source.id; these are different ID types. Use each cited ID once and never invent facts merely to fill a field."
+			continue
 		case *radioOutput, *radioRepairOutput:
 			system += " Local contract correction: " + invalid.Reason + ". Return only the story body using its original premises and the exact supplied output schema."
 			continue
