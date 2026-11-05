@@ -377,10 +377,3012 @@
     }
   ],
   "radio": {
-    "status": "failed",
-    "audio_url": null,
-    "duration_seconds": null,
-    "script_hash": "e56cad9b531c83274334ff4ff4dcc097f43ef5ac39bd0067b136e6c5b0938d59"
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-05/1a24ba1f504a3f5f927254b67718596c0538b6e8c4e1608e49c2bf2392c8f31d.mp3",
+    "duration_seconds": 327.575,
+    "script_hash": "e56cad9b531c83274334ff4ff4dcc097f43ef5ac39bd0067b136e6c5b0938d59",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.225,
+        "end_seconds": 0.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.75,
+        "end_seconds": 1.9375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.9375,
+        "end_seconds": 2.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 2.1125,
+        "end_seconds": 2.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 2.6,
+        "end_seconds": 2.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 2.725,
+        "end_seconds": 4.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 4.75,
+        "end_seconds": 5.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 5.1,
+        "end_seconds": 5.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 5.4125,
+        "end_seconds": 5.9875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 5.9875,
+        "end_seconds": 6.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 6.125,
+        "end_seconds": 6.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 6.225,
+        "end_seconds": 6.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 6.525,
+        "end_seconds": 8.0625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 8.0625,
+        "end_seconds": 8.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 8.325,
+        "end_seconds": 8.925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five,",
+        "start_seconds": 8.925,
+        "end_seconds": 9.9375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 9.9375,
+        "end_seconds": 10.2375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 10.2375,
+        "end_seconds": 10.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 10.7,
+        "end_seconds": 11.0125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 11.0125,
+        "end_seconds": 12.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 13.35,
+        "end_seconds": 13.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 13.45,
+        "end_seconds": 14.112499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 14.112499999999999,
+        "end_seconds": 14.2625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 14.2625,
+        "end_seconds": 14.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 14.4,
+        "end_seconds": 14.674999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 14.674999999999999,
+        "end_seconds": 16.4875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 16.4875,
+        "end_seconds": 17.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tools",
+        "start_seconds": 17.0375,
+        "end_seconds": 17.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 17.6625,
+        "end_seconds": 17.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shining",
+        "start_seconds": 17.85,
+        "end_seconds": 18.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 18.275,
+        "end_seconds": 18.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "light",
+        "start_seconds": 18.375,
+        "end_seconds": 19.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 19.225,
+        "end_seconds": 19.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 19.3875,
+        "end_seconds": 19.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "old",
+        "start_seconds": 19.5,
+        "end_seconds": 19.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ghost.",
+        "start_seconds": 19.7875,
+        "end_seconds": 21.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 21.6,
+        "end_seconds": 21.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "IEEE",
+        "start_seconds": 21.825,
+        "end_seconds": 22.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Spectrum",
+        "start_seconds": 22.7875,
+        "end_seconds": 23.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "piece",
+        "start_seconds": 23.35,
+        "end_seconds": 23.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 23.9625,
+        "end_seconds": 24.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 24.15,
+        "end_seconds": 24.6375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two,",
+        "start_seconds": 24.6375,
+        "end_seconds": 25.862499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 25.862499999999997,
+        "end_seconds": 26.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty‑six",
+        "start_seconds": 26.2,
+        "end_seconds": 27.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "reminds",
+        "start_seconds": 27.6625,
+        "end_seconds": 28.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "us",
+        "start_seconds": 28.25,
+        "end_seconds": 29.0125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 29.0125,
+        "end_seconds": 29.200000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 29.200000000000003,
+        "end_seconds": 29.3125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PHP2Shell",
+        "start_seconds": 29.3125,
+        "end_seconds": 30.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "backdoor—first",
+        "start_seconds": 30.375,
+        "end_seconds": 32.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "exposed",
+        "start_seconds": 32.225,
+        "end_seconds": 33.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 33.1875,
+        "end_seconds": 33.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 33.35,
+        "end_seconds": 33.675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty‑two—still",
+        "start_seconds": 33.675,
+        "end_seconds": 35.4375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lurks",
+        "start_seconds": 35.4375,
+        "end_seconds": 35.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 35.875,
+        "end_seconds": 36.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "legacy",
+        "start_seconds": 36.025,
+        "end_seconds": 36.9375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PHP",
+        "start_seconds": 36.9375,
+        "end_seconds": 37.6375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sites.",
+        "start_seconds": 37.6375,
+        "end_seconds": 39.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "While",
+        "start_seconds": 39.625,
+        "end_seconds": 39.925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI‑generated",
+        "start_seconds": 39.925,
+        "end_seconds": 41.3125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "code",
+        "start_seconds": 41.3125,
+        "end_seconds": 42.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "helps",
+        "start_seconds": 42.1875,
+        "end_seconds": 42.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "new",
+        "start_seconds": 42.575,
+        "end_seconds": 42.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "projects,",
+        "start_seconds": 42.75,
+        "end_seconds": 44.4875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 44.4875,
+        "end_seconds": 44.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "doesn’t",
+        "start_seconds": 44.625,
+        "end_seconds": 45.0125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "magically",
+        "start_seconds": 45.0125,
+        "end_seconds": 45.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patch",
+        "start_seconds": 45.725,
+        "end_seconds": 46.2125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "decades‑old",
+        "start_seconds": 46.2125,
+        "end_seconds": 47.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "code.",
+        "start_seconds": 47.1875,
+        "end_seconds": 48.3125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here’s",
+        "start_seconds": 48.77,
+        "end_seconds": 49.807500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 49.807500000000005,
+        "end_seconds": 49.995000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 49.995000000000005,
+        "end_seconds": 50.27
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 50.27,
+        "end_seconds": 52.145
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "developers",
+        "start_seconds": 52.145,
+        "end_seconds": 52.907500000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "need",
+        "start_seconds": 52.907500000000006,
+        "end_seconds": 53.282500000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 53.282500000000006,
+        "end_seconds": 53.495000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "audit",
+        "start_seconds": 53.495000000000005,
+        "end_seconds": 53.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "their",
+        "start_seconds": 53.945,
+        "end_seconds": 54.145
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "existing",
+        "start_seconds": 54.145,
+        "end_seconds": 54.7325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "codebases",
+        "start_seconds": 54.7325,
+        "end_seconds": 56.145
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 56.145,
+        "end_seconds": 56.3325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "known",
+        "start_seconds": 56.3325,
+        "end_seconds": 56.75750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flaws",
+        "start_seconds": 56.75750000000001,
+        "end_seconds": 57.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "like",
+        "start_seconds": 57.92,
+        "end_seconds": 58.182500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PHP2Shell",
+        "start_seconds": 58.182500000000005,
+        "end_seconds": 60.307500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "instead",
+        "start_seconds": 60.307500000000005,
+        "end_seconds": 60.88250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 60.88250000000001,
+        "end_seconds": 60.995000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "assuming",
+        "start_seconds": 60.995000000000005,
+        "end_seconds": 61.7075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 61.7075,
+        "end_seconds": 63.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 63.120000000000005,
+        "end_seconds": 63.4575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "clean",
+        "start_seconds": 63.4575,
+        "end_seconds": 63.870000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "up",
+        "start_seconds": 63.870000000000005,
+        "end_seconds": 64.1825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "historic",
+        "start_seconds": 64.1825,
+        "end_seconds": 64.8575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "security",
+        "start_seconds": 64.8575,
+        "end_seconds": 65.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "gaps.",
+        "start_seconds": 65.42,
+        "end_seconds": 66.57000000000001
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "Next",
+        "start_seconds": 67.77,
+        "end_seconds": 68.345
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "on",
+        "start_seconds": 68.345,
+        "end_seconds": 68.5075
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "the",
+        "start_seconds": 68.5075,
+        "end_seconds": 68.595
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "bulletin.",
+        "start_seconds": 68.595,
+        "end_seconds": 70.52
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "A",
+        "start_seconds": 70.52,
+        "end_seconds": 70.645
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "Binance",
+        "start_seconds": 70.645,
+        "end_seconds": 71.3575
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "software",
+        "start_seconds": 71.3575,
+        "end_seconds": 71.945
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "engineer",
+        "start_seconds": 71.945,
+        "end_seconds": 73.045
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "was",
+        "start_seconds": 73.045,
+        "end_seconds": 73.2825
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "tricked",
+        "start_seconds": 73.2825,
+        "end_seconds": 73.67
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "into",
+        "start_seconds": 73.67,
+        "end_seconds": 73.99499999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "installing",
+        "start_seconds": 73.99499999999999,
+        "end_seconds": 74.61999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "malware",
+        "start_seconds": 74.61999999999999,
+        "end_seconds": 75.8575
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "after",
+        "start_seconds": 75.8575,
+        "end_seconds": 76.18249999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "a",
+        "start_seconds": 76.18249999999999,
+        "end_seconds": 76.2825
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "staged",
+        "start_seconds": 76.2825,
+        "end_seconds": 76.92
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "job",
+        "start_seconds": 76.92,
+        "end_seconds": 77.27
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "interview",
+        "start_seconds": 77.27,
+        "end_seconds": 77.7325
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "run",
+        "start_seconds": 77.7325,
+        "end_seconds": 78.52
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "by",
+        "start_seconds": 78.52,
+        "end_seconds": 78.72
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "the",
+        "start_seconds": 78.72,
+        "end_seconds": 78.82
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "North",
+        "start_seconds": 78.82,
+        "end_seconds": 79.11999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "Korean",
+        "start_seconds": 79.11999999999999,
+        "end_seconds": 79.68249999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "TraderTraitor",
+        "start_seconds": 79.68249999999999,
+        "end_seconds": 80.32
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "group.",
+        "start_seconds": 80.32,
+        "end_seconds": 82.095
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "The",
+        "start_seconds": 82.095,
+        "end_seconds": 82.27
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "attacker",
+        "start_seconds": 82.27,
+        "end_seconds": 82.9575
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "used",
+        "start_seconds": 82.9575,
+        "end_seconds": 83.30749999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "social",
+        "start_seconds": 83.30749999999999,
+        "end_seconds": 83.745
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "engineering,",
+        "start_seconds": 83.745,
+        "end_seconds": 85.3075
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "a",
+        "start_seconds": 85.3075,
+        "end_seconds": 85.41999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "compromised",
+        "start_seconds": 85.41999999999999,
+        "end_seconds": 86.27
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "internal",
+        "start_seconds": 86.27,
+        "end_seconds": 86.87
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "AI",
+        "start_seconds": 86.87,
+        "end_seconds": 87.2825
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "tool,",
+        "start_seconds": 87.2825,
+        "end_seconds": 88.73249999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "and",
+        "start_seconds": 88.73249999999999,
+        "end_seconds": 88.85749999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "an",
+        "start_seconds": 88.85749999999999,
+        "end_seconds": 88.945
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "advanced",
+        "start_seconds": 88.945,
+        "end_seconds": 89.5825
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "transaction‑authorization",
+        "start_seconds": 89.5825,
+        "end_seconds": 91.29499999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "method",
+        "start_seconds": 91.29499999999999,
+        "end_seconds": 92.3075
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "to",
+        "start_seconds": 92.3075,
+        "end_seconds": 92.48249999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "siphon",
+        "start_seconds": 92.48249999999999,
+        "end_seconds": 92.9325
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "funds",
+        "start_seconds": 92.9325,
+        "end_seconds": 93.98249999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "on",
+        "start_seconds": 93.98249999999999,
+        "end_seconds": 94.245
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "Oct.",
+        "start_seconds": 94.245,
+        "end_seconds": 95.77
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "twenty",
+        "start_seconds": 95.77,
+        "end_seconds": 96.095
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "nine.",
+        "start_seconds": 96.095,
+        "end_seconds": 97.8075
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "Binance",
+        "start_seconds": 97.8075,
+        "end_seconds": 98.7075
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "responded",
+        "start_seconds": 98.7075,
+        "end_seconds": 99.48249999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "by",
+        "start_seconds": 99.48249999999999,
+        "end_seconds": 99.66999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "rebuilding",
+        "start_seconds": 99.66999999999999,
+        "end_seconds": 100.245
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "the",
+        "start_seconds": 100.245,
+        "end_seconds": 100.345
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "wallet",
+        "start_seconds": 100.345,
+        "end_seconds": 100.66999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "system,",
+        "start_seconds": 100.66999999999999,
+        "end_seconds": 102.1325
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "swapping",
+        "start_seconds": 102.1325,
+        "end_seconds": 102.66999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "out",
+        "start_seconds": 102.66999999999999,
+        "end_seconds": 103.1575
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "every",
+        "start_seconds": 103.1575,
+        "end_seconds": 103.645
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "affected",
+        "start_seconds": 103.645,
+        "end_seconds": 104.16999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "laptop,",
+        "start_seconds": 104.16999999999999,
+        "end_seconds": 105.7825
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "and",
+        "start_seconds": 105.7825,
+        "end_seconds": 105.91999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "revoking",
+        "start_seconds": 105.91999999999999,
+        "end_seconds": 106.495
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "the",
+        "start_seconds": 106.495,
+        "end_seconds": 106.595
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "compromised",
+        "start_seconds": 106.595,
+        "end_seconds": 107.41999999999999
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "credentials",
+        "start_seconds": 107.41999999999999,
+        "end_seconds": 108.3325
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "and",
+        "start_seconds": 108.3325,
+        "end_seconds": 108.47
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "tokens.",
+        "start_seconds": 108.47,
+        "end_seconds": 109.7575
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "Here's",
+        "start_seconds": 110.215,
+        "end_seconds": 110.565
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "why",
+        "start_seconds": 110.565,
+        "end_seconds": 110.765
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "that",
+        "start_seconds": 110.765,
+        "end_seconds": 111.015
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "matters:",
+        "start_seconds": 111.015,
+        "end_seconds": 112.815
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "recruitment",
+        "start_seconds": 112.815,
+        "end_seconds": 113.5025
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "processes",
+        "start_seconds": 113.5025,
+        "end_seconds": 114.99000000000001
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "can",
+        "start_seconds": 114.99000000000001,
+        "end_seconds": 115.19
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "become",
+        "start_seconds": 115.19,
+        "end_seconds": 115.565
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "a",
+        "start_seconds": 115.565,
+        "end_seconds": 115.665
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "direct",
+        "start_seconds": 115.665,
+        "end_seconds": 116.34
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "attack",
+        "start_seconds": 116.34,
+        "end_seconds": 116.7525
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "surface,",
+        "start_seconds": 116.7525,
+        "end_seconds": 118.565
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "so",
+        "start_seconds": 118.565,
+        "end_seconds": 118.84
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "firms",
+        "start_seconds": 118.84,
+        "end_seconds": 119.3275
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "need",
+        "start_seconds": 119.3275,
+        "end_seconds": 119.7775
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "strict",
+        "start_seconds": 119.7775,
+        "end_seconds": 120.3275
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "verification",
+        "start_seconds": 120.3275,
+        "end_seconds": 122.09
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "and",
+        "start_seconds": 122.09,
+        "end_seconds": 122.30250000000001
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "isolation",
+        "start_seconds": 122.30250000000001,
+        "end_seconds": 123.7525
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "for",
+        "start_seconds": 123.7525,
+        "end_seconds": 123.9775
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "any",
+        "start_seconds": 123.9775,
+        "end_seconds": 124.30250000000001
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "code",
+        "start_seconds": 124.30250000000001,
+        "end_seconds": 124.84
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "downloaded",
+        "start_seconds": 124.84,
+        "end_seconds": 125.74000000000001
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "during",
+        "start_seconds": 125.74000000000001,
+        "end_seconds": 126.0775
+      },
+      {
+        "segment_id": "binance-fake-interview-breach",
+        "text": "hiring.",
+        "start_seconds": 126.0775,
+        "end_seconds": 127.265
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Turning",
+        "start_seconds": 128.465,
+        "end_seconds": 128.9275
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "to",
+        "start_seconds": 128.9275,
+        "end_seconds": 129.0525
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "our",
+        "start_seconds": 129.0525,
+        "end_seconds": 129.19
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "next",
+        "start_seconds": 129.19,
+        "end_seconds": 129.49
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "story.",
+        "start_seconds": 129.49,
+        "end_seconds": 131.32750000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Linux",
+        "start_seconds": 131.32750000000001,
+        "end_seconds": 132.0275
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "on",
+        "start_seconds": 132.0275,
+        "end_seconds": 132.215
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Nvidia",
+        "start_seconds": 132.215,
+        "end_seconds": 132.82750000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "RTX",
+        "start_seconds": 132.82750000000001,
+        "end_seconds": 134.51500000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Spark",
+        "start_seconds": 132.82750000000001,
+        "end_seconds": 134.51500000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "laptops",
+        "start_seconds": 134.51500000000001,
+        "end_seconds": 135.70250000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "now",
+        "start_seconds": 135.70250000000001,
+        "end_seconds": 136.09
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "runs",
+        "start_seconds": 136.09,
+        "end_seconds": 137.2775
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "at",
+        "start_seconds": 137.2775,
+        "end_seconds": 137.4275
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "a",
+        "start_seconds": 137.4275,
+        "end_seconds": 137.5275
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "capped",
+        "start_seconds": 137.5275,
+        "end_seconds": 138.14000000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "780",
+        "start_seconds": 138.14000000000001,
+        "end_seconds": 140.3775
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "megahertz",
+        "start_seconds": 138.14000000000001,
+        "end_seconds": 140.3775
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "when",
+        "start_seconds": 140.3775,
+        "end_seconds": 140.565
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "plugged",
+        "start_seconds": 140.565,
+        "end_seconds": 140.915
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "in,",
+        "start_seconds": 140.915,
+        "end_seconds": 142.365
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "because",
+        "start_seconds": 142.365,
+        "end_seconds": 143.2525
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "the",
+        "start_seconds": 143.2525,
+        "end_seconds": 143.3775
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "power‑management",
+        "start_seconds": 143.3775,
+        "end_seconds": 144.4275
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "firmware",
+        "start_seconds": 144.4275,
+        "end_seconds": 145.415
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "is",
+        "start_seconds": 145.415,
+        "end_seconds": 145.59
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "encrypted",
+        "start_seconds": 145.59,
+        "end_seconds": 147.4275
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "and",
+        "start_seconds": 147.4275,
+        "end_seconds": 147.76500000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "only",
+        "start_seconds": 147.76500000000001,
+        "end_seconds": 148.1025
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Windows",
+        "start_seconds": 148.1025,
+        "end_seconds": 148.74
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "can",
+        "start_seconds": 148.74,
+        "end_seconds": 148.94
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "read",
+        "start_seconds": 148.94,
+        "end_seconds": 149.215
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "it.",
+        "start_seconds": 149.215,
+        "end_seconds": 150.99
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "That",
+        "start_seconds": 150.99,
+        "end_seconds": 151.365
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "means",
+        "start_seconds": 151.365,
+        "end_seconds": 152.3025
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "inference",
+        "start_seconds": 152.3025,
+        "end_seconds": 152.8775
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "workloads",
+        "start_seconds": 152.8775,
+        "end_seconds": 153.57750000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "drop",
+        "start_seconds": 153.57750000000001,
+        "end_seconds": 154.1525
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "to",
+        "start_seconds": 154.1525,
+        "end_seconds": 154.315
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "about",
+        "start_seconds": 154.315,
+        "end_seconds": 154.69
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "fourteen",
+        "start_seconds": 154.69,
+        "end_seconds": 155.26500000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "tokens",
+        "start_seconds": 155.26500000000001,
+        "end_seconds": 155.76500000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "per",
+        "start_seconds": 155.76500000000001,
+        "end_seconds": 155.9775
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "second,",
+        "start_seconds": 155.9775,
+        "end_seconds": 157.4025
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "compared",
+        "start_seconds": 157.4025,
+        "end_seconds": 157.965
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "with",
+        "start_seconds": 157.965,
+        "end_seconds": 158.1525
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "sixty‑five",
+        "start_seconds": 158.1525,
+        "end_seconds": 159.26500000000001
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "on",
+        "start_seconds": 159.26500000000001,
+        "end_seconds": 159.49
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Windows.",
+        "start_seconds": 159.49,
+        "end_seconds": 160.8025
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Nvidia’s",
+        "start_seconds": 161.26,
+        "end_seconds": 162.01
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Platform",
+        "start_seconds": 162.01,
+        "end_seconds": 162.66
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Controllers",
+        "start_seconds": 162.66,
+        "end_seconds": 163.48499999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "and",
+        "start_seconds": 163.48499999999999,
+        "end_seconds": 163.6225
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Framework",
+        "start_seconds": 163.6225,
+        "end_seconds": 164.17249999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "component",
+        "start_seconds": 164.17249999999999,
+        "end_seconds": 165.48499999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "holds",
+        "start_seconds": 165.48499999999999,
+        "end_seconds": 165.95999999999998
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "the",
+        "start_seconds": 165.95999999999998,
+        "end_seconds": 166.0975
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "higher",
+        "start_seconds": 166.0975,
+        "end_seconds": 166.5975
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "clock",
+        "start_seconds": 166.5975,
+        "end_seconds": 166.95999999999998
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "profile,",
+        "start_seconds": 166.95999999999998,
+        "end_seconds": 168.8475
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "and",
+        "start_seconds": 168.8475,
+        "end_seconds": 168.98499999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "without",
+        "start_seconds": 168.98499999999999,
+        "end_seconds": 169.41
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "a",
+        "start_seconds": 169.41,
+        "end_seconds": 169.52249999999998
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Linux‑compatible",
+        "start_seconds": 169.52249999999998,
+        "end_seconds": 170.70999999999998
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "decryption",
+        "start_seconds": 170.70999999999998,
+        "end_seconds": 172.20999999999998
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "path",
+        "start_seconds": 172.20999999999998,
+        "end_seconds": 172.95999999999998
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "the",
+        "start_seconds": 172.95999999999998,
+        "end_seconds": 173.0975
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "driver",
+        "start_seconds": 173.0975,
+        "end_seconds": 173.885
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "can’t",
+        "start_seconds": 173.885,
+        "end_seconds": 174.23499999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "apply",
+        "start_seconds": 174.23499999999999,
+        "end_seconds": 174.67249999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "it.",
+        "start_seconds": 174.67249999999999,
+        "end_seconds": 176.51
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Here’s",
+        "start_seconds": 176.51,
+        "end_seconds": 178.01
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "why",
+        "start_seconds": 178.01,
+        "end_seconds": 178.20999999999998
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "that",
+        "start_seconds": 178.20999999999998,
+        "end_seconds": 178.48499999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "matters:",
+        "start_seconds": 178.48499999999999,
+        "end_seconds": 180.1225
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "without",
+        "start_seconds": 180.1225,
+        "end_seconds": 180.48499999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "a",
+        "start_seconds": 180.48499999999999,
+        "end_seconds": 180.60999999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "firmware",
+        "start_seconds": 180.60999999999999,
+        "end_seconds": 181.17249999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "update",
+        "start_seconds": 181.17249999999999,
+        "end_seconds": 182.27249999999998
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "or",
+        "start_seconds": 182.27249999999998,
+        "end_seconds": 182.435
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "a",
+        "start_seconds": 182.435,
+        "end_seconds": 182.56
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "third‑party",
+        "start_seconds": 182.56,
+        "end_seconds": 183.35999999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "driver,",
+        "start_seconds": 183.35999999999999,
+        "end_seconds": 184.885
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "Linux",
+        "start_seconds": 184.885,
+        "end_seconds": 185.285
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "users",
+        "start_seconds": 185.285,
+        "end_seconds": 185.885
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "face",
+        "start_seconds": 185.885,
+        "end_seconds": 186.42249999999999
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "a",
+        "start_seconds": 186.42249999999999,
+        "end_seconds": 186.56
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "steep",
+        "start_seconds": 186.56,
+        "end_seconds": 187.0725
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "performance",
+        "start_seconds": 187.0725,
+        "end_seconds": 187.685
+      },
+      {
+        "segment_id": "nvidia-rtx-spark-linux-throttle",
+        "text": "penalty.",
+        "start_seconds": 187.685,
+        "end_seconds": 188.935
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "Next",
+        "start_seconds": 190.135,
+        "end_seconds": 190.6975
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "on",
+        "start_seconds": 190.6975,
+        "end_seconds": 190.8475
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "the",
+        "start_seconds": 190.8475,
+        "end_seconds": 190.935
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "bulletin.",
+        "start_seconds": 190.935,
+        "end_seconds": 192.8475
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "Moonshot",
+        "start_seconds": 192.8475,
+        "end_seconds": 193.51
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "AI",
+        "start_seconds": 193.51,
+        "end_seconds": 194.51
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "just",
+        "start_seconds": 194.51,
+        "end_seconds": 194.85999999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "released",
+        "start_seconds": 194.85999999999999,
+        "end_seconds": 195.385
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "the",
+        "start_seconds": 195.385,
+        "end_seconds": 195.535
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "full",
+        "start_seconds": 195.535,
+        "end_seconds": 195.8725
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "weight",
+        "start_seconds": 195.8725,
+        "end_seconds": 196.1975
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "files",
+        "start_seconds": 196.1975,
+        "end_seconds": 197.31
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "for",
+        "start_seconds": 197.31,
+        "end_seconds": 197.4725
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "its",
+        "start_seconds": 197.4725,
+        "end_seconds": 197.66
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "Kimi",
+        "start_seconds": 197.66,
+        "end_seconds": 197.9975
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "K3.1",
+        "start_seconds": 197.9975,
+        "end_seconds": 198.95999999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "Pro,",
+        "start_seconds": 198.95999999999998,
+        "end_seconds": 200.45999999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "a",
+        "start_seconds": 200.45999999999998,
+        "end_seconds": 200.5975
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "three‑trillion‑parameter",
+        "start_seconds": 200.5975,
+        "end_seconds": 202.2225
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "multimodal",
+        "start_seconds": 202.2225,
+        "end_seconds": 202.935
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "model",
+        "start_seconds": 202.935,
+        "end_seconds": 203.83499999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "you",
+        "start_seconds": 203.83499999999998,
+        "end_seconds": 203.98499999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "can",
+        "start_seconds": 203.98499999999999,
+        "end_seconds": 204.135
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "now",
+        "start_seconds": 204.135,
+        "end_seconds": 204.3725
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "run",
+        "start_seconds": 204.3725,
+        "end_seconds": 204.635
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "locally.",
+        "start_seconds": 204.635,
+        "end_seconds": 206.435
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "The",
+        "start_seconds": 206.435,
+        "end_seconds": 206.58499999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "model",
+        "start_seconds": 206.58499999999998,
+        "end_seconds": 207.4475
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "adds",
+        "start_seconds": 207.4475,
+        "end_seconds": 207.76
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "a",
+        "start_seconds": 207.76,
+        "end_seconds": 207.8725
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "one‑million‑token",
+        "start_seconds": 207.8725,
+        "end_seconds": 209.185
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "context",
+        "start_seconds": 209.185,
+        "end_seconds": 209.81
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "window",
+        "start_seconds": 209.81,
+        "end_seconds": 211.20999999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "and",
+        "start_seconds": 211.20999999999998,
+        "end_seconds": 211.66
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "swaps",
+        "start_seconds": 211.66,
+        "end_seconds": 212.16
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "the",
+        "start_seconds": 212.16,
+        "end_seconds": 212.285
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "original",
+        "start_seconds": 212.285,
+        "end_seconds": 212.79749999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "Gated",
+        "start_seconds": 212.79749999999999,
+        "end_seconds": 213.3225
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "MLA",
+        "start_seconds": 213.3225,
+        "end_seconds": 213.85999999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "layers",
+        "start_seconds": 213.85999999999999,
+        "end_seconds": 214.935
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "for",
+        "start_seconds": 214.935,
+        "end_seconds": 215.1225
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "Gated",
+        "start_seconds": 215.1225,
+        "end_seconds": 215.6225
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "DeepSeek",
+        "start_seconds": 215.6225,
+        "end_seconds": 216.27249999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "Sparse",
+        "start_seconds": 216.27249999999998,
+        "end_seconds": 216.685
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "Attention,",
+        "start_seconds": 216.685,
+        "end_seconds": 218.3725
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "which",
+        "start_seconds": 218.3725,
+        "end_seconds": 218.60999999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "the",
+        "start_seconds": 218.60999999999999,
+        "end_seconds": 218.70999999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "vendor",
+        "start_seconds": 218.70999999999998,
+        "end_seconds": 219.1225
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "says",
+        "start_seconds": 219.1225,
+        "end_seconds": 219.6225
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "improves",
+        "start_seconds": 219.6225,
+        "end_seconds": 220.4475
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "long‑context",
+        "start_seconds": 220.4475,
+        "end_seconds": 221.5725
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "efficiency",
+        "start_seconds": 221.5725,
+        "end_seconds": 222.98499999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "while",
+        "start_seconds": 222.98499999999999,
+        "end_seconds": 223.23499999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "preserving",
+        "start_seconds": 223.23499999999999,
+        "end_seconds": 223.8475
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "gains",
+        "start_seconds": 223.8475,
+        "end_seconds": 224.385
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "in",
+        "start_seconds": 224.385,
+        "end_seconds": 224.54749999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "coding,",
+        "start_seconds": 224.54749999999999,
+        "end_seconds": 226.08499999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "3D",
+        "start_seconds": 226.08499999999998,
+        "end_seconds": 226.79749999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "creation",
+        "start_seconds": 226.79749999999999,
+        "end_seconds": 228.17249999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "and",
+        "start_seconds": 228.17249999999999,
+        "end_seconds": 228.39749999999998
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "factual",
+        "start_seconds": 228.39749999999998,
+        "end_seconds": 228.92249999999999
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "accuracy.",
+        "start_seconds": 228.92249999999999,
+        "end_seconds": 230.2225
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "That",
+        "start_seconds": 230.68,
+        "end_seconds": 230.9925
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "means",
+        "start_seconds": 230.9925,
+        "end_seconds": 231.4425
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "engineers",
+        "start_seconds": 231.4425,
+        "end_seconds": 232.7425
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "can",
+        "start_seconds": 232.7425,
+        "end_seconds": 232.93
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "experiment",
+        "start_seconds": 232.93,
+        "end_seconds": 234.255
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "with",
+        "start_seconds": 234.255,
+        "end_seconds": 234.455
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "a",
+        "start_seconds": 234.455,
+        "end_seconds": 234.58
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "state‑of‑the‑art",
+        "start_seconds": 234.58,
+        "end_seconds": 235.555
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "model",
+        "start_seconds": 235.555,
+        "end_seconds": 236.655
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "without",
+        "start_seconds": 236.655,
+        "end_seconds": 237.055
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "a",
+        "start_seconds": 237.055,
+        "end_seconds": 237.16750000000002
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "hosted",
+        "start_seconds": 237.16750000000002,
+        "end_seconds": 237.805
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "A",
+        "start_seconds": 237.805,
+        "end_seconds": 238.1175
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "P",
+        "start_seconds": 238.1175,
+        "end_seconds": 238.6425
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "I,",
+        "start_seconds": 238.6425,
+        "end_seconds": 240.4425
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "as",
+        "start_seconds": 240.4425,
+        "end_seconds": 240.6925
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "long",
+        "start_seconds": 240.6925,
+        "end_seconds": 241.13
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "as",
+        "start_seconds": 241.13,
+        "end_seconds": 241.28
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "their",
+        "start_seconds": 241.28,
+        "end_seconds": 241.5175
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "infrastructure",
+        "start_seconds": 241.5175,
+        "end_seconds": 242.93
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "can",
+        "start_seconds": 242.93,
+        "end_seconds": 243.16750000000002
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "handle",
+        "start_seconds": 243.16750000000002,
+        "end_seconds": 243.655
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "the",
+        "start_seconds": 243.655,
+        "end_seconds": 243.805
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "sparse‑attention",
+        "start_seconds": 243.805,
+        "end_seconds": 244.83
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "layer",
+        "start_seconds": 244.83,
+        "end_seconds": 246.35500000000002
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "and",
+        "start_seconds": 246.35500000000002,
+        "end_seconds": 246.5675
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "the",
+        "start_seconds": 246.5675,
+        "end_seconds": 246.655
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "massive",
+        "start_seconds": 246.655,
+        "end_seconds": 247.16750000000002
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "context",
+        "start_seconds": 247.16750000000002,
+        "end_seconds": 248.04250000000002
+      },
+      {
+        "segment_id": "kimi-k3-1-pro-weights-release-segment",
+        "text": "size.",
+        "start_seconds": 248.04250000000002,
+        "end_seconds": 249.28
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "And",
+        "start_seconds": 250.45499999999998,
+        "end_seconds": 250.64249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "finally,",
+        "start_seconds": 250.64249999999998,
+        "end_seconds": 251.67999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "our",
+        "start_seconds": 251.67999999999998,
+        "end_seconds": 251.855
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "last",
+        "start_seconds": 251.855,
+        "end_seconds": 252.20499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "story.",
+        "start_seconds": 252.20499999999998,
+        "end_seconds": 253.95499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Go",
+        "start_seconds": 253.95499999999998,
+        "end_seconds": 254.17999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "version",
+        "start_seconds": 254.17999999999998,
+        "end_seconds": 254.61749999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "one",
+        "start_seconds": 254.61749999999998,
+        "end_seconds": 255.0675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 255.0675,
+        "end_seconds": 255.39249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 255.39249999999998,
+        "end_seconds": 255.655
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seven",
+        "start_seconds": 255.655,
+        "end_seconds": 256.105
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "finally",
+        "start_seconds": 256.105,
+        "end_seconds": 256.5925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ships",
+        "start_seconds": 256.5925,
+        "end_seconds": 256.9175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stable",
+        "start_seconds": 256.9175,
+        "end_seconds": 258.0675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "encoding",
+        "start_seconds": 258.0675,
+        "end_seconds": 258.63
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "slash",
+        "start_seconds": 258.63,
+        "end_seconds": 259.23
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "json",
+        "start_seconds": 259.23,
+        "end_seconds": 259.78
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "v2",
+        "start_seconds": 259.78,
+        "end_seconds": 261.1675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 261.1675,
+        "end_seconds": 261.4675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "encoding",
+        "start_seconds": 261.4675,
+        "end_seconds": 261.98
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "slash",
+        "start_seconds": 261.98,
+        "end_seconds": 262.4925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "json",
+        "start_seconds": 262.4925,
+        "end_seconds": 263.2425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "slash",
+        "start_seconds": 263.2425,
+        "end_seconds": 263.7925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "jsontext",
+        "start_seconds": 263.7925,
+        "end_seconds": 264.68
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "packages.",
+        "start_seconds": 264.68,
+        "end_seconds": 266.73
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "After",
+        "start_seconds": 266.73,
+        "end_seconds": 267.08
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 267.08,
+        "end_seconds": 267.18
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "long",
+        "start_seconds": 267.18,
+        "end_seconds": 267.555
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "experimental",
+        "start_seconds": 267.555,
+        "end_seconds": 268.33
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "run,",
+        "start_seconds": 268.33,
+        "end_seconds": 269.5925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "these",
+        "start_seconds": 269.5925,
+        "end_seconds": 269.855
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "new",
+        "start_seconds": 269.855,
+        "end_seconds": 270.03
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "modules",
+        "start_seconds": 270.03,
+        "end_seconds": 270.9675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fix",
+        "start_seconds": 270.9675,
+        "end_seconds": 271.305
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 271.305,
+        "end_seconds": 271.4675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "RFC",
+        "start_seconds": 271.4675,
+        "end_seconds": 272.6175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "eight",
+        "start_seconds": 272.6175,
+        "end_seconds": 272.8925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 272.8925,
+        "end_seconds": 273.23
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "five",
+        "start_seconds": 273.23,
+        "end_seconds": 273.58
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "nine",
+        "start_seconds": 273.58,
+        "end_seconds": 274.1675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "UTF‑eight",
+        "start_seconds": 274.1675,
+        "end_seconds": 275.23
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "compliance",
+        "start_seconds": 275.23,
+        "end_seconds": 275.855
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "issue",
+        "start_seconds": 275.855,
+        "end_seconds": 277.155
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 277.155,
+        "end_seconds": 277.5175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stop",
+        "start_seconds": 277.5175,
+        "end_seconds": 277.905
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 277.905,
+        "end_seconds": 278.0425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "silent",
+        "start_seconds": 278.0425,
+        "end_seconds": 278.5175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "data",
+        "start_seconds": 278.5175,
+        "end_seconds": 278.855
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "corruption",
+        "start_seconds": 278.855,
+        "end_seconds": 280.055
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 280.055,
+        "end_seconds": 280.23
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "could",
+        "start_seconds": 280.23,
+        "end_seconds": 280.455
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sneak",
+        "start_seconds": 280.455,
+        "end_seconds": 280.905
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "into",
+        "start_seconds": 280.905,
+        "end_seconds": 281.1425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 281.1425,
+        "end_seconds": 281.255
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "payloads.",
+        "start_seconds": 281.255,
+        "end_seconds": 283.18
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "They",
+        "start_seconds": 283.18,
+        "end_seconds": 283.3925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "also",
+        "start_seconds": 283.3925,
+        "end_seconds": 283.8425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "give",
+        "start_seconds": 283.8425,
+        "end_seconds": 284.055
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 284.055,
+        "end_seconds": 284.205
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 284.205,
+        "end_seconds": 284.3175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "lower‑level",
+        "start_seconds": 284.3175,
+        "end_seconds": 285.0425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "API",
+        "start_seconds": 285.0425,
+        "end_seconds": 286.38
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 286.38,
+        "end_seconds": 286.58
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "doesn’t",
+        "start_seconds": 286.58,
+        "end_seconds": 286.98
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "force",
+        "start_seconds": 286.98,
+        "end_seconds": 287.38
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 287.38,
+        "end_seconds": 287.555
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "into",
+        "start_seconds": 287.555,
+        "end_seconds": 287.78
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 287.78,
+        "end_seconds": 287.855
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "byte",
+        "start_seconds": 287.855,
+        "end_seconds": 288.1675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "slice",
+        "start_seconds": 288.1675,
+        "end_seconds": 289.43
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 289.43,
+        "end_seconds": 289.5925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "an",
+        "start_seconds": 289.5925,
+        "end_seconds": 289.7425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "I",
+        "start_seconds": 289.7425,
+        "end_seconds": 290.0675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "O",
+        "start_seconds": 290.0675,
+        "end_seconds": 290.305
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "writer,",
+        "start_seconds": 290.305,
+        "end_seconds": 291.6925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "so",
+        "start_seconds": 291.6925,
+        "end_seconds": 291.855
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 291.855,
+        "end_seconds": 291.955
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "can",
+        "start_seconds": 291.955,
+        "end_seconds": 292.1675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fine‑tune",
+        "start_seconds": 292.1675,
+        "end_seconds": 293.08
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "performance.",
+        "start_seconds": 293.08,
+        "end_seconds": 294.4675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "If",
+        "start_seconds": 294.90000000000003,
+        "end_seconds": 295.075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 295.075,
+        "end_seconds": 295.225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "need",
+        "start_seconds": 295.225,
+        "end_seconds": 295.6
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stricter",
+        "start_seconds": 295.6,
+        "end_seconds": 296.1
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "validation",
+        "start_seconds": 296.1,
+        "end_seconds": 297.7375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 297.7375,
+        "end_seconds": 297.925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 297.925,
+        "end_seconds": 298.1625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "low‑level",
+        "start_seconds": 298.1625,
+        "end_seconds": 298.8
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "control,",
+        "start_seconds": 298.8,
+        "end_seconds": 300.5375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you’ll",
+        "start_seconds": 300.5375,
+        "end_seconds": 300.75
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "have",
+        "start_seconds": 300.75,
+        "end_seconds": 301.02500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 301.02500000000003,
+        "end_seconds": 301.175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "import",
+        "start_seconds": 301.175,
+        "end_seconds": 301.7
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 301.7,
+        "end_seconds": 301.83750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "new",
+        "start_seconds": 301.83750000000003,
+        "end_seconds": 302.1125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "v2",
+        "start_seconds": 302.1125,
+        "end_seconds": 303.5375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 303.5375,
+        "end_seconds": 303.83750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "jsontext",
+        "start_seconds": 303.83750000000003,
+        "end_seconds": 304.75
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "packages,",
+        "start_seconds": 304.75,
+        "end_seconds": 306.5625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "because",
+        "start_seconds": 306.5625,
+        "end_seconds": 307.3875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 307.3875,
+        "end_seconds": 307.575
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "old",
+        "start_seconds": 307.575,
+        "end_seconds": 308.0375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "encoding",
+        "start_seconds": 308.0375,
+        "end_seconds": 308.71250000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "slash",
+        "start_seconds": 308.71250000000003,
+        "end_seconds": 309.3125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "json",
+        "start_seconds": 309.3125,
+        "end_seconds": 309.96250000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "path",
+        "start_seconds": 309.96250000000003,
+        "end_seconds": 310.96250000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stays",
+        "start_seconds": 310.96250000000003,
+        "end_seconds": 311.75
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "unchanged.",
+        "start_seconds": 311.75,
+        "end_seconds": 313.3
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "And",
+        "start_seconds": 314.475,
+        "end_seconds": 314.625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that's",
+        "start_seconds": 314.625,
+        "end_seconds": 314.925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 314.925,
+        "end_seconds": 315.0875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Daywire",
+        "start_seconds": 315.0875,
+        "end_seconds": 315.55
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "briefing.",
+        "start_seconds": 315.55,
+        "end_seconds": 317.275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "You'll",
+        "start_seconds": 317.275,
+        "end_seconds": 317.5375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "find",
+        "start_seconds": 317.5375,
+        "end_seconds": 317.925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 317.925,
+        "end_seconds": 318.075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "full",
+        "start_seconds": 318.075,
+        "end_seconds": 318.4125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stories",
+        "start_seconds": 318.4125,
+        "end_seconds": 319.1125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 319.1125,
+        "end_seconds": 319.2875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sources",
+        "start_seconds": 319.2875,
+        "end_seconds": 320.35
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 320.35,
+        "end_seconds": 320.525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "today's",
+        "start_seconds": 320.525,
+        "end_seconds": 321.0375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "newspaper.",
+        "start_seconds": 321.0375,
+        "end_seconds": 322.9125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Thanks",
+        "start_seconds": 322.9125,
+        "end_seconds": 323.375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 323.375,
+        "end_seconds": 323.5
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "listening.",
+        "start_seconds": 323.5,
+        "end_seconds": 325.075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Take",
+        "start_seconds": 325.075,
+        "end_seconds": 325.4375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "care,",
+        "start_seconds": 325.4375,
+        "end_seconds": 326.2625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "everyone.",
+        "start_seconds": 326.2625,
+        "end_seconds": 327.475
+      }
+    ]
   },
   "artwork": {
     "status": "pending",
