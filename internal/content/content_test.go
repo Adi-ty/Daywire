@@ -55,7 +55,7 @@ func TestRejectInvalidEditions(t *testing.T) {
 		"unknown section":    func(e *Edition) { e.Content.Articles[0].Section = "Other" },
 		"bad audio": func(e *Edition) {
 			url := "https://media.example.com/a.mp3"
-			duration := 301.0
+			duration := 600.01
 			e.Radio.Status = "ready"
 			e.Radio.AudioURL = &url
 			e.Radio.DurationSeconds = &duration

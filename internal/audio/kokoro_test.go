@@ -40,6 +40,7 @@ assert "GROQ_API_KEY" not in os.environ and "R2_SECRET_ACCESS_KEY" not in os.env
 assert "HF_HOME" in os.environ or "HF_HUB_CACHE" in os.environ
 request = json.load(open(sys.argv[3]))
 assert request["voice"] == "af_heart" and request["speed"] == 1
+assert request["max_duration_seconds"] == 600
 assert len(request["text"]) > 0
 json.dump({"audio_base64": base64.b64encode(b"stub mp3").decode(), "alignment": None}, open(sys.argv[5], "w"))
 print("inference completed")

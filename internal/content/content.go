@@ -19,6 +19,10 @@ import (
 
 const Version = "1"
 
+// MaxAudioSeconds is a safety ceiling for abnormal speech output, not a target
+// episode length. The 650-word script limit controls editorial length.
+const MaxAudioSeconds = 600
+
 type Source struct {
 	ID            string     `json:"id"`
 	Name          string     `json:"name"`
@@ -408,7 +412,7 @@ func Validate(e Edition) error {
 			return errors.New("unavailable audio must not have an asset")
 		}
 	case "ready":
-		if e.Radio.AudioURL == nil || !WebURL(*e.Radio.AudioURL) || e.Radio.DurationSeconds == nil || math.IsNaN(*e.Radio.DurationSeconds) || math.IsInf(*e.Radio.DurationSeconds, 0) || *e.Radio.DurationSeconds <= 0 || *e.Radio.DurationSeconds > 300 {
+		if e.Radio.AudioURL == nil || !WebURL(*e.Radio.AudioURL) || e.Radio.DurationSeconds == nil || math.IsNaN(*e.Radio.DurationSeconds) || math.IsInf(*e.Radio.DurationSeconds, 0) || *e.Radio.DurationSeconds <= 0 || *e.Radio.DurationSeconds > MaxAudioSeconds {
 			return errors.New("invalid ready audio")
 		}
 	default:

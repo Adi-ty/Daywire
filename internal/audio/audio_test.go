@@ -78,13 +78,24 @@ func TestUploadRetryReusesCompletedSpeech(t *testing.T) {
 		t.Fatalf("speech calls=%d uploads=%d radio=%+v", *calls, upload.calls, ready.Radio)
 	}
 }
-func TestOversizedAudioNeverUploads(t *testing.T) {
-	n, e, upload, _ := setupAudio(t, "301")
-	if _, err := n.Produce(context.Background(), e, t.TempDir()); err == nil {
-		t.Fatal("accepted audio over five minutes")
-	}
-	if upload.calls != 0 {
-		t.Fatal("uploaded oversized audio")
+func TestAudioDurationSafetyCeiling(t *testing.T) {
+	for _, duration := range []string{"301", "420", "600", "600.01", "0", "-1", "NaN", "+Inf"} {
+		t.Run(duration, func(t *testing.T) {
+			n, e, upload, _ := setupAudio(t, duration)
+			e.Radio.Status = "failed" // A retry can recover an edition without audio.
+			ready, err := n.Produce(context.Background(), e, t.TempDir())
+			valid := duration == "301" || duration == "420" || duration == "600"
+			if valid {
+				if err != nil {
+					t.Fatal(err)
+				}
+				if upload.calls != 1 || ready.Radio.Status != "ready" {
+					t.Fatalf("audio was not published: uploads=%d status=%s", upload.calls, ready.Radio.Status)
+				}
+			} else if err == nil || upload.calls != 0 {
+				t.Fatalf("invalid duration accepted or uploaded: err=%v uploads=%d", err, upload.calls)
+			}
+		})
 	}
 }
 func TestDemoNeverCallsSpeechProvider(t *testing.T) {

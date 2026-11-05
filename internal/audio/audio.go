@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"math"
 	"os"
 	"os/exec"
@@ -53,7 +54,7 @@ func (n Narrator) Render(ctx context.Context, e content.Edition, stateDir string
 		return Recording{}, err
 	}
 	if _, err := exec.LookPath("ffprobe"); err != nil {
-		return Recording{}, errors.New("ffprobe is required to enforce the five-minute audio limit")
+		return Recording{}, errors.New("ffprobe is required to validate audio duration")
 	}
 
 	script := e.Content.Script()
@@ -99,8 +100,8 @@ func (n Narrator) Render(ctx context.Context, e content.Edition, stateDir string
 		return Recording{}, errors.New("generated audio could not be decoded by ffprobe")
 	}
 	duration, err := strconv.ParseFloat(strings.TrimSpace(string(raw)), 64)
-	if err != nil || math.IsNaN(duration) || math.IsInf(duration, 0) || duration <= 0 || duration > 300 {
-		return Recording{}, errors.New("audio duration must be greater than zero and at most 300 seconds; revise the script before regenerating")
+	if err != nil || math.IsNaN(duration) || math.IsInf(duration, 0) || duration <= 0 || duration > content.MaxAudioSeconds {
+		return Recording{}, fmt.Errorf("audio duration must be greater than zero and at most %d seconds (safety ceiling); inspect the speech output before retrying", content.MaxAudioSeconds)
 	}
 	recording := Recording{Key: key, Data: data, Duration: duration}
 	// Never fabricate timestamps if the provider's alignment is absent or

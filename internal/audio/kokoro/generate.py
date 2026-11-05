@@ -117,6 +117,9 @@ def alignment(text, timed_tokens):
 def synthesize(request, destination):
     text, voice, speed = request["text"], request["voice"], request["speed"]
     device = request.get("device", "cpu")
+    max_duration = request["max_duration_seconds"]
+    if type(max_duration) is not int or max_duration <= 0:
+        raise ValueError("max_duration_seconds must be a positive integer")
     if not isinstance(text, str) or not text.strip() or len(text) > 16000:
         raise ValueError("script must contain 1–16000 characters")
     if not re.fullmatch(r"[ab][fm]_[a-z]+", voice) or not 0.75 <= speed <= 1.5:
@@ -171,8 +174,8 @@ def synthesize(request, destination):
                 if audio.ndim != 1 or not audio.size or not np.isfinite(audio).all():
                     raise ValueError("invalid generated waveform")
                 samples += len(audio)
-                if samples > sample_rate * 300:
-                    raise ValueError("audio exceeds five minutes; revise the script before regenerating")
+                if samples > sample_rate * max_duration:
+                    raise ValueError(f"audio exceeds {max_duration} seconds (safety ceiling); inspect the speech output before retrying")
                 wav.writeframes((np.clip(audio, -1, 1) * 32767).astype("<i2").tobytes())
 
             for index, chunks in enumerate(segments):

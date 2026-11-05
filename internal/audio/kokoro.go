@@ -87,7 +87,7 @@ func (k Kokoro) Synthesize(ctx context.Context, script string) (speechResponse, 
 	}
 	request := filepath.Join(dir, "request.json")
 	response := filepath.Join(dir, "response.json")
-	if err := store.JSON(request, map[string]any{"text": script, "voice": k.Voice, "speed": k.Speed, "device": k.device()}); err != nil {
+	if err := store.JSON(request, map[string]any{"text": script, "voice": k.Voice, "speed": k.Speed, "device": k.device(), "max_duration_seconds": content.MaxAudioSeconds}); err != nil {
 		return speechResponse{}, err
 	}
 	childCtx, cancel := context.WithTimeout(ctx, 15*time.Minute)
