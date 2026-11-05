@@ -1,0 +1,390 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-05",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-05T07:20:59.785153378Z",
+  "coverage": {
+    "from": "2026-11-04T06:00:00+05:30",
+    "until": "2026-11-05T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-1be4fdd8e6ca80f0",
+      "source-6b097a287e2a565e",
+      "source-fbaa86a829ad59fd",
+      "source-a3433e936d2c04bf",
+      "source-fa1b775b9b5285f3",
+      "source-a23f3b0bd35547a2",
+      "source-86d5c720b5bd89c8"
+    ],
+    "candidate_count": 43,
+    "evidence_count": 31
+  },
+  "content": {
+    "title": "AI weights go open, CUDA hits GA, and key security updates land",
+    "introduction": "Moonshot AI’s release of full Kimi K3.1 Pro weights and NVIDIA’s CUDA 13.5 GA for Vera Rubin GPUs mark major strides in open‑source AI and high‑performance computing. At the same time, notable security updates—such as the apt MITM vulnerability patch and ongoing scrutiny of the PHP2Shell backdoor—highlight the continuous battle between emerging threats and defensive measures.",
+    "articles": [
+      {
+        "id": "php2shell-vulnerability-2026",
+        "section": "Security",
+        "headline": "AI spotlight revives concern over PHP2Shell backdoor",
+        "summary": "IEEE Spectrum’s November 2 piece draws attention to the lingering PHP2Shell vulnerability amid growing AI‑driven development practices.",
+        "paragraphs": [
+          "In a short article titled “AI is forcing us to pay off 40 years of technical debt,” IEEE Spectrum computing editor Dina Genkina revisits the PHP2Shell backdoor, a remote‑execution flaw first disclosed in 2022. The piece, published on 2 Nov 2026, frames the vulnerability as a reminder that legacy PHP code can still pose serious security risks even as AI‑assisted tools become commonplace.",
+          "Genkina’s commentary links the persistence of PHP2Shell to broader technical‑debt challenges, noting that AI‑generated code suggestions often target newer projects while older, unmaintained sites remain exposed. The article does not detail any new scanning tools, specific remediation steps, or active exploits, but it underscores the need for continued vigilance when integrating AI into software workflows."
+        ],
+        "implication": "Developers should treat AI‑enhanced tooling as a prompt to review existing legacy codebases for known flaws like PHP2Shell, rather than assuming AI will automatically resolve historic security gaps.",
+        "source_ids": [
+          "source-857e942cc1110bf4"
+        ]
+      },
+      {
+        "id": "north-korea-job-interview-malice",
+        "section": "Security",
+        "headline": "Binance engineer duped by fake interview, malware breach",
+        "summary": "A Binance software engineer downloaded malware after a staged job interview, enabling North Korean hackers to steal $6.3 billion.",
+        "paragraphs": [
+          "Binance disclosed that a fake job interview, orchestrated by the North Korean TraderTraitor group, convinced a software engineer to install malicious code on a work‑issued laptop. The breach combined social engineering, compromised internal AI tooling, and an “advanced transaction‑authorization method” to exfiltrate funds on Oct. 29.",
+          "In response, Binance rebuilt the compromised wallet system, replaced all affected devices, and revoked credentials and tokens tied to the compromised engineers. The exchange is cooperating with law enforcement and blockchain intelligence firms to trace and freeze the stolen assets.",
+          "The incident highlights the danger of credential‑less attacks that exploit trust in recruitment processes, especially when internal AI tools are leveraged as attack vectors."
+        ],
+        "implication": "Security teams should treat recruitment interactions as high‑risk attack surfaces and enforce strict verification and isolation for any software downloaded during hiring processes.",
+        "source_ids": [
+          "source-12bef4e997afcdd0"
+        ]
+      },
+      {
+        "id": "nvidia-rtx-spark-linux-firmware-issue",
+        "section": "Engineering",
+        "headline": "Linux on RTX Spark laptops throttles GPU to 780 MHz due to encrypted firmware",
+        "summary": "Linux can run on Nvidia RTX Spark laptops, but an encrypted power‑management firmware limits the GPU to ~780 MHz when on AC, cutting inference speed to about 14 tokens/sec.",
+        "paragraphs": [
+          "The MSI Prestige N16 Flip AI Plus (RTX Spark) boots under Linux using Nvidia’s open‑source kernel driver, yet the GPU clock collapses to roughly 780 MHz on wall power, far below the 2.2 GHz seen on Windows. The slowdown stems from a Windows‑only component, Nvidia Platform Controllers and Framework, whose encrypted power table Linux cannot read, so the driver cannot apply the higher performance profile.",
+          "Benchmarks of a 120‑billion‑parameter model show Windows delivering 65 tokens/sec, while native Linux manages only 13.9 tokens/sec. Adjusting the Windows‑side memory reservation from 96 GB to 4 GB frees most of the 128 GB unified memory for Linux, but the clock‑speed bottleneck remains until Nvidia provides a Linux‑compatible firmware decryption path."
+        ],
+        "implication": "Linux users of RTX Spark laptops must accept a severe performance penalty for GPU‑accelerated inference unless Nvidia releases a Linux‑compatible power‑management firmware or a third‑party driver that can decrypt the table.",
+        "source_ids": [
+          "source-23d5cc8219ef6b65"
+        ]
+      },
+      {
+        "id": "kimi-k3-1-pro-weights-release",
+        "section": "AI",
+        "headline": "Moonshot AI publishes open weights for Kimi K3.1 Pro",
+        "summary": "Moonshot AI has released the full weight files for its 3‑trillion‑parameter Kimi K3.1 Pro model, enabling developers to run the multimodal agent locally.",
+        "paragraphs": [
+          "The K3.1 Pro model adds a 1‑million‑token context window and swaps the original Gated MLA layers for Gated DeepSeek Sparse Attention, which the vendor says improves long‑context efficiency while preserving gains in coding, 3D creation, and factual accuracy. All benchmark numbers in the release use a reasoning‑effort max setting, temperature 1.0 and top‑p 0.95."
+        ],
+        "implication": "Engineers can now experiment with a state‑of‑the‑art multimodal model without relying on a hosted API, but must accommodate the new sparse‑attention layer and the large context window in their infrastructure.",
+        "source_ids": [
+          "source-f4a904d03d800a16"
+        ]
+      },
+      {
+        "id": "go-json-api-1-27",
+        "section": "Tools",
+        "headline": "Go 1.27 ships stable encoding/json/v2 and jsontext packages",
+        "summary": "The Go standard library now includes stable JSON packages that address long‑standing correctness and performance issues for Go 1.27 users.",
+        "paragraphs": [
+          "After an experimental phase, the new encoding/json/v2 and encoding/json/jsontext packages are generally available in Go 1.27, fixing RFC 8259 UTF‑8 compliance, eliminating silent data corruption, and exposing a lower‑level API that avoids the []byte or io.Writer constraints of the original package."
+        ],
+        "implication": "Developers who need stricter JSON validation or the lower‑level API must import the new v2 or jsontext packages, as the fixes are not applied to code that continues to use the original encoding/json path.",
+        "source_ids": [
+          "source-c69a4026f5b4f206"
+        ]
+      },
+      {
+        "id": "nvidia-ai-factory-agent-brief",
+        "section": "AI",
+        "headline": "NVIDIA releases experimental AI Factory Operations Agent for DGX SuperPODs",
+        "summary": "NVIDIA’s open‑source AI Factory Operations Agent coordinates domain‑specific sub‑agents to auto‑detect failures and surface recommendations via chat for DGX SuperPOD SREs.",
+        "paragraphs": [
+          "The agent, built on the NemoClaw blueprint, uses the Model Context Protocol (MCP) to let operators query any layer of the AI factory in natural language, correlating compute, network, hardware and scheduling signals. NVIDIA notes the framework is experimental; APIs, configuration and deployment requirements may change between releases."
+        ],
+        "implication": "Teams running NVIDIA DGX clusters can prototype a chat‑driven operations workflow, but must plan for evolving interfaces and limited production support.",
+        "source_ids": [
+          "source-7b2603b92a595fb0"
+        ]
+      },
+      {
+        "id": "cuda-13-5-vera-rubin-ga",
+        "section": "Tools",
+        "headline": "CUDA 13.5 adds GA support for NVIDIA Vera Rubin GPUs",
+        "summary": "CUDA Toolkit 13.5 is now generally available on the Vera Rubin architecture and extends Windows‑on‑Arm to DGX Station, bringing new driver models and memory‑accounting options.",
+        "paragraphs": [
+          "The release moves Vera Rubin from early‑access to production‑ready, requiring users to run on Windows Driver Display Model (WDDM) or Microsoft Compute Driver Model (MCDM) because Tesla Compute Cluster (TCC) is unsupported. Developers can enable polling‑based memory accounting with `nvidia-cuda-mps-control memacct set force_polling=true`, which adds per‑eviction overhead but avoids reliance on cgroup notifications."
+        ],
+        "implication": "Teams targeting Rubin GPUs must adjust deployment scripts to select WDDM/MCDM and may need to budget extra CPU cycles if they enable forced polling for more reliable memory eviction.",
+        "source_ids": [
+          "source-bfede81cbb6b1084"
+        ]
+      },
+      {
+        "id": "scroll-driven-animations-performance-2026-11-05",
+        "section": "Engineering",
+        "headline": "Safari Technology Preview 256 refines scroll‑driven animation updates",
+        "summary": "Safari Technology Preview 256 adds a check that skips style invalidation for scroll‑driven animations when their timing parameters have not changed.",
+        "paragraphs": [
+          "The update modifies the animation engine so that, during a scroll event, it only recomputes styles if the animation’s timing (duration, delay, easing, etc.) differs from the previous frame. When timing is unchanged, the engine avoids a style‑invalidating pass, reducing work on the main thread for those specific animations."
+        ],
+        "implication": "Pages that rely heavily on scroll‑driven keyframes may see lower CPU usage and smoother interaction without any code changes, though actual frame‑rate gains will depend on the site’s overall workload.",
+        "source_ids": [
+          "source-71150efd691cce14"
+        ]
+      },
+      {
+        "id": "apt-mitm-fix-2026",
+        "section": "Security",
+        "headline": "APT vulnerable to MITM code injection fixed in 3.0.4",
+        "summary": "A man‑in‑the‑middle flaw (CVE‑2026‑109518) in Debian’s apt allows arbitrary root code execution and is patched in version 3.0.4 for the stable trixie release.",
+        "paragraphs": [
+          "The bug stems from apt merging two downloads after an HTTP redirect that yields the same URI; a resumed download can be swapped by an attacker, bypassing signature verification. Debian’s security advisory DSA‑6607‑1 ships the fix in apt 3.0.4 and also patches related out‑of‑bounds reads. Users of the trixie distribution should upgrade apt promptly."
+        ],
+        "implication": "Upgrading to apt 3.0.4 eliminates the MITM injection path, so trixie systems that rely on apt for package installation regain assurance that verified packages cannot be silently replaced.",
+        "source_ids": [
+          "source-8299e0907b6f6286"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "legacy-php2shell-awareness",
+        "title": "AI tooling won’t auto‑patch legacy backdoors",
+        "paragraphs": [
+          "The IEEE Spectrum piece highlights that AI‑assisted development tools focus on generating fresh code, but they do not automatically detect or remediate old, unmaintained components. When a project still includes a PHP2Shell backdoor—a remote‑execution flaw first disclosed in 2022—AI suggestions may simply add new features around the vulnerable script without flagging the risk, leaving the system exposed.",
+          "Because the vulnerability resides in a small PHP file that executes arbitrary commands, any code that calls it (for example, a login page that includes the backdoor) will inherit the same risk. AI‑generated code that imports or references that file will inherit the backdoor’s capabilities unless a developer explicitly audits and removes it."
+        ],
+        "example": "A legacy file `shell.php` contains `\u003c?php system($_GET['cmd']); ?\u003e`. An AI code assistant suggests adding `include 'shell.php';` to reuse a utility function, unintentionally re‑exposing the backdoor.",
+        "takeaway": "Treat AI‑driven suggestions as prompts to audit existing code, especially legacy scripts, rather than as guarantees that old security flaws have been eliminated.",
+        "article_ids": [
+          "php2shell-vulnerability-2026"
+        ],
+        "source_ids": [
+          "source-857e942cc1110bf4"
+        ]
+      },
+      {
+        "id": "social-engineering-recruitment-pitfalls",
+        "title": "Fake job interviews can become a malware delivery pipeline",
+        "paragraphs": [
+          "Attackers can turn a routine hiring process into a credential‑less intrusion by building trust through a staged interview, then using that trust to convince a target to run malicious code on a corporate device. In the Binance breach, the North Korean TraderTraitor group posed as a recruiter, shared personal social‑media content to appear authentic, and delivered a payload that hijacked internal AI tooling and the wallet system.",
+          "Because the malware was installed on a work‑issued laptop, the attackers gained direct access to privileged APIs without needing stolen passwords. The breach demonstrates that any software introduced during recruitment—especially when delivered via video calls or shared links—must be treated as a high‑risk asset."
+        ],
+        "example": "An engineer receives a Zoom link for a “final interview.” The interviewer screenshares a harmless‑looking installer, claims it’s a custom Binance development tool, and asks the engineer to run it. The binary silently installs a remote‑access trojan that later authorizes large crypto transfers.",
+        "takeaway": "Treat every piece of software introduced during hiring as untrusted; enforce isolated environments, code signing verification, and multi‑factor approval before any installation on production machines.",
+        "article_ids": [
+          "north-korea-job-interview-malice"
+        ],
+        "source_ids": [
+          "source-12bef4e997afcdd0"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-legacy-php2shell-01",
+        "lesson_id": "legacy-php2shell-awareness",
+        "prompt": "According to the lesson, why might an AI‑assisted development tool unintentionally re‑expose the PHP2Shell backdoor?",
+        "options": [
+          "Because the tool automatically patches known vulnerabilities in legacy files.",
+          "Because the tool can suggest including the vulnerable file without flagging its risk.",
+          "Because the tool removes all includes of external PHP scripts by default.",
+          "Because the tool only generates new code and never references existing files."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that AI suggestions may add includes of the vulnerable script without flagging the risk, thereby re‑exposing the backdoor."
+      },
+      {
+        "id": "quiz-1-legacy-php2shell-02",
+        "lesson_id": "legacy-php2shell-awareness",
+        "prompt": "What is the primary mitigation recommended when using AI‑generated code in projects that contain legacy scripts like PHP2Shell?",
+        "options": [
+          "Rely on the AI tool to automatically remove any backdoors.",
+          "Audit and remove legacy vulnerable scripts before accepting AI suggestions.",
+          "Disable AI assistance for any project that has legacy code.",
+          "Only use AI suggestions for brand‑new projects without any existing code."
+        ],
+        "answer": 1,
+        "explanation": "The takeaway emphasizes treating AI suggestions as prompts to audit existing code, especially legacy scripts, rather than assuming the tool eliminates old flaws."
+      },
+      {
+        "id": "quiz-1-legacy-php2shell-03",
+        "lesson_id": "legacy-php2shell-awareness",
+        "prompt": "If a login page includes the file `shell.php` that contains `\u003c?php system($_GET['cmd']); ?\u003e`, what security effect does this inclusion have according to the lesson?",
+        "options": [
+          "It isolates the backdoor, preventing it from being triggered by the login page.",
+          "It grants the login page the ability to execute arbitrary commands via the backdoor.",
+          "It automatically sanitizes the `cmd` parameter, neutralizing the vulnerability.",
+          "It converts the backdoor into a harmless utility function."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that any code that calls the vulnerable file inherits the same risk, so the login page would gain the backdoor’s command‑execution capability."
+      },
+      {
+        "id": "quiz-2-trust-building",
+        "lesson_id": "social-engineering-recruitment-pitfalls",
+        "prompt": "What specific tactic did the attackers use to gain the target's trust before delivering the malware?",
+        "options": [
+          "They sent a phishing email with a malicious attachment.",
+          "They posed as a recruiter and shared personal social‑media content.",
+          "They compromised the company's internal network to intercept communications.",
+          "They offered a monetary bonus for installing the software."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states the attackers posed as a recruiter and shared personal social‑media content to appear authentic, which built trust prior to delivering the payload."
+      },
+      {
+        "id": "quiz-2-mitigation-focus",
+        "lesson_id": "social-engineering-recruitment-pitfalls",
+        "prompt": "According to the takeaway, which control directly addresses the risk of installing untrusted software during hiring?",
+        "options": [
+          "Enforcing multi‑factor approval before installation on production machines.",
+          "Disabling all video‑call software on corporate devices.",
+          "Requiring candidates to use personal devices for interviews.",
+          "Implementing network segmentation for the HR department."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway recommends multi‑factor approval (along with isolated environments and code signing verification) as a control for any software introduced during recruitment."
+      }
+    ],
+    "segments": [
+      {
+        "id": "radio-1",
+        "title": "AI Spotlight Revives PHP2Shell Concern",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November five, two thousand twenty six.\n\nWe begin with our lead story. AI tools are shining a light on an old ghost. The IEEE Spectrum piece from November two, twenty twenty‑six reminds us that the PHP2Shell backdoor—first exposed in twenty twenty‑two—still lurks in legacy PHP sites. While AI‑generated code helps new projects, it doesn’t magically patch decades‑old code. Here’s why that matters: developers need to audit their existing codebases for known flaws like PHP2Shell instead of assuming AI will clean up historic security gaps.\n",
+        "article_ids": [
+          "php2shell-vulnerability-2026"
+        ]
+      },
+      {
+        "id": "binance-fake-interview-breach",
+        "title": "Binance engineer duped by fake interview, malware breach",
+        "text": "Next on the bulletin. A Binance software engineer was tricked into installing malware after a staged job interview run by the North Korean TraderTraitor group. The attacker used social engineering, a compromised internal AI tool, and an advanced transaction‑authorization method to siphon funds on Oct. twenty nine. Binance responded by rebuilding the wallet system, swapping out every affected laptop, and revoking the compromised credentials and tokens. Here's why that matters: recruitment processes can become a direct attack surface, so firms need strict verification and isolation for any code downloaded during hiring.",
+        "article_ids": [
+          "north-korea-job-interview-malice"
+        ]
+      },
+      {
+        "id": "nvidia-rtx-spark-linux-throttle",
+        "title": "Linux throttles RTX Spark GPU",
+        "text": "Turning to our next story. Linux on Nvidia RTX Spark laptops now runs at a capped 780 megahertz when plugged in, because the power‑management firmware is encrypted and only Windows can read it. That means inference workloads drop to about fourteen tokens per second, compared with sixty‑five on Windows. Nvidia’s Platform Controllers and Framework component holds the higher clock profile, and without a Linux‑compatible decryption path the driver can’t apply it. Here’s why that matters: without a firmware update or a third‑party driver, Linux users face a steep performance penalty.\n",
+        "article_ids": [
+          "nvidia-rtx-spark-linux-firmware-issue"
+        ]
+      },
+      {
+        "id": "kimi-k3-1-pro-weights-release-segment",
+        "title": "Moonshot AI opens Kimi K3.1 Pro weights",
+        "text": "Next on the bulletin. Moonshot AI just released the full weight files for its Kimi K3.1 Pro, a three‑trillion‑parameter multimodal model you can now run locally. The model adds a one‑million‑token context window and swaps the original Gated MLA layers for Gated DeepSeek Sparse Attention, which the vendor says improves long‑context efficiency while preserving gains in coding, 3D creation and factual accuracy. That means engineers can experiment with a state‑of‑the‑art model without a hosted A P I, as long as their infrastructure can handle the sparse‑attention layer and the massive context size.",
+        "article_ids": [
+          "kimi-k3-1-pro-weights-release"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Go 1.27 adds stable JSON v2 and jsontext packages",
+        "text": "And finally, our last story. Go version one point two seven finally ships stable encoding slash json v2 and encoding slash json slash jsontext packages. After a long experimental run, these new modules fix the RFC eight two five nine UTF‑eight compliance issue and stop the silent data corruption that could sneak into your payloads. They also give you a lower‑level API that doesn’t force you into a byte slice or an I O writer, so you can fine‑tune performance. If you need stricter validation or that low‑level control, you’ll have to import the new v2 or jsontext packages, because the old encoding slash json path stays unchanged.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "go-json-api-1-27"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a glowing, open‑source neural network diagram spilling out of a server rack, with a faint silhouette of a PHP shell script in the background, symbolizing the contrast between AI openness and lingering security risks."
+  },
+  "sources": [
+    {
+      "id": "source-857e942cc1110bf4",
+      "name": "Hacker News",
+      "title": "AI is forcing us to pay off 40 years of technical debt",
+      "url": "https://spectrum.ieee.org/ai-in-cybersecurity-php2shell-vulnerability",
+      "published_at": null,
+      "discovered_at": "2026-11-04T11:52:17Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50364336"
+    },
+    {
+      "id": "source-71150efd691cce14",
+      "name": "WebKit",
+      "title": "Release Notes for Safari Technology Preview 256",
+      "url": "https://webkit.org/blog/18602/release-notes-for-safari-technology-preview-256/",
+      "published_at": "2026-11-05T00:09:57Z",
+      "discovered_at": "2026-11-05T07:07:02.431792713Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-7b2603b92a595fb0",
+      "name": "NVIDIA Developer",
+      "title": "How NVIDIA Uses AI Agents to Streamline AI Factory Operations",
+      "url": "https://developer.nvidia.com/blog/how-nvidia-uses-ai-agents-to-streamline-ai-factory-operations/",
+      "published_at": "2026-11-04T22:00:17Z",
+      "discovered_at": "2026-11-05T07:07:01.866894263Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-c69a4026f5b4f206",
+      "name": "Lobsters",
+      "title": "A new Go API for JSON",
+      "url": "https://go.dev/blog/jsonv2",
+      "published_at": null,
+      "discovered_at": "2026-11-04T11:52:32.448-06:00",
+      "discussion_url": "https://lobste.rs/s/gfm0xn/new_go_api_for_json"
+    },
+    {
+      "id": "source-bfede81cbb6b1084",
+      "name": "NVIDIA Developer",
+      "title": "NVIDIA CUDA 13.5 Brings NVIDIA Vera Rubin GA Support",
+      "url": "https://developer.nvidia.com/blog/nvidia-cuda-13-5-brings-nvidia-vera-rubin-ga-support/",
+      "published_at": "2026-11-04T18:46:07Z",
+      "discovered_at": "2026-11-05T07:07:01.866894263Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-12bef4e997afcdd0",
+      "name": "Hacker News",
+      "title": "North Korean fake job interview led to $6.3B Binance heist",
+      "url": "https://www.theregister.com/security/2026/11/03/north-korean-fake-job-interview-led-to-63b-binance-heist/5307398",
+      "published_at": null,
+      "discovered_at": "2026-11-04T14:09:55Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50365755"
+    },
+    {
+      "id": "source-23d5cc8219ef6b65",
+      "name": "Hacker News",
+      "title": "Nvidia RTX Spark encrypted firmware slows inference speed to 35% on Linux",
+      "url": "https://www.mindstudio.ai/blog/linux-nvidia-rtx-spark-laptop",
+      "published_at": null,
+      "discovered_at": "2026-11-04T08:46:29Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50362905"
+    },
+    {
+      "id": "source-f4a904d03d800a16",
+      "name": "Hacker News",
+      "title": "Kimi K3.1 Pro model weights are out",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
+      "published_at": null,
+      "discovered_at": "2026-11-04T15:30:30Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50366999"
+    },
+    {
+      "id": "source-8299e0907b6f6286",
+      "name": "Lobsters",
+      "title": "Man-in-the-middle arbitrary code execution in Debian’s apt",
+      "url": "https://lists.debian.org/debian-security-announce/2026/msg00526.html",
+      "published_at": null,
+      "discovered_at": "2026-11-04T07:36:43.067-06:00",
+      "discussion_url": "https://lobste.rs/s/h7bvma/man_middle_arbitrary_code_execution"
+    }
+  ],
+  "radio": {
+    "status": "failed",
+    "audio_url": null,
+    "duration_seconds": null,
+    "script_hash": "e56cad9b531c83274334ff4ff4dcc097f43ef5ac39bd0067b136e6c5b0938d59"
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
