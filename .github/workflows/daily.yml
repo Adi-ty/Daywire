@@ -21,7 +21,8 @@ jobs:
   edition:
     # Scheduling is opt-in so creating the repository does not start paid calls.
     if: vars.DAYWIRE_GENERATION_ENABLED == 'true'
-    runs-on: ubuntu-latest
+    # Keep the native speech environment stable across hosted-image rollouts.
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     outputs:
       date: ${{ steps.date.outputs.date }}
@@ -80,17 +81,23 @@ jobs:
           path: ${{ runner.temp }}/daywire-models
           # Reuse large model weights across voices; missing voices are small downloads.
           key: kokoro-shared-${{ runner.os }}-${{ hashFiles('internal/audio/kokoro/model.json', 'internal/audio/kokoro/requirements.txt') }}
+      - name: Install system speech tools
+        id: speech_tools
+        if: vars.DAYWIRE_RADIO_ENABLED == 'true'
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          TTS_PROVIDER: ${{ vars.TTS_PROVIDER || 'kokoro' }}
+        run: bash scripts/install-speech-tools.sh
       - name: Install speech runtime
         id: speech_runtime
-        if: vars.DAYWIRE_RADIO_ENABLED == 'true'
+        if: vars.DAYWIRE_RADIO_ENABLED == 'true' && steps.speech_tools.outcome == 'success'
         continue-on-error: true
         timeout-minutes: 10
         env:
           TTS_PROVIDER: ${{ vars.TTS_PROVIDER || 'kokoro' }}
           PYTHON_READY: ${{ steps.speech_python.outcome }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg espeak-ng
           if [ "$TTS_PROVIDER" = kokoro ]; then
             test "$PYTHON_READY" = success
             bash scripts/setup-kokoro.sh
