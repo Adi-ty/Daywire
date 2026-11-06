@@ -411,7 +411,7 @@
     }
   ],
   "radio": {
-    "status": "pending",
+    "status": "failed",
     "audio_url": null,
     "duration_seconds": null,
     "script_hash": "e8ec2123f61451e3d03810dcbf4f7af390b6314093ae276a821e1d38c73597e1"
