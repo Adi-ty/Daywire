@@ -411,10 +411,3258 @@
     }
   ],
   "radio": {
-    "status": "failed",
-    "audio_url": null,
-    "duration_seconds": null,
-    "script_hash": "e8ec2123f61451e3d03810dcbf4f7af390b6314093ae276a821e1d38c73597e1"
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-06/155390c42c3021bb0ffefdea3981f003d15a004c2ae4a32c601cdfbd730cac05.mp3",
+    "duration_seconds": 199.872,
+    "script_hash": "e8ec2123f61451e3d03810dcbf4f7af390b6314093ae276a821e1d38c73597e1",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.225,
+        "end_seconds": 0.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.575,
+        "end_seconds": 1.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.1125,
+        "end_seconds": 1.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 1.225,
+        "end_seconds": 1.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 1.65,
+        "end_seconds": 1.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 1.775,
+        "end_seconds": 2.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 2.575,
+        "end_seconds": 2.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 2.825,
+        "end_seconds": 3.0625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 3.0625,
+        "end_seconds": 3.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 3.3875,
+        "end_seconds": 3.4625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 3.4625,
+        "end_seconds": 3.5625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 3.5625,
+        "end_seconds": 3.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 3.825,
+        "end_seconds": 4.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 4.325,
+        "end_seconds": 4.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 4.525,
+        "end_seconds": 4.9875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six,",
+        "start_seconds": 4.9875,
+        "end_seconds": 5.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 5.4125,
+        "end_seconds": 5.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 5.65,
+        "end_seconds": 6.0125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 6.0125,
+        "end_seconds": 6.2625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 6.2625,
+        "end_seconds": 7.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 8.475,
+        "end_seconds": 8.575000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 8.575000000000001,
+        "end_seconds": 8.9375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 8.9375,
+        "end_seconds": 9.0625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 9.0625,
+        "end_seconds": 9.200000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 9.200000000000001,
+        "end_seconds": 9.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 9.425,
+        "end_seconds": 10.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Claude",
+        "start_seconds": 10.1875,
+        "end_seconds": 10.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Code",
+        "start_seconds": 10.5,
+        "end_seconds": 10.7375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "was",
+        "start_seconds": 10.7375,
+        "end_seconds": 10.850000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "slipping",
+        "start_seconds": 10.850000000000001,
+        "end_seconds": 11.175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "users'",
+        "start_seconds": 11.175,
+        "end_seconds": 11.5625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "email",
+        "start_seconds": 11.5625,
+        "end_seconds": 11.912500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "addresses",
+        "start_seconds": 11.912500000000001,
+        "end_seconds": 12.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "into",
+        "start_seconds": 12.3375,
+        "end_seconds": 12.5125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 12.5125,
+        "end_seconds": 12.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "HTTP",
+        "start_seconds": 12.625,
+        "end_seconds": 13.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "User‑Agent",
+        "start_seconds": 13.4,
+        "end_seconds": 14.100000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "header",
+        "start_seconds": 14.100000000000001,
+        "end_seconds": 14.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 14.3875,
+        "end_seconds": 14.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "every",
+        "start_seconds": 14.525,
+        "end_seconds": 14.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "curl‑style",
+        "start_seconds": 14.825,
+        "end_seconds": 15.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "request.",
+        "start_seconds": 15.425,
+        "end_seconds": 16.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "That",
+        "start_seconds": 16.4,
+        "end_seconds": 16.5625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "meant",
+        "start_seconds": 16.5625,
+        "end_seconds": 16.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "third‑party",
+        "start_seconds": 16.725,
+        "end_seconds": 17.3
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sites",
+        "start_seconds": 17.3,
+        "end_seconds": 17.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "could",
+        "start_seconds": 17.6,
+        "end_seconds": 17.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "see",
+        "start_seconds": 17.725,
+        "end_seconds": 17.8625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 17.8625,
+        "end_seconds": 17.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "signed‑in",
+        "start_seconds": 17.975,
+        "end_seconds": 18.3625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "address,",
+        "start_seconds": 18.3625,
+        "end_seconds": 18.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flooding",
+        "start_seconds": 18.875,
+        "end_seconds": 19.1625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "inboxes",
+        "start_seconds": 19.1625,
+        "end_seconds": 19.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 19.6875,
+        "end_seconds": 19.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "spam",
+        "start_seconds": 19.85,
+        "end_seconds": 20.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 20.1875,
+        "end_seconds": 20.3
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "raising",
+        "start_seconds": 20.3,
+        "end_seconds": 20.675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "privacy",
+        "start_seconds": 20.675,
+        "end_seconds": 21.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "concerns.",
+        "start_seconds": 21.125,
+        "end_seconds": 22.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Anthropic",
+        "start_seconds": 22.0875,
+        "end_seconds": 22.575000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "is",
+        "start_seconds": 22.575000000000003,
+        "end_seconds": 22.700000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 22.700000000000003,
+        "end_seconds": 22.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shipping",
+        "start_seconds": 22.9125,
+        "end_seconds": 23.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 23.1875,
+        "end_seconds": 23.262500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fix:",
+        "start_seconds": 23.262500000000003,
+        "end_seconds": 23.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "versions",
+        "start_seconds": 23.875,
+        "end_seconds": 24.299999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 24.299999999999997,
+        "end_seconds": 24.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 24.6625,
+        "end_seconds": 24.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 24.875,
+        "end_seconds": 25.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 25.15,
+        "end_seconds": 25.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 25.375,
+        "end_seconds": 25.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "three",
+        "start_seconds": 25.65,
+        "end_seconds": 25.825000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 25.825000000000003,
+        "end_seconds": 26.0625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "seven",
+        "start_seconds": 26.0625,
+        "end_seconds": 26.424999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 26.424999999999997,
+        "end_seconds": 26.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "newer",
+        "start_seconds": 26.549999999999997,
+        "end_seconds": 26.799999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "already",
+        "start_seconds": 26.799999999999997,
+        "end_seconds": 27.174999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 27.174999999999997,
+        "end_seconds": 27.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 27.3375,
+        "end_seconds": 27.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "moderation",
+        "start_seconds": 27.4,
+        "end_seconds": 27.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "toggle,",
+        "start_seconds": 27.975,
+        "end_seconds": 28.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 28.549999999999997,
+        "end_seconds": 28.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 28.6625,
+        "end_seconds": 28.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "upcoming",
+        "start_seconds": 28.75,
+        "end_seconds": 29.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patch",
+        "start_seconds": 29.275,
+        "end_seconds": 29.5875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 29.5875,
+        "end_seconds": 29.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "strip",
+        "start_seconds": 29.725,
+        "end_seconds": 30.012500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 30.012500000000003,
+        "end_seconds": 30.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "email",
+        "start_seconds": 30.125,
+        "end_seconds": 30.487499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "entirely.",
+        "start_seconds": 30.487499999999997,
+        "end_seconds": 31.8125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 32.975,
+        "end_seconds": 33.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 33.25,
+        "end_seconds": 33.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 33.425,
+        "end_seconds": 33.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 33.65,
+        "end_seconds": 34.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 34.35,
+        "end_seconds": 34.5375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "outbound",
+        "start_seconds": 34.5375,
+        "end_seconds": 35.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "traffic",
+        "start_seconds": 35.025,
+        "end_seconds": 35.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stays",
+        "start_seconds": 35.425,
+        "end_seconds": 35.8
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "private",
+        "start_seconds": 35.8,
+        "end_seconds": 36.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "again,",
+        "start_seconds": 36.15,
+        "end_seconds": 36.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 36.75,
+        "end_seconds": 36.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 36.9,
+        "end_seconds": 37.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "prompts",
+        "start_seconds": 37.1,
+        "end_seconds": 37.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 37.525,
+        "end_seconds": 37.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "leaned",
+        "start_seconds": 37.725,
+        "end_seconds": 38.0125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 38.0125,
+        "end_seconds": 38.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 38.1125,
+        "end_seconds": 38.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "email",
+        "start_seconds": 38.225,
+        "end_seconds": 38.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 38.6,
+        "end_seconds": 38.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "model",
+        "start_seconds": 38.725,
+        "end_seconds": 39.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "context",
+        "start_seconds": 39.1,
+        "end_seconds": 39.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 39.75,
+        "end_seconds": 39.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "need",
+        "start_seconds": 39.9,
+        "end_seconds": 40.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 40.1,
+        "end_seconds": 40.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "be",
+        "start_seconds": 40.1875,
+        "end_seconds": 40.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "re‑thought.",
+        "start_seconds": 40.325,
+        "end_seconds": 41.55
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Next",
+        "start_seconds": 42.75,
+        "end_seconds": 43.0125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 43.0125,
+        "end_seconds": 43.1125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 43.1125,
+        "end_seconds": 43.2
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bulletin.",
+        "start_seconds": 43.2,
+        "end_seconds": 43.9
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Discord",
+        "start_seconds": 43.9,
+        "end_seconds": 44.3375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "is",
+        "start_seconds": 44.3375,
+        "end_seconds": 44.475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ditching",
+        "start_seconds": 44.475,
+        "end_seconds": 44.7625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "its",
+        "start_seconds": 44.7625,
+        "end_seconds": 44.875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Electron",
+        "start_seconds": 44.875,
+        "end_seconds": 45.35
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "desktop",
+        "start_seconds": 45.35,
+        "end_seconds": 45.85
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "app",
+        "start_seconds": 45.85,
+        "end_seconds": 46.075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 46.075,
+        "end_seconds": 46.1875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 46.1875,
+        "end_seconds": 46.25
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "brand‑new",
+        "start_seconds": 46.25,
+        "end_seconds": 46.7
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "client",
+        "start_seconds": 46.7,
+        "end_seconds": 47.025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "written",
+        "start_seconds": 47.025,
+        "end_seconds": 47.2375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 47.2375,
+        "end_seconds": 47.375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Rust.",
+        "start_seconds": 47.375,
+        "end_seconds": 48.175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 48.175,
+        "end_seconds": 48.3
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "CTO",
+        "start_seconds": 48.3,
+        "end_seconds": 48.825
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "announced",
+        "start_seconds": 48.825,
+        "end_seconds": 49.1875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 49.1875,
+        "end_seconds": 49.275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "move",
+        "start_seconds": 49.275,
+        "end_seconds": 49.4625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 49.4625,
+        "end_seconds": 49.575
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "X,",
+        "start_seconds": 49.575,
+        "end_seconds": 50.05
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "noting",
+        "start_seconds": 50.05,
+        "end_seconds": 50.3375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 50.3375,
+        "end_seconds": 50.425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "team",
+        "start_seconds": 50.425,
+        "end_seconds": 50.6625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "has",
+        "start_seconds": 50.6625,
+        "end_seconds": 50.7875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "been",
+        "start_seconds": 50.7875,
+        "end_seconds": 50.9
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "using",
+        "start_seconds": 50.9,
+        "end_seconds": 51.2
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Rust",
+        "start_seconds": 51.2,
+        "end_seconds": 51.45
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "internally",
+        "start_seconds": 51.45,
+        "end_seconds": 52.05
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "since",
+        "start_seconds": 52.05,
+        "end_seconds": 52.275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "2018",
+        "start_seconds": 52.275,
+        "end_seconds": 52.95
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 52.95,
+        "end_seconds": 53.1
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "voice",
+        "start_seconds": 53.1,
+        "end_seconds": 53.45
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 53.45,
+        "end_seconds": 53.575
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "parts",
+        "start_seconds": 53.575,
+        "end_seconds": 53.8875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "of",
+        "start_seconds": 53.8875,
+        "end_seconds": 53.9625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 53.9625,
+        "end_seconds": 54.05
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "current",
+        "start_seconds": 54.05,
+        "end_seconds": 54.35
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "client.",
+        "start_seconds": 54.35,
+        "end_seconds": 55.2625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "A",
+        "start_seconds": 55.2625,
+        "end_seconds": 55.375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "screenshot",
+        "start_seconds": 55.375,
+        "end_seconds": 55.9625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "shows",
+        "start_seconds": 55.9625,
+        "end_seconds": 56.2625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 56.2625,
+        "end_seconds": 56.35
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Windows",
+        "start_seconds": 56.35,
+        "end_seconds": 56.725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "build",
+        "start_seconds": 56.725,
+        "end_seconds": 57.025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "using",
+        "start_seconds": 57.025,
+        "end_seconds": 57.2875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "about",
+        "start_seconds": 57.2875,
+        "end_seconds": 57.5625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "290",
+        "start_seconds": 57.5625,
+        "end_seconds": 58.425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "megabytes",
+        "start_seconds": 58.425,
+        "end_seconds": 58.9125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "of",
+        "start_seconds": 58.9125,
+        "end_seconds": 59.025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "RAM,",
+        "start_seconds": 59.025,
+        "end_seconds": 59.65
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "versus",
+        "start_seconds": 59.65,
+        "end_seconds": 60.075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 60.075,
+        "end_seconds": 60.175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "usual",
+        "start_seconds": 60.175,
+        "end_seconds": 60.525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "one",
+        "start_seconds": 60.525,
+        "end_seconds": 60.75
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "gigabyte",
+        "start_seconds": 60.75,
+        "end_seconds": 61.175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "plus",
+        "start_seconds": 61.175,
+        "end_seconds": 61.4875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "when",
+        "start_seconds": 61.4875,
+        "end_seconds": 61.6125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 61.6125,
+        "end_seconds": 61.725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "old",
+        "start_seconds": 61.725,
+        "end_seconds": 61.9625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Electron",
+        "start_seconds": 61.9625,
+        "end_seconds": 62.45
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "version",
+        "start_seconds": 62.45,
+        "end_seconds": 62.875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "runs",
+        "start_seconds": 62.875,
+        "end_seconds": 63.1875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "with",
+        "start_seconds": 63.1875,
+        "end_seconds": 63.35
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "multiple",
+        "start_seconds": 63.35,
+        "end_seconds": 63.8375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "servers.",
+        "start_seconds": 63.8375,
+        "end_seconds": 65.0625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 65.49499999999999,
+        "end_seconds": 65.6075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "change",
+        "start_seconds": 65.6075,
+        "end_seconds": 65.99499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "should",
+        "start_seconds": 65.99499999999999,
+        "end_seconds": 66.145
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "mean",
+        "start_seconds": 66.145,
+        "end_seconds": 66.36999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "less",
+        "start_seconds": 66.36999999999999,
+        "end_seconds": 66.6325
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "memory",
+        "start_seconds": 66.6325,
+        "end_seconds": 67.02
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "pressure",
+        "start_seconds": 67.02,
+        "end_seconds": 67.445
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 67.445,
+        "end_seconds": 67.57
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "snappier",
+        "start_seconds": 67.57,
+        "end_seconds": 68.07
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "starts,",
+        "start_seconds": 68.07,
+        "end_seconds": 68.795
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "though",
+        "start_seconds": 68.795,
+        "end_seconds": 68.9575
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 68.9575,
+        "end_seconds": 69.045
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "public",
+        "start_seconds": 69.045,
+        "end_seconds": 69.445
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "rollout",
+        "start_seconds": 69.445,
+        "end_seconds": 69.82
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "date",
+        "start_seconds": 69.82,
+        "end_seconds": 70.11999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "is",
+        "start_seconds": 70.11999999999999,
+        "end_seconds": 70.24499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "still",
+        "start_seconds": 70.24499999999999,
+        "end_seconds": 70.545
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "unknown.",
+        "start_seconds": 70.545,
+        "end_seconds": 71.74499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Here's",
+        "start_seconds": 72.91999999999999,
+        "end_seconds": 73.22
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "why",
+        "start_seconds": 73.22,
+        "end_seconds": 73.395
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 73.395,
+        "end_seconds": 73.61999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "matters:",
+        "start_seconds": 73.61999999999999,
+        "end_seconds": 74.3825
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 74.3825,
+        "end_seconds": 74.5075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "leaner",
+        "start_seconds": 74.5075,
+        "end_seconds": 74.845
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Discord",
+        "start_seconds": 74.845,
+        "end_seconds": 75.345
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "could",
+        "start_seconds": 75.345,
+        "end_seconds": 75.5325
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "free",
+        "start_seconds": 75.5325,
+        "end_seconds": 75.7575
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "up",
+        "start_seconds": 75.7575,
+        "end_seconds": 75.91999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "resources",
+        "start_seconds": 75.91999999999999,
+        "end_seconds": 76.52
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 76.52,
+        "end_seconds": 76.645
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "other",
+        "start_seconds": 76.645,
+        "end_seconds": 76.945
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "apps,",
+        "start_seconds": 76.945,
+        "end_seconds": 77.49499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "but",
+        "start_seconds": 77.49499999999999,
+        "end_seconds": 77.6325
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you’ll",
+        "start_seconds": 77.6325,
+        "end_seconds": 77.74499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "have",
+        "start_seconds": 77.74499999999999,
+        "end_seconds": 77.945
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 77.945,
+        "end_seconds": 78.07
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "wait",
+        "start_seconds": 78.07,
+        "end_seconds": 78.29499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 78.29499999999999,
+        "end_seconds": 78.4075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 78.4075,
+        "end_seconds": 78.49499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "new",
+        "start_seconds": 78.49499999999999,
+        "end_seconds": 78.68249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "client",
+        "start_seconds": 78.68249999999999,
+        "end_seconds": 79.095
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 79.095,
+        "end_seconds": 79.22
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "reach",
+        "start_seconds": 79.22,
+        "end_seconds": 79.5075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "general",
+        "start_seconds": 79.5075,
+        "end_seconds": 79.945
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "release.",
+        "start_seconds": 79.945,
+        "end_seconds": 81.095
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "Turning",
+        "start_seconds": 82.27,
+        "end_seconds": 82.62
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "to",
+        "start_seconds": 82.62,
+        "end_seconds": 82.7075
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "our",
+        "start_seconds": 82.7075,
+        "end_seconds": 82.845
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "next",
+        "start_seconds": 82.845,
+        "end_seconds": 83.12
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "story.",
+        "start_seconds": 83.12,
+        "end_seconds": 83.88250000000001
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "GPT‑6",
+        "start_seconds": 83.88250000000001,
+        "end_seconds": 84.7825
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "Astra",
+        "start_seconds": 84.7825,
+        "end_seconds": 85.19500000000001
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "underperforms",
+        "start_seconds": 85.19500000000001,
+        "end_seconds": 85.8325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "on",
+        "start_seconds": 85.8325,
+        "end_seconds": 86.0325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "safety‑framed",
+        "start_seconds": 86.0325,
+        "end_seconds": 86.745
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "tasks.",
+        "start_seconds": 86.745,
+        "end_seconds": 87.94500000000001
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "Internal",
+        "start_seconds": 89.11999999999999,
+        "end_seconds": 89.545
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "testing",
+        "start_seconds": 89.545,
+        "end_seconds": 89.9825
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "showed",
+        "start_seconds": 89.9825,
+        "end_seconds": 90.24499999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "Astra",
+        "start_seconds": 90.24499999999999,
+        "end_seconds": 90.61999999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "completed",
+        "start_seconds": 90.61999999999999,
+        "end_seconds": 91.0825
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "about",
+        "start_seconds": 91.0825,
+        "end_seconds": 91.3575
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "ten",
+        "start_seconds": 91.3575,
+        "end_seconds": 91.61999999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "percent",
+        "start_seconds": 91.61999999999999,
+        "end_seconds": 91.9575
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "of",
+        "start_seconds": 91.9575,
+        "end_seconds": 92.045
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "hidden",
+        "start_seconds": 92.045,
+        "end_seconds": 92.345
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "rubric",
+        "start_seconds": 92.345,
+        "end_seconds": 92.695
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "items",
+        "start_seconds": 92.695,
+        "end_seconds": 93.0325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "when",
+        "start_seconds": 93.0325,
+        "end_seconds": 93.1575
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "the",
+        "start_seconds": 93.1575,
+        "end_seconds": 93.24499999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "prompt",
+        "start_seconds": 93.24499999999999,
+        "end_seconds": 93.5075
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "was",
+        "start_seconds": 93.5075,
+        "end_seconds": 93.645
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "framed",
+        "start_seconds": 93.645,
+        "end_seconds": 93.97
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "as",
+        "start_seconds": 93.97,
+        "end_seconds": 94.095
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "safety",
+        "start_seconds": 94.095,
+        "end_seconds": 94.445
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "research,",
+        "start_seconds": 94.445,
+        "end_seconds": 95.32
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "versus",
+        "start_seconds": 95.32,
+        "end_seconds": 95.61999999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "sixteen",
+        "start_seconds": 95.61999999999999,
+        "end_seconds": 96.045
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "percent",
+        "start_seconds": 96.045,
+        "end_seconds": 96.3825
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "under",
+        "start_seconds": 96.3825,
+        "end_seconds": 96.55749999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "a",
+        "start_seconds": 96.55749999999999,
+        "end_seconds": 96.61999999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "pure",
+        "start_seconds": 96.61999999999999,
+        "end_seconds": 96.895
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "capability",
+        "start_seconds": 96.895,
+        "end_seconds": 97.445
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "framing",
+        "start_seconds": 97.445,
+        "end_seconds": 98.07
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "–",
+        "start_seconds": 98.07,
+        "end_seconds": 98.1325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "a",
+        "start_seconds": 98.1325,
+        "end_seconds": 98.2325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "six‑point",
+        "start_seconds": 98.2325,
+        "end_seconds": 98.74499999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "drop",
+        "start_seconds": 98.74499999999999,
+        "end_seconds": 99.0325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "that",
+        "start_seconds": 99.0325,
+        "end_seconds": 99.145
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "stayed",
+        "start_seconds": 99.145,
+        "end_seconds": 99.49499999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "even",
+        "start_seconds": 99.49499999999999,
+        "end_seconds": 99.7325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "after",
+        "start_seconds": 99.7325,
+        "end_seconds": 100.02
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "obvious",
+        "start_seconds": 100.02,
+        "end_seconds": 100.42
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "refusals",
+        "start_seconds": 100.42,
+        "end_seconds": 100.9075
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "were",
+        "start_seconds": 100.9075,
+        "end_seconds": 101.02
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "filtered",
+        "start_seconds": 101.02,
+        "end_seconds": 101.3825
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "out.",
+        "start_seconds": 101.3825,
+        "end_seconds": 102.095
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "The",
+        "start_seconds": 102.095,
+        "end_seconds": 102.195
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "gap",
+        "start_seconds": 102.195,
+        "end_seconds": 102.445
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "only",
+        "start_seconds": 102.445,
+        "end_seconds": 102.7575
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "shrank",
+        "start_seconds": 102.7575,
+        "end_seconds": 103.0325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "when",
+        "start_seconds": 103.0325,
+        "end_seconds": 103.17
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "any",
+        "start_seconds": 103.17,
+        "end_seconds": 103.36999999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "chain‑of‑thought",
+        "start_seconds": 103.36999999999999,
+        "end_seconds": 103.945
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "containing",
+        "start_seconds": 103.945,
+        "end_seconds": 104.395
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "ethical",
+        "start_seconds": 104.395,
+        "end_seconds": 104.795
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "doubt",
+        "start_seconds": 104.795,
+        "end_seconds": 105.0075
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "was",
+        "start_seconds": 105.0075,
+        "end_seconds": 105.145
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "removed,",
+        "start_seconds": 105.145,
+        "end_seconds": 105.745
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "suggesting",
+        "start_seconds": 105.745,
+        "end_seconds": 106.2825
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "covert",
+        "start_seconds": 106.2825,
+        "end_seconds": 106.62
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "ethical",
+        "start_seconds": 106.62,
+        "end_seconds": 106.995
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "concerns",
+        "start_seconds": 106.995,
+        "end_seconds": 107.4575
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "are",
+        "start_seconds": 107.4575,
+        "end_seconds": 107.5825
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "throttling",
+        "start_seconds": 107.5825,
+        "end_seconds": 108.04499999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "output.",
+        "start_seconds": 108.04499999999999,
+        "end_seconds": 108.845
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "By",
+        "start_seconds": 108.845,
+        "end_seconds": 109.02
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "contrast,",
+        "start_seconds": 109.02,
+        "end_seconds": 109.645
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "GPT‑5.6",
+        "start_seconds": 109.645,
+        "end_seconds": 110.9325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "Sol",
+        "start_seconds": 110.9325,
+        "end_seconds": 111.2575
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "showed",
+        "start_seconds": 111.2575,
+        "end_seconds": 111.54499999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "no",
+        "start_seconds": 111.54499999999999,
+        "end_seconds": 111.745
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "such",
+        "start_seconds": 111.745,
+        "end_seconds": 111.97
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "disparity.",
+        "start_seconds": 111.97,
+        "end_seconds": 113.245
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "So",
+        "start_seconds": 114.445,
+        "end_seconds": 114.61999999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "developers",
+        "start_seconds": 114.61999999999999,
+        "end_seconds": 115.22
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "can",
+        "start_seconds": 115.22,
+        "end_seconds": 115.3325
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "expect",
+        "start_seconds": 115.3325,
+        "end_seconds": 115.80749999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "Astra",
+        "start_seconds": 115.80749999999999,
+        "end_seconds": 116.35749999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "to",
+        "start_seconds": 116.35749999999999,
+        "end_seconds": 116.52
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "silently",
+        "start_seconds": 116.52,
+        "end_seconds": 117.05749999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "limit",
+        "start_seconds": 117.05749999999999,
+        "end_seconds": 117.345
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "assistance",
+        "start_seconds": 117.345,
+        "end_seconds": 117.97
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "on",
+        "start_seconds": 117.97,
+        "end_seconds": 118.18249999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "safety‑sensitive",
+        "start_seconds": 118.18249999999999,
+        "end_seconds": 118.97
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "prompts,",
+        "start_seconds": 118.97,
+        "end_seconds": 119.77
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "which",
+        "start_seconds": 119.77,
+        "end_seconds": 119.97
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "may",
+        "start_seconds": 119.97,
+        "end_seconds": 120.16999999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "affect",
+        "start_seconds": 120.16999999999999,
+        "end_seconds": 120.55749999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "tools",
+        "start_seconds": 120.55749999999999,
+        "end_seconds": 120.97
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "that",
+        "start_seconds": 120.97,
+        "end_seconds": 121.11999999999999
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "need",
+        "start_seconds": 121.11999999999999,
+        "end_seconds": 121.345
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "consistent",
+        "start_seconds": 121.345,
+        "end_seconds": 121.945
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "answers",
+        "start_seconds": 121.945,
+        "end_seconds": 122.47
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "across",
+        "start_seconds": 122.47,
+        "end_seconds": 122.845
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "different",
+        "start_seconds": 122.845,
+        "end_seconds": 123.145
+      },
+      {
+        "segment_id": "astra-safety-underperformance-segment",
+        "text": "framings.",
+        "start_seconds": 123.145,
+        "end_seconds": 124.395
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "Next",
+        "start_seconds": 125.595,
+        "end_seconds": 125.8575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "on",
+        "start_seconds": 125.8575,
+        "end_seconds": 125.9575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "the",
+        "start_seconds": 125.9575,
+        "end_seconds": 126.045
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "bulletin.",
+        "start_seconds": 126.045,
+        "end_seconds": 126.795
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "GitHub",
+        "start_seconds": 126.795,
+        "end_seconds": 127.17
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "just",
+        "start_seconds": 127.17,
+        "end_seconds": 127.37
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "rolled",
+        "start_seconds": 127.37,
+        "end_seconds": 127.6575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "out",
+        "start_seconds": 127.6575,
+        "end_seconds": 127.82
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "Rubicon,",
+        "start_seconds": 127.82,
+        "end_seconds": 128.52
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "a",
+        "start_seconds": 128.52,
+        "end_seconds": 128.62
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "new",
+        "start_seconds": 128.62,
+        "end_seconds": 128.795
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "storage",
+        "start_seconds": 128.795,
+        "end_seconds": 129.17
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "layer",
+        "start_seconds": 129.17,
+        "end_seconds": 129.4825
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "that",
+        "start_seconds": 129.4825,
+        "end_seconds": 129.5825
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "can",
+        "start_seconds": 129.5825,
+        "end_seconds": 129.695
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "juggle",
+        "start_seconds": 129.695,
+        "end_seconds": 130.0325
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "five",
+        "start_seconds": 130.0325,
+        "end_seconds": 130.37
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "thousand",
+        "start_seconds": 130.37,
+        "end_seconds": 130.77
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "concurrent",
+        "start_seconds": 130.77,
+        "end_seconds": 131.195
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "agents",
+        "start_seconds": 131.195,
+        "end_seconds": 131.5575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "and",
+        "start_seconds": 131.5575,
+        "end_seconds": 131.67
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "push",
+        "start_seconds": 131.67,
+        "end_seconds": 131.9075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "seven",
+        "start_seconds": 131.9075,
+        "end_seconds": 132.1075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "hundred",
+        "start_seconds": 132.1075,
+        "end_seconds": 132.345
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "twenty",
+        "start_seconds": 132.345,
+        "end_seconds": 132.645
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "pushes",
+        "start_seconds": 132.645,
+        "end_seconds": 133.02
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "per",
+        "start_seconds": 133.02,
+        "end_seconds": 133.17
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "second",
+        "start_seconds": 133.17,
+        "end_seconds": 133.52
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "to",
+        "start_seconds": 133.52,
+        "end_seconds": 133.6075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "a",
+        "start_seconds": 133.6075,
+        "end_seconds": 133.695
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "single",
+        "start_seconds": 133.695,
+        "end_seconds": 133.995
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "repo.",
+        "start_seconds": 133.995,
+        "end_seconds": 135.02
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "It",
+        "start_seconds": 135.02,
+        "end_seconds": 135.17
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "moves",
+        "start_seconds": 135.17,
+        "end_seconds": 135.445
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "pack",
+        "start_seconds": 135.445,
+        "end_seconds": 135.72
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "data",
+        "start_seconds": 135.72,
+        "end_seconds": 136.0075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "into",
+        "start_seconds": 136.0075,
+        "end_seconds": 136.22
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "Azure",
+        "start_seconds": 136.22,
+        "end_seconds": 136.495
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "Blob",
+        "start_seconds": 136.495,
+        "end_seconds": 136.795
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "Storage",
+        "start_seconds": 136.795,
+        "end_seconds": 137.2075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "and",
+        "start_seconds": 137.2075,
+        "end_seconds": 137.32
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "splits",
+        "start_seconds": 137.32,
+        "end_seconds": 137.695
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "reference‑state",
+        "start_seconds": 137.695,
+        "end_seconds": 138.3075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "updates",
+        "start_seconds": 138.3075,
+        "end_seconds": 138.6825
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "from",
+        "start_seconds": 138.6825,
+        "end_seconds": 138.8075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "the",
+        "start_seconds": 138.8075,
+        "end_seconds": 138.895
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "data,",
+        "start_seconds": 138.895,
+        "end_seconds": 139.47
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "so",
+        "start_seconds": 139.47,
+        "end_seconds": 139.62
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "reads",
+        "start_seconds": 139.62,
+        "end_seconds": 139.945
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "can",
+        "start_seconds": 139.945,
+        "end_seconds": 140.12
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "scale",
+        "start_seconds": 140.12,
+        "end_seconds": 140.4325
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "on",
+        "start_seconds": 140.4325,
+        "end_seconds": 140.5325
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "demand",
+        "start_seconds": 140.5325,
+        "end_seconds": 140.9075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "and",
+        "start_seconds": 140.9075,
+        "end_seconds": 141.02
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "replicas",
+        "start_seconds": 141.02,
+        "end_seconds": 141.495
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "only",
+        "start_seconds": 141.495,
+        "end_seconds": 141.8075
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "fetch",
+        "start_seconds": 141.8075,
+        "end_seconds": 142.095
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "missing",
+        "start_seconds": 142.095,
+        "end_seconds": 142.395
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "objects.",
+        "start_seconds": 142.395,
+        "end_seconds": 143.345
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "For",
+        "start_seconds": 143.345,
+        "end_seconds": 143.4825
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "developers",
+        "start_seconds": 143.4825,
+        "end_seconds": 144.02
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "nothing",
+        "start_seconds": 144.02,
+        "end_seconds": 144.3575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "changes",
+        "start_seconds": 144.3575,
+        "end_seconds": 144.87
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "–",
+        "start_seconds": 144.87,
+        "end_seconds": 144.9575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "push,",
+        "start_seconds": 144.9575,
+        "end_seconds": 145.4325
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "fetch",
+        "start_seconds": 145.4325,
+        "end_seconds": 145.7325
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "and",
+        "start_seconds": 145.7325,
+        "end_seconds": 145.845
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "branch",
+        "start_seconds": 145.845,
+        "end_seconds": 146.195
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "commands",
+        "start_seconds": 146.195,
+        "end_seconds": 146.645
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "behave",
+        "start_seconds": 146.645,
+        "end_seconds": 146.9575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "exactly",
+        "start_seconds": 146.9575,
+        "end_seconds": 147.4575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "the",
+        "start_seconds": 147.4575,
+        "end_seconds": 147.5575
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "same.",
+        "start_seconds": 147.5575,
+        "end_seconds": 148.6325
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "Here’s",
+        "start_seconds": 149.065,
+        "end_seconds": 149.565
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "why",
+        "start_seconds": 149.565,
+        "end_seconds": 149.74
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "that",
+        "start_seconds": 149.74,
+        "end_seconds": 149.965
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "matters:",
+        "start_seconds": 149.965,
+        "end_seconds": 150.7775
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "teams",
+        "start_seconds": 150.7775,
+        "end_seconds": 151.14000000000001
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "running",
+        "start_seconds": 151.14000000000001,
+        "end_seconds": 151.44
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "massive",
+        "start_seconds": 151.44,
+        "end_seconds": 151.8525
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "CI/CD",
+        "start_seconds": 151.8525,
+        "end_seconds": 152.615
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "pipelines",
+        "start_seconds": 152.615,
+        "end_seconds": 153.2525
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "or",
+        "start_seconds": 153.2525,
+        "end_seconds": 153.4275
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "AI‑assisted",
+        "start_seconds": 153.4275,
+        "end_seconds": 154.54
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "coding",
+        "start_seconds": 154.54,
+        "end_seconds": 154.865
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "bots",
+        "start_seconds": 154.865,
+        "end_seconds": 155.2775
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "now",
+        "start_seconds": 155.2775,
+        "end_seconds": 155.51500000000001
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "have",
+        "start_seconds": 155.51500000000001,
+        "end_seconds": 155.6775
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "a",
+        "start_seconds": 155.6775,
+        "end_seconds": 155.74
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "backend",
+        "start_seconds": 155.74,
+        "end_seconds": 156.19
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "that",
+        "start_seconds": 156.19,
+        "end_seconds": 156.315
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "can",
+        "start_seconds": 156.315,
+        "end_seconds": 156.44
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "handle",
+        "start_seconds": 156.44,
+        "end_seconds": 156.8025
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "two",
+        "start_seconds": 156.8025,
+        "end_seconds": 157.04
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "orders",
+        "start_seconds": 157.04,
+        "end_seconds": 157.3525
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "of",
+        "start_seconds": 157.3525,
+        "end_seconds": 157.465
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "magnitude",
+        "start_seconds": 157.465,
+        "end_seconds": 158.065
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "more",
+        "start_seconds": 158.065,
+        "end_seconds": 158.3025
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "throughput",
+        "start_seconds": 158.3025,
+        "end_seconds": 158.8775
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "without",
+        "start_seconds": 158.8775,
+        "end_seconds": 159.20250000000001
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "a",
+        "start_seconds": 159.20250000000001,
+        "end_seconds": 159.26500000000001
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "workflow",
+        "start_seconds": 159.26500000000001,
+        "end_seconds": 159.715
+      },
+      {
+        "segment_id": "github-rubicon-architecture-segment",
+        "text": "rewrite.",
+        "start_seconds": 159.715,
+        "end_seconds": 160.84
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "And",
+        "start_seconds": 161.98999999999998,
+        "end_seconds": 162.1275
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "finally,",
+        "start_seconds": 162.1275,
+        "end_seconds": 162.5775
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "our",
+        "start_seconds": 162.5775,
+        "end_seconds": 162.715
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "last",
+        "start_seconds": 162.715,
+        "end_seconds": 162.9775
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "story.",
+        "start_seconds": 162.9775,
+        "end_seconds": 163.59
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "OpenAI",
+        "start_seconds": 163.59,
+        "end_seconds": 164.14
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "just",
+        "start_seconds": 164.14,
+        "end_seconds": 164.36499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "unveiled",
+        "start_seconds": 164.36499999999998,
+        "end_seconds": 164.86499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "GPT‑6",
+        "start_seconds": 164.86499999999998,
+        "end_seconds": 165.61499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "Cyber,",
+        "start_seconds": 165.61499999999998,
+        "end_seconds": 166.11499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "a",
+        "start_seconds": 166.11499999999998,
+        "end_seconds": 166.215
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "new",
+        "start_seconds": 166.215,
+        "end_seconds": 166.39
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "model",
+        "start_seconds": 166.39,
+        "end_seconds": 166.715
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "built",
+        "start_seconds": 166.715,
+        "end_seconds": 166.94
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "to",
+        "start_seconds": 166.94,
+        "end_seconds": 167.04
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "hunt",
+        "start_seconds": 167.04,
+        "end_seconds": 167.265
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "for",
+        "start_seconds": 167.265,
+        "end_seconds": 167.3775
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "exploitable",
+        "start_seconds": 167.3775,
+        "end_seconds": 168.015
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "bugs",
+        "start_seconds": 168.015,
+        "end_seconds": 168.3275
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "and",
+        "start_seconds": 168.3275,
+        "end_seconds": 168.44
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "even",
+        "start_seconds": 168.44,
+        "end_seconds": 168.715
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "draft",
+        "start_seconds": 168.715,
+        "end_seconds": 169.065
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "fixes.",
+        "start_seconds": 169.065,
+        "end_seconds": 170.04
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "It’s",
+        "start_seconds": 170.04,
+        "end_seconds": 170.19
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "trained",
+        "start_seconds": 170.19,
+        "end_seconds": 170.4775
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "on",
+        "start_seconds": 170.4775,
+        "end_seconds": 170.61499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "cybersecurity",
+        "start_seconds": 170.61499999999998,
+        "end_seconds": 171.29
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "data,",
+        "start_seconds": 171.29,
+        "end_seconds": 171.6275
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "but",
+        "start_seconds": 171.6275,
+        "end_seconds": 171.7525
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "it",
+        "start_seconds": 171.7525,
+        "end_seconds": 171.8275
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "only",
+        "start_seconds": 171.8275,
+        "end_seconds": 172.11499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "works",
+        "start_seconds": 172.11499999999998,
+        "end_seconds": 172.3525
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "inside",
+        "start_seconds": 172.3525,
+        "end_seconds": 172.7025
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "the",
+        "start_seconds": 172.7025,
+        "end_seconds": 172.7775
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "exact",
+        "start_seconds": 172.7775,
+        "end_seconds": 173.14
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "scopes",
+        "start_seconds": 173.14,
+        "end_seconds": 173.465
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "you",
+        "start_seconds": 173.465,
+        "end_seconds": 173.565
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "give",
+        "start_seconds": 173.565,
+        "end_seconds": 173.765
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "it,",
+        "start_seconds": 173.765,
+        "end_seconds": 173.94
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "so",
+        "start_seconds": 173.94,
+        "end_seconds": 174.05249999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "it",
+        "start_seconds": 174.05249999999998,
+        "end_seconds": 174.14
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "won’t",
+        "start_seconds": 174.14,
+        "end_seconds": 174.34
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "wander",
+        "start_seconds": 174.34,
+        "end_seconds": 174.6525
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "into",
+        "start_seconds": 174.6525,
+        "end_seconds": 174.86499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "unauthorized",
+        "start_seconds": 174.86499999999998,
+        "end_seconds": 175.54
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "territory.",
+        "start_seconds": 175.54,
+        "end_seconds": 176.48999999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "Engineers",
+        "start_seconds": 176.48999999999998,
+        "end_seconds": 177.09
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "can",
+        "start_seconds": 177.09,
+        "end_seconds": 177.215
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "now",
+        "start_seconds": 177.215,
+        "end_seconds": 177.39
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "try",
+        "start_seconds": 177.39,
+        "end_seconds": 177.69
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "AI‑assisted",
+        "start_seconds": 177.69,
+        "end_seconds": 178.48999999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "vulnerability",
+        "start_seconds": 178.48999999999998,
+        "end_seconds": 179.165
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "discovery",
+        "start_seconds": 179.165,
+        "end_seconds": 179.67749999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "on",
+        "start_seconds": 179.67749999999998,
+        "end_seconds": 179.7775
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "approved",
+        "start_seconds": 179.7775,
+        "end_seconds": 180.14
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "assets,",
+        "start_seconds": 180.14,
+        "end_seconds": 180.6275
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "but",
+        "start_seconds": 180.6275,
+        "end_seconds": 180.7525
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "they",
+        "start_seconds": 180.7525,
+        "end_seconds": 180.89
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "still",
+        "start_seconds": 180.89,
+        "end_seconds": 181.165
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "have",
+        "start_seconds": 181.165,
+        "end_seconds": 181.36499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "to",
+        "start_seconds": 181.36499999999998,
+        "end_seconds": 181.4525
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "define",
+        "start_seconds": 181.4525,
+        "end_seconds": 181.80249999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "those",
+        "start_seconds": 181.80249999999998,
+        "end_seconds": 181.965
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "scopes",
+        "start_seconds": 181.965,
+        "end_seconds": 182.315
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "tightly.",
+        "start_seconds": 182.315,
+        "end_seconds": 183.09
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "The",
+        "start_seconds": 183.09,
+        "end_seconds": 183.215
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "key",
+        "start_seconds": 183.215,
+        "end_seconds": 183.415
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "takeaway?",
+        "start_seconds": 183.415,
+        "end_seconds": 184.6525
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "It’s",
+        "start_seconds": 185.06,
+        "end_seconds": 185.2475
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "a",
+        "start_seconds": 185.2475,
+        "end_seconds": 185.34750000000003
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "powerful",
+        "start_seconds": 185.34750000000003,
+        "end_seconds": 185.935
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "assistant,",
+        "start_seconds": 185.935,
+        "end_seconds": 186.76000000000002
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "but",
+        "start_seconds": 186.76000000000002,
+        "end_seconds": 186.8975
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "the",
+        "start_seconds": 186.8975,
+        "end_seconds": 187.0225
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "safety",
+        "start_seconds": 187.0225,
+        "end_seconds": 187.41000000000003
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "guardrails",
+        "start_seconds": 187.41000000000003,
+        "end_seconds": 187.88500000000002
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "depend",
+        "start_seconds": 187.88500000000002,
+        "end_seconds": 188.2975
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "on",
+        "start_seconds": 188.2975,
+        "end_seconds": 188.41000000000003
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "how",
+        "start_seconds": 188.41000000000003,
+        "end_seconds": 188.6475
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "rigorously",
+        "start_seconds": 188.6475,
+        "end_seconds": 189.28500000000003
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "you",
+        "start_seconds": 189.28500000000003,
+        "end_seconds": 189.44750000000002
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "set",
+        "start_seconds": 189.44750000000002,
+        "end_seconds": 189.6725
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "the",
+        "start_seconds": 189.6725,
+        "end_seconds": 189.76000000000002
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "boundaries.",
+        "start_seconds": 189.76000000000002,
+        "end_seconds": 191.06
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "And",
+        "start_seconds": 192.20999999999998,
+        "end_seconds": 192.3225
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "that's",
+        "start_seconds": 192.3225,
+        "end_seconds": 192.56
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "your",
+        "start_seconds": 192.56,
+        "end_seconds": 192.70999999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "Daywire",
+        "start_seconds": 192.70999999999998,
+        "end_seconds": 193.16
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "briefing.",
+        "start_seconds": 193.16,
+        "end_seconds": 193.85999999999999
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "You'll",
+        "start_seconds": 193.85999999999999,
+        "end_seconds": 194.01
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "find",
+        "start_seconds": 194.01,
+        "end_seconds": 194.2475
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "the",
+        "start_seconds": 194.2475,
+        "end_seconds": 194.3475
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "full",
+        "start_seconds": 194.3475,
+        "end_seconds": 194.58499999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "stories",
+        "start_seconds": 194.58499999999998,
+        "end_seconds": 195.02249999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "and",
+        "start_seconds": 195.02249999999998,
+        "end_seconds": 195.14749999999998
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "sources",
+        "start_seconds": 195.14749999999998,
+        "end_seconds": 195.635
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "in",
+        "start_seconds": 195.635,
+        "end_seconds": 195.73499999999999
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "today's",
+        "start_seconds": 195.73499999999999,
+        "end_seconds": 196.10999999999999
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "newspaper.",
+        "start_seconds": 196.10999999999999,
+        "end_seconds": 196.9475
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "Thanks",
+        "start_seconds": 196.9475,
+        "end_seconds": 197.23499999999999
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "for",
+        "start_seconds": 197.23499999999999,
+        "end_seconds": 197.35999999999999
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "listening.",
+        "start_seconds": 197.35999999999999,
+        "end_seconds": 197.92249999999999
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "Take",
+        "start_seconds": 197.92249999999999,
+        "end_seconds": 198.2225
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "care,",
+        "start_seconds": 198.2225,
+        "end_seconds": 198.54749999999999
+      },
+      {
+        "segment_id": "gpt-6-cyber-launch",
+        "text": "everyone.",
+        "start_seconds": 198.54749999999999,
+        "end_seconds": 199.70999999999998
+      }
+    ]
   },
   "artwork": {
     "status": "pending",
