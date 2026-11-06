@@ -12,6 +12,39 @@ from generate import alignment, normalized, prepare_segments, pronunciation_text
 
 
 class SpeechContractTests(unittest.TestCase):
+    def test_missing_model_digit_is_retried_without_changing_transcript(self):
+        text = "GPT‑6 Cyber"
+        tokens = [Token(text="GPT", whitespace="", phonemes="abc"),
+                  Token(text="‑", whitespace="", phonemes=""),
+                  Token(text="6", whitespace=" ", phonemes=""),
+                  Token(text="Cyber", whitespace="", phonemes="xyz")]
+        pipeline = Mock()
+        pipeline.g2p.side_effect = [("abc xyz", tokens),
+                                   ("sɪks", [Token(text="6", whitespace="", phonemes="sɪks")])]
+        pipeline.en_tokenize.side_effect = lambda ts: [(text, "abc sɪks xyz", ts)]
+        result = prepare_segments(pipeline, text)
+        self.assertEqual(pipeline.g2p.call_count, 2)
+        pipeline.g2p.assert_called_with("6", preprocess=False)
+        self.assertEqual(tokens[2].phonemes, "sɪks")
+        self.assertEqual(tokens[1].phonemes, "")
+        self.assertEqual(result[0][0][2], tokens)
+        validate_tokens(text, tokens)
+        timing = alignment(text, [("GPT", 0, .4), ("‑", None, None),
+                                  ("6", .4, .8), ("Cyber", .9, 1.5)])
+        self.assertEqual(timing["characters"][::2], text.split())
+
+    def test_isolated_retry_cannot_drop_change_or_leave_word_unspoken(self):
+        for changed, phonemes in [("", "abc"), ("7", "abc"), ("6", ""), ("6", "❓")]:
+            with self.subTest(changed=changed, phonemes=phonemes):
+                original = Token(text="6", whitespace="", phonemes="")
+                pipeline = Mock()
+                pipeline.g2p.side_effect = [("", [original]),
+                    (phonemes, [Token(text=changed, whitespace="", phonemes=phonemes)])]
+                with self.assertRaisesRegex(ValueError, "text block 1/1"):
+                    prepare_segments(pipeline, "6")
+                pipeline.en_tokenize.assert_not_called()
+                self.assertEqual(original.phonemes, "")
+
     def test_quote_spacing_preserves_contractions_numbers_and_all_characters(self):
         for quote in ("'", "‘", "’"):
             text = f"app.use({quote}/admin{quote},authMiddleware)"

@@ -52,7 +52,9 @@ def check():
                          "It’s ready—version one point two point four.\n\n"
                          "The label is [release](candidate).\n\n"
                          "Use scoped app.use('/admin',authMiddleware). It isn't public.\n\n"
-                         "Use scoped app.use(‘/admin’,authMiddleware). It isn’t public.")
+                         "Use scoped app.use(‘/admin’,authMiddleware). It isn’t public.\n\n"
+                         "And finally, our last story. OpenAI just unveiled GPT‑6 Cyber, "
+                         "a new model built to hunt for exploitable bugs and even draft fixes.")
     with tempfile.TemporaryDirectory(prefix="daywire-runtime-check-") as work:
         wav_path, mp3_path = Path(work) / "check.wav", Path(work) / "check.mp3"
         with wave.open(str(wav_path), "wb") as audio:

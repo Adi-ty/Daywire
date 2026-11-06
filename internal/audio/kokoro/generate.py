@@ -47,8 +47,24 @@ def validate_tokens(text, tokens):
             f"expected {ascii(expected[max(0, offset - 12):offset + 24])}, "
             f"received {ascii(actual[max(0, offset - 12):offset + 24])}"
         )
-    if any(any(c.isalnum() for c in t.text) and not t.phonemes for t in tokens):
-        raise ValueError("a script word has no pronunciation; revise that radio segment")
+    for token in tokens:
+        if any(c.isalnum() for c in token.text) and not token.phonemes:
+            raise ValueError(f"a script word has no pronunciation: {ascii(token.text[:80])}; revise that radio segment")
+
+
+def repair_missing_pronunciations(pipeline, tokens):
+    # Misaki/spaCy can mis-tag a digit in a model name (GPT‑6 Cyber) as
+    # punctuation and give it empty phonemes. Retry only missing words in
+    # isolation; never edit their text or discard the original validation.
+    for token in tokens:
+        if token.phonemes or not any(c.isalnum() for c in token.text):
+            continue
+        phonemes, isolated = pipeline.g2p(pronunciation_text(token.text), preprocess=False)
+        validate_tokens(token.text, isolated)
+        if not phonemes or not phonemes.strip() or "❓" in phonemes:
+            raise ValueError(f"isolated pronunciation failed for {ascii(token.text[:80])}")
+        token.phonemes = phonemes.strip()
+        log(f"recovered pronunciation for {ascii(token.text[:80])}")
 
 
 def prepare_segments(pipeline, text):
@@ -61,6 +77,7 @@ def prepare_segments(pipeline, text):
             # markup, removing the parenthesized text. Daywire is plain text;
             # pass it literally and preserve the original transcript/timings.
             _, tokens = pipeline.g2p(pronunciation_text(segment), preprocess=False)
+            repair_missing_pronunciations(pipeline, tokens)
             validate_tokens(segment, tokens)
             chunks = list(pipeline.en_tokenize(tokens))
             if not chunks or any(not ps or len(ps) > 510 for _, ps, _ in chunks):
