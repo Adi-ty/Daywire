@@ -22,7 +22,7 @@ const contents = edition?.content.articles.slice(0, 3) ?? [];
 ---
 <Page title={edition ? `${dateLabel(edition.date)} · Newspaper` : 'The newspaper'} mode="news" edition={edition}>
   <div class="newspaper-surface">
-  <section class="masthead" aria-label="Daywire newspaper"><p>Technology, in perspective.<br />New editions around 6am.</p><h1><a href={href('')} class="masthead-name">Daywire<span>.</span></a></h1><p>A daily read.<br />Something to take away.</p></section>
+  <section class="masthead" aria-label="Daywire newspaper"><p>Technology, in perspective.</p><h1><a href={href('')} class="masthead-name">Daywire<span>.</span></a></h1><p>A daily read.<br />Something to take away.</p></section>
   {edition ? <>
     <div class="edition-line"><span>{weekday(edition.date)}, {dateLabel(edition.date)}</span><span>{edition.content.articles.length} {edition.content.articles.length === 1 ? 'story' : 'stories'}{lessonCount > 0 && ` · ${lessonCount} ${lessonCount === 1 ? 'lesson' : 'lessons'}`}</span><span>About {readingMinutes(edition)} min to read</span></div>
     {isLatest && edition.date !== today && !edition.demo && <p class="coverage-note">The latest available edition is dated {dateLabel(edition.date)}. A newer edition has not been published.</p>}
