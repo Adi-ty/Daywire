@@ -1,0 +1,3497 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-07",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-07T06:35:04.902695789Z",
+  "coverage": {
+    "from": "2026-11-06T06:00:00+05:30",
+    "until": "2026-11-07T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-a0a44ed09dc9a108",
+      "source-ed512befc7c93491",
+      "source-4c92c6dfeaab1aa2",
+      "source-5dd7f9063107c090",
+      "source-0a5391d7db4b8ea1"
+    ],
+    "candidate_count": 35,
+    "evidence_count": 28
+  },
+  "content": {
+    "title": "Tech Pulse: Notable Advances Across AI, Tools, and Engineering",
+    "introduction": "This edition highlights several verifiable developments, including AI performance gains, new tooling for UI and graphics, enhancements in Go testing, and security fixes, reflecting a dynamic landscape of recent tech progress.",
+    "articles": [
+      {
+        "id": "tesla-cybertruck-wind-down-2027",
+        "section": "Engineering",
+        "headline": "Tesla to wind down Cybertruck production by mid‑2027",
+        "summary": "Tesla will scale back Cybertruck output at its Texas gigafactory to free capacity for the newly launched Cybercab robotaxi vehicle.",
+        "paragraphs": [
+          "CEO Elon Musk announced on X that the Austin plant will begin winding down Cybertruck production around mid‑2027. The move follows consistently weak sales – only about 20,000 units sold in the United States last year, a 48 % drop from the previous year – and limited market reach caused by the truck’s heavy, angular stainless‑steel design. Musk framed the shift as a way to “accommodate increased output” of the Cybercab, a model positioned at the core of Tesla’s robotaxi strategy.",
+          "The Cybertruck, first delivered in late 2023, never achieved the 250,000‑unit annual target Musk once projected. Its design also ran afoul of European pedestrian‑impact regulations, effectively barring the vehicle from that market. The Austin gigafactory is currently the only facility equipped to build the truck’s specialized components, so the wind‑down could either relocate production or end it entirely.",
+          "While the exact timeline for the Cybercab ramp‑up remains unclear, the decision signals Tesla’s pivot toward autonomous‑mobility services over niche electric pickups. Engineers and suppliers should expect a reallocation of tooling and staff toward the robotaxi platform in the coming months."
+        ],
+        "implication": "The shift means Tesla’s manufacturing focus will move from the low‑volume Cybertruck to the higher‑potential Cybercab, reshaping supply chains and workforce priorities around autonomous ride‑hailing.",
+        "source_ids": [
+          "source-3d951e64c858db64"
+        ]
+      },
+      {
+        "id": "blender-ui-bui-faster-than-gpui",
+        "section": "Tools",
+        "headline": "Blender UI library (BUI) delivers 2–4× lower CPU per frame than gpui",
+        "summary": "A new open‑source library extracts Blender’s UI code for use in Python, Rust, JavaScript and C++, offering dramatically lower CPU usage and faster first‑frame times.",
+        "paragraphs": [
+          "The BUI project repackages the parts of Blender’s GUI that have been honed over decades, exposing them as a cross‑language widget set that works with Rust’s rsx, gpui builders, React, Svelte and Dear ImGui. Benchmarks posted on the repository show 2–4× less CPU per frame compared with the gpui‑fast reference implementation, while also using less RAM and achieving roughly a 5 ms first‑frame render.",
+          "BUI retains Blender’s “damage‑only” redraw model, meaning an idle UI consumes virtually no CPU and only the hovered widget is repainted. It also supports runtime theme switching and a built‑in expression evaluator for numeric fields. The library currently lacks accessibility features."
+        ],
+        "implication": "Developers can embed Blender‑style, low‑overhead interfaces into non‑Blender apps without the typical UI performance penalty, though they must plan for missing accessibility support.",
+        "source_ids": [
+          "source-bec042b19afda6a8"
+        ]
+      },
+      {
+        "id": "ai-research-acceleration-2026",
+        "section": "AI",
+        "headline": "AI research speed may need 4‑9× labor boost to keep pace with software gains",
+        "summary": "A Hacker News discussion cites a model suggesting that to double AI capability growth, researcher effort must increase four to nine times faster than current levels.",
+        "paragraphs": [
+          "The thread references a Cobb‑Douglas style analysis where compute multipliers are rising 2‑3× thanks to software advances, but overall capability growth also depends on experiment compute and labor. To match a 2× acceleration in capabilities, the model predicts a roughly (2‑3)², or 4‑9×, increase in researcher labor. The author warns that as low‑hanging ideas disappear, each new multiplier demands disproportionately more work."
+        ],
+        "implication": "Teams planning to rely on software‑only speedups should budget for substantially larger research staff or automation to avoid bottlenecks.",
+        "source_ids": [
+          "source-e0c8b4541e0b5e8b"
+        ]
+      },
+      {
+        "id": "kugelblitz-mac-globe-2026",
+        "section": "Tools",
+        "headline": "Kugelblitz 1.0.3 adds macOS 27‑compatible 3‑D globe with open geodata",
+        "summary": "The Kugelblitz app for macOS now ships version 1.0.3, a native 3‑D Earth viewer that runs on macOS 27 or later, including Apple‑silicon Macs.",
+        "paragraphs": [
+          "Version 1.0.3 (77 MB DMG) lets users fly over a terrain‑accurate globe or switch to five flat map projections, pulling imagery, road and topographic data from freely licensed OpenStreetMap tiles served by Kugelblitz’s own tile server. All data is cached locally and can be shared across a local network; the app requires no user account and supports German and English interfaces as well as user‑chosen units."
+        ],
+        "implication": "Mac engineers can explore global geodata without external services, using only local storage and network sharing, which simplifies offline or intranet‑only workflows.",
+        "source_ids": [
+          "source-c1341098da6d4c5b"
+        ]
+      },
+      {
+        "id": "flux-3-image-klein-speedup-nvidia-blackwell",
+        "section": "AI",
+        "headline": "TensorRT LLM VisualGen cuts FLUX 3 Image Klein latency on Blackwell GPUs",
+        "summary": "NVIDIA’s TensorRT LLM VisualGen delivers up to 3.46× faster text‑to‑image and 4.45× faster image‑to‑image generation for FLUX 3 Image Klein on a single B200 Blackwell GPU.",
+        "paragraphs": [
+          "The new VisualGen stack combines NVFP4 quantization, fused PrimsTS GEMM kernels, torch.compile, and CUDA Graphs to accelerate FLUX 3 Image Klein, a diffusion model from Black Forest Labs. In NVIDIA’s own benchmark on a B200 GPU, the Base checkpoint achieved 3.46× speed‑up for 2048×2048 text‑to‑image and 4.45× for image‑to‑image compared with uncompiled BF16 inference; the Distilled checkpoint saw 2.71× and 7.48× overall latency reductions respectively.",
+          "Latency gains come from reduced denoising time—down to 47 ms for Base T2I and 24 ms for Distilled T2I—while decode and post‑process steps remain unchanged. The tutorial also shows how to enable multi‑GPU parallelism and caching for larger workloads.",
+          "Developers integrating diffusion models into design tools should adopt the provided YAML configuration and enable NVFP4 support to reap the reported speed‑ups, noting that the numbers reflect a single B200 GPU and may vary with batch size or alternative hardware."
+        ],
+        "implication": "Using VisualGen’s fused kernels and FP8/NVFP4 quantization can halve inference latency for high‑resolution FLUX 3 Image Klein workloads on Blackwell GPUs, making real‑time editing more feasible.",
+        "source_ids": [
+          "source-a6bcd182b2895683"
+        ]
+      },
+      {
+        "id": "foundationworlds-toyblocks-intro",
+        "section": "AI",
+        "headline": "Hugging Face launches FoundationWorlds with ToyBlocks simulation",
+        "summary": "Hugging Face released FoundationWorlds, a framework that pairs controlled robot simulators with automatic task generation, starting with the ToyBlocks environment.",
+        "paragraphs": [
+          "The new FoundationWorlds suite bundles a simulated world, task generators, demonstration pipelines, and evaluation metrics, all built on Nvidia’s Isaac Lab. ToyBlocks lets researchers train short‑horizon manipulation skills—like pushing or flipping blocks—using reinforcement learning and motion planning, while optionally exploiting privileged simulator data unavailable to real robots."
+        ],
+        "implication": "Engineers can now prototype and benchmark robot learning pipelines in a reproducible, low‑cost setting before moving to physical hardware, reducing reliance on scarce real‑world datasets.",
+        "source_ids": [
+          "source-5a90caffb2c87d2e"
+        ]
+      },
+      {
+        "id": "undici-security-fixes-nov2026",
+        "section": "Security",
+        "headline": "undici fixes SRI whitespace bypass and cache disclosure bugs",
+        "summary": "Versions 7.30.2 and 8.12.4 address two moderate vulnerabilities in undici’s fetch implementation.",
+        "paragraphs": [
+          "Undici 7.15.0 introduced a Subresource Integrity (SRI) parsing flaw: integrity strings surrounded by any ASCII whitespace, such as a tab, were split only on spaces, causing the check to be skipped and allowing tampered responses to pass. The same library also stored redirected, credential‑bearing responses in a shared cache under the original request key, leaking private data to other users. Upgrading to 7.30.2 or 8.12.4 restores full ASCII‑whitespace splitting for SRI and corrects the cache key handling for same‑origin redirects."
+        ],
+        "implication": "Projects that rely on undici for fetch must upgrade to 7.30.2 or 8.12.4, or otherwise avoid whitespace in SRI values and refrain from using a shared cache with compose(redirect(), cache()) when handling authenticated requests.",
+        "source_ids": [
+          "source-ffe0339f7024c427",
+          "source-7e3a94fc99754a1d"
+        ]
+      },
+      {
+        "id": "mustcreate-generic-go-tests",
+        "section": "Engineering",
+        "headline": "Go tests gain a generic MustCreate helper",
+        "summary": "A single generic MustCreate function replaces per‑type MustCreateX helpers, cutting boilerplate in Go test code.",
+        "paragraphs": [
+          "The new test utility, testutil.MustCreate, accepts a testing.TB, a constructor (e.g. NewUsername), and raw input, then forwards the constructor’s result to the test. By using Go generics, developers can drop dozens of type‑specific wrappers for creating values in tests, reducing repetitive error‑checking code and improving readability."
+        ],
+        "implication": "Go teams can simplify their test suites by adopting the generic MustCreate helper, keeping test files shorter without adding new per‑type helpers.",
+        "source_ids": [
+          "source-6e5368b1d6f3a55e"
+        ]
+      },
+      {
+        "id": "futhark-nondeterminism-2026-11-07",
+        "section": "Engineering",
+        "headline": "Futhark’s parallel operators can introduce floating‑point nondeterminism",
+        "summary": "The Futhark language’s reduce, scan and histogram primitives may yield different results across runs due to rounding‑error nondeterminism in parallel execution.",
+        "paragraphs": [
+          "Futhark treats nondeterminism as a side effect of floating‑point rounding when parallel operators such as reduce, scan, or scatter are used with non‑commutative or non‑associative functions. The blog notes that while the language is nominally deterministic, these primitives are documented but unchecked, so identical inputs can produce slightly different outputs on different hardware or thread schedules."
+        ],
+        "implication": "Developers should restrict parallel reductions to mathematically associative and commutative operators, or add explicit verification, to avoid subtle result drift in performance‑critical code.",
+        "source_ids": [
+          "source-83821d68904756c5"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "production-reallocation-mechanism",
+        "title": "How Production Capacity Shifts When a Model Is Retired",
+        "paragraphs": [
+          "When Tesla winds down Cybertruck production at its Texas gigafactory, the plant will have available capacity that can be used for the newly launched Cybercab. The evidence notes that the wind‑down is intended to “accommodate increased output” of the Cybercab, indicating a shift in manufacturing focus.",
+          "Because the Austin facility is currently the only known location equipped to build the Cybertruck’s specialized components, ending or reducing Cybertruck output creates space—both physical floor space and manufacturing slots—that can be reassigned to the Cybercab’s production line."
+        ],
+        "example": "Think of a factory that stops assembling one product and then uses the freed assembly stations to start building a different product; the space and equipment that were dedicated to the first product become available for the new one.",
+        "takeaway": "When a vehicle model is retired, the factory’s freed capacity can be redirected to a new model, allowing the company to prioritize higher‑potential products.",
+        "article_ids": [
+          "tesla-cybertruck-wind-down-2027"
+        ],
+        "source_ids": [
+          "source-3d951e64c858db64"
+        ]
+      },
+      {
+        "id": "damage-only-redraw-efficiency",
+        "title": "Why Damage‑Only Redraw Cuts UI CPU Usage",
+        "paragraphs": [
+          "Blender’s original UI tracks which widgets have changed and only redraws those regions, a technique called damage‑only redraw. The BUI library inherits this model, so an idle UI consumes 0 % CPU and moving the mouse over a button triggers a redraw of just that widget.",
+          "In the benchmarks posted with the BUI repository, this approach results in 2–4× lower CPU usage per frame compared with the gpui‑fast reference implementation, while also using less RAM and delivering a first‑frame render time of roughly 5 ms."
+        ],
+        "example": "Imagine a settings panel with 100 sliders. With damage‑only redraw, only the slider the user drags is repainted; the other 99 remain untouched, keeping CPU usage near zero until another interaction occurs.",
+        "takeaway": "Adopting a damage‑only redraw strategy lets UI libraries deliver responsive, low‑power interfaces by limiting rendering work to the parts of the screen that actually change.",
+        "article_ids": [
+          "blender-ui-bui-faster-than-gpui"
+        ],
+        "source_ids": [
+          "source-bec042b19afda6a8"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-production-reallocation-mechanism-1",
+        "lesson_id": "production-reallocation-mechanism",
+        "prompt": "According to the lesson, what primary effect does retiring the Cybertruck have on the Austin gigafactory?",
+        "options": [
+          "It frees physical floor space and manufacturing slots for other products.",
+          "It reduces the overall workforce at the plant permanently.",
+          "It eliminates the need for specialized component tooling.",
+          "It increases the plant’s electricity consumption."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that ending or reducing Cybertruck output creates space—both physical floor space and manufacturing slots—that can be reassigned to the Cybercab’s production line."
+      },
+      {
+        "id": "quiz-1-production-reallocation-mechanism-2",
+        "lesson_id": "production-reallocation-mechanism",
+        "prompt": "Why is the Austin facility uniquely positioned to shift production from the Cybertruck to the Cybercab?",
+        "options": [
+          "It is the only known location equipped to build the Cybertruck’s specialized components.",
+          "It has the highest employee satisfaction rating among Tesla plants.",
+          "It is the only plant with a dedicated paint shop for electric vehicles.",
+          "It has excess renewable energy capacity compared to other factories."
+        ],
+        "answer": 0,
+        "explanation": "The lesson notes that the Austin facility is currently the only known location equipped to build the Cybertruck’s specialized components, so reducing that output frees capacity for the Cybercab."
+      },
+      {
+        "id": "quiz-1-production-reallocation-mechanism-3",
+        "lesson_id": "production-reallocation-mechanism",
+        "prompt": "What strategic purpose does the wind‑down of Cybertruck production serve, as described in the lesson?",
+        "options": [
+          "To accommodate increased output of the newly launched Cybercab.",
+          "To test new manufacturing robots before full deployment.",
+          "To comply with new environmental regulations in Texas.",
+          "To reduce the overall cost of raw materials for Tesla."
+        ],
+        "answer": 0,
+        "explanation": "The evidence explicitly says the wind‑down is intended to “accommodate increased output” of the Cybercab, indicating a shift in manufacturing focus."
+      },
+      {
+        "id": "quiz-2-damage-only-redraw-mechanism",
+        "lesson_id": "damage-only-redraw-efficiency",
+        "prompt": "What is the primary reason damage‑only redraw reduces CPU usage in idle UI states?",
+        "options": [
+          "It disables the graphics driver entirely when no input is detected.",
+          "It tracks widget changes and redraws only the regions that have been altered.",
+          "It compresses the UI texture data to a smaller size before each frame.",
+          "It runs the UI rendering on a separate low‑priority thread."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that damage‑only redraw works by tracking which widgets have changed and redrawing only those regions, so when nothing changes the UI consumes 0 % CPU."
+      },
+      {
+        "id": "quiz-2-damage-only-redraw-performance",
+        "lesson_id": "damage-only-redraw-efficiency",
+        "prompt": "According to the benchmarks, how does damage‑only redraw compare to the gpui‑fast reference implementation?",
+        "options": [
+          "It uses roughly the same CPU per frame but requires more RAM.",
+          "It consumes 2–4× lower CPU per frame and also uses less RAM.",
+          "It reduces CPU usage by half but increases first‑frame render time.",
+          "It improves CPU usage only on high‑resolution displays."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that the damage‑only redraw approach results in 2–4× lower CPU usage per frame compared with gpui‑fast, while also using less RAM and delivering a first‑frame render time of about 5 ms."
+      }
+    ],
+    "segments": [
+      {
+        "id": "tesla-cybertruck-wind-down-2027-segment",
+        "title": "Tesla to wind down Cybertruck production",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November seven, two thousand twenty six.\n\nWe begin with our lead story. Tesla says it will start winding down Cybertruck output at its Austin gigafactory around mid‑2027. Elon Musk framed the move as a way to free capacity for the newly launched Cybercab robotaxi, after the truck sold only about twenty thousand units in the United States last year – a forty‑eight percent drop. The shift also reflects the truck’s struggle to meet European pedestrian‑impact rules and its niche market appeal. Here's why that matters: Tesla is redirecting tooling and staff toward autonomous ride‑hailing, reshaping its supply chain and workforce priorities.",
+        "article_ids": [
+          "tesla-cybertruck-wind-down-2027"
+        ]
+      },
+      {
+        "id": "blender-bui-performance",
+        "title": "BUI cuts UI CPU use dramatically",
+        "text": "Next on the bulletin. Blender UI library, or BUI, delivers two to four times lower CPU per frame than gpui.\n\nThe project pulls Blender’s battle‑tested UI code into a cross‑language widget set that works with Rust rsx, gpui builders, React, Svelte and Dear ImGui. Benchmarks in the repo show the CPU drop while also shaving RAM use and hitting about five milliseconds for the first frame. It keeps Blender’s damage‑only redraw model, so an idle UI barely burns any cycles. The trade‑off? No accessibility features yet, so developers need to plan around that limitation.",
+        "article_ids": [
+          "blender-ui-bui-faster-than-gpui"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "AI research may need a massive labor boost",
+        "text": "Turning to our next story. AI capability growth is outpacing the work of researchers, according to a Hacker News discussion. The model they cite says compute gains from software are climbing two to three times, but to double overall capability you’d need roughly four to nine times more researcher effort. In plain terms, each new software multiplier demands a lot more hands on deck. Here’s why that matters: teams counting on software alone should expect to hire significantly more staff or invest in automation, or they’ll hit a bottleneck.\n",
+        "article_ids": [
+          "ai-research-acceleration-2026"
+        ]
+      },
+      {
+        "id": "kugelblitz-1-0-3-mac-globe",
+        "title": "Kugelblitz 1.0.3 adds macOS 27‑compatible 3‑D globe",
+        "text": "Next on the bulletin. Kugelblitz version one point zero point three lands for macOS twenty seven and later, bringing a native three‑dimensional Earth viewer. You can fly over a terrain‑accurate globe or flip to any of five flat map projections, all fed by OpenStreetMap tiles that the app serves itself. The tiles are cached on your machine and can be shared across a local network, so there’s no need for a user account. It supports German and English and lets you pick your own units. Here’s why that matters: engineers can now explore global geodata offline or inside an intranet without relying on external services.",
+        "article_ids": [
+          "kugelblitz-mac-globe-2026"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "TensorRT VisualGen speeds FLUX 3 Image Klein",
+        "text": "And finally, our last story. TensorRT LLM VisualGen cuts FLUX three Image Klein latency on Blackwell GPUs.\n\nNVIDIA’s VisualGen stack adds NVFP4 quantization, fused PrimsTS GEMM kernels, torch.compile and CUDA Graphs. In its own benchmark a single B200 Blackwell chip ran the Base checkpoint 3.46 times faster for 2048‑by‑2048 text‑to‑image and 4.45 times faster for image‑to‑image versus uncompiled BF16. The Distilled checkpoint dropped latency to 24 ms for image‑to‑image. That means high‑resolution diffusion can edge closer to real‑time editing, though results reflect one GPU and may vary with batch size or hardware.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "flux-3-image-klein-speedup-nvidia-blackwell"
+        ]
+      }
+    ],
+    "artwork_brief": "Create a vibrant collage that blends abstract elements with visual cues from the featured topics: AI acceleration, UI library efficiency, graphics rendering, and security updates. Use a palette of bright, contrasting colors to convey activity and innovation."
+  },
+  "sources": [
+    {
+      "id": "source-3d951e64c858db64",
+      "name": "Hacker News",
+      "title": "Tesla to wind down Cybertruck production",
+      "url": "https://www.nbcnews.com/tech/tech-news/tesla-wind-cybertruck-production-years-poor-sales-markets-rcna607817",
+      "published_at": null,
+      "discovered_at": "2026-11-06T12:13:51Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50391456"
+    },
+    {
+      "id": "source-a6bcd182b2895683",
+      "name": "NVIDIA Developer",
+      "title": "Speed Up Image Generation with FLUX 3 Image Klein on NVIDIA Blackwell GPUs",
+      "url": "https://developer.nvidia.com/blog/speed-up-image-generation-with-flux-3-image-klein-on-nvidia-blackwell-gpus/",
+      "published_at": "2026-11-06T22:20:20Z",
+      "discovered_at": "2026-11-07T06:18:41.775780683Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-5a90caffb2c87d2e",
+      "name": "Hugging Face",
+      "title": "ToyBlocks: A controlled world for robot learning and evaluation",
+      "url": "https://huggingface.co/blog/allenai/toyblocks",
+      "published_at": "2026-11-06T14:00:48Z",
+      "discovered_at": "2026-11-07T06:18:40.660923249Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-bec042b19afda6a8",
+      "name": "Hacker News",
+      "title": "Blender's UI and Runtime: Much Faster Than GPUI",
+      "url": "https://github.com/ppmpreetham/BUI",
+      "published_at": null,
+      "discovered_at": "2026-11-06T07:40:35Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50389333"
+    },
+    {
+      "id": "source-ffe0339f7024c427",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-120423: undici vulnerable to Subresource Integrity bypass via whitespace in integrity metadata",
+      "url": "https://github.com/nodejs/undici/security/advisories/GHSA-r4pc-4jcp-7pqc",
+      "published_at": "2026-11-06T10:08:32Z",
+      "discovered_at": "2026-11-07T06:18:40.889703111Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-7e3a94fc99754a1d",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-120474: undici vulnerable to cross-user cache disclosure via same-origin redirect",
+      "url": "https://github.com/nodejs/undici/security/advisories/GHSA-7xg3-fphp-28hg",
+      "published_at": "2026-11-06T09:57:46Z",
+      "discovered_at": "2026-11-07T06:18:40.889703111Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-83821d68904756c5",
+      "name": "Lobsters",
+      "title": "Nondeterminism in Futhark",
+      "url": "https://futhark-lang.org/blog/2026-11-04-nondeterminism.html",
+      "published_at": null,
+      "discovered_at": "2026-11-06T13:16:01.378-06:00",
+      "discussion_url": "https://lobste.rs/s/4lgvnf/nondeterminism_futhark"
+    },
+    {
+      "id": "source-e0c8b4541e0b5e8b",
+      "name": "Hacker News",
+      "title": "AI is dramatically accelerating AI research",
+      "url": "https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai",
+      "published_at": null,
+      "discovered_at": "2026-11-06T20:27:23Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50397994"
+    },
+    {
+      "id": "source-6e5368b1d6f3a55e",
+      "name": "Lobsters",
+      "title": "The MustCreate Pattern for Go Tests",
+      "url": "https://mtlynch.io/notes/go-must-create-pattern/",
+      "published_at": null,
+      "discovered_at": "2026-11-06T09:37:00.157-06:00",
+      "discussion_url": "https://lobste.rs/s/i96uyr/mustcreate_pattern_for_go_tests"
+    },
+    {
+      "id": "source-c1341098da6d4c5b",
+      "name": "Hacker News",
+      "title": "Kugelblitz – Mac-Native Google Earth Alternative",
+      "url": "https://apps.metaebene.me/en/kugelblitz",
+      "published_at": null,
+      "discovered_at": "2026-11-06T07:47:38Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50389370"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-07/c7449e8e05a3fbcc186e2073a3d05eb3d59292997604e35a2444c6b19d11aea1.mp3",
+    "duration_seconds": 185.184,
+    "script_hash": "8730036e269020bde114abf82596d6f603b9e09439a60aea8cc294e6a9ab4d36",
+    "cues": [
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "everyone,",
+        "start_seconds": 0.625,
+        "end_seconds": 1.1625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "and",
+        "start_seconds": 1.1625,
+        "end_seconds": 1.275
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "welcome",
+        "start_seconds": 1.275,
+        "end_seconds": 1.65
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "to",
+        "start_seconds": 1.65,
+        "end_seconds": 1.775
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Daywire.",
+        "start_seconds": 1.775,
+        "end_seconds": 2.5875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Let's",
+        "start_seconds": 2.5875,
+        "end_seconds": 2.8125
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "make",
+        "start_seconds": 2.8125,
+        "end_seconds": 3.025
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "sense",
+        "start_seconds": 3.025,
+        "end_seconds": 3.3375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "of",
+        "start_seconds": 3.3375,
+        "end_seconds": 3.4125
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "the",
+        "start_seconds": 3.4125,
+        "end_seconds": 3.5
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "tech",
+        "start_seconds": 3.5,
+        "end_seconds": 3.75
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "news.",
+        "start_seconds": 3.75,
+        "end_seconds": 4.375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "It's",
+        "start_seconds": 4.375,
+        "end_seconds": 4.5375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "November",
+        "start_seconds": 4.5375,
+        "end_seconds": 5.0125
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "seven,",
+        "start_seconds": 5.0125,
+        "end_seconds": 5.425
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "two",
+        "start_seconds": 5.425,
+        "end_seconds": 5.625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "thousand",
+        "start_seconds": 5.625,
+        "end_seconds": 5.9625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "twenty",
+        "start_seconds": 5.9625,
+        "end_seconds": 6.2
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "six.",
+        "start_seconds": 6.2,
+        "end_seconds": 7.025
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "We",
+        "start_seconds": 8.2,
+        "end_seconds": 8.2875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "begin",
+        "start_seconds": 8.2875,
+        "end_seconds": 8.5875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "with",
+        "start_seconds": 8.5875,
+        "end_seconds": 8.6875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "our",
+        "start_seconds": 8.6875,
+        "end_seconds": 8.825
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "lead",
+        "start_seconds": 8.825,
+        "end_seconds": 9.049999999999999
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "story.",
+        "start_seconds": 9.049999999999999,
+        "end_seconds": 9.799999999999999
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Tesla",
+        "start_seconds": 9.799999999999999,
+        "end_seconds": 10.175
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "says",
+        "start_seconds": 10.175,
+        "end_seconds": 10.3625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "it",
+        "start_seconds": 10.3625,
+        "end_seconds": 10.4375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "will",
+        "start_seconds": 10.4375,
+        "end_seconds": 10.5375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "start",
+        "start_seconds": 10.5375,
+        "end_seconds": 10.774999999999999
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "winding",
+        "start_seconds": 10.774999999999999,
+        "end_seconds": 11.1
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "down",
+        "start_seconds": 11.1,
+        "end_seconds": 11.35
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Cybertruck",
+        "start_seconds": 11.35,
+        "end_seconds": 11.825
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "output",
+        "start_seconds": 11.825,
+        "end_seconds": 12.175
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "at",
+        "start_seconds": 12.175,
+        "end_seconds": 12.2625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "its",
+        "start_seconds": 12.2625,
+        "end_seconds": 12.375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Austin",
+        "start_seconds": 12.375,
+        "end_seconds": 12.725
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "gigafactory",
+        "start_seconds": 12.725,
+        "end_seconds": 13.35
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "around",
+        "start_seconds": 13.35,
+        "end_seconds": 13.6
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "mid‑2027.",
+        "start_seconds": 13.6,
+        "end_seconds": 15.225
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Elon",
+        "start_seconds": 15.225,
+        "end_seconds": 15.5
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Musk",
+        "start_seconds": 15.5,
+        "end_seconds": 15.774999999999999
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "framed",
+        "start_seconds": 15.774999999999999,
+        "end_seconds": 16.0125
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "the",
+        "start_seconds": 16.0125,
+        "end_seconds": 16.1
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "move",
+        "start_seconds": 16.1,
+        "end_seconds": 16.3375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "as",
+        "start_seconds": 16.3375,
+        "end_seconds": 16.4375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "a",
+        "start_seconds": 16.4375,
+        "end_seconds": 16.5
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "way",
+        "start_seconds": 16.5,
+        "end_seconds": 16.6375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "to",
+        "start_seconds": 16.6375,
+        "end_seconds": 16.725
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "free",
+        "start_seconds": 16.725,
+        "end_seconds": 16.9
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "capacity",
+        "start_seconds": 16.9,
+        "end_seconds": 17.4
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "for",
+        "start_seconds": 17.4,
+        "end_seconds": 17.5125
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "the",
+        "start_seconds": 17.5125,
+        "end_seconds": 17.6
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "newly",
+        "start_seconds": 17.6,
+        "end_seconds": 17.875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "launched",
+        "start_seconds": 17.875,
+        "end_seconds": 18.174999999999997
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Cybercab",
+        "start_seconds": 18.174999999999997,
+        "end_seconds": 18.6375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "robotaxi,",
+        "start_seconds": 18.6375,
+        "end_seconds": 19.549999999999997
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "after",
+        "start_seconds": 19.549999999999997,
+        "end_seconds": 19.7875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "the",
+        "start_seconds": 19.7875,
+        "end_seconds": 19.875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "truck",
+        "start_seconds": 19.875,
+        "end_seconds": 20.15
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "sold",
+        "start_seconds": 20.15,
+        "end_seconds": 20.424999999999997
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "only",
+        "start_seconds": 20.424999999999997,
+        "end_seconds": 20.6875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "about",
+        "start_seconds": 20.6875,
+        "end_seconds": 20.875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "twenty",
+        "start_seconds": 20.875,
+        "end_seconds": 21.15
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "thousand",
+        "start_seconds": 21.15,
+        "end_seconds": 21.5125
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "units",
+        "start_seconds": 21.5125,
+        "end_seconds": 21.7625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "in",
+        "start_seconds": 21.7625,
+        "end_seconds": 21.8375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "the",
+        "start_seconds": 21.8375,
+        "end_seconds": 21.9125
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "United",
+        "start_seconds": 21.9125,
+        "end_seconds": 22.2125
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "States",
+        "start_seconds": 22.2125,
+        "end_seconds": 22.5
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "last",
+        "start_seconds": 22.5,
+        "end_seconds": 22.7875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "year",
+        "start_seconds": 22.7875,
+        "end_seconds": 23.025
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "–",
+        "start_seconds": 23.025,
+        "end_seconds": 23.0875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "a",
+        "start_seconds": 23.0875,
+        "end_seconds": 23.1875
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "forty‑eight",
+        "start_seconds": 23.1875,
+        "end_seconds": 23.6625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "percent",
+        "start_seconds": 23.6625,
+        "end_seconds": 23.9625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "drop.",
+        "start_seconds": 23.9625,
+        "end_seconds": 24.700000000000003
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "The",
+        "start_seconds": 24.700000000000003,
+        "end_seconds": 24.8375
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "shift",
+        "start_seconds": 24.8375,
+        "end_seconds": 25.15
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "also",
+        "start_seconds": 25.15,
+        "end_seconds": 25.5
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "reflects",
+        "start_seconds": 25.5,
+        "end_seconds": 25.887500000000003
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "the",
+        "start_seconds": 25.887500000000003,
+        "end_seconds": 25.975
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "truck’s",
+        "start_seconds": 25.975,
+        "end_seconds": 26.275
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "struggle",
+        "start_seconds": 26.275,
+        "end_seconds": 26.700000000000003
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "to",
+        "start_seconds": 26.700000000000003,
+        "end_seconds": 26.799999999999997
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "meet",
+        "start_seconds": 26.799999999999997,
+        "end_seconds": 27
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "European",
+        "start_seconds": 27,
+        "end_seconds": 27.5
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "pedestrian‑impact",
+        "start_seconds": 27.5,
+        "end_seconds": 28.424999999999997
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "rules",
+        "start_seconds": 28.424999999999997,
+        "end_seconds": 28.775
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "and",
+        "start_seconds": 28.775,
+        "end_seconds": 28.887500000000003
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "its",
+        "start_seconds": 28.887500000000003,
+        "end_seconds": 29.0625
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "niche",
+        "start_seconds": 29.0625,
+        "end_seconds": 29.325000000000003
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "market",
+        "start_seconds": 29.325000000000003,
+        "end_seconds": 29.612499999999997
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "appeal.",
+        "start_seconds": 29.612499999999997,
+        "end_seconds": 30.512500000000003
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Here's",
+        "start_seconds": 30.97,
+        "end_seconds": 31.244999999999997
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "why",
+        "start_seconds": 31.244999999999997,
+        "end_seconds": 31.419999999999998
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "that",
+        "start_seconds": 31.419999999999998,
+        "end_seconds": 31.619999999999997
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "matters:",
+        "start_seconds": 31.619999999999997,
+        "end_seconds": 32.4325
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "Tesla",
+        "start_seconds": 32.4325,
+        "end_seconds": 32.845
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "is",
+        "start_seconds": 32.845,
+        "end_seconds": 32.995
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "redirecting",
+        "start_seconds": 32.995,
+        "end_seconds": 33.6325
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "tooling",
+        "start_seconds": 33.6325,
+        "end_seconds": 34.0325
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "and",
+        "start_seconds": 34.0325,
+        "end_seconds": 34.144999999999996
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "staff",
+        "start_seconds": 34.144999999999996,
+        "end_seconds": 34.495
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "toward",
+        "start_seconds": 34.495,
+        "end_seconds": 34.72
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "autonomous",
+        "start_seconds": 34.72,
+        "end_seconds": 35.295
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "ride‑hailing,",
+        "start_seconds": 35.295,
+        "end_seconds": 36.17
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "reshaping",
+        "start_seconds": 36.17,
+        "end_seconds": 36.6825
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "its",
+        "start_seconds": 36.6825,
+        "end_seconds": 36.795
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "supply",
+        "start_seconds": 36.795,
+        "end_seconds": 37.1825
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "chain",
+        "start_seconds": 37.1825,
+        "end_seconds": 37.519999999999996
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "and",
+        "start_seconds": 37.519999999999996,
+        "end_seconds": 37.644999999999996
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "workforce",
+        "start_seconds": 37.644999999999996,
+        "end_seconds": 38.095
+      },
+      {
+        "segment_id": "tesla-cybertruck-wind-down-2027-segment",
+        "text": "priorities.",
+        "start_seconds": 38.095,
+        "end_seconds": 39.269999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "Next",
+        "start_seconds": 40.47,
+        "end_seconds": 40.7575
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "on",
+        "start_seconds": 40.7575,
+        "end_seconds": 40.8575
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "the",
+        "start_seconds": 40.8575,
+        "end_seconds": 40.945
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "bulletin.",
+        "start_seconds": 40.945,
+        "end_seconds": 41.8075
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "Blender",
+        "start_seconds": 41.8075,
+        "end_seconds": 42.17
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "UI",
+        "start_seconds": 42.17,
+        "end_seconds": 42.445
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "library,",
+        "start_seconds": 42.445,
+        "end_seconds": 43.07
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "or",
+        "start_seconds": 43.07,
+        "end_seconds": 43.22
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "BUI,",
+        "start_seconds": 43.22,
+        "end_seconds": 43.82
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "delivers",
+        "start_seconds": 43.82,
+        "end_seconds": 44.2325
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "two",
+        "start_seconds": 44.2325,
+        "end_seconds": 44.445
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "to",
+        "start_seconds": 44.445,
+        "end_seconds": 44.57
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "four",
+        "start_seconds": 44.57,
+        "end_seconds": 44.795
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "times",
+        "start_seconds": 44.795,
+        "end_seconds": 45.12
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "lower",
+        "start_seconds": 45.12,
+        "end_seconds": 45.4325
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "CPU",
+        "start_seconds": 45.4325,
+        "end_seconds": 45.995
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "per",
+        "start_seconds": 45.995,
+        "end_seconds": 46.1575
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "frame",
+        "start_seconds": 46.1575,
+        "end_seconds": 46.4325
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "than",
+        "start_seconds": 46.4325,
+        "end_seconds": 46.57
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "gpui.",
+        "start_seconds": 46.57,
+        "end_seconds": 47.67
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "The",
+        "start_seconds": 48.845,
+        "end_seconds": 48.919999999999995
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "project",
+        "start_seconds": 48.919999999999995,
+        "end_seconds": 49.345
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "pulls",
+        "start_seconds": 49.345,
+        "end_seconds": 49.62
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "Blender’s",
+        "start_seconds": 49.62,
+        "end_seconds": 50.019999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "battle‑tested",
+        "start_seconds": 50.019999999999996,
+        "end_seconds": 50.745
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "UI",
+        "start_seconds": 50.745,
+        "end_seconds": 51.019999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "code",
+        "start_seconds": 51.019999999999996,
+        "end_seconds": 51.2825
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "into",
+        "start_seconds": 51.2825,
+        "end_seconds": 51.482499999999995
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "a",
+        "start_seconds": 51.482499999999995,
+        "end_seconds": 51.544999999999995
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "cross‑language",
+        "start_seconds": 51.544999999999995,
+        "end_seconds": 52.195
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "widget",
+        "start_seconds": 52.195,
+        "end_seconds": 52.47
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "set",
+        "start_seconds": 52.47,
+        "end_seconds": 52.6325
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "that",
+        "start_seconds": 52.6325,
+        "end_seconds": 52.732499999999995
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "works",
+        "start_seconds": 52.732499999999995,
+        "end_seconds": 52.957499999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "with",
+        "start_seconds": 52.957499999999996,
+        "end_seconds": 53.12
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "Rust",
+        "start_seconds": 53.12,
+        "end_seconds": 53.357499999999995
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "rsx,",
+        "start_seconds": 53.357499999999995,
+        "end_seconds": 54.12
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "gpui",
+        "start_seconds": 54.12,
+        "end_seconds": 54.519999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "builders,",
+        "start_seconds": 54.519999999999996,
+        "end_seconds": 54.945
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "React,",
+        "start_seconds": 54.945,
+        "end_seconds": 55.37
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "Svelte",
+        "start_seconds": 55.37,
+        "end_seconds": 55.6825
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "and",
+        "start_seconds": 55.6825,
+        "end_seconds": 55.794999999999995
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "Dear",
+        "start_seconds": 55.794999999999995,
+        "end_seconds": 56.019999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "ImGui.",
+        "start_seconds": 56.019999999999996,
+        "end_seconds": 56.894999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "Benchmarks",
+        "start_seconds": 56.894999999999996,
+        "end_seconds": 57.3075
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "in",
+        "start_seconds": 57.3075,
+        "end_seconds": 57.38249999999999
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "the",
+        "start_seconds": 57.38249999999999,
+        "end_seconds": 57.47
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "repo",
+        "start_seconds": 57.47,
+        "end_seconds": 57.845
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "show",
+        "start_seconds": 57.845,
+        "end_seconds": 57.9825
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "the",
+        "start_seconds": 57.9825,
+        "end_seconds": 58.06999999999999
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "CPU",
+        "start_seconds": 58.06999999999999,
+        "end_seconds": 58.495
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "drop",
+        "start_seconds": 58.495,
+        "end_seconds": 58.75749999999999
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "while",
+        "start_seconds": 58.75749999999999,
+        "end_seconds": 58.894999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "also",
+        "start_seconds": 58.894999999999996,
+        "end_seconds": 59.22
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "shaving",
+        "start_seconds": 59.22,
+        "end_seconds": 59.56999999999999
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "RAM",
+        "start_seconds": 59.56999999999999,
+        "end_seconds": 59.81999999999999
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "use",
+        "start_seconds": 59.81999999999999,
+        "end_seconds": 60.0325
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "and",
+        "start_seconds": 60.0325,
+        "end_seconds": 60.144999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "hitting",
+        "start_seconds": 60.144999999999996,
+        "end_seconds": 60.38249999999999
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "about",
+        "start_seconds": 60.38249999999999,
+        "end_seconds": 60.62
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "five",
+        "start_seconds": 60.62,
+        "end_seconds": 60.894999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "milliseconds",
+        "start_seconds": 60.894999999999996,
+        "end_seconds": 61.4325
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "for",
+        "start_seconds": 61.4325,
+        "end_seconds": 61.5325
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "the",
+        "start_seconds": 61.5325,
+        "end_seconds": 61.62
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "first",
+        "start_seconds": 61.62,
+        "end_seconds": 61.894999999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "frame.",
+        "start_seconds": 61.894999999999996,
+        "end_seconds": 62.47
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "It",
+        "start_seconds": 62.47,
+        "end_seconds": 62.582499999999996
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "keeps",
+        "start_seconds": 62.582499999999996,
+        "end_seconds": 62.845
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "Blender’s",
+        "start_seconds": 62.845,
+        "end_seconds": 63.17
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "damage‑only",
+        "start_seconds": 63.17,
+        "end_seconds": 63.845
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "redraw",
+        "start_seconds": 63.845,
+        "end_seconds": 64.245
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "model,",
+        "start_seconds": 64.245,
+        "end_seconds": 64.595
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "so",
+        "start_seconds": 64.595,
+        "end_seconds": 64.7075
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "an",
+        "start_seconds": 64.7075,
+        "end_seconds": 64.795
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "idle",
+        "start_seconds": 64.795,
+        "end_seconds": 65.095
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "UI",
+        "start_seconds": 65.095,
+        "end_seconds": 65.395
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "barely",
+        "start_seconds": 65.395,
+        "end_seconds": 65.72
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "burns",
+        "start_seconds": 65.72,
+        "end_seconds": 66.02
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "any",
+        "start_seconds": 66.02,
+        "end_seconds": 66.22
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "cycles.",
+        "start_seconds": 66.22,
+        "end_seconds": 66.945
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "The",
+        "start_seconds": 66.945,
+        "end_seconds": 67.045
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "trade‑off?",
+        "start_seconds": 67.045,
+        "end_seconds": 67.8075
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "No",
+        "start_seconds": 67.8075,
+        "end_seconds": 67.9825
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "accessibility",
+        "start_seconds": 67.9825,
+        "end_seconds": 68.67
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "features",
+        "start_seconds": 68.67,
+        "end_seconds": 69.045
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "yet,",
+        "start_seconds": 69.045,
+        "end_seconds": 69.345
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "so",
+        "start_seconds": 69.345,
+        "end_seconds": 69.4825
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "developers",
+        "start_seconds": 69.4825,
+        "end_seconds": 70.02
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "need",
+        "start_seconds": 70.02,
+        "end_seconds": 70.2075
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "to",
+        "start_seconds": 70.2075,
+        "end_seconds": 70.295
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "plan",
+        "start_seconds": 70.295,
+        "end_seconds": 70.57
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "around",
+        "start_seconds": 70.57,
+        "end_seconds": 70.8575
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "that",
+        "start_seconds": 70.8575,
+        "end_seconds": 71.0075
+      },
+      {
+        "segment_id": "blender-bui-performance",
+        "text": "limitation.",
+        "start_seconds": 71.0075,
+        "end_seconds": 72.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Turning",
+        "start_seconds": 73.27,
+        "end_seconds": 73.57000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 73.57000000000001,
+        "end_seconds": 73.6575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 73.6575,
+        "end_seconds": 73.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "next",
+        "start_seconds": 73.7825,
+        "end_seconds": 74.0325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 74.0325,
+        "end_seconds": 74.75750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 74.75750000000001,
+        "end_seconds": 75.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "capability",
+        "start_seconds": 75.12,
+        "end_seconds": 75.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "growth",
+        "start_seconds": 75.67,
+        "end_seconds": 76.02
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "is",
+        "start_seconds": 76.02,
+        "end_seconds": 76.1575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "outpacing",
+        "start_seconds": 76.1575,
+        "end_seconds": 76.6825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 76.6825,
+        "end_seconds": 76.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "work",
+        "start_seconds": 76.77,
+        "end_seconds": 76.9825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 76.9825,
+        "end_seconds": 77.0575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "researchers,",
+        "start_seconds": 77.0575,
+        "end_seconds": 77.745
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "according",
+        "start_seconds": 77.745,
+        "end_seconds": 78.145
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 78.145,
+        "end_seconds": 78.2325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 78.2325,
+        "end_seconds": 78.295
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Hacker",
+        "start_seconds": 78.295,
+        "end_seconds": 78.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "News",
+        "start_seconds": 78.645,
+        "end_seconds": 78.88250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "discussion.",
+        "start_seconds": 78.88250000000001,
+        "end_seconds": 79.82000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 79.82000000000001,
+        "end_seconds": 79.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "model",
+        "start_seconds": 79.92,
+        "end_seconds": 80.1825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "they",
+        "start_seconds": 80.1825,
+        "end_seconds": 80.3325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cite",
+        "start_seconds": 80.3325,
+        "end_seconds": 80.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "says",
+        "start_seconds": 80.595,
+        "end_seconds": 80.82000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "compute",
+        "start_seconds": 80.82000000000001,
+        "end_seconds": 81.19500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "gains",
+        "start_seconds": 81.19500000000001,
+        "end_seconds": 81.4825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 81.4825,
+        "end_seconds": 81.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "software",
+        "start_seconds": 81.645,
+        "end_seconds": 82.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 82.1075,
+        "end_seconds": 82.19500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "climbing",
+        "start_seconds": 82.19500000000001,
+        "end_seconds": 82.5825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 82.5825,
+        "end_seconds": 82.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 82.7825,
+        "end_seconds": 82.87
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "three",
+        "start_seconds": 82.87,
+        "end_seconds": 83.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "times,",
+        "start_seconds": 83.095,
+        "end_seconds": 83.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 83.67,
+        "end_seconds": 83.8075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 83.8075,
+        "end_seconds": 83.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "double",
+        "start_seconds": 83.92,
+        "end_seconds": 84.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "overall",
+        "start_seconds": 84.245,
+        "end_seconds": 84.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "capability",
+        "start_seconds": 84.595,
+        "end_seconds": 85.19500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you’d",
+        "start_seconds": 85.19500000000001,
+        "end_seconds": 85.3075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "need",
+        "start_seconds": 85.3075,
+        "end_seconds": 85.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "roughly",
+        "start_seconds": 85.52,
+        "end_seconds": 85.8575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 85.8575,
+        "end_seconds": 86.0575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 86.0575,
+        "end_seconds": 86.145
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nine",
+        "start_seconds": 86.145,
+        "end_seconds": 86.395
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "times",
+        "start_seconds": 86.395,
+        "end_seconds": 86.745
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "more",
+        "start_seconds": 86.745,
+        "end_seconds": 86.9325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "researcher",
+        "start_seconds": 86.9325,
+        "end_seconds": 87.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "effort.",
+        "start_seconds": 87.42,
+        "end_seconds": 88.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "In",
+        "start_seconds": 88.1075,
+        "end_seconds": 88.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "plain",
+        "start_seconds": 88.245,
+        "end_seconds": 88.57000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "terms,",
+        "start_seconds": 88.57000000000001,
+        "end_seconds": 89.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "each",
+        "start_seconds": 89.07,
+        "end_seconds": 89.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "new",
+        "start_seconds": 89.345,
+        "end_seconds": 89.5325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "software",
+        "start_seconds": 89.5325,
+        "end_seconds": 89.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "multiplier",
+        "start_seconds": 89.97,
+        "end_seconds": 90.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "demands",
+        "start_seconds": 90.545,
+        "end_seconds": 90.8825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 90.8825,
+        "end_seconds": 90.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lot",
+        "start_seconds": 90.945,
+        "end_seconds": 91.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "more",
+        "start_seconds": 91.17,
+        "end_seconds": 91.39500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hands",
+        "start_seconds": 91.39500000000001,
+        "end_seconds": 91.6825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 91.6825,
+        "end_seconds": 91.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "deck.",
+        "start_seconds": 91.845,
+        "end_seconds": 92.6075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here’s",
+        "start_seconds": 93.065,
+        "end_seconds": 93.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 93.59,
+        "end_seconds": 93.7525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 93.7525,
+        "end_seconds": 93.94
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 93.94,
+        "end_seconds": 94.7775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "teams",
+        "start_seconds": 94.7775,
+        "end_seconds": 95.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "counting",
+        "start_seconds": 95.14,
+        "end_seconds": 95.5025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 95.5025,
+        "end_seconds": 95.7025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "software",
+        "start_seconds": 95.7025,
+        "end_seconds": 96.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "alone",
+        "start_seconds": 96.16499999999999,
+        "end_seconds": 96.53999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "should",
+        "start_seconds": 96.53999999999999,
+        "end_seconds": 96.6775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "expect",
+        "start_seconds": 96.6775,
+        "end_seconds": 97.0775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 97.0775,
+        "end_seconds": 97.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hire",
+        "start_seconds": 97.19,
+        "end_seconds": 97.49
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "significantly",
+        "start_seconds": 97.49,
+        "end_seconds": 98.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "more",
+        "start_seconds": 98.14,
+        "end_seconds": 98.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "staff",
+        "start_seconds": 98.365,
+        "end_seconds": 98.765
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 98.765,
+        "end_seconds": 98.8775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "invest",
+        "start_seconds": 98.8775,
+        "end_seconds": 99.2775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 99.2775,
+        "end_seconds": 99.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "automation,",
+        "start_seconds": 99.365,
+        "end_seconds": 100.24
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 100.24,
+        "end_seconds": 100.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "they’ll",
+        "start_seconds": 100.365,
+        "end_seconds": 100.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hit",
+        "start_seconds": 100.565,
+        "end_seconds": 100.72749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 100.72749999999999,
+        "end_seconds": 100.78999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bottleneck.",
+        "start_seconds": 100.78999999999999,
+        "end_seconds": 101.84
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "Next",
+        "start_seconds": 103.04,
+        "end_seconds": 103.30250000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "on",
+        "start_seconds": 103.30250000000001,
+        "end_seconds": 103.4025
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "the",
+        "start_seconds": 103.4025,
+        "end_seconds": 103.49000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "bulletin.",
+        "start_seconds": 103.49000000000001,
+        "end_seconds": 104.24000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "Kugelblitz",
+        "start_seconds": 104.24000000000001,
+        "end_seconds": 104.74000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "version",
+        "start_seconds": 104.74000000000001,
+        "end_seconds": 105.09
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "one",
+        "start_seconds": 105.09,
+        "end_seconds": 105.31500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "point",
+        "start_seconds": 105.31500000000001,
+        "end_seconds": 105.59
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "zero",
+        "start_seconds": 105.59,
+        "end_seconds": 105.89
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "point",
+        "start_seconds": 105.89,
+        "end_seconds": 106.165
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "three",
+        "start_seconds": 106.165,
+        "end_seconds": 106.36500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "lands",
+        "start_seconds": 106.36500000000001,
+        "end_seconds": 106.69000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "for",
+        "start_seconds": 106.69000000000001,
+        "end_seconds": 106.81500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "macOS",
+        "start_seconds": 106.81500000000001,
+        "end_seconds": 107.29
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "twenty",
+        "start_seconds": 107.29,
+        "end_seconds": 107.59
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "seven",
+        "start_seconds": 107.59,
+        "end_seconds": 107.87750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "and",
+        "start_seconds": 107.87750000000001,
+        "end_seconds": 107.99000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "later,",
+        "start_seconds": 107.99000000000001,
+        "end_seconds": 108.36500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "bringing",
+        "start_seconds": 108.36500000000001,
+        "end_seconds": 108.62750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "a",
+        "start_seconds": 108.62750000000001,
+        "end_seconds": 108.69000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "native",
+        "start_seconds": 108.69000000000001,
+        "end_seconds": 109.015
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "three‑dimensional",
+        "start_seconds": 109.015,
+        "end_seconds": 109.62750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "Earth",
+        "start_seconds": 109.62750000000001,
+        "end_seconds": 109.81500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "viewer.",
+        "start_seconds": 109.81500000000001,
+        "end_seconds": 110.44000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "You",
+        "start_seconds": 110.44000000000001,
+        "end_seconds": 110.55250000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "can",
+        "start_seconds": 110.55250000000001,
+        "end_seconds": 110.665
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "fly",
+        "start_seconds": 110.665,
+        "end_seconds": 110.87750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "over",
+        "start_seconds": 110.87750000000001,
+        "end_seconds": 111.0775
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "a",
+        "start_seconds": 111.0775,
+        "end_seconds": 111.14
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "terrain‑accurate",
+        "start_seconds": 111.14,
+        "end_seconds": 111.915
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "globe",
+        "start_seconds": 111.915,
+        "end_seconds": 112.265
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "or",
+        "start_seconds": 112.265,
+        "end_seconds": 112.39
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "flip",
+        "start_seconds": 112.39,
+        "end_seconds": 112.6025
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "to",
+        "start_seconds": 112.6025,
+        "end_seconds": 112.715
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "any",
+        "start_seconds": 112.715,
+        "end_seconds": 112.9025
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "of",
+        "start_seconds": 112.9025,
+        "end_seconds": 112.99000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "five",
+        "start_seconds": 112.99000000000001,
+        "end_seconds": 113.265
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "flat",
+        "start_seconds": 113.265,
+        "end_seconds": 113.50250000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "map",
+        "start_seconds": 113.50250000000001,
+        "end_seconds": 113.67750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "projections,",
+        "start_seconds": 113.67750000000001,
+        "end_seconds": 114.31500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "all",
+        "start_seconds": 114.31500000000001,
+        "end_seconds": 114.515
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "fed",
+        "start_seconds": 114.515,
+        "end_seconds": 114.67750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "by",
+        "start_seconds": 114.67750000000001,
+        "end_seconds": 114.81500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "OpenStreetMap",
+        "start_seconds": 114.81500000000001,
+        "end_seconds": 115.49000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "tiles",
+        "start_seconds": 115.49000000000001,
+        "end_seconds": 115.80250000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "that",
+        "start_seconds": 115.80250000000001,
+        "end_seconds": 115.9025
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "the",
+        "start_seconds": 115.9025,
+        "end_seconds": 116.015
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "app",
+        "start_seconds": 116.015,
+        "end_seconds": 116.24000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "serves",
+        "start_seconds": 116.24000000000001,
+        "end_seconds": 116.5275
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "itself.",
+        "start_seconds": 116.5275,
+        "end_seconds": 117.29
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "The",
+        "start_seconds": 117.29,
+        "end_seconds": 117.39
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "tiles",
+        "start_seconds": 117.39,
+        "end_seconds": 117.7025
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "are",
+        "start_seconds": 117.7025,
+        "end_seconds": 117.79
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "cached",
+        "start_seconds": 117.79,
+        "end_seconds": 118.0775
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "on",
+        "start_seconds": 118.0775,
+        "end_seconds": 118.17750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "your",
+        "start_seconds": 118.17750000000001,
+        "end_seconds": 118.2775
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "machine",
+        "start_seconds": 118.2775,
+        "end_seconds": 118.67750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "and",
+        "start_seconds": 118.67750000000001,
+        "end_seconds": 118.7775
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "can",
+        "start_seconds": 118.7775,
+        "end_seconds": 118.8775
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "be",
+        "start_seconds": 118.8775,
+        "end_seconds": 119.0275
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "shared",
+        "start_seconds": 119.0275,
+        "end_seconds": 119.30250000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "across",
+        "start_seconds": 119.30250000000001,
+        "end_seconds": 119.6025
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "a",
+        "start_seconds": 119.6025,
+        "end_seconds": 119.665
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "local",
+        "start_seconds": 119.665,
+        "end_seconds": 119.965
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "network,",
+        "start_seconds": 119.965,
+        "end_seconds": 120.44
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "so",
+        "start_seconds": 120.44,
+        "end_seconds": 120.57750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "there’s",
+        "start_seconds": 120.57750000000001,
+        "end_seconds": 120.76500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "no",
+        "start_seconds": 120.76500000000001,
+        "end_seconds": 120.94
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "need",
+        "start_seconds": 120.94,
+        "end_seconds": 121.19
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "for",
+        "start_seconds": 121.19,
+        "end_seconds": 121.30250000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "a",
+        "start_seconds": 121.30250000000001,
+        "end_seconds": 121.36500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "user",
+        "start_seconds": 121.36500000000001,
+        "end_seconds": 121.665
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "account.",
+        "start_seconds": 121.665,
+        "end_seconds": 122.34
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "It",
+        "start_seconds": 122.34,
+        "end_seconds": 122.49000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "supports",
+        "start_seconds": 122.49000000000001,
+        "end_seconds": 122.9775
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "German",
+        "start_seconds": 122.9775,
+        "end_seconds": 123.32750000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "and",
+        "start_seconds": 123.32750000000001,
+        "end_seconds": 123.44
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "English",
+        "start_seconds": 123.44,
+        "end_seconds": 123.86500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "and",
+        "start_seconds": 123.86500000000001,
+        "end_seconds": 123.9775
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "lets",
+        "start_seconds": 123.9775,
+        "end_seconds": 124.1275
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "you",
+        "start_seconds": 124.1275,
+        "end_seconds": 124.215
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "pick",
+        "start_seconds": 124.215,
+        "end_seconds": 124.3775
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "your",
+        "start_seconds": 124.3775,
+        "end_seconds": 124.49000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "own",
+        "start_seconds": 124.49000000000001,
+        "end_seconds": 124.665
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "units.",
+        "start_seconds": 124.665,
+        "end_seconds": 125.55250000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "Here’s",
+        "start_seconds": 126.01,
+        "end_seconds": 126.53500000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "why",
+        "start_seconds": 126.53500000000001,
+        "end_seconds": 126.71000000000001
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "that",
+        "start_seconds": 126.71000000000001,
+        "end_seconds": 126.935
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "matters:",
+        "start_seconds": 126.935,
+        "end_seconds": 127.76
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "engineers",
+        "start_seconds": 127.76,
+        "end_seconds": 128.41
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "can",
+        "start_seconds": 128.41,
+        "end_seconds": 128.56
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "now",
+        "start_seconds": 128.56,
+        "end_seconds": 128.76
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "explore",
+        "start_seconds": 128.76,
+        "end_seconds": 129.21
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "global",
+        "start_seconds": 129.21,
+        "end_seconds": 129.585
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "geodata",
+        "start_seconds": 129.585,
+        "end_seconds": 130.11
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "offline",
+        "start_seconds": 130.11,
+        "end_seconds": 130.7225
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "or",
+        "start_seconds": 130.7225,
+        "end_seconds": 130.885
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "inside",
+        "start_seconds": 130.885,
+        "end_seconds": 131.2975
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "an",
+        "start_seconds": 131.2975,
+        "end_seconds": 131.385
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "intranet",
+        "start_seconds": 131.385,
+        "end_seconds": 131.81
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "without",
+        "start_seconds": 131.81,
+        "end_seconds": 132.135
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "relying",
+        "start_seconds": 132.135,
+        "end_seconds": 132.5725
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "on",
+        "start_seconds": 132.5725,
+        "end_seconds": 132.6975
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "external",
+        "start_seconds": 132.6975,
+        "end_seconds": 133.135
+      },
+      {
+        "segment_id": "kugelblitz-1-0-3-mac-globe",
+        "text": "services.",
+        "start_seconds": 133.135,
+        "end_seconds": 134.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "And",
+        "start_seconds": 135.41,
+        "end_seconds": 135.535
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "finally,",
+        "start_seconds": 135.535,
+        "end_seconds": 135.9725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "our",
+        "start_seconds": 135.9725,
+        "end_seconds": 136.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "last",
+        "start_seconds": 136.11,
+        "end_seconds": 136.3725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "story.",
+        "start_seconds": 136.3725,
+        "end_seconds": 137.085
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "TensorRT",
+        "start_seconds": 137.085,
+        "end_seconds": 137.7475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "LLM",
+        "start_seconds": 137.7475,
+        "end_seconds": 138.26
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "VisualGen",
+        "start_seconds": 138.26,
+        "end_seconds": 138.835
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "cuts",
+        "start_seconds": 138.835,
+        "end_seconds": 139.135
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "FLUX",
+        "start_seconds": 139.135,
+        "end_seconds": 139.4975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "three",
+        "start_seconds": 139.4975,
+        "end_seconds": 139.76
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Image",
+        "start_seconds": 139.76,
+        "end_seconds": 140.06
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Klein",
+        "start_seconds": 140.06,
+        "end_seconds": 140.335
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "latency",
+        "start_seconds": 140.335,
+        "end_seconds": 140.7725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 140.7725,
+        "end_seconds": 140.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Blackwell",
+        "start_seconds": 140.885,
+        "end_seconds": 141.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "GPUs.",
+        "start_seconds": 141.36,
+        "end_seconds": 142.56
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "NVIDIA’s",
+        "start_seconds": 143.76,
+        "end_seconds": 144.185
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "VisualGen",
+        "start_seconds": 144.185,
+        "end_seconds": 144.73499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stack",
+        "start_seconds": 144.73499999999999,
+        "end_seconds": 145.06
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "adds",
+        "start_seconds": 145.06,
+        "end_seconds": 145.3475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "NVFP4",
+        "start_seconds": 145.3475,
+        "end_seconds": 146.1975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "quantization,",
+        "start_seconds": 146.1975,
+        "end_seconds": 147.17249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fused",
+        "start_seconds": 147.17249999999999,
+        "end_seconds": 147.51
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "PrimsTS",
+        "start_seconds": 147.51,
+        "end_seconds": 148.10999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "GEMM",
+        "start_seconds": 148.10999999999999,
+        "end_seconds": 148.635
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "kernels,",
+        "start_seconds": 148.635,
+        "end_seconds": 149.035
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "torch.compile",
+        "start_seconds": 149.035,
+        "end_seconds": 149.6975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 149.6975,
+        "end_seconds": 149.81
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "CUDA",
+        "start_seconds": 149.81,
+        "end_seconds": 150.35999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Graphs.",
+        "start_seconds": 150.35999999999999,
+        "end_seconds": 151.26
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "In",
+        "start_seconds": 151.26,
+        "end_seconds": 151.3475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "its",
+        "start_seconds": 151.3475,
+        "end_seconds": 151.45999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "own",
+        "start_seconds": 151.45999999999998,
+        "end_seconds": 151.66
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "benchmark",
+        "start_seconds": 151.66,
+        "end_seconds": 152.0725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 152.0725,
+        "end_seconds": 152.17249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "single",
+        "start_seconds": 152.17249999999999,
+        "end_seconds": 152.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "B200",
+        "start_seconds": 152.435,
+        "end_seconds": 152.9975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Blackwell",
+        "start_seconds": 152.9975,
+        "end_seconds": 153.385
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "chip",
+        "start_seconds": 153.385,
+        "end_seconds": 153.60999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ran",
+        "start_seconds": 153.60999999999999,
+        "end_seconds": 153.77249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 153.77249999999998,
+        "end_seconds": 153.85999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Base",
+        "start_seconds": 153.85999999999999,
+        "end_seconds": 154.135
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "checkpoint",
+        "start_seconds": 154.135,
+        "end_seconds": 154.535
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "3.46",
+        "start_seconds": 154.535,
+        "end_seconds": 155.41
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "times",
+        "start_seconds": 155.41,
+        "end_seconds": 155.73499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "faster",
+        "start_seconds": 155.73499999999999,
+        "end_seconds": 156.135
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 156.135,
+        "end_seconds": 156.26
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "2048‑by‑2048",
+        "start_seconds": 156.26,
+        "end_seconds": 158.23499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "text‑to‑image",
+        "start_seconds": 158.23499999999999,
+        "end_seconds": 159.1225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 159.1225,
+        "end_seconds": 159.26
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "4.45",
+        "start_seconds": 159.26,
+        "end_seconds": 160.16
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "times",
+        "start_seconds": 160.16,
+        "end_seconds": 160.48499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "faster",
+        "start_seconds": 160.48499999999999,
+        "end_seconds": 160.85999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 160.85999999999999,
+        "end_seconds": 160.98499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "image‑to‑image",
+        "start_seconds": 160.98499999999999,
+        "end_seconds": 161.73499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "versus",
+        "start_seconds": 161.73499999999999,
+        "end_seconds": 162.14749999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "uncompiled",
+        "start_seconds": 162.14749999999998,
+        "end_seconds": 162.76
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "BF16.",
+        "start_seconds": 162.76,
+        "end_seconds": 163.935
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 163.935,
+        "end_seconds": 164.035
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Distilled",
+        "start_seconds": 164.035,
+        "end_seconds": 164.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "checkpoint",
+        "start_seconds": 164.435,
+        "end_seconds": 164.85999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "dropped",
+        "start_seconds": 164.85999999999999,
+        "end_seconds": 165.16
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "latency",
+        "start_seconds": 165.16,
+        "end_seconds": 165.58499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 165.58499999999998,
+        "end_seconds": 165.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "24",
+        "start_seconds": 165.685,
+        "end_seconds": 166.58499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ms",
+        "start_seconds": 165.685,
+        "end_seconds": 166.58499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 166.58499999999998,
+        "end_seconds": 166.70999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "image‑to‑image.",
+        "start_seconds": 166.70999999999998,
+        "end_seconds": 168.0725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "That",
+        "start_seconds": 168.505,
+        "end_seconds": 168.7175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "means",
+        "start_seconds": 168.7175,
+        "end_seconds": 168.98
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "high‑resolution",
+        "start_seconds": 168.98,
+        "end_seconds": 169.7925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "diffusion",
+        "start_seconds": 169.7925,
+        "end_seconds": 170.305
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "can",
+        "start_seconds": 170.305,
+        "end_seconds": 170.43
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "edge",
+        "start_seconds": 170.43,
+        "end_seconds": 170.63
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "closer",
+        "start_seconds": 170.63,
+        "end_seconds": 171.005
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 171.005,
+        "end_seconds": 171.1425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "real‑time",
+        "start_seconds": 171.1425,
+        "end_seconds": 171.73
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "editing,",
+        "start_seconds": 171.73,
+        "end_seconds": 172.455
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "though",
+        "start_seconds": 172.455,
+        "end_seconds": 172.63
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "results",
+        "start_seconds": 172.63,
+        "end_seconds": 173.08
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "reflect",
+        "start_seconds": 173.08,
+        "end_seconds": 173.5425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "one",
+        "start_seconds": 173.5425,
+        "end_seconds": 173.78
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "GPU",
+        "start_seconds": 173.78,
+        "end_seconds": 174.38
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 174.38,
+        "end_seconds": 174.4925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "may",
+        "start_seconds": 174.4925,
+        "end_seconds": 174.655
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "vary",
+        "start_seconds": 174.655,
+        "end_seconds": 174.9425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "with",
+        "start_seconds": 174.9425,
+        "end_seconds": 175.105
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "batch",
+        "start_seconds": 175.105,
+        "end_seconds": 175.43
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "size",
+        "start_seconds": 175.43,
+        "end_seconds": 175.805
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 175.805,
+        "end_seconds": 175.93
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "hardware.",
+        "start_seconds": 175.93,
+        "end_seconds": 176.93
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "And",
+        "start_seconds": 178.105,
+        "end_seconds": 178.2175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that's",
+        "start_seconds": 178.2175,
+        "end_seconds": 178.4425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 178.4425,
+        "end_seconds": 178.555
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Daywire",
+        "start_seconds": 178.555,
+        "end_seconds": 178.93
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "briefing.",
+        "start_seconds": 178.93,
+        "end_seconds": 179.70499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "You'll",
+        "start_seconds": 179.70499999999998,
+        "end_seconds": 179.855
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "find",
+        "start_seconds": 179.855,
+        "end_seconds": 180.0925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 180.0925,
+        "end_seconds": 180.1925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "full",
+        "start_seconds": 180.1925,
+        "end_seconds": 180.43
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stories",
+        "start_seconds": 180.43,
+        "end_seconds": 180.8175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 180.8175,
+        "end_seconds": 180.93
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sources",
+        "start_seconds": 180.93,
+        "end_seconds": 181.405
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 181.405,
+        "end_seconds": 181.505
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "today's",
+        "start_seconds": 181.505,
+        "end_seconds": 181.88
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "newspaper.",
+        "start_seconds": 181.88,
+        "end_seconds": 182.6675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Thanks",
+        "start_seconds": 182.6675,
+        "end_seconds": 182.89249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 182.89249999999998,
+        "end_seconds": 183.005
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "listening.",
+        "start_seconds": 183.005,
+        "end_seconds": 183.48
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Take",
+        "start_seconds": 183.48,
+        "end_seconds": 183.755
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "care,",
+        "start_seconds": 183.755,
+        "end_seconds": 184.0675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "everyone.",
+        "start_seconds": 184.0675,
+        "end_seconds": 185.03
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
