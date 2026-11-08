@@ -1,0 +1,3510 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-08",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-08T06:39:32.079878779Z",
+  "coverage": {
+    "from": "2026-11-07T06:00:00+05:30",
+    "until": "2026-11-08T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-7113845d73105744",
+      "source-10bdc73097cfd238",
+      "source-f2625563056c14fc"
+    ],
+    "candidate_count": 30,
+    "evidence_count": 25
+  },
+  "content": {
+    "title": "Rust Wins the Client Spotlight",
+    "introduction": "Discord’s preview of a native Windows 11 client built in Rust and GPUI promises a dramatic 70% cut in idle memory compared with its Electron predecessor. Meanwhile, a series of security findings—from credential leaks in Undici to a password‑bypass in Alpine’s OpenSSH—highlight the urgent need for safer low‑level tooling.",
+    "articles": [
+      {
+        "id": "zeroclaw-openstick-deployment",
+        "section": "AI",
+        "headline": "Zeroclaw AI agent runs on a $10 OpenStick homelab",
+        "summary": "A hobbyist has successfully deployed the Zeroclaw AI‑agent harness on a $10 OpenStick, using it to monitor system health via Telegram.",
+        "paragraphs": [
+          "The OpenStick, a tiny single‑board computer with 4 GB eMMC flash, was purchased for roughly ten dollars and repurposed as a low‑cost server. The owner installed a personal fork of the OS that can handle large blocklists efficiently, then added Zeroclaw – an AI‑agent framework that supports 30 communication channels, including Telegram, and offers sensible security defaults out of the box.",
+          "Zeroclaw runs with root privileges on the device, but the author treats the OpenStick as a contained blast radius, limiting exposure. The agent answers queries such as “any log entries needing attention?” or “disk usage status?” and pushes alerts to Telegram, enabling remote monitoring even from remote locations with spotty connectivity. The setup was chosen over alternatives like Picoclaw and Nullclaw because Zeroclaw’s documentation and community activity were strongest.",
+          "The experiment demonstrates that a full‑featured AI‑agent can operate within the modest resources of a $10 SBC, provided the user accepts the trade‑off of granting root access to a single, isolated machine."
+        ],
+        "implication": "Engineers can prototype AI‑driven monitoring on ultra‑cheap hardware, but must treat the host as a sandbox and be comfortable with root‑level permissions on that device.",
+        "source_ids": [
+          "source-579f1e45f94231f7"
+        ]
+      },
+      {
+        "id": "ai-frontiers-closure-2026",
+        "section": "AI",
+        "headline": "Microsoft AI Frontiers group shut down after reorg",
+        "summary": "Microsoft Research’s AI Frontiers sub‑organization was dissolved in a September 2023 restructuring into Microsoft AI, ending its internship program.",
+        "paragraphs": [
+          "The author of a Hacker News post explains that AI Frontiers was created in 2023 to give focused research support after the ChatGPT launch, but a later merger with the larger, scaling‑first Microsoft AI team proved philosophically incompatible. The new leadership prioritises data‑driven scaling over exploratory research, leaving the Frontiers team without a future and cancelling upcoming internships."
+        ],
+        "implication": "Researchers and interns looking to work on early‑stage AI ideas at Microsoft will now need to target the broader Microsoft AI organization, where scaling goals dominate project selection.",
+        "source_ids": [
+          "source-8017ce29f6d88c8d"
+        ]
+      },
+      {
+        "id": "apple-grey-list-predictive-text-2026",
+        "section": "Engineering",
+        "headline": "Apple blocks 100 000 words from predictive and swipe typing",
+        "summary": "Independent researcher Derik Kauffman uncovered a “grey list” that prevents iPhone keyboards from autocompleting or swipe‑typing over 100 000 offensive, political or drug‑related terms.",
+        "paragraphs": [
+          "The list, extracted from iOS code, stops predictive suggestions for phrases such as “male chauvinist pig”, “NSA spies” or “on MDMA”, and also causes swipe‑type errors that replace the intended word with a similar‑spelling alternative. Apple says the restriction is intentional to avoid inappropriate or offensive suggestions, while still allowing users to type the words manually."
+        ],
+        "implication": "Developers building iOS text‑input experiences should anticipate that certain controversial or adult terms will never be suggested or swiped correctly, which may affect UI testing and user‑experience design for apps that rely on keyboard shortcuts.",
+        "source_ids": [
+          "source-840f536384a14a6f"
+        ]
+      },
+      {
+        "id": "asahi-linux-7-3-devicetree-boot",
+        "section": "Engineering",
+        "headline": "Asahi Linux adds initial devicetrees for M4 Pro in Linux 7.3",
+        "summary": "Linux 7.3 now includes bare‑bones devicetrees that let Apple M4 Pro hardware boot to a TTY, opening the door for further driver work.",
+        "paragraphs": [
+          "The Asahi Linux team announced that the Linux 7.3 kernel ships with its first devicetrees for the Apple M4 Pro SoC. These trees are minimal – they only provide enough configuration to bring the chip up to a text console – but they mark the first step toward full hardware enablement on the newest Apple silicon.",
+          "Upstreaming continues alongside broader work on Thunderbolt, USB3, and XDomain networking, but the M4 Pro support is isolated to early boot. The team notes that additional enablement – such as GPU drivers and power management – remains in progress, and developers will need to wait for later kernel cycles before the device is usable for everyday workloads."
+        ],
+        "implication": "Developers can now experiment with low‑level boot code on M4 Pro devices, but must treat the support as a prototype that requires further patches before functional Linux use.",
+        "source_ids": [
+          "source-7faad46bd3711d33"
+        ]
+      },
+      {
+        "id": "discord-rust-client-preview",
+        "section": "Engineering",
+        "headline": "Discord previews Rust‑based Windows client",
+        "summary": "Discord is testing a native Windows 11 client built with Rust and GPUI, aiming to cut idle memory use by roughly 70% versus its Electron version.",
+        "paragraphs": [
+          "The early build shows a three‑second dark splash before a tongue‑in‑cheek tip, then settles at about 290 MB of RAM—far below the 1 GB typical for the Electron app. The new client uses GPUI for cross‑platform UI instead of WebView2, stores login tokens in the Windows Credential Manager keyring, and is said to work on Linux and macOS as well."
+        ],
+        "implication": "Developers targeting Windows 11 can expect a leaner Discord experience that reduces background memory pressure, though the client is still pre‑release and lacks a public launch timeline.",
+        "source_ids": [
+          "source-53d0d0df86df4783"
+        ]
+      },
+      {
+        "id": "undici-cross-origin-redirect-bypass-2026-11-08",
+        "section": "Security",
+        "headline": "Undici may leak credentials on cross‑origin redirects",
+        "summary": "A header‑format handling bug can expose Authorization or Cookie headers when undici follows a cross‑origin redirect with certain interceptor compositions.",
+        "paragraphs": [
+          "Undici’s redirect interceptor is designed to strip sensitive headers (Authorization, Cookie, Proxy‑Authorization, Host, and any names listed in stripHeadersOnCrossOriginRedirect) when a request is redirected to a different origin. If callers provide headers as an array of [name, value] tuples—such as the result of Object.entries(headers)—the interceptor misinterprets the structure as a flat list, so the header names never match the strip list and the credentials are forwarded to the new origin. The problem surfaces when a normalising interceptor like cache() or deduplicate() is composed outside redirect(), causing the retained headers to be serialized onto the cross‑origin request.",
+          "The advisory recommends upgrading to undici 7.30.2 or 8.12.4, which address the parsing issue described in the report. As a mitigation, developers can supply request headers as a plain object or a flat [name, value, name, value] array, or compose redirect() before any normalising interceptor. Only applications that send credential‑bearing requests with array‑of‑tuples headers through such interceptor chains are affected."
+        ],
+        "implication": "Projects using undici should upgrade to 7.30.2 or 8.12.4, or adjust header formats and interceptor order, to prevent accidental credential leakage on cross‑origin redirects.",
+        "source_ids": [
+          "source-c8a7602b317d89e3",
+          "source-a5e3868345dae23d"
+        ]
+      },
+      {
+        "id": "alpine-openssh-bypass-2026-11-08",
+        "section": "Security",
+        "headline": "Alpine Linux openssh-server password authentication bypass",
+        "summary": "A flaw lets password‑authenticated SSH logins succeed without a password on Alpine’s PAM‑less openssh-server packages.",
+        "paragraphs": [
+          "The issue affects Alpine releases 3.21 through 3.24 when PasswordAuthentication is enabled and the package is built without PAM. Fixed packages are available in 3.21.10, 3.22.8, 3.23.8 and 3.24.4; users should upgrade and restart sshd, or alternatively disable password authentication via sshd_config or a drop‑in file."
+        ],
+        "implication": "Alpine administrators must either apply the patched openssh version or enforce PasswordAuthentication no to close the bypass, especially for key‑only accounts.",
+        "source_ids": [
+          "source-34d481d648047bd1"
+        ]
+      },
+      {
+        "id": "ghostmap-android-boot-loop",
+        "section": "Security",
+        "headline": "Android Input Manager Service bug can lock phones in a crash loop",
+        "summary": "A Bitdefender Labs discovery shows a malformed app can trigger a permanent denial‑of‑service in Android’s Input Manager Service, forcing a factory reset to recover.",
+        "paragraphs": [
+          "The flaw, dubbed GhostMap, exploits a mistake in the Input Manager Service that causes the system‑server to crash repeatedly during app installation, even if the app never runs or requests permissions. Recovery is limited to a full factory reset, or in rare cases an ADB script that races the crashes, provided USB debugging was already enabled. The issue is rated Moderate and is fixed in Android 4.4.4 through 7.0."
+        ],
+        "implication": "Devices running affected Android versions remain vulnerable to a persistent boot‑loop denial‑of‑service unless updated, and users must be prepared for data loss via factory reset as the only reliable remediation.",
+        "source_ids": [
+          "source-5f3fb540f82a8092"
+        ]
+      },
+      {
+        "id": "coldframe-honeypot-brief",
+        "section": "Tools",
+        "headline": "Coldframe mimics Danfoss fridge controllers for honeypot deployments",
+        "summary": "Coldframe is an open‑source honeypot that emulates Danfoss AK‑SM 800A refrigeration units, letting defenders capture scanner traffic without exposing real hardware.",
+        "paragraphs": [
+          "The project reproduces the exact nginx header order, StoreView page title, TLS 1.2‑only certificate and firmware‑served Angular loader of real units, and can optionally expose a Modbus TCP service that mirrors case temperatures and registers. Deployments run in a locked‑down container (cap‑drop, no‑new‑privileges, limited memory and pids) and expose only the ports a genuine fridge would use, with SSH restricted to the operator’s address."
+        ],
+        "implication": "Security teams can safely study industrial‑scanner behavior and detect credential‑guessing attempts against Danfoss refrigeration controllers without risking production systems.",
+        "source_ids": [
+          "source-55aa1dc18cbb251b"
+        ]
+      },
+      {
+        "id": "meridian-browser-nix-launch",
+        "section": "Tools",
+        "headline": "Meridian browser launches for macOS via Nix",
+        "summary": "An experimental Rust‑based macOS browser built on GPUI and Servo is now installable with a single Nix command.",
+        "paragraphs": [
+          "Meridian combines the GPUI UI framework (used by the Zed editor) with the Servo rendering engine, exposing Servo as a GPUI component through the gpui‑servo library. The browser offers configurable fonts, keybinds, dark mode, vertical and horizontal tabs, per‑site zoom, reader mode, and media playback, but works best on sites with modest JavaScript and layout demands. Users can try it instantly with `nix run git+https://tangled.org/oppi.li/meridian`."
+        ],
+        "implication": "Developers can experiment with a Rust‑native browser stack on macOS without building the components themselves, gaining a highly configurable platform for low‑overhead web work.",
+        "source_ids": [
+          "source-8fa2bd8279569e3b"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "root-agent-sandboxing",
+        "title": "Treat AI agents as sandboxed root processes on low‑cost hardware",
+        "paragraphs": [
+          "Running an AI‑agent harness like Zeroclaw on a $10 OpenStick requires giving the software full root privileges because it needs direct access to logs, disk usage, and network interfaces. The author mitigates the risk by treating the single‑board computer as an isolated blast radius – a device that, if compromised, cannot affect any other system.",
+          "The key mechanism is sandboxing by isolation: the hardware’s limited resources and lack of external dependencies mean that even a privileged breach stays confined. This approach works because the OpenStick runs no other services, and its modest eMMC storage makes it easy to wipe or replace if needed."
+        ],
+        "example": "If an attacker hijacks Zeroclaw’s Telegram interface, they could issue arbitrary shell commands on the OpenStick, but the damage would be limited to that device’s 4 GB eMMC and network access, which the owner can reset by reflashing the OS.",
+        "takeaway": "When deploying powerful AI agents on inexpensive SBCs, grant them root only on a deliberately isolated machine and be prepared to restore the device quickly if the sandbox is breached.",
+        "article_ids": [
+          "zeroclaw-openstick-deployment"
+        ],
+        "source_ids": [
+          "source-579f1e45f94231f7"
+        ]
+      },
+      {
+        "id": "research-organization-alignment-2026",
+        "title": "Align research teams with organizational priorities to avoid dissolution",
+        "paragraphs": [
+          "When a research group is created to fill a niche—like Microsoft’s AI Frontiers sub‑organization, which was launched in 2023 to give focused support after the ChatGPT release—its survival depends on staying compatible with the broader company’s strategic direction. A later merger into Microsoft AI introduced a leadership philosophy that values scaling massive models over exploratory research, making the two groups’ goals fundamentally misaligned.",
+          "Because the scaling‑first approach prioritises data pipelines and model size rather than novel ideas, the Frontiers team could not demonstrate its value under the new regime, leading to its shutdown and the cancellation of its internship program. This illustrates how mismatched priorities can render a specialized research effort obsolete."
+        ],
+        "example": "Imagine a small robotics lab that focuses on low‑cost manipulation algorithms being absorbed into a corporate division that only funds projects promising to double the size of their existing neural networks. The lab’s work no longer fits the division’s metrics, so its budget is cut and its interns are reassigned.",
+        "takeaway": "Before launching or joining a research initiative, verify that its objectives are compatible with the parent organization’s long‑term strategy; otherwise, even well‑intentioned teams may be disbanded.",
+        "article_ids": [
+          "ai-frontiers-closure-2026"
+        ],
+        "source_ids": [
+          "source-8017ce29f6d88c8d"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-root-agent-sandboxing-1",
+        "lesson_id": "root-agent-sandboxing",
+        "prompt": "Why does granting full root privileges to an AI agent on a low‑cost SBC like the OpenStick not increase overall risk according to the lesson?",
+        "options": [
+          "Because the device runs no other services, so a breach cannot affect other software.",
+          "Because root privileges automatically encrypt all data on the eMMC.",
+          "Because the AI agent can self‑patch any vulnerabilities it discovers.",
+          "Because the OpenStick’s hardware prevents any network communication."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that the OpenStick runs no other services, so even if the privileged AI agent is compromised, the damage is confined to that single device, limiting overall risk."
+      },
+      {
+        "id": "quiz-1-root-agent-sandboxing-2",
+        "lesson_id": "root-agent-sandboxing",
+        "prompt": "What is the primary mitigation strategy described for handling a breach of the AI agent on the OpenStick?",
+        "options": [
+          "Regularly updating the AI model to the latest version.",
+          "Treating the SBC as an isolated blast radius that can be quickly reflashed.",
+          "Installing a full suite of antivirus and intrusion‑detection tools.",
+          "Running the AI agent inside a virtual machine on the same hardware."
+        ],
+        "answer": 1,
+        "explanation": "The lesson’s takeaway emphasizes treating the single‑board computer as an isolated blast radius and being prepared to restore it quickly (e.g., by reflashing) if the sandbox is breached."
+      },
+      {
+        "id": "quiz-1-root-agent-sandboxing-3",
+        "lesson_id": "root-agent-sandboxing",
+        "prompt": "According to the article, which characteristic of the OpenStick’s hardware contributes most to limiting damage after a compromise?",
+        "options": [
+          "Its 4 GB eMMC storage that is easy to wipe or replace.",
+          "Its built‑in hardware firewall that blocks all inbound traffic.",
+          "Its multi‑core CPU that can run multiple isolated containers.",
+          "Its high‑speed SSD that provides rapid data recovery."
+        ],
+        "answer": 0,
+        "explanation": "The lesson highlights that the modest 4 GB eMMC storage makes it easy to wipe or replace, which helps limit damage after a breach."
+      },
+      {
+        "id": "quiz-2-align-research-goals",
+        "lesson_id": "research-organization-alignment-2026",
+        "prompt": "What primary factor led to the shutdown of Microsoft’s AI Frontiers sub‑organization?",
+        "options": [
+          "A shift in leadership philosophy toward scaling massive models over exploratory research",
+          "Insufficient funding for data pipelines",
+          "Failure to recruit enough interns",
+          "Technical failure of the AI models"
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that the merger introduced a leadership philosophy that values scaling massive models, which conflicted with Frontiers’ exploratory focus and caused its shutdown."
+      },
+      {
+        "id": "quiz-2-verify-alignment",
+        "lesson_id": "research-organization-alignment-2026",
+        "prompt": "According to the takeaway, what should a researcher do before joining a new initiative?",
+        "options": [
+          "Check that the initiative’s objectives match the parent organization’s long‑term strategy",
+          "Ensure the initiative has the largest possible budget",
+          "Confirm the initiative will double the size of existing neural networks",
+          "Verify the initiative has no internship program"
+        ],
+        "answer": 0,
+        "explanation": "The takeaway advises verifying compatibility of objectives with the organization’s long‑term strategy to avoid disbandment."
+      }
+    ],
+    "segments": [
+      {
+        "id": "radio-1",
+        "title": "Zeroclaw AI on a $10 OpenStick",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November eight, two thousand twenty six.\n\nWe begin with our lead story. A hobbyist got Zeroclaw AI running on a $10 OpenStick single‑board computer. The tiny device, with 4 GB eMMC flash, now answers queries like “any log entries needing attention?” and pushes alerts to Telegram, all from a root‑level agent that’s kept isolated as a sandbox.\n\nHere's why that matters: it proves a full‑featured AI monitoring stack can live on ultra‑cheap hardware, as long as you treat the box as a contained blast radius and accept the root‑access trade‑off.",
+        "article_ids": [
+          "zeroclaw-openstick-deployment"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Microsoft AI Frontiers Group Shuts Down",
+        "text": "Next on the bulletin. Microsoft’s AI Frontiers sub‑organization has been dissolved after a September 2023 restructuring that folded it into the larger Microsoft AI team. The group was originally set up in early 2023 to back exploratory research following the ChatGPT launch, but the new leadership favors data‑driven scaling, leaving Frontiers without a future and cancelling its upcoming internship program.\n\nHere’s why that matters: anyone hoping to join Microsoft for early‑stage AI work now has to aim for the broader Microsoft AI organization, where projects are judged on scaling potential rather than pure exploration.",
+        "article_ids": [
+          "ai-frontiers-closure-2026"
+        ]
+      },
+      {
+        "id": "apple-grey-list-predictive-text-2026-segment",
+        "title": "Apple blocks 100 000 words from predictive and swipe typing",
+        "text": "Turning to our next story. Apple has quietly added a grey list that blocks more than one hundred thousand words from showing up in predictive or swipe‑type suggestions on iPhones. The list includes offensive slurs, political phrases like NSA spies and even drug‑related terms such as on MDMA, so the keyboard will either stay silent or swap the word for a look‑alike when you swipe. Developers building iOS text‑input features need to expect those terms will never be auto‑suggested, which can throw off UI testing and any app that leans on keyboard shortcuts.\n\nThe practical takeaway? If your app relies on the keyboard to surface controversial or adult language, you’ll have to handle those cases manually because Apple’s restriction is intentional.",
+        "article_ids": [
+          "apple-grey-list-predictive-text-2026"
+        ]
+      },
+      {
+        "id": "asahi-linux-7-3-devicetree-boot-segment",
+        "title": "Asahi Linux boots M4 Pro to a console",
+        "text": "Next on the bulletin. The Asahi Linux team just got Apple M4 Pro chips to show up on a text console in Linux version seven point three. It’s a bare‑bones devicetree – just enough to get the processor to a TTY, nothing more. That means developers can start poking at low‑level boot code, but the GPU, power management and other drivers are still missing. Here’s why that matters: it’s a prototype, so you’ll need future kernel releases before the device is ready for everyday use.",
+        "article_ids": [
+          "asahi-linux-7-3-devicetree-boot"
+        ]
+      },
+      {
+        "id": "discord-rust-client-preview-segment",
+        "title": "Discord tests lean Rust Windows client",
+        "text": "And finally, our last story. Discord is previewing a native Windows eleven client built in Rust with GPUI. The early build flashes a three‑second dark splash, then settles around 290 megabytes of RAM—about seventy percent less than the Electron version’s typical gigabyte. It swaps WebView two for GPUI, stores login tokens in the Windows Credential Manager keyring, and the same codebase should run on Linux and macOS. Here’s why that matters: developers get a slimmer Discord that eases background memory pressure, but it’s still pre‑release with no public launch timeline.\n\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "discord-rust-client-preview"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a sleek, minimalist Discord logo morphing into a rust‑colored gear, set against a backdrop of code snippets and a faint memory‑meter gauge dropping sharply."
+  },
+  "sources": [
+    {
+      "id": "source-7faad46bd3711d33",
+      "name": "Lobsters",
+      "title": "Progress Report: Linux 7.3 - Asahi Linux",
+      "url": "https://asahilinux.org/2026/11/progress-report-7-3/",
+      "published_at": null,
+      "discovered_at": "2026-11-07T00:02:38.914-06:00",
+      "discussion_url": "https://lobste.rs/s/4qiair/progress_report_linux_7_3_asahi_linux"
+    },
+    {
+      "id": "source-c8a7602b317d89e3",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-120415: undici vulnerable to cross-origin credential disclosure via array-of-tuples headers bypassing redirect stripping",
+      "url": "https://github.com/nodejs/undici/security/advisories/GHSA-9v6h-8rgp-m69f",
+      "published_at": "2026-11-06T10:10:48Z",
+      "discovered_at": "2026-11-08T06:24:43.377939807Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-579f1e45f94231f7",
+      "name": "Hacker News",
+      "title": "What I run on my $10 USD OpenStick homelab",
+      "url": "https://blog.bosscher.ch/posts/openstick/",
+      "published_at": null,
+      "discovered_at": "2026-11-07T18:12:12Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50406670"
+    },
+    {
+      "id": "source-a5e3868345dae23d",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-116592: undici vulnerable to cache poisoning and cross-user disclosure via intermediate redirect hops",
+      "url": "https://github.com/nodejs/undici/security/advisories/GHSA-mqg3-3v4r-cm32",
+      "published_at": "2026-11-06T10:05:41Z",
+      "discovered_at": "2026-11-08T06:24:43.377939807Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-8017ce29f6d88c8d",
+      "name": "Hacker News",
+      "title": "The end of Microsoft Research's AI Frontiers group",
+      "url": "https://hunch.net/?p=13764006",
+      "published_at": null,
+      "discovered_at": "2026-11-07T18:02:17Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50406563"
+    },
+    {
+      "id": "source-840f536384a14a6f",
+      "name": "Hacker News",
+      "title": "Apple’s grey list: Words and phrases your iPhone won’t help you spell",
+      "url": "https://www.theguardian.com/technology/2026/nov/06/struggling-to-spell-male-chauvinist-pig-apple-grey-list-means-your-iphone-wont-help-you",
+      "published_at": null,
+      "discovered_at": "2026-11-07T17:06:36Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50406111"
+    },
+    {
+      "id": "source-53d0d0df86df4783",
+      "name": "Hacker News",
+      "title": "Every Windows 11 app should kill Electron, and Discord just showed why",
+      "url": "https://www.windowslatest.com/2026/11/06/every-windows-11-app-should-kill-electron-and-discord-just-showed-why-no-starting-screen-and-70-less-ram-even-with-two-accounts-signed-in/",
+      "published_at": null,
+      "discovered_at": "2026-11-07T11:11:15Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50403507"
+    },
+    {
+      "id": "source-5f3fb540f82a8092",
+      "name": "Lobsters",
+      "title": "GhostMap: The Android flaw that crashes your phone before you open the app",
+      "url": "https://www.bitdefender.com/en-us/blog/labs/ghostmap-android",
+      "published_at": null,
+      "discovered_at": "2026-11-07T12:12:57.505-06:00",
+      "discussion_url": "https://lobste.rs/s/c99mdx/ghostmap_android_flaw_crashes_your_phone"
+    },
+    {
+      "id": "source-34d481d648047bd1",
+      "name": "Lobsters",
+      "title": "Alpine Linux : openssh-server password authentication bypass",
+      "url": "https://www.alpinelinux.org/posts/2026-11-05-openssh-password-authentication-bypass/",
+      "published_at": null,
+      "discovered_at": "2026-11-07T08:51:26.859-06:00",
+      "discussion_url": "https://lobste.rs/s/7dbarm/alpine_linux_openssh_server_password"
+    },
+    {
+      "id": "source-55aa1dc18cbb251b",
+      "name": "Hacker News",
+      "title": "Show HN: Coldframe, a honeypot that poses as a supermarket fridge controller",
+      "url": "https://github.com/hedgerow-dev/coldframe",
+      "published_at": null,
+      "discovered_at": "2026-11-07T17:27:30Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50406292"
+    },
+    {
+      "id": "source-8fa2bd8279569e3b",
+      "name": "Lobsters",
+      "title": "Meridian — an experimental web browser built on Servo and GPUI",
+      "url": "https://op.tngl.io/meridian/",
+      "published_at": null,
+      "discovered_at": "2026-11-07T03:21:55.256-06:00",
+      "discussion_url": "https://lobste.rs/s/j63dme/meridian_experimental_web_browser_built"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-08/bdc42d14cbaada62f2d979bdc2380df145dd9579c5f0941afe567191db3af143.mp3",
+    "duration_seconds": 219.408,
+    "script_hash": "52dcf106e8137809761c1b265dff4d343bfd78748d656cf5aa1715539d13233a",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.45,
+        "end_seconds": 0.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.7875,
+        "end_seconds": 1.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.4,
+        "end_seconds": 1.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 1.525,
+        "end_seconds": 1.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 1.9,
+        "end_seconds": 2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 2,
+        "end_seconds": 3.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 3.0375,
+        "end_seconds": 3.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 3.325,
+        "end_seconds": 3.5625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 3.5625,
+        "end_seconds": 3.8875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 3.8875,
+        "end_seconds": 3.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 3.9625,
+        "end_seconds": 4.05
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 4.05,
+        "end_seconds": 4.3
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 4.3,
+        "end_seconds": 5.05
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 5.05,
+        "end_seconds": 5.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 5.25,
+        "end_seconds": 5.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "eight,",
+        "start_seconds": 5.7,
+        "end_seconds": 6.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 6.1125,
+        "end_seconds": 6.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 6.325,
+        "end_seconds": 6.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 6.6875,
+        "end_seconds": 6.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 6.9625,
+        "end_seconds": 8.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 9.424999999999999,
+        "end_seconds": 9.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 9.525,
+        "end_seconds": 9.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 9.9,
+        "end_seconds": 10.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 10.0375,
+        "end_seconds": 10.174999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 10.174999999999999,
+        "end_seconds": 10.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 10.4,
+        "end_seconds": 11.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "A",
+        "start_seconds": 11.4125,
+        "end_seconds": 11.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hobbyist",
+        "start_seconds": 11.5,
+        "end_seconds": 12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "got",
+        "start_seconds": 12,
+        "end_seconds": 12.212499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Zeroclaw",
+        "start_seconds": 12.212499999999999,
+        "end_seconds": 12.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 12.7875,
+        "end_seconds": 13.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "running",
+        "start_seconds": 13.2875,
+        "end_seconds": 13.587499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 13.587499999999999,
+        "end_seconds": 13.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 13.6875,
+        "end_seconds": 13.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "$10",
+        "start_seconds": 13.7625,
+        "end_seconds": 14.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "OpenStick",
+        "start_seconds": 14.4125,
+        "end_seconds": 14.9875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "single‑board",
+        "start_seconds": 14.9875,
+        "end_seconds": 15.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "computer.",
+        "start_seconds": 15.6,
+        "end_seconds": 16.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 16.7625,
+        "end_seconds": 16.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tiny",
+        "start_seconds": 16.875,
+        "end_seconds": 17.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "device,",
+        "start_seconds": 17.2,
+        "end_seconds": 17.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 17.9,
+        "end_seconds": 18.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "4",
+        "start_seconds": 18.0875,
+        "end_seconds": 18.8375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "GB",
+        "start_seconds": 18.0875,
+        "end_seconds": 18.8375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "eMMC",
+        "start_seconds": 18.8375,
+        "end_seconds": 19.487499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flash,",
+        "start_seconds": 19.487499999999997,
+        "end_seconds": 20.3125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 20.3125,
+        "end_seconds": 20.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "answers",
+        "start_seconds": 20.525,
+        "end_seconds": 20.924999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "queries",
+        "start_seconds": 20.924999999999997,
+        "end_seconds": 21.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "like",
+        "start_seconds": 21.375,
+        "end_seconds": 21.6375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "“any",
+        "start_seconds": 21.6375,
+        "end_seconds": 21.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "log",
+        "start_seconds": 21.875,
+        "end_seconds": 22.174999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "entries",
+        "start_seconds": 22.174999999999997,
+        "end_seconds": 22.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "needing",
+        "start_seconds": 22.549999999999997,
+        "end_seconds": 22.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "attention?”",
+        "start_seconds": 22.85,
+        "end_seconds": 24.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 24.0375,
+        "end_seconds": 24.174999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pushes",
+        "start_seconds": 24.174999999999997,
+        "end_seconds": 24.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "alerts",
+        "start_seconds": 24.6,
+        "end_seconds": 25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 25,
+        "end_seconds": 25.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Telegram,",
+        "start_seconds": 25.1,
+        "end_seconds": 26.112499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "all",
+        "start_seconds": 26.112499999999997,
+        "end_seconds": 26.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 26.375,
+        "end_seconds": 26.512500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 26.512500000000003,
+        "end_seconds": 26.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "root‑level",
+        "start_seconds": 26.6,
+        "end_seconds": 27.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "agent",
+        "start_seconds": 27.125,
+        "end_seconds": 27.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that’s",
+        "start_seconds": 27.549999999999997,
+        "end_seconds": 27.799999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kept",
+        "start_seconds": 27.799999999999997,
+        "end_seconds": 28.112499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "isolated",
+        "start_seconds": 28.112499999999997,
+        "end_seconds": 28.762500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 28.762500000000003,
+        "end_seconds": 28.887500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 28.887500000000003,
+        "end_seconds": 28.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sandbox.",
+        "start_seconds": 28.975,
+        "end_seconds": 30.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 31.675,
+        "end_seconds": 31.950000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 31.950000000000003,
+        "end_seconds": 32.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 32.125,
+        "end_seconds": 32.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 32.325,
+        "end_seconds": 33.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 33.4125,
+        "end_seconds": 33.550000000000004
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "proves",
+        "start_seconds": 33.550000000000004,
+        "end_seconds": 33.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 33.875,
+        "end_seconds": 34
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "full‑featured",
+        "start_seconds": 34,
+        "end_seconds": 34.737500000000004
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 34.737500000000004,
+        "end_seconds": 35.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "monitoring",
+        "start_seconds": 35.125,
+        "end_seconds": 35.675000000000004
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stack",
+        "start_seconds": 35.675000000000004,
+        "end_seconds": 36.1375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 36.1375,
+        "end_seconds": 36.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "live",
+        "start_seconds": 36.325,
+        "end_seconds": 36.5125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 36.5125,
+        "end_seconds": 36.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ultra‑cheap",
+        "start_seconds": 36.6875,
+        "end_seconds": 37.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hardware,",
+        "start_seconds": 37.325,
+        "end_seconds": 38.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 38.3375,
+        "end_seconds": 38.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "long",
+        "start_seconds": 38.475,
+        "end_seconds": 38.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 38.6625,
+        "end_seconds": 38.737500000000004
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 38.737500000000004,
+        "end_seconds": 38.862500000000004
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "treat",
+        "start_seconds": 38.862500000000004,
+        "end_seconds": 39.112500000000004
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 39.112500000000004,
+        "end_seconds": 39.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "box",
+        "start_seconds": 39.2,
+        "end_seconds": 39.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 39.6625,
+        "end_seconds": 39.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 39.7875,
+        "end_seconds": 39.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "contained",
+        "start_seconds": 39.85,
+        "end_seconds": 40.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "blast",
+        "start_seconds": 40.425,
+        "end_seconds": 40.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "radius",
+        "start_seconds": 40.825,
+        "end_seconds": 41.775000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 41.775000000000006,
+        "end_seconds": 41.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "accept",
+        "start_seconds": 41.9125,
+        "end_seconds": 42.3
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 42.3,
+        "end_seconds": 42.4375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "root‑access",
+        "start_seconds": 42.4375,
+        "end_seconds": 43.175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "trade‑off.",
+        "start_seconds": 43.175,
+        "end_seconds": 44.45
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Next",
+        "start_seconds": 45.875,
+        "end_seconds": 46.1625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 46.1625,
+        "end_seconds": 46.262499999999996
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 46.262499999999996,
+        "end_seconds": 46.35
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bulletin.",
+        "start_seconds": 46.35,
+        "end_seconds": 47.4125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Microsoft’s",
+        "start_seconds": 47.4125,
+        "end_seconds": 48.0625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "AI",
+        "start_seconds": 48.0625,
+        "end_seconds": 48.4875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Frontiers",
+        "start_seconds": 48.4875,
+        "end_seconds": 48.9875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sub‑organization",
+        "start_seconds": 48.9875,
+        "end_seconds": 50.2125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "has",
+        "start_seconds": 50.2125,
+        "end_seconds": 50.4
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "been",
+        "start_seconds": 50.4,
+        "end_seconds": 50.525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "dissolved",
+        "start_seconds": 50.525,
+        "end_seconds": 51.05
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "after",
+        "start_seconds": 51.05,
+        "end_seconds": 51.3125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 51.3125,
+        "end_seconds": 51.375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "September",
+        "start_seconds": 51.375,
+        "end_seconds": 51.875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "2023",
+        "start_seconds": 51.875,
+        "end_seconds": 52.725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "restructuring",
+        "start_seconds": 52.725,
+        "end_seconds": 53.8875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 53.8875,
+        "end_seconds": 54.0875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "folded",
+        "start_seconds": 54.0875,
+        "end_seconds": 54.45
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "it",
+        "start_seconds": 54.45,
+        "end_seconds": 54.599999999999994
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "into",
+        "start_seconds": 54.599999999999994,
+        "end_seconds": 54.787499999999994
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 54.787499999999994,
+        "end_seconds": 54.9
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "larger",
+        "start_seconds": 54.9,
+        "end_seconds": 55.275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Microsoft",
+        "start_seconds": 55.275,
+        "end_seconds": 55.8875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "AI",
+        "start_seconds": 55.8875,
+        "end_seconds": 56.25
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "team.",
+        "start_seconds": 56.25,
+        "end_seconds": 57.3875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 57.3875,
+        "end_seconds": 57.5
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "group",
+        "start_seconds": 57.5,
+        "end_seconds": 57.7625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "was",
+        "start_seconds": 57.7625,
+        "end_seconds": 57.9
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "originally",
+        "start_seconds": 57.9,
+        "end_seconds": 58.3875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "set",
+        "start_seconds": 58.3875,
+        "end_seconds": 58.5875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "up",
+        "start_seconds": 58.5875,
+        "end_seconds": 58.775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 58.775,
+        "end_seconds": 58.9
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "early",
+        "start_seconds": 58.9,
+        "end_seconds": 59.175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "2023",
+        "start_seconds": 59.175,
+        "end_seconds": 60.45
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 60.45,
+        "end_seconds": 60.599999999999994
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "back",
+        "start_seconds": 60.599999999999994,
+        "end_seconds": 60.875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "exploratory",
+        "start_seconds": 60.875,
+        "end_seconds": 61.625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "research",
+        "start_seconds": 61.625,
+        "end_seconds": 62.1375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "following",
+        "start_seconds": 62.1375,
+        "end_seconds": 62.5125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 62.5125,
+        "end_seconds": 62.6125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "ChatGPT",
+        "start_seconds": 62.6125,
+        "end_seconds": 63.425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "launch,",
+        "start_seconds": 63.425,
+        "end_seconds": 64.45
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "but",
+        "start_seconds": 64.45,
+        "end_seconds": 64.5875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 64.5875,
+        "end_seconds": 64.675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "new",
+        "start_seconds": 64.675,
+        "end_seconds": 64.85
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "leadership",
+        "start_seconds": 64.85,
+        "end_seconds": 65.3625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "favors",
+        "start_seconds": 65.3625,
+        "end_seconds": 65.8625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "data‑driven",
+        "start_seconds": 65.8625,
+        "end_seconds": 66.55
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "scaling,",
+        "start_seconds": 66.55,
+        "end_seconds": 67.5375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "leaving",
+        "start_seconds": 67.5375,
+        "end_seconds": 67.875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Frontiers",
+        "start_seconds": 67.875,
+        "end_seconds": 68.45
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "without",
+        "start_seconds": 68.45,
+        "end_seconds": 68.7375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 68.7375,
+        "end_seconds": 68.8125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "future",
+        "start_seconds": 68.8125,
+        "end_seconds": 69.65
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 69.65,
+        "end_seconds": 69.8
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "cancelling",
+        "start_seconds": 69.8,
+        "end_seconds": 70.325
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "its",
+        "start_seconds": 70.325,
+        "end_seconds": 70.5
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "upcoming",
+        "start_seconds": 70.5,
+        "end_seconds": 71.025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "internship",
+        "start_seconds": 71.025,
+        "end_seconds": 71.55
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "program.",
+        "start_seconds": 71.55,
+        "end_seconds": 72.75
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Here’s",
+        "start_seconds": 74.15,
+        "end_seconds": 74.8
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "why",
+        "start_seconds": 74.8,
+        "end_seconds": 74.97500000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 74.97500000000001,
+        "end_seconds": 75.2
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "matters:",
+        "start_seconds": 75.2,
+        "end_seconds": 76.3125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "anyone",
+        "start_seconds": 76.3125,
+        "end_seconds": 76.675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "hoping",
+        "start_seconds": 76.675,
+        "end_seconds": 77.05
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 77.05,
+        "end_seconds": 77.1875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "join",
+        "start_seconds": 77.1875,
+        "end_seconds": 77.5
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Microsoft",
+        "start_seconds": 77.5,
+        "end_seconds": 78.175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 78.175,
+        "end_seconds": 78.325
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "early‑stage",
+        "start_seconds": 78.325,
+        "end_seconds": 79.0625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "AI",
+        "start_seconds": 79.0625,
+        "end_seconds": 79.47500000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "work",
+        "start_seconds": 79.47500000000001,
+        "end_seconds": 80.025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "now",
+        "start_seconds": 80.025,
+        "end_seconds": 80.35000000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "has",
+        "start_seconds": 80.35000000000001,
+        "end_seconds": 80.55
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 80.55,
+        "end_seconds": 80.6875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "aim",
+        "start_seconds": 80.6875,
+        "end_seconds": 80.97500000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 80.97500000000001,
+        "end_seconds": 81.0875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 81.0875,
+        "end_seconds": 81.1875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "broader",
+        "start_seconds": 81.1875,
+        "end_seconds": 81.575
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Microsoft",
+        "start_seconds": 81.575,
+        "end_seconds": 82.2125
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "AI",
+        "start_seconds": 82.2125,
+        "end_seconds": 82.625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "organization,",
+        "start_seconds": 82.625,
+        "end_seconds": 83.925
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "where",
+        "start_seconds": 83.925,
+        "end_seconds": 84.075
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "projects",
+        "start_seconds": 84.075,
+        "end_seconds": 84.5625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "are",
+        "start_seconds": 84.5625,
+        "end_seconds": 84.6875
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "judged",
+        "start_seconds": 84.6875,
+        "end_seconds": 85.05
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 85.05,
+        "end_seconds": 85.2625
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "scaling",
+        "start_seconds": 85.2625,
+        "end_seconds": 85.7
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "potential",
+        "start_seconds": 85.7,
+        "end_seconds": 86.53750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "rather",
+        "start_seconds": 86.53750000000001,
+        "end_seconds": 86.95
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "than",
+        "start_seconds": 86.95,
+        "end_seconds": 87.1375
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "pure",
+        "start_seconds": 87.1375,
+        "end_seconds": 87.425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "exploration.",
+        "start_seconds": 87.425,
+        "end_seconds": 88.85000000000001
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "Turning",
+        "start_seconds": 90.225,
+        "end_seconds": 90.575
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "to",
+        "start_seconds": 90.575,
+        "end_seconds": 90.6625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "our",
+        "start_seconds": 90.6625,
+        "end_seconds": 90.7875
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "next",
+        "start_seconds": 90.7875,
+        "end_seconds": 91.0375
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "story.",
+        "start_seconds": 91.0375,
+        "end_seconds": 92.1625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "Apple",
+        "start_seconds": 92.1625,
+        "end_seconds": 92.5
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "has",
+        "start_seconds": 92.5,
+        "end_seconds": 92.675
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "quietly",
+        "start_seconds": 92.675,
+        "end_seconds": 93.1375
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "added",
+        "start_seconds": 93.1375,
+        "end_seconds": 93.4125
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "a",
+        "start_seconds": 93.4125,
+        "end_seconds": 93.475
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "grey",
+        "start_seconds": 93.475,
+        "end_seconds": 93.75
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "list",
+        "start_seconds": 93.75,
+        "end_seconds": 94.2625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "that",
+        "start_seconds": 94.2625,
+        "end_seconds": 94.425
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "blocks",
+        "start_seconds": 94.425,
+        "end_seconds": 94.77499999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "more",
+        "start_seconds": 94.77499999999999,
+        "end_seconds": 94.96249999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "than",
+        "start_seconds": 94.96249999999999,
+        "end_seconds": 95.075
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "one",
+        "start_seconds": 95.075,
+        "end_seconds": 95.225
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "hundred",
+        "start_seconds": 95.225,
+        "end_seconds": 95.575
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "thousand",
+        "start_seconds": 95.575,
+        "end_seconds": 95.975
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "words",
+        "start_seconds": 95.975,
+        "end_seconds": 96.39999999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "from",
+        "start_seconds": 96.39999999999999,
+        "end_seconds": 96.6125
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "showing",
+        "start_seconds": 96.6125,
+        "end_seconds": 96.9125
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "up",
+        "start_seconds": 96.9125,
+        "end_seconds": 97.08749999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "in",
+        "start_seconds": 97.08749999999999,
+        "end_seconds": 97.175
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "predictive",
+        "start_seconds": 97.175,
+        "end_seconds": 97.7625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "or",
+        "start_seconds": 97.7625,
+        "end_seconds": 97.9375
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "swipe‑type",
+        "start_seconds": 97.9375,
+        "end_seconds": 98.475
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "suggestions",
+        "start_seconds": 98.475,
+        "end_seconds": 99.075
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "on",
+        "start_seconds": 99.075,
+        "end_seconds": 99.225
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "iPhones.",
+        "start_seconds": 99.225,
+        "end_seconds": 100.5125
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "The",
+        "start_seconds": 100.5125,
+        "end_seconds": 100.625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "list",
+        "start_seconds": 100.625,
+        "end_seconds": 100.89999999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "includes",
+        "start_seconds": 100.89999999999999,
+        "end_seconds": 101.3
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "offensive",
+        "start_seconds": 101.3,
+        "end_seconds": 101.77499999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "slurs,",
+        "start_seconds": 101.77499999999999,
+        "end_seconds": 102.575
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "political",
+        "start_seconds": 102.575,
+        "end_seconds": 103.075
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "phrases",
+        "start_seconds": 103.075,
+        "end_seconds": 103.6
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "like",
+        "start_seconds": 103.6,
+        "end_seconds": 103.83749999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "NSA",
+        "start_seconds": 103.83749999999999,
+        "end_seconds": 104.39999999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "spies",
+        "start_seconds": 104.39999999999999,
+        "end_seconds": 105.27499999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "and",
+        "start_seconds": 105.27499999999999,
+        "end_seconds": 105.425
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "even",
+        "start_seconds": 105.425,
+        "end_seconds": 105.725
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "drug‑related",
+        "start_seconds": 105.725,
+        "end_seconds": 106.375
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "terms",
+        "start_seconds": 106.375,
+        "end_seconds": 106.9125
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "such",
+        "start_seconds": 106.9125,
+        "end_seconds": 107.13749999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "as",
+        "start_seconds": 107.13749999999999,
+        "end_seconds": 107.25
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "on",
+        "start_seconds": 107.25,
+        "end_seconds": 107.4625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "MDMA,",
+        "start_seconds": 107.4625,
+        "end_seconds": 108.8625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "so",
+        "start_seconds": 108.8625,
+        "end_seconds": 109.01249999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "the",
+        "start_seconds": 109.01249999999999,
+        "end_seconds": 109.1
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "keyboard",
+        "start_seconds": 109.1,
+        "end_seconds": 109.5625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "will",
+        "start_seconds": 109.5625,
+        "end_seconds": 109.69999999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "either",
+        "start_seconds": 109.69999999999999,
+        "end_seconds": 109.975
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "stay",
+        "start_seconds": 109.975,
+        "end_seconds": 110.2375
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "silent",
+        "start_seconds": 110.2375,
+        "end_seconds": 110.875
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "or",
+        "start_seconds": 110.875,
+        "end_seconds": 111.0625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "swap",
+        "start_seconds": 111.0625,
+        "end_seconds": 111.4125
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "the",
+        "start_seconds": 111.4125,
+        "end_seconds": 111.5
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "word",
+        "start_seconds": 111.5,
+        "end_seconds": 111.775
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "for",
+        "start_seconds": 111.775,
+        "end_seconds": 111.88749999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "a",
+        "start_seconds": 111.88749999999999,
+        "end_seconds": 111.94999999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "look‑alike",
+        "start_seconds": 111.94999999999999,
+        "end_seconds": 112.4375
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "when",
+        "start_seconds": 112.4375,
+        "end_seconds": 112.5625
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "you",
+        "start_seconds": 112.5625,
+        "end_seconds": 112.675
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "swipe.",
+        "start_seconds": 112.675,
+        "end_seconds": 113.76249999999999
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "Developers",
+        "start_seconds": 114.42,
+        "end_seconds": 114.97
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "building",
+        "start_seconds": 114.97,
+        "end_seconds": 115.395
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "iOS",
+        "start_seconds": 115.395,
+        "end_seconds": 115.92
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "text‑input",
+        "start_seconds": 115.92,
+        "end_seconds": 116.595
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "features",
+        "start_seconds": 116.595,
+        "end_seconds": 117.27
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "need",
+        "start_seconds": 117.27,
+        "end_seconds": 117.495
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "to",
+        "start_seconds": 117.495,
+        "end_seconds": 117.62
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "expect",
+        "start_seconds": 117.62,
+        "end_seconds": 118.095
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "those",
+        "start_seconds": 118.095,
+        "end_seconds": 118.32
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "terms",
+        "start_seconds": 118.32,
+        "end_seconds": 118.67
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "will",
+        "start_seconds": 118.67,
+        "end_seconds": 118.8575
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "never",
+        "start_seconds": 118.8575,
+        "end_seconds": 119.1075
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "be",
+        "start_seconds": 119.1075,
+        "end_seconds": 119.2575
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "auto‑suggested,",
+        "start_seconds": 119.2575,
+        "end_seconds": 120.745
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "which",
+        "start_seconds": 120.745,
+        "end_seconds": 120.945
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "can",
+        "start_seconds": 120.945,
+        "end_seconds": 121.1325
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "throw",
+        "start_seconds": 121.1325,
+        "end_seconds": 121.42
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "off",
+        "start_seconds": 121.42,
+        "end_seconds": 121.6575
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "UI",
+        "start_seconds": 121.6575,
+        "end_seconds": 121.97
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "testing",
+        "start_seconds": 121.97,
+        "end_seconds": 122.795
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "and",
+        "start_seconds": 122.795,
+        "end_seconds": 122.9575
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "any",
+        "start_seconds": 122.9575,
+        "end_seconds": 123.245
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "app",
+        "start_seconds": 123.245,
+        "end_seconds": 123.495
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "that",
+        "start_seconds": 123.495,
+        "end_seconds": 123.67
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "leans",
+        "start_seconds": 123.67,
+        "end_seconds": 124.045
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "on",
+        "start_seconds": 124.045,
+        "end_seconds": 124.245
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "keyboard",
+        "start_seconds": 124.245,
+        "end_seconds": 124.72
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "shortcuts.",
+        "start_seconds": 124.72,
+        "end_seconds": 126.02
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "The",
+        "start_seconds": 127.395,
+        "end_seconds": 127.47
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "practical",
+        "start_seconds": 127.47,
+        "end_seconds": 128.02
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "takeaway?",
+        "start_seconds": 128.02,
+        "end_seconds": 129.17
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "If",
+        "start_seconds": 129.17,
+        "end_seconds": 129.3325
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "your",
+        "start_seconds": 129.3325,
+        "end_seconds": 129.5075
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "app",
+        "start_seconds": 129.5075,
+        "end_seconds": 129.77
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "relies",
+        "start_seconds": 129.77,
+        "end_seconds": 130.1325
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "on",
+        "start_seconds": 130.1325,
+        "end_seconds": 130.2325
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "the",
+        "start_seconds": 130.2325,
+        "end_seconds": 130.32
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "keyboard",
+        "start_seconds": 130.32,
+        "end_seconds": 130.82
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "to",
+        "start_seconds": 130.82,
+        "end_seconds": 130.9575
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "surface",
+        "start_seconds": 130.9575,
+        "end_seconds": 131.4325
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "controversial",
+        "start_seconds": 131.4325,
+        "end_seconds": 132.3325
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "or",
+        "start_seconds": 132.3325,
+        "end_seconds": 132.47
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "adult",
+        "start_seconds": 132.47,
+        "end_seconds": 132.82
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "language,",
+        "start_seconds": 132.82,
+        "end_seconds": 133.77
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "you’ll",
+        "start_seconds": 133.77,
+        "end_seconds": 133.895
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "have",
+        "start_seconds": 133.895,
+        "end_seconds": 134.095
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "to",
+        "start_seconds": 134.095,
+        "end_seconds": 134.22
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "handle",
+        "start_seconds": 134.22,
+        "end_seconds": 134.57
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "those",
+        "start_seconds": 134.57,
+        "end_seconds": 134.82
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "cases",
+        "start_seconds": 134.82,
+        "end_seconds": 135.3075
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "manually",
+        "start_seconds": 135.3075,
+        "end_seconds": 136.17
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "because",
+        "start_seconds": 136.17,
+        "end_seconds": 136.57
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "Apple’s",
+        "start_seconds": 136.57,
+        "end_seconds": 136.97
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "restriction",
+        "start_seconds": 136.97,
+        "end_seconds": 137.6075
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "is",
+        "start_seconds": 137.6075,
+        "end_seconds": 137.745
+      },
+      {
+        "segment_id": "apple-grey-list-predictive-text-2026-segment",
+        "text": "intentional.",
+        "start_seconds": 137.745,
+        "end_seconds": 139.07
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "Next",
+        "start_seconds": 140.495,
+        "end_seconds": 140.75750000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "on",
+        "start_seconds": 140.75750000000002,
+        "end_seconds": 140.85750000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "the",
+        "start_seconds": 140.85750000000002,
+        "end_seconds": 140.94500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "bulletin.",
+        "start_seconds": 140.94500000000002,
+        "end_seconds": 141.995
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "The",
+        "start_seconds": 141.995,
+        "end_seconds": 142.12
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "Asahi",
+        "start_seconds": 142.12,
+        "end_seconds": 142.54500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "Linux",
+        "start_seconds": 142.54500000000002,
+        "end_seconds": 142.87
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "team",
+        "start_seconds": 142.87,
+        "end_seconds": 143.19500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "just",
+        "start_seconds": 143.19500000000002,
+        "end_seconds": 143.35750000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "got",
+        "start_seconds": 143.35750000000002,
+        "end_seconds": 143.5825
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "Apple",
+        "start_seconds": 143.5825,
+        "end_seconds": 143.9325
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "M4",
+        "start_seconds": 143.9325,
+        "end_seconds": 144.44500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "Pro",
+        "start_seconds": 144.44500000000002,
+        "end_seconds": 144.7075
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "chips",
+        "start_seconds": 144.7075,
+        "end_seconds": 145.02
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "to",
+        "start_seconds": 145.02,
+        "end_seconds": 145.1575
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "show",
+        "start_seconds": 145.1575,
+        "end_seconds": 145.38250000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "up",
+        "start_seconds": 145.38250000000002,
+        "end_seconds": 145.5325
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "on",
+        "start_seconds": 145.5325,
+        "end_seconds": 145.63250000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "a",
+        "start_seconds": 145.63250000000002,
+        "end_seconds": 145.69500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "text",
+        "start_seconds": 145.69500000000002,
+        "end_seconds": 145.995
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "console",
+        "start_seconds": 145.995,
+        "end_seconds": 146.54500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "in",
+        "start_seconds": 146.54500000000002,
+        "end_seconds": 146.67000000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "Linux",
+        "start_seconds": 146.67000000000002,
+        "end_seconds": 147.00750000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "version",
+        "start_seconds": 147.00750000000002,
+        "end_seconds": 147.4075
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "seven",
+        "start_seconds": 147.4075,
+        "end_seconds": 147.745
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "point",
+        "start_seconds": 147.745,
+        "end_seconds": 148.02
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "three.",
+        "start_seconds": 148.02,
+        "end_seconds": 149.02
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "It’s",
+        "start_seconds": 149.02,
+        "end_seconds": 149.1825
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "a",
+        "start_seconds": 149.1825,
+        "end_seconds": 149.245
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "bare‑bones",
+        "start_seconds": 149.245,
+        "end_seconds": 149.845
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "devicetree",
+        "start_seconds": 149.845,
+        "end_seconds": 150.87
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "–",
+        "start_seconds": 150.87,
+        "end_seconds": 150.98250000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "just",
+        "start_seconds": 150.98250000000002,
+        "end_seconds": 151.23250000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "enough",
+        "start_seconds": 151.23250000000002,
+        "end_seconds": 151.52
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "to",
+        "start_seconds": 151.52,
+        "end_seconds": 151.62
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "get",
+        "start_seconds": 151.62,
+        "end_seconds": 151.7825
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "the",
+        "start_seconds": 151.7825,
+        "end_seconds": 151.87
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "processor",
+        "start_seconds": 151.87,
+        "end_seconds": 152.44500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "to",
+        "start_seconds": 152.44500000000002,
+        "end_seconds": 152.5325
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "a",
+        "start_seconds": 152.5325,
+        "end_seconds": 152.595
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "TTY,",
+        "start_seconds": 152.595,
+        "end_seconds": 153.5825
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "nothing",
+        "start_seconds": 153.5825,
+        "end_seconds": 153.94500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "more.",
+        "start_seconds": 153.94500000000002,
+        "end_seconds": 154.88250000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "That",
+        "start_seconds": 154.88250000000002,
+        "end_seconds": 155.13250000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "means",
+        "start_seconds": 155.13250000000002,
+        "end_seconds": 155.395
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "developers",
+        "start_seconds": 155.395,
+        "end_seconds": 155.94500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "can",
+        "start_seconds": 155.94500000000002,
+        "end_seconds": 156.07000000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "start",
+        "start_seconds": 156.07000000000002,
+        "end_seconds": 156.37
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "poking",
+        "start_seconds": 156.37,
+        "end_seconds": 156.69500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "at",
+        "start_seconds": 156.69500000000002,
+        "end_seconds": 156.79500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "low‑level",
+        "start_seconds": 156.79500000000002,
+        "end_seconds": 157.29500000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "boot",
+        "start_seconds": 157.29500000000002,
+        "end_seconds": 157.52
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "code,",
+        "start_seconds": 157.52,
+        "end_seconds": 158.32000000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "but",
+        "start_seconds": 158.32000000000002,
+        "end_seconds": 158.4575
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "the",
+        "start_seconds": 158.4575,
+        "end_seconds": 158.5575
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "GPU,",
+        "start_seconds": 158.5575,
+        "end_seconds": 159.4075
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "power",
+        "start_seconds": 159.4075,
+        "end_seconds": 159.77
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "management",
+        "start_seconds": 159.77,
+        "end_seconds": 160.38250000000002
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "and",
+        "start_seconds": 160.38250000000002,
+        "end_seconds": 160.52
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "other",
+        "start_seconds": 160.52,
+        "end_seconds": 160.745
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "drivers",
+        "start_seconds": 160.745,
+        "end_seconds": 161.245
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "are",
+        "start_seconds": 161.245,
+        "end_seconds": 161.345
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "still",
+        "start_seconds": 161.345,
+        "end_seconds": 161.62
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "missing.",
+        "start_seconds": 161.62,
+        "end_seconds": 162.6825
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "Here’s",
+        "start_seconds": 163.33999999999997,
+        "end_seconds": 163.94
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "why",
+        "start_seconds": 163.94,
+        "end_seconds": 164.11499999999998
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "that",
+        "start_seconds": 164.11499999999998,
+        "end_seconds": 164.33999999999997
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "matters:",
+        "start_seconds": 164.33999999999997,
+        "end_seconds": 165.3775
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "it’s",
+        "start_seconds": 165.3775,
+        "end_seconds": 165.5025
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "a",
+        "start_seconds": 165.5025,
+        "end_seconds": 165.565
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "prototype,",
+        "start_seconds": 165.565,
+        "end_seconds": 166.48999999999998
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "so",
+        "start_seconds": 166.48999999999998,
+        "end_seconds": 166.64
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "you’ll",
+        "start_seconds": 166.64,
+        "end_seconds": 166.79
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "need",
+        "start_seconds": 166.79,
+        "end_seconds": 167.02749999999997
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "future",
+        "start_seconds": 167.02749999999997,
+        "end_seconds": 167.39
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "kernel",
+        "start_seconds": 167.39,
+        "end_seconds": 167.73999999999998
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "releases",
+        "start_seconds": 167.73999999999998,
+        "end_seconds": 168.315
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "before",
+        "start_seconds": 168.315,
+        "end_seconds": 168.6025
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "the",
+        "start_seconds": 168.6025,
+        "end_seconds": 168.69
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "device",
+        "start_seconds": 168.69,
+        "end_seconds": 169.165
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "is",
+        "start_seconds": 169.165,
+        "end_seconds": 169.315
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "ready",
+        "start_seconds": 169.315,
+        "end_seconds": 169.64
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "for",
+        "start_seconds": 169.64,
+        "end_seconds": 169.80249999999998
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "everyday",
+        "start_seconds": 169.80249999999998,
+        "end_seconds": 170.29
+      },
+      {
+        "segment_id": "asahi-linux-7-3-devicetree-boot-segment",
+        "text": "use.",
+        "start_seconds": 170.29,
+        "end_seconds": 171.33999999999997
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "And",
+        "start_seconds": 172.73999999999998,
+        "end_seconds": 172.86499999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "finally,",
+        "start_seconds": 172.86499999999998,
+        "end_seconds": 173.44
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "our",
+        "start_seconds": 173.44,
+        "end_seconds": 173.59
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "last",
+        "start_seconds": 173.59,
+        "end_seconds": 173.8525
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "story.",
+        "start_seconds": 173.8525,
+        "end_seconds": 174.80249999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Discord",
+        "start_seconds": 174.80249999999998,
+        "end_seconds": 175.29
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "is",
+        "start_seconds": 175.29,
+        "end_seconds": 175.44
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "previewing",
+        "start_seconds": 175.44,
+        "end_seconds": 175.89
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "a",
+        "start_seconds": 175.89,
+        "end_seconds": 176.0025
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "native",
+        "start_seconds": 176.0025,
+        "end_seconds": 176.36499999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Windows",
+        "start_seconds": 176.36499999999998,
+        "end_seconds": 176.73999999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "eleven",
+        "start_seconds": 176.73999999999998,
+        "end_seconds": 177.09
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "client",
+        "start_seconds": 177.09,
+        "end_seconds": 177.5025
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "built",
+        "start_seconds": 177.5025,
+        "end_seconds": 177.79
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "in",
+        "start_seconds": 177.79,
+        "end_seconds": 177.94
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Rust",
+        "start_seconds": 177.94,
+        "end_seconds": 178.2775
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "with",
+        "start_seconds": 178.2775,
+        "end_seconds": 178.415
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "GPUI.",
+        "start_seconds": 178.415,
+        "end_seconds": 179.73999999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "The",
+        "start_seconds": 179.73999999999998,
+        "end_seconds": 179.86499999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "early",
+        "start_seconds": 179.86499999999998,
+        "end_seconds": 180.14
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "build",
+        "start_seconds": 180.14,
+        "end_seconds": 180.4525
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "flashes",
+        "start_seconds": 180.4525,
+        "end_seconds": 180.915
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "a",
+        "start_seconds": 180.915,
+        "end_seconds": 181.0275
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "three‑second",
+        "start_seconds": 181.0275,
+        "end_seconds": 181.59
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "dark",
+        "start_seconds": 181.59,
+        "end_seconds": 181.86499999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "splash,",
+        "start_seconds": 181.86499999999998,
+        "end_seconds": 182.715
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "then",
+        "start_seconds": 182.715,
+        "end_seconds": 182.92749999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "settles",
+        "start_seconds": 182.92749999999998,
+        "end_seconds": 183.315
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "around",
+        "start_seconds": 183.315,
+        "end_seconds": 183.6025
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "290",
+        "start_seconds": 183.6025,
+        "end_seconds": 184.44
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "megabytes",
+        "start_seconds": 184.44,
+        "end_seconds": 184.92749999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "of",
+        "start_seconds": 184.92749999999998,
+        "end_seconds": 185.015
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "RAM—about",
+        "start_seconds": 185.015,
+        "end_seconds": 186.1025
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "seventy",
+        "start_seconds": 186.1025,
+        "end_seconds": 186.48999999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "percent",
+        "start_seconds": 186.48999999999998,
+        "end_seconds": 186.84
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "less",
+        "start_seconds": 186.84,
+        "end_seconds": 187.11499999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "than",
+        "start_seconds": 187.11499999999998,
+        "end_seconds": 187.2275
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "the",
+        "start_seconds": 187.2275,
+        "end_seconds": 187.315
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Electron",
+        "start_seconds": 187.315,
+        "end_seconds": 187.815
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "version’s",
+        "start_seconds": 187.815,
+        "end_seconds": 188.265
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "typical",
+        "start_seconds": 188.265,
+        "end_seconds": 188.64
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "gigabyte.",
+        "start_seconds": 188.64,
+        "end_seconds": 189.79
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "It",
+        "start_seconds": 189.79,
+        "end_seconds": 189.94
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "swaps",
+        "start_seconds": 189.94,
+        "end_seconds": 190.30249999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "WebView",
+        "start_seconds": 190.30249999999998,
+        "end_seconds": 190.7275
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "two",
+        "start_seconds": 190.7275,
+        "end_seconds": 191.04
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "for",
+        "start_seconds": 191.04,
+        "end_seconds": 191.165
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "GPUI,",
+        "start_seconds": 191.165,
+        "end_seconds": 192.2275
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "stores",
+        "start_seconds": 192.2275,
+        "end_seconds": 192.59
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "login",
+        "start_seconds": 192.59,
+        "end_seconds": 192.965
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "tokens",
+        "start_seconds": 192.965,
+        "end_seconds": 193.44
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "in",
+        "start_seconds": 193.44,
+        "end_seconds": 193.5275
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "the",
+        "start_seconds": 193.5275,
+        "end_seconds": 193.61499999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Windows",
+        "start_seconds": 193.61499999999998,
+        "end_seconds": 194.015
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Credential",
+        "start_seconds": 194.015,
+        "end_seconds": 194.515
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Manager",
+        "start_seconds": 194.515,
+        "end_seconds": 194.86499999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "keyring,",
+        "start_seconds": 194.86499999999998,
+        "end_seconds": 195.69
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "and",
+        "start_seconds": 195.69,
+        "end_seconds": 195.80249999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "the",
+        "start_seconds": 195.80249999999998,
+        "end_seconds": 195.9025
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "same",
+        "start_seconds": 195.9025,
+        "end_seconds": 196.215
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "codebase",
+        "start_seconds": 196.215,
+        "end_seconds": 196.765
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "should",
+        "start_seconds": 196.765,
+        "end_seconds": 196.965
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "run",
+        "start_seconds": 196.965,
+        "end_seconds": 197.17749999999998
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "on",
+        "start_seconds": 197.17749999999998,
+        "end_seconds": 197.29
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Linux",
+        "start_seconds": 197.29,
+        "end_seconds": 197.69
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "and",
+        "start_seconds": 197.69,
+        "end_seconds": 197.815
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "macOS.",
+        "start_seconds": 197.815,
+        "end_seconds": 199.1525
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Here’s",
+        "start_seconds": 199.81,
+        "end_seconds": 200.46
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "why",
+        "start_seconds": 200.46,
+        "end_seconds": 200.63500000000002
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "that",
+        "start_seconds": 200.63500000000002,
+        "end_seconds": 200.86
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "matters:",
+        "start_seconds": 200.86,
+        "end_seconds": 201.9225
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "developers",
+        "start_seconds": 201.9225,
+        "end_seconds": 202.56
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "get",
+        "start_seconds": 202.56,
+        "end_seconds": 202.69750000000002
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "a",
+        "start_seconds": 202.69750000000002,
+        "end_seconds": 202.7975
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "slimmer",
+        "start_seconds": 202.7975,
+        "end_seconds": 203.185
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Discord",
+        "start_seconds": 203.185,
+        "end_seconds": 203.71
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "that",
+        "start_seconds": 203.71,
+        "end_seconds": 203.8975
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "eases",
+        "start_seconds": 203.8975,
+        "end_seconds": 204.32250000000002
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "background",
+        "start_seconds": 204.32250000000002,
+        "end_seconds": 204.835
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "memory",
+        "start_seconds": 204.835,
+        "end_seconds": 205.21
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "pressure,",
+        "start_seconds": 205.21,
+        "end_seconds": 206.16000000000003
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "but",
+        "start_seconds": 206.16000000000003,
+        "end_seconds": 206.2975
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "it’s",
+        "start_seconds": 206.2975,
+        "end_seconds": 206.41000000000003
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "still",
+        "start_seconds": 206.41000000000003,
+        "end_seconds": 206.69750000000002
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "pre‑release",
+        "start_seconds": 206.69750000000002,
+        "end_seconds": 207.435
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "with",
+        "start_seconds": 207.435,
+        "end_seconds": 207.6225
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "no",
+        "start_seconds": 207.6225,
+        "end_seconds": 207.8975
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "public",
+        "start_seconds": 207.8975,
+        "end_seconds": 208.31
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "launch",
+        "start_seconds": 208.31,
+        "end_seconds": 208.61
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "timeline.",
+        "start_seconds": 208.61,
+        "end_seconds": 209.835
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "And",
+        "start_seconds": 211.23499999999999,
+        "end_seconds": 211.3475
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "that's",
+        "start_seconds": 211.3475,
+        "end_seconds": 211.5725
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "your",
+        "start_seconds": 211.5725,
+        "end_seconds": 211.685
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Daywire",
+        "start_seconds": 211.685,
+        "end_seconds": 212.06
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "briefing.",
+        "start_seconds": 212.06,
+        "end_seconds": 212.98499999999999
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "You'll",
+        "start_seconds": 212.98499999999999,
+        "end_seconds": 213.135
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "find",
+        "start_seconds": 213.135,
+        "end_seconds": 213.3725
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "the",
+        "start_seconds": 213.3725,
+        "end_seconds": 213.4725
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "full",
+        "start_seconds": 213.4725,
+        "end_seconds": 213.71
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "stories",
+        "start_seconds": 213.71,
+        "end_seconds": 214.1225
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "and",
+        "start_seconds": 214.1225,
+        "end_seconds": 214.23499999999999
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "sources",
+        "start_seconds": 214.23499999999999,
+        "end_seconds": 214.71
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "in",
+        "start_seconds": 214.71,
+        "end_seconds": 214.81
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "today's",
+        "start_seconds": 214.81,
+        "end_seconds": 215.185
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "newspaper.",
+        "start_seconds": 215.185,
+        "end_seconds": 216.1975
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Thanks",
+        "start_seconds": 216.1975,
+        "end_seconds": 216.51
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "for",
+        "start_seconds": 216.51,
+        "end_seconds": 216.635
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "listening.",
+        "start_seconds": 216.635,
+        "end_seconds": 217.3725
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "Take",
+        "start_seconds": 217.3725,
+        "end_seconds": 217.66
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "care,",
+        "start_seconds": 217.66,
+        "end_seconds": 218.06
+      },
+      {
+        "segment_id": "discord-rust-client-preview-segment",
+        "text": "everyone.",
+        "start_seconds": 218.06,
+        "end_seconds": 219.26
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
