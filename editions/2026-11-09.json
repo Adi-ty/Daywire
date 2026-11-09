@@ -1,0 +1,3455 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-09",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-09T07:08:44.128671996Z",
+  "coverage": {
+    "from": "2026-11-08T06:00:00+05:30",
+    "until": "2026-11-09T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "vercel",
+      "source-00ae4ac7a3398ae7",
+      "source-6946c86980fb69ca",
+      "source-e020f35ba82bcce7",
+      "source-e68539633591cd5b"
+    ],
+    "candidate_count": 31,
+    "evidence_count": 23
+  },
+  "content": {
+    "title": "AI Access Tightens, Systemd Embraces Rust, and Mail Security Steps Up",
+    "introduction": "Goldman Sachs has curtailed internal use of Claude Code and GitHub Copilot to engineering teams, marking a notable shift in corporate AI policy. Meanwhile, systemd now supports optional Rust components and Outlook.com begins rejecting mail lacking DMARC, underscoring broader moves toward security and modern language adoption.",
+    "articles": [
+      {
+        "id": "goldman-ai-access-restriction-nov-2026",
+        "section": "AI",
+        "headline": "Goldman Sachs limits Claude Code and GitHub Copilot to engineers",
+        "summary": "Goldman has updated internal policy to restrict Anthropic’s Claude Code and Microsoft’s GitHub AI coding tools to its engineering staff, cutting off most traders and bankers.",
+        "paragraphs": [
+          "In October 2026 Goldman Sachs issued new internal guidance that bars the majority of its front‑office staff from using AI‑driven coding assistants. The restriction applies to Anthropic’s Claude Code and Microsoft’s GitHub Copilot, leaving only the bank’s roughly 12,000 engineers with access. The change follows a risk‑review that highlighted productivity gains versus compliance concerns, especially around information‑barrier breaches between traders, bankers and developers.",
+          "The policy builds on earlier moves: Goldman removed Claude from its Hong Kong AI platform in April after a strict reading of its contract with Anthropic, while ChatGPT and Gemini remained available. JPMorgan made a similar cut in June, and other firms such as Schwab are now blocking external agents from customer accounts. Goldman’s internal AI platform was designed with layered controls, and the new rule reinforces those safeguards by ensuring only vetted engineers can review and improve trader‑built tools.",
+          "For engineers at Goldman, the update means continued access to powerful code‑generation models, but traders and bankers must revert to traditional development workflows or request engineering assistance. The shift underscores a broader industry trend of tightening AI tool usage where regulatory and conflict‑of‑interest risks are high."
+        ],
+        "implication": "Goldman’s engineers retain AI coding assistance, while front‑office staff lose direct tool access, forcing a more controlled, engineer‑mediated workflow for AI‑generated code.",
+        "source_ids": [
+          "source-fe5fdb83e1ea95f1"
+        ]
+      },
+      {
+        "id": "undici-shared-cache-info-leak-2026-11-09",
+        "section": "Security",
+        "headline": "Undici shared cache can leak authenticated responses across origins",
+        "summary": "Versions 7.x and 8.x of undici expose cross‑origin information when a shared cache is used with redirect‑then‑cache composition.",
+        "paragraphs": [
+          "When an Agent composes interceptors as compose(redirect(), cache()) with a shared MemoryCacheStore or SqliteCacheStore, undici may accept a 304 Not Modified from a different origin and replay the cached authenticated body to an unauthenticated caller. The flaw stems from the redirect handler preserving cache‑generated validators (If‑None‑Match/If‑Modified‑Since) while stripping credential headers, allowing the second origin to validate the first origin’s cached entry.",
+          "The vulnerability affects all 7.x releases and 8.x releases prior to the patches. The fix, released in undici 7.30.2 and 8.12.4, adds strict origin‑path matching for 304 responses and evicts mismatched entries. Only applications that use a shared cache store and the vulnerable interceptor order are at risk."
+        ],
+        "implication": "Projects that rely on shared undici caches must upgrade to 7.30.2 or 8.12.4, or restructure interceptor composition to avoid redirect‑then‑cache ordering, to prevent accidental credential leakage.",
+        "source_ids": [
+          "source-2bc5e265c8f306e0",
+          "source-a448c4a9c47d29fc"
+        ]
+      },
+      {
+        "id": "cpu-first-284b-deepseek",
+        "section": "Engineering",
+        "headline": "CPU‑only inference fits 284B DeepSeek model into 64 GB RAM",
+        "summary": "The llama‑modchip project trims a 284‑billion‑parameter DeepSeek‑V4‑Flash checkpoint so it runs entirely in RAM on a 64‑GB Linux box without GPU acceleration.",
+        "paragraphs": [
+          "By stripping inactive weights and compressing the checkpoint to 56.56 GiB, llama‑modchip reduces the model’s resident set from 82.5 GB to under the usable 62.5 GiB limit. On a 16‑core Zen 5 CPU the full model plus a 256 K token KV cache stays in RAM with zero swapping, delivering 9.1–14.7 tokens per second while evaluating all six routed experts per layer (Top‑6) without pruning.",
+          "The repository also bundles a self‑speculative drafter (a 1.64 MB Stockfish‑PVS v2 n‑gram model) and O(1) rollback logic for recurrent MLA states, enabling instant context restores in 13–33 ms for multi‑tool prompts. Benchmarks are reproducible via a two‑stage speed test and can be submitted to a public leaderboard."
+        ],
+        "implication": "Developers can now experiment with very large MoE models on commodity CPUs, expanding access to high‑capacity LLMs without needing expensive GPU hardware.",
+        "source_ids": [
+          "source-55858f2b4ca73bde"
+        ]
+      },
+      {
+        "id": "outlook-dmarc-rejection-2026",
+        "section": "Security",
+        "headline": "Outlook.com now rejects mail from domains without DMARC",
+        "summary": "Since 5 Nov 2026 Microsoft’s consumer mail services have begun bouncing messages from domains that lack a published DMARC record, affecting low‑volume senders to outlook.com, hotmail.com, live.com and msn.com addresses.",
+        "paragraphs": [
+          "The change is unannounced; messages from domains without the required _dmarc TXT record are being rejected, even when SPF or DKIM records are present. The policy applies to any sender, not just the bulk‑sender rules Microsoft published in May 2025, and the bounce can be intermittent, making the issue hard to detect."
+        ],
+        "implication": "Senders targeting Outlook‑related addresses must publish a correctly aligned DMARC TXT record to ensure reliable delivery.",
+        "source_ids": [
+          "source-7cbb1e8e79a45712"
+        ]
+      },
+      {
+        "id": "benchup-launch",
+        "section": "Tools",
+        "headline": "BenchUp opens Rust‑based 3D modeling for woodworking",
+        "summary": "BenchUp, a free open‑source app built with Rust and WebGPU, lets makers design furniture on Windows, macOS, Linux, or in a browser.",
+        "paragraphs": [
+          "The project ships native installers for Windows x64, Apple Silicon macOS, and Linux AppImage, plus a desktop‑browser version that runs without an account. Its toolset focuses on sketching basic shapes, push‑pull editing, and precise dimensioning, targeting hobbyist woodworkers who need exact measurements before cutting."
+        ],
+        "implication": "Woodworking enthusiasts can now prototype designs locally without proprietary software, using a single cross‑platform tool that runs on standard hardware.",
+        "source_ids": [
+          "source-5a786529aaee4f4c"
+        ]
+      },
+      {
+        "id": "systemd-rust-support-2026",
+        "section": "Engineering",
+        "headline": "systemd adds optional Rust component support",
+        "summary": "systemd’s main codebase now permits new components to be written in Rust alongside existing C binaries.",
+        "paragraphs": [
+          "The recent merge introduces two integration paths: (1) wrapping the core libsystemd‑shared.so C library with Rust crates for use in Rust binaries, and (2) allowing Rust‑written binaries to link directly to the shared library. The project stresses that Rust components must behave identically to their C counterparts, preserving uniform access to the extensive systemd API. Adoption is optional and currently limited to leaf binaries, with no change to the shared library’s implementation language."
+        ],
+        "implication": "Developers can experiment with Rust for new systemd utilities without altering the existing C infrastructure, but must rely on the C‑only shared library and ensure functional parity.",
+        "source_ids": [
+          "source-cafb0b06f16b9edb"
+        ]
+      },
+      {
+        "id": "dasha-1-10-patroni-auto-discovery",
+        "section": "Tools",
+        "headline": "Dasha 1.10 adds Patroni auto‑discovery and wait‑analysis for PostgreSQL",
+        "summary": "The open‑source dashboard now reads Patroni’s etcd or Consul keys to map clusters without installing agents, and shows live wait‑event charts for PostgreSQL 14+.",
+        "paragraphs": [
+          "Dasha 1.10 connects to PostgreSQL fleets with a read‑only role and, for the first time, automatically discovers Patroni clusters by reading their DCS keys (etcd v3 or Consul). The UI lists members as hosts, displays standby relationships, and filters can be overridden per scope; TLS client‑certificate authentication is supported. A new Activity \u0026 Waits view samples pg_stat_activity every 1‑10 seconds, breaking down CPU, I/O, lock and other wait types for PostgreSQL 14 and newer."
+        ],
+        "implication": "Operators can now monitor Patroni‑managed clusters centrally without deploying extra agents, gaining immediate visibility into wait‑events and replica topology.",
+        "source_ids": [
+          "source-99d5ae34e27b2c03"
+        ]
+      },
+      {
+        "id": "zkeys-unattended-reboots",
+        "section": "Tools",
+        "headline": "ZKeys adds password‑less reboots for encrypted home servers",
+        "summary": "Julio Merino’s ZKeys project lets small‑scale servers automatically reboot without manual passphrase entry while keeping disk keys encrypted at rest.",
+        "paragraphs": [
+          "ZKeys runs a client that stores the disk‑unlock key encrypted with a user‑supplied password, transmitted over HTTPS only when needed. If the server stops receiving heartbeat messages—such as when it’s unplugged—the key is locked, preventing further automatic boots until the password is re‑entered. The demo shows Fedora 44 booting unattended, then refusing to reboot after a manual lock, and finally resuming after the key is unlocked again."
+        ],
+        "implication": "For hobbyists and small‑office NAS owners, ZKeys offers a way to balance convenience and security, but reliance on a remote lock service means availability depends on continuous connectivity.",
+        "source_ids": [
+          "source-820f71b5bbb890b8"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "ai-tool-access-controls-goldman-nov-2026",
+        "title": "Why restricting AI coding assistants to engineers reduces compliance risk",
+        "paragraphs": [
+          "Goldman Sachs discovered that front‑office staff could inadvertently breach information‑barrier rules by using AI coding agents to build tools that mix deal‑specific data with trading logic. By limiting Claude Code and GitHub Copilot to the 12,000 engineers, the bank ensures that any generated code passes through a vetted technical team before it reaches traders or bankers, keeping the data pipeline auditable and reducing the chance of accidental leakage.",
+          "The policy also creates a clear separation of duties: engineers act as the only approved reviewers of AI‑generated scripts, while traders must request assistance through formal channels. This mirrors traditional software‑development governance, where code reviews and change‑management processes are mandatory for high‑risk systems."
+        ],
+        "example": "A trader writes a quick script with Claude Code to analyze client flow data. Under the new rule, the script is sent to an engineer, who reviews the code, strips any confidential identifiers, and then returns a safe version for the trader to use.",
+        "takeaway": "Restricting AI coding tools to a controlled engineering group turns an open‑ended productivity boost into a managed, compliant workflow, protecting sensitive financial information while still leveraging AI assistance.",
+        "article_ids": [
+          "goldman-ai-access-restriction-nov-2026"
+        ],
+        "source_ids": [
+          "source-fe5fdb83e1ea95f1"
+        ]
+      },
+      {
+        "id": "undici-cache-key-validation-lesson",
+        "title": "Strict cache‑key validation prevents cross‑origin replay",
+        "paragraphs": [
+          "When undici composes interceptors as compose(redirect(), cache()) with a shared cache, the redirect step strips credential headers but leaves the conditional validators (If‑None‑Match, If‑Modified‑Since). If the subsequent request is redirected to a different origin, that origin receives the original validators and can answer with a 304 Not Modified. Undici then treats the 304 as a successful revalidation of the cached entry, even though the response came from a different origin, allowing the cached authenticated body to be served to an unauthenticated caller.",
+          "The fix introduced in undici 7.30.2 and 8.12.4 adds a strict check: a 304 response is accepted only when its final origin and path match the cache key of the stored entry. If they differ, the entry is evicted and the request is refetched without using the stale validators. This ensures that a cache entry can never be replayed for a different origin, closing the information‑disclosure channel."
+        ],
+        "example": "Imagine a shared MemoryCacheStore holding a response from https://api.example.com/user with an Authorization header. A redirect sends the request to https://attacker.com/relay, which receives the If‑None‑Match value from the cache, replies 304, and undici would have returned the original user data. After the fix, undici sees that the 304 came from attacker.com, evicts the entry, and fetches the resource again, preventing the leak.",
+        "takeaway": "Always validate that a revalidation response originates from the same host and path as the cached key; otherwise a shared cache can become a conduit for cross‑origin credential leakage.",
+        "article_ids": [
+          "undici-shared-cache-info-leak-2026-11-09"
+        ],
+        "source_ids": [
+          "source-2bc5e265c8f306e0"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-restrict-engineers",
+        "lesson_id": "ai-tool-access-controls-goldman-nov-2026",
+        "prompt": "According to the Goldman Sachs policy, why does limiting AI coding assistants to engineers lower compliance risk?",
+        "options": [
+          "Engineers can audit and cleanse generated code before it reaches traders, preventing accidental data leakage.",
+          "Engineers receive higher compensation, which discourages misuse of AI tools.",
+          "Traders are prohibited from writing any code, eliminating all coding errors.",
+          "AI tools become faster when only engineers use them."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that restricting AI tools to engineers ensures generated code is reviewed by a vetted technical team, allowing confidential identifiers to be stripped and keeping the data pipeline auditable, which directly reduces the chance of accidental leakage."
+      },
+      {
+        "id": "quiz-1-separation-of-duties",
+        "lesson_id": "ai-tool-access-controls-goldman-nov-2026",
+        "prompt": "What governance principle does the policy create by having engineers as the sole reviewers of AI‑generated scripts?",
+        "options": [
+          "Separation of duties between code creation and code approval.",
+          "Mandatory encryption of all AI‑generated code.",
+          "Automatic deletion of all scripts after execution.",
+          "Requirement that traders must also be certified engineers."
+        ],
+        "answer": 0,
+        "explanation": "The lesson describes a clear separation of duties: engineers act as the only approved reviewers, mirroring traditional software‑development governance where code reviews are mandatory for high‑risk systems."
+      },
+      {
+        "id": "quiz-1-compliance-workflow",
+        "lesson_id": "ai-tool-access-controls-goldman-nov-2026",
+        "prompt": "How does the described policy turn an open‑ended productivity boost into a compliant workflow?",
+        "options": [
+          "By routing AI‑generated code through a controlled engineering group for review before use.",
+          "By disabling AI coding assistants for all staff.",
+          "By requiring traders to write code without any AI assistance.",
+          "By outsourcing code reviews to third‑party vendors."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway explains that restricting AI tools to a controlled engineering group makes the workflow managed and compliant, as code is reviewed and sanitized before being used by traders."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "undici-cache-key-validation-lesson",
+        "prompt": "What condition must a 304 Not Modified response satisfy for Undici to reuse a cached entry after the fix introduced in versions 7.30.2 and 8.12.4?",
+        "options": [
+          "The response must include the same ETag value as the cached entry.",
+          "The response must originate from the same host and path as the cache key of the stored entry.",
+          "The response must be received within 5 seconds of the original request.",
+          "The response must contain no Set-Cookie header."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that the fix adds a strict check: a 304 response is accepted only when its final origin and path match the cache key of the stored entry. Matching ETag, timing, or cookie headers are not part of this validation."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "undici-cache-key-validation-lesson",
+        "prompt": "Why does the strict cache‑key validation prevent cross‑origin credential leakage in Undici?",
+        "options": [
+          "It removes all conditional validators (If‑None‑Match, If‑Modified‑Since) from redirected requests.",
+          "It evicts the cached entry when a 304 response comes from a different origin, forcing a fresh fetch without using stale validators.",
+          "It encrypts the cached response body before storing it in the shared MemoryCacheStore.",
+          "It disables redirects entirely for requests that contain Authorization headers."
+        ],
+        "answer": 1,
+        "explanation": "According to the lesson, when a 304 response originates from a different origin, Undici evicts the entry and refetches the resource, preventing the cached authenticated body from being served to an unauthenticated caller. The other options describe actions not mentioned in the lesson."
+      }
+    ],
+    "segments": [
+      {
+        "id": "radio-1",
+        "title": "Goldman limits AI coding tools to engineers",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November nine, two thousand twenty six.\n\nWe begin with our lead story. Goldman Sachs has just told its front‑office staff they can’t use Claude Code or GitHub Copilot any more. Only the roughly twelve thousand engineers keep access, after a risk review flagged compliance worries about traders and bankers tapping AI‑generated code. That means traders will have to go back to manual scripts or ask engineers to build the tools for them. Here's why that matters: the bank keeps the productivity boost for its developers while tightening controls where regulatory risk is highest.",
+        "article_ids": [
+          "goldman-ai-access-restriction-nov-2026"
+        ]
+      },
+      {
+        "id": "undici-shared-cache-leak-2026-11-09",
+        "title": "Undici cache leak across origins",
+        "text": "Next on the bulletin. Undici shared cache can leak authenticated responses across origins.\n\nIf you compose interceptors as compose(redirect(), cache()) and point both a MemoryCacheStore or SqliteCacheStore at multiple sites, Undici may accept a 304 Not Modified from a different origin and replay the cached authenticated body to an unauthenticated caller. The redirect handler keeps the cache validators while stripping credential headers, so the second origin can validate the first origin’s cached entry. The fix landed in Undici version seven point thirty point two and eight point twelve point four, adding strict origin‑path matching and evicting mismatched entries. Upgrade or change the interceptor order to stop accidental credential leakage.",
+        "article_ids": [
+          "undici-shared-cache-info-leak-2026-11-09"
+        ]
+      },
+      {
+        "id": "cpu-only-deepseek-2026-11-09",
+        "title": "CPU‑only inference fits 284B DeepSeek model into 64 GB RAM",
+        "text": "Turning to our next story. The llama‑modchip team stripped inactive weights and compressed the DeepSeek‑V4‑Flash checkpoint down to 56 point 56 GiB, letting the 284‑billion‑parameter model sit comfortably under a 62 point 5 GiB RAM ceiling on a 64 GB Linux box. On a 16‑core Zen 5 CPU it churns out roughly nine to fifteen tokens per second, even with all six routed experts active. They also bundled a tiny 1 point 64 MB Stockfish‑PVS v2 drafter and O one rollback logic for instant context restores. Here's why that matters: developers can now tinker with massive mixture‑of‑experts models using ordinary CPUs, no pricey GPUs required.",
+        "article_ids": [
+          "cpu-first-284b-deepseek"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Outlook.com now rejects mail without DMARC",
+        "text": "Next on the bulletin. Outlook.com has started bouncing messages from any domain that doesn’t publish a DMARC TXT record. Microsoft rolled this out on November fifth, 2026, and it applies to all consumer addresses – outlook.com, hotmail.com, live.com and msn.com – even if the sender has SPF or DKIM set up. The bounce can be intermittent, so some senders may only notice it sporadically. Here’s why that matters: without a correctly aligned DMARC record, your mail may simply never reach Outlook users.",
+        "article_ids": [
+          "outlook-dmarc-rejection-2026"
+        ]
+      },
+      {
+        "id": "benchup-launch-story",
+        "title": "BenchUp adds Rust‑based 3D modeling for woodworkers",
+        "text": "And finally, our last story. BenchUp just rolled out a free, open‑source 3D modeling app built in Rust and WebGPU. It runs natively on Windows x64, Apple Silicon macOS, and Linux via an AppImage, and there’s also a browser version that needs no account. The tool focuses on sketching basic shapes, push‑pull editing, and precise dimensioning, so hobbyist woodworkers can prototype furniture with exact measurements before they cut anything. Here’s why that matters: you get a single cross‑platform solution without pricey proprietary software, and it works on standard hardware.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "benchup-launch"
+        ]
+      }
+    ],
+    "artwork_brief": "A sleek office corridor lined with glass doors; each door bears a stylized AI chip icon that is padlocked, while a subtle background shows a systemd logo morphing into a rust-colored gear, and an email envelope with a red cross hovering over it."
+  },
+  "sources": [
+    {
+      "id": "source-2bc5e265c8f306e0",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-116630: undici vulnerable to cross-user information disclosure via cross-origin redirect revalidation",
+      "url": "https://github.com/nodejs/undici/security/advisories/GHSA-5rm8-gv32-r954",
+      "published_at": "2026-11-06T10:13:44Z",
+      "discovered_at": "2026-11-09T06:56:56.198285594Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-99d5ae34e27b2c03",
+      "name": "PostgreSQL News",
+      "title": "Dasha 1.10: Patroni auto-discovery, wait analysis and replication slot forecasts for PostgreSQL",
+      "url": "https://www.postgresql.org/about/news/dasha-110-patroni-auto-discovery-wait-analysis-and-replication-slot-forecasts-for-postgresql-3438/",
+      "published_at": "2026-11-09T00:00:00Z",
+      "discovered_at": "2026-11-09T06:56:57.218481222Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-fe5fdb83e1ea95f1",
+      "name": "Hacker News",
+      "title": "Goldman Sachs is pulling Claude Code from its bankers and traders",
+      "url": "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
+      "published_at": null,
+      "discovered_at": "2026-11-08T18:16:07Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50415628"
+    },
+    {
+      "id": "source-a448c4a9c47d29fc",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-120222: undici vulnerable to Denial of Service via unhandled exception in cache-interceptor response replay",
+      "url": "https://github.com/nodejs/undici/security/advisories/GHSA-3g9m-rv3r-w5w2",
+      "published_at": "2026-11-06T10:00:50Z",
+      "discovered_at": "2026-11-09T06:56:56.198285594Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-55858f2b4ca73bde",
+      "name": "Hacker News",
+      "title": "Llama-modchip: 284B DeepSeek on 64GB RAM, no GPU",
+      "url": "https://github.com/synchopate/llama-modchip",
+      "published_at": null,
+      "discovered_at": "2026-11-08T10:22:04Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50411961"
+    },
+    {
+      "id": "source-7cbb1e8e79a45712",
+      "name": "Hacker News",
+      "title": "Outlook.com is rejecting email from domains without DMARC",
+      "url": "https://mailroute.net/blog/outlook-rejecting-email-without-dmarc",
+      "published_at": null,
+      "discovered_at": "2026-11-08T19:20:32Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50416158"
+    },
+    {
+      "id": "source-5a786529aaee4f4c",
+      "name": "Hacker News",
+      "title": "KetchUp – Open-source SketchUp alternative built with Rust and WebGPU",
+      "url": "https://ketchup3d.github.io/app/",
+      "published_at": null,
+      "discovered_at": "2026-11-08T22:35:35Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50418176"
+    },
+    {
+      "id": "source-820f71b5bbb890b8",
+      "name": "Lobsters",
+      "title": "Unattended reboots with encrypted disks",
+      "url": "https://jmmv.dev/2026/11/zkeys-intro.html",
+      "published_at": null,
+      "discovered_at": "2026-11-08T10:58:03.605-06:00",
+      "discussion_url": "https://lobste.rs/s/urg4yu/unattended_reboots_with_encrypted_disks"
+    },
+    {
+      "id": "source-cafb0b06f16b9edb",
+      "name": "Lobsters",
+      "title": "systemd loves Rust",
+      "url": "https://amutable.com/blog/systemd-loves-rust",
+      "published_at": null,
+      "discovered_at": "2026-11-08T06:55:05.53-06:00",
+      "discussion_url": "https://lobste.rs/s/62loik/systemd_loves_rust"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-09/9acd6587929e55a4149b26bb8d894574b45228d0f7f968cd63293898a724dc9d.mp3",
+    "duration_seconds": 215.424,
+    "script_hash": "a500df871c6d9fb4ab4997415c4f9cd92de9e14352a737dc9ad71166203ac55f",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.4,
+        "end_seconds": 0.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.7875,
+        "end_seconds": 1.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.35,
+        "end_seconds": 1.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 1.475,
+        "end_seconds": 1.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 1.9,
+        "end_seconds": 2.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 2.025,
+        "end_seconds": 2.9875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 2.9875,
+        "end_seconds": 3.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 3.25,
+        "end_seconds": 3.4875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 3.4875,
+        "end_seconds": 3.8125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 3.8125,
+        "end_seconds": 3.8875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 3.8875,
+        "end_seconds": 3.9875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 3.9875,
+        "end_seconds": 4.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 4.25,
+        "end_seconds": 4.95
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 4.95,
+        "end_seconds": 5.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 5.2,
+        "end_seconds": 5.675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nine,",
+        "start_seconds": 5.675,
+        "end_seconds": 6.1375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 6.1375,
+        "end_seconds": 6.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 6.35,
+        "end_seconds": 6.7125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 6.7125,
+        "end_seconds": 6.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 6.9625,
+        "end_seconds": 7.8
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 9.1,
+        "end_seconds": 9.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 9.2,
+        "end_seconds": 9.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 9.575,
+        "end_seconds": 9.7125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 9.7125,
+        "end_seconds": 9.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 9.85,
+        "end_seconds": 10.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 10.075,
+        "end_seconds": 10.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Goldman",
+        "start_seconds": 10.9625,
+        "end_seconds": 11.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Sachs",
+        "start_seconds": 11.4125,
+        "end_seconds": 11.7375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "has",
+        "start_seconds": 11.7375,
+        "end_seconds": 11.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "just",
+        "start_seconds": 11.875,
+        "end_seconds": 12.05
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "told",
+        "start_seconds": 12.05,
+        "end_seconds": 12.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 12.2875,
+        "end_seconds": 12.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "front‑office",
+        "start_seconds": 12.45,
+        "end_seconds": 12.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "staff",
+        "start_seconds": 12.975,
+        "end_seconds": 13.5375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "they",
+        "start_seconds": 13.5375,
+        "end_seconds": 13.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can’t",
+        "start_seconds": 13.7,
+        "end_seconds": 13.95
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "use",
+        "start_seconds": 13.95,
+        "end_seconds": 14.1625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Claude",
+        "start_seconds": 14.1625,
+        "end_seconds": 14.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Code",
+        "start_seconds": 14.475,
+        "end_seconds": 14.9625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 14.9625,
+        "end_seconds": 15.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "GitHub",
+        "start_seconds": 15.125,
+        "end_seconds": 15.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Copilot",
+        "start_seconds": 15.475,
+        "end_seconds": 15.9375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 15.9375,
+        "end_seconds": 16.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "more.",
+        "start_seconds": 16.125,
+        "end_seconds": 16.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Only",
+        "start_seconds": 16.9125,
+        "end_seconds": 17.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 17.225,
+        "end_seconds": 17.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "roughly",
+        "start_seconds": 17.325,
+        "end_seconds": 17.675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twelve",
+        "start_seconds": 17.675,
+        "end_seconds": 18
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 18,
+        "end_seconds": 18.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "engineers",
+        "start_seconds": 18.3875,
+        "end_seconds": 18.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "keep",
+        "start_seconds": 18.875,
+        "end_seconds": 19.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "access,",
+        "start_seconds": 19.1,
+        "end_seconds": 20.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "after",
+        "start_seconds": 20.025,
+        "end_seconds": 20.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 20.2875,
+        "end_seconds": 20.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "risk",
+        "start_seconds": 20.35,
+        "end_seconds": 20.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "review",
+        "start_seconds": 20.625,
+        "end_seconds": 20.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flagged",
+        "start_seconds": 20.975,
+        "end_seconds": 21.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "compliance",
+        "start_seconds": 21.35,
+        "end_seconds": 21.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "worries",
+        "start_seconds": 21.85,
+        "end_seconds": 22.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "about",
+        "start_seconds": 22.3875,
+        "end_seconds": 22.675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "traders",
+        "start_seconds": 22.675,
+        "end_seconds": 23.0625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 23.0625,
+        "end_seconds": 23.175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bankers",
+        "start_seconds": 23.175,
+        "end_seconds": 23.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tapping",
+        "start_seconds": 23.7625,
+        "end_seconds": 24.175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI‑generated",
+        "start_seconds": 24.175,
+        "end_seconds": 25.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "code.",
+        "start_seconds": 25.075,
+        "end_seconds": 25.9375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "That",
+        "start_seconds": 25.9375,
+        "end_seconds": 26.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "means",
+        "start_seconds": 26.1875,
+        "end_seconds": 26.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "traders",
+        "start_seconds": 26.425,
+        "end_seconds": 26.8625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 26.8625,
+        "end_seconds": 26.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 26.975,
+        "end_seconds": 27.175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 27.175,
+        "end_seconds": 27.2625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "go",
+        "start_seconds": 27.2625,
+        "end_seconds": 27.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "back",
+        "start_seconds": 27.425,
+        "end_seconds": 27.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 27.7,
+        "end_seconds": 27.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "manual",
+        "start_seconds": 27.825,
+        "end_seconds": 28.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "scripts",
+        "start_seconds": 28.2,
+        "end_seconds": 28.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 28.85,
+        "end_seconds": 29.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ask",
+        "start_seconds": 29.0375,
+        "end_seconds": 29.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "engineers",
+        "start_seconds": 29.2875,
+        "end_seconds": 29.8
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 29.8,
+        "end_seconds": 29.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "build",
+        "start_seconds": 29.9,
+        "end_seconds": 30.1375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 30.1375,
+        "end_seconds": 30.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tools",
+        "start_seconds": 30.225,
+        "end_seconds": 30.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 30.575,
+        "end_seconds": 30.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "them.",
+        "start_seconds": 30.6875,
+        "end_seconds": 31.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 31.995,
+        "end_seconds": 32.295
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 32.295,
+        "end_seconds": 32.47
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 32.47,
+        "end_seconds": 32.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 32.695,
+        "end_seconds": 33.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 33.595,
+        "end_seconds": 33.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bank",
+        "start_seconds": 33.695,
+        "end_seconds": 34.02
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "keeps",
+        "start_seconds": 34.02,
+        "end_seconds": 34.2825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 34.2825,
+        "end_seconds": 34.370000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "productivity",
+        "start_seconds": 34.370000000000005,
+        "end_seconds": 35.1325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "boost",
+        "start_seconds": 35.1325,
+        "end_seconds": 35.47
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 35.47,
+        "end_seconds": 35.6075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 35.6075,
+        "end_seconds": 35.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "developers",
+        "start_seconds": 35.77,
+        "end_seconds": 36.5825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "while",
+        "start_seconds": 36.5825,
+        "end_seconds": 36.8325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tightening",
+        "start_seconds": 36.8325,
+        "end_seconds": 37.245000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "controls",
+        "start_seconds": 37.245000000000005,
+        "end_seconds": 37.8325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "where",
+        "start_seconds": 37.8325,
+        "end_seconds": 37.995000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "regulatory",
+        "start_seconds": 37.995000000000005,
+        "end_seconds": 38.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "risk",
+        "start_seconds": 38.67,
+        "end_seconds": 38.995000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "is",
+        "start_seconds": 38.995000000000005,
+        "end_seconds": 39.145
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "highest.",
+        "start_seconds": 39.145,
+        "end_seconds": 40.095
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "Next",
+        "start_seconds": 41.445,
+        "end_seconds": 41.745000000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "on",
+        "start_seconds": 41.745000000000005,
+        "end_seconds": 41.8825
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "the",
+        "start_seconds": 41.8825,
+        "end_seconds": 41.97
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "bulletin.",
+        "start_seconds": 41.97,
+        "end_seconds": 42.97
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "Undici",
+        "start_seconds": 42.97,
+        "end_seconds": 43.6075
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "shared",
+        "start_seconds": 43.6075,
+        "end_seconds": 43.932500000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "cache",
+        "start_seconds": 43.932500000000005,
+        "end_seconds": 44.4075
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "can",
+        "start_seconds": 44.4075,
+        "end_seconds": 44.57
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "leak",
+        "start_seconds": 44.57,
+        "end_seconds": 44.807500000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "authenticated",
+        "start_seconds": 44.807500000000005,
+        "end_seconds": 45.5075
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "responses",
+        "start_seconds": 45.5075,
+        "end_seconds": 46.17
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "across",
+        "start_seconds": 46.17,
+        "end_seconds": 46.52
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "origins.",
+        "start_seconds": 46.52,
+        "end_seconds": 47.57
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "If",
+        "start_seconds": 48.870000000000005,
+        "end_seconds": 48.9825
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "you",
+        "start_seconds": 48.9825,
+        "end_seconds": 49.07
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "compose",
+        "start_seconds": 49.07,
+        "end_seconds": 49.4575
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "interceptors",
+        "start_seconds": 49.4575,
+        "end_seconds": 50.095000000000006
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "as",
+        "start_seconds": 50.095000000000006,
+        "end_seconds": 50.245000000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "compose(redirect(),",
+        "start_seconds": 50.245000000000005,
+        "end_seconds": 52.045
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "cache())",
+        "start_seconds": 52.045,
+        "end_seconds": 52.620000000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "and",
+        "start_seconds": 52.620000000000005,
+        "end_seconds": 52.745000000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "point",
+        "start_seconds": 52.745000000000005,
+        "end_seconds": 53.02
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "both",
+        "start_seconds": 53.02,
+        "end_seconds": 53.2075
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "a",
+        "start_seconds": 53.2075,
+        "end_seconds": 53.295
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "MemoryCacheStore",
+        "start_seconds": 53.295,
+        "end_seconds": 54.307500000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "or",
+        "start_seconds": 54.307500000000005,
+        "end_seconds": 54.470000000000006
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "SqliteCacheStore",
+        "start_seconds": 54.470000000000006,
+        "end_seconds": 55.620000000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "at",
+        "start_seconds": 55.620000000000005,
+        "end_seconds": 55.720000000000006
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "multiple",
+        "start_seconds": 55.720000000000006,
+        "end_seconds": 56.182500000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "sites,",
+        "start_seconds": 56.182500000000005,
+        "end_seconds": 57.0325
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "Undici",
+        "start_seconds": 57.0325,
+        "end_seconds": 57.495000000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "may",
+        "start_seconds": 57.495000000000005,
+        "end_seconds": 57.67
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "accept",
+        "start_seconds": 57.67,
+        "end_seconds": 58.0325
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "a",
+        "start_seconds": 58.0325,
+        "end_seconds": 58.13250000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "304",
+        "start_seconds": 58.13250000000001,
+        "end_seconds": 58.845
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "Not",
+        "start_seconds": 58.845,
+        "end_seconds": 59.045
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "Modified",
+        "start_seconds": 59.045,
+        "end_seconds": 59.545
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "from",
+        "start_seconds": 59.545,
+        "end_seconds": 59.682500000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "a",
+        "start_seconds": 59.682500000000005,
+        "end_seconds": 59.745000000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "different",
+        "start_seconds": 59.745000000000005,
+        "end_seconds": 60.045
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "origin",
+        "start_seconds": 60.045,
+        "end_seconds": 60.870000000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "and",
+        "start_seconds": 60.870000000000005,
+        "end_seconds": 61.02
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "replay",
+        "start_seconds": 61.02,
+        "end_seconds": 61.38250000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "the",
+        "start_seconds": 61.38250000000001,
+        "end_seconds": 61.50750000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "cached",
+        "start_seconds": 61.50750000000001,
+        "end_seconds": 61.9075
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "authenticated",
+        "start_seconds": 61.9075,
+        "end_seconds": 62.545
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "body",
+        "start_seconds": 62.545,
+        "end_seconds": 63.057500000000005
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "to",
+        "start_seconds": 63.057500000000005,
+        "end_seconds": 63.1575
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "an",
+        "start_seconds": 63.1575,
+        "end_seconds": 63.2825
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "unauthenticated",
+        "start_seconds": 63.2825,
+        "end_seconds": 64.17
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "caller.",
+        "start_seconds": 64.17,
+        "end_seconds": 65.1075
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "The",
+        "start_seconds": 65.1075,
+        "end_seconds": 65.245
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "redirect",
+        "start_seconds": 65.245,
+        "end_seconds": 65.745
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "handler",
+        "start_seconds": 65.745,
+        "end_seconds": 66.19500000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "keeps",
+        "start_seconds": 66.19500000000001,
+        "end_seconds": 66.45750000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "the",
+        "start_seconds": 66.45750000000001,
+        "end_seconds": 66.545
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "cache",
+        "start_seconds": 66.545,
+        "end_seconds": 66.87
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "validators",
+        "start_seconds": 66.87,
+        "end_seconds": 67.57000000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "while",
+        "start_seconds": 67.57000000000001,
+        "end_seconds": 67.7825
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "stripping",
+        "start_seconds": 67.7825,
+        "end_seconds": 68.22
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "credential",
+        "start_seconds": 68.22,
+        "end_seconds": 68.69500000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "headers,",
+        "start_seconds": 68.69500000000001,
+        "end_seconds": 69.545
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "so",
+        "start_seconds": 69.545,
+        "end_seconds": 69.6575
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "the",
+        "start_seconds": 69.6575,
+        "end_seconds": 69.75750000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "second",
+        "start_seconds": 69.75750000000001,
+        "end_seconds": 70.095
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "origin",
+        "start_seconds": 70.095,
+        "end_seconds": 70.545
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "can",
+        "start_seconds": 70.545,
+        "end_seconds": 70.72
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "validate",
+        "start_seconds": 70.72,
+        "end_seconds": 71.20750000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "the",
+        "start_seconds": 71.20750000000001,
+        "end_seconds": 71.3075
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "first",
+        "start_seconds": 71.3075,
+        "end_seconds": 71.62
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "origin’s",
+        "start_seconds": 71.62,
+        "end_seconds": 72.13250000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "cached",
+        "start_seconds": 72.13250000000001,
+        "end_seconds": 72.52000000000001
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "entry.",
+        "start_seconds": 72.52000000000001,
+        "end_seconds": 73.4325
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "The",
+        "start_seconds": 74.015,
+        "end_seconds": 74.1275
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "fix",
+        "start_seconds": 74.1275,
+        "end_seconds": 74.415
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "landed",
+        "start_seconds": 74.415,
+        "end_seconds": 74.84
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "in",
+        "start_seconds": 74.84,
+        "end_seconds": 75.0025
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "Undici",
+        "start_seconds": 75.0025,
+        "end_seconds": 75.49
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "version",
+        "start_seconds": 75.49,
+        "end_seconds": 75.8775
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "seven",
+        "start_seconds": 75.8775,
+        "end_seconds": 76.24
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "point",
+        "start_seconds": 76.24,
+        "end_seconds": 76.515
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "thirty",
+        "start_seconds": 76.515,
+        "end_seconds": 76.79
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "point",
+        "start_seconds": 76.79,
+        "end_seconds": 77.0775
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "two",
+        "start_seconds": 77.0775,
+        "end_seconds": 77.6775
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "and",
+        "start_seconds": 77.6775,
+        "end_seconds": 77.8525
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "eight",
+        "start_seconds": 77.8525,
+        "end_seconds": 78.09
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "point",
+        "start_seconds": 78.09,
+        "end_seconds": 78.365
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "twelve",
+        "start_seconds": 78.365,
+        "end_seconds": 78.665
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "point",
+        "start_seconds": 78.665,
+        "end_seconds": 78.9525
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "four,",
+        "start_seconds": 78.9525,
+        "end_seconds": 79.74
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "adding",
+        "start_seconds": 79.74,
+        "end_seconds": 80.0275
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "strict",
+        "start_seconds": 80.0275,
+        "end_seconds": 80.4275
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "origin‑path",
+        "start_seconds": 80.4275,
+        "end_seconds": 81.19
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "matching",
+        "start_seconds": 81.19,
+        "end_seconds": 82.015
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "and",
+        "start_seconds": 82.015,
+        "end_seconds": 82.1525
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "evicting",
+        "start_seconds": 82.1525,
+        "end_seconds": 82.565
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "mismatched",
+        "start_seconds": 82.565,
+        "end_seconds": 83.065
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "entries.",
+        "start_seconds": 83.065,
+        "end_seconds": 84.1525
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "Upgrade",
+        "start_seconds": 84.1525,
+        "end_seconds": 84.765
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "or",
+        "start_seconds": 84.765,
+        "end_seconds": 84.9275
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "change",
+        "start_seconds": 84.9275,
+        "end_seconds": 85.44
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "the",
+        "start_seconds": 85.44,
+        "end_seconds": 85.565
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "interceptor",
+        "start_seconds": 85.565,
+        "end_seconds": 86.19
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "order",
+        "start_seconds": 86.19,
+        "end_seconds": 86.54
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "to",
+        "start_seconds": 86.54,
+        "end_seconds": 86.665
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "stop",
+        "start_seconds": 86.665,
+        "end_seconds": 87.0025
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "accidental",
+        "start_seconds": 87.0025,
+        "end_seconds": 87.665
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "credential",
+        "start_seconds": 87.665,
+        "end_seconds": 88.165
+      },
+      {
+        "segment_id": "undici-shared-cache-leak-2026-11-09",
+        "text": "leakage.",
+        "start_seconds": 88.165,
+        "end_seconds": 89.115
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "Turning",
+        "start_seconds": 90.41499999999999,
+        "end_seconds": 90.66499999999999
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "to",
+        "start_seconds": 90.66499999999999,
+        "end_seconds": 90.7525
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "our",
+        "start_seconds": 90.7525,
+        "end_seconds": 90.8775
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "next",
+        "start_seconds": 90.8775,
+        "end_seconds": 91.1275
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "story.",
+        "start_seconds": 91.1275,
+        "end_seconds": 92.015
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "The",
+        "start_seconds": 92.015,
+        "end_seconds": 92.115
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "llama‑modchip",
+        "start_seconds": 92.115,
+        "end_seconds": 92.815
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "team",
+        "start_seconds": 92.815,
+        "end_seconds": 93.1525
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "stripped",
+        "start_seconds": 93.1525,
+        "end_seconds": 93.465
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "inactive",
+        "start_seconds": 93.465,
+        "end_seconds": 93.94
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "weights",
+        "start_seconds": 93.94,
+        "end_seconds": 94.44
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "and",
+        "start_seconds": 94.44,
+        "end_seconds": 94.5525
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "compressed",
+        "start_seconds": 94.5525,
+        "end_seconds": 94.9525
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "the",
+        "start_seconds": 94.9525,
+        "end_seconds": 95.0775
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "DeepSeek‑V4‑Flash",
+        "start_seconds": 95.0775,
+        "end_seconds": 96.28999999999999
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "checkpoint",
+        "start_seconds": 96.28999999999999,
+        "end_seconds": 96.765
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "down",
+        "start_seconds": 96.765,
+        "end_seconds": 96.97749999999999
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "to",
+        "start_seconds": 96.97749999999999,
+        "end_seconds": 97.09
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "56",
+        "start_seconds": 97.09,
+        "end_seconds": 97.64
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "point",
+        "start_seconds": 97.64,
+        "end_seconds": 97.89
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "56",
+        "start_seconds": 97.89,
+        "end_seconds": 99.16499999999999
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "GiB,",
+        "start_seconds": 97.89,
+        "end_seconds": 99.365
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "letting",
+        "start_seconds": 99.365,
+        "end_seconds": 99.6275
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "the",
+        "start_seconds": 99.6275,
+        "end_seconds": 99.715
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "284‑billion‑parameter",
+        "start_seconds": 99.715,
+        "end_seconds": 101.59
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "model",
+        "start_seconds": 101.59,
+        "end_seconds": 101.9275
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "sit",
+        "start_seconds": 101.9275,
+        "end_seconds": 102.16499999999999
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "comfortably",
+        "start_seconds": 102.16499999999999,
+        "end_seconds": 102.69
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "under",
+        "start_seconds": 102.69,
+        "end_seconds": 102.8775
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "a",
+        "start_seconds": 102.8775,
+        "end_seconds": 102.9525
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "62",
+        "start_seconds": 102.9525,
+        "end_seconds": 103.49
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "point",
+        "start_seconds": 103.49,
+        "end_seconds": 103.765
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "5",
+        "start_seconds": 103.765,
+        "end_seconds": 104.39
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "GiB",
+        "start_seconds": 103.765,
+        "end_seconds": 104.39
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "RAM",
+        "start_seconds": 104.39,
+        "end_seconds": 104.9275
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "ceiling",
+        "start_seconds": 104.9275,
+        "end_seconds": 105.3275
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "on",
+        "start_seconds": 105.3275,
+        "end_seconds": 105.4275
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "a",
+        "start_seconds": 105.4275,
+        "end_seconds": 105.5025
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "64",
+        "start_seconds": 105.5025,
+        "end_seconds": 106.44
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "GB",
+        "start_seconds": 105.5025,
+        "end_seconds": 106.44
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "Linux",
+        "start_seconds": 106.44,
+        "end_seconds": 106.765
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "box.",
+        "start_seconds": 106.765,
+        "end_seconds": 107.66499999999999
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "On",
+        "start_seconds": 107.66499999999999,
+        "end_seconds": 107.8025
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "a",
+        "start_seconds": 107.8025,
+        "end_seconds": 107.865
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "16‑core",
+        "start_seconds": 107.865,
+        "end_seconds": 108.49
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "Zen",
+        "start_seconds": 108.49,
+        "end_seconds": 109.09
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "5",
+        "start_seconds": 108.49,
+        "end_seconds": 109.09
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "CPU",
+        "start_seconds": 109.09,
+        "end_seconds": 109.99
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "it",
+        "start_seconds": 109.99,
+        "end_seconds": 110.1775
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "churns",
+        "start_seconds": 110.1775,
+        "end_seconds": 110.465
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "out",
+        "start_seconds": 110.465,
+        "end_seconds": 110.66499999999999
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "roughly",
+        "start_seconds": 110.66499999999999,
+        "end_seconds": 110.99
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "nine",
+        "start_seconds": 110.99,
+        "end_seconds": 111.315
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "to",
+        "start_seconds": 111.315,
+        "end_seconds": 111.44
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "fifteen",
+        "start_seconds": 111.44,
+        "end_seconds": 111.865
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "tokens",
+        "start_seconds": 111.865,
+        "end_seconds": 112.315
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "per",
+        "start_seconds": 112.315,
+        "end_seconds": 112.465
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "second,",
+        "start_seconds": 112.465,
+        "end_seconds": 113.24
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "even",
+        "start_seconds": 113.24,
+        "end_seconds": 113.47749999999999
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "with",
+        "start_seconds": 113.47749999999999,
+        "end_seconds": 113.615
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "all",
+        "start_seconds": 113.615,
+        "end_seconds": 113.8775
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "six",
+        "start_seconds": 113.8775,
+        "end_seconds": 114.1775
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "routed",
+        "start_seconds": 114.1775,
+        "end_seconds": 114.515
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "experts",
+        "start_seconds": 114.515,
+        "end_seconds": 114.965
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "active.",
+        "start_seconds": 114.965,
+        "end_seconds": 115.9275
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "They",
+        "start_seconds": 116.51,
+        "end_seconds": 116.635
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "also",
+        "start_seconds": 116.635,
+        "end_seconds": 116.985
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "bundled",
+        "start_seconds": 116.985,
+        "end_seconds": 117.33500000000001
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "a",
+        "start_seconds": 117.33500000000001,
+        "end_seconds": 117.4475
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "tiny",
+        "start_seconds": 117.4475,
+        "end_seconds": 117.84750000000001
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "1",
+        "start_seconds": 117.84750000000001,
+        "end_seconds": 118.1975
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "point",
+        "start_seconds": 118.1975,
+        "end_seconds": 118.4975
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "64",
+        "start_seconds": 118.4975,
+        "end_seconds": 119.485
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "MB",
+        "start_seconds": 118.4975,
+        "end_seconds": 119.485
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "Stockfish‑PVS",
+        "start_seconds": 119.485,
+        "end_seconds": 120.78500000000001
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "v2",
+        "start_seconds": 120.78500000000001,
+        "end_seconds": 121.235
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "drafter",
+        "start_seconds": 121.235,
+        "end_seconds": 122.1975
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "and",
+        "start_seconds": 122.1975,
+        "end_seconds": 122.36
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "O",
+        "start_seconds": 122.36,
+        "end_seconds": 122.5725
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "one",
+        "start_seconds": 122.5725,
+        "end_seconds": 122.81
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "rollback",
+        "start_seconds": 122.81,
+        "end_seconds": 123.26
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "logic",
+        "start_seconds": 123.26,
+        "end_seconds": 123.635
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "for",
+        "start_seconds": 123.635,
+        "end_seconds": 123.7975
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "instant",
+        "start_seconds": 123.7975,
+        "end_seconds": 124.185
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "context",
+        "start_seconds": 124.185,
+        "end_seconds": 124.72250000000001
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "restores.",
+        "start_seconds": 124.72250000000001,
+        "end_seconds": 125.8225
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "Here's",
+        "start_seconds": 125.8225,
+        "end_seconds": 126.135
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "why",
+        "start_seconds": 126.135,
+        "end_seconds": 126.31
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "that",
+        "start_seconds": 126.31,
+        "end_seconds": 126.51
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "matters:",
+        "start_seconds": 126.51,
+        "end_seconds": 127.485
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "developers",
+        "start_seconds": 127.485,
+        "end_seconds": 128.085
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "can",
+        "start_seconds": 128.085,
+        "end_seconds": 128.26
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "now",
+        "start_seconds": 128.26,
+        "end_seconds": 128.4725
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "tinker",
+        "start_seconds": 128.4725,
+        "end_seconds": 128.8225
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "with",
+        "start_seconds": 128.8225,
+        "end_seconds": 128.9975
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "massive",
+        "start_seconds": 128.9975,
+        "end_seconds": 129.46
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "mixture‑of‑experts",
+        "start_seconds": 129.46,
+        "end_seconds": 130.56
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "models",
+        "start_seconds": 130.56,
+        "end_seconds": 131.0225
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "using",
+        "start_seconds": 131.0225,
+        "end_seconds": 131.3725
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "ordinary",
+        "start_seconds": 131.3725,
+        "end_seconds": 131.8975
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "CPUs,",
+        "start_seconds": 131.8975,
+        "end_seconds": 133.0475
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "no",
+        "start_seconds": 133.0475,
+        "end_seconds": 133.26
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "pricey",
+        "start_seconds": 133.26,
+        "end_seconds": 133.635
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "GPUs",
+        "start_seconds": 133.635,
+        "end_seconds": 134.21
+      },
+      {
+        "segment_id": "cpu-only-deepseek-2026-11-09",
+        "text": "required.",
+        "start_seconds": 134.21,
+        "end_seconds": 135.285
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Next",
+        "start_seconds": 136.63500000000002,
+        "end_seconds": 136.8975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 136.8975,
+        "end_seconds": 136.9975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 136.9975,
+        "end_seconds": 137.085
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bulletin.",
+        "start_seconds": 137.085,
+        "end_seconds": 138.0225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Outlook.com",
+        "start_seconds": 138.0225,
+        "end_seconds": 138.59750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "has",
+        "start_seconds": 138.59750000000003,
+        "end_seconds": 138.71
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "started",
+        "start_seconds": 138.71,
+        "end_seconds": 139.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bouncing",
+        "start_seconds": 139.11,
+        "end_seconds": 139.56
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "messages",
+        "start_seconds": 139.56,
+        "end_seconds": 140.06
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "from",
+        "start_seconds": 140.06,
+        "end_seconds": 140.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "any",
+        "start_seconds": 140.235,
+        "end_seconds": 140.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "domain",
+        "start_seconds": 140.435,
+        "end_seconds": 140.88500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 140.88500000000002,
+        "end_seconds": 141.01000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "doesn’t",
+        "start_seconds": 141.01000000000002,
+        "end_seconds": 141.28500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "publish",
+        "start_seconds": 141.28500000000003,
+        "end_seconds": 141.66000000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 141.66000000000003,
+        "end_seconds": 141.7725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "DMARC",
+        "start_seconds": 141.7725,
+        "end_seconds": 142.57250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "TXT",
+        "start_seconds": 142.57250000000002,
+        "end_seconds": 143.13500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "record.",
+        "start_seconds": 143.13500000000002,
+        "end_seconds": 144.07250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Microsoft",
+        "start_seconds": 144.07250000000002,
+        "end_seconds": 144.63500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "rolled",
+        "start_seconds": 144.63500000000002,
+        "end_seconds": 144.84750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "this",
+        "start_seconds": 144.84750000000003,
+        "end_seconds": 145.01000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "out",
+        "start_seconds": 145.01000000000002,
+        "end_seconds": 145.19750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 145.19750000000002,
+        "end_seconds": 145.2975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "November",
+        "start_seconds": 145.2975,
+        "end_seconds": 145.6725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fifth,",
+        "start_seconds": 145.6725,
+        "end_seconds": 146.03500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "2026,",
+        "start_seconds": 146.03500000000003,
+        "end_seconds": 147.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 147.235,
+        "end_seconds": 147.34750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "it",
+        "start_seconds": 147.34750000000003,
+        "end_seconds": 147.4225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "applies",
+        "start_seconds": 147.4225,
+        "end_seconds": 147.78500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 147.78500000000003,
+        "end_seconds": 147.91000000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "all",
+        "start_seconds": 147.91000000000003,
+        "end_seconds": 148.13500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "consumer",
+        "start_seconds": 148.13500000000002,
+        "end_seconds": 148.57250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "addresses",
+        "start_seconds": 148.57250000000002,
+        "end_seconds": 149.28500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "–",
+        "start_seconds": 149.28500000000003,
+        "end_seconds": 149.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "outlook.com,",
+        "start_seconds": 149.36,
+        "end_seconds": 150.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "hotmail.com,",
+        "start_seconds": 150.235,
+        "end_seconds": 151.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "live.com",
+        "start_seconds": 151.435,
+        "end_seconds": 152.185
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 152.185,
+        "end_seconds": 152.31
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "msn.com",
+        "start_seconds": 152.31,
+        "end_seconds": 153.78500000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "–",
+        "start_seconds": 153.78500000000003,
+        "end_seconds": 153.86
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "even",
+        "start_seconds": 153.86,
+        "end_seconds": 154.09750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "if",
+        "start_seconds": 154.09750000000003,
+        "end_seconds": 154.19750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 154.19750000000002,
+        "end_seconds": 154.2975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sender",
+        "start_seconds": 154.2975,
+        "end_seconds": 154.66000000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "has",
+        "start_seconds": 154.66000000000003,
+        "end_seconds": 154.8725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "SPF",
+        "start_seconds": 154.8725,
+        "end_seconds": 155.57250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 155.57250000000002,
+        "end_seconds": 155.7475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "DKIM",
+        "start_seconds": 155.7475,
+        "end_seconds": 156.5225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "set",
+        "start_seconds": 156.5225,
+        "end_seconds": 156.72250000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "up.",
+        "start_seconds": 156.72250000000003,
+        "end_seconds": 157.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 157.36,
+        "end_seconds": 157.46
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bounce",
+        "start_seconds": 157.46,
+        "end_seconds": 157.81
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "can",
+        "start_seconds": 157.81,
+        "end_seconds": 157.9225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "be",
+        "start_seconds": 157.9225,
+        "end_seconds": 158.06
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "intermittent,",
+        "start_seconds": 158.06,
+        "end_seconds": 158.63500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "so",
+        "start_seconds": 158.63500000000002,
+        "end_seconds": 158.81
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "some",
+        "start_seconds": 158.81,
+        "end_seconds": 159.0225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "senders",
+        "start_seconds": 159.0225,
+        "end_seconds": 159.46
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "may",
+        "start_seconds": 159.46,
+        "end_seconds": 159.63500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "only",
+        "start_seconds": 159.63500000000002,
+        "end_seconds": 159.935
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "notice",
+        "start_seconds": 159.935,
+        "end_seconds": 160.26000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "it",
+        "start_seconds": 160.26000000000002,
+        "end_seconds": 160.38500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sporadically.",
+        "start_seconds": 160.38500000000002,
+        "end_seconds": 161.59750000000003
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Here’s",
+        "start_seconds": 162.18,
+        "end_seconds": 162.83
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "why",
+        "start_seconds": 162.83,
+        "end_seconds": 163.005
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 163.005,
+        "end_seconds": 163.23000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "matters:",
+        "start_seconds": 163.23000000000002,
+        "end_seconds": 164.13
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "without",
+        "start_seconds": 164.13,
+        "end_seconds": 164.41750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 164.41750000000002,
+        "end_seconds": 164.48000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "correctly",
+        "start_seconds": 164.48000000000002,
+        "end_seconds": 165.005
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "aligned",
+        "start_seconds": 165.005,
+        "end_seconds": 165.41750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "DMARC",
+        "start_seconds": 165.41750000000002,
+        "end_seconds": 166.155
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "record,",
+        "start_seconds": 166.155,
+        "end_seconds": 166.905
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 166.905,
+        "end_seconds": 167.08
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "mail",
+        "start_seconds": 167.08,
+        "end_seconds": 167.405
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "may",
+        "start_seconds": 167.405,
+        "end_seconds": 167.58
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "simply",
+        "start_seconds": 167.58,
+        "end_seconds": 167.955
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "never",
+        "start_seconds": 167.955,
+        "end_seconds": 168.28
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "reach",
+        "start_seconds": 168.28,
+        "end_seconds": 168.5675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Outlook",
+        "start_seconds": 168.5675,
+        "end_seconds": 168.93
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "users.",
+        "start_seconds": 168.93,
+        "end_seconds": 169.88
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "And",
+        "start_seconds": 171.205,
+        "end_seconds": 171.3425
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "finally,",
+        "start_seconds": 171.3425,
+        "end_seconds": 171.81750000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "our",
+        "start_seconds": 171.81750000000002,
+        "end_seconds": 171.955
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "last",
+        "start_seconds": 171.955,
+        "end_seconds": 172.23000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "story.",
+        "start_seconds": 172.23000000000002,
+        "end_seconds": 173.1425
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "BenchUp",
+        "start_seconds": 173.1425,
+        "end_seconds": 173.555
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "just",
+        "start_seconds": 173.555,
+        "end_seconds": 173.73000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "rolled",
+        "start_seconds": 173.73000000000002,
+        "end_seconds": 173.9675
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "out",
+        "start_seconds": 173.9675,
+        "end_seconds": 174.0925
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "a",
+        "start_seconds": 174.0925,
+        "end_seconds": 174.18
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "free,",
+        "start_seconds": 174.18,
+        "end_seconds": 174.60500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "open‑source",
+        "start_seconds": 174.60500000000002,
+        "end_seconds": 175.2675
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "3D",
+        "start_seconds": 175.2675,
+        "end_seconds": 175.68
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "modeling",
+        "start_seconds": 175.68,
+        "end_seconds": 176.055
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "app",
+        "start_seconds": 176.055,
+        "end_seconds": 176.28
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "built",
+        "start_seconds": 176.28,
+        "end_seconds": 176.53
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "in",
+        "start_seconds": 176.53,
+        "end_seconds": 176.68
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Rust",
+        "start_seconds": 176.68,
+        "end_seconds": 176.94250000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "and",
+        "start_seconds": 176.94250000000002,
+        "end_seconds": 177.055
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "WebGPU.",
+        "start_seconds": 177.055,
+        "end_seconds": 178.25500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "It",
+        "start_seconds": 178.25500000000002,
+        "end_seconds": 178.3925
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "runs",
+        "start_seconds": 178.3925,
+        "end_seconds": 178.655
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "natively",
+        "start_seconds": 178.655,
+        "end_seconds": 179.06750000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "on",
+        "start_seconds": 179.06750000000002,
+        "end_seconds": 179.18
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Windows",
+        "start_seconds": 179.18,
+        "end_seconds": 179.53
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "x64,",
+        "start_seconds": 179.53,
+        "end_seconds": 180.7675
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Apple",
+        "start_seconds": 180.7675,
+        "end_seconds": 181.10500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Silicon",
+        "start_seconds": 181.10500000000002,
+        "end_seconds": 181.53
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "macOS,",
+        "start_seconds": 181.53,
+        "end_seconds": 182.35500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "and",
+        "start_seconds": 182.35500000000002,
+        "end_seconds": 182.48000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Linux",
+        "start_seconds": 182.48000000000002,
+        "end_seconds": 182.805
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "via",
+        "start_seconds": 182.805,
+        "end_seconds": 183.0175
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "an",
+        "start_seconds": 183.0175,
+        "end_seconds": 183.0925
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "AppImage,",
+        "start_seconds": 183.0925,
+        "end_seconds": 184.00500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "and",
+        "start_seconds": 184.00500000000002,
+        "end_seconds": 184.1175
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "there’s",
+        "start_seconds": 184.1175,
+        "end_seconds": 184.2675
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "also",
+        "start_seconds": 184.2675,
+        "end_seconds": 184.56750000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "a",
+        "start_seconds": 184.56750000000002,
+        "end_seconds": 184.63000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "browser",
+        "start_seconds": 184.63000000000002,
+        "end_seconds": 185.055
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "version",
+        "start_seconds": 185.055,
+        "end_seconds": 185.455
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "that",
+        "start_seconds": 185.455,
+        "end_seconds": 185.58
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "needs",
+        "start_seconds": 185.58,
+        "end_seconds": 185.83
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "no",
+        "start_seconds": 185.83,
+        "end_seconds": 186.00500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "account.",
+        "start_seconds": 186.00500000000002,
+        "end_seconds": 186.955
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "The",
+        "start_seconds": 186.955,
+        "end_seconds": 187.055
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "tool",
+        "start_seconds": 187.055,
+        "end_seconds": 187.33
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "focuses",
+        "start_seconds": 187.33,
+        "end_seconds": 187.7175
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "on",
+        "start_seconds": 187.7175,
+        "end_seconds": 187.88000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "sketching",
+        "start_seconds": 187.88000000000002,
+        "end_seconds": 188.28
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "basic",
+        "start_seconds": 188.28,
+        "end_seconds": 188.66750000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "shapes,",
+        "start_seconds": 188.66750000000002,
+        "end_seconds": 189.25500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "push‑pull",
+        "start_seconds": 189.25500000000002,
+        "end_seconds": 189.83
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "editing,",
+        "start_seconds": 189.83,
+        "end_seconds": 190.50500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "and",
+        "start_seconds": 190.50500000000002,
+        "end_seconds": 190.63000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "precise",
+        "start_seconds": 190.63000000000002,
+        "end_seconds": 191.055
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "dimensioning,",
+        "start_seconds": 191.055,
+        "end_seconds": 192.055
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "so",
+        "start_seconds": 192.055,
+        "end_seconds": 192.2425
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "hobbyist",
+        "start_seconds": 192.2425,
+        "end_seconds": 192.73000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "woodworkers",
+        "start_seconds": 192.73000000000002,
+        "end_seconds": 193.28
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "can",
+        "start_seconds": 193.28,
+        "end_seconds": 193.43
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "prototype",
+        "start_seconds": 193.43,
+        "end_seconds": 193.955
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "furniture",
+        "start_seconds": 193.955,
+        "end_seconds": 194.38000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "with",
+        "start_seconds": 194.38000000000002,
+        "end_seconds": 194.5175
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "exact",
+        "start_seconds": 194.5175,
+        "end_seconds": 195.00500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "measurements",
+        "start_seconds": 195.00500000000002,
+        "end_seconds": 195.50500000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "before",
+        "start_seconds": 195.50500000000002,
+        "end_seconds": 195.79250000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "they",
+        "start_seconds": 195.79250000000002,
+        "end_seconds": 195.93
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "cut",
+        "start_seconds": 195.93,
+        "end_seconds": 196.13000000000002
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "anything.",
+        "start_seconds": 196.13000000000002,
+        "end_seconds": 197.1175
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Here’s",
+        "start_seconds": 197.7,
+        "end_seconds": 198.42499999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "why",
+        "start_seconds": 198.42499999999998,
+        "end_seconds": 198.6
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "that",
+        "start_seconds": 198.6,
+        "end_seconds": 198.825
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "matters:",
+        "start_seconds": 198.825,
+        "end_seconds": 199.77499999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "you",
+        "start_seconds": 199.77499999999998,
+        "end_seconds": 199.875
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "get",
+        "start_seconds": 199.875,
+        "end_seconds": 200.0125
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "a",
+        "start_seconds": 200.0125,
+        "end_seconds": 200.125
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "single",
+        "start_seconds": 200.125,
+        "end_seconds": 200.5375
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "cross‑platform",
+        "start_seconds": 200.5375,
+        "end_seconds": 201.39999999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "solution",
+        "start_seconds": 201.39999999999998,
+        "end_seconds": 201.92499999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "without",
+        "start_seconds": 201.92499999999998,
+        "end_seconds": 202.27499999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "pricey",
+        "start_seconds": 202.27499999999998,
+        "end_seconds": 202.64999999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "proprietary",
+        "start_seconds": 202.64999999999998,
+        "end_seconds": 203.325
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "software,",
+        "start_seconds": 203.325,
+        "end_seconds": 204.25
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "and",
+        "start_seconds": 204.25,
+        "end_seconds": 204.36249999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "it",
+        "start_seconds": 204.36249999999998,
+        "end_seconds": 204.45
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "works",
+        "start_seconds": 204.45,
+        "end_seconds": 204.6875
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "on",
+        "start_seconds": 204.6875,
+        "end_seconds": 204.875
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "standard",
+        "start_seconds": 204.875,
+        "end_seconds": 205.27499999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "hardware.",
+        "start_seconds": 205.27499999999998,
+        "end_seconds": 206.25
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "And",
+        "start_seconds": 207.575,
+        "end_seconds": 207.6875
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "that's",
+        "start_seconds": 207.6875,
+        "end_seconds": 207.92499999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "your",
+        "start_seconds": 207.92499999999998,
+        "end_seconds": 208.075
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Daywire",
+        "start_seconds": 208.075,
+        "end_seconds": 208.475
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "briefing.",
+        "start_seconds": 208.475,
+        "end_seconds": 209.35
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "You'll",
+        "start_seconds": 209.35,
+        "end_seconds": 209.5
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "find",
+        "start_seconds": 209.5,
+        "end_seconds": 209.73749999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "the",
+        "start_seconds": 209.73749999999998,
+        "end_seconds": 209.83749999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "full",
+        "start_seconds": 209.83749999999998,
+        "end_seconds": 210.075
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "stories",
+        "start_seconds": 210.075,
+        "end_seconds": 210.5125
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "and",
+        "start_seconds": 210.5125,
+        "end_seconds": 210.6375
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "sources",
+        "start_seconds": 210.6375,
+        "end_seconds": 211.125
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "in",
+        "start_seconds": 211.125,
+        "end_seconds": 211.225
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "today's",
+        "start_seconds": 211.225,
+        "end_seconds": 211.6
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "newspaper.",
+        "start_seconds": 211.6,
+        "end_seconds": 212.5625
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Thanks",
+        "start_seconds": 212.5625,
+        "end_seconds": 212.85
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "for",
+        "start_seconds": 212.85,
+        "end_seconds": 212.975
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "listening.",
+        "start_seconds": 212.975,
+        "end_seconds": 213.6375
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "Take",
+        "start_seconds": 213.6375,
+        "end_seconds": 213.92499999999998
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "care,",
+        "start_seconds": 213.92499999999998,
+        "end_seconds": 214.25
+      },
+      {
+        "segment_id": "benchup-launch-story",
+        "text": "everyone.",
+        "start_seconds": 214.25,
+        "end_seconds": 215.27499999999998
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
