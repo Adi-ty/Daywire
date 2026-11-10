@@ -1,0 +1,3637 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-10",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-10T07:48:20.910449568Z",
+  "coverage": {
+    "from": "2026-11-09T06:00:00+05:30",
+    "until": "2026-11-10T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-590ce642a5a8a979",
+      "source-caa9073cefb43725",
+      "source-952d2516af2e9054",
+      "source-02e9abf47eaf3fa0",
+      "source-2e34e84f0999c607"
+    ],
+    "candidate_count": 42,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "Gemini privacy shift and AI speed race",
+    "introduction": "Google’s Gemini model now routes personal Drive files and Gmail messages to human reviewers, raising fresh privacy concerns. At the same time, Anthropic’s Claude Fable 5.2 and Vercel’s Sandbox snapshots deliver notable speed gains for developers.",
+    "articles": [
+      {
+        "id": "opus-5-5-behavior-shift-nov-2026",
+        "section": "AI",
+        "headline": "Community notes possible Opus 5.5 reasoning change on Nov 3, 2026",
+        "summary": "A Hacker News post cites an external audit that suggests Opus 5.5’s reasoning behavior may have shifted around November 3, 2026.",
+        "paragraphs": [
+          "On November 7, 2026, a user on Hacker News shared a post linking to a tweet that claimed a Gemini 4 Argon analysis of 1,400 Claude Code sessions detected a “sharp turn” in Opus 5.5’s reasoning on November 3. The post attracted 785 points and 487 comments, indicating notable community interest, but it does not include the underlying data or a formal statement from Anthropic.",
+          "The claim rests on the observation that the model’s name and version string remained unchanged while the audit allegedly flagged a systematic shift in step‑by‑step solution generation. Without the audit’s details, the report remains an unverified hypothesis rather than confirmed evidence of a product change.",
+          "Engineers who rely on Opus 5.5 for code‑generation should be aware of the community’s observation and consider monitoring their own workloads for any deviation in output style or quality after early November, pending further clarification from the model provider."
+        ],
+        "implication": "Developers may want to watch for subtle changes in Opus 5.5’s reasoning output after early November 2026, but should treat the reported shift as unconfirmed until Anthropic provides concrete data.",
+        "source_ids": [
+          "source-bdd4907e7f815cae"
+        ]
+      },
+      {
+        "id": "usps-zip-code-boundaries-2026",
+        "section": "Tools",
+        "headline": "USPS releases official ZIP Code boundary polygons",
+        "summary": "The United States Postal Service now provides downloadable ZIP Code boundary polygons for developers and analysts, affecting mapping, logistics, and data‑driven industries.",
+        "paragraphs": [
+          "The USPS has opened access to a national ZIP Code boundary dataset, packaged as GeoJSON and other formats. The data reflects delivery‑address clusters and is refreshed quarterly, with separate streams for internal, enterprise, and limited‑publication users. The release is documented on the PostalPro portal and was highlighted on Hacker News, where the community noted its potential as a ground‑truth layer for geographic features.",
+          "Industries that rely on spatial aggregation—real‑estate, insurance, marketing, and routing—can now replace approximated ZIP shapes with the official polygons, improving demographic analysis and delivery optimization. The technical guide and sample files, dated 09/18/2026, outline licensing and access procedures."
+        ],
+        "implication": "Developers can integrate authoritative ZIP Code geometry into their pipelines, reducing boundary errors and enabling more precise location‑based services.",
+        "source_ids": [
+          "source-3c86ca6a06f60e03"
+        ]
+      },
+      {
+        "id": "anthropic-claude-fable-5-2-upgrade",
+        "section": "AI",
+        "headline": "Claude Fable 5.2 launches with faster generation and higher cost",
+        "summary": "Anthropic released Claude Fable 5.2, a model that generates output up to 30 % faster than 5.1 but costs $8 / M input and $40 / M output tokens.",
+        "paragraphs": [
+          "The new Fable 5.2 model improves coding, reasoning and vision tasks and runs about a third quicker than its 5.1 predecessor, according to Anthropic’s own testing. However, benchmark data from Artificial Analysis shows the model is notably verbose and slow per task—averaging 46.4 minutes versus a 12.6‑minute median for comparable models—making each evaluation cost roughly $26.54."
+        ],
+        "implication": "Engineers can expect quicker token‑level responses from Fable 5.2, but higher per‑task latency and price mean it suits workloads that value raw capability over speed‑critical throughput.",
+        "source_ids": [
+          "source-a989f1582084d0cf",
+          "source-fbdf36c6d0b0b031"
+        ]
+      },
+      {
+        "id": "canada-rtr-launch",
+        "section": "Engineering",
+        "headline": "Payments Canada launches the Real‑Time Rail",
+        "summary": "Payments Canada has brought the Real‑Time Rail (RTR) online, a 24/7 national payment system that provides instant settlement and richer transaction data for Canadian businesses and consumers.",
+        "paragraphs": [
+          "On 9 November 2026 Payments Canada announced that the Real‑Time Rail is now live, delivering continuous settlement, higher transaction limits and data‑rich messaging through existing banking and payment channels. The rollout is described by President and CEO Susan E. Hawkins as a modern foundation that enables “instant, seamless, low‑cost financial products” and gives users direct, immediate control of their money around the clock.",
+          "Early participants, including the first payment‑service‑provider members, report immediate benefits such as faster cash‑flow visibility and proactive fraud defence. The system builds on Canada’s existing payment infrastructure, extending its capabilities without requiring a wholesale replacement of current networks."
+        ],
+        "implication": "Engineers developing payment services in Canada can now rely on a nationwide, always‑on rail for instant settlement and richer data, provided they connect to the RTR as offered by participating financial institutions.",
+        "source_ids": [
+          "source-a8ac24a5fed69e71"
+        ]
+      },
+      {
+        "id": "gemini-human-review-2026",
+        "section": "Security",
+        "headline": "Google Gemini now sends personal Drive and email content to human reviewers",
+        "summary": "Google has updated Gemini Workspace extensions to route connected Drive files and Gmail messages into human review pipelines, contrary to its 2023 promise of strict isolation.",
+        "paragraphs": [
+          "An October 16 edit to the original 2023 blog post and Help Answer 16836988 confirm that when Connected Apps are enabled, Gemini may automatically pull personal files or emails and forward them to contractors for review, with only rudimentary regex and NER scrubbing that cannot reliably remove sensitive details."
+        ],
+        "implication": "Developers and users of Gemini should treat any enabled Workspace integration as potentially exposed to human inspection and avoid linking confidential documents or emails.",
+        "source_ids": [
+          "source-a98326b09f6ff516"
+        ]
+      },
+      {
+        "id": "vercel-sandbox-snapshots-speed-up",
+        "section": "Tools",
+        "headline": "Vercel Sandbox snapshots now up to 10× faster",
+        "summary": "Vercel’s Sandbox can create a snapshot in under 0.4 seconds, a ten‑fold speed gain that also halves restore time.",
+        "paragraphs": [
+          "The new Vercel Hive Snapshot (VHS) format indexes data more efficiently, allowing parallel reads and writes. Median snapshot creation dropped from 4.4 s to 0.4 s, and median restore time fell from 500 ms to 250 ms. Persistent sandboxes automatically use the new format for new snapshots, while existing snapshots remain unchanged."
+        ],
+        "implication": "Developers will see noticeably quicker iteration cycles in Vercel Sandbox, especially when frequently stopping and resuming sessions, without any configuration changes.",
+        "source_ids": [
+          "source-756b395aedd8b82e"
+        ]
+      },
+      {
+        "id": "nvidia-holoscan-5-robot-arm",
+        "section": "Engineering",
+        "headline": "NVIDIA Holoscan 5 supports low‑latency robotic control",
+        "summary": "Holoscan 5 lets developers run inverse‑dynamics calculations for torque‑based robot arms at high update rates on either CPU or GPU.",
+        "paragraphs": [
+          "The SDK demonstrates a gravity‑compensation loop on a Seeed Studio reBot B601‑DM arm by continuously solving inverse dynamics from detailed link models. Developers can author the pipeline in Python or C++ and use the Holoscan SDK’s Nsight Systems annotations to observe latency and jitter while the same code executes on CPU or GPU."
+        ],
+        "implication": "Engineers can prototype high‑bandwidth torque‑control applications on inexpensive hardware without writing a custom runtime, provided they supply accurate mass and inertia data for each robot link.",
+        "source_ids": [
+          "source-863ec2da227d1a34"
+        ]
+      },
+      {
+        "id": "lldb-gpu-debugging-2026",
+        "section": "Tools",
+        "headline": "LLDB adds plugin architecture for GPU debugging",
+        "summary": "Meta’s LLDB now supports a vendor‑neutral accelerator plugin layer that lets developers debug applications spanning CPUs and GPUs without extra runtime overhead for CPU‑only runs.",
+        "paragraphs": [
+          "The new accelerator interface lives in lldb‑server and separates generic debugger logic from hardware‑specific back‑ends. When a supported GPU runtime is detected, a plugin translates the vendor’s device‑debug API into LLDB concepts such as processes, threads, registers and memory, allowing coordinated debugging of heterogeneous code. CPU‑only programs follow the existing path, incurring no additional cost."
+        ],
+        "implication": "Engineers can extend LLDB to new GPU hardware by writing a single plugin rather than building a separate debugger, simplifying heterogeneous development workflows.",
+        "source_ids": [
+          "source-00b84ea1006c8aa4"
+        ]
+      },
+      {
+        "id": "e-means-faster-kmeans",
+        "section": "AI",
+        "headline": "e-means cuts k‑means training epochs by ten‑fold",
+        "summary": "The new e‑means algorithm achieves the same clustering loss as standard k‑means in roughly one‑tenth the epochs, thanks to EMA‑based mini‑batch updates and automatic batch‑size scaling.",
+        "paragraphs": [
+          "e‑means replaces Lloyd’s iterative updates with exponential moving average (EMA) centroid updates, automatically choosing batch size and step size via scaling laws. The method adds a cosine‑scheduled decay, a dead‑cluster revival step and a finalization stage that trims loss with negligible extra runtime, delivering order‑of‑magnitude epoch reductions on fixed datasets."
+        ],
+        "implication": "Practitioners can train k‑means clusters far faster without hyperparameter tuning, but should verify that the EMA updates keep centroids within the convex hull of assigned points, as the paper notes instability with large learning rates in gradient‑descent variants.",
+        "source_ids": [
+          "source-fca505743bb9dd49"
+        ]
+      },
+      {
+        "id": "malloc-bump-allocator-insights",
+        "section": "Engineering",
+        "headline": "glibc malloc uses a bump allocator behind the scenes",
+        "summary": "A Lobsters discussion shows that glibc’s malloc fulfills most requests from a single heap expansion and manages free chunks with in‑place metadata.",
+        "paragraphs": [
+          "The author measured 1,000 calls to malloc(16) and saw only two brk syscalls: one to locate the current program break and another to grow the heap by 132 KiB. Subsequent allocations pull from that region, making malloc 22.7× faster than a direct sbrk(16) call. Each allocated chunk carries a size header and three flag bits, and when freed the chunk’s payload is repurposed to store a pointer to the next free chunk, forming a free list without extra allocation."
+        ],
+        "implication": "Understanding this layout helps developers write custom bump allocators or debug memory‑usage patterns, but they must remember that glibc’s free‑list pointers overwrite user data after free, so accessing freed memory remains unsafe.",
+        "source_ids": [
+          "source-6cd7bd9f28391115"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "monitor-opus-reasoning-shift",
+        "title": "Watch for Unannounced Reasoning Shifts in LLMs",
+        "paragraphs": [
+          "When a model’s internal reasoning changes without a version bump, developers may notice a sudden difference in how step‑by‑step solutions are produced. The Hacker News post cited a Gemini 4 Argon audit of 1,400 Claude Code sessions that flagged a “sharp turn” in Opus 5.5’s reasoning on November 3, 2026, even though the model name stayed the same. This illustrates that model updates can be rolled out silently, altering prompt behavior, token usage, or output style without explicit release notes.",
+          "A concrete way to catch such drift is to log a small, representative benchmark of prompts and compare metrics like token count, answer length, or logical flow over time. If a new run after the suspected date shows longer intermediate steps or different phrasing, it may signal a hidden update. Teams should treat these signals as early warnings, not definitive proof, until the provider confirms the change."
+        ],
+        "example": "Run ten typical code‑generation prompts on Opus 5.5 each week; on week 5 (post‑Nov 3) the average token count jumps from 120 to 150, indicating a more verbose reasoning style.",
+        "takeaway": "Continuously monitor key output characteristics of critical LLMs so you can spot silent reasoning changes and adapt your pipelines before they impact productivity.",
+        "article_ids": [
+          "opus-5-5-behavior-shift-nov-2026"
+        ],
+        "source_ids": [
+          "source-bdd4907e7f815cae"
+        ]
+      },
+      {
+        "id": "authoritative-zip-boundaries-2026",
+        "title": "Why Official ZIP Code Polygons Matter for Spatial Analysis",
+        "paragraphs": [
+          "Many data pipelines treat ZIP Codes as simple rectangles or rely on third‑party shapefiles that can be out of sync with actual delivery routes. When the USPS publishes its own boundary polygons, the shapes directly reflect the clusters of addresses the service uses for routing, eliminating the mismatch between a geographic approximation and the real delivery area.",
+          "Because the dataset is refreshed quarterly and offered in standard GeoJSON, developers can programmatically replace legacy ZIP layers with the official version. This reduces edge‑case errors—such as a property being counted in the wrong ZIP for tax or insurance calculations—and improves downstream models that aggregate demographics or optimize routes."
+        ],
+        "example": "A logistics app that previously assigned a package to ZIP 02139 based on a rectangular grid might have sent it to a hub 5 km away. After swapping in the USPS polygon, the app correctly identifies the address as belonging to ZIP 02138, routing the package to the nearer hub and cutting delivery time.",
+        "takeaway": "Integrating the USPS’s official ZIP Code polygons ensures that spatial analyses and routing decisions are grounded in the same geography the postal system uses, leading to more accurate insights and operational efficiencies.",
+        "article_ids": [
+          "usps-zip-code-boundaries-2026"
+        ],
+        "source_ids": [
+          "source-3c86ca6a06f60e03"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-monitor-opus-reasoning-shift-1",
+        "lesson_id": "monitor-opus-reasoning-shift",
+        "prompt": "According to the lesson, what is the primary indicator that a silent model update has occurred?",
+        "options": [
+          "A sudden change in the model's version number in the provider's documentation",
+          "A noticeable shift in output characteristics such as token count or reasoning style without a version bump",
+          "An increase in the number of API calls reported by the provider",
+          "A change in the pricing tier for the model"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that silent updates are identified by changes in output characteristics (e.g., token count, reasoning style) while the model name stays the same, not by version numbers or pricing changes."
+      },
+      {
+        "id": "quiz-1-monitor-opus-reasoning-shift-2",
+        "lesson_id": "monitor-opus-reasoning-shift",
+        "prompt": "What method does the lesson recommend for detecting reasoning drift in a model like Opus 5.5?",
+        "options": [
+          "Running a large, exhaustive benchmark of every possible prompt each day",
+          "Logging a small, representative benchmark of prompts and comparing metrics over time",
+          "Polling the provider’s API for a changelog endpoint every hour",
+          "Monitoring only the model's latency metrics"
+        ],
+        "answer": 1,
+        "explanation": "The lesson suggests logging a small, representative benchmark of prompts and tracking metrics such as token count or answer length over time to spot drift."
+      },
+      {
+        "id": "quiz-1-monitor-opus-reasoning-shift-3",
+        "lesson_id": "monitor-opus-reasoning-shift",
+        "prompt": "If a weekly benchmark shows the average token count rising from 120 to 150 after a specific date, what should a team infer according to the lesson?",
+        "options": [
+          "The model has definitely been deprecated and will be removed soon",
+          "The model’s reasoning style has likely become more verbose, indicating a possible silent update",
+          "The benchmark prompts were incorrectly formatted, causing higher token usage",
+          "The provider has increased the cost per token, leading to longer outputs"
+        ],
+        "answer": 1,
+        "explanation": "The lesson uses this exact example to illustrate that a jump in token count signals a more verbose reasoning style, suggesting a silent update."
+      },
+      {
+        "id": "quiz-2-zip-rectangles",
+        "lesson_id": "authoritative-zip-boundaries-2026",
+        "prompt": "What is the primary advantage of using the USPS‑published ZIP Code polygons over rectangular approximations in spatial analyses?",
+        "options": [
+          "They are smaller in file size, making them faster to load.",
+          "They reflect the actual delivery routes used by the postal service.",
+          "They include demographic data for each ZIP Code.",
+          "They are updated annually, matching census releases."
+        ],
+        "answer": 1,
+        "explanation": "The article explains that USPS polygons directly reflect the clusters of addresses used for routing, eliminating the mismatch caused by rectangular approximations."
+      },
+      {
+        "id": "quiz-2-zip-refresh",
+        "lesson_id": "authoritative-zip-boundaries-2026",
+        "prompt": "How does the quarterly refresh of the official ZIP Code boundary dataset help downstream applications?",
+        "options": [
+          "It ensures that tax and insurance calculations always use the most recent demographic statistics.",
+          "It allows developers to replace legacy ZIP layers with up‑to‑date polygons, reducing edge‑case errors in routing and aggregation.",
+          "It automatically corrects any address formatting errors in the source data.",
+          "It provides real‑time traffic conditions for each ZIP Code area."
+        ],
+        "answer": 1,
+        "explanation": "The article states that the quarterly refresh lets developers programmatically replace legacy layers, which reduces errors such as mis‑assigning properties to the wrong ZIP for tax, insurance, or routing purposes."
+      }
+    ],
+    "segments": [
+      {
+        "id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "title": "Opus 5.5 May Have Shifted Reasoning Style",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November ten, two thousand twenty six.\n\nWe begin with our lead story. A post on Hacker News on November 7 flagged a possible change in Opus 5.5’s reasoning around November 3. The user linked to a tweet that cited a Gemini 4 Argon audit of 1,400 Claude Code sessions, saying the model showed a sharp turn in step‑by‑step solution generation while the version string stayed the same. No audit data or Anthropic comment was provided, so the claim remains unverified. Engineers using Opus 5.5 should keep an eye on their own output for any subtle style drift until the provider confirms anything.\n\nThe practical takeaway: watch your code‑generation results for odd shifts, but treat the rumor as tentative until Anthropic offers concrete evidence.",
+        "article_ids": [
+          "opus-5-5-behavior-shift-nov-2026"
+        ]
+      },
+      {
+        "id": "usps-zip-code-boundaries-2026-segment",
+        "title": "USPS releases official ZIP Code boundary polygons",
+        "text": "Next on the bulletin. USPS now offers official ZIP Code boundary polygons for developers.\n\nThe service provides a national dataset in GeoJSON and other formats, refreshed every quarter. It’s split into streams for internal, enterprise, and limited‑publication users, and the technical guide dated September eighteenth, two thousand twenty‑six walks you through licensing and access. That means you can swap out the rough ZIP shapes you’ve been using for a true ground‑truth layer, cutting boundary errors in real‑estate, insurance, marketing and routing pipelines. Here’s why that matters: more precise location‑based services with fewer guesswork surprises.",
+        "article_ids": [
+          "usps-zip-code-boundaries-2026"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Claude Fable 5.2 launches with faster generation and higher cost",
+        "text": "Turning to our next story. Claude Fable version five point two is now live, promising output up to thirty percent faster than its five point one predecessor. Anthropic says the new model still costs eight dollars per million input tokens and forty dollars per million output tokens. Independent benchmarks, however, show a single task can take forty six point four minutes, with a median of twelve point six minutes for comparable models, and each run costs about twenty six point five four dollars. Here's why that matters: the upgrade shines for heavy‑duty reasoning or vision work, but it isn’t the best fit when you need ultra‑low latency or tight budgets.",
+        "article_ids": [
+          "anthropic-claude-fable-5-2-upgrade"
+        ]
+      },
+      {
+        "id": "canada-rtr-launch-story",
+        "title": "Payments Canada’s Real‑Time Rail Goes Live",
+        "text": "Next on the bulletin. Payments Canada just turned on its Real‑Time Rail, a 24‑seven national payment network that settles transactions instantly and adds richer data to every move. Susan E. Hawkins says it’s a modern foundation for instant, seamless, low‑cost financial products, giving users direct control of their money around the clock. Early adopters are already seeing faster cash‑flow visibility and better fraud defence. For engineers building payment services, that means you can now hook into a nationwide, always‑on rail for instant settlement and richer messaging, as long as you connect through a participating financial institution.",
+        "article_ids": [
+          "canada-rtr-launch"
+        ]
+      },
+      {
+        "id": "gemini-human-review-2026-segment",
+        "title": "Gemini routes personal files to human reviewers",
+        "text": "And finally, our last story. Google Gemini now routes personal Drive and email content to human reviewers.\nWhen you enable Connected Apps, the service can automatically pull your files or Gmail messages and forward them to contractors for review. The only protection is a basic regex and named‑entity‑recognition scrub that often misses sensitive details. Here's why that matters: any Workspace integration you turn on should be assumed exposed, so keep confidential documents and emails out of Gemini's reach.\n\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "gemini-human-review-2026"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized, semi‑transparent AI cloud hovering over a bustling cityscape of data streams, with faint silhouettes of documents and email icons flowing into a human silhouette’s hands, illustrating the hand‑off of personal content for review."
+  },
+  "sources": [
+    {
+      "id": "source-6cd7bd9f28391115",
+      "name": "Lobsters",
+      "title": "What is malloc doing, anyway?",
+      "url": "https://benmandrew.com/articles/what-is-malloc-doing-anyway",
+      "published_at": null,
+      "discovered_at": "2026-11-09T07:19:22.814-06:00",
+      "discussion_url": "https://lobste.rs/s/l75lxf/what_is_malloc_doing_anyway"
+    },
+    {
+      "id": "source-756b395aedd8b82e",
+      "name": "Vercel Blog",
+      "title": "Vercel Sandbox snapshot creation is now up to 10x faster",
+      "url": "https://vercel.com/changelog/vercel-sandbox-snapshot-creation-is-now-up-to-10x-faster",
+      "published_at": "2026-11-09T21:00:00Z",
+      "discovered_at": "2026-11-10T07:33:53.566879853Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-863ec2da227d1a34",
+      "name": "NVIDIA Developer",
+      "title": "Make a Robot Arm Feel Weightless with NVIDIA Holoscan 5",
+      "url": "https://developer.nvidia.com/blog/make-a-robot-arm-feel-weightless-with-nvidia-holoscan-5/",
+      "published_at": "2026-11-09T19:09:32Z",
+      "discovered_at": "2026-11-10T07:33:54.308377037Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-00b84ea1006c8aa4",
+      "name": "Meta Engineering",
+      "title": "Extending LLDB to Debug Applications That Span CPUs and GPUs",
+      "url": "https://engineering.fb.com/2026/11/09/developer-tools/extending-lldb-to-debug-applications-that-span-cpus-and-gpus/",
+      "published_at": "2026-11-09T17:00:12Z",
+      "discovered_at": "2026-11-10T07:33:54.430692144Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-bdd4907e7f815cae",
+      "name": "Hacker News",
+      "title": "Is Opus 5.5 nerfed? Thinking patterns changed on November 3",
+      "url": "https://twitter.com/shanemelaugh/status/2119192075505893695",
+      "published_at": null,
+      "discovered_at": "2026-11-09T07:04:25Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50422069"
+    },
+    {
+      "id": "source-3c86ca6a06f60e03",
+      "name": "Hacker News",
+      "title": "USPS now offers official ZIP Code boundary polygons",
+      "url": "https://postalpro.usps.com/zcb",
+      "published_at": null,
+      "discovered_at": "2026-11-09T19:58:59Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50431058"
+    },
+    {
+      "id": "source-a989f1582084d0cf",
+      "name": "Hacker News",
+      "title": "Claude Fable 5.2 and Mythos 5.2",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "published_at": null,
+      "discovered_at": "2026-11-09T18:01:10Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50429068"
+    },
+    {
+      "id": "source-a8ac24a5fed69e71",
+      "name": "Hacker News",
+      "title": "Payments Canada announces launch of Canada's Real-Time Rail (RTR) payment system",
+      "url": "https://www.payments.ca/canada-launches-real-time-rail-bringing-247-payment-infrastructure-national-economy",
+      "published_at": null,
+      "discovered_at": "2026-11-09T16:00:45Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50427362"
+    },
+    {
+      "id": "source-a98326b09f6ff516",
+      "name": "Hacker News",
+      "title": "Google Gemini routes personal Drive files and emails to human annotators",
+      "url": "https://github.com/thisisme6598/gemini_files/",
+      "published_at": null,
+      "discovered_at": "2026-11-09T18:24:38Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50429426"
+    },
+    {
+      "id": "source-fbdf36c6d0b0b031",
+      "name": "Hacker News",
+      "title": "Claude Fable 5.2 scores 65 on Artificial Analysis, highest so far",
+      "url": "https://artificialanalysis.ai/models/claude-fable-5-2",
+      "published_at": null,
+      "discovered_at": "2026-11-09T20:04:55Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50431144"
+    },
+    {
+      "id": "source-fca505743bb9dd49",
+      "name": "Hacker News",
+      "title": "E-means: Outperforming k-means in one-tenth the epochs",
+      "url": "https://e-means.github.io/",
+      "published_at": null,
+      "discovered_at": "2026-11-09T18:45:43Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50429734"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-10/8b2ae32709e74e489fc8de44cec894808c340f765048cd7da7d258a151238c5b.mp3",
+    "duration_seconds": 217.536,
+    "script_hash": "b87625fa55086f5a7ab50e24c3fd8fb9020ba4131bc2023549e3df311b6bf84f",
+    "cues": [
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "everyone,",
+        "start_seconds": 0.6,
+        "end_seconds": 1.15
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "and",
+        "start_seconds": 1.15,
+        "end_seconds": 1.3125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "welcome",
+        "start_seconds": 1.3125,
+        "end_seconds": 1.75
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "to",
+        "start_seconds": 1.75,
+        "end_seconds": 1.875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Daywire.",
+        "start_seconds": 1.875,
+        "end_seconds": 2.8625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Let's",
+        "start_seconds": 2.8625,
+        "end_seconds": 3.15
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "make",
+        "start_seconds": 3.15,
+        "end_seconds": 3.3875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "sense",
+        "start_seconds": 3.3875,
+        "end_seconds": 3.7125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "of",
+        "start_seconds": 3.7125,
+        "end_seconds": 3.7875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "the",
+        "start_seconds": 3.7875,
+        "end_seconds": 3.875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "tech",
+        "start_seconds": 3.875,
+        "end_seconds": 4.125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "news.",
+        "start_seconds": 4.125,
+        "end_seconds": 4.825
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "It's",
+        "start_seconds": 4.825,
+        "end_seconds": 5.05
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "November",
+        "start_seconds": 5.05,
+        "end_seconds": 5.5375
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "ten,",
+        "start_seconds": 5.5375,
+        "end_seconds": 5.9125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "two",
+        "start_seconds": 5.9125,
+        "end_seconds": 6.15
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "thousand",
+        "start_seconds": 6.15,
+        "end_seconds": 6.5125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "twenty",
+        "start_seconds": 6.5125,
+        "end_seconds": 6.8375
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "six.",
+        "start_seconds": 6.8375,
+        "end_seconds": 7.9
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "We",
+        "start_seconds": 9.1,
+        "end_seconds": 9.225
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "begin",
+        "start_seconds": 9.225,
+        "end_seconds": 9.575
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "with",
+        "start_seconds": 9.575,
+        "end_seconds": 9.7125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "our",
+        "start_seconds": 9.7125,
+        "end_seconds": 9.85
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "lead",
+        "start_seconds": 9.85,
+        "end_seconds": 10.1
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "story.",
+        "start_seconds": 10.1,
+        "end_seconds": 11.0375
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "A",
+        "start_seconds": 11.0375,
+        "end_seconds": 11.125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "post",
+        "start_seconds": 11.125,
+        "end_seconds": 11.4375
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "on",
+        "start_seconds": 11.4375,
+        "end_seconds": 11.55
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Hacker",
+        "start_seconds": 11.55,
+        "end_seconds": 12.087499999999999
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "News",
+        "start_seconds": 11.55,
+        "end_seconds": 12.087499999999999
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "on",
+        "start_seconds": 12.087499999999999,
+        "end_seconds": 12.1875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "November",
+        "start_seconds": 12.1875,
+        "end_seconds": 13.1125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "7",
+        "start_seconds": 12.1875,
+        "end_seconds": 13.1125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "flagged",
+        "start_seconds": 13.1125,
+        "end_seconds": 13.4375
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "a",
+        "start_seconds": 13.4375,
+        "end_seconds": 13.5
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "possible",
+        "start_seconds": 13.5,
+        "end_seconds": 13.962499999999999
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "change",
+        "start_seconds": 13.962499999999999,
+        "end_seconds": 14.3625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "in",
+        "start_seconds": 14.3625,
+        "end_seconds": 14.475
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Opus",
+        "start_seconds": 14.475,
+        "end_seconds": 16.025
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "5.5’s",
+        "start_seconds": 14.475,
+        "end_seconds": 16.025
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "reasoning",
+        "start_seconds": 16.025,
+        "end_seconds": 16.45
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "around",
+        "start_seconds": 16.45,
+        "end_seconds": 16.7625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "November",
+        "start_seconds": 16.7625,
+        "end_seconds": 17.95
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "3.",
+        "start_seconds": 16.7625,
+        "end_seconds": 18.049999999999997
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "The",
+        "start_seconds": 18.049999999999997,
+        "end_seconds": 18.15
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "user",
+        "start_seconds": 18.15,
+        "end_seconds": 18.424999999999997
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "linked",
+        "start_seconds": 18.424999999999997,
+        "end_seconds": 18.65
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "to",
+        "start_seconds": 18.65,
+        "end_seconds": 18.737499999999997
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "a",
+        "start_seconds": 18.737499999999997,
+        "end_seconds": 18.799999999999997
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "tweet",
+        "start_seconds": 18.799999999999997,
+        "end_seconds": 19.125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "that",
+        "start_seconds": 19.125,
+        "end_seconds": 19.25
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "cited",
+        "start_seconds": 19.25,
+        "end_seconds": 19.5875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "a",
+        "start_seconds": 19.5875,
+        "end_seconds": 19.6625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Gemini",
+        "start_seconds": 19.6625,
+        "end_seconds": 20.75
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "4",
+        "start_seconds": 19.6625,
+        "end_seconds": 20.75
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Argon",
+        "start_seconds": 19.6625,
+        "end_seconds": 20.75
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "audit",
+        "start_seconds": 20.75,
+        "end_seconds": 21.0625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "of",
+        "start_seconds": 21.0625,
+        "end_seconds": 21.15
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "1,400",
+        "start_seconds": 21.15,
+        "end_seconds": 22.275
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Claude",
+        "start_seconds": 22.275,
+        "end_seconds": 22.875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Code",
+        "start_seconds": 22.275,
+        "end_seconds": 22.875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "sessions,",
+        "start_seconds": 22.875,
+        "end_seconds": 23.7875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "saying",
+        "start_seconds": 23.7875,
+        "end_seconds": 24.0875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "the",
+        "start_seconds": 24.0875,
+        "end_seconds": 24.174999999999997
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "model",
+        "start_seconds": 24.174999999999997,
+        "end_seconds": 24.5625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "showed",
+        "start_seconds": 24.5625,
+        "end_seconds": 24.8125
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "a",
+        "start_seconds": 24.8125,
+        "end_seconds": 24.887500000000003
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "sharp",
+        "start_seconds": 24.887500000000003,
+        "end_seconds": 25.225
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "turn",
+        "start_seconds": 25.225,
+        "end_seconds": 25.512500000000003
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "in",
+        "start_seconds": 25.512500000000003,
+        "end_seconds": 25.625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "step‑by‑step",
+        "start_seconds": 25.625,
+        "end_seconds": 26.4
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "solution",
+        "start_seconds": 26.4,
+        "end_seconds": 26.825000000000003
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "generation",
+        "start_seconds": 26.825000000000003,
+        "end_seconds": 27.7875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "while",
+        "start_seconds": 27.7875,
+        "end_seconds": 27.9625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "the",
+        "start_seconds": 27.9625,
+        "end_seconds": 28.049999999999997
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "version",
+        "start_seconds": 28.049999999999997,
+        "end_seconds": 28.450000000000003
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "string",
+        "start_seconds": 28.450000000000003,
+        "end_seconds": 28.775
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "stayed",
+        "start_seconds": 28.775,
+        "end_seconds": 29.0375
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "the",
+        "start_seconds": 29.0375,
+        "end_seconds": 29.137500000000003
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "same.",
+        "start_seconds": 29.137500000000003,
+        "end_seconds": 30.0875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "No",
+        "start_seconds": 30.0875,
+        "end_seconds": 30.325000000000003
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "audit",
+        "start_seconds": 30.325000000000003,
+        "end_seconds": 30.625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "data",
+        "start_seconds": 30.625,
+        "end_seconds": 31.012500000000003
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "or",
+        "start_seconds": 31.012500000000003,
+        "end_seconds": 31.174999999999997
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Anthropic",
+        "start_seconds": 31.174999999999997,
+        "end_seconds": 31.700000000000003
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "comment",
+        "start_seconds": 31.700000000000003,
+        "end_seconds": 32.0625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "was",
+        "start_seconds": 32.0625,
+        "end_seconds": 32.225
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "provided,",
+        "start_seconds": 32.225,
+        "end_seconds": 33.175
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "so",
+        "start_seconds": 33.175,
+        "end_seconds": 33.2875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "the",
+        "start_seconds": 33.2875,
+        "end_seconds": 33.375
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "claim",
+        "start_seconds": 33.375,
+        "end_seconds": 33.725
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "remains",
+        "start_seconds": 33.725,
+        "end_seconds": 34.1625
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "unverified.",
+        "start_seconds": 34.1625,
+        "end_seconds": 35.5875
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Engineers",
+        "start_seconds": 36.045,
+        "end_seconds": 36.67
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "using",
+        "start_seconds": 36.67,
+        "end_seconds": 36.97
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Opus",
+        "start_seconds": 36.97,
+        "end_seconds": 38.52
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "5.5",
+        "start_seconds": 36.97,
+        "end_seconds": 38.52
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "should",
+        "start_seconds": 38.52,
+        "end_seconds": 38.67
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "keep",
+        "start_seconds": 38.67,
+        "end_seconds": 38.8575
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "an",
+        "start_seconds": 38.8575,
+        "end_seconds": 38.9575
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "eye",
+        "start_seconds": 38.9575,
+        "end_seconds": 39.182500000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "on",
+        "start_seconds": 39.182500000000005,
+        "end_seconds": 39.2825
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "their",
+        "start_seconds": 39.2825,
+        "end_seconds": 39.47
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "own",
+        "start_seconds": 39.47,
+        "end_seconds": 39.695
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "output",
+        "start_seconds": 39.695,
+        "end_seconds": 40.145
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "for",
+        "start_seconds": 40.145,
+        "end_seconds": 40.27
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "any",
+        "start_seconds": 40.27,
+        "end_seconds": 40.557500000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "subtle",
+        "start_seconds": 40.557500000000005,
+        "end_seconds": 40.92
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "style",
+        "start_seconds": 40.92,
+        "end_seconds": 41.27
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "drift",
+        "start_seconds": 41.27,
+        "end_seconds": 41.932500000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "until",
+        "start_seconds": 41.932500000000005,
+        "end_seconds": 42.2075
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "the",
+        "start_seconds": 42.2075,
+        "end_seconds": 42.295
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "provider",
+        "start_seconds": 42.295,
+        "end_seconds": 42.745000000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "confirms",
+        "start_seconds": 42.745000000000005,
+        "end_seconds": 43.295
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "anything.",
+        "start_seconds": 43.295,
+        "end_seconds": 44.47
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "The",
+        "start_seconds": 45.645,
+        "end_seconds": 45.72
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "practical",
+        "start_seconds": 45.72,
+        "end_seconds": 46.245000000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "takeaway:",
+        "start_seconds": 46.245000000000005,
+        "end_seconds": 47.2575
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "watch",
+        "start_seconds": 47.2575,
+        "end_seconds": 47.495000000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "your",
+        "start_seconds": 47.495000000000005,
+        "end_seconds": 47.620000000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "code‑generation",
+        "start_seconds": 47.620000000000005,
+        "end_seconds": 48.52
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "results",
+        "start_seconds": 48.52,
+        "end_seconds": 48.97
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "for",
+        "start_seconds": 48.97,
+        "end_seconds": 49.095
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "odd",
+        "start_seconds": 49.095,
+        "end_seconds": 49.307500000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "shifts,",
+        "start_seconds": 49.307500000000005,
+        "end_seconds": 50.02
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "but",
+        "start_seconds": 50.02,
+        "end_seconds": 50.17
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "treat",
+        "start_seconds": 50.17,
+        "end_seconds": 50.42
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "the",
+        "start_seconds": 50.42,
+        "end_seconds": 50.52
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "rumor",
+        "start_seconds": 50.52,
+        "end_seconds": 50.845
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "as",
+        "start_seconds": 50.845,
+        "end_seconds": 50.995000000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "tentative",
+        "start_seconds": 50.995000000000005,
+        "end_seconds": 51.57
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "until",
+        "start_seconds": 51.57,
+        "end_seconds": 51.932500000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "Anthropic",
+        "start_seconds": 51.932500000000005,
+        "end_seconds": 52.495000000000005
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "offers",
+        "start_seconds": 52.495000000000005,
+        "end_seconds": 52.8825
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "concrete",
+        "start_seconds": 52.8825,
+        "end_seconds": 53.445
+      },
+      {
+        "segment_id": "opus-5-5-behavior-shift-nov-2026-segment",
+        "text": "evidence.",
+        "start_seconds": 53.445,
+        "end_seconds": 54.695
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "Next",
+        "start_seconds": 55.895,
+        "end_seconds": 56.182500000000005
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "on",
+        "start_seconds": 56.182500000000005,
+        "end_seconds": 56.282500000000006
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "the",
+        "start_seconds": 56.282500000000006,
+        "end_seconds": 56.370000000000005
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "bulletin.",
+        "start_seconds": 56.370000000000005,
+        "end_seconds": 57.3575
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "USPS",
+        "start_seconds": 57.3575,
+        "end_seconds": 58.095000000000006
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "now",
+        "start_seconds": 58.095000000000006,
+        "end_seconds": 58.32
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "offers",
+        "start_seconds": 58.32,
+        "end_seconds": 58.67
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "official",
+        "start_seconds": 58.67,
+        "end_seconds": 59.1325
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "ZIP",
+        "start_seconds": 59.1325,
+        "end_seconds": 59.370000000000005
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "Code",
+        "start_seconds": 59.370000000000005,
+        "end_seconds": 59.645
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "boundary",
+        "start_seconds": 59.645,
+        "end_seconds": 60.095000000000006
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "polygons",
+        "start_seconds": 60.095000000000006,
+        "end_seconds": 60.645
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "for",
+        "start_seconds": 60.645,
+        "end_seconds": 60.77
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "developers.",
+        "start_seconds": 60.77,
+        "end_seconds": 62.120000000000005
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "The",
+        "start_seconds": 63.32,
+        "end_seconds": 63.4325
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "service",
+        "start_seconds": 63.4325,
+        "end_seconds": 63.845
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "provides",
+        "start_seconds": 63.845,
+        "end_seconds": 64.2325
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "a",
+        "start_seconds": 64.2325,
+        "end_seconds": 64.295
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "national",
+        "start_seconds": 64.295,
+        "end_seconds": 64.645
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "dataset",
+        "start_seconds": 64.645,
+        "end_seconds": 65.195
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "in",
+        "start_seconds": 65.195,
+        "end_seconds": 65.345
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "GeoJSON",
+        "start_seconds": 65.345,
+        "end_seconds": 66.22
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "and",
+        "start_seconds": 66.22,
+        "end_seconds": 66.3325
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "other",
+        "start_seconds": 66.3325,
+        "end_seconds": 66.545
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "formats,",
+        "start_seconds": 66.545,
+        "end_seconds": 67.395
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "refreshed",
+        "start_seconds": 67.395,
+        "end_seconds": 67.87
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "every",
+        "start_seconds": 67.87,
+        "end_seconds": 68.095
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "quarter.",
+        "start_seconds": 68.095,
+        "end_seconds": 69.07
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "It’s",
+        "start_seconds": 69.07,
+        "end_seconds": 69.27
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "split",
+        "start_seconds": 69.27,
+        "end_seconds": 69.5325
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "into",
+        "start_seconds": 69.5325,
+        "end_seconds": 69.745
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "streams",
+        "start_seconds": 69.745,
+        "end_seconds": 70.145
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "for",
+        "start_seconds": 70.145,
+        "end_seconds": 70.27
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "internal,",
+        "start_seconds": 70.27,
+        "end_seconds": 70.945
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "enterprise,",
+        "start_seconds": 70.945,
+        "end_seconds": 71.5575
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "and",
+        "start_seconds": 71.5575,
+        "end_seconds": 71.67
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "limited‑publication",
+        "start_seconds": 71.67,
+        "end_seconds": 72.67
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "users,",
+        "start_seconds": 72.67,
+        "end_seconds": 73.52
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "and",
+        "start_seconds": 73.52,
+        "end_seconds": 73.6325
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "the",
+        "start_seconds": 73.6325,
+        "end_seconds": 73.72
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "technical",
+        "start_seconds": 73.72,
+        "end_seconds": 74.22
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "guide",
+        "start_seconds": 74.22,
+        "end_seconds": 74.545
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "dated",
+        "start_seconds": 74.545,
+        "end_seconds": 74.945
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "September",
+        "start_seconds": 74.945,
+        "end_seconds": 75.445
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "eighteenth,",
+        "start_seconds": 75.445,
+        "end_seconds": 76.3825
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "two",
+        "start_seconds": 76.3825,
+        "end_seconds": 76.62
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "thousand",
+        "start_seconds": 76.62,
+        "end_seconds": 76.9575
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "twenty‑six",
+        "start_seconds": 76.9575,
+        "end_seconds": 77.62
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "walks",
+        "start_seconds": 77.62,
+        "end_seconds": 77.8825
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "you",
+        "start_seconds": 77.8825,
+        "end_seconds": 77.995
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "through",
+        "start_seconds": 77.995,
+        "end_seconds": 78.17
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "licensing",
+        "start_seconds": 78.17,
+        "end_seconds": 78.7575
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "and",
+        "start_seconds": 78.7575,
+        "end_seconds": 78.87
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "access.",
+        "start_seconds": 78.87,
+        "end_seconds": 79.9075
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "That",
+        "start_seconds": 79.9075,
+        "end_seconds": 80.12
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "means",
+        "start_seconds": 80.12,
+        "end_seconds": 80.3825
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "you",
+        "start_seconds": 80.3825,
+        "end_seconds": 80.4825
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "can",
+        "start_seconds": 80.4825,
+        "end_seconds": 80.62
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "swap",
+        "start_seconds": 80.62,
+        "end_seconds": 80.8575
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "out",
+        "start_seconds": 80.8575,
+        "end_seconds": 81.0325
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "the",
+        "start_seconds": 81.0325,
+        "end_seconds": 81.12
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "rough",
+        "start_seconds": 81.12,
+        "end_seconds": 81.37
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "ZIP",
+        "start_seconds": 81.37,
+        "end_seconds": 81.6075
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "shapes",
+        "start_seconds": 81.6075,
+        "end_seconds": 81.9575
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "you’ve",
+        "start_seconds": 81.9575,
+        "end_seconds": 82.0825
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "been",
+        "start_seconds": 82.0825,
+        "end_seconds": 82.22
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "using",
+        "start_seconds": 82.22,
+        "end_seconds": 82.545
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "for",
+        "start_seconds": 82.545,
+        "end_seconds": 82.6575
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "a",
+        "start_seconds": 82.6575,
+        "end_seconds": 82.7325
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "true",
+        "start_seconds": 82.7325,
+        "end_seconds": 82.97
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "ground‑truth",
+        "start_seconds": 82.97,
+        "end_seconds": 83.595
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "layer,",
+        "start_seconds": 83.595,
+        "end_seconds": 84.295
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "cutting",
+        "start_seconds": 84.295,
+        "end_seconds": 84.645
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "boundary",
+        "start_seconds": 84.645,
+        "end_seconds": 85.07
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "errors",
+        "start_seconds": 85.07,
+        "end_seconds": 85.42
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "in",
+        "start_seconds": 85.42,
+        "end_seconds": 85.5825
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "real‑estate,",
+        "start_seconds": 85.5825,
+        "end_seconds": 86.595
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "insurance,",
+        "start_seconds": 86.595,
+        "end_seconds": 87.32
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "marketing",
+        "start_seconds": 87.32,
+        "end_seconds": 87.82
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "and",
+        "start_seconds": 87.82,
+        "end_seconds": 87.945
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "routing",
+        "start_seconds": 87.945,
+        "end_seconds": 88.295
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "pipelines.",
+        "start_seconds": 88.295,
+        "end_seconds": 89.5825
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "Here’s",
+        "start_seconds": 90.04,
+        "end_seconds": 90.59
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "why",
+        "start_seconds": 90.59,
+        "end_seconds": 90.765
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "that",
+        "start_seconds": 90.765,
+        "end_seconds": 90.965
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "matters:",
+        "start_seconds": 90.965,
+        "end_seconds": 91.8525
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "more",
+        "start_seconds": 91.8525,
+        "end_seconds": 92.04
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "precise",
+        "start_seconds": 92.04,
+        "end_seconds": 92.465
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "location‑based",
+        "start_seconds": 92.465,
+        "end_seconds": 93.3525
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "services",
+        "start_seconds": 93.3525,
+        "end_seconds": 93.92750000000001
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "with",
+        "start_seconds": 93.92750000000001,
+        "end_seconds": 94.1025
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "fewer",
+        "start_seconds": 94.1025,
+        "end_seconds": 94.415
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "guesswork",
+        "start_seconds": 94.415,
+        "end_seconds": 94.89
+      },
+      {
+        "segment_id": "usps-zip-code-boundaries-2026-segment",
+        "text": "surprises.",
+        "start_seconds": 94.89,
+        "end_seconds": 96.24000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Turning",
+        "start_seconds": 97.44,
+        "end_seconds": 97.765
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 97.765,
+        "end_seconds": 97.85249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 97.85249999999999,
+        "end_seconds": 97.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "next",
+        "start_seconds": 97.965,
+        "end_seconds": 98.22749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 98.22749999999999,
+        "end_seconds": 99.10249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Claude",
+        "start_seconds": 99.10249999999999,
+        "end_seconds": 99.44
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Fable",
+        "start_seconds": 99.44,
+        "end_seconds": 99.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 99.74,
+        "end_seconds": 100.1775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five",
+        "start_seconds": 100.1775,
+        "end_seconds": 100.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 100.515,
+        "end_seconds": 100.8025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 100.8025,
+        "end_seconds": 101.065
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "is",
+        "start_seconds": 101.065,
+        "end_seconds": 101.215
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 101.215,
+        "end_seconds": 101.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "live,",
+        "start_seconds": 101.39,
+        "end_seconds": 102.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "promising",
+        "start_seconds": 102.16499999999999,
+        "end_seconds": 102.66499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "output",
+        "start_seconds": 102.66499999999999,
+        "end_seconds": 103.10249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "up",
+        "start_seconds": 103.10249999999999,
+        "end_seconds": 103.24
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 103.24,
+        "end_seconds": 103.3775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thirty",
+        "start_seconds": 103.3775,
+        "end_seconds": 103.715
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "percent",
+        "start_seconds": 103.715,
+        "end_seconds": 104.09
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "faster",
+        "start_seconds": 104.09,
+        "end_seconds": 104.66499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "than",
+        "start_seconds": 104.66499999999999,
+        "end_seconds": 104.7775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 104.7775,
+        "end_seconds": 104.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five",
+        "start_seconds": 104.965,
+        "end_seconds": 105.28999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 105.28999999999999,
+        "end_seconds": 105.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 105.565,
+        "end_seconds": 105.78999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "predecessor.",
+        "start_seconds": 105.78999999999999,
+        "end_seconds": 107.0275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Anthropic",
+        "start_seconds": 107.0275,
+        "end_seconds": 107.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "says",
+        "start_seconds": 107.615,
+        "end_seconds": 107.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 107.84,
+        "end_seconds": 107.94
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "new",
+        "start_seconds": 107.94,
+        "end_seconds": 108.10249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "model",
+        "start_seconds": 108.10249999999999,
+        "end_seconds": 108.41499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "still",
+        "start_seconds": 108.41499999999999,
+        "end_seconds": 108.69
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "costs",
+        "start_seconds": 108.69,
+        "end_seconds": 109.10249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "eight",
+        "start_seconds": 109.10249999999999,
+        "end_seconds": 109.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dollars",
+        "start_seconds": 109.365,
+        "end_seconds": 109.69
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "per",
+        "start_seconds": 109.69,
+        "end_seconds": 109.89
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "million",
+        "start_seconds": 109.89,
+        "end_seconds": 110.24
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "input",
+        "start_seconds": 110.24,
+        "end_seconds": 110.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tokens",
+        "start_seconds": 110.59,
+        "end_seconds": 111.4275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 111.4275,
+        "end_seconds": 111.5775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "forty",
+        "start_seconds": 111.5775,
+        "end_seconds": 111.91499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dollars",
+        "start_seconds": 111.91499999999999,
+        "end_seconds": 112.265
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "per",
+        "start_seconds": 112.265,
+        "end_seconds": 112.44
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "million",
+        "start_seconds": 112.44,
+        "end_seconds": 112.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "output",
+        "start_seconds": 112.815,
+        "end_seconds": 113.215
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tokens.",
+        "start_seconds": 113.215,
+        "end_seconds": 114.47749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Independent",
+        "start_seconds": 114.935,
+        "end_seconds": 115.51
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "benchmarks,",
+        "start_seconds": 115.51,
+        "end_seconds": 116.0975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "however,",
+        "start_seconds": 116.0975,
+        "end_seconds": 116.89750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "show",
+        "start_seconds": 116.89750000000001,
+        "end_seconds": 117.135
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 117.135,
+        "end_seconds": 117.2475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "single",
+        "start_seconds": 117.2475,
+        "end_seconds": 117.61
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "task",
+        "start_seconds": 117.61,
+        "end_seconds": 118.01
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 118.01,
+        "end_seconds": 118.135
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "take",
+        "start_seconds": 118.135,
+        "end_seconds": 118.3725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "forty",
+        "start_seconds": 118.3725,
+        "end_seconds": 118.71000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six",
+        "start_seconds": 118.71000000000001,
+        "end_seconds": 118.985
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 118.985,
+        "end_seconds": 119.26
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 119.26,
+        "end_seconds": 119.435
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "minutes,",
+        "start_seconds": 119.435,
+        "end_seconds": 120.26
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 120.26,
+        "end_seconds": 120.39750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 120.39750000000001,
+        "end_seconds": 120.46000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "median",
+        "start_seconds": 120.46000000000001,
+        "end_seconds": 120.8225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 120.8225,
+        "end_seconds": 120.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twelve",
+        "start_seconds": 120.91,
+        "end_seconds": 121.235
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 121.235,
+        "end_seconds": 121.51
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six",
+        "start_seconds": 121.51,
+        "end_seconds": 121.785
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "minutes",
+        "start_seconds": 121.785,
+        "end_seconds": 122.11
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 122.11,
+        "end_seconds": 122.235
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "comparable",
+        "start_seconds": 122.235,
+        "end_seconds": 122.635
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "models,",
+        "start_seconds": 122.635,
+        "end_seconds": 123.485
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 123.485,
+        "end_seconds": 123.61
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "each",
+        "start_seconds": 123.61,
+        "end_seconds": 123.83500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "run",
+        "start_seconds": 123.83500000000001,
+        "end_seconds": 124.06
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "costs",
+        "start_seconds": 124.06,
+        "end_seconds": 124.4725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "about",
+        "start_seconds": 124.4725,
+        "end_seconds": 124.735
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 124.735,
+        "end_seconds": 125.06
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six",
+        "start_seconds": 125.06,
+        "end_seconds": 125.33500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 125.33500000000001,
+        "end_seconds": 125.64750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five",
+        "start_seconds": 125.64750000000001,
+        "end_seconds": 125.985
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 125.985,
+        "end_seconds": 126.21000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dollars.",
+        "start_seconds": 126.21000000000001,
+        "end_seconds": 127.1975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 127.1975,
+        "end_seconds": 127.535
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 127.535,
+        "end_seconds": 127.71000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 127.71000000000001,
+        "end_seconds": 127.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 127.91,
+        "end_seconds": 128.76
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 128.76,
+        "end_seconds": 128.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "upgrade",
+        "start_seconds": 128.91,
+        "end_seconds": 129.3975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shines",
+        "start_seconds": 129.3975,
+        "end_seconds": 129.785
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 129.785,
+        "end_seconds": 129.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "heavy‑duty",
+        "start_seconds": 129.91,
+        "end_seconds": 130.535
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "reasoning",
+        "start_seconds": 130.535,
+        "end_seconds": 130.985
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 130.985,
+        "end_seconds": 131.085
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vision",
+        "start_seconds": 131.085,
+        "end_seconds": 131.385
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "work,",
+        "start_seconds": 131.385,
+        "end_seconds": 132.085
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 132.085,
+        "end_seconds": 132.2225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 132.2225,
+        "end_seconds": 132.2975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "isn’t",
+        "start_seconds": 132.2975,
+        "end_seconds": 132.5225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 132.5225,
+        "end_seconds": 132.61
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "best",
+        "start_seconds": 132.61,
+        "end_seconds": 132.9225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fit",
+        "start_seconds": 132.9225,
+        "end_seconds": 133.1475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "when",
+        "start_seconds": 133.1475,
+        "end_seconds": 133.2725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 133.2725,
+        "end_seconds": 133.385
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "need",
+        "start_seconds": 133.385,
+        "end_seconds": 133.635
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ultra‑low",
+        "start_seconds": 133.635,
+        "end_seconds": 134.235
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "latency",
+        "start_seconds": 134.235,
+        "end_seconds": 134.81
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 134.81,
+        "end_seconds": 134.96
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tight",
+        "start_seconds": 134.96,
+        "end_seconds": 135.235
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "budgets.",
+        "start_seconds": 135.235,
+        "end_seconds": 136.385
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "Next",
+        "start_seconds": 137.61,
+        "end_seconds": 137.8725
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "on",
+        "start_seconds": 137.8725,
+        "end_seconds": 137.9725
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "the",
+        "start_seconds": 137.9725,
+        "end_seconds": 138.06
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "bulletin.",
+        "start_seconds": 138.06,
+        "end_seconds": 139.0475
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "Payments",
+        "start_seconds": 139.0475,
+        "end_seconds": 139.46
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "Canada",
+        "start_seconds": 139.46,
+        "end_seconds": 139.86
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "just",
+        "start_seconds": 139.86,
+        "end_seconds": 140.06
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "turned",
+        "start_seconds": 140.06,
+        "end_seconds": 140.3725
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "on",
+        "start_seconds": 140.3725,
+        "end_seconds": 140.4725
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "its",
+        "start_seconds": 140.4725,
+        "end_seconds": 140.61
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "Real‑Time",
+        "start_seconds": 140.61,
+        "end_seconds": 141.13500000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "Rail,",
+        "start_seconds": 141.13500000000002,
+        "end_seconds": 141.835
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "a",
+        "start_seconds": 141.835,
+        "end_seconds": 141.91
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "24‑seven",
+        "start_seconds": 141.91,
+        "end_seconds": 142.785
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "national",
+        "start_seconds": 142.785,
+        "end_seconds": 143.11
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "payment",
+        "start_seconds": 143.11,
+        "end_seconds": 143.46
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "network",
+        "start_seconds": 143.46,
+        "end_seconds": 143.935
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "that",
+        "start_seconds": 143.935,
+        "end_seconds": 144.06
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "settles",
+        "start_seconds": 144.06,
+        "end_seconds": 144.41
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "transactions",
+        "start_seconds": 144.41,
+        "end_seconds": 145.085
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "instantly",
+        "start_seconds": 145.085,
+        "end_seconds": 146.06
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "and",
+        "start_seconds": 146.06,
+        "end_seconds": 146.21
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "adds",
+        "start_seconds": 146.21,
+        "end_seconds": 146.46
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "richer",
+        "start_seconds": 146.46,
+        "end_seconds": 146.735
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "data",
+        "start_seconds": 146.735,
+        "end_seconds": 147.085
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "to",
+        "start_seconds": 147.085,
+        "end_seconds": 147.21
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "every",
+        "start_seconds": 147.21,
+        "end_seconds": 147.51000000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "move.",
+        "start_seconds": 147.51000000000002,
+        "end_seconds": 148.38500000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "Susan",
+        "start_seconds": 148.38500000000002,
+        "end_seconds": 148.76000000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "E.",
+        "start_seconds": 148.76000000000002,
+        "end_seconds": 148.88500000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "Hawkins",
+        "start_seconds": 148.88500000000002,
+        "end_seconds": 149.41
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "says",
+        "start_seconds": 149.41,
+        "end_seconds": 149.5975
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "it’s",
+        "start_seconds": 149.5975,
+        "end_seconds": 149.7225
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "a",
+        "start_seconds": 149.7225,
+        "end_seconds": 149.785
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "modern",
+        "start_seconds": 149.785,
+        "end_seconds": 150.11
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "foundation",
+        "start_seconds": 150.11,
+        "end_seconds": 150.76000000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "for",
+        "start_seconds": 150.76000000000002,
+        "end_seconds": 150.88500000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "instant,",
+        "start_seconds": 150.88500000000002,
+        "end_seconds": 151.6725
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "seamless,",
+        "start_seconds": 151.6725,
+        "end_seconds": 152.235
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "low‑cost",
+        "start_seconds": 152.235,
+        "end_seconds": 152.81
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "financial",
+        "start_seconds": 152.81,
+        "end_seconds": 153.235
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "products,",
+        "start_seconds": 153.235,
+        "end_seconds": 154.185
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "giving",
+        "start_seconds": 154.185,
+        "end_seconds": 154.485
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "users",
+        "start_seconds": 154.485,
+        "end_seconds": 154.835
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "direct",
+        "start_seconds": 154.835,
+        "end_seconds": 155.21
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "control",
+        "start_seconds": 155.21,
+        "end_seconds": 155.6475
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "of",
+        "start_seconds": 155.6475,
+        "end_seconds": 155.735
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "their",
+        "start_seconds": 155.735,
+        "end_seconds": 155.88500000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "money",
+        "start_seconds": 155.88500000000002,
+        "end_seconds": 156.185
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "around",
+        "start_seconds": 156.185,
+        "end_seconds": 156.44750000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "the",
+        "start_seconds": 156.44750000000002,
+        "end_seconds": 156.535
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "clock.",
+        "start_seconds": 156.535,
+        "end_seconds": 157.4225
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "Early",
+        "start_seconds": 157.4225,
+        "end_seconds": 157.735
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "adopters",
+        "start_seconds": 157.735,
+        "end_seconds": 158.26000000000002
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "are",
+        "start_seconds": 158.26000000000002,
+        "end_seconds": 158.36
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "already",
+        "start_seconds": 158.36,
+        "end_seconds": 158.735
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "seeing",
+        "start_seconds": 158.735,
+        "end_seconds": 159.0475
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "faster",
+        "start_seconds": 159.0475,
+        "end_seconds": 159.485
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "cash‑flow",
+        "start_seconds": 159.485,
+        "end_seconds": 160.035
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "visibility",
+        "start_seconds": 160.035,
+        "end_seconds": 160.9225
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "and",
+        "start_seconds": 160.9225,
+        "end_seconds": 161.085
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "better",
+        "start_seconds": 161.085,
+        "end_seconds": 161.3975
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "fraud",
+        "start_seconds": 161.3975,
+        "end_seconds": 161.71
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "defence.",
+        "start_seconds": 161.71,
+        "end_seconds": 162.8975
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "For",
+        "start_seconds": 163.355,
+        "end_seconds": 163.48
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "engineers",
+        "start_seconds": 163.48,
+        "end_seconds": 164.13
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "building",
+        "start_seconds": 164.13,
+        "end_seconds": 164.505
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "payment",
+        "start_seconds": 164.505,
+        "end_seconds": 164.855
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "services,",
+        "start_seconds": 164.855,
+        "end_seconds": 165.855
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "that",
+        "start_seconds": 165.855,
+        "end_seconds": 166.05499999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "means",
+        "start_seconds": 166.05499999999998,
+        "end_seconds": 166.32999999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "you",
+        "start_seconds": 166.32999999999998,
+        "end_seconds": 166.45499999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "can",
+        "start_seconds": 166.45499999999998,
+        "end_seconds": 166.605
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "now",
+        "start_seconds": 166.605,
+        "end_seconds": 166.80499999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "hook",
+        "start_seconds": 166.80499999999998,
+        "end_seconds": 167.0425
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "into",
+        "start_seconds": 167.0425,
+        "end_seconds": 167.24249999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "a",
+        "start_seconds": 167.24249999999998,
+        "end_seconds": 167.30499999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "nationwide,",
+        "start_seconds": 167.30499999999998,
+        "end_seconds": 168.48
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "always‑on",
+        "start_seconds": 168.48,
+        "end_seconds": 169.07999999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "rail",
+        "start_seconds": 169.07999999999998,
+        "end_seconds": 169.405
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "for",
+        "start_seconds": 169.405,
+        "end_seconds": 169.53
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "instant",
+        "start_seconds": 169.53,
+        "end_seconds": 169.98
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "settlement",
+        "start_seconds": 169.98,
+        "end_seconds": 170.48
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "and",
+        "start_seconds": 170.48,
+        "end_seconds": 170.605
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "richer",
+        "start_seconds": 170.605,
+        "end_seconds": 170.905
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "messaging,",
+        "start_seconds": 170.905,
+        "end_seconds": 171.855
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "as",
+        "start_seconds": 171.855,
+        "end_seconds": 172.005
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "long",
+        "start_seconds": 172.005,
+        "end_seconds": 172.1925
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "as",
+        "start_seconds": 172.1925,
+        "end_seconds": 172.30499999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "you",
+        "start_seconds": 172.30499999999998,
+        "end_seconds": 172.42999999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "connect",
+        "start_seconds": 172.42999999999998,
+        "end_seconds": 172.8425
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "through",
+        "start_seconds": 172.8425,
+        "end_seconds": 173.0925
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "a",
+        "start_seconds": 173.0925,
+        "end_seconds": 173.155
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "participating",
+        "start_seconds": 173.155,
+        "end_seconds": 174.005
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "financial",
+        "start_seconds": 174.005,
+        "end_seconds": 174.49249999999998
+      },
+      {
+        "segment_id": "canada-rtr-launch-story",
+        "text": "institution.",
+        "start_seconds": 174.49249999999998,
+        "end_seconds": 175.905
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "And",
+        "start_seconds": 177.07999999999998,
+        "end_seconds": 177.24249999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "finally,",
+        "start_seconds": 177.24249999999998,
+        "end_seconds": 177.78
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "our",
+        "start_seconds": 177.78,
+        "end_seconds": 177.92999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "last",
+        "start_seconds": 177.92999999999998,
+        "end_seconds": 178.17999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "story.",
+        "start_seconds": 178.17999999999998,
+        "end_seconds": 179.11749999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Google",
+        "start_seconds": 179.11749999999998,
+        "end_seconds": 179.45499999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Gemini",
+        "start_seconds": 179.45499999999998,
+        "end_seconds": 179.88
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "now",
+        "start_seconds": 179.88,
+        "end_seconds": 180.07999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "routes",
+        "start_seconds": 180.07999999999998,
+        "end_seconds": 180.355
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "personal",
+        "start_seconds": 180.355,
+        "end_seconds": 180.80499999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Drive",
+        "start_seconds": 180.80499999999998,
+        "end_seconds": 181.23
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "and",
+        "start_seconds": 181.23,
+        "end_seconds": 181.355
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "email",
+        "start_seconds": 181.355,
+        "end_seconds": 181.67999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "content",
+        "start_seconds": 181.67999999999998,
+        "end_seconds": 182.155
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "to",
+        "start_seconds": 182.155,
+        "end_seconds": 182.255
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "human",
+        "start_seconds": 182.255,
+        "end_seconds": 182.55499999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "reviewers.",
+        "start_seconds": 182.55499999999998,
+        "end_seconds": 183.57999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "When",
+        "start_seconds": 183.57999999999998,
+        "end_seconds": 183.70499999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "you",
+        "start_seconds": 183.70499999999998,
+        "end_seconds": 183.8175
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "enable",
+        "start_seconds": 183.8175,
+        "end_seconds": 184.23
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Connected",
+        "start_seconds": 184.23,
+        "end_seconds": 184.70499999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Apps,",
+        "start_seconds": 184.70499999999998,
+        "end_seconds": 185.355
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "the",
+        "start_seconds": 185.355,
+        "end_seconds": 185.49249999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "service",
+        "start_seconds": 185.49249999999998,
+        "end_seconds": 185.905
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "can",
+        "start_seconds": 185.905,
+        "end_seconds": 186.05499999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "automatically",
+        "start_seconds": 186.05499999999998,
+        "end_seconds": 186.73
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "pull",
+        "start_seconds": 186.73,
+        "end_seconds": 186.92999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "your",
+        "start_seconds": 186.92999999999998,
+        "end_seconds": 187.14249999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "files",
+        "start_seconds": 187.14249999999998,
+        "end_seconds": 187.605
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "or",
+        "start_seconds": 187.605,
+        "end_seconds": 187.78
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Gmail",
+        "start_seconds": 187.78,
+        "end_seconds": 188.23
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "messages",
+        "start_seconds": 188.23,
+        "end_seconds": 189.14249999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "and",
+        "start_seconds": 189.14249999999998,
+        "end_seconds": 189.2925
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "forward",
+        "start_seconds": 189.2925,
+        "end_seconds": 189.61749999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "them",
+        "start_seconds": 189.61749999999998,
+        "end_seconds": 189.80499999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "to",
+        "start_seconds": 189.80499999999998,
+        "end_seconds": 189.905
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "contractors",
+        "start_seconds": 189.905,
+        "end_seconds": 190.48
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "for",
+        "start_seconds": 190.48,
+        "end_seconds": 190.605
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "review.",
+        "start_seconds": 190.605,
+        "end_seconds": 191.57999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "The",
+        "start_seconds": 191.57999999999998,
+        "end_seconds": 191.73
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "only",
+        "start_seconds": 191.73,
+        "end_seconds": 192.03
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "protection",
+        "start_seconds": 192.03,
+        "end_seconds": 192.57999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "is",
+        "start_seconds": 192.57999999999998,
+        "end_seconds": 192.6925
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "a",
+        "start_seconds": 192.6925,
+        "end_seconds": 192.755
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "basic",
+        "start_seconds": 192.755,
+        "end_seconds": 193.17999999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "regex",
+        "start_seconds": 193.17999999999998,
+        "end_seconds": 193.655
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "and",
+        "start_seconds": 193.655,
+        "end_seconds": 193.78
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "named‑entity‑recognition",
+        "start_seconds": 193.78,
+        "end_seconds": 195.13
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "scrub",
+        "start_seconds": 195.13,
+        "end_seconds": 195.6675
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "that",
+        "start_seconds": 195.6675,
+        "end_seconds": 195.80499999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "often",
+        "start_seconds": 195.80499999999998,
+        "end_seconds": 196.13
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "misses",
+        "start_seconds": 196.13,
+        "end_seconds": 196.49249999999998
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "sensitive",
+        "start_seconds": 196.49249999999998,
+        "end_seconds": 197.03
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "details.",
+        "start_seconds": 197.03,
+        "end_seconds": 198.3175
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Here's",
+        "start_seconds": 198.775,
+        "end_seconds": 199.07500000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "why",
+        "start_seconds": 199.07500000000002,
+        "end_seconds": 199.25
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "that",
+        "start_seconds": 199.25,
+        "end_seconds": 199.45000000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "matters:",
+        "start_seconds": 199.45000000000002,
+        "end_seconds": 200.35
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "any",
+        "start_seconds": 200.35,
+        "end_seconds": 200.65
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Workspace",
+        "start_seconds": 200.65,
+        "end_seconds": 201.1875
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "integration",
+        "start_seconds": 201.1875,
+        "end_seconds": 201.775
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "you",
+        "start_seconds": 201.775,
+        "end_seconds": 201.9
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "turn",
+        "start_seconds": 201.9,
+        "end_seconds": 202.1625
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "on",
+        "start_seconds": 202.1625,
+        "end_seconds": 202.35
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "should",
+        "start_seconds": 202.35,
+        "end_seconds": 202.4875
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "be",
+        "start_seconds": 202.4875,
+        "end_seconds": 202.6
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "assumed",
+        "start_seconds": 202.6,
+        "end_seconds": 202.9875
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "exposed,",
+        "start_seconds": 202.9875,
+        "end_seconds": 204.025
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "so",
+        "start_seconds": 204.025,
+        "end_seconds": 204.20000000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "keep",
+        "start_seconds": 204.20000000000002,
+        "end_seconds": 204.4
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "confidential",
+        "start_seconds": 204.4,
+        "end_seconds": 205.07500000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "documents",
+        "start_seconds": 205.07500000000002,
+        "end_seconds": 205.625
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "and",
+        "start_seconds": 205.625,
+        "end_seconds": 205.7875
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "emails",
+        "start_seconds": 205.7875,
+        "end_seconds": 206.225
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "out",
+        "start_seconds": 206.225,
+        "end_seconds": 206.38750000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "of",
+        "start_seconds": 206.38750000000002,
+        "end_seconds": 206.475
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Gemini's",
+        "start_seconds": 206.475,
+        "end_seconds": 206.975
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "reach.",
+        "start_seconds": 206.975,
+        "end_seconds": 207.95000000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "And",
+        "start_seconds": 209.125,
+        "end_seconds": 209.275
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "that's",
+        "start_seconds": 209.275,
+        "end_seconds": 209.525
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "your",
+        "start_seconds": 209.525,
+        "end_seconds": 209.70000000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Daywire",
+        "start_seconds": 209.70000000000002,
+        "end_seconds": 210.15
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "briefing.",
+        "start_seconds": 210.15,
+        "end_seconds": 211.07500000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "You'll",
+        "start_seconds": 211.07500000000002,
+        "end_seconds": 211.25
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "find",
+        "start_seconds": 211.25,
+        "end_seconds": 211.51250000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "the",
+        "start_seconds": 211.51250000000002,
+        "end_seconds": 211.6125
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "full",
+        "start_seconds": 211.6125,
+        "end_seconds": 211.875
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "stories",
+        "start_seconds": 211.875,
+        "end_seconds": 212.3375
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "and",
+        "start_seconds": 212.3375,
+        "end_seconds": 212.4625
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "sources",
+        "start_seconds": 212.4625,
+        "end_seconds": 212.95000000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "in",
+        "start_seconds": 212.95000000000002,
+        "end_seconds": 213.05
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "today's",
+        "start_seconds": 213.05,
+        "end_seconds": 213.425
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "newspaper.",
+        "start_seconds": 213.425,
+        "end_seconds": 214.4125
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Thanks",
+        "start_seconds": 214.4125,
+        "end_seconds": 214.75
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "for",
+        "start_seconds": 214.75,
+        "end_seconds": 214.875
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "listening.",
+        "start_seconds": 214.875,
+        "end_seconds": 215.63750000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "Take",
+        "start_seconds": 215.63750000000002,
+        "end_seconds": 215.95000000000002
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "care,",
+        "start_seconds": 215.95000000000002,
+        "end_seconds": 216.2125
+      },
+      {
+        "segment_id": "gemini-human-review-2026-segment",
+        "text": "everyone.",
+        "start_seconds": 216.2125,
+        "end_seconds": 217.375
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
