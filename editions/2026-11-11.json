@@ -1,0 +1,3620 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-11",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-11T07:05:43.418031783Z",
+  "coverage": {
+    "from": "2026-11-10T06:00:00+05:30",
+    "until": "2026-11-11T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-f3fc54cd1d78c100",
+      "source-0f0020abcf733229",
+      "source-991ad48e8559b2fe",
+      "source-69d4d9d74efa0162",
+      "source-9092d5eb66f29547",
+      "source-96e2dd8c2efc74b8",
+      "source-a63244b3c1cf5c9e"
+    ],
+    "candidate_count": 43,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "AI verification meets .NET’s next leap",
+    "introduction": "DeepMind’s AlphaProof Code demonstrates AI‑assisted formal verification, turning live software into provable Lean theorems. Meanwhile .NET 11 expands the language with closed hierarchies and previews AI‑driven Blazor components, signaling a broader push toward safer, smarter codebases.",
+    "articles": [
+      {
+        "id": "home-automation-mqtt-offline-2026",
+        "section": "Engineering",
+        "headline": "Home automation stays alive when the internet drops",
+        "summary": "A homeowner outlines rules and MQTT‑based wiring that keep core smart‑home functions running without any cloud dependency.",
+        "paragraphs": [
+          "In a Hacker News post dated 2026‑11‑10, the author describes a decade‑long practice of designing smart‑home systems that never rely on a vendor’s server. The core rule is simple: if the internet goes down, lights, thermostats, and sensors must continue to operate. To enforce this, every device publishes state over MQTT, a lightweight pub/sub protocol, instead of talking directly to a cloud endpoint.",
+          "The author also stresses keeping configuration in a single place and avoiding the removal of legacy controls while adding new ones. For example, an in‑wall Wi‑Fi switch replaces a smart plug but still behaves like a traditional toggle, preserving habit while enabling automation. Sensors such as temperature or humidity publish data once, and any number of listeners—phones, dashboards, or back‑ends—can subscribe without extra code.",
+          "The practical upshot is a resilient home that can be monitored and controlled locally even during ISP outages. Builders who adopt MQTT and centralised config can replicate this reliability without sacrificing the convenience of modern smart devices."
+        ],
+        "implication": "Using MQTT and a single source of truth lets engineers build smart‑home setups that remain functional during internet outages, reducing reliance on vendor clouds.",
+        "source_ids": [
+          "source-ad37f01e70421265"
+        ]
+      },
+      {
+        "id": "name-grandfathered-verisign-2026",
+        "section": "Engineering",
+        "headline": "Verisign backs down on .name termination plan",
+        "summary": "Verisign will keep all existing .name domains and email redirects active after a coordinated reconsideration effort.",
+        "paragraphs": [
+          "After weeks of legal and community pressure, Verisign announced it will cease new registrations for third‑level .name domains but will not delete any of the roughly 22,000 existing second‑level .name registrations or their associated email redirects. The decision follows a formal Request for Reconsideration submitted by a coalition of domain owners, lawyers, and ICANN staff, and was confirmed in a news post on 10 November 2026.",
+          "For developers and site operators, the practical impact is straightforward: any .name domain you already own will continue to resolve indefinitely, and no migration is required. New .name registrations, however, are no longer possible, so any future branding that relied on that TLD must consider alternatives."
+        ],
+        "implication": "Existing .name owners can rely on uninterrupted service, but new projects should avoid planning on fresh .name registrations.",
+        "source_ids": [
+          "source-cd5db2ceb2627276"
+        ]
+      },
+      {
+        "id": "alpha-proof-code-brief",
+        "section": "AI",
+        "headline": "DeepMind unveils AlphaProof Code for AI‑assisted formal verification",
+        "summary": "DeepMind’s AlphaProof Code uses AI agents to translate live code into Lean theorems, enabling machine‑checked proofs that compiled software meets security properties.",
+        "paragraphs": [
+          "In a November 10 blog post, DeepMind demonstrated the system by injecting two known bugs into Signal’s codebase; AlphaProof generated proofs that the buggy versions were insecure, while confirming the clean build satisfied key confidentiality guarantees. The agents flagged only about one percent of the code for human review, leveraging Lean’s automatic checking for the rest."
+        ],
+        "implication": "Engineers can now offload most of the verification workload to AI, reserving manual effort for a tiny, high‑impact subset of the code, which could accelerate security audits of complex protocols.",
+        "source_ids": [
+          "source-f321c904268bcef2"
+        ]
+      },
+      {
+        "id": "ai-fragile-codebase-2026-11-11",
+        "section": "AI",
+        "headline": "AI‑generated code can leave SaaS products fragile",
+        "summary": "A Hacker News post argues that AI‑written tests and code often miss real‑world usage, creating hidden errors in high‑availability services.",
+        "paragraphs": [
+          "The post, shared on Hacker News on 2026‑11‑10, outlines four ways AI usage weakens codebases: superficial unit tests, duplicated e2e scenarios, and a lack of human‑centric error monitoring. Because AI tends to generate tests that only cover trivial get/set methods or repeat existing cases, gaps appear that line‑coverage metrics don’t reveal. Those gaps surface as errors visible only to end users, especially in SaaS systems that demand high availability and scalability."
+        ],
+        "implication": "Developers should treat AI‑generated code as a draft, supplementing it with diverse, human‑focused testing and runtime analytics to catch issues that automated tests miss.",
+        "source_ids": [
+          "source-1a0c6447ab6c6af5"
+        ]
+      },
+      {
+        "id": "anthropic-vuln-tracking-2026",
+        "section": "Security",
+        "headline": "Anthropic’s disclosed fixes lag behind community‑tracked findings",
+        "summary": "Only 19.4% of Anthropic‑reported vulnerabilities are public and just 217 have been marked fixed, while independent tracking shows twice as many fixes.",
+        "paragraphs": [
+          "A Hacker News post cites a community‑run tracker that logged 37,966 Anthropic findings since April 2026; 7,349 (19.4%) were disclosed and only 217 flagged as fixed. The tracker, which cross‑references VulnCheck KEV, records 1,654 duplicates and 419 withdrawn entries, suggesting the internal ledger overstates a 94.2% true‑positive rate."
+        ],
+        "implication": "Readers should treat Anthropic’s public fix count as a lower bound and verify vulnerability status independently when assessing risk.",
+        "source_ids": [
+          "source-2b1a51c62db6caf6"
+        ]
+      },
+      {
+        "id": "val-town-wind-down-2026",
+        "section": "Engineering",
+        "headline": "Val Town announces service shutdown and migration roadmap",
+        "summary": "Val Town will cease new sign‑ups on Nov 10 2026 and fully retire services by Jan 10 2027, offering free continued access and migration guides.",
+        "paragraphs": [
+          "The startup’s blog post confirms a phased wind‑down: read‑only mode (excluding SQLite and blob storage) starts Dec 10 2026, with all remaining services ending Jan 10 2027, after which the codebase will be open‑sourced on Feb 1 2027. Existing subscribers keep free access and prepaid annual plans receive partial refunds, while the team offers migration assistance to providers such as Cloudflare, Vercel, Netlify, and Render."
+        ],
+        "implication": "Developers relying on Val Town must plan migration before the read‑only cut‑off or switch to alternative hosts, as no further updates or support will be provided after the shutdown.",
+        "source_ids": [
+          "source-86eadbab0d2e1b36"
+        ]
+      },
+      {
+        "id": "ableton-live-13-step-sequencer-ara2",
+        "section": "Tools",
+        "headline": "Ableton Live 13 adds step sequencer clips and ARA 2 support",
+        "summary": "Ableton announced Live 13, slated for early 2027, which introduces step‑sequencer clips, ARA 2 plug‑in integration, and expanded tempo‑automation export.",
+        "paragraphs": [
+          "Live 13 expands both audio and MIDI workflows: users can now build beats and polyrhythms with the new step‑sequencer clips, and edit audio faster via ARA 2 plug‑ins. Additional highlights include Arrangement Sync for Ableton Link, tempo‑automation and time‑signature export, and tighter MIDI event timing. The three editions (Intro, Standard, Suite) retain their track limits, with Standard and Suite owners eligible for a limited public beta."
+        ],
+        "implication": "Producers who rely on clip‑based sequencing or ARA‑compatible editors will gain tighter creative control once Live 13 ships, but they must wait for the early‑2027 release and may need to join the beta to test the new features.",
+        "source_ids": [
+          "source-8eed17b548317b31"
+        ]
+      },
+      {
+        "id": "modern-web-guidance-cli-2026",
+        "section": "Tools",
+        "headline": "Modern Web Guidance CLI adds legacy‑scan and search commands",
+        "summary": "Google Chrome’s Modern Web Guidance package now ships a CLI that lets developers scan codebases for outdated patterns and query curated web‑platform best practices.",
+        "paragraphs": [
+          "Running `npx modern-web-guidance@latest legacy-scan .` reports legacy JavaScript constructs and suggests native alternatives, while `search` and `retrieve` let agents fetch specific guidance such as animating a dialog backdrop. The tool also includes a wizard for installation and a set of 250 modern web feature tips, including accessibility fallbacks and conditional CSS at‑rules."
+        ],
+        "implication": "Teams can reduce bloated polyfills and improve production readiness by feeding the CLI’s output into their coding agents, but they must still review the suggestions before committing changes.",
+        "source_ids": [
+          "source-a4978faa7e166cdb"
+        ]
+      },
+      {
+        "id": "dotnet-11-announcement-2026-11-11",
+        "section": "Engineering",
+        "headline": ".NET 11 adds closed hierarchies and experimental Blazor AI components",
+        "summary": ".NET 11 ships with C# 15 closed hierarchies, extension indexers, and a preview Runtime Async model, while ASP.NET Core introduces experimental Blazor AI components using the AG‑UI protocol.",
+        "paragraphs": [
+          "The release bundles language features that do not require a preview flag—closed hierarchies that restrict subclassing to the declaring assembly, extension indexers, and labeled break/continue—alongside preview‑only Runtime Async, which moves async state handling into the runtime. ASP.NET Core’s new Blazor AI components are marked experimental and depend on the Agent User Interaction Protocol; they are available by adding the appropriate package and targeting net11.0."
+        ],
+        "implication": "Developers can adopt the closed‑hierarchy and indexer syntax today without opting into previews, but any use of Runtime Async or Blazor AI components requires explicit preview configuration and testing of dependent libraries.",
+        "source_ids": [
+          "source-a1c64da99a43b6d7"
+        ]
+      },
+      {
+        "id": "firefox-143-fingerprinting-protections",
+        "section": "Security",
+        "headline": "Firefox 143 adds new anti‑fingerprinting measures",
+        "summary": "Firefox 143 ships built‑in mitigations that cut browser fingerprint uniqueness for many users.",
+        "paragraphs": [
+          "Mozilla’s large‑scale telemetry from roughly 25 million release‑channel users shows that the protections introduced in Firefox 143 reduce the cohort‑score of a typical browser by up to 56 %, while a less effective tweak adds only 13 %. The study, posted on a companion site, lets anyone test their own browser against the measured data set."
+        ],
+        "implication": "Developers can expect a noticeable drop in the ability of trackers to uniquely identify Firefox users, but the protection’s impact varies by operating system and metric set.",
+        "source_ids": [
+          "source-57fea1eedeca906e"
+        ]
+      },
+      {
+        "id": "glimmer-datastar-batch-rendering",
+        "section": "Engineering",
+        "headline": "Glimmer‑Datastar decouples writes from renders to batch UI updates",
+        "summary": "A new rendering loop separates state writes from UI draws, letting Glimmer‑Datastar batch changes on a fixed tick interval and cut per‑tick latency in half.",
+        "paragraphs": [
+          "The author rewrote the update path so a write only marks the ratom‑based streams as dirty; a separate loop runs on a :tick‑ms timer, rendering each dirty stream exactly once per tick. This eliminates the render bottleneck, leaving network bandwidth as the primary cost. By switching from whole‑frame SSE pushes to patch‑based diffs, the benchmark on a 300‑row board dropped from 21.7 ms to 7.0 ms per tick, roughly a 50 % speed‑up."
+        ],
+        "implication": "Developers using Glimmer‑Datastar can now achieve smoother incremental UI refreshes by enabling the tick‑based render loop and patch diffs, though they must still address SSE payload size for large updates.",
+        "source_ids": [
+          "source-7e44a1282b77779c"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "mqtt-decoupling-resilience",
+        "title": "Why MQTT’s pub/sub model keeps a smart home alive offline",
+        "paragraphs": [
+          "When the internet drops, a smart‑home system that relies on point‑to‑point cloud calls stops working. By switching every device to publish its state on an MQTT topic, the system removes the need for a central cloud endpoint. Each sensor or actuator only cares about broadcasting a message; it never needs to know which other components will consume it. This decoupling means that any local client—phone, dashboard, or another controller—can subscribe to the same topic and react, even if the ISP is down.",
+          "In the Hacker News post (source‑ad37f01e70421265) the author describes a temperature sensor that publishes \"home/temperature\" every minute. A wall‑mounted thermostat, a mobile app, and a local logging service all subscribe to that topic. If the ISP fails, the sensor still sends MQTT packets over the home LAN, and the thermostat continues to regulate the HVAC because it receives the same data directly from the broker."
+        ],
+        "example": "A Tasmota‑based sprinkler controller publishes \"garden/sprinkler/state\". A local Python script subscribes and logs every state change, while a phone app also subscribes to display real‑time status. No cloud service is involved.",
+        "takeaway": "Design smart‑home devices to use MQTT’s publish/subscribe pattern and a local broker; this keeps core functionality operational without any internet connection.",
+        "article_ids": [
+          "home-automation-mqtt-offline-2026"
+        ],
+        "source_ids": [
+          "source-ad37f01e70421265"
+        ]
+      },
+      {
+        "id": "domain-policy-reversal-mechanism",
+        "title": "How community pressure can overturn a registry’s termination policy",
+        "paragraphs": [
+          "When a registry announces a plan to delete existing domains, the decision isn’t final until ICANN’s formal processes are completed. Stakeholders can file a Request for Reconsideration, presenting legal arguments, evidence of harm, and broad community support. ICANN reviews the submission, and if the registry’s justification is weak or procedural errors are found, the policy can be rescinded, as happened with Verisign’s .name termination plan.",
+          "The .name case shows that the DNS ecosystem includes checks and balances: registries must follow established procedures, and affected parties have a clear avenue to contest actions that threaten continuity. This protects both end‑users and downstream services that rely on stable domain resolution."
+        ],
+        "example": "A small business that owned example.name feared losing its email redirects after Verisign announced the termination. By joining a coalition that filed a formal reconsideration request, the business helped trigger ICANN’s review, resulting in Verisign keeping all 22,000 existing .name domains active.",
+        "takeaway": "Never assume a registry’s termination announcement is immutable; organized community action through ICANN’s reconsideration process can preserve domain continuity.",
+        "article_ids": [
+          "name-grandfathered-verisign-2026"
+        ],
+        "source_ids": [
+          "source-cd5db2ceb2627276"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-mqtt-decoupling-resilience-1",
+        "lesson_id": "mqtt-decoupling-resilience",
+        "prompt": "What is the primary reason that MQTT’s publish/subscribe model allows a smart‑home system to keep functioning when the internet connection is lost?",
+        "options": [
+          "Devices can directly call cloud APIs without needing a broker.",
+          "Each device only needs to publish its state, not know which other components will receive it.",
+          "The MQTT protocol automatically stores data in the cloud for later retrieval.",
+          "All devices must be hard‑wired to a central controller to operate offline."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that decoupling is achieved because devices only broadcast messages; they do not need to know the consumers. This enables local clients to receive data even without internet."
+      },
+      {
+        "id": "quiz-1-mqtt-decoupling-resilience-2",
+        "lesson_id": "mqtt-decoupling-resilience",
+        "prompt": "In the example with the temperature sensor publishing to \"home/temperature\", which component continues to regulate the HVAC when the ISP fails?",
+        "options": [
+          "The cloud‑based analytics service.",
+          "The wall‑mounted thermostat that subscribes locally.",
+          "The mobile app running on a remote server.",
+          "The external weather API."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that the thermostat subscribes to the MQTT topic locally, so it still receives temperature updates from the sensor over the LAN when the internet is down."
+      },
+      {
+        "id": "quiz-1-mqtt-decoupling-resilience-3",
+        "lesson_id": "mqtt-decoupling-resilience",
+        "prompt": "Which of the following best describes the role of a local MQTT broker in the offline scenario described in the lesson?",
+        "options": [
+          "It forwards messages to the cloud for storage and later processing.",
+          "It acts as a central hub that receives published messages and distributes them to any subscribed local clients.",
+          "It encrypts all LAN traffic so devices cannot communicate directly.",
+          "It replaces the need for any network communication between devices."
+        ],
+        "answer": 1,
+        "explanation": "The lesson highlights that a local broker receives the sensor’s published packets on the LAN and distributes them to any local subscribers, enabling operation without internet."
+      },
+      {
+        "id": "quiz-2-001",
+        "lesson_id": "domain-policy-reversal-mechanism",
+        "prompt": "What is the primary mechanism that allowed the .name termination plan to be rescinded?",
+        "options": [
+          "A vote by the registry’s shareholders",
+          "A Request for Reconsideration filed with ICANN",
+          "A court injunction filed by affected businesses",
+          "An automatic rollback after a 30‑day grace period"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that stakeholders can file a Request for Reconsideration with ICANN, which reviews the submission and can rescind the policy if justification is weak. This is the mechanism that stopped Verisign’s .name termination."
+      },
+      {
+        "id": "quiz-2-002",
+        "lesson_id": "domain-policy-reversal-mechanism",
+        "prompt": "According to the lesson, why is a registry’s termination announcement not considered final immediately?",
+        "options": [
+          "Because ICANN must complete formal processes before the decision becomes binding",
+          "Because registrars can unilaterally override the registry’s decision",
+          "Because domain owners automatically retain rights for five years",
+          "Because the DNS protocol requires a 60‑day notice period"
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that a termination plan is not final until ICANN’s formal processes are completed, allowing stakeholders to contest the action through a reconsideration request."
+      }
+    ],
+    "segments": [
+      {
+        "id": "home-automation-mqtt-offline-2026-segment",
+        "title": "Offline‑ready smart home with MQTT",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November eleven, two thousand twenty six.\n\nWe begin with our lead story. Home automation stays alive when the internet drops.\n\nOn Hacker News a homeowner shared a decade‑long recipe for smart‑home wiring that never leans on a vendor’s cloud. The core rule: if the internet goes down, lights, thermostats and sensors must keep working. To make that happen every device publishes its state over MQTT instead of a cloud endpoint, and all configuration lives in one central place. Even a new Wi‑Fi wall switch replaces a plug but still acts like a traditional toggle, so habits stay familiar. The result is a home you can monitor and control locally during an ISP outage.",
+        "article_ids": [
+          "home-automation-mqtt-offline-2026"
+        ]
+      },
+      {
+        "id": "verisign-keep-name-domains",
+        "title": "Verisign keeps existing .name domains",
+        "text": "Next on the bulletin. Verisign has pulled back on its plan to kill .name domains. After weeks of legal pushback and a formal Request for Reconsideration, the company said it will stop taking new third‑level .name registrations but will leave all roughly twenty‑two thousand existing second‑level .name names and their email redirects untouched. For developers, that means any .name you already own will keep resolving forever—no migration needed. The downside? You can’t register a fresh .name, so new branding ideas will have to look elsewhere.",
+        "article_ids": [
+          "name-grandfathered-verisign-2026"
+        ]
+      },
+      {
+        "id": "alpha-proof-code-brief-segment",
+        "title": "DeepMind launches AlphaProof Code for AI‑assisted verification",
+        "text": "Turning to our next story. DeepMind just rolled out AlphaProof Code, an AI‑driven system that turns live source into Lean theorems and checks them automatically. In a blog post on November ten, they showed it catching two injected bugs in Signal’s code, proving the broken builds were insecure while the clean build met key confidentiality guarantees. The agents only flagged about one percent of the code for human eyes, letting the rest be verified by Lean. Here’s why that matters: you can shift most of the heavy lifting in security audits to the machine, keeping manual review focused on the truly risky bits.",
+        "article_ids": [
+          "alpha-proof-code-brief"
+        ]
+      },
+      {
+        "id": "ai-fragile-codebase-2026-11-11-segment",
+        "title": "AI‑generated code can leave SaaS products fragile",
+        "text": "Next on the bulletin. AI‑written tests and code are showing up as hidden weak spots in high‑availability SaaS services. A Hacker News post from November tenth points out that the AI tends to churn out superficial unit tests that only hit trivial get slash set methods, and it often copies existing end‑to‑end scenarios instead of exploring new user flows. The result? Gaps that line‑coverage numbers don’t flag, but real users see as glitches. Treat AI‑generated code as a draft and layer in diverse, human‑focused testing plus runtime analytics to catch what the machine misses.",
+        "article_ids": [
+          "ai-fragile-codebase-2026-11-11"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Anthropic fix count lags community tracker",
+        "text": "And finally, our last story. Anthropic’s own numbers on patched vulnerabilities are falling short of what the community sees.\n\nA Hacker News post points to a tracker that logged nearly thirty‑eight thousand findings since April twenty twenty‑six. Only about nineteen point four percent of those were publicly disclosed and a mere two hundred seventeen are marked fixed. The tracker also notes over one thousand six hundred duplicate reports and four hundred nineteen withdrawn entries, meaning the internal success rate looks inflated. \n\nSo, treat Anthropic’s public fix count as a lower bound and double‑check any vulnerability status yourself when you’re weighing risk.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "anthropic-vuln-tracking-2026"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a robotic arm handing a glowing, proof‑marked code snippet to a sleek .NET logo, with subtle circuit patterns in the background to suggest AI‑driven verification."
+  },
+  "sources": [
+    {
+      "id": "source-ad37f01e70421265",
+      "name": "Hacker News",
+      "title": "Smart home devices should work without the internet",
+      "url": "https://docodethatmatters.com/home-automation-overnight-success/",
+      "published_at": null,
+      "discovered_at": "2026-11-10T15:25:20Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50441707"
+    },
+    {
+      "id": "source-cd5db2ceb2627276",
+      "name": "Lobsters",
+      "title": ".name grandfathered",
+      "url": "https://neil.fraser.name/news/2026/11/10/",
+      "published_at": null,
+      "discovered_at": "2026-11-10T10:52:12.273-06:00",
+      "discussion_url": "https://lobste.rs/s/vkkbwo/name_grandfathered"
+    },
+    {
+      "id": "source-f321c904268bcef2",
+      "name": "Google DeepMind",
+      "title": "Introducing AlphaProof Code: a breakthrough in verifying complex software at depth",
+      "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
+      "published_at": "2026-11-10T12:02:28Z",
+      "discovered_at": "2026-11-11T06:51:26.600432344Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-1a0c6447ab6c6af5",
+      "name": "Hacker News",
+      "title": "AI usage generates a fragile codebase",
+      "url": "https://evanxmerz.com/post/ai-usage-generates-a-fragile-codebase/",
+      "published_at": null,
+      "discovered_at": "2026-11-10T10:25:58Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50438318"
+    },
+    {
+      "id": "source-a1c64da99a43b6d7",
+      "name": "Lobsters",
+      "title": "Announcing .NET 11",
+      "url": "https://devblogs.microsoft.com/dotnet/announcing-dotnet-11/",
+      "published_at": null,
+      "discovered_at": "2026-11-10T10:03:21.955-06:00",
+      "discussion_url": "https://lobste.rs/s/zingk1/announcing_net_11"
+    },
+    {
+      "id": "source-57fea1eedeca906e",
+      "name": "Lobsters",
+      "title": "Large-Scale Measurement and Real-World Mitigation of Web Browser Fingerprinting in the Wild",
+      "url": "https://fingerprinting.study/",
+      "published_at": null,
+      "discovered_at": "2026-11-10T13:14:08.763-06:00",
+      "discussion_url": "https://lobste.rs/s/zu8tdw/large_scale_measurement_real_world"
+    },
+    {
+      "id": "source-2b1a51c62db6caf6",
+      "name": "Hacker News",
+      "title": "Tracking Anthropic-discovered vulnerabilities",
+      "url": "https://www.vulncheck.com/blog/anthropic-glasswing-november-update",
+      "published_at": null,
+      "discovered_at": "2026-11-10T22:17:56Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50447074"
+    },
+    {
+      "id": "source-86eadbab0d2e1b36",
+      "name": "Hacker News",
+      "title": "Val Town is winding down",
+      "url": "https://blog.val.town/winding-down",
+      "published_at": null,
+      "discovered_at": "2026-11-10T17:31:14Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50443427"
+    },
+    {
+      "id": "source-8eed17b548317b31",
+      "name": "Hacker News",
+      "title": "Ableton Live 13",
+      "url": "https://www.ableton.com/en/live/",
+      "published_at": null,
+      "discovered_at": "2026-11-10T12:58:04Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50439695"
+    },
+    {
+      "id": "source-7e44a1282b77779c",
+      "name": "Lobsters",
+      "title": "Rendering in batches with glimmer and Datastar",
+      "url": "https://yogthos.net/posts/2026-11-10-glimmer-datastar.html",
+      "published_at": null,
+      "discovered_at": "2026-11-10T16:54:17.223-06:00",
+      "discussion_url": "https://lobste.rs/s/zi6dg1/rendering_batches_with_glimmer_datastar"
+    },
+    {
+      "id": "source-a4978faa7e166cdb",
+      "name": "Hacker News",
+      "title": "Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance",
+      "published_at": null,
+      "discovered_at": "2026-11-10T18:01:15Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50443812"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-11/039abcebfe2e81a4bb2555d11186ca34ca7deff4dc3f7fd714b5fd3c6787d34f.mp3",
+    "duration_seconds": 204.336,
+    "script_hash": "bd68cad5193365d87b97f6e2db85f9dd497e7c5f7e078d8983fc8ca44ee5d827",
+    "cues": [
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.575
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "everyone,",
+        "start_seconds": 0.575,
+        "end_seconds": 1.15
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "and",
+        "start_seconds": 1.15,
+        "end_seconds": 1.275
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "welcome",
+        "start_seconds": 1.275,
+        "end_seconds": 1.7
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "to",
+        "start_seconds": 1.7,
+        "end_seconds": 1.8
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "Daywire.",
+        "start_seconds": 1.8,
+        "end_seconds": 2.8625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "Let's",
+        "start_seconds": 2.8625,
+        "end_seconds": 3.15
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "make",
+        "start_seconds": 3.15,
+        "end_seconds": 3.375
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "sense",
+        "start_seconds": 3.375,
+        "end_seconds": 3.6875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "of",
+        "start_seconds": 3.6875,
+        "end_seconds": 3.7625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "the",
+        "start_seconds": 3.7625,
+        "end_seconds": 3.85
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "tech",
+        "start_seconds": 3.85,
+        "end_seconds": 4.1
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "news.",
+        "start_seconds": 4.1,
+        "end_seconds": 4.825
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "It's",
+        "start_seconds": 4.825,
+        "end_seconds": 5.025
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "November",
+        "start_seconds": 5.025,
+        "end_seconds": 5.525
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "eleven,",
+        "start_seconds": 5.525,
+        "end_seconds": 6
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "two",
+        "start_seconds": 6,
+        "end_seconds": 6.225
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "thousand",
+        "start_seconds": 6.225,
+        "end_seconds": 6.5875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "twenty",
+        "start_seconds": 6.5875,
+        "end_seconds": 6.9125
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "six.",
+        "start_seconds": 6.9125,
+        "end_seconds": 8
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "We",
+        "start_seconds": 9.2,
+        "end_seconds": 9.325
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "begin",
+        "start_seconds": 9.325,
+        "end_seconds": 9.7
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "with",
+        "start_seconds": 9.7,
+        "end_seconds": 9.837499999999999
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "our",
+        "start_seconds": 9.837499999999999,
+        "end_seconds": 9.975
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "lead",
+        "start_seconds": 9.975,
+        "end_seconds": 10.225
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "story.",
+        "start_seconds": 10.225,
+        "end_seconds": 11.112499999999999
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "Home",
+        "start_seconds": 11.112499999999999,
+        "end_seconds": 11.337499999999999
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "automation",
+        "start_seconds": 11.337499999999999,
+        "end_seconds": 11.95
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "stays",
+        "start_seconds": 11.95,
+        "end_seconds": 12.299999999999999
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "alive",
+        "start_seconds": 12.299999999999999,
+        "end_seconds": 12.6625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "when",
+        "start_seconds": 12.6625,
+        "end_seconds": 12.7875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "the",
+        "start_seconds": 12.7875,
+        "end_seconds": 12.875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "internet",
+        "start_seconds": 12.875,
+        "end_seconds": 13.299999999999999
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "drops.",
+        "start_seconds": 13.299999999999999,
+        "end_seconds": 14.424999999999999
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "On",
+        "start_seconds": 15.625,
+        "end_seconds": 15.75
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "Hacker",
+        "start_seconds": 15.75,
+        "end_seconds": 16.05
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "News",
+        "start_seconds": 16.05,
+        "end_seconds": 16.2875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "a",
+        "start_seconds": 16.2875,
+        "end_seconds": 16.35
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "homeowner",
+        "start_seconds": 16.35,
+        "end_seconds": 16.8375
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "shared",
+        "start_seconds": 16.8375,
+        "end_seconds": 17.1375
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "a",
+        "start_seconds": 17.1375,
+        "end_seconds": 17.2
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "decade‑long",
+        "start_seconds": 17.2,
+        "end_seconds": 17.85
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "recipe",
+        "start_seconds": 17.85,
+        "end_seconds": 18.275
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "for",
+        "start_seconds": 18.275,
+        "end_seconds": 18.4
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "smart‑home",
+        "start_seconds": 18.4,
+        "end_seconds": 19
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "wiring",
+        "start_seconds": 19,
+        "end_seconds": 19.425
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "that",
+        "start_seconds": 19.425,
+        "end_seconds": 19.55
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "never",
+        "start_seconds": 19.55,
+        "end_seconds": 19.8
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "leans",
+        "start_seconds": 19.8,
+        "end_seconds": 20.0625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "on",
+        "start_seconds": 20.0625,
+        "end_seconds": 20.1625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "a",
+        "start_seconds": 20.1625,
+        "end_seconds": 20.225
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "vendor’s",
+        "start_seconds": 20.225,
+        "end_seconds": 20.65
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "cloud.",
+        "start_seconds": 20.65,
+        "end_seconds": 21.7
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "The",
+        "start_seconds": 21.7,
+        "end_seconds": 21.8
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "core",
+        "start_seconds": 21.8,
+        "end_seconds": 22.05
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "rule:",
+        "start_seconds": 22.05,
+        "end_seconds": 22.75
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "if",
+        "start_seconds": 22.75,
+        "end_seconds": 22.8625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "the",
+        "start_seconds": 22.8625,
+        "end_seconds": 22.975
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "internet",
+        "start_seconds": 22.975,
+        "end_seconds": 23.4
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "goes",
+        "start_seconds": 23.4,
+        "end_seconds": 23.675
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "down,",
+        "start_seconds": 23.675,
+        "end_seconds": 24.1
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "lights,",
+        "start_seconds": 24.1,
+        "end_seconds": 24.675
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "thermostats",
+        "start_seconds": 24.675,
+        "end_seconds": 25.2875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "and",
+        "start_seconds": 25.2875,
+        "end_seconds": 25.4
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "sensors",
+        "start_seconds": 25.4,
+        "end_seconds": 25.85
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "must",
+        "start_seconds": 25.85,
+        "end_seconds": 26.05
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "keep",
+        "start_seconds": 26.05,
+        "end_seconds": 26.25
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "working.",
+        "start_seconds": 26.25,
+        "end_seconds": 27.175
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "To",
+        "start_seconds": 27.175,
+        "end_seconds": 27.2625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "make",
+        "start_seconds": 27.2625,
+        "end_seconds": 27.4375
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "that",
+        "start_seconds": 27.4375,
+        "end_seconds": 27.575
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "happen",
+        "start_seconds": 27.575,
+        "end_seconds": 27.875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "every",
+        "start_seconds": 27.875,
+        "end_seconds": 28.125
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "device",
+        "start_seconds": 28.125,
+        "end_seconds": 28.525
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "publishes",
+        "start_seconds": 28.525,
+        "end_seconds": 28.95
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "its",
+        "start_seconds": 28.95,
+        "end_seconds": 29.1
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "state",
+        "start_seconds": 29.1,
+        "end_seconds": 29.45
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "over",
+        "start_seconds": 29.45,
+        "end_seconds": 29.7
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "MQTT",
+        "start_seconds": 29.7,
+        "end_seconds": 30.475
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "instead",
+        "start_seconds": 30.475,
+        "end_seconds": 30.8125
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "of",
+        "start_seconds": 30.8125,
+        "end_seconds": 30.8875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "a",
+        "start_seconds": 30.8875,
+        "end_seconds": 30.95
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "cloud",
+        "start_seconds": 30.95,
+        "end_seconds": 31.2125
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "endpoint,",
+        "start_seconds": 31.2125,
+        "end_seconds": 32.15
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "and",
+        "start_seconds": 32.15,
+        "end_seconds": 32.275
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "all",
+        "start_seconds": 32.275,
+        "end_seconds": 32.475
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "configuration",
+        "start_seconds": 32.475,
+        "end_seconds": 33.225
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "lives",
+        "start_seconds": 33.225,
+        "end_seconds": 33.5
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "in",
+        "start_seconds": 33.5,
+        "end_seconds": 33.625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "one",
+        "start_seconds": 33.625,
+        "end_seconds": 33.85
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "central",
+        "start_seconds": 33.85,
+        "end_seconds": 34.15
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "place.",
+        "start_seconds": 34.15,
+        "end_seconds": 35.2875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "Even",
+        "start_seconds": 35.2875,
+        "end_seconds": 35.5625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "a",
+        "start_seconds": 35.5625,
+        "end_seconds": 35.625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "new",
+        "start_seconds": 35.625,
+        "end_seconds": 35.8
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "Wi‑Fi",
+        "start_seconds": 35.8,
+        "end_seconds": 36.175
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "wall",
+        "start_seconds": 36.175,
+        "end_seconds": 36.425
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "switch",
+        "start_seconds": 36.425,
+        "end_seconds": 36.725
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "replaces",
+        "start_seconds": 36.725,
+        "end_seconds": 37.2375
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "a",
+        "start_seconds": 37.2375,
+        "end_seconds": 37.3
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "plug",
+        "start_seconds": 37.3,
+        "end_seconds": 37.7125
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "but",
+        "start_seconds": 37.7125,
+        "end_seconds": 37.875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "still",
+        "start_seconds": 37.875,
+        "end_seconds": 38.15
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "acts",
+        "start_seconds": 38.15,
+        "end_seconds": 38.4625
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "like",
+        "start_seconds": 38.4625,
+        "end_seconds": 38.6375
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "a",
+        "start_seconds": 38.6375,
+        "end_seconds": 38.7
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "traditional",
+        "start_seconds": 38.7,
+        "end_seconds": 39.225
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "toggle,",
+        "start_seconds": 39.225,
+        "end_seconds": 40
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "so",
+        "start_seconds": 40,
+        "end_seconds": 40.175
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "habits",
+        "start_seconds": 40.175,
+        "end_seconds": 40.525
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "stay",
+        "start_seconds": 40.525,
+        "end_seconds": 40.8
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "familiar.",
+        "start_seconds": 40.8,
+        "end_seconds": 41.9875
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "The",
+        "start_seconds": 42.445,
+        "end_seconds": 42.52
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "result",
+        "start_seconds": 42.52,
+        "end_seconds": 42.97
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "is",
+        "start_seconds": 42.97,
+        "end_seconds": 43.095
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "a",
+        "start_seconds": 43.095,
+        "end_seconds": 43.195
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "home",
+        "start_seconds": 43.195,
+        "end_seconds": 43.645
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "you",
+        "start_seconds": 43.645,
+        "end_seconds": 43.77
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "can",
+        "start_seconds": 43.77,
+        "end_seconds": 43.945
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "monitor",
+        "start_seconds": 43.945,
+        "end_seconds": 44.445
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "and",
+        "start_seconds": 44.445,
+        "end_seconds": 44.57
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "control",
+        "start_seconds": 44.57,
+        "end_seconds": 45.095
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "locally",
+        "start_seconds": 45.095,
+        "end_seconds": 45.645
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "during",
+        "start_seconds": 45.645,
+        "end_seconds": 45.9325
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "an",
+        "start_seconds": 45.9325,
+        "end_seconds": 46.0325
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "ISP",
+        "start_seconds": 46.0325,
+        "end_seconds": 46.62
+      },
+      {
+        "segment_id": "home-automation-mqtt-offline-2026-segment",
+        "text": "outage.",
+        "start_seconds": 46.62,
+        "end_seconds": 47.795
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "Next",
+        "start_seconds": 49.044999999999995,
+        "end_seconds": 49.3075
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "on",
+        "start_seconds": 49.3075,
+        "end_seconds": 49.4075
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "the",
+        "start_seconds": 49.4075,
+        "end_seconds": 49.495
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "bulletin.",
+        "start_seconds": 49.495,
+        "end_seconds": 50.5325
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "Verisign",
+        "start_seconds": 50.5325,
+        "end_seconds": 51.0575
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "has",
+        "start_seconds": 51.0575,
+        "end_seconds": 51.22
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "pulled",
+        "start_seconds": 51.22,
+        "end_seconds": 51.445
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "back",
+        "start_seconds": 51.445,
+        "end_seconds": 51.6575
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "on",
+        "start_seconds": 51.6575,
+        "end_seconds": 51.7575
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "its",
+        "start_seconds": 51.7575,
+        "end_seconds": 51.87
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "plan",
+        "start_seconds": 51.87,
+        "end_seconds": 52.169999999999995
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "to",
+        "start_seconds": 52.169999999999995,
+        "end_seconds": 52.269999999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "kill",
+        "start_seconds": 52.269999999999996,
+        "end_seconds": 52.495
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": ".name",
+        "start_seconds": 52.495,
+        "end_seconds": 52.745
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "domains.",
+        "start_seconds": 52.745,
+        "end_seconds": 53.794999999999995
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "After",
+        "start_seconds": 53.794999999999995,
+        "end_seconds": 54.095
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "weeks",
+        "start_seconds": 54.095,
+        "end_seconds": 54.332499999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "of",
+        "start_seconds": 54.332499999999996,
+        "end_seconds": 54.419999999999995
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "legal",
+        "start_seconds": 54.419999999999995,
+        "end_seconds": 54.745
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "pushback",
+        "start_seconds": 54.745,
+        "end_seconds": 55.232499999999995
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "and",
+        "start_seconds": 55.232499999999995,
+        "end_seconds": 55.332499999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "a",
+        "start_seconds": 55.332499999999996,
+        "end_seconds": 55.394999999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "formal",
+        "start_seconds": 55.394999999999996,
+        "end_seconds": 55.707499999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "Request",
+        "start_seconds": 55.707499999999996,
+        "end_seconds": 56.07
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "for",
+        "start_seconds": 56.07,
+        "end_seconds": 56.195
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "Reconsideration,",
+        "start_seconds": 56.195,
+        "end_seconds": 57.519999999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "the",
+        "start_seconds": 57.519999999999996,
+        "end_seconds": 57.62
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "company",
+        "start_seconds": 57.62,
+        "end_seconds": 57.995
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "said",
+        "start_seconds": 57.995,
+        "end_seconds": 58.1825
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "it",
+        "start_seconds": 58.1825,
+        "end_seconds": 58.25749999999999
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "will",
+        "start_seconds": 58.25749999999999,
+        "end_seconds": 58.37
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "stop",
+        "start_seconds": 58.37,
+        "end_seconds": 58.644999999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "taking",
+        "start_seconds": 58.644999999999996,
+        "end_seconds": 58.995
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "new",
+        "start_seconds": 58.995,
+        "end_seconds": 59.2325
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "third‑level",
+        "start_seconds": 59.2325,
+        "end_seconds": 59.745
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": ".name",
+        "start_seconds": 59.745,
+        "end_seconds": 59.957499999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "registrations",
+        "start_seconds": 59.957499999999996,
+        "end_seconds": 60.97
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "but",
+        "start_seconds": 60.97,
+        "end_seconds": 61.1075
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "will",
+        "start_seconds": 61.1075,
+        "end_seconds": 61.22
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "leave",
+        "start_seconds": 61.22,
+        "end_seconds": 61.47
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "all",
+        "start_seconds": 61.47,
+        "end_seconds": 61.67
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "roughly",
+        "start_seconds": 61.67,
+        "end_seconds": 62.019999999999996
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "twenty‑two",
+        "start_seconds": 62.019999999999996,
+        "end_seconds": 62.56999999999999
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "thousand",
+        "start_seconds": 62.56999999999999,
+        "end_seconds": 62.9825
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "existing",
+        "start_seconds": 62.9825,
+        "end_seconds": 63.42
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "second‑level",
+        "start_seconds": 63.42,
+        "end_seconds": 64.07
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": ".name",
+        "start_seconds": 64.07,
+        "end_seconds": 64.295
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "names",
+        "start_seconds": 64.295,
+        "end_seconds": 64.8325
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "and",
+        "start_seconds": 64.8325,
+        "end_seconds": 64.9575
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "their",
+        "start_seconds": 64.9575,
+        "end_seconds": 65.145
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "email",
+        "start_seconds": 65.145,
+        "end_seconds": 65.47
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "redirects",
+        "start_seconds": 65.47,
+        "end_seconds": 66.0325
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "untouched.",
+        "start_seconds": 66.0325,
+        "end_seconds": 67.22
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "For",
+        "start_seconds": 67.22,
+        "end_seconds": 67.3575
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "developers,",
+        "start_seconds": 67.3575,
+        "end_seconds": 67.9575
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "that",
+        "start_seconds": 67.9575,
+        "end_seconds": 68.145
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "means",
+        "start_seconds": 68.145,
+        "end_seconds": 68.395
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "any",
+        "start_seconds": 68.395,
+        "end_seconds": 68.9825
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": ".name",
+        "start_seconds": 68.9825,
+        "end_seconds": 69.27
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "you",
+        "start_seconds": 69.27,
+        "end_seconds": 69.395
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "already",
+        "start_seconds": 69.395,
+        "end_seconds": 69.72
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "own",
+        "start_seconds": 69.72,
+        "end_seconds": 69.9075
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "will",
+        "start_seconds": 69.9075,
+        "end_seconds": 70.02
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "keep",
+        "start_seconds": 70.02,
+        "end_seconds": 70.1825
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "resolving",
+        "start_seconds": 70.1825,
+        "end_seconds": 70.67
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "forever—no",
+        "start_seconds": 70.67,
+        "end_seconds": 71.495
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "migration",
+        "start_seconds": 71.495,
+        "end_seconds": 72.045
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "needed.",
+        "start_seconds": 72.045,
+        "end_seconds": 73.0325
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "The",
+        "start_seconds": 73.0325,
+        "end_seconds": 73.145
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "downside?",
+        "start_seconds": 73.145,
+        "end_seconds": 74.4325
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "You",
+        "start_seconds": 74.89,
+        "end_seconds": 75.015
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "can’t",
+        "start_seconds": 75.015,
+        "end_seconds": 75.265
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "register",
+        "start_seconds": 75.265,
+        "end_seconds": 75.69
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "a",
+        "start_seconds": 75.69,
+        "end_seconds": 75.765
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "fresh",
+        "start_seconds": 75.765,
+        "end_seconds": 76.09
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": ".name,",
+        "start_seconds": 76.09,
+        "end_seconds": 76.7775
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "so",
+        "start_seconds": 76.7775,
+        "end_seconds": 76.99
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "new",
+        "start_seconds": 76.99,
+        "end_seconds": 77.19
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "branding",
+        "start_seconds": 77.19,
+        "end_seconds": 77.6525
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "ideas",
+        "start_seconds": 77.6525,
+        "end_seconds": 78.0775
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "will",
+        "start_seconds": 78.0775,
+        "end_seconds": 78.19
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "have",
+        "start_seconds": 78.19,
+        "end_seconds": 78.39
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "to",
+        "start_seconds": 78.39,
+        "end_seconds": 78.4775
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "look",
+        "start_seconds": 78.4775,
+        "end_seconds": 78.64
+      },
+      {
+        "segment_id": "verisign-keep-name-domains",
+        "text": "elsewhere.",
+        "start_seconds": 78.64,
+        "end_seconds": 79.765
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "Turning",
+        "start_seconds": 80.99000000000001,
+        "end_seconds": 81.29
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "to",
+        "start_seconds": 81.29,
+        "end_seconds": 81.3775
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "our",
+        "start_seconds": 81.3775,
+        "end_seconds": 81.49000000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "next",
+        "start_seconds": 81.49000000000001,
+        "end_seconds": 81.7525
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "story.",
+        "start_seconds": 81.7525,
+        "end_seconds": 82.7275
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "DeepMind",
+        "start_seconds": 82.7275,
+        "end_seconds": 83.24000000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "just",
+        "start_seconds": 83.24000000000001,
+        "end_seconds": 83.415
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "rolled",
+        "start_seconds": 83.415,
+        "end_seconds": 83.7025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "out",
+        "start_seconds": 83.7025,
+        "end_seconds": 83.8525
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "AlphaProof",
+        "start_seconds": 83.8525,
+        "end_seconds": 84.315
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "Code,",
+        "start_seconds": 84.315,
+        "end_seconds": 84.99000000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "an",
+        "start_seconds": 84.99000000000001,
+        "end_seconds": 85.1025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "AI‑driven",
+        "start_seconds": 85.1025,
+        "end_seconds": 85.79
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "system",
+        "start_seconds": 85.79,
+        "end_seconds": 86.1025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "that",
+        "start_seconds": 86.1025,
+        "end_seconds": 86.215
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "turns",
+        "start_seconds": 86.215,
+        "end_seconds": 86.54
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "live",
+        "start_seconds": 86.54,
+        "end_seconds": 86.79
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "source",
+        "start_seconds": 86.79,
+        "end_seconds": 87.1025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "into",
+        "start_seconds": 87.1025,
+        "end_seconds": 87.315
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "Lean",
+        "start_seconds": 87.315,
+        "end_seconds": 87.5775
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "theorems",
+        "start_seconds": 87.5775,
+        "end_seconds": 88.04
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "and",
+        "start_seconds": 88.04,
+        "end_seconds": 88.165
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "checks",
+        "start_seconds": 88.165,
+        "end_seconds": 88.4525
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "them",
+        "start_seconds": 88.4525,
+        "end_seconds": 88.61500000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "automatically.",
+        "start_seconds": 88.61500000000001,
+        "end_seconds": 90.0275
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "In",
+        "start_seconds": 90.0275,
+        "end_seconds": 90.1525
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "a",
+        "start_seconds": 90.1525,
+        "end_seconds": 90.215
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "blog",
+        "start_seconds": 90.215,
+        "end_seconds": 90.515
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "post",
+        "start_seconds": 90.515,
+        "end_seconds": 90.8275
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "on",
+        "start_seconds": 90.8275,
+        "end_seconds": 90.92750000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "November",
+        "start_seconds": 90.92750000000001,
+        "end_seconds": 91.39
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "ten,",
+        "start_seconds": 91.39,
+        "end_seconds": 92.065
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "they",
+        "start_seconds": 92.065,
+        "end_seconds": 92.2275
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "showed",
+        "start_seconds": 92.2275,
+        "end_seconds": 92.4775
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "it",
+        "start_seconds": 92.4775,
+        "end_seconds": 92.565
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "catching",
+        "start_seconds": 92.565,
+        "end_seconds": 92.9525
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "two",
+        "start_seconds": 92.9525,
+        "end_seconds": 93.165
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "injected",
+        "start_seconds": 93.165,
+        "end_seconds": 93.665
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "bugs",
+        "start_seconds": 93.665,
+        "end_seconds": 94.0275
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "in",
+        "start_seconds": 94.0275,
+        "end_seconds": 94.165
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "Signal’s",
+        "start_seconds": 94.165,
+        "end_seconds": 94.565
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "code,",
+        "start_seconds": 94.565,
+        "end_seconds": 95.29
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "proving",
+        "start_seconds": 95.29,
+        "end_seconds": 95.6525
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "the",
+        "start_seconds": 95.6525,
+        "end_seconds": 95.74000000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "broken",
+        "start_seconds": 95.74000000000001,
+        "end_seconds": 96.09
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "builds",
+        "start_seconds": 96.09,
+        "end_seconds": 96.4025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "were",
+        "start_seconds": 96.4025,
+        "end_seconds": 96.5025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "insecure",
+        "start_seconds": 96.5025,
+        "end_seconds": 97.165
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "while",
+        "start_seconds": 97.165,
+        "end_seconds": 97.3275
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "the",
+        "start_seconds": 97.3275,
+        "end_seconds": 97.415
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "clean",
+        "start_seconds": 97.415,
+        "end_seconds": 97.715
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "build",
+        "start_seconds": 97.715,
+        "end_seconds": 98.015
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "met",
+        "start_seconds": 98.015,
+        "end_seconds": 98.24000000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "key",
+        "start_seconds": 98.24000000000001,
+        "end_seconds": 98.44
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "confidentiality",
+        "start_seconds": 98.44,
+        "end_seconds": 99.34
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "guarantees.",
+        "start_seconds": 99.34,
+        "end_seconds": 100.7275
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "The",
+        "start_seconds": 100.7275,
+        "end_seconds": 100.89
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "agents",
+        "start_seconds": 100.89,
+        "end_seconds": 101.36500000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "only",
+        "start_seconds": 101.36500000000001,
+        "end_seconds": 101.67750000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "flagged",
+        "start_seconds": 101.67750000000001,
+        "end_seconds": 102.0025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "about",
+        "start_seconds": 102.0025,
+        "end_seconds": 102.265
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "one",
+        "start_seconds": 102.265,
+        "end_seconds": 102.49000000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "percent",
+        "start_seconds": 102.49000000000001,
+        "end_seconds": 102.8275
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "of",
+        "start_seconds": 102.8275,
+        "end_seconds": 102.9025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "the",
+        "start_seconds": 102.9025,
+        "end_seconds": 102.99000000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "code",
+        "start_seconds": 102.99000000000001,
+        "end_seconds": 103.315
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "for",
+        "start_seconds": 103.315,
+        "end_seconds": 103.44
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "human",
+        "start_seconds": 103.44,
+        "end_seconds": 103.765
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "eyes,",
+        "start_seconds": 103.765,
+        "end_seconds": 104.49000000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "letting",
+        "start_seconds": 104.49000000000001,
+        "end_seconds": 104.7775
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "the",
+        "start_seconds": 104.7775,
+        "end_seconds": 104.86500000000001
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "rest",
+        "start_seconds": 104.86500000000001,
+        "end_seconds": 105.19
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "be",
+        "start_seconds": 105.19,
+        "end_seconds": 105.315
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "verified",
+        "start_seconds": 105.315,
+        "end_seconds": 105.84
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "by",
+        "start_seconds": 105.84,
+        "end_seconds": 106.015
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "Lean.",
+        "start_seconds": 106.015,
+        "end_seconds": 107.0025
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "Here’s",
+        "start_seconds": 107.46,
+        "end_seconds": 108.05999999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "why",
+        "start_seconds": 108.05999999999999,
+        "end_seconds": 108.235
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "that",
+        "start_seconds": 108.235,
+        "end_seconds": 108.43499999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "matters:",
+        "start_seconds": 108.43499999999999,
+        "end_seconds": 109.46
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "you",
+        "start_seconds": 109.46,
+        "end_seconds": 109.585
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "can",
+        "start_seconds": 109.585,
+        "end_seconds": 109.7975
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "shift",
+        "start_seconds": 109.7975,
+        "end_seconds": 110.11
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "most",
+        "start_seconds": 110.11,
+        "end_seconds": 110.3975
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "of",
+        "start_seconds": 110.3975,
+        "end_seconds": 110.4725
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "the",
+        "start_seconds": 110.4725,
+        "end_seconds": 110.55999999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "heavy",
+        "start_seconds": 110.55999999999999,
+        "end_seconds": 110.835
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "lifting",
+        "start_seconds": 110.835,
+        "end_seconds": 111.235
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "in",
+        "start_seconds": 111.235,
+        "end_seconds": 111.38499999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "security",
+        "start_seconds": 111.38499999999999,
+        "end_seconds": 111.93499999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "audits",
+        "start_seconds": 111.93499999999999,
+        "end_seconds": 112.335
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "to",
+        "start_seconds": 112.335,
+        "end_seconds": 112.4225
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "the",
+        "start_seconds": 112.4225,
+        "end_seconds": 112.49749999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "machine,",
+        "start_seconds": 112.49749999999999,
+        "end_seconds": 113.41
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "keeping",
+        "start_seconds": 113.41,
+        "end_seconds": 113.75999999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "manual",
+        "start_seconds": 113.75999999999999,
+        "end_seconds": 114.16
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "review",
+        "start_seconds": 114.16,
+        "end_seconds": 114.5475
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "focused",
+        "start_seconds": 114.5475,
+        "end_seconds": 114.99749999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "on",
+        "start_seconds": 114.99749999999999,
+        "end_seconds": 115.0975
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "the",
+        "start_seconds": 115.0975,
+        "end_seconds": 115.19749999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "truly",
+        "start_seconds": 115.19749999999999,
+        "end_seconds": 115.55999999999999
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "risky",
+        "start_seconds": 115.55999999999999,
+        "end_seconds": 115.91
+      },
+      {
+        "segment_id": "alpha-proof-code-brief-segment",
+        "text": "bits.",
+        "start_seconds": 115.91,
+        "end_seconds": 117.00999999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "Next",
+        "start_seconds": 118.235,
+        "end_seconds": 118.49749999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "on",
+        "start_seconds": 118.49749999999999,
+        "end_seconds": 118.5975
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "the",
+        "start_seconds": 118.5975,
+        "end_seconds": 118.68499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "bulletin.",
+        "start_seconds": 118.68499999999999,
+        "end_seconds": 119.7725
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "AI‑written",
+        "start_seconds": 119.7725,
+        "end_seconds": 120.43499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "tests",
+        "start_seconds": 120.43499999999999,
+        "end_seconds": 120.7975
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "and",
+        "start_seconds": 120.7975,
+        "end_seconds": 120.91
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "code",
+        "start_seconds": 120.91,
+        "end_seconds": 121.19749999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "are",
+        "start_seconds": 121.19749999999999,
+        "end_seconds": 121.2975
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "showing",
+        "start_seconds": 121.2975,
+        "end_seconds": 121.5975
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "up",
+        "start_seconds": 121.5975,
+        "end_seconds": 121.74749999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "as",
+        "start_seconds": 121.74749999999999,
+        "end_seconds": 121.86
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "hidden",
+        "start_seconds": 121.86,
+        "end_seconds": 122.13499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "weak",
+        "start_seconds": 122.13499999999999,
+        "end_seconds": 122.36
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "spots",
+        "start_seconds": 122.36,
+        "end_seconds": 122.75999999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "in",
+        "start_seconds": 122.75999999999999,
+        "end_seconds": 122.86
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "high‑availability",
+        "start_seconds": 122.86,
+        "end_seconds": 123.785
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "SaaS",
+        "start_seconds": 123.785,
+        "end_seconds": 124.035
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "services.",
+        "start_seconds": 124.035,
+        "end_seconds": 125.24749999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "A",
+        "start_seconds": 125.24749999999999,
+        "end_seconds": 125.335
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "Hacker",
+        "start_seconds": 125.335,
+        "end_seconds": 125.61
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "News",
+        "start_seconds": 125.61,
+        "end_seconds": 125.88499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "post",
+        "start_seconds": 125.88499999999999,
+        "end_seconds": 126.19749999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "from",
+        "start_seconds": 126.19749999999999,
+        "end_seconds": 126.32249999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "November",
+        "start_seconds": 126.32249999999999,
+        "end_seconds": 126.68499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "tenth",
+        "start_seconds": 126.68499999999999,
+        "end_seconds": 126.93499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "points",
+        "start_seconds": 126.93499999999999,
+        "end_seconds": 127.25999999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "out",
+        "start_seconds": 127.25999999999999,
+        "end_seconds": 127.66
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "that",
+        "start_seconds": 127.66,
+        "end_seconds": 127.7725
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "the",
+        "start_seconds": 127.7725,
+        "end_seconds": 127.8975
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "AI",
+        "start_seconds": 127.8975,
+        "end_seconds": 128.31
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "tends",
+        "start_seconds": 128.31,
+        "end_seconds": 128.58499999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "to",
+        "start_seconds": 128.58499999999998,
+        "end_seconds": 128.70999999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "churn",
+        "start_seconds": 128.70999999999998,
+        "end_seconds": 129.01
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "out",
+        "start_seconds": 129.01,
+        "end_seconds": 129.23499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "superficial",
+        "start_seconds": 129.23499999999999,
+        "end_seconds": 129.785
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "unit",
+        "start_seconds": 129.785,
+        "end_seconds": 130.06
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "tests",
+        "start_seconds": 130.06,
+        "end_seconds": 130.48499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "that",
+        "start_seconds": 130.48499999999999,
+        "end_seconds": 130.60999999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "only",
+        "start_seconds": 130.60999999999999,
+        "end_seconds": 130.91
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "hit",
+        "start_seconds": 130.91,
+        "end_seconds": 131.10999999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "trivial",
+        "start_seconds": 131.10999999999999,
+        "end_seconds": 131.51
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "get",
+        "start_seconds": 131.51,
+        "end_seconds": 131.70999999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "slash",
+        "start_seconds": 131.70999999999998,
+        "end_seconds": 132.06
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "set",
+        "start_seconds": 132.06,
+        "end_seconds": 132.26
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "methods,",
+        "start_seconds": 132.26,
+        "end_seconds": 133.16
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "and",
+        "start_seconds": 133.16,
+        "end_seconds": 133.27249999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "it",
+        "start_seconds": 133.27249999999998,
+        "end_seconds": 133.3475
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "often",
+        "start_seconds": 133.3475,
+        "end_seconds": 133.635
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "copies",
+        "start_seconds": 133.635,
+        "end_seconds": 134.01
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "existing",
+        "start_seconds": 134.01,
+        "end_seconds": 134.45999999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "end‑to‑end",
+        "start_seconds": 134.45999999999998,
+        "end_seconds": 135.06
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "scenarios",
+        "start_seconds": 135.06,
+        "end_seconds": 135.685
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "instead",
+        "start_seconds": 135.685,
+        "end_seconds": 136.04749999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "of",
+        "start_seconds": 136.04749999999999,
+        "end_seconds": 136.1225
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "exploring",
+        "start_seconds": 136.1225,
+        "end_seconds": 136.635
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "new",
+        "start_seconds": 136.635,
+        "end_seconds": 136.81
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "user",
+        "start_seconds": 136.81,
+        "end_seconds": 137.08499999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "flows.",
+        "start_seconds": 137.08499999999998,
+        "end_seconds": 138.23499999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "The",
+        "start_seconds": 138.23499999999999,
+        "end_seconds": 138.33499999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "result?",
+        "start_seconds": 138.33499999999998,
+        "end_seconds": 139.3475
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "Gaps",
+        "start_seconds": 139.3475,
+        "end_seconds": 139.685
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "that",
+        "start_seconds": 139.685,
+        "end_seconds": 139.81
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "line‑coverage",
+        "start_seconds": 139.81,
+        "end_seconds": 140.51
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "numbers",
+        "start_seconds": 140.51,
+        "end_seconds": 140.83499999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "don’t",
+        "start_seconds": 140.83499999999998,
+        "end_seconds": 141.135
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "flag,",
+        "start_seconds": 141.135,
+        "end_seconds": 141.76
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "but",
+        "start_seconds": 141.76,
+        "end_seconds": 141.91
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "real",
+        "start_seconds": 141.91,
+        "end_seconds": 142.185
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "users",
+        "start_seconds": 142.185,
+        "end_seconds": 142.51
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "see",
+        "start_seconds": 142.51,
+        "end_seconds": 142.67249999999999
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "as",
+        "start_seconds": 142.67249999999999,
+        "end_seconds": 142.785
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "glitches.",
+        "start_seconds": 142.785,
+        "end_seconds": 144.02249999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "Treat",
+        "start_seconds": 144.48,
+        "end_seconds": 144.755
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "AI‑generated",
+        "start_seconds": 144.755,
+        "end_seconds": 145.7925
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "code",
+        "start_seconds": 145.7925,
+        "end_seconds": 146.14249999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "as",
+        "start_seconds": 146.14249999999998,
+        "end_seconds": 146.24249999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "a",
+        "start_seconds": 146.24249999999998,
+        "end_seconds": 146.30499999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "draft",
+        "start_seconds": 146.30499999999998,
+        "end_seconds": 146.80499999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "and",
+        "start_seconds": 146.80499999999998,
+        "end_seconds": 146.92999999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "layer",
+        "start_seconds": 146.92999999999998,
+        "end_seconds": 147.255
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "in",
+        "start_seconds": 147.255,
+        "end_seconds": 147.355
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "diverse,",
+        "start_seconds": 147.355,
+        "end_seconds": 148.4175
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "human‑focused",
+        "start_seconds": 148.4175,
+        "end_seconds": 149.255
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "testing",
+        "start_seconds": 149.255,
+        "end_seconds": 150.0425
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "plus",
+        "start_seconds": 150.0425,
+        "end_seconds": 150.32999999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "runtime",
+        "start_seconds": 150.32999999999998,
+        "end_seconds": 150.78
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "analytics",
+        "start_seconds": 150.78,
+        "end_seconds": 151.355
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "to",
+        "start_seconds": 151.355,
+        "end_seconds": 151.45499999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "catch",
+        "start_seconds": 151.45499999999998,
+        "end_seconds": 151.74249999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "what",
+        "start_seconds": 151.74249999999998,
+        "end_seconds": 151.86749999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "the",
+        "start_seconds": 151.86749999999998,
+        "end_seconds": 151.9425
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "machine",
+        "start_seconds": 151.9425,
+        "end_seconds": 152.30499999999998
+      },
+      {
+        "segment_id": "ai-fragile-codebase-2026-11-11-segment",
+        "text": "misses.",
+        "start_seconds": 152.30499999999998,
+        "end_seconds": 153.45499999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "And",
+        "start_seconds": 154.655,
+        "end_seconds": 154.805
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "finally,",
+        "start_seconds": 154.805,
+        "end_seconds": 155.33
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 155.33,
+        "end_seconds": 155.48
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "last",
+        "start_seconds": 155.48,
+        "end_seconds": 155.73
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 155.73,
+        "end_seconds": 156.755
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Anthropic’s",
+        "start_seconds": 156.755,
+        "end_seconds": 157.355
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "own",
+        "start_seconds": 157.355,
+        "end_seconds": 157.58
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "numbers",
+        "start_seconds": 157.58,
+        "end_seconds": 157.9175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 157.9175,
+        "end_seconds": 158.08
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patched",
+        "start_seconds": 158.08,
+        "end_seconds": 158.3925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vulnerabilities",
+        "start_seconds": 158.3925,
+        "end_seconds": 159.155
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 159.155,
+        "end_seconds": 159.255
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "falling",
+        "start_seconds": 159.255,
+        "end_seconds": 159.6175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "short",
+        "start_seconds": 159.6175,
+        "end_seconds": 159.9425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 159.9425,
+        "end_seconds": 160.0175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "what",
+        "start_seconds": 160.0175,
+        "end_seconds": 160.1425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 160.1425,
+        "end_seconds": 160.23
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "community",
+        "start_seconds": 160.23,
+        "end_seconds": 160.7675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sees.",
+        "start_seconds": 160.7675,
+        "end_seconds": 161.88
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "A",
+        "start_seconds": 163.10500000000002,
+        "end_seconds": 163.155
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Hacker",
+        "start_seconds": 163.155,
+        "end_seconds": 163.43
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "News",
+        "start_seconds": 163.43,
+        "end_seconds": 163.75500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "post",
+        "start_seconds": 163.75500000000002,
+        "end_seconds": 164.08
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "points",
+        "start_seconds": 164.08,
+        "end_seconds": 164.43
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 164.43,
+        "end_seconds": 164.5175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 164.5175,
+        "end_seconds": 164.58
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tracker",
+        "start_seconds": 164.58,
+        "end_seconds": 165.13000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 165.13000000000002,
+        "end_seconds": 165.25500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "logged",
+        "start_seconds": 165.25500000000002,
+        "end_seconds": 165.58
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nearly",
+        "start_seconds": 165.58,
+        "end_seconds": 165.8925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thirty‑eight",
+        "start_seconds": 165.8925,
+        "end_seconds": 166.455
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 166.455,
+        "end_seconds": 166.83
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "findings",
+        "start_seconds": 166.83,
+        "end_seconds": 167.66750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "since",
+        "start_seconds": 167.66750000000002,
+        "end_seconds": 167.905
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "April",
+        "start_seconds": 167.905,
+        "end_seconds": 168.23000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 168.23000000000002,
+        "end_seconds": 168.555
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty‑six.",
+        "start_seconds": 168.555,
+        "end_seconds": 169.94250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Only",
+        "start_seconds": 169.94250000000002,
+        "end_seconds": 170.2425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "about",
+        "start_seconds": 170.2425,
+        "end_seconds": 170.53
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nineteen",
+        "start_seconds": 170.53,
+        "end_seconds": 170.98000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 170.98000000000002,
+        "end_seconds": 171.28
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 171.28,
+        "end_seconds": 171.455
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "percent",
+        "start_seconds": 171.455,
+        "end_seconds": 171.79250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 171.79250000000002,
+        "end_seconds": 171.88000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "those",
+        "start_seconds": 171.88000000000002,
+        "end_seconds": 172.1425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "were",
+        "start_seconds": 172.1425,
+        "end_seconds": 172.25500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "publicly",
+        "start_seconds": 172.25500000000002,
+        "end_seconds": 172.75500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "disclosed",
+        "start_seconds": 172.75500000000002,
+        "end_seconds": 173.805
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 173.805,
+        "end_seconds": 173.94250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 173.94250000000002,
+        "end_seconds": 174.00500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "mere",
+        "start_seconds": 174.00500000000002,
+        "end_seconds": 174.2425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 174.2425,
+        "end_seconds": 174.41750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hundred",
+        "start_seconds": 174.41750000000002,
+        "end_seconds": 174.68
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "seventeen",
+        "start_seconds": 174.68,
+        "end_seconds": 175.23000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 175.23000000000002,
+        "end_seconds": 175.33
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "marked",
+        "start_seconds": 175.33,
+        "end_seconds": 175.68
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fixed.",
+        "start_seconds": 175.68,
+        "end_seconds": 176.75500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 176.75500000000002,
+        "end_seconds": 176.85500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tracker",
+        "start_seconds": 176.85500000000002,
+        "end_seconds": 177.205
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "also",
+        "start_seconds": 177.205,
+        "end_seconds": 177.60500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "notes",
+        "start_seconds": 177.60500000000002,
+        "end_seconds": 177.8675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "over",
+        "start_seconds": 177.8675,
+        "end_seconds": 178.10500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 178.10500000000002,
+        "end_seconds": 178.33
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 178.33,
+        "end_seconds": 178.705
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six",
+        "start_seconds": 178.705,
+        "end_seconds": 178.91750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hundred",
+        "start_seconds": 178.91750000000002,
+        "end_seconds": 179.205
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "duplicate",
+        "start_seconds": 179.205,
+        "end_seconds": 179.6425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "reports",
+        "start_seconds": 179.6425,
+        "end_seconds": 180.41750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 180.41750000000002,
+        "end_seconds": 180.56750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 180.56750000000002,
+        "end_seconds": 180.7425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hundred",
+        "start_seconds": 180.7425,
+        "end_seconds": 181.0175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nineteen",
+        "start_seconds": 181.0175,
+        "end_seconds": 181.50500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "withdrawn",
+        "start_seconds": 181.50500000000002,
+        "end_seconds": 181.93
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "entries,",
+        "start_seconds": 181.93,
+        "end_seconds": 182.83
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "meaning",
+        "start_seconds": 182.83,
+        "end_seconds": 183.1175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 183.1175,
+        "end_seconds": 183.23000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "internal",
+        "start_seconds": 183.23000000000002,
+        "end_seconds": 183.705
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "success",
+        "start_seconds": 183.705,
+        "end_seconds": 184.18
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "rate",
+        "start_seconds": 184.18,
+        "end_seconds": 184.455
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "looks",
+        "start_seconds": 184.455,
+        "end_seconds": 184.73000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "inflated.",
+        "start_seconds": 184.73000000000002,
+        "end_seconds": 186.0175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "So,",
+        "start_seconds": 187.23000000000002,
+        "end_seconds": 187.50500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "treat",
+        "start_seconds": 187.50500000000002,
+        "end_seconds": 187.78
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Anthropic’s",
+        "start_seconds": 187.78,
+        "end_seconds": 188.35500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "public",
+        "start_seconds": 188.35500000000002,
+        "end_seconds": 188.73000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fix",
+        "start_seconds": 188.73000000000002,
+        "end_seconds": 189.00500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "count",
+        "start_seconds": 189.00500000000002,
+        "end_seconds": 189.3675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 189.3675,
+        "end_seconds": 189.4675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 189.4675,
+        "end_seconds": 189.53
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lower",
+        "start_seconds": 189.53,
+        "end_seconds": 189.85500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bound",
+        "start_seconds": 189.85500000000002,
+        "end_seconds": 190.705
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 190.705,
+        "end_seconds": 190.85500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "double‑check",
+        "start_seconds": 190.85500000000002,
+        "end_seconds": 191.54250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 191.54250000000002,
+        "end_seconds": 191.805
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vulnerability",
+        "start_seconds": 191.805,
+        "end_seconds": 192.48000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "status",
+        "start_seconds": 192.48000000000002,
+        "end_seconds": 192.8925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "yourself",
+        "start_seconds": 192.8925,
+        "end_seconds": 193.29250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "when",
+        "start_seconds": 193.29250000000002,
+        "end_seconds": 193.43
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you’re",
+        "start_seconds": 193.43,
+        "end_seconds": 193.555
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "weighing",
+        "start_seconds": 193.555,
+        "end_seconds": 193.905
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "risk.",
+        "start_seconds": 193.905,
+        "end_seconds": 194.98000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "And",
+        "start_seconds": 196.18,
+        "end_seconds": 196.3175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that's",
+        "start_seconds": 196.3175,
+        "end_seconds": 196.555
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 196.555,
+        "end_seconds": 196.68
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire",
+        "start_seconds": 196.68,
+        "end_seconds": 197.10500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "briefing.",
+        "start_seconds": 197.10500000000002,
+        "end_seconds": 198.055
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "You'll",
+        "start_seconds": 198.055,
+        "end_seconds": 198.23000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "find",
+        "start_seconds": 198.23000000000002,
+        "end_seconds": 198.4675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 198.4675,
+        "end_seconds": 198.5675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "full",
+        "start_seconds": 198.5675,
+        "end_seconds": 198.805
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stories",
+        "start_seconds": 198.805,
+        "end_seconds": 199.2425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 199.2425,
+        "end_seconds": 199.3675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sources",
+        "start_seconds": 199.3675,
+        "end_seconds": 199.85500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 199.85500000000002,
+        "end_seconds": 199.955
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "today's",
+        "start_seconds": 199.955,
+        "end_seconds": 200.33
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "newspaper.",
+        "start_seconds": 200.33,
+        "end_seconds": 201.3425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Thanks",
+        "start_seconds": 201.3425,
+        "end_seconds": 201.68
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 201.68,
+        "end_seconds": 201.805
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "listening.",
+        "start_seconds": 201.805,
+        "end_seconds": 202.455
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Take",
+        "start_seconds": 202.455,
+        "end_seconds": 202.755
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "care,",
+        "start_seconds": 202.755,
+        "end_seconds": 203.0175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone.",
+        "start_seconds": 203.0175,
+        "end_seconds": 204.18
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
