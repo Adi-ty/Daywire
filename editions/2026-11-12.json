@@ -1,0 +1,3590 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-12",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-12T07:41:59.654393159Z",
+  "coverage": {
+    "from": "2026-11-11T06:00:00+05:30",
+    "until": "2026-11-12T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-65b96c238445cded",
+      "source-c4aa53a5506ac6f4",
+      "source-ac94b61a25ade5ed",
+      "source-0de9825e0c756423"
+    ],
+    "candidate_count": 38,
+    "evidence_count": 34
+  },
+  "content": {
+    "title": "AI services expand, security patches tighten",
+    "introduction": "Google’s Gemini Decisions API opens fast multimodal scoring for developers, while United Airlines moves to block third‑party AI agents from its reservation system. At the same time, Node.js ships critical TLS handshake patches across multiple LTS lines, reinforcing server stability.",
+    "articles": [
+      {
+        "id": "nodejs-tls-handshake-cve-2026-126051-fix",
+        "section": "Security",
+        "headline": "Node.js patches remote TLS handshake crash in 22.x, 24.x, and 26.x",
+        "summary": "Node.js releases 22.x, 24.x and 26.x close CVE‑2026‑126051, a use‑after‑destroy bug that could crash TLS servers.",
+        "paragraphs": [
+          "The Node.js project published security updates on 11 November 2026 for its active release lines 22.x, 24.x and 26.x. The updates address CVE‑2026‑126051, a high‑severity flaw where a deferred callback in the TLS server handshake runs after the underlying socket has been destroyed, causing an uncaught exception instead of an emitted ‘error’ event. The vulnerability is exploitable by any unauthenticated client that can open a TLS connection and trigger the handshake sequence, making it a remote denial‑of‑service risk for HTTP/2 and HTTPS services.",
+          "The fix removes the deferred‑callback path that accessed the freed object and ensures the server emits an error event when the handshake is aborted. No code changes are required for applications that simply upgrade Node.js to the patched versions. However, the advisory notes that the vulnerability only manifests when a handler calls res.flushHeaders() before the request body ends or when an ordinary route echoes or stores the request body; services that never invoke those patterns are not exposed.",
+          "Commercial support for versions beyond the Maintenance LTS phase remains available through OpenJS Ecosystem Sustainability Program partners, so enterprises can obtain assistance while migrating to the patched releases."
+        ],
+        "implication": "Operators of Node.js TLS servers should upgrade to 22.x, 24.x or 26.x immediately to avoid unexpected process crashes caused by unauthenticated handshake requests.",
+        "source_ids": [
+          "source-130d9bc72a1a0f48"
+        ]
+      },
+      {
+        "id": "ai-maya-lidar-discovery",
+        "section": "AI",
+        "headline": "AI agents flag a Maya site using public lidar in three days",
+        "summary": "A personal workflow of LLM agents scanned NASA lidar data and highlighted a Maya settlement in Mexico within 72 hours, prompting official confirmation.",
+        "paragraphs": [
+          "The author prompted a suite of large‑language‑model agents—Gemini, ChatGPT, Claude and Grok—to search for high‑resolution lidar coverage of the Maya lowlands, where public datasets are abundant. The agents identified rectangular clearings and raised platforms that match Classic‑period urban layouts and compiled the findings into a concise report.",
+          "When the report was presented to Mexican authorities, they confirmed the site's existence, noting that archaeologists had already recorded the location even though it was absent from the official register. The rapid turnaround—from idea to official reply—shows how generative AI can orchestrate data‑driven research across disciplines beyond software development.",
+          "The experiment relied solely on publicly available NASA lidar tiles and off‑the‑shelf LLM APIs; no custom models or proprietary imagery were required. Its reproducibility depends on the presence of high‑quality elevation data and expert willingness to validate AI‑generated hypotheses."
+        ],
+        "implication": "AI‑driven workflows can accelerate the identification of known archaeological features, allowing researchers to focus validation effort rather than raw discovery.",
+        "source_ids": [
+          "source-c8dde4086f9ad8bc"
+        ]
+      },
+      {
+        "id": "aws-emulator-toolkit-2026",
+        "section": "Tools",
+        "headline": "AWS Emulator lets developers test code without an AWS account",
+        "summary": "The open‑source AWS Emulator provides a local drop‑in replacement for AWS APIs, requiring AWS CLI 2.35.0 or newer.",
+        "paragraphs": [
+          "The emulator runs as a local HTTP service that mimics AWS endpoints; developers point the AWS CLI or SDK at its address via environment variables or by passing an embedded HTTP client. It can be installed from a prebuilt package or built from source on Linux (x86_64, aarch64) and run in CI, but it is not intended for production workloads or security testing."
+        ],
+        "implication": "Engineers can accelerate local development and CI pipelines without incurring AWS fees, while still needing real AWS environments for production validation.",
+        "source_ids": [
+          "source-78b8986836f7bb24"
+        ]
+      },
+      {
+        "id": "gemini-decisions-api-launch",
+        "section": "AI",
+        "headline": "Google launches Gemini Decisions API for fast multimodal scoring",
+        "summary": "Google AI adds a Gemini Decisions endpoint that scores up to 1,000 bounded‑choice queries in a single pass across text, images, audio, video and PDFs.",
+        "paragraphs": [
+          "The Gemini Decisions API, powered by the Gemini Decision 1 model (gemini-decision-1), lets developers submit a multimodal input together with up to 1,000 yes/no, multiple‑choice or rubric‑scoring questions. The model scores each option in one forward pass, returning probabilities and confidence scores in 150–250 ms end‑to‑end latency. Input size is limited to 256 K tokens (≈16 K tokens of context) and pricing is $0.10 per 1 M input tokens with no output‑token charge.",
+          "Benchmark tests across agent routing, reasoning, ranking and multimodal understanding show Gemini Decision 1 achieving the lowest calibration error and roughly five‑times lower cost than Gemini 3.5 Flash‑Lite, while median latency remains flat from one to one hundred questions per request."
+        ],
+        "implication": "Engineers can batch large batches of policy checks or content‑grading tasks into a single call, reducing both latency and compute spend compared with token‑by‑token generation.",
+        "source_ids": [
+          "source-c06fca3b9549fb95"
+        ]
+      },
+      {
+        "id": "united-ai-booking-ban-2026-11-12",
+        "section": "AI",
+        "headline": "United Airlines bans third‑party AI agents from booking flights",
+        "summary": "United will block personal AI assistants from accessing its reservation system, citing security risks and potential violations of federal rules.",
+        "paragraphs": [
+          "Effective immediately, United’s digital platforms and partner aggregators will reject requests from unauthorized AI agents such as Meta’s Muse or OpenAI’s bots. The airline warns that sharing login credentials with these tools can expose payment data and allow unintended mileage use, and it wants to curb the cost of AI‑driven search traffic. Southwest, by contrast, is still allowing ChatGPT‑based inventory queries."
+        ],
+        "implication": "Travel‑tech developers must design their bots to route bookings through approved APIs or human‑mediated flows, or risk being blocked by United’s new policy.",
+        "source_ids": [
+          "source-5518ef5f75c82c68"
+        ]
+      },
+      {
+        "id": "secure-enclave-ssh-ui",
+        "section": "Security",
+        "headline": "macOS Secure Enclave SSH keys work but UI feels unpolished",
+        "summary": "Apple’s built‑in Secure Enclave support for SSH keys functions, yet the native user experience is considered unattractive, prompting users to adopt third‑party tools like Secretive.",
+        "paragraphs": [
+          "Since macOS Sequoia, the OS can generate SSH keys that never leave the Secure Enclave, accessed via sc_auth and the SSH_SK_PROVIDER variable. The keys operate like regular SSH keys on remote servers, but the on‑device prompt and configuration screens are described as “plain ugly,” leading the author to switch to the Secretive app for a cleaner workflow.",
+          "The limitation is purely cosmetic: the security model is fully functional, but Apple’s out‑of‑the‑box UI does not meet the author’s aesthetic standards, and backup of the non‑exportable key requires an additional key (e.g., YubiKey) in authorized_keys."
+        ],
+        "implication": "Developers can rely on Secure Enclave SSH for strong, non‑exportable keys, but should plan for a separate UI solution or backup key if they need a more polished experience.",
+        "source_ids": [
+          "source-c758f11662b6afc1"
+        ]
+      },
+      {
+        "id": "github-actions-lockfile-2026",
+        "section": "Tools",
+        "headline": "GitHub Actions adds workflow lockfiles to pin dependencies",
+        "summary": "GitHub now supports lockfiles for Actions workflows, letting repos pin each action to a specific SHA and verify consistency.",
+        "paragraphs": [
+          "The new lockfile feature generates a .github/workflows/actions.lock that records the exact commit SHA for every action used, such as actions/checkout@v7.0.1. Developers install the gh‑actions‑lock extension (e.g., v0.4.1) and run `gh actions-lock` to create or verify the lockfile; mismatches cause a failure, enforcing reproducible builds."
+        ],
+        "implication": "Teams can lock down their CI pipelines against mutable tags, reducing supply‑chain risk without changing existing workflow syntax.",
+        "source_ids": [
+          "source-90e91921653245c7"
+        ]
+      },
+      {
+        "id": "voltage-glitch-unlock-a100",
+        "section": "Engineering",
+        "headline": "Voltage glitching can turn a mining CMP card into a faster A100",
+        "summary": "A hobbyist discovered a voltage‑fault injection method that blows GA100 fuses, converting a CMP 170HX mining board into an A100‑class accelerator with up to 1.2× the performance of retail A100 silicon.",
+        "paragraphs": [
+          "The technique exploits a “fuseless fuse” controller on the GA100 die, allowing arbitrary FF option words to be rewritten. By clearing these rows the author enabled all functional SMs (120‑126 versus NVIDIA’s production‑limited 108) and unlocked disabled features such as NVLink, PCIe Gen4, NVJPG, NVDEC and MIG. The resulting card retains the original HBM capacity (≈80 GB on an 8 GB‑spec card) and runs faster than a stock A100, though the author has not verified every unlocked subsystem."
+        ],
+        "implication": "Engineers can repurpose surplus mining hardware for AI workloads, but the approach requires hardware‑level fault injection and carries risk of permanent damage, limiting its practicality to experimental labs.",
+        "source_ids": [
+          "source-670c1c098bea8048"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "deferred-callback-use-after-destroy-mechanism",
+        "title": "Understanding deferred‑callback use‑after‑destroy in Node.js TLS handshakes",
+        "paragraphs": [
+          "When a TLS server accepts a new connection, Node.js schedules part of the handshake to run later as a deferred callback. If the server decides to abort the connection (for example, because the client sends malformed data) before that callback executes, the underlying socket object is destroyed. The deferred code, however, still holds a reference to the now‑freed socket and attempts to access it, triggering an uncaught exception instead of emitting an 'error' event. This use‑after‑destroy pattern turns a normal handshake failure into a process‑crashing denial‑of‑service.",
+          "The fix removes the unsafe deferred path and adds a guard that checks whether the socket is still alive before any post‑handshake work runs. If the socket has been closed, the server simply emits an error event, allowing the application to handle the failure gracefully. This change restores the invariant that all asynchronous callbacks operate only on valid resources."
+        ],
+        "example": "A client opens a TLS connection to a Node.js server and immediately aborts the handshake. In the vulnerable version, the server later runs a deferred callback that reads from the destroyed socket, causing the process to exit with an uncaught exception. After the patch, the callback detects the closed socket and emits an error event instead, keeping the server running.",
+        "takeaway": "Never let asynchronous callbacks access resources that may have been freed; always verify object validity before use, especially in network protocol implementations.",
+        "article_ids": [
+          "nodejs-tls-handshake-cve-2026-126051-fix"
+        ],
+        "source_ids": [
+          "source-130d9bc72a1a0f48"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-deferred-callback-use-after-destroy-1",
+        "lesson_id": "deferred-callback-use-after-destroy-mechanism",
+        "prompt": "What condition triggers the unsafe use‑after‑destroy behavior in the vulnerable Node.js TLS handshake implementation?",
+        "options": [
+          "The server receives a malformed client certificate during the handshake.",
+          "The server aborts the connection before the deferred callback runs, destroying the socket.",
+          "The client sends a large amount of data after the handshake completes.",
+          "The server runs out of memory while processing the handshake."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that the problem occurs when the server aborts the connection (e.g., due to malformed data) before the deferred callback executes, destroying the socket that the callback later tries to use."
+      },
+      {
+        "id": "quiz-1-deferred-callback-use-after-destroy-2",
+        "lesson_id": "deferred-callback-use-after-destroy-mechanism",
+        "prompt": "How does the patched implementation prevent the process‑crashing denial‑of‑service?",
+        "options": [
+          "It retries the handshake automatically until it succeeds.",
+          "It adds a guard that checks if the socket is still alive before running post‑handshake work.",
+          "It disables TLS entirely for connections that send malformed data.",
+          "It forces the process to exit with a specific error code."
+        ],
+        "answer": 1,
+        "explanation": "The fix introduces a guard that verifies the socket is still valid; if the socket has been closed, the server emits an error event instead of accessing the destroyed socket."
+      },
+      {
+        "id": "quiz-1-deferred-callback-use-after-destroy-3",
+        "lesson_id": "deferred-callback-use-after-destroy-mechanism",
+        "prompt": "According to the takeaway, what general programming practice should be applied to avoid similar bugs?",
+        "options": [
+          "Always use synchronous APIs for network operations.",
+          "Never allocate resources inside callbacks.",
+          "Verify object validity before using it in asynchronous callbacks.",
+          "Prefer UDP over TCP for all network communications."
+        ],
+        "answer": 2,
+        "explanation": "The takeaway explicitly states that asynchronous callbacks must verify that resources (like sockets) are still valid before accessing them."
+      }
+    ],
+    "segments": [
+      {
+        "id": "nodejs-tls-handshake-fix-story",
+        "title": "Node.js patches TLS handshake crash",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November twelve, two thousand twenty six.\n\nWe begin with our lead story. Node jay ess rolled out security updates on November eleventh for its 22.x, 24.x and 26.x lines, sealing a high‑severity use‑after‑destroy bug. The flaw let any unauthenticated client open a TLS connection, trigger the handshake and cause the server process to crash instead of emitting an error event. The fix simply removes the deferred callback that touched the freed object and makes the server emit an error when the handshake aborts. Here's why that matters: upgrade now to keep your HTTP two and HTTPS services from unexpectedly dying.",
+        "article_ids": [
+          "nodejs-tls-handshake-cve-2026-126051-fix"
+        ]
+      },
+      {
+        "id": "ai-maya-lidar-discovery-segment",
+        "title": "AI agents spot Maya site in three days",
+        "text": "Next on the bulletin. A team of large‑language‑model agents—Gemini, ChatGPT, Claude and Grok—were asked to hunt for high‑resolution lidar over the Maya lowlands. Within 72 hours they flagged a set of rectangular clearings and raised platforms that match Classic‑period urban layouts, then bundled the find into a short report. Mexican officials took the report, checked their own records and confirmed the settlement, noting it was already known but missing from the official register. The whole experiment used only public NASA lidar tiles and off‑the‑shelf LLM APIs, no custom models or proprietary imagery. Here's why that matters: it shows generative AI can stitch together existing data fast enough to hand researchers a validated hypothesis, letting them spend time on interpretation instead of raw discovery.",
+        "article_ids": [
+          "ai-maya-lidar-discovery"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "AWS Emulator lets developers test code without an AWS account",
+        "text": "Turning to our next story. AWS Emulator now gives you a local drop‑in replacement for AWS APIs. You run it as a tiny HTTP service on your machine, point the AWS CLI or any SDK at its address with environment variables, and it pretends to be the real cloud. It works on Linux x86_64 and aarch64, can be installed from a package or built from source, and fits nicely into CI pipelines. It’s great for speeding up development and cutting AWS fees, but remember it’s not meant for production workloads or security testing.",
+        "article_ids": [
+          "aws-emulator-toolkit-2026"
+        ]
+      },
+      {
+        "id": "gemini-decisions-api-launch-segment",
+        "title": "Google rolls out Gemini Decisions API",
+        "text": "Next on the bulletin. Google has opened a Gemini Decisions endpoint that can score up to one thousand bounded‑choice queries in a single pass. You feed it text, images, audio, video or PDFs along with yes/no, multiple‑choice or rubric questions, and it returns probabilities and confidence scores in roughly one‑fifty to two‑fifty milliseconds. The input cap is 256 K tokens, about sixteen K tokens of context, and pricing is ten cents per one million input tokens with no output‑token charge. Engineers can now batch policy checks or content‑grading tasks, cutting both latency and compute spend.",
+        "article_ids": [
+          "gemini-decisions-api-launch"
+        ]
+      },
+      {
+        "id": "united-ai-booking-ban-2026-11-12-segment",
+        "title": "United Bars Third‑Party AI Booking Agents",
+        "text": "And finally, our last story. United Airlines just pulled the plug on third‑party AI assistants trying to book flights. Effective immediately, its website and partner aggregators will reject requests from tools like Meta’s Muse or OpenAI’s bots, warning that handing over login credentials can leak payment data and even misuse mileage. The airline says the move is about security and staying within federal rules, while rivals like Southwest still let ChatGPT‑style queries run. Here's why that matters: any travel‑tech bot now has to go through United’s approved APIs or a human‑mediated flow, or it’ll hit a hard block.\n\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "united-ai-booking-ban-2026-11-12"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized server rack with glowing TLS certificates being sealed by a digital padlock, while a sleek AI brain hovers above, symbolizing the contrast between new security fixes and expanding AI capabilities."
+  },
+  "sources": [
+    {
+      "id": "source-130d9bc72a1a0f48",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-126051: Node.js is vulnerable to a remotely triggerable uncaught exception in TLS servers via deferred handshake callbacks",
+      "url": "https://nodejs.org/en/blog/vulnerability/november-2026-security-releases",
+      "published_at": "2026-11-11T18:35:45Z",
+      "discovered_at": "2026-11-12T07:28:39.474105667Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-c06fca3b9549fb95",
+      "name": "Google AI",
+      "title": "Gemini Decisions API: Fast, calibrated multimodal decisions",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+      "published_at": "2026-11-11T18:00:00Z",
+      "discovered_at": "2026-11-12T07:28:39.699483491Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-670c1c098bea8048",
+      "name": "Lobsters",
+      "title": "Using voltage glitching to unleash the A100 in my mining card",
+      "url": "https://blog.kate.land/posts/using-voltage-glitching-to-unlock-the-a100/",
+      "published_at": null,
+      "discovered_at": "2026-11-11T06:36:57.129-06:00",
+      "discussion_url": "https://lobste.rs/s/zy4p7f/using_voltage_glitching_unleash_a100_my"
+    },
+    {
+      "id": "source-c8dde4086f9ad8bc",
+      "name": "Hacker News",
+      "title": "My AI agents found an unmapped Maya site?",
+      "url": "https://pietromiotti.com/latest/maya-site",
+      "published_at": null,
+      "discovered_at": "2026-11-11T12:05:22Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50452455"
+    },
+    {
+      "id": "source-90e91921653245c7",
+      "name": "Lobsters",
+      "title": "Lock your GitHub Actions",
+      "url": "https://hugovk.dev/blog/2026/lock-github-actions/",
+      "published_at": null,
+      "discovered_at": "2026-11-11T12:16:01.014-06:00",
+      "discussion_url": "https://lobste.rs/s/v3uidx/lock_your_github_actions"
+    },
+    {
+      "id": "source-78b8986836f7bb24",
+      "name": "Hacker News",
+      "title": "AWS emulator",
+      "url": "https://github.com/aws/aws-emulator",
+      "published_at": null,
+      "discovered_at": "2026-11-11T18:21:38Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50456631"
+    },
+    {
+      "id": "source-5518ef5f75c82c68",
+      "name": "Hacker News",
+      "title": "United Airlines bans AI agents from booking flights on behalf of travelers",
+      "url": "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/",
+      "published_at": null,
+      "discovered_at": "2026-11-11T21:24:35Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50458900"
+    },
+    {
+      "id": "source-c758f11662b6afc1",
+      "name": "Hacker News",
+      "title": "Protecting SSH Keys with macOS Secure Enclave",
+      "url": "https://gatezh.com/posts/macos-secure-enclave-ssh-keys/",
+      "published_at": null,
+      "discovered_at": "2026-11-11T04:28:57Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50449748"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-12/ab42e1efb6ebe2c1464965c28bc80dfa530197f47d59091e6e0f90705f796f5f.mp3",
+    "duration_seconds": 215.256,
+    "script_hash": "1375bfdeacc739c707d6c2e83d4f29bb230bae83e876024d73b1f3451b9308b9",
+    "cues": [
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6375
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "everyone,",
+        "start_seconds": 0.6375,
+        "end_seconds": 1.225
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "and",
+        "start_seconds": 1.225,
+        "end_seconds": 1.4125
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "welcome",
+        "start_seconds": 1.4125,
+        "end_seconds": 1.85
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "to",
+        "start_seconds": 1.85,
+        "end_seconds": 1.975
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "Daywire.",
+        "start_seconds": 1.975,
+        "end_seconds": 2.75
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "Let's",
+        "start_seconds": 2.75,
+        "end_seconds": 3.025
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "make",
+        "start_seconds": 3.025,
+        "end_seconds": 3.2625
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "sense",
+        "start_seconds": 3.2625,
+        "end_seconds": 3.5875
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "of",
+        "start_seconds": 3.5875,
+        "end_seconds": 3.6625
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "the",
+        "start_seconds": 3.6625,
+        "end_seconds": 3.7875
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "tech",
+        "start_seconds": 3.7875,
+        "end_seconds": 4.1
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "news.",
+        "start_seconds": 4.1,
+        "end_seconds": 4.775
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "It's",
+        "start_seconds": 4.775,
+        "end_seconds": 5.025
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "November",
+        "start_seconds": 5.025,
+        "end_seconds": 5.5125
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "twelve,",
+        "start_seconds": 5.5125,
+        "end_seconds": 5.9875
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "two",
+        "start_seconds": 5.9875,
+        "end_seconds": 6.225
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "thousand",
+        "start_seconds": 6.225,
+        "end_seconds": 6.6
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "twenty",
+        "start_seconds": 6.6,
+        "end_seconds": 6.9125
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "six.",
+        "start_seconds": 6.9125,
+        "end_seconds": 7.775
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "We",
+        "start_seconds": 8.975,
+        "end_seconds": 9.1
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "begin",
+        "start_seconds": 9.1,
+        "end_seconds": 9.475
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "with",
+        "start_seconds": 9.475,
+        "end_seconds": 9.612499999999999
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "our",
+        "start_seconds": 9.612499999999999,
+        "end_seconds": 9.75
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "lead",
+        "start_seconds": 9.75,
+        "end_seconds": 10.025
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "story.",
+        "start_seconds": 10.025,
+        "end_seconds": 10.837499999999999
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "Node",
+        "start_seconds": 10.837499999999999,
+        "end_seconds": 11.1
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "jay",
+        "start_seconds": 11.1,
+        "end_seconds": 11.35
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "ess",
+        "start_seconds": 11.35,
+        "end_seconds": 11.55
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "rolled",
+        "start_seconds": 11.55,
+        "end_seconds": 11.85
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "out",
+        "start_seconds": 11.85,
+        "end_seconds": 12.075
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "security",
+        "start_seconds": 12.075,
+        "end_seconds": 12.625
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "updates",
+        "start_seconds": 12.625,
+        "end_seconds": 13.087499999999999
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "on",
+        "start_seconds": 13.087499999999999,
+        "end_seconds": 13.1875
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "November",
+        "start_seconds": 13.1875,
+        "end_seconds": 13.625
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "eleventh",
+        "start_seconds": 13.625,
+        "end_seconds": 14.075
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "for",
+        "start_seconds": 14.075,
+        "end_seconds": 14.1875
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "its",
+        "start_seconds": 14.1875,
+        "end_seconds": 14.3
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "22.x,",
+        "start_seconds": 14.3,
+        "end_seconds": 15.45
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "24.x",
+        "start_seconds": 15.45,
+        "end_seconds": 16.2875
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "and",
+        "start_seconds": 16.2875,
+        "end_seconds": 16.4
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "26.x",
+        "start_seconds": 16.4,
+        "end_seconds": 17.25
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "lines,",
+        "start_seconds": 17.25,
+        "end_seconds": 17.799999999999997
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "sealing",
+        "start_seconds": 17.799999999999997,
+        "end_seconds": 18.112499999999997
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "a",
+        "start_seconds": 18.112499999999997,
+        "end_seconds": 18.174999999999997
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "high‑severity",
+        "start_seconds": 18.174999999999997,
+        "end_seconds": 18.95
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "use‑after‑destroy",
+        "start_seconds": 18.95,
+        "end_seconds": 19.9
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "bug.",
+        "start_seconds": 19.9,
+        "end_seconds": 20.7
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "The",
+        "start_seconds": 20.7,
+        "end_seconds": 20.825
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "flaw",
+        "start_seconds": 20.825,
+        "end_seconds": 21.1
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "let",
+        "start_seconds": 21.1,
+        "end_seconds": 21.3375
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "any",
+        "start_seconds": 21.3375,
+        "end_seconds": 21.6625
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "unauthenticated",
+        "start_seconds": 21.6625,
+        "end_seconds": 22.65
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "client",
+        "start_seconds": 22.65,
+        "end_seconds": 23.1
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "open",
+        "start_seconds": 23.1,
+        "end_seconds": 23.362499999999997
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "a",
+        "start_seconds": 23.362499999999997,
+        "end_seconds": 23.4625
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "TLS",
+        "start_seconds": 23.4625,
+        "end_seconds": 24.025
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "connection,",
+        "start_seconds": 24.025,
+        "end_seconds": 24.825000000000003
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "trigger",
+        "start_seconds": 24.825000000000003,
+        "end_seconds": 25.125
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "the",
+        "start_seconds": 25.125,
+        "end_seconds": 25.225
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "handshake",
+        "start_seconds": 25.225,
+        "end_seconds": 25.887500000000003
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "and",
+        "start_seconds": 25.887500000000003,
+        "end_seconds": 26.025
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "cause",
+        "start_seconds": 26.025,
+        "end_seconds": 26.325000000000003
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "the",
+        "start_seconds": 26.325000000000003,
+        "end_seconds": 26.4625
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "server",
+        "start_seconds": 26.4625,
+        "end_seconds": 26.825000000000003
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "process",
+        "start_seconds": 26.825000000000003,
+        "end_seconds": 27.299999999999997
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "to",
+        "start_seconds": 27.299999999999997,
+        "end_seconds": 27.424999999999997
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "crash",
+        "start_seconds": 27.424999999999997,
+        "end_seconds": 27.825000000000003
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "instead",
+        "start_seconds": 27.825000000000003,
+        "end_seconds": 28.1875
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "of",
+        "start_seconds": 28.1875,
+        "end_seconds": 28.275
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "emitting",
+        "start_seconds": 28.275,
+        "end_seconds": 28.7125
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "an",
+        "start_seconds": 28.7125,
+        "end_seconds": 28.862499999999997
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "error",
+        "start_seconds": 28.862499999999997,
+        "end_seconds": 29.174999999999997
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "event.",
+        "start_seconds": 29.174999999999997,
+        "end_seconds": 30.0875
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "The",
+        "start_seconds": 30.545,
+        "end_seconds": 30.657500000000002
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "fix",
+        "start_seconds": 30.657500000000002,
+        "end_seconds": 30.92
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "simply",
+        "start_seconds": 30.92,
+        "end_seconds": 31.245
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "removes",
+        "start_seconds": 31.245,
+        "end_seconds": 31.695
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "the",
+        "start_seconds": 31.695,
+        "end_seconds": 31.795
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "deferred",
+        "start_seconds": 31.795,
+        "end_seconds": 32.27
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "callback",
+        "start_seconds": 32.27,
+        "end_seconds": 32.795
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "that",
+        "start_seconds": 32.795,
+        "end_seconds": 32.9575
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "touched",
+        "start_seconds": 32.9575,
+        "end_seconds": 33.2825
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "the",
+        "start_seconds": 33.2825,
+        "end_seconds": 33.3825
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "freed",
+        "start_seconds": 33.3825,
+        "end_seconds": 33.72
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "object",
+        "start_seconds": 33.72,
+        "end_seconds": 34.432500000000005
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "and",
+        "start_seconds": 34.432500000000005,
+        "end_seconds": 34.57
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "makes",
+        "start_seconds": 34.57,
+        "end_seconds": 34.845
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "the",
+        "start_seconds": 34.845,
+        "end_seconds": 34.9825
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "server",
+        "start_seconds": 34.9825,
+        "end_seconds": 35.345
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "emit",
+        "start_seconds": 35.345,
+        "end_seconds": 35.6575
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "an",
+        "start_seconds": 35.6575,
+        "end_seconds": 35.807500000000005
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "error",
+        "start_seconds": 35.807500000000005,
+        "end_seconds": 36.095
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "when",
+        "start_seconds": 36.095,
+        "end_seconds": 36.2325
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "the",
+        "start_seconds": 36.2325,
+        "end_seconds": 36.32
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "handshake",
+        "start_seconds": 36.32,
+        "end_seconds": 36.870000000000005
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "aborts.",
+        "start_seconds": 36.870000000000005,
+        "end_seconds": 37.8825
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "Here's",
+        "start_seconds": 37.8825,
+        "end_seconds": 38.245000000000005
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "why",
+        "start_seconds": 38.245000000000005,
+        "end_seconds": 38.445
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "that",
+        "start_seconds": 38.445,
+        "end_seconds": 38.67
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "matters:",
+        "start_seconds": 38.67,
+        "end_seconds": 39.47
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "upgrade",
+        "start_seconds": 39.47,
+        "end_seconds": 39.995000000000005
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "now",
+        "start_seconds": 39.995000000000005,
+        "end_seconds": 40.295
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "to",
+        "start_seconds": 40.295,
+        "end_seconds": 40.395
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "keep",
+        "start_seconds": 40.395,
+        "end_seconds": 40.6075
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "your",
+        "start_seconds": 40.6075,
+        "end_seconds": 40.7825
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "HTTP",
+        "start_seconds": 40.7825,
+        "end_seconds": 41.695
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "two",
+        "start_seconds": 41.695,
+        "end_seconds": 42.045
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "and",
+        "start_seconds": 42.045,
+        "end_seconds": 42.2075
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "HTTPS",
+        "start_seconds": 42.2075,
+        "end_seconds": 43.195
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "services",
+        "start_seconds": 43.195,
+        "end_seconds": 43.77
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "from",
+        "start_seconds": 43.77,
+        "end_seconds": 44.0075
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "unexpectedly",
+        "start_seconds": 44.0075,
+        "end_seconds": 44.895
+      },
+      {
+        "segment_id": "nodejs-tls-handshake-fix-story",
+        "text": "dying.",
+        "start_seconds": 44.895,
+        "end_seconds": 45.845
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "Next",
+        "start_seconds": 47.045,
+        "end_seconds": 47.307500000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "on",
+        "start_seconds": 47.307500000000005,
+        "end_seconds": 47.4075
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "the",
+        "start_seconds": 47.4075,
+        "end_seconds": 47.495000000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "bulletin.",
+        "start_seconds": 47.495000000000005,
+        "end_seconds": 48.345
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "A",
+        "start_seconds": 48.345,
+        "end_seconds": 48.445
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "team",
+        "start_seconds": 48.445,
+        "end_seconds": 48.682500000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "of",
+        "start_seconds": 48.682500000000005,
+        "end_seconds": 48.795
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "large‑language‑model",
+        "start_seconds": 48.795,
+        "end_seconds": 49.82
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "agents—Gemini,",
+        "start_seconds": 49.82,
+        "end_seconds": 50.845
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "ChatGPT,",
+        "start_seconds": 50.845,
+        "end_seconds": 51.695
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "Claude",
+        "start_seconds": 51.695,
+        "end_seconds": 51.9825
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "and",
+        "start_seconds": 51.9825,
+        "end_seconds": 52.095
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "Grok—were",
+        "start_seconds": 52.095,
+        "end_seconds": 52.57
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "asked",
+        "start_seconds": 52.57,
+        "end_seconds": 52.807500000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "to",
+        "start_seconds": 52.807500000000005,
+        "end_seconds": 52.895
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "hunt",
+        "start_seconds": 52.895,
+        "end_seconds": 53.095
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "for",
+        "start_seconds": 53.095,
+        "end_seconds": 53.22
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "high‑resolution",
+        "start_seconds": 53.22,
+        "end_seconds": 53.945
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "lidar",
+        "start_seconds": 53.945,
+        "end_seconds": 54.2575
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "over",
+        "start_seconds": 54.2575,
+        "end_seconds": 54.432500000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "the",
+        "start_seconds": 54.432500000000005,
+        "end_seconds": 54.52
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "Maya",
+        "start_seconds": 54.52,
+        "end_seconds": 54.795
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "lowlands.",
+        "start_seconds": 54.795,
+        "end_seconds": 55.620000000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "Within",
+        "start_seconds": 55.620000000000005,
+        "end_seconds": 55.895
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "72",
+        "start_seconds": 55.895,
+        "end_seconds": 56.395
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "hours",
+        "start_seconds": 56.395,
+        "end_seconds": 56.682500000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "they",
+        "start_seconds": 56.682500000000005,
+        "end_seconds": 56.82
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "flagged",
+        "start_seconds": 56.82,
+        "end_seconds": 57.1075
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "a",
+        "start_seconds": 57.1075,
+        "end_seconds": 57.17
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "set",
+        "start_seconds": 57.17,
+        "end_seconds": 57.3325
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "of",
+        "start_seconds": 57.3325,
+        "end_seconds": 57.42
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "rectangular",
+        "start_seconds": 57.42,
+        "end_seconds": 58.045
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "clearings",
+        "start_seconds": 58.045,
+        "end_seconds": 58.4825
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "and",
+        "start_seconds": 58.4825,
+        "end_seconds": 58.595
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "raised",
+        "start_seconds": 58.595,
+        "end_seconds": 58.92
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "platforms",
+        "start_seconds": 58.92,
+        "end_seconds": 59.432500000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "that",
+        "start_seconds": 59.432500000000005,
+        "end_seconds": 59.545
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "match",
+        "start_seconds": 59.545,
+        "end_seconds": 59.77
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "Classic‑period",
+        "start_seconds": 59.77,
+        "end_seconds": 60.495000000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "urban",
+        "start_seconds": 60.495000000000005,
+        "end_seconds": 60.795
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "layouts,",
+        "start_seconds": 60.795,
+        "end_seconds": 61.295
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "then",
+        "start_seconds": 61.295,
+        "end_seconds": 61.495000000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "bundled",
+        "start_seconds": 61.495000000000005,
+        "end_seconds": 61.8575
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "the",
+        "start_seconds": 61.8575,
+        "end_seconds": 61.945
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "find",
+        "start_seconds": 61.945,
+        "end_seconds": 62.2325
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "into",
+        "start_seconds": 62.2325,
+        "end_seconds": 62.432500000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "a",
+        "start_seconds": 62.432500000000005,
+        "end_seconds": 62.5325
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "short",
+        "start_seconds": 62.5325,
+        "end_seconds": 62.807500000000005
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "report.",
+        "start_seconds": 62.807500000000005,
+        "end_seconds": 63.7075
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "Mexican",
+        "start_seconds": 63.7075,
+        "end_seconds": 64.1325
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "officials",
+        "start_seconds": 64.1325,
+        "end_seconds": 64.62
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "took",
+        "start_seconds": 64.62,
+        "end_seconds": 64.8075
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "the",
+        "start_seconds": 64.8075,
+        "end_seconds": 64.89500000000001
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "report,",
+        "start_seconds": 64.89500000000001,
+        "end_seconds": 65.4075
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "checked",
+        "start_seconds": 65.4075,
+        "end_seconds": 65.6825
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "their",
+        "start_seconds": 65.6825,
+        "end_seconds": 65.87
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "own",
+        "start_seconds": 65.87,
+        "end_seconds": 66.095
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "records",
+        "start_seconds": 66.095,
+        "end_seconds": 66.595
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "and",
+        "start_seconds": 66.595,
+        "end_seconds": 66.72
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "confirmed",
+        "start_seconds": 66.72,
+        "end_seconds": 67.2325
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "the",
+        "start_seconds": 67.2325,
+        "end_seconds": 67.33250000000001
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "settlement,",
+        "start_seconds": 67.33250000000001,
+        "end_seconds": 68.12
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "noting",
+        "start_seconds": 68.12,
+        "end_seconds": 68.45750000000001
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "it",
+        "start_seconds": 68.45750000000001,
+        "end_seconds": 68.5325
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "was",
+        "start_seconds": 68.5325,
+        "end_seconds": 68.67
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "already",
+        "start_seconds": 68.67,
+        "end_seconds": 69.02000000000001
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "known",
+        "start_seconds": 69.02000000000001,
+        "end_seconds": 69.345
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "but",
+        "start_seconds": 69.345,
+        "end_seconds": 69.5075
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "missing",
+        "start_seconds": 69.5075,
+        "end_seconds": 69.89500000000001
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "from",
+        "start_seconds": 69.89500000000001,
+        "end_seconds": 70.0325
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "the",
+        "start_seconds": 70.0325,
+        "end_seconds": 70.14500000000001
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "official",
+        "start_seconds": 70.14500000000001,
+        "end_seconds": 70.595
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "register.",
+        "start_seconds": 70.595,
+        "end_seconds": 71.6575
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "The",
+        "start_seconds": 72.115,
+        "end_seconds": 72.19
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "whole",
+        "start_seconds": 72.19,
+        "end_seconds": 72.41499999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "experiment",
+        "start_seconds": 72.41499999999999,
+        "end_seconds": 73.03999999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "used",
+        "start_seconds": 73.03999999999999,
+        "end_seconds": 73.3275
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "only",
+        "start_seconds": 73.3275,
+        "end_seconds": 73.65249999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "public",
+        "start_seconds": 73.65249999999999,
+        "end_seconds": 74.065
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "NASA",
+        "start_seconds": 74.065,
+        "end_seconds": 74.39
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "lidar",
+        "start_seconds": 74.39,
+        "end_seconds": 74.765
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "tiles",
+        "start_seconds": 74.765,
+        "end_seconds": 75.3275
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "and",
+        "start_seconds": 75.3275,
+        "end_seconds": 75.5025
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "off‑the‑shelf",
+        "start_seconds": 75.5025,
+        "end_seconds": 76.2525
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "LLM",
+        "start_seconds": 76.2525,
+        "end_seconds": 76.78999999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "APIs,",
+        "start_seconds": 76.78999999999999,
+        "end_seconds": 77.58999999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "no",
+        "start_seconds": 77.58999999999999,
+        "end_seconds": 77.78999999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "custom",
+        "start_seconds": 77.78999999999999,
+        "end_seconds": 78.21499999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "models",
+        "start_seconds": 78.21499999999999,
+        "end_seconds": 78.65249999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "or",
+        "start_seconds": 78.65249999999999,
+        "end_seconds": 78.815
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "proprietary",
+        "start_seconds": 78.815,
+        "end_seconds": 79.49
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "imagery.",
+        "start_seconds": 79.49,
+        "end_seconds": 80.44
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "Here's",
+        "start_seconds": 80.44,
+        "end_seconds": 80.78999999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "why",
+        "start_seconds": 80.78999999999999,
+        "end_seconds": 80.96499999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "that",
+        "start_seconds": 80.96499999999999,
+        "end_seconds": 81.19
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "matters:",
+        "start_seconds": 81.19,
+        "end_seconds": 82.0775
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "it",
+        "start_seconds": 82.0775,
+        "end_seconds": 82.21499999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "shows",
+        "start_seconds": 82.21499999999999,
+        "end_seconds": 82.52749999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "generative",
+        "start_seconds": 82.52749999999999,
+        "end_seconds": 83.10249999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "AI",
+        "start_seconds": 83.10249999999999,
+        "end_seconds": 83.515
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "can",
+        "start_seconds": 83.515,
+        "end_seconds": 83.69
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "stitch",
+        "start_seconds": 83.69,
+        "end_seconds": 83.99
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "together",
+        "start_seconds": 83.99,
+        "end_seconds": 84.365
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "existing",
+        "start_seconds": 84.365,
+        "end_seconds": 84.89
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "data",
+        "start_seconds": 84.89,
+        "end_seconds": 85.2525
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "fast",
+        "start_seconds": 85.2525,
+        "end_seconds": 85.60249999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "enough",
+        "start_seconds": 85.60249999999999,
+        "end_seconds": 85.89
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "to",
+        "start_seconds": 85.89,
+        "end_seconds": 86.015
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "hand",
+        "start_seconds": 86.015,
+        "end_seconds": 86.27749999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "researchers",
+        "start_seconds": 86.27749999999999,
+        "end_seconds": 86.91499999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "a",
+        "start_seconds": 86.91499999999999,
+        "end_seconds": 87.015
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "validated",
+        "start_seconds": 87.015,
+        "end_seconds": 87.58999999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "hypothesis,",
+        "start_seconds": 87.58999999999999,
+        "end_seconds": 88.76499999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "letting",
+        "start_seconds": 88.76499999999999,
+        "end_seconds": 89.0525
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "them",
+        "start_seconds": 89.0525,
+        "end_seconds": 89.215
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "spend",
+        "start_seconds": 89.215,
+        "end_seconds": 89.5275
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "time",
+        "start_seconds": 89.5275,
+        "end_seconds": 89.85249999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "on",
+        "start_seconds": 89.85249999999999,
+        "end_seconds": 89.95249999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "interpretation",
+        "start_seconds": 89.95249999999999,
+        "end_seconds": 90.95249999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "instead",
+        "start_seconds": 90.95249999999999,
+        "end_seconds": 91.35249999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "of",
+        "start_seconds": 91.35249999999999,
+        "end_seconds": 91.47749999999999
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "raw",
+        "start_seconds": 91.47749999999999,
+        "end_seconds": 91.715
+      },
+      {
+        "segment_id": "ai-maya-lidar-discovery-segment",
+        "text": "discovery.",
+        "start_seconds": 91.715,
+        "end_seconds": 92.865
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Turning",
+        "start_seconds": 94.065,
+        "end_seconds": 94.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 94.365,
+        "end_seconds": 94.4525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 94.4525,
+        "end_seconds": 94.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "next",
+        "start_seconds": 94.565,
+        "end_seconds": 94.8275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 94.8275,
+        "end_seconds": 95.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AWS",
+        "start_seconds": 95.59,
+        "end_seconds": 96.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Emulator",
+        "start_seconds": 96.16499999999999,
+        "end_seconds": 96.66499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 96.66499999999999,
+        "end_seconds": 96.865
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "gives",
+        "start_seconds": 96.865,
+        "end_seconds": 97.0525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 97.0525,
+        "end_seconds": 97.1525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 97.1525,
+        "end_seconds": 97.215
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "local",
+        "start_seconds": 97.215,
+        "end_seconds": 97.53999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "drop‑in",
+        "start_seconds": 97.53999999999999,
+        "end_seconds": 97.8775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "replacement",
+        "start_seconds": 97.8775,
+        "end_seconds": 98.44
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 98.44,
+        "end_seconds": 98.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AWS",
+        "start_seconds": 98.59,
+        "end_seconds": 99.315
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "APIs.",
+        "start_seconds": 99.315,
+        "end_seconds": 100.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "You",
+        "start_seconds": 100.365,
+        "end_seconds": 100.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "run",
+        "start_seconds": 100.515,
+        "end_seconds": 100.6775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 100.6775,
+        "end_seconds": 100.7775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 100.7775,
+        "end_seconds": 100.8775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 100.8775,
+        "end_seconds": 100.94
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tiny",
+        "start_seconds": 100.94,
+        "end_seconds": 101.265
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "HTTP",
+        "start_seconds": 101.265,
+        "end_seconds": 102.03999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "service",
+        "start_seconds": 102.03999999999999,
+        "end_seconds": 102.4025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 102.4025,
+        "end_seconds": 102.5025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 102.5025,
+        "end_seconds": 102.60249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "machine,",
+        "start_seconds": 102.60249999999999,
+        "end_seconds": 103.03999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 103.03999999999999,
+        "end_seconds": 103.2775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 103.2775,
+        "end_seconds": 103.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AWS",
+        "start_seconds": 103.39,
+        "end_seconds": 104.015
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "CLI",
+        "start_seconds": 104.015,
+        "end_seconds": 104.49
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 104.49,
+        "end_seconds": 104.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 104.64,
+        "end_seconds": 104.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "SDK",
+        "start_seconds": 104.84,
+        "end_seconds": 105.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "at",
+        "start_seconds": 105.365,
+        "end_seconds": 105.4525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 105.4525,
+        "end_seconds": 105.5525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "address",
+        "start_seconds": 105.5525,
+        "end_seconds": 105.85249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 105.85249999999999,
+        "end_seconds": 105.97749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "environment",
+        "start_seconds": 105.97749999999999,
+        "end_seconds": 106.465
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "variables,",
+        "start_seconds": 106.465,
+        "end_seconds": 107.015
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 107.015,
+        "end_seconds": 107.1275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 107.1275,
+        "end_seconds": 107.2025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pretends",
+        "start_seconds": 107.2025,
+        "end_seconds": 107.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 107.59,
+        "end_seconds": 107.6775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "be",
+        "start_seconds": 107.6775,
+        "end_seconds": 107.7775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 107.7775,
+        "end_seconds": 107.865
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "real",
+        "start_seconds": 107.865,
+        "end_seconds": 108.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cloud.",
+        "start_seconds": 108.14,
+        "end_seconds": 108.91499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It",
+        "start_seconds": 108.91499999999999,
+        "end_seconds": 109.03999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "works",
+        "start_seconds": 109.03999999999999,
+        "end_seconds": 109.3025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 109.3025,
+        "end_seconds": 109.41499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Linux",
+        "start_seconds": 109.41499999999999,
+        "end_seconds": 109.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "x86_64",
+        "start_seconds": 109.74,
+        "end_seconds": 111.24
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 111.24,
+        "end_seconds": 111.4025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "aarch64,",
+        "start_seconds": 111.4025,
+        "end_seconds": 112.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 112.39,
+        "end_seconds": 112.5025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "be",
+        "start_seconds": 112.5025,
+        "end_seconds": 112.60249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "installed",
+        "start_seconds": 112.60249999999999,
+        "end_seconds": 113.115
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 113.115,
+        "end_seconds": 113.2525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 113.2525,
+        "end_seconds": 113.315
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "package",
+        "start_seconds": 113.315,
+        "end_seconds": 113.78999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 113.78999999999999,
+        "end_seconds": 113.91499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "built",
+        "start_seconds": 113.91499999999999,
+        "end_seconds": 114.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 114.16499999999999,
+        "end_seconds": 114.3775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "source,",
+        "start_seconds": 114.3775,
+        "end_seconds": 114.94
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 114.94,
+        "end_seconds": 115.0775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fits",
+        "start_seconds": 115.0775,
+        "end_seconds": 115.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nicely",
+        "start_seconds": 115.365,
+        "end_seconds": 115.7775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "into",
+        "start_seconds": 115.7775,
+        "end_seconds": 116.0025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "CI",
+        "start_seconds": 116.0025,
+        "end_seconds": 116.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pipelines.",
+        "start_seconds": 116.39,
+        "end_seconds": 117.5775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It’s",
+        "start_seconds": 118.00999999999999,
+        "end_seconds": 118.235
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "great",
+        "start_seconds": 118.235,
+        "end_seconds": 118.585
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 118.585,
+        "end_seconds": 118.7225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "speeding",
+        "start_seconds": 118.7225,
+        "end_seconds": 119.1475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "up",
+        "start_seconds": 119.1475,
+        "end_seconds": 119.31
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "development",
+        "start_seconds": 119.31,
+        "end_seconds": 119.935
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 119.935,
+        "end_seconds": 120.07249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cutting",
+        "start_seconds": 120.07249999999999,
+        "end_seconds": 120.46
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AWS",
+        "start_seconds": 120.46,
+        "end_seconds": 120.82249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fees,",
+        "start_seconds": 120.82249999999999,
+        "end_seconds": 121.585
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 121.585,
+        "end_seconds": 121.735
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "remember",
+        "start_seconds": 121.735,
+        "end_seconds": 122.21
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it’s",
+        "start_seconds": 122.21,
+        "end_seconds": 122.41
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "not",
+        "start_seconds": 122.41,
+        "end_seconds": 122.63499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "meant",
+        "start_seconds": 122.63499999999999,
+        "end_seconds": 122.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 122.91,
+        "end_seconds": 123.035
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "production",
+        "start_seconds": 123.035,
+        "end_seconds": 123.585
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "workloads",
+        "start_seconds": 123.585,
+        "end_seconds": 124.31
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 124.31,
+        "end_seconds": 124.5225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "security",
+        "start_seconds": 124.5225,
+        "end_seconds": 125.13499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "testing.",
+        "start_seconds": 125.13499999999999,
+        "end_seconds": 126.16
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "Next",
+        "start_seconds": 127.36,
+        "end_seconds": 127.6225
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "on",
+        "start_seconds": 127.6225,
+        "end_seconds": 127.7225
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "the",
+        "start_seconds": 127.7225,
+        "end_seconds": 127.81
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "bulletin.",
+        "start_seconds": 127.81,
+        "end_seconds": 128.71
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "Google",
+        "start_seconds": 128.71,
+        "end_seconds": 129.06
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "has",
+        "start_seconds": 129.06,
+        "end_seconds": 129.235
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "opened",
+        "start_seconds": 129.235,
+        "end_seconds": 129.5725
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "a",
+        "start_seconds": 129.5725,
+        "end_seconds": 129.6725
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "Gemini",
+        "start_seconds": 129.6725,
+        "end_seconds": 130.11
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "Decisions",
+        "start_seconds": 130.11,
+        "end_seconds": 130.585
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "endpoint",
+        "start_seconds": 130.585,
+        "end_seconds": 131.06
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "that",
+        "start_seconds": 131.06,
+        "end_seconds": 131.185
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "can",
+        "start_seconds": 131.185,
+        "end_seconds": 131.36
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "score",
+        "start_seconds": 131.36,
+        "end_seconds": 131.5975
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "up",
+        "start_seconds": 131.5975,
+        "end_seconds": 131.735
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "to",
+        "start_seconds": 131.735,
+        "end_seconds": 131.86
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "one",
+        "start_seconds": 131.86,
+        "end_seconds": 132.1225
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "thousand",
+        "start_seconds": 132.1225,
+        "end_seconds": 132.56
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "bounded‑choice",
+        "start_seconds": 132.56,
+        "end_seconds": 133.31
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "queries",
+        "start_seconds": 133.31,
+        "end_seconds": 133.76
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "in",
+        "start_seconds": 133.76,
+        "end_seconds": 133.8725
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "a",
+        "start_seconds": 133.8725,
+        "end_seconds": 133.9725
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "single",
+        "start_seconds": 133.9725,
+        "end_seconds": 134.335
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "pass.",
+        "start_seconds": 134.335,
+        "end_seconds": 135.135
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "You",
+        "start_seconds": 135.135,
+        "end_seconds": 135.285
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "feed",
+        "start_seconds": 135.285,
+        "end_seconds": 135.4975
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "it",
+        "start_seconds": 135.4975,
+        "end_seconds": 135.6475
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "text,",
+        "start_seconds": 135.6475,
+        "end_seconds": 136.185
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "images,",
+        "start_seconds": 136.185,
+        "end_seconds": 136.76
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "audio,",
+        "start_seconds": 136.76,
+        "end_seconds": 137.31
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "video",
+        "start_seconds": 137.31,
+        "end_seconds": 137.7225
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "or",
+        "start_seconds": 137.7225,
+        "end_seconds": 137.8975
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "PDFs",
+        "start_seconds": 137.8975,
+        "end_seconds": 138.6225
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "along",
+        "start_seconds": 138.6225,
+        "end_seconds": 138.8725
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "with",
+        "start_seconds": 138.8725,
+        "end_seconds": 139.035
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "yes/no,",
+        "start_seconds": 139.035,
+        "end_seconds": 139.71
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "multiple‑choice",
+        "start_seconds": 139.71,
+        "end_seconds": 140.6225
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "or",
+        "start_seconds": 140.6225,
+        "end_seconds": 140.7975
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "rubric",
+        "start_seconds": 140.7975,
+        "end_seconds": 141.185
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "questions,",
+        "start_seconds": 141.185,
+        "end_seconds": 142.11
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "and",
+        "start_seconds": 142.11,
+        "end_seconds": 142.2225
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "it",
+        "start_seconds": 142.2225,
+        "end_seconds": 142.2975
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "returns",
+        "start_seconds": 142.2975,
+        "end_seconds": 142.76
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "probabilities",
+        "start_seconds": 142.76,
+        "end_seconds": 143.51
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "and",
+        "start_seconds": 143.51,
+        "end_seconds": 143.635
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "confidence",
+        "start_seconds": 143.635,
+        "end_seconds": 144.185
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "scores",
+        "start_seconds": 144.185,
+        "end_seconds": 144.6475
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "in",
+        "start_seconds": 144.6475,
+        "end_seconds": 144.785
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "roughly",
+        "start_seconds": 144.785,
+        "end_seconds": 145.1475
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "one‑fifty",
+        "start_seconds": 145.1475,
+        "end_seconds": 145.785
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "to",
+        "start_seconds": 145.785,
+        "end_seconds": 145.9225
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "two‑fifty",
+        "start_seconds": 145.9225,
+        "end_seconds": 146.535
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "milliseconds.",
+        "start_seconds": 146.535,
+        "end_seconds": 147.7725
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "The",
+        "start_seconds": 148.20499999999998,
+        "end_seconds": 148.32999999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "input",
+        "start_seconds": 148.32999999999998,
+        "end_seconds": 148.70499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "cap",
+        "start_seconds": 148.70499999999998,
+        "end_seconds": 148.98
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "is",
+        "start_seconds": 148.98,
+        "end_seconds": 149.14249999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "256",
+        "start_seconds": 149.14249999999998,
+        "end_seconds": 150.70499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "K",
+        "start_seconds": 149.14249999999998,
+        "end_seconds": 150.70499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "tokens,",
+        "start_seconds": 150.70499999999998,
+        "end_seconds": 151.53
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "about",
+        "start_seconds": 151.53,
+        "end_seconds": 151.86749999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "sixteen",
+        "start_seconds": 151.86749999999998,
+        "end_seconds": 152.605
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "K",
+        "start_seconds": 151.86749999999998,
+        "end_seconds": 152.605
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "tokens",
+        "start_seconds": 152.605,
+        "end_seconds": 153.01749999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "of",
+        "start_seconds": 153.01749999999998,
+        "end_seconds": 153.105
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "context,",
+        "start_seconds": 153.105,
+        "end_seconds": 154.005
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "and",
+        "start_seconds": 154.005,
+        "end_seconds": 154.13
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "pricing",
+        "start_seconds": 154.13,
+        "end_seconds": 154.57999999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "is",
+        "start_seconds": 154.57999999999998,
+        "end_seconds": 154.74249999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "ten",
+        "start_seconds": 154.74249999999998,
+        "end_seconds": 155.01749999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "cents",
+        "start_seconds": 155.01749999999998,
+        "end_seconds": 155.355
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "per",
+        "start_seconds": 155.355,
+        "end_seconds": 155.55499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "one",
+        "start_seconds": 155.55499999999998,
+        "end_seconds": 155.7925
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "million",
+        "start_seconds": 155.7925,
+        "end_seconds": 156.20499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "input",
+        "start_seconds": 156.20499999999998,
+        "end_seconds": 156.55499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "tokens",
+        "start_seconds": 156.55499999999998,
+        "end_seconds": 157.13
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "with",
+        "start_seconds": 157.13,
+        "end_seconds": 157.3175
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "no",
+        "start_seconds": 157.3175,
+        "end_seconds": 157.5925
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "output‑token",
+        "start_seconds": 157.5925,
+        "end_seconds": 158.4675
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "charge.",
+        "start_seconds": 158.4675,
+        "end_seconds": 159.4675
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "Engineers",
+        "start_seconds": 159.4675,
+        "end_seconds": 160.13
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "can",
+        "start_seconds": 160.13,
+        "end_seconds": 160.30499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "now",
+        "start_seconds": 160.30499999999998,
+        "end_seconds": 160.505
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "batch",
+        "start_seconds": 160.505,
+        "end_seconds": 160.80499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "policy",
+        "start_seconds": 160.80499999999998,
+        "end_seconds": 161.2925
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "checks",
+        "start_seconds": 161.2925,
+        "end_seconds": 161.67999999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "or",
+        "start_seconds": 161.67999999999998,
+        "end_seconds": 161.82999999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "content‑grading",
+        "start_seconds": 161.82999999999998,
+        "end_seconds": 162.63
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "tasks,",
+        "start_seconds": 162.63,
+        "end_seconds": 163.45499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "cutting",
+        "start_seconds": 163.45499999999998,
+        "end_seconds": 163.80499999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "both",
+        "start_seconds": 163.80499999999998,
+        "end_seconds": 164.0675
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "latency",
+        "start_seconds": 164.0675,
+        "end_seconds": 164.7175
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "and",
+        "start_seconds": 164.7175,
+        "end_seconds": 164.88
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "compute",
+        "start_seconds": 164.88,
+        "end_seconds": 165.32999999999998
+      },
+      {
+        "segment_id": "gemini-decisions-api-launch-segment",
+        "text": "spend.",
+        "start_seconds": 165.32999999999998,
+        "end_seconds": 166.255
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "And",
+        "start_seconds": 167.43,
+        "end_seconds": 167.56750000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "finally,",
+        "start_seconds": 167.56750000000002,
+        "end_seconds": 168.08
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "our",
+        "start_seconds": 168.08,
+        "end_seconds": 168.23000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "last",
+        "start_seconds": 168.23000000000002,
+        "end_seconds": 168.53
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "story.",
+        "start_seconds": 168.53,
+        "end_seconds": 169.33
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "United",
+        "start_seconds": 169.33,
+        "end_seconds": 169.8425
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Airlines",
+        "start_seconds": 169.8425,
+        "end_seconds": 170.28
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "just",
+        "start_seconds": 170.28,
+        "end_seconds": 170.48000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "pulled",
+        "start_seconds": 170.48000000000002,
+        "end_seconds": 170.7175
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "the",
+        "start_seconds": 170.7175,
+        "end_seconds": 170.805
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "plug",
+        "start_seconds": 170.805,
+        "end_seconds": 171.06750000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "on",
+        "start_seconds": 171.06750000000002,
+        "end_seconds": 171.2425
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "third‑party",
+        "start_seconds": 171.2425,
+        "end_seconds": 172.0175
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "AI",
+        "start_seconds": 172.0175,
+        "end_seconds": 172.43
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "assistants",
+        "start_seconds": 172.43,
+        "end_seconds": 173.03
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "trying",
+        "start_seconds": 173.03,
+        "end_seconds": 173.33
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "to",
+        "start_seconds": 173.33,
+        "end_seconds": 173.43
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "book",
+        "start_seconds": 173.43,
+        "end_seconds": 173.66750000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "flights.",
+        "start_seconds": 173.66750000000002,
+        "end_seconds": 174.5925
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Effective",
+        "start_seconds": 174.5925,
+        "end_seconds": 175.055
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "immediately,",
+        "start_seconds": 175.055,
+        "end_seconds": 175.85500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "its",
+        "start_seconds": 175.85500000000002,
+        "end_seconds": 176.06750000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "website",
+        "start_seconds": 176.06750000000002,
+        "end_seconds": 176.555
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "and",
+        "start_seconds": 176.555,
+        "end_seconds": 176.68
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "partner",
+        "start_seconds": 176.68,
+        "end_seconds": 177.10500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "aggregators",
+        "start_seconds": 177.10500000000002,
+        "end_seconds": 177.83
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "will",
+        "start_seconds": 177.83,
+        "end_seconds": 177.98000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "reject",
+        "start_seconds": 177.98000000000002,
+        "end_seconds": 178.38000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "requests",
+        "start_seconds": 178.38000000000002,
+        "end_seconds": 178.85500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "from",
+        "start_seconds": 178.85500000000002,
+        "end_seconds": 179.055
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "tools",
+        "start_seconds": 179.055,
+        "end_seconds": 179.48000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "like",
+        "start_seconds": 179.48000000000002,
+        "end_seconds": 179.705
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Meta’s",
+        "start_seconds": 179.705,
+        "end_seconds": 180.08
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Muse",
+        "start_seconds": 180.08,
+        "end_seconds": 180.4925
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "or",
+        "start_seconds": 180.4925,
+        "end_seconds": 180.66750000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "OpenAI’s",
+        "start_seconds": 180.66750000000002,
+        "end_seconds": 181.35500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "bots,",
+        "start_seconds": 181.35500000000002,
+        "end_seconds": 182.13000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "warning",
+        "start_seconds": 182.13000000000002,
+        "end_seconds": 182.455
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "that",
+        "start_seconds": 182.455,
+        "end_seconds": 182.60500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "handing",
+        "start_seconds": 182.60500000000002,
+        "end_seconds": 182.98000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "over",
+        "start_seconds": 182.98000000000002,
+        "end_seconds": 183.23000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "login",
+        "start_seconds": 183.23000000000002,
+        "end_seconds": 183.58
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "credentials",
+        "start_seconds": 183.58,
+        "end_seconds": 184.23000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "can",
+        "start_seconds": 184.23000000000002,
+        "end_seconds": 184.405
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "leak",
+        "start_seconds": 184.405,
+        "end_seconds": 184.63000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "payment",
+        "start_seconds": 184.63000000000002,
+        "end_seconds": 185.03
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "data",
+        "start_seconds": 185.03,
+        "end_seconds": 185.655
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "and",
+        "start_seconds": 185.655,
+        "end_seconds": 185.83
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "even",
+        "start_seconds": 185.83,
+        "end_seconds": 186.155
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "misuse",
+        "start_seconds": 186.155,
+        "end_seconds": 186.68
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "mileage.",
+        "start_seconds": 186.68,
+        "end_seconds": 187.69250000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "The",
+        "start_seconds": 188.15,
+        "end_seconds": 188.275
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "airline",
+        "start_seconds": 188.275,
+        "end_seconds": 188.6
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "says",
+        "start_seconds": 188.6,
+        "end_seconds": 188.85
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "the",
+        "start_seconds": 188.85,
+        "end_seconds": 188.95000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "move",
+        "start_seconds": 188.95000000000002,
+        "end_seconds": 189.2375
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "is",
+        "start_seconds": 189.2375,
+        "end_seconds": 189.3375
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "about",
+        "start_seconds": 189.3375,
+        "end_seconds": 189.65
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "security",
+        "start_seconds": 189.65,
+        "end_seconds": 190.35
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "and",
+        "start_seconds": 190.35,
+        "end_seconds": 190.475
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "staying",
+        "start_seconds": 190.475,
+        "end_seconds": 190.8375
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "within",
+        "start_seconds": 190.8375,
+        "end_seconds": 191.1125
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "federal",
+        "start_seconds": 191.1125,
+        "end_seconds": 191.475
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "rules,",
+        "start_seconds": 191.475,
+        "end_seconds": 192.175
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "while",
+        "start_seconds": 192.175,
+        "end_seconds": 192.4
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "rivals",
+        "start_seconds": 192.4,
+        "end_seconds": 192.85
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "like",
+        "start_seconds": 192.85,
+        "end_seconds": 193.07500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Southwest",
+        "start_seconds": 193.07500000000002,
+        "end_seconds": 193.625
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "still",
+        "start_seconds": 193.625,
+        "end_seconds": 193.9
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "let",
+        "start_seconds": 193.9,
+        "end_seconds": 194.13750000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "ChatGPT‑style",
+        "start_seconds": 194.13750000000002,
+        "end_seconds": 195.45000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "queries",
+        "start_seconds": 195.45000000000002,
+        "end_seconds": 195.925
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "run.",
+        "start_seconds": 195.925,
+        "end_seconds": 196.675
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Here's",
+        "start_seconds": 196.675,
+        "end_seconds": 197.025
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "why",
+        "start_seconds": 197.025,
+        "end_seconds": 197.20000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "that",
+        "start_seconds": 197.20000000000002,
+        "end_seconds": 197.425
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "matters:",
+        "start_seconds": 197.425,
+        "end_seconds": 198.25
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "any",
+        "start_seconds": 198.25,
+        "end_seconds": 198.475
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "travel‑tech",
+        "start_seconds": 198.475,
+        "end_seconds": 199.1
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "bot",
+        "start_seconds": 199.1,
+        "end_seconds": 199.32500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "now",
+        "start_seconds": 199.32500000000002,
+        "end_seconds": 199.57500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "has",
+        "start_seconds": 199.57500000000002,
+        "end_seconds": 199.75
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "to",
+        "start_seconds": 199.75,
+        "end_seconds": 199.85
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "go",
+        "start_seconds": 199.85,
+        "end_seconds": 200.0375
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "through",
+        "start_seconds": 200.0375,
+        "end_seconds": 200.3
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "United’s",
+        "start_seconds": 200.3,
+        "end_seconds": 200.85
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "approved",
+        "start_seconds": 200.85,
+        "end_seconds": 201.275
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "APIs",
+        "start_seconds": 201.275,
+        "end_seconds": 202.0375
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "or",
+        "start_seconds": 202.0375,
+        "end_seconds": 202.20000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "a",
+        "start_seconds": 202.20000000000002,
+        "end_seconds": 202.3
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "human‑mediated",
+        "start_seconds": 202.3,
+        "end_seconds": 203.2125
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "flow,",
+        "start_seconds": 203.2125,
+        "end_seconds": 203.8
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "or",
+        "start_seconds": 203.8,
+        "end_seconds": 203.95000000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "it’ll",
+        "start_seconds": 203.95000000000002,
+        "end_seconds": 204.275
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "hit",
+        "start_seconds": 204.275,
+        "end_seconds": 204.475
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "a",
+        "start_seconds": 204.475,
+        "end_seconds": 204.57500000000002
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "hard",
+        "start_seconds": 204.57500000000002,
+        "end_seconds": 204.875
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "block.",
+        "start_seconds": 204.875,
+        "end_seconds": 205.75
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "And",
+        "start_seconds": 206.92499999999998,
+        "end_seconds": 207.075
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "that's",
+        "start_seconds": 207.075,
+        "end_seconds": 207.35
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "your",
+        "start_seconds": 207.35,
+        "end_seconds": 207.54999999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Daywire",
+        "start_seconds": 207.54999999999998,
+        "end_seconds": 208.02499999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "briefing.",
+        "start_seconds": 208.02499999999998,
+        "end_seconds": 208.75
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "You'll",
+        "start_seconds": 208.75,
+        "end_seconds": 208.92499999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "find",
+        "start_seconds": 208.92499999999998,
+        "end_seconds": 209.1875
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "the",
+        "start_seconds": 209.1875,
+        "end_seconds": 209.29999999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "full",
+        "start_seconds": 209.29999999999998,
+        "end_seconds": 209.6
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "stories",
+        "start_seconds": 209.6,
+        "end_seconds": 210.125
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "and",
+        "start_seconds": 210.125,
+        "end_seconds": 210.2625
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "sources",
+        "start_seconds": 210.2625,
+        "end_seconds": 210.77499999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "in",
+        "start_seconds": 210.77499999999998,
+        "end_seconds": 210.92499999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "today's",
+        "start_seconds": 210.92499999999998,
+        "end_seconds": 211.29999999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "newspaper.",
+        "start_seconds": 211.29999999999998,
+        "end_seconds": 212.23749999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Thanks",
+        "start_seconds": 212.23749999999998,
+        "end_seconds": 212.575
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "for",
+        "start_seconds": 212.575,
+        "end_seconds": 212.7
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "listening.",
+        "start_seconds": 212.7,
+        "end_seconds": 213.33749999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "Take",
+        "start_seconds": 213.33749999999998,
+        "end_seconds": 213.6625
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "care,",
+        "start_seconds": 213.6625,
+        "end_seconds": 214.04999999999998
+      },
+      {
+        "segment_id": "united-ai-booking-ban-2026-11-12-segment",
+        "text": "everyone.",
+        "start_seconds": 214.04999999999998,
+        "end_seconds": 215.1
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
