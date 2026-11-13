@@ -1,0 +1,3916 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-13",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-13T07:15:23.718939194Z",
+  "coverage": {
+    "from": "2026-11-12T06:00:00+05:30",
+    "until": "2026-11-13T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-bc816e16a4a037cf",
+      "source-67672a694e389b29",
+      "source-b9840fd67063a36a",
+      "source-d5c24e437f044e7c",
+      "source-4922ca6fb0dd9299",
+      "source-2ae1d498f3838123"
+    ],
+    "candidate_count": 35,
+    "evidence_count": 29
+  },
+  "content": {
+    "title": "AI IPOs, Secure Servers, and New Rust Tools",
+    "introduction": "Anthropic’s Nasdaq debut marks a major milestone for AI startups, while Google’s Gemini 4 Hydrogen pushes agentic workflows forward. At the same time, critical security patches and language‑level utilities tighten the foundations of modern software.",
+    "articles": [
+      {
+        "id": "anthropic-ipo-2026",
+        "section": "AI",
+        "headline": "Anthropic files for IPO, shares to debut on Nasdaq as “ANT”",
+        "summary": "Anthropic announced its initial public offering, targeting a November 19 debut on Nasdaq and inviting investors to purchase Class A common stock.",
+        "paragraphs": [
+          "Anthropic, a public‑benefit corporation focused on safe AI development, filed paperwork to list its Class A common stock under the ticker “ANT” on Nasdaq. The company’s prospectus, released ahead of the offering, frames AI as a “consequential technology” that could accelerate scientific breakthroughs, boost economic growth, and address long‑standing societal challenges. The IPO is scheduled to price on November 18, with trading expected to begin the following day.",
+          "Investors will need to go through their brokerage or investing app to determine eligibility and submit applications. The prospectus makes clear there is no guarantee of allocation; participants must be prepared to fund any shares they are awarded. The filing also outlines the use of proceeds, risk factors, and management details, emphasizing Anthropic’s commitment to mitigating AI risks while pursuing its commercial goals."
+        ],
+        "implication": "Software engineers should watch the “ANT” debut as a signal of growing capital interest in safety‑focused AI firms, which may affect talent demand and funding landscapes in the sector.",
+        "source_ids": [
+          "source-a16cf66c04abcd1d"
+        ]
+      },
+      {
+        "id": "rust-1-100-dropguard",
+        "section": "Engineering",
+        "headline": "Rust 1.100 adds DropGuard helper for unconditional cleanup",
+        "summary": "Rust 1.100.0 introduces core::mem::DropGuard, a standard‑library type that runs a closure when dropped, simplifying scope‑exit cleanup.",
+        "paragraphs": [
+          "The Rust 1.100 release, announced on November 12, adds core::mem::DropGuard to the standard library. The type stores a closure and executes it in its Drop implementation, letting developers run arbitrary code automatically when a function returns or a scope ends, without writing a custom Drop impl for a wrapper struct. Existing installations can be upgraded with `rustup update stable`.",
+          "DropGuard appears alongside other ergonomics such as std::mem::conjure_zst, which provides a dedicated way to create zero‑sized values safely. The new helper is part of the stable channel and does not require any additional crates.",
+          "For engineers, DropGuard reduces boilerplate for one‑off cleanup actions, though more complex resource management still calls for full Drop implementations."
+        ],
+        "implication": "Engineers can replace small, ad‑hoc guard structs with a single DropGuard value, cutting boilerplate for simple scope‑exit actions while staying within stable Rust.",
+        "source_ids": [
+          "source-9ab435bfd5da65a2"
+        ]
+      },
+      {
+        "id": "gemini-4-hydrogen-launch",
+        "section": "AI",
+        "headline": "Google launches Gemini 4 Hydrogen for fast, agentic workflows",
+        "summary": "Google’s Gemini 4 Hydrogen model is now available in AI Studio, the Gemini API and other Google services, offering rapid execution for multi‑step coding and knowledge‑work tasks.",
+        "paragraphs": [
+          "Gemini 4 Hydrogen adds four “thinking levels” – low, medium, high (default) and a new xhigh – so developers can choose between latency, quality and cost. The model supports up to one‑million input and output tokens, allowing dense PDFs, spreadsheets, charts, audio and video to be processed in a single pass.",
+          "In the initial benchmark runs Hydrogen ranked #5 on arena.ai’s live Agent Arena, led its class on HLE‑Diamond (58.8%) and Vals Tax Agent Bench (52.3%), tied for #1 on the Vals Legal Research Bench (55.8%), and topped the Multimodal Knowledge Agent benchmark (53.4%). Across these tests it often completed tasks faster and with fewer output tokens than comparable models."
+        ],
+        "implication": "Engineers can prototype large‑scale, multimodal agents with lower latency than frontier models, provided they select the appropriate thinking level to meet cost and speed requirements.",
+        "source_ids": [
+          "source-c7a410ad3b862809",
+          "source-80edea19d5fdcf28"
+        ]
+      },
+      {
+        "id": "apache-http2-race-fix-2026-11-13",
+        "section": "Security",
+        "headline": "Apache HTTP Server patches critical HTTP/2 race condition",
+        "summary": "A race‑condition RCE bug in mod_http2 (CVE‑2026‑119618) is fixed in Apache 2.4.71 and later, and in mod_h2 2.0.42+, protecting servers that enable HTTP/2.",
+        "paragraphs": [
+          "The vulnerability, discovered independently by Anthropic and Google Cloud’s research team, allowed an unauthenticated attacker to corrupt heap memory via the assign_headers() function when multiple threads accessed shared resources. A temporary mitigation is to disable HTTP/2 and fall back to HTTP/1.1 until the upgrade is applied."
+        ],
+        "implication": "Operators of Apache 2.4.55‑2.4.70 or mod_h2 2.0.8‑2.0.42 must upgrade or disable HTTP/2 to avoid remote code execution.",
+        "source_ids": [
+          "source-7c413c5b5223a576"
+        ]
+      },
+      {
+        "id": "smolmaxxing-2026-11-13",
+        "section": "AI",
+        "headline": "LLMs run on 1 GB devices using flash‑streamed experts",
+        "summary": "A GitHub project demonstrates 8‑billion‑parameter and 16‑billion‑parameter mixture‑of‑experts models operating on devices with only 1 GB of RAM.",
+        "paragraphs": [
+          "The repo uses a 1‑bit NEON kernel and on‑demand flash streaming to keep only a subset of model weights in RAM, paging less‑used experts from storage. Benchmarks on an iOS 12 phone and a single‑board computer show full‑scale inference despite the memory limit, with vocabulary rows trimmed for rarely used tokens."
+        ],
+        "implication": "Engineers can prototype LLM workloads on cheap, low‑memory hardware, but must accept reduced vocab coverage and rely on Linux or Android flash‑IO performance.",
+        "source_ids": [
+          "source-cac5c7e5906dac13"
+        ]
+      },
+      {
+        "id": "nintendo-github-dmca-2026",
+        "section": "Security",
+        "headline": "Nintendo forces removal of Switch emulator and mod‑chip firmware from GitHub",
+        "summary": "Nintendo issued four DMCA notices that led GitHub to delete Yuzu, Citron Neo, and 144 mod‑chip firmware repositories, aiming to block piracy‑enabling code.",
+        "paragraphs": [
+          "The November 6 notice cites the Switch’s technological protection measures and demands removal of any code that lets unauthorized devices run Nintendo games; GitHub complied, wiping the targeted repos while copies persist on other sites, echoing a 2024 takedown of 8,500 Yuzu mirrors."
+        ],
+        "implication": "Developers relying on these public repositories must seek alternative sources or rebuild the firmware, and any future emulation work will likely face tighter legal scrutiny.",
+        "source_ids": [
+          "source-3f5497b8e21b5b3e"
+        ]
+      },
+      {
+        "id": "libreagi-bittorrent-tracker",
+        "section": "Tools",
+        "headline": "LibreAGI launches private BitTorrent tracker for at‑risk AI models",
+        "summary": "LibreAGI introduces a member‑only BitTorrent swarm that seeds open‑weight models likely to disappear, rewarding scarcity with higher credit.",
+        "paragraphs": [
+          "The service lets members upload model files of any format—safetensors, GGUF, ONNX—under permissive licenses, then seeds them via a private tracker. Credit accrues based on copy count and uptime; a single‑copy model earns four times the base rate, encouraging users to preserve rare assets. A signed public catalog records hashes and sources so the swarm can be rebuilt if the site shuts down."
+        ],
+        "implication": "Engineers can use LibreAGI to safeguard niche models, but must join the members‑only community and accept the credit‑based incentive model.",
+        "source_ids": [
+          "source-e1a63159b802e819"
+        ]
+      },
+      {
+        "id": "cpython-yk-adaptation-2026",
+        "section": "Engineering",
+        "headline": "Adapted CPython runs on yk with benchmark gains",
+        "summary": "Laurence Tratt shows that a patched CPython (ykcpython 3.15.1) compiled for the yk JIT framework can beat standard CPython and the experimental CPython‑jit on most of his benchmark suite.",
+        "paragraphs": [
+          "The adaptation adds loop‑hints that let yk’s tracing JIT identify hot loops. In Tratt’s own benchmark suite, ykcpython 3.15.1 with the experimental JIT enabled outperformed vanilla CPython on 12 of 13 tests and was faster than CPython‑jit on eight, with only a 2.5 % slowdown on the DeltaBlue benchmark."
+        ],
+        "implication": "Python projects that can supply loop hints may achieve JIT‑level speedups with relatively little code change, though gains are workload‑dependent.",
+        "source_ids": [
+          "source-0d7637bb5559a97c"
+        ]
+      },
+      {
+        "id": "jit-bitmap-text-microcontrollers",
+        "section": "Engineering",
+        "headline": "JIT bitmap text rendering for RP2350 microcontrollers",
+        "summary": "A just‑in‑time pipeline streams bitmap glyphs directly to the video output, avoiding a full framebuffer on RP2350‑based boards.",
+        "paragraphs": [
+          "The author describes a technique that builds a display list on the fly and feeds each scanline to the video beam, keeping the font bitmap in SRAM to prevent flash‑access stalls. By racing the beam instead of using a fixed‑cell, monospace approach, the method fits within the RP2350’s 520 kB RAM budget while still supporting custom bitmap fonts."
+        ],
+        "implication": "Engineers can add custom bitmap text to low‑memory video projects without allocating a large framebuffer.",
+        "source_ids": [
+          "source-fbb4c6ab199fa8c6"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "ipo-allocation-risk-2026",
+        "title": "Why IPO Allocation Is Not Guaranteed",
+        "paragraphs": [
+          "When a company like Anthropic goes public, investors must apply for shares through their broker. The prospectus explicitly states that there is no guarantee any applicant will receive the number of shares they request, and the final allocation is decided by the underwriters based on demand and regulatory limits. This uncertainty is a core feature of the primary market, not a flaw in the offering.",
+          "The mechanism works like a lottery: imagine ten investors each ask for 1,000 shares, but the IPO only has 5,000 shares to distribute. The underwriters will proportionally reduce each request, and some participants may end up with zero shares. The result is that even a fully eligible investor can walk away empty‑handed."
+        ],
+        "example": "If you submit an order for 200 shares of ANT and the IPO is oversubscribed 3‑to‑1, you might receive only about 66 shares, or possibly none, depending on the allocation algorithm used by the underwriters.",
+        "takeaway": "Always plan for the possibility of partial or no allocation in an IPO and have a backup strategy, such as buying shares on the secondary market after the stock begins trading.",
+        "article_ids": [
+          "anthropic-ipo-2026"
+        ],
+        "source_ids": [
+          "source-a16cf66c04abcd1d"
+        ]
+      },
+      {
+        "id": "dropguard-deterministic-cleanup",
+        "title": "DropGuard leverages RAII for deterministic cleanup",
+        "paragraphs": [
+          "In many Rust codebases developers write tiny guard structs that implement Drop just to run a single piece of cleanup code when a scope ends. This adds boilerplate and distracts from the core logic. Rust 1.100 solves the problem by introducing core::mem::DropGuard, a standard‑library type that stores a closure and automatically invokes it in its Drop implementation, providing a ready‑made RAII guard for any one‑off action.",
+          "DropGuard works by capturing a closure at construction time; when the value goes out of scope, its Drop impl calls the closure. Because the type lives in the standard library, no external crates are needed and the behavior runs when the value is dropped."
+        ],
+        "example": "let _guard = core::mem::DropGuard::new(|| println!(\"Leaving scope\")); // prints when the function returns",
+        "takeaway": "Use DropGuard for simple, unconditional cleanup instead of writing custom guard structs, reducing boilerplate while preserving Rust's safety guarantees.",
+        "article_ids": [
+          "rust-1-100-dropguard"
+        ],
+        "source_ids": [
+          "source-9ab435bfd5da65a2"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-ipo-allocation-01",
+        "lesson_id": "ipo-allocation-risk-2026",
+        "prompt": "What determines whether an investor receives any shares in an oversubscribed IPO?",
+        "options": [
+          "The investor's request size relative to the total shares available",
+          "The underwriters' allocation decision based on overall demand and regulatory limits",
+          "The broker's internal ranking of client importance",
+          "The investor's prior trading volume with the underwriter"
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that final allocation is decided by the underwriters based on demand and regulatory limits, not on request size alone or broker preferences."
+      },
+      {
+        "id": "quiz-1-ipo-allocation-02",
+        "lesson_id": "ipo-allocation-risk-2026",
+        "prompt": "If an IPO is oversubscribed 3‑to‑1 and an investor orders 200 shares, what is the most likely outcome according to the lesson?",
+        "options": [
+          "The investor will definitely receive all 200 shares",
+          "The investor will receive exactly 66 shares",
+          "The investor may receive about 66 shares or possibly none, depending on the allocation algorithm",
+          "The investor will receive a random number of shares between 0 and 200"
+        ],
+        "answer": 2,
+        "explanation": "The lesson explains that in a 3‑to‑1 oversubscription the investor might receive about 66 shares or possibly none, depending on the underwriters' allocation algorithm."
+      },
+      {
+        "id": "quiz-1-ipo-allocation-03",
+        "lesson_id": "ipo-allocation-risk-2026",
+        "prompt": "What is the recommended strategy for investors to mitigate the risk of receiving no shares in an IPO?",
+        "options": [
+          "Only apply for a small number of shares to increase chances of allocation",
+          "Plan for partial or no allocation and have a backup plan to buy shares on the secondary market after trading begins",
+          "Negotiate directly with the underwriters for guaranteed shares",
+          "Submit multiple applications through different brokers to increase total allocation"
+        ],
+        "answer": 1,
+        "explanation": "The takeaway advises investors to plan for partial or no allocation and have a backup strategy such as buying shares on the secondary market."
+      },
+      {
+        "id": "quiz-2-dropguard-purpose",
+        "lesson_id": "dropguard-deterministic-cleanup",
+        "prompt": "What is the primary advantage of using core::mem::DropGuard over custom guard structs in Rust?",
+        "options": [
+          "It allows cleanup code to run asynchronously after the scope ends",
+          "It eliminates the need for external crates and reduces boilerplate",
+          "It enables multiple cleanup actions to be attached to a single guard",
+          "It provides compile‑time verification that the closure will not panic"
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that DropGuard is a standard‑library type that stores a closure and runs it on Drop, removing the need for external crates and reducing boilerplate compared to writing custom guard structs."
+      },
+      {
+        "id": "quiz-2-dropguard-behavior",
+        "lesson_id": "dropguard-deterministic-cleanup",
+        "prompt": "How does core::mem::DropGuard ensure deterministic cleanup of a resource?",
+        "options": [
+          "It registers the closure with the operating system’s atexit handler",
+          "It spawns a background thread that monitors the scope’s lifetime",
+          "It captures the closure at construction and invokes it in its Drop implementation when the value goes out of scope",
+          "It uses a macro to rewrite the surrounding code into a try/finally block"
+        ],
+        "answer": 2,
+        "explanation": "According to the lesson, DropGuard captures a closure when created and calls that closure in its Drop impl when the guard value leaves scope, providing deterministic cleanup."
+      }
+    ],
+    "segments": [
+      {
+        "id": "radio-1",
+        "title": "Anthropic IPO set for Nasdaq debut",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November thirteen, two thousand twenty six.\n\nWe begin with our lead story. Anthropic, the safety‑first AI lab, just filed to go public on Nasdaq under the ticker ANT. The company says the offering will price on November eighteenth and start trading the next day, giving investors a chance to buy Class A common stock. Here's why that matters: a public listing signals strong capital appetite for AI built around risk mitigation, which could shift hiring trends and funding flows for engineers focused on responsible AI. Keep an eye on how the market reacts once the shares start moving.",
+        "article_ids": [
+          "anthropic-ipo-2026"
+        ]
+      },
+      {
+        "id": "rust-dropguard-brief",
+        "title": "Rust 1.100 adds DropGuard for easy cleanup",
+        "text": "Next on the bulletin. Rust version one point one hundred zero introduces a new DropGuard helper that runs a closure when dropped.\nIt lives in core colon colon mem and lets you attach any cleanup code to a scope without writing a custom Drop implementation. Just create a DropGuard with your closure and it will fire automatically when the function returns or the block ends. Existing projects can get it by running rustup update stable.\nHere's why that matters: you can replace tiny guard structs with a single line, cutting boilerplate for simple exit actions while staying on the stable channel.",
+        "article_ids": [
+          "rust-1-100-dropguard"
+        ]
+      },
+      {
+        "id": "gemini-4-hydrogen-launch-segment",
+        "title": "Google launches Gemini 4 Hydrogen",
+        "text": "Turning to our next story. Google launches Gemini four Hydrogen, a fast, agentic AI model.\nIt adds four thinking levels—low, medium, high and a new xhigh—so developers can trade latency, quality and cost. The model can handle up to one million input and output tokens, meaning a dense PDF, spreadsheet or even a video can be processed in a single pass. In early benchmarks it ranked in the top five on Agent Arena and led several multimodal agent tests, often finishing tasks quicker and with fewer tokens than comparable frontier models.\nHere's why that matters: engineers can prototype large‑scale, multimodal agents with lower latency, as long as they pick the right thinking level for their cost and speed needs.",
+        "article_ids": [
+          "gemini-4-hydrogen-launch"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Apache HTTP Server patches critical HTTP/2 race condition",
+        "text": "Next on the bulletin. Apache HTTP Server has patched a critical race‑condition that could let an unauthenticated attacker execute code. The flaw lived in the mod_http2 assign_headers function, where multiple threads could corrupt heap memory. The fix lands in Apache version two point four point seventy‑one and later, and in mod_h2 version two point zero point forty‑two and newer. If you’re still on Apache two point four point fifty‑five through two point four point seventy, or mod_h2 two point zero point eight through two point zero point forty‑two, you need to upgrade now or turn off HTTP slash two and fall back to HTTP slash one. The takeaway: upgrade or disable HTTP two to stay safe.",
+        "article_ids": [
+          "apache-http2-race-fix-2026-11-13"
+        ]
+      },
+      {
+        "id": "smolmaxxing-2026-11-13-segment",
+        "title": "LLMs fit on 1 GB devices with flash‑streamed experts",
+        "text": "And finally, our last story. A new GitHub project shows you can run an eight‑billion‑parameter or even a sixteen‑billion‑parameter mixture‑of‑experts model on a device that only has one gigabyte of RAM. It does this by using a one‑bit NEON kernel and streaming expert weights from flash storage only when needed, so most of the model lives on disk, not in memory. The demo works on an iOS twelve phone and on a single‑board computer, though it trims rarely used vocabulary rows to stay within the limit. Here's why that matters: developers can prototype large‑language‑model workloads on cheap, low‑memory hardware, but they have to accept reduced vocab coverage and depend on fast flash‑IO performance on Linux or Android.\n\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "smolmaxxing-2026-11-13"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a sleek, futuristic stock exchange ticker board with the ticker symbol “ANT” scrolling, set against a backdrop of a glowing server rack and a Rust gear icon, symbolizing the convergence of AI finance, secure infrastructure, and low‑level tooling."
+  },
+  "sources": [
+    {
+      "id": "source-9ab435bfd5da65a2",
+      "name": "Lobsters",
+      "title": "Announcing Rust 1.100.0",
+      "url": "https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/",
+      "published_at": null,
+      "discovered_at": "2026-11-12T12:43:41.418-06:00",
+      "discussion_url": "https://lobste.rs/s/81hnjw/announcing_rust_1_100_0"
+    },
+    {
+      "id": "source-c7a410ad3b862809",
+      "name": "Google DeepMind",
+      "title": "Introducing Gemini 4 Hydrogen",
+      "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
+      "published_at": "2026-11-12T18:00:50Z",
+      "discovered_at": "2026-11-13T06:59:57.896042619Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-a16cf66c04abcd1d",
+      "name": "Hacker News",
+      "title": "Anthropic IPO",
+      "url": "https://ipo.anthropic.com/us/",
+      "published_at": null,
+      "discovered_at": "2026-11-12T11:46:41Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50465829"
+    },
+    {
+      "id": "source-e1a63159b802e819",
+      "name": "Lobsters",
+      "title": "libreagi - save OS models",
+      "url": "https://libreagi.com/",
+      "published_at": null,
+      "discovered_at": "2026-11-12T09:35:46.353-06:00",
+      "discussion_url": "https://lobste.rs/s/7c4iar/libreagi_save_os_models"
+    },
+    {
+      "id": "source-0d7637bb5559a97c",
+      "name": "Lobsters",
+      "title": "Adapting CPython for yk",
+      "url": "https://tratt.net/laurie/blog/2026/adapting_cpython_for_yk.html",
+      "published_at": null,
+      "discovered_at": "2026-11-12T06:29:56.716-06:00",
+      "discussion_url": "https://lobste.rs/s/gejy85/adapting_cpython_for_yk"
+    },
+    {
+      "id": "source-80edea19d5fdcf28",
+      "name": "Hacker News",
+      "title": "Gemini 4 Hydrogen",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+      "published_at": null,
+      "discovered_at": "2026-11-12T18:01:48Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50471431"
+    },
+    {
+      "id": "source-fbb4c6ab199fa8c6",
+      "name": "Lobsters",
+      "title": "JIT bitmap text rendering for microcontrollers",
+      "url": "https://linebender.org/blog/jit-bitmap-text/",
+      "published_at": null,
+      "discovered_at": "2026-11-12T18:16:10.741-06:00",
+      "discussion_url": "https://lobste.rs/s/a3elxr/jit_bitmap_text_rendering_for"
+    },
+    {
+      "id": "source-7c413c5b5223a576",
+      "name": "Hacker News",
+      "title": "Critical RCE Vulnerability in Apache HTTP Server",
+      "url": "https://www.wiz.io/blog/cve-2026-119618-rce-apache-http-server-vulnerability",
+      "published_at": null,
+      "discovered_at": "2026-11-12T02:11:11Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50462177"
+    },
+    {
+      "id": "source-cac5c7e5906dac13",
+      "name": "Hacker News",
+      "title": "I'm making LLMs work on small and old devices",
+      "url": "https://github.com/hyperionaidev/smolmaxxing/",
+      "published_at": null,
+      "discovered_at": "2026-11-12T15:23:10Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50468888"
+    },
+    {
+      "id": "source-3f5497b8e21b5b3e",
+      "name": "Hacker News",
+      "title": "Nintendo Takes Down Emulators and Firmware in Massive GitHub DMCA Sweep",
+      "url": "https://www.ign.com/articles/nintendo-takes-down-switch-emulators-and-mod-chip-firmware-in-massive-github-dmca-sweep",
+      "published_at": null,
+      "discovered_at": "2026-11-12T16:29:13Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50469994"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-13/0d4737398d9dc964df1276b30f4ba2c8827a50e72c48812e836618e8c4b99524.mp3",
+    "duration_seconds": 209.592,
+    "script_hash": "5d09ad927eb6b2969a8b566554cc5c4049278b71587a2a2971cddd3d798b8b7a",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.6375,
+        "end_seconds": 1.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.225,
+        "end_seconds": 1.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 1.35,
+        "end_seconds": 1.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 1.775,
+        "end_seconds": 1.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 1.9,
+        "end_seconds": 2.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 2.7,
+        "end_seconds": 2.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 2.975,
+        "end_seconds": 3.2125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 3.2125,
+        "end_seconds": 3.5375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 3.5375,
+        "end_seconds": 3.6125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 3.6125,
+        "end_seconds": 3.7375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 3.7375,
+        "end_seconds": 4.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 4.025,
+        "end_seconds": 4.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 4.65,
+        "end_seconds": 4.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 4.9,
+        "end_seconds": 5.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thirteen,",
+        "start_seconds": 5.3875,
+        "end_seconds": 5.9875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 5.9875,
+        "end_seconds": 6.225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 6.225,
+        "end_seconds": 6.5875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 6.5875,
+        "end_seconds": 6.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 6.9125,
+        "end_seconds": 7.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 8.95,
+        "end_seconds": 9.0625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 9.0625,
+        "end_seconds": 9.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 9.3875,
+        "end_seconds": 9.5125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 9.5125,
+        "end_seconds": 9.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 9.65,
+        "end_seconds": 9.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 9.9,
+        "end_seconds": 10.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Anthropic,",
+        "start_seconds": 10.6625,
+        "end_seconds": 11.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 11.325,
+        "end_seconds": 11.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "safety‑first",
+        "start_seconds": 11.425,
+        "end_seconds": 12.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 12.075,
+        "end_seconds": 12.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lab,",
+        "start_seconds": 12.375,
+        "end_seconds": 12.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "just",
+        "start_seconds": 12.7,
+        "end_seconds": 12.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "filed",
+        "start_seconds": 12.875,
+        "end_seconds": 13.1375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 13.1375,
+        "end_seconds": 13.212499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "go",
+        "start_seconds": 13.212499999999999,
+        "end_seconds": 13.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "public",
+        "start_seconds": 13.375,
+        "end_seconds": 13.712499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 13.712499999999999,
+        "end_seconds": 13.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Nasdaq",
+        "start_seconds": 13.825,
+        "end_seconds": 14.2375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "under",
+        "start_seconds": 14.2375,
+        "end_seconds": 14.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 14.3875,
+        "end_seconds": 14.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ticker",
+        "start_seconds": 14.475,
+        "end_seconds": 14.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ANT.",
+        "start_seconds": 14.75,
+        "end_seconds": 15.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 15.45,
+        "end_seconds": 15.55
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "company",
+        "start_seconds": 15.55,
+        "end_seconds": 15.899999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "says",
+        "start_seconds": 15.899999999999999,
+        "end_seconds": 16.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 16.0875,
+        "end_seconds": 16.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "offering",
+        "start_seconds": 16.2,
+        "end_seconds": 16.5125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 16.5125,
+        "end_seconds": 16.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "price",
+        "start_seconds": 16.625,
+        "end_seconds": 16.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 16.9125,
+        "end_seconds": 17.0125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 17.0125,
+        "end_seconds": 17.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "eighteenth",
+        "start_seconds": 17.375,
+        "end_seconds": 17.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 17.7625,
+        "end_seconds": 17.862499999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "start",
+        "start_seconds": 17.862499999999997,
+        "end_seconds": 18.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "trading",
+        "start_seconds": 18.125,
+        "end_seconds": 18.4375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 18.4375,
+        "end_seconds": 18.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "next",
+        "start_seconds": 18.525,
+        "end_seconds": 18.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "day,",
+        "start_seconds": 18.7875,
+        "end_seconds": 19.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "giving",
+        "start_seconds": 19.1,
+        "end_seconds": 19.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "investors",
+        "start_seconds": 19.3375,
+        "end_seconds": 19.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 19.7625,
+        "end_seconds": 19.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "chance",
+        "start_seconds": 19.825,
+        "end_seconds": 20.174999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 20.174999999999997,
+        "end_seconds": 20.2625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "buy",
+        "start_seconds": 20.2625,
+        "end_seconds": 20.424999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Class",
+        "start_seconds": 20.424999999999997,
+        "end_seconds": 20.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "A",
+        "start_seconds": 20.725,
+        "end_seconds": 20.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "common",
+        "start_seconds": 20.9,
+        "end_seconds": 21.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stock.",
+        "start_seconds": 21.25,
+        "end_seconds": 21.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 21.975,
+        "end_seconds": 22.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 22.275,
+        "end_seconds": 22.424999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 22.424999999999997,
+        "end_seconds": 22.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 22.625,
+        "end_seconds": 23.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 23.375,
+        "end_seconds": 23.45
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "public",
+        "start_seconds": 23.45,
+        "end_seconds": 23.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "listing",
+        "start_seconds": 23.7875,
+        "end_seconds": 24.1375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "signals",
+        "start_seconds": 24.1375,
+        "end_seconds": 24.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "strong",
+        "start_seconds": 24.525,
+        "end_seconds": 24.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "capital",
+        "start_seconds": 24.85,
+        "end_seconds": 25.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "appetite",
+        "start_seconds": 25.275,
+        "end_seconds": 25.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 25.775,
+        "end_seconds": 25.924999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 25.924999999999997,
+        "end_seconds": 26.299999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "built",
+        "start_seconds": 26.299999999999997,
+        "end_seconds": 26.575000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "around",
+        "start_seconds": 26.575000000000003,
+        "end_seconds": 26.924999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "risk",
+        "start_seconds": 26.924999999999997,
+        "end_seconds": 27.1625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "mitigation,",
+        "start_seconds": 27.1625,
+        "end_seconds": 28.012500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "which",
+        "start_seconds": 28.012500000000003,
+        "end_seconds": 28.200000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "could",
+        "start_seconds": 28.200000000000003,
+        "end_seconds": 28.387500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shift",
+        "start_seconds": 28.387500000000003,
+        "end_seconds": 28.674999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hiring",
+        "start_seconds": 28.674999999999997,
+        "end_seconds": 29.075000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "trends",
+        "start_seconds": 29.075000000000003,
+        "end_seconds": 29.4375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 29.4375,
+        "end_seconds": 29.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "funding",
+        "start_seconds": 29.549999999999997,
+        "end_seconds": 29.924999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flows",
+        "start_seconds": 29.924999999999997,
+        "end_seconds": 30.299999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 30.299999999999997,
+        "end_seconds": 30.424999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "engineers",
+        "start_seconds": 30.424999999999997,
+        "end_seconds": 31.0625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "focused",
+        "start_seconds": 31.0625,
+        "end_seconds": 31.512500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 31.512500000000003,
+        "end_seconds": 31.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "responsible",
+        "start_seconds": 31.625,
+        "end_seconds": 32.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI.",
+        "start_seconds": 32.3375,
+        "end_seconds": 33.3125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Keep",
+        "start_seconds": 33.745000000000005,
+        "end_seconds": 33.9575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 33.9575,
+        "end_seconds": 34.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "eye",
+        "start_seconds": 34.1075,
+        "end_seconds": 34.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 34.42,
+        "end_seconds": 34.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "how",
+        "start_seconds": 34.545,
+        "end_seconds": 34.720000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 34.720000000000006,
+        "end_seconds": 34.82
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "market",
+        "start_seconds": 34.82,
+        "end_seconds": 35.245000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "reacts",
+        "start_seconds": 35.245000000000005,
+        "end_seconds": 35.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "once",
+        "start_seconds": 35.77,
+        "end_seconds": 36.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 36.045,
+        "end_seconds": 36.182500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shares",
+        "start_seconds": 36.182500000000005,
+        "end_seconds": 36.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "start",
+        "start_seconds": 36.52,
+        "end_seconds": 36.870000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "moving.",
+        "start_seconds": 36.870000000000005,
+        "end_seconds": 37.745000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "Next",
+        "start_seconds": 38.945,
+        "end_seconds": 39.2075
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "on",
+        "start_seconds": 39.2075,
+        "end_seconds": 39.3075
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "the",
+        "start_seconds": 39.3075,
+        "end_seconds": 39.395
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "bulletin.",
+        "start_seconds": 39.395,
+        "end_seconds": 40.245
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "Rust",
+        "start_seconds": 40.245,
+        "end_seconds": 40.495
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "version",
+        "start_seconds": 40.495,
+        "end_seconds": 40.895
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "one",
+        "start_seconds": 40.895,
+        "end_seconds": 41.12
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "point",
+        "start_seconds": 41.12,
+        "end_seconds": 41.3825
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "one",
+        "start_seconds": 41.3825,
+        "end_seconds": 41.5075
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "hundred",
+        "start_seconds": 41.5075,
+        "end_seconds": 41.795
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "zero",
+        "start_seconds": 41.795,
+        "end_seconds": 42.17
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "introduces",
+        "start_seconds": 42.17,
+        "end_seconds": 42.77
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "a",
+        "start_seconds": 42.77,
+        "end_seconds": 42.8825
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "new",
+        "start_seconds": 42.8825,
+        "end_seconds": 43.145
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "DropGuard",
+        "start_seconds": 43.145,
+        "end_seconds": 43.695
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "helper",
+        "start_seconds": 43.695,
+        "end_seconds": 44.07
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "that",
+        "start_seconds": 44.07,
+        "end_seconds": 44.22
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "runs",
+        "start_seconds": 44.22,
+        "end_seconds": 44.4575
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "a",
+        "start_seconds": 44.4575,
+        "end_seconds": 44.52
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "closure",
+        "start_seconds": 44.52,
+        "end_seconds": 44.9075
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "when",
+        "start_seconds": 44.9075,
+        "end_seconds": 45.07
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "dropped.",
+        "start_seconds": 45.07,
+        "end_seconds": 45.82
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "It",
+        "start_seconds": 45.82,
+        "end_seconds": 45.92
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "lives",
+        "start_seconds": 45.92,
+        "end_seconds": 46.1575
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "in",
+        "start_seconds": 46.1575,
+        "end_seconds": 46.295
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "core",
+        "start_seconds": 46.295,
+        "end_seconds": 46.545
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "colon",
+        "start_seconds": 46.545,
+        "end_seconds": 46.92
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "colon",
+        "start_seconds": 46.92,
+        "end_seconds": 47.295
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "mem",
+        "start_seconds": 47.295,
+        "end_seconds": 47.57
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "and",
+        "start_seconds": 47.57,
+        "end_seconds": 47.682500000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "lets",
+        "start_seconds": 47.682500000000005,
+        "end_seconds": 47.8575
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "you",
+        "start_seconds": 47.8575,
+        "end_seconds": 47.957499999999996
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "attach",
+        "start_seconds": 47.957499999999996,
+        "end_seconds": 48.295
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "any",
+        "start_seconds": 48.295,
+        "end_seconds": 48.495000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "cleanup",
+        "start_seconds": 48.495000000000005,
+        "end_seconds": 48.845
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "code",
+        "start_seconds": 48.845,
+        "end_seconds": 49.120000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "to",
+        "start_seconds": 49.120000000000005,
+        "end_seconds": 49.207499999999996
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "a",
+        "start_seconds": 49.207499999999996,
+        "end_seconds": 49.269999999999996
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "scope",
+        "start_seconds": 49.269999999999996,
+        "end_seconds": 49.6075
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "without",
+        "start_seconds": 49.6075,
+        "end_seconds": 49.92
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "writing",
+        "start_seconds": 49.92,
+        "end_seconds": 50.2325
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "a",
+        "start_seconds": 50.2325,
+        "end_seconds": 50.295
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "custom",
+        "start_seconds": 50.295,
+        "end_seconds": 50.67
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "Drop",
+        "start_seconds": 50.67,
+        "end_seconds": 50.8825
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "implementation.",
+        "start_seconds": 50.8825,
+        "end_seconds": 52.120000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "Just",
+        "start_seconds": 52.120000000000005,
+        "end_seconds": 52.295
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "create",
+        "start_seconds": 52.295,
+        "end_seconds": 52.6075
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "a",
+        "start_seconds": 52.6075,
+        "end_seconds": 52.67
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "DropGuard",
+        "start_seconds": 52.67,
+        "end_seconds": 53.207499999999996
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "with",
+        "start_seconds": 53.207499999999996,
+        "end_seconds": 53.307500000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "your",
+        "start_seconds": 53.307500000000005,
+        "end_seconds": 53.42
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "closure",
+        "start_seconds": 53.42,
+        "end_seconds": 54.057500000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "and",
+        "start_seconds": 54.057500000000005,
+        "end_seconds": 54.182500000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "it",
+        "start_seconds": 54.182500000000005,
+        "end_seconds": 54.2575
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "will",
+        "start_seconds": 54.2575,
+        "end_seconds": 54.4075
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "fire",
+        "start_seconds": 54.4075,
+        "end_seconds": 54.72
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "automatically",
+        "start_seconds": 54.72,
+        "end_seconds": 55.3825
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "when",
+        "start_seconds": 55.3825,
+        "end_seconds": 55.5075
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "the",
+        "start_seconds": 55.5075,
+        "end_seconds": 55.595
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "function",
+        "start_seconds": 55.595,
+        "end_seconds": 55.995000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "returns",
+        "start_seconds": 55.995000000000005,
+        "end_seconds": 56.57
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "or",
+        "start_seconds": 56.57,
+        "end_seconds": 56.682500000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "the",
+        "start_seconds": 56.682500000000005,
+        "end_seconds": 56.769999999999996
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "block",
+        "start_seconds": 56.769999999999996,
+        "end_seconds": 57.045
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "ends.",
+        "start_seconds": 57.045,
+        "end_seconds": 57.8575
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "Existing",
+        "start_seconds": 57.8575,
+        "end_seconds": 58.370000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "projects",
+        "start_seconds": 58.370000000000005,
+        "end_seconds": 58.845
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "can",
+        "start_seconds": 58.845,
+        "end_seconds": 59.019999999999996
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "get",
+        "start_seconds": 59.019999999999996,
+        "end_seconds": 59.195
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "it",
+        "start_seconds": 59.195,
+        "end_seconds": 59.32
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "by",
+        "start_seconds": 59.32,
+        "end_seconds": 59.495000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "running",
+        "start_seconds": 59.495000000000005,
+        "end_seconds": 59.82
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "rustup",
+        "start_seconds": 59.82,
+        "end_seconds": 60.245000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "update",
+        "start_seconds": 60.245000000000005,
+        "end_seconds": 60.67
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "stable.",
+        "start_seconds": 60.67,
+        "end_seconds": 61.620000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "Here's",
+        "start_seconds": 62.09,
+        "end_seconds": 62.440000000000005
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "why",
+        "start_seconds": 62.440000000000005,
+        "end_seconds": 62.64
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "that",
+        "start_seconds": 62.64,
+        "end_seconds": 62.89
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "matters:",
+        "start_seconds": 62.89,
+        "end_seconds": 63.74
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "you",
+        "start_seconds": 63.74,
+        "end_seconds": 63.865
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "can",
+        "start_seconds": 63.865,
+        "end_seconds": 64.04
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "replace",
+        "start_seconds": 64.04,
+        "end_seconds": 64.5025
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "tiny",
+        "start_seconds": 64.5025,
+        "end_seconds": 64.84
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "guard",
+        "start_seconds": 64.84,
+        "end_seconds": 65.19
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "structs",
+        "start_seconds": 65.19,
+        "end_seconds": 65.6025
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "with",
+        "start_seconds": 65.6025,
+        "end_seconds": 65.7275
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "a",
+        "start_seconds": 65.7275,
+        "end_seconds": 65.8275
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "single",
+        "start_seconds": 65.8275,
+        "end_seconds": 66.215
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "line,",
+        "start_seconds": 66.215,
+        "end_seconds": 66.84
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "cutting",
+        "start_seconds": 66.84,
+        "end_seconds": 67.215
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "boilerplate",
+        "start_seconds": 67.215,
+        "end_seconds": 67.84
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "for",
+        "start_seconds": 67.84,
+        "end_seconds": 67.99000000000001
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "simple",
+        "start_seconds": 67.99000000000001,
+        "end_seconds": 68.36500000000001
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "exit",
+        "start_seconds": 68.36500000000001,
+        "end_seconds": 68.715
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "actions",
+        "start_seconds": 68.715,
+        "end_seconds": 69.24000000000001
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "while",
+        "start_seconds": 69.24000000000001,
+        "end_seconds": 69.4775
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "staying",
+        "start_seconds": 69.4775,
+        "end_seconds": 69.8775
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "on",
+        "start_seconds": 69.8775,
+        "end_seconds": 69.9775
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "the",
+        "start_seconds": 69.9775,
+        "end_seconds": 70.065
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "stable",
+        "start_seconds": 70.065,
+        "end_seconds": 70.5025
+      },
+      {
+        "segment_id": "rust-dropguard-brief",
+        "text": "channel.",
+        "start_seconds": 70.5025,
+        "end_seconds": 71.415
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "Turning",
+        "start_seconds": 72.615,
+        "end_seconds": 72.91499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "to",
+        "start_seconds": 72.91499999999999,
+        "end_seconds": 73.02749999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "our",
+        "start_seconds": 73.02749999999999,
+        "end_seconds": 73.16499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "next",
+        "start_seconds": 73.16499999999999,
+        "end_seconds": 73.4275
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "story.",
+        "start_seconds": 73.4275,
+        "end_seconds": 74.21499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "Google",
+        "start_seconds": 74.21499999999999,
+        "end_seconds": 74.515
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "launches",
+        "start_seconds": 74.515,
+        "end_seconds": 74.96499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "Gemini",
+        "start_seconds": 74.96499999999999,
+        "end_seconds": 75.40249999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "four",
+        "start_seconds": 75.40249999999999,
+        "end_seconds": 75.64
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "Hydrogen,",
+        "start_seconds": 75.64,
+        "end_seconds": 76.28999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "a",
+        "start_seconds": 76.28999999999999,
+        "end_seconds": 76.40249999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "fast,",
+        "start_seconds": 76.40249999999999,
+        "end_seconds": 76.8275
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "agentic",
+        "start_seconds": 76.8275,
+        "end_seconds": 77.315
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "AI",
+        "start_seconds": 77.315,
+        "end_seconds": 77.66499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "model.",
+        "start_seconds": 77.66499999999999,
+        "end_seconds": 78.19
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "It",
+        "start_seconds": 78.19,
+        "end_seconds": 78.28999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "adds",
+        "start_seconds": 78.28999999999999,
+        "end_seconds": 78.5525
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "four",
+        "start_seconds": 78.5525,
+        "end_seconds": 78.78999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "thinking",
+        "start_seconds": 78.78999999999999,
+        "end_seconds": 79.08999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "levels—low,",
+        "start_seconds": 79.08999999999999,
+        "end_seconds": 79.89
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "medium,",
+        "start_seconds": 79.89,
+        "end_seconds": 80.33999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "high",
+        "start_seconds": 80.33999999999999,
+        "end_seconds": 80.615
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "and",
+        "start_seconds": 80.615,
+        "end_seconds": 80.72749999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "a",
+        "start_seconds": 80.72749999999999,
+        "end_seconds": 80.78999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "new",
+        "start_seconds": 80.78999999999999,
+        "end_seconds": 80.99
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "xhigh—so",
+        "start_seconds": 80.99,
+        "end_seconds": 81.66499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "developers",
+        "start_seconds": 81.66499999999999,
+        "end_seconds": 82.19
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "can",
+        "start_seconds": 82.19,
+        "end_seconds": 82.33999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "trade",
+        "start_seconds": 82.33999999999999,
+        "end_seconds": 82.64
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "latency,",
+        "start_seconds": 82.64,
+        "end_seconds": 83.21499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "quality",
+        "start_seconds": 83.21499999999999,
+        "end_seconds": 83.65249999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "and",
+        "start_seconds": 83.65249999999999,
+        "end_seconds": 83.765
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "cost.",
+        "start_seconds": 83.765,
+        "end_seconds": 84.58999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "The",
+        "start_seconds": 84.58999999999999,
+        "end_seconds": 84.69
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "model",
+        "start_seconds": 84.69,
+        "end_seconds": 85.015
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "can",
+        "start_seconds": 85.015,
+        "end_seconds": 85.16499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "handle",
+        "start_seconds": 85.16499999999999,
+        "end_seconds": 85.52749999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "up",
+        "start_seconds": 85.52749999999999,
+        "end_seconds": 85.66499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "to",
+        "start_seconds": 85.66499999999999,
+        "end_seconds": 85.78999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "one",
+        "start_seconds": 85.78999999999999,
+        "end_seconds": 86.015
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "million",
+        "start_seconds": 86.015,
+        "end_seconds": 86.39
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "input",
+        "start_seconds": 86.39,
+        "end_seconds": 86.78999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "and",
+        "start_seconds": 86.78999999999999,
+        "end_seconds": 86.91499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "output",
+        "start_seconds": 86.91499999999999,
+        "end_seconds": 87.315
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "tokens,",
+        "start_seconds": 87.315,
+        "end_seconds": 88.03999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "meaning",
+        "start_seconds": 88.03999999999999,
+        "end_seconds": 88.3275
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "a",
+        "start_seconds": 88.3275,
+        "end_seconds": 88.41499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "dense",
+        "start_seconds": 88.41499999999999,
+        "end_seconds": 88.7525
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "PDF,",
+        "start_seconds": 88.7525,
+        "end_seconds": 89.44
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "spreadsheet",
+        "start_seconds": 89.44,
+        "end_seconds": 90.065
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "or",
+        "start_seconds": 90.065,
+        "end_seconds": 90.22749999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "even",
+        "start_seconds": 90.22749999999999,
+        "end_seconds": 90.5025
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "a",
+        "start_seconds": 90.5025,
+        "end_seconds": 90.565
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "video",
+        "start_seconds": 90.565,
+        "end_seconds": 90.965
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "can",
+        "start_seconds": 90.965,
+        "end_seconds": 91.07749999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "be",
+        "start_seconds": 91.07749999999999,
+        "end_seconds": 91.19
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "processed",
+        "start_seconds": 91.19,
+        "end_seconds": 91.74
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "in",
+        "start_seconds": 91.74,
+        "end_seconds": 91.85249999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "a",
+        "start_seconds": 91.85249999999999,
+        "end_seconds": 91.95249999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "single",
+        "start_seconds": 91.95249999999999,
+        "end_seconds": 92.34
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "pass.",
+        "start_seconds": 92.34,
+        "end_seconds": 93.2775
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "In",
+        "start_seconds": 93.735,
+        "end_seconds": 93.86
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "early",
+        "start_seconds": 93.86,
+        "end_seconds": 94.135
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "benchmarks",
+        "start_seconds": 94.135,
+        "end_seconds": 94.76
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "it",
+        "start_seconds": 94.76,
+        "end_seconds": 94.885
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "ranked",
+        "start_seconds": 94.885,
+        "end_seconds": 95.1975
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "in",
+        "start_seconds": 95.1975,
+        "end_seconds": 95.2725
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "the",
+        "start_seconds": 95.2725,
+        "end_seconds": 95.36
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "top",
+        "start_seconds": 95.36,
+        "end_seconds": 95.61
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "five",
+        "start_seconds": 95.61,
+        "end_seconds": 95.8975
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "on",
+        "start_seconds": 95.8975,
+        "end_seconds": 96.0475
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "Agent",
+        "start_seconds": 96.0475,
+        "end_seconds": 96.41
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "Arena",
+        "start_seconds": 96.41,
+        "end_seconds": 96.9225
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "and",
+        "start_seconds": 96.9225,
+        "end_seconds": 97.06
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "led",
+        "start_seconds": 97.06,
+        "end_seconds": 97.31
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "several",
+        "start_seconds": 97.31,
+        "end_seconds": 97.71
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "multimodal",
+        "start_seconds": 97.71,
+        "end_seconds": 98.36
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "agent",
+        "start_seconds": 98.36,
+        "end_seconds": 98.71
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "tests,",
+        "start_seconds": 98.71,
+        "end_seconds": 99.585
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "often",
+        "start_seconds": 99.585,
+        "end_seconds": 99.885
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "finishing",
+        "start_seconds": 99.885,
+        "end_seconds": 100.31
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "tasks",
+        "start_seconds": 100.31,
+        "end_seconds": 100.735
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "quicker",
+        "start_seconds": 100.735,
+        "end_seconds": 101.1975
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "and",
+        "start_seconds": 101.1975,
+        "end_seconds": 101.3225
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "with",
+        "start_seconds": 101.3225,
+        "end_seconds": 101.485
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "fewer",
+        "start_seconds": 101.485,
+        "end_seconds": 101.785
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "tokens",
+        "start_seconds": 101.785,
+        "end_seconds": 102.31
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "than",
+        "start_seconds": 102.31,
+        "end_seconds": 102.485
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "comparable",
+        "start_seconds": 102.485,
+        "end_seconds": 102.96
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "frontier",
+        "start_seconds": 102.96,
+        "end_seconds": 103.435
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "models.",
+        "start_seconds": 103.435,
+        "end_seconds": 104.26
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "Here's",
+        "start_seconds": 104.26,
+        "end_seconds": 104.585
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "why",
+        "start_seconds": 104.585,
+        "end_seconds": 104.76
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "that",
+        "start_seconds": 104.76,
+        "end_seconds": 104.96
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "matters:",
+        "start_seconds": 104.96,
+        "end_seconds": 105.86
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "engineers",
+        "start_seconds": 105.86,
+        "end_seconds": 106.51
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "can",
+        "start_seconds": 106.51,
+        "end_seconds": 106.71
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "prototype",
+        "start_seconds": 106.71,
+        "end_seconds": 107.26
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "large‑scale,",
+        "start_seconds": 107.26,
+        "end_seconds": 108.26
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "multimodal",
+        "start_seconds": 108.26,
+        "end_seconds": 108.91
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "agents",
+        "start_seconds": 108.91,
+        "end_seconds": 109.3225
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "with",
+        "start_seconds": 109.3225,
+        "end_seconds": 109.485
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "lower",
+        "start_seconds": 109.485,
+        "end_seconds": 109.785
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "latency,",
+        "start_seconds": 109.785,
+        "end_seconds": 110.66
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "as",
+        "start_seconds": 110.66,
+        "end_seconds": 110.81
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "long",
+        "start_seconds": 110.81,
+        "end_seconds": 110.9975
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "as",
+        "start_seconds": 110.9975,
+        "end_seconds": 111.0975
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "they",
+        "start_seconds": 111.0975,
+        "end_seconds": 111.235
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "pick",
+        "start_seconds": 111.235,
+        "end_seconds": 111.485
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "the",
+        "start_seconds": 111.485,
+        "end_seconds": 111.61
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "right",
+        "start_seconds": 111.61,
+        "end_seconds": 111.9225
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "thinking",
+        "start_seconds": 111.9225,
+        "end_seconds": 112.25999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "level",
+        "start_seconds": 112.25999999999999,
+        "end_seconds": 112.58500000000001
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "for",
+        "start_seconds": 112.58500000000001,
+        "end_seconds": 112.69749999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "their",
+        "start_seconds": 112.69749999999999,
+        "end_seconds": 112.89750000000001
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "cost",
+        "start_seconds": 112.89750000000001,
+        "end_seconds": 113.27250000000001
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "and",
+        "start_seconds": 113.27250000000001,
+        "end_seconds": 113.38499999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "speed",
+        "start_seconds": 113.38499999999999,
+        "end_seconds": 113.75999999999999
+      },
+      {
+        "segment_id": "gemini-4-hydrogen-launch-segment",
+        "text": "needs.",
+        "start_seconds": 113.75999999999999,
+        "end_seconds": 114.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Next",
+        "start_seconds": 115.885,
+        "end_seconds": 116.14750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 116.14750000000001,
+        "end_seconds": 116.2475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 116.2475,
+        "end_seconds": 116.33500000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bulletin.",
+        "start_seconds": 116.33500000000001,
+        "end_seconds": 117.185
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Apache",
+        "start_seconds": 117.185,
+        "end_seconds": 117.61
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "HTTP",
+        "start_seconds": 117.61,
+        "end_seconds": 118.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Server",
+        "start_seconds": 118.36,
+        "end_seconds": 118.71000000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "has",
+        "start_seconds": 118.71000000000001,
+        "end_seconds": 118.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "patched",
+        "start_seconds": 118.885,
+        "end_seconds": 119.1975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 119.1975,
+        "end_seconds": 119.26
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "critical",
+        "start_seconds": 119.26,
+        "end_seconds": 119.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "race‑condition",
+        "start_seconds": 119.685,
+        "end_seconds": 120.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 120.435,
+        "end_seconds": 120.56
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "could",
+        "start_seconds": 120.56,
+        "end_seconds": 120.71000000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "let",
+        "start_seconds": 120.71000000000001,
+        "end_seconds": 120.89750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "an",
+        "start_seconds": 120.89750000000001,
+        "end_seconds": 121.02250000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "unauthenticated",
+        "start_seconds": 121.02250000000001,
+        "end_seconds": 121.9475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "attacker",
+        "start_seconds": 121.9475,
+        "end_seconds": 122.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "execute",
+        "start_seconds": 122.36,
+        "end_seconds": 122.81
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "code.",
+        "start_seconds": 122.81,
+        "end_seconds": 123.58500000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 123.58500000000001,
+        "end_seconds": 123.6975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "flaw",
+        "start_seconds": 123.6975,
+        "end_seconds": 123.985
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "lived",
+        "start_seconds": 123.985,
+        "end_seconds": 124.22250000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 124.22250000000001,
+        "end_seconds": 124.2975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 124.2975,
+        "end_seconds": 124.385
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "mod_http2",
+        "start_seconds": 124.385,
+        "end_seconds": 125.6225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "assign_headers",
+        "start_seconds": 125.6225,
+        "end_seconds": 126.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "function,",
+        "start_seconds": 126.235,
+        "end_seconds": 126.96000000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "where",
+        "start_seconds": 126.96000000000001,
+        "end_seconds": 127.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "multiple",
+        "start_seconds": 127.11,
+        "end_seconds": 127.59750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "threads",
+        "start_seconds": 127.59750000000001,
+        "end_seconds": 127.935
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "could",
+        "start_seconds": 127.935,
+        "end_seconds": 128.085
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "corrupt",
+        "start_seconds": 128.085,
+        "end_seconds": 128.435
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "heap",
+        "start_seconds": 128.435,
+        "end_seconds": 128.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "memory.",
+        "start_seconds": 128.685,
+        "end_seconds": 129.51
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 129.51,
+        "end_seconds": 129.635
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fix",
+        "start_seconds": 129.635,
+        "end_seconds": 129.91
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "lands",
+        "start_seconds": 129.91,
+        "end_seconds": 130.2225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 130.2225,
+        "end_seconds": 130.2975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Apache",
+        "start_seconds": 130.2975,
+        "end_seconds": 130.735
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "version",
+        "start_seconds": 130.735,
+        "end_seconds": 131.1225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 131.1225,
+        "end_seconds": 131.36
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 131.36,
+        "end_seconds": 131.6475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "four",
+        "start_seconds": 131.6475,
+        "end_seconds": 131.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 131.885,
+        "end_seconds": 132.16
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seventy‑one",
+        "start_seconds": 132.16,
+        "end_seconds": 132.81
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 132.81,
+        "end_seconds": 132.935
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "later,",
+        "start_seconds": 132.935,
+        "end_seconds": 133.66
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 133.66,
+        "end_seconds": 133.785
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 133.785,
+        "end_seconds": 133.91
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "mod_h2",
+        "start_seconds": 133.91,
+        "end_seconds": 134.635
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "version",
+        "start_seconds": 134.635,
+        "end_seconds": 135.0725
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 135.0725,
+        "end_seconds": 135.31
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 135.31,
+        "end_seconds": 135.5975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "zero",
+        "start_seconds": 135.5975,
+        "end_seconds": 135.985
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 135.985,
+        "end_seconds": 136.26
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "forty‑two",
+        "start_seconds": 136.26,
+        "end_seconds": 136.885
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 136.885,
+        "end_seconds": 137.01
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "newer.",
+        "start_seconds": 137.01,
+        "end_seconds": 137.8975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "If",
+        "start_seconds": 138.32999999999998,
+        "end_seconds": 138.4675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you’re",
+        "start_seconds": 138.4675,
+        "end_seconds": 138.57999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "still",
+        "start_seconds": 138.57999999999998,
+        "end_seconds": 138.8175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 138.8175,
+        "end_seconds": 138.92999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Apache",
+        "start_seconds": 138.92999999999998,
+        "end_seconds": 139.36749999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 139.36749999999998,
+        "end_seconds": 139.57999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 139.57999999999998,
+        "end_seconds": 139.855
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "four",
+        "start_seconds": 139.855,
+        "end_seconds": 140.07999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 140.07999999999998,
+        "end_seconds": 140.32999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fifty‑five",
+        "start_seconds": 140.32999999999998,
+        "end_seconds": 140.98
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "through",
+        "start_seconds": 140.98,
+        "end_seconds": 141.14249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 141.14249999999998,
+        "end_seconds": 141.355
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 141.355,
+        "end_seconds": 141.63
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "four",
+        "start_seconds": 141.63,
+        "end_seconds": 141.82999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 141.82999999999998,
+        "end_seconds": 142.105
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seventy,",
+        "start_seconds": 142.105,
+        "end_seconds": 143.005
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 143.005,
+        "end_seconds": 143.13
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "mod_h2",
+        "start_seconds": 143.13,
+        "end_seconds": 143.86749999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 143.86749999999998,
+        "end_seconds": 144.07999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 144.07999999999998,
+        "end_seconds": 144.355
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "zero",
+        "start_seconds": 144.355,
+        "end_seconds": 144.63
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 144.63,
+        "end_seconds": 144.92999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "eight",
+        "start_seconds": 144.92999999999998,
+        "end_seconds": 145.17999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "through",
+        "start_seconds": 145.17999999999998,
+        "end_seconds": 145.355
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 145.355,
+        "end_seconds": 145.55499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 145.55499999999998,
+        "end_seconds": 145.82999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "zero",
+        "start_seconds": 145.82999999999998,
+        "end_seconds": 146.155
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 146.155,
+        "end_seconds": 146.405
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "forty‑two,",
+        "start_seconds": 146.405,
+        "end_seconds": 147.38
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 147.38,
+        "end_seconds": 147.49249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "need",
+        "start_seconds": 147.49249999999998,
+        "end_seconds": 147.64249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 147.64249999999998,
+        "end_seconds": 147.755
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "upgrade",
+        "start_seconds": 147.755,
+        "end_seconds": 148.23
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "now",
+        "start_seconds": 148.23,
+        "end_seconds": 148.505
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 148.505,
+        "end_seconds": 148.6675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "turn",
+        "start_seconds": 148.6675,
+        "end_seconds": 149.01749999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "off",
+        "start_seconds": 149.01749999999998,
+        "end_seconds": 149.2175
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "HTTP",
+        "start_seconds": 149.2175,
+        "end_seconds": 150.005
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "slash",
+        "start_seconds": 150.005,
+        "end_seconds": 150.39249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 150.39249999999998,
+        "end_seconds": 150.67999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 150.67999999999998,
+        "end_seconds": 150.80499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fall",
+        "start_seconds": 150.80499999999998,
+        "end_seconds": 151.03
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "back",
+        "start_seconds": 151.03,
+        "end_seconds": 151.28
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 151.28,
+        "end_seconds": 151.405
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "HTTP",
+        "start_seconds": 151.405,
+        "end_seconds": 152.20499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "slash",
+        "start_seconds": 152.20499999999998,
+        "end_seconds": 152.55499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "one.",
+        "start_seconds": 152.55499999999998,
+        "end_seconds": 153.30499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 153.30499999999998,
+        "end_seconds": 153.405
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "takeaway:",
+        "start_seconds": 153.405,
+        "end_seconds": 154.23
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "upgrade",
+        "start_seconds": 154.23,
+        "end_seconds": 154.80499999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 154.80499999999998,
+        "end_seconds": 154.92999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "disable",
+        "start_seconds": 154.92999999999998,
+        "end_seconds": 155.49249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "HTTP",
+        "start_seconds": 155.49249999999998,
+        "end_seconds": 156.3425
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 156.3425,
+        "end_seconds": 156.63
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 156.63,
+        "end_seconds": 156.755
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "stay",
+        "start_seconds": 156.755,
+        "end_seconds": 157.0675
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "safe.",
+        "start_seconds": 157.0675,
+        "end_seconds": 157.95499999999998
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "And",
+        "start_seconds": 159.13,
+        "end_seconds": 159.255
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "finally,",
+        "start_seconds": 159.255,
+        "end_seconds": 159.7175
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "our",
+        "start_seconds": 159.7175,
+        "end_seconds": 159.855
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "last",
+        "start_seconds": 159.855,
+        "end_seconds": 160.155
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "story.",
+        "start_seconds": 160.155,
+        "end_seconds": 160.98
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "A",
+        "start_seconds": 160.98,
+        "end_seconds": 161.08
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "new",
+        "start_seconds": 161.08,
+        "end_seconds": 161.33
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "GitHub",
+        "start_seconds": 161.33,
+        "end_seconds": 161.705
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "project",
+        "start_seconds": 161.705,
+        "end_seconds": 162.18
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "shows",
+        "start_seconds": 162.18,
+        "end_seconds": 162.4425
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "you",
+        "start_seconds": 162.4425,
+        "end_seconds": 162.555
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "can",
+        "start_seconds": 162.555,
+        "end_seconds": 162.705
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "run",
+        "start_seconds": 162.705,
+        "end_seconds": 162.8925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "an",
+        "start_seconds": 162.8925,
+        "end_seconds": 163.0175
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "eight‑billion‑parameter",
+        "start_seconds": 163.0175,
+        "end_seconds": 164.355
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "or",
+        "start_seconds": 164.355,
+        "end_seconds": 164.53
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "even",
+        "start_seconds": 164.53,
+        "end_seconds": 164.7925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "a",
+        "start_seconds": 164.7925,
+        "end_seconds": 164.8925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "sixteen‑billion‑parameter",
+        "start_seconds": 164.8925,
+        "end_seconds": 166.155
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "mixture‑of‑experts",
+        "start_seconds": 166.155,
+        "end_seconds": 167.13
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "model",
+        "start_seconds": 167.13,
+        "end_seconds": 167.48
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "on",
+        "start_seconds": 167.48,
+        "end_seconds": 167.5925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "a",
+        "start_seconds": 167.5925,
+        "end_seconds": 167.655
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "device",
+        "start_seconds": 167.655,
+        "end_seconds": 168.105
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "that",
+        "start_seconds": 168.105,
+        "end_seconds": 168.2675
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "only",
+        "start_seconds": 168.2675,
+        "end_seconds": 168.58
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "has",
+        "start_seconds": 168.58,
+        "end_seconds": 168.78
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "one",
+        "start_seconds": 168.78,
+        "end_seconds": 169.005
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "gigabyte",
+        "start_seconds": 169.005,
+        "end_seconds": 169.3925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "of",
+        "start_seconds": 169.3925,
+        "end_seconds": 169.53
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "RAM.",
+        "start_seconds": 169.53,
+        "end_seconds": 170.405
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "It",
+        "start_seconds": 170.405,
+        "end_seconds": 170.53
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "does",
+        "start_seconds": 170.53,
+        "end_seconds": 170.755
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "this",
+        "start_seconds": 170.755,
+        "end_seconds": 170.98
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "by",
+        "start_seconds": 170.98,
+        "end_seconds": 171.155
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "using",
+        "start_seconds": 171.155,
+        "end_seconds": 171.455
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "a",
+        "start_seconds": 171.455,
+        "end_seconds": 171.555
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "one‑bit",
+        "start_seconds": 171.555,
+        "end_seconds": 171.955
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "NEON",
+        "start_seconds": 171.955,
+        "end_seconds": 172.2925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "kernel",
+        "start_seconds": 172.2925,
+        "end_seconds": 172.755
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "and",
+        "start_seconds": 172.755,
+        "end_seconds": 172.8925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "streaming",
+        "start_seconds": 172.8925,
+        "end_seconds": 173.38
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "expert",
+        "start_seconds": 173.38,
+        "end_seconds": 173.905
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "weights",
+        "start_seconds": 173.905,
+        "end_seconds": 174.18
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "from",
+        "start_seconds": 174.18,
+        "end_seconds": 174.3925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "flash",
+        "start_seconds": 174.3925,
+        "end_seconds": 174.68
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "storage",
+        "start_seconds": 174.68,
+        "end_seconds": 175.1675
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "only",
+        "start_seconds": 175.1675,
+        "end_seconds": 175.4675
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "when",
+        "start_seconds": 175.4675,
+        "end_seconds": 175.63
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "needed,",
+        "start_seconds": 175.63,
+        "end_seconds": 176.33
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "so",
+        "start_seconds": 176.33,
+        "end_seconds": 176.5175
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "most",
+        "start_seconds": 176.5175,
+        "end_seconds": 176.8175
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "of",
+        "start_seconds": 176.8175,
+        "end_seconds": 176.8925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "the",
+        "start_seconds": 176.8925,
+        "end_seconds": 176.98
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "model",
+        "start_seconds": 176.98,
+        "end_seconds": 177.305
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "lives",
+        "start_seconds": 177.305,
+        "end_seconds": 177.5425
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "on",
+        "start_seconds": 177.5425,
+        "end_seconds": 177.705
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "disk,",
+        "start_seconds": 177.705,
+        "end_seconds": 178.255
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "not",
+        "start_seconds": 178.255,
+        "end_seconds": 178.455
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "in",
+        "start_seconds": 178.455,
+        "end_seconds": 178.58
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "memory.",
+        "start_seconds": 178.58,
+        "end_seconds": 179.5425
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "The",
+        "start_seconds": 179.975,
+        "end_seconds": 180.075
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "demo",
+        "start_seconds": 180.075,
+        "end_seconds": 180.425
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "works",
+        "start_seconds": 180.425,
+        "end_seconds": 180.6875
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "on",
+        "start_seconds": 180.6875,
+        "end_seconds": 180.7875
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "an",
+        "start_seconds": 180.7875,
+        "end_seconds": 180.8875
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "iOS",
+        "start_seconds": 180.8875,
+        "end_seconds": 181.3
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "twelve",
+        "start_seconds": 181.3,
+        "end_seconds": 181.625
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "phone",
+        "start_seconds": 181.625,
+        "end_seconds": 182.0875
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "and",
+        "start_seconds": 182.0875,
+        "end_seconds": 182.2125
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "on",
+        "start_seconds": 182.2125,
+        "end_seconds": 182.3125
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "a",
+        "start_seconds": 182.3125,
+        "end_seconds": 182.4125
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "single‑board",
+        "start_seconds": 182.4125,
+        "end_seconds": 183.075
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "computer,",
+        "start_seconds": 183.075,
+        "end_seconds": 183.85
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "though",
+        "start_seconds": 183.85,
+        "end_seconds": 183.9875
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "it",
+        "start_seconds": 183.9875,
+        "end_seconds": 184.075
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "trims",
+        "start_seconds": 184.075,
+        "end_seconds": 184.4375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "rarely",
+        "start_seconds": 184.4375,
+        "end_seconds": 184.825
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "used",
+        "start_seconds": 184.825,
+        "end_seconds": 185.05
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "vocabulary",
+        "start_seconds": 185.05,
+        "end_seconds": 185.7
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "rows",
+        "start_seconds": 185.7,
+        "end_seconds": 185.975
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "to",
+        "start_seconds": 185.975,
+        "end_seconds": 186.1
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "stay",
+        "start_seconds": 186.1,
+        "end_seconds": 186.375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "within",
+        "start_seconds": 186.375,
+        "end_seconds": 186.5875
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "the",
+        "start_seconds": 186.5875,
+        "end_seconds": 186.675
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "limit.",
+        "start_seconds": 186.675,
+        "end_seconds": 187.525
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "Here's",
+        "start_seconds": 187.525,
+        "end_seconds": 187.85
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "why",
+        "start_seconds": 187.85,
+        "end_seconds": 188.025
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "that",
+        "start_seconds": 188.025,
+        "end_seconds": 188.225
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "matters:",
+        "start_seconds": 188.225,
+        "end_seconds": 189.1
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "developers",
+        "start_seconds": 189.1,
+        "end_seconds": 189.675
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "can",
+        "start_seconds": 189.675,
+        "end_seconds": 189.875
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "prototype",
+        "start_seconds": 189.875,
+        "end_seconds": 190.425
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "large‑language‑model",
+        "start_seconds": 190.425,
+        "end_seconds": 191.45
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "workloads",
+        "start_seconds": 191.45,
+        "end_seconds": 191.9625
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "on",
+        "start_seconds": 191.9625,
+        "end_seconds": 192.1375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "cheap,",
+        "start_seconds": 192.1375,
+        "end_seconds": 192.5
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "low‑memory",
+        "start_seconds": 192.5,
+        "end_seconds": 193.1
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "hardware,",
+        "start_seconds": 193.1,
+        "end_seconds": 193.9
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "but",
+        "start_seconds": 193.9,
+        "end_seconds": 194.0375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "they",
+        "start_seconds": 194.0375,
+        "end_seconds": 194.175
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "have",
+        "start_seconds": 194.175,
+        "end_seconds": 194.35
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "to",
+        "start_seconds": 194.35,
+        "end_seconds": 194.5
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "accept",
+        "start_seconds": 194.5,
+        "end_seconds": 194.925
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "reduced",
+        "start_seconds": 194.925,
+        "end_seconds": 195.4
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "vocab",
+        "start_seconds": 195.4,
+        "end_seconds": 195.8
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "coverage",
+        "start_seconds": 195.8,
+        "end_seconds": 196.3375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "and",
+        "start_seconds": 196.3375,
+        "end_seconds": 196.4625
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "depend",
+        "start_seconds": 196.4625,
+        "end_seconds": 196.8375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "on",
+        "start_seconds": 196.8375,
+        "end_seconds": 197.0125
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "fast",
+        "start_seconds": 197.0125,
+        "end_seconds": 197.4125
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "flash‑IO",
+        "start_seconds": 197.4125,
+        "end_seconds": 198.175
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "performance",
+        "start_seconds": 198.175,
+        "end_seconds": 198.7125
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "on",
+        "start_seconds": 198.7125,
+        "end_seconds": 198.9
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "Linux",
+        "start_seconds": 198.9,
+        "end_seconds": 199.3
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "or",
+        "start_seconds": 199.3,
+        "end_seconds": 199.45
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "Android.",
+        "start_seconds": 199.45,
+        "end_seconds": 200.475
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "And",
+        "start_seconds": 201.65,
+        "end_seconds": 201.78750000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "that's",
+        "start_seconds": 201.78750000000002,
+        "end_seconds": 202.05
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "your",
+        "start_seconds": 202.05,
+        "end_seconds": 202.25
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "Daywire",
+        "start_seconds": 202.25,
+        "end_seconds": 202.70000000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "briefing.",
+        "start_seconds": 202.70000000000002,
+        "end_seconds": 203.4
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "You'll",
+        "start_seconds": 203.4,
+        "end_seconds": 203.57500000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "find",
+        "start_seconds": 203.57500000000002,
+        "end_seconds": 203.8375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "the",
+        "start_seconds": 203.8375,
+        "end_seconds": 203.9375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "full",
+        "start_seconds": 203.9375,
+        "end_seconds": 204.20000000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "stories",
+        "start_seconds": 204.20000000000002,
+        "end_seconds": 204.7125
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "and",
+        "start_seconds": 204.7125,
+        "end_seconds": 204.8375
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "sources",
+        "start_seconds": 204.8375,
+        "end_seconds": 205.35000000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "in",
+        "start_seconds": 205.35000000000002,
+        "end_seconds": 205.47500000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "today's",
+        "start_seconds": 205.47500000000002,
+        "end_seconds": 205.85000000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "newspaper.",
+        "start_seconds": 205.85000000000002,
+        "end_seconds": 206.75
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "Thanks",
+        "start_seconds": 206.75,
+        "end_seconds": 207.07500000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "for",
+        "start_seconds": 207.07500000000002,
+        "end_seconds": 207.20000000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "listening.",
+        "start_seconds": 207.20000000000002,
+        "end_seconds": 207.8
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "Take",
+        "start_seconds": 207.8,
+        "end_seconds": 208.10000000000002
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "care,",
+        "start_seconds": 208.10000000000002,
+        "end_seconds": 208.4
+      },
+      {
+        "segment_id": "smolmaxxing-2026-11-13-segment",
+        "text": "everyone.",
+        "start_seconds": 208.4,
+        "end_seconds": 209.425
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
