@@ -1,0 +1,3634 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-14",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-14T07:05:09.123365868Z",
+  "coverage": {
+    "from": "2026-11-13T06:00:00+05:30",
+    "until": "2026-11-14T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-7d4d71d056da0286",
+      "source-a99dfdd20d85acbb",
+      "source-c008dac7120a468a",
+      "source-02fc21eb33a22c1e",
+      "source-1c06a2a1bd3f76b9"
+    ],
+    "candidate_count": 44,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "Tensor‑Core FP64 Boost and Open‑Source AI Tooling Surge",
+    "introduction": "cuBLAS now routes double‑precision DGEMM through integer Tensor Cores, delivering up to 5.5× speedup without code changes, while llama.cpp 1.0 launches with a stable API/ABI and Brave Search adds pay‑as‑you‑go USDC payments via x402. These moves tighten high‑performance compute and lower barriers for developers building AI services.",
+    "articles": [
+      {
+        "id": "claude-incident-resolution-nov-2026",
+        "section": "Engineering",
+        "headline": "Claude services recover after authentication outage",
+        "summary": "Anthropic resolved an authentication failure that temporarily disrupted Claude.ai, Claude Code, and the platform console on November 13, 2026.",
+        "paragraphs": [
+          "The incident was first logged at 09:58 UTC, when users could not sign in to Claude.ai, Claude Code, or the platform console. Anthropic deployed a fix by 11:05 UTC and confirmed full recovery at 11:58 UTC, after which monitoring continued."
+        ],
+        "implication": "Developers should confirm that their Claude authentication tokens are functional after the outage, as the service is now operational.",
+        "source_ids": [
+          "source-1a09f77a4836fe9e"
+        ]
+      },
+      {
+        "id": "brave-search-x402-payments",
+        "section": "Tools",
+        "headline": "Brave Search API adds pay‑as‑you‑go agentic payments via x402",
+        "summary": "Developers can now query Brave’s search index without an API key by sending USDC through the open x402 protocol on Base.",
+        "paragraphs": [
+          "The new x402 integration lets autonomous AI agents settle each request in real time, charging $0.005 per 1,000 queries for both LLM‑context and standard web endpoints. Users install the Stripe‑built Purl CLI wallet, fund it with Base‑native USDC, and the API handles payment per call, eliminating traditional account‑based billing. Gas fees are covered temporarily, and other stablecoins and networks are slated for future support."
+        ],
+        "implication": "Agents that need on‑demand search can now embed Brave’s results directly into workflows without managing API keys or subscription plans, simplifying billing and scaling for pay‑per‑use deployments.",
+        "source_ids": [
+          "source-58fe5927eaaf10c8"
+        ]
+      },
+      {
+        "id": "fp64-acceleration-cublas-2026",
+        "section": "Engineering",
+        "headline": "cuBLAS adds Tensor‑Core FP64 DGEMM paths",
+        "summary": "cuBLAS now routes double‑precision DGEMM through integer Tensor Cores on select GPUs, delivering up to 5.5× speedup without code changes.",
+        "paragraphs": [
+          "The NVIDIA Developer blog (Nov 13, 2026) introduces an FP64 acceleration framework in cuBLAS that redirects dense real‑matrix multiplies (DGEMM) to integer Tensor Cores when a runtime mantissa‑bit analysis confirms FP64‑equivalent accuracy. On the VR NVL72 GPU the Ozaki‑II path runs 5.5× faster than native FP64, and on the GB200 it is 3.9× faster, also beating the earlier Ozaki‑I implementation by roughly 2×.",
+          "Accuracy is protected by a fallback: if the required mantissa bits exceed the library default or a user‑supplied limit, cuBLAS switches to the native FP64 MMA code path. The blog validates the DGEMM gains on real workloads—quantum‑chemistry CCSD and BerkeleyGW materials‑science simulations—showing end‑to‑end runtime reductions while preserving double‑precision results."
+        ],
+        "implication": "HPC developers using cuBLAS can obtain multi‑fold DGEMM speedups on supported GPUs simply by linking the updated library, with no source‑code changes and with guaranteed FP64 accuracy.",
+        "source_ids": [
+          "source-8f4ab68910c3775c"
+        ]
+      },
+      {
+        "id": "vercel-daemon-tracing-2026-11-13",
+        "section": "Engineering",
+        "headline": "Vercel daemons gain OpenTelemetry tracing support",
+        "summary": "Vercel’s @vercel/otel SDK (≥ 2.3.0) now exports OTLP/HTTP spans from background workers via a Unix socket, letting developers view daemon activity in Vercel Tracing.",
+        "paragraphs": [
+          "The November 13 Vercel changelog announces that daemons can now send OpenTelemetry traces to Vercel Tracing. The platform creates a Unix socket whose path is exposed in the VERCEL_OTEL_SOCKET_PATH environment variable; the @vercel/otel package detects this socket automatically when upgraded to version 2.3.0 or later. By calling registerOTel({ serviceName: 'my‑daemon' }) before the worker starts, Node.js daemons export their spans without additional configuration.",
+          "Traces appear in the Vercel CLI, where developers can query them by project and service name (e.g., `vercel traces search --project my-project --service my-daemon --json`). This makes background‑worker observability as easy as front‑end request tracing, but only for daemons running on Vercel’s infrastructure that expose the socket."
+        ],
+        "implication": "Engineers can now correlate background‑job latency and errors with front‑end activity using a single tracing UI, simplifying performance debugging for Vercel‑hosted services.",
+        "source_ids": [
+          "source-12418f9c0ee65d2b"
+        ]
+      },
+      {
+        "id": "llama-cpp-1-0-release",
+        "section": "Tools",
+        "headline": "llama.cpp 1.0.0 launches with stable API and ABI versioning",
+        "summary": "Hugging Face ships llama.cpp 1.0.0, a C/C++ inference library that promises cross‑hardware compatibility and introduces major‑version API/ABI boundaries for downstream developers.",
+        "paragraphs": [
+          "The new llama.cpp 1.0.0 release bundles the ggml tensor engine (also at v1.0.0) and adds a portable C/C++ implementation that can run multimodal LLMs on anything from a laptop GPU to an enterprise server. Quantization, backend plugins and dynamic‑loadable libraries let developers compile a backend for their target hardware, keeping the inference stack lightweight and private.",
+          "With this milestone the project declares that any future API or ABI incompatibility will be signaled by a major‑version bump, giving downstream applications a clear upgrade path. The announcement notes over 150 supported model architectures and full speculative decoding support, positioning llama.cpp as a stable foundation for private‑AI products."
+        ],
+        "implication": "Developers can now rely on a defined versioning contract when integrating llama.cpp, reducing surprise breakages and simplifying the build of cross‑platform AI services.",
+        "source_ids": [
+          "source-6841e619fcd7e8d9"
+        ]
+      },
+      {
+        "id": "serving-glm-5-3-across-two-dgx-stations",
+        "section": "AI",
+        "headline": "GLM‑5.3 runs on two DGX stations via vLLM tensor parallelism",
+        "summary": "NVIDIA shows how to host the 753‑billion‑parameter GLM‑5.3 NVFP4 model across two DGX stations using vLLM with TP=2, enabling an OpenAI‑compatible endpoint for a model that needs 464 GB of GPU memory.",
+        "paragraphs": [
+          "The tutorial splits the model’s tensors between two GB300 GPUs, each holding roughly half the weights, and connects the stations over ConnectX‑8 RDMA. vLLM launches a distributed service that provides multi‑token prediction, FP8 KV‑cache, and prefix caching, while CPU weight offload remains disabled."
+        ],
+        "implication": "Engineers can now experiment with frontier‑scale MoE models locally, but must provision two DGX stations with RDMA networking and sufficient HBM3e capacity; single‑machine deployments remain infeasible.",
+        "source_ids": [
+          "source-a17ef475e2c86f35"
+        ]
+      },
+      {
+        "id": "cuttlefish-mac-port-2026",
+        "section": "Engineering",
+        "headline": "Meta ports Android’s Cuttlefish emulator to macOS on Apple silicon",
+        "summary": "Meta’s Reality Labs adapted the AOSP Cuttlefish virtual‑device framework to run natively on macOS, letting developers use a single high‑fidelity Android emulator on Apple‑silicon Macs.",
+        "paragraphs": [
+          "The team replaced Linux‑only vhost‑user back‑ends, expanded QEMU’s HVF memory‑slot tracking, and added a native Cocoa display so the emulator can boot full system images and provide interactive UI without the WebRTC bridge. These changes consolidate the previous Linux‑only Cuttlefish and Goldfish setups into one macOS‑compatible platform."
+        ],
+        "implication": "Developers targeting Android on Apple‑silicon Macs can now test against realistic device behavior without maintaining separate Linux‑based emulators, streamlining workflow and reducing hardware dependencies.",
+        "source_ids": [
+          "source-9a1e0d772957b683"
+        ]
+      },
+      {
+        "id": "shield-legacy-portal-hand-off",
+        "section": "AI",
+        "headline": "OpenAI Shield lets technicians delegate legacy portal tasks",
+        "summary": "Shield’s new Forge agents use OpenAI to navigate legacy IT portals, freeing technicians to focus on judgment‑heavy issues.",
+        "paragraphs": [
+          "The Shield platform now embeds OpenAI‑driven Forge agents that can log into and operate older internal portals on behalf of support staff. By automating routine navigation and data entry, the agents hand off low‑skill work while technicians retain control over complex problem‑solving."
+        ],
+        "implication": "Teams can reduce time spent on repetitive portal interactions, but must still allocate human oversight for decisions that require domain expertise.",
+        "source_ids": [
+          "source-a99dfdd20d85acbb"
+        ]
+      },
+      {
+        "id": "cell-borders-protocol",
+        "section": "Tools",
+        "headline": "Terminal protocol adds cell‑border lines without consuming rows",
+        "summary": "A new terminal protocol lets applications draw thin borders on cell edges, freeing layout space for panes and panels.",
+        "paragraphs": [
+          "The protocol encodes border attributes in a DCS (Device Control String) sequence that the terminal renders over the cell grid. Because borders are stored alongside cell data, they scroll, erase, and reflow with text, and they can be set or cleared without touching the underlying characters. Terminals that lack support simply ignore the DCS, falling back to traditional box‑drawing characters."
+        ],
+        "implication": "Developers can design richer terminal UIs—such as tab bars and forms—that keep every row for content, but they must target terminals that implement the DCS extension or provide a graceful fallback.",
+        "source_ids": [
+          "source-7d971f83e5d67b77"
+        ]
+      },
+      {
+        "id": "pointer-provenance-rust-vs-cpp-brief",
+        "section": "Engineering",
+        "headline": "Rust adds APIs to expose pointer provenance",
+        "summary": "Rust’s `ptr::with_exposed_provenance` and the stricter `sptr` crate let developers retain allocation metadata when casting pointers.",
+        "paragraphs": [
+          "A Lobsters discussion notes that Rust’s provenance APIs keep track of the original allocation for each pointer, so integer‑pointer casts preserve that information. The author points out that Miri warns when provenance is hidden and recommends the strict provenance APIs (see the nightly `std::ptr` docs and the `sptr` crate) to avoid missing pointer bugs."
+        ],
+        "implication": "Using the strict provenance APIs can reveal misuse of low‑level pointers that would otherwise go unnoticed during Rust debugging.",
+        "source_ids": [
+          "source-eda9000f44d474d6"
+        ]
+      },
+      {
+        "id": "blocked-bloom-filter-go",
+        "section": "Tools",
+        "headline": "Unsure adds a cache‑friendly blocked Bloom filter for Go",
+        "summary": "The new unsure package provides a blocked Bloom filter that fits a CPU cache line, offering approximate set membership with far lower memory use.",
+        "paragraphs": [
+          "Unsure’s filter divides the bit array into 512‑bit blocks, each the size of a typical cache line. A single hash selects a block and the k bits inside it, so every add or query touches only one cache line, keeping latency low even for very large filters. The author notes that a 1 % false‑positive Bloom filter for one million 8‑byte strings occupies 1.24 MB, compared with 64 MB for a plain set—a roughly 50× reduction."
+        ],
+        "implication": "Go developers who need fast, memory‑efficient membership tests can use unsure to cut RAM consumption and avoid cache‑miss penalties without adding external libraries.",
+        "source_ids": [
+          "source-a60c0deec7adda05"
+        ]
+      },
+      {
+        "id": "article-1",
+        "section": "Tools",
+        "headline": "NVIDIA cuPhoton.xBeam enables GPU‑based VLBI correlation",
+        "summary": "NVIDIA’s cuPhoton.xBeam library now runs radio‑interferometry correlation on GPUs, generating visibilities for Event Horizon Telescope data.",
+        "paragraphs": [
+          "The cuPhoton.xBeam module processes raw voltage recordings from telescope arrays into complex visibilities on NVIDIA GPUs, handling every baseline, frequency channel, and short time interval in parallel. The library focuses on the correlation step; downstream 3‑D gas modeling remains a separate process."
+        ],
+        "implication": "Engineers can move the most compute‑intensive VLBI correlation stage onto GPUs, freeing CPU resources for later reconstruction steps.",
+        "source_ids": [
+          "source-0fc0a6705fb8b0c5"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "pay-per-request-x402-mechanism",
+        "title": "How per‑request payments replace API keys with x402",
+        "paragraphs": [
+          "Traditional search APIs require developers to create an account, obtain an API key, and manage subscription tiers or quota limits. This model adds friction for autonomous agents that need to issue many small, unpredictable queries, because the agent must store credentials and handle rate‑limit errors.",
+          "Brave’s integration of the open‑source x402 protocol changes that flow: each query carries a tiny USDC payment embedded in the request. The agent’s CLI wallet signs a transaction on the Base blockchain, the Brave facilitator receives the funds, and the API returns results instantly. Because payment is atomic, there is no need for a persistent account or key, and billing scales linearly with usage."
+        ],
+        "example": "An autonomous news‑summarizer runs a loop that fetches the latest headlines. For each headline it sends a Brave Search request, attaching a signed x402 payment of 0.000005 USDC. The transaction is confirmed, the search result arrives, and the agent moves to the next headline—no API key, no quota checks.",
+        "takeaway": "Embedding a micro‑payment protocol like x402 lets AI agents treat every API call as a pay‑as‑you‑go transaction, removing credential management and enabling truly on‑demand scaling.",
+        "article_ids": [
+          "brave-search-x402-payments"
+        ],
+        "source_ids": [
+          "source-58fe5927eaaf10c8"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-pay-per-request-x402-mechanism-1",
+        "lesson_id": "pay-per-request-x402-mechanism",
+        "prompt": "What primary problem does the x402 protocol solve for autonomous agents using search APIs?",
+        "options": [
+          "It eliminates the need for developers to write query syntax.",
+          "It removes the requirement to store API keys and manage rate‑limit quotas.",
+          "It provides higher relevance ranking for search results.",
+          "It enables agents to cache results locally for faster access."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that traditional APIs need API keys and quota management, which adds friction for agents. x402 embeds a micro‑payment in each request, removing the need for persistent credentials or quota checks."
+      },
+      {
+        "id": "quiz-1-pay-per-request-x402-mechanism-2",
+        "lesson_id": "pay-per-request-x402-mechanism",
+        "prompt": "How does the Brave facilitator receive payment for each search request in the x402 flow?",
+        "options": [
+          "The agent sends a separate invoice after the request completes.",
+          "The CLI wallet signs a transaction on the Base blockchain that is included with the request.",
+          "The API key is charged automatically by Brave’s billing system.",
+          "Payment is deducted from a pre‑loaded credit balance on the agent’s account."
+        ],
+        "answer": 1,
+        "explanation": "According to the lesson, the agent’s CLI wallet signs a transaction on the Base blockchain, and this signed payment is sent with the request. The facilitator receives the funds directly from that transaction."
+      },
+      {
+        "id": "quiz-1-pay-per-request-x402-mechanism-3",
+        "lesson_id": "pay-per-request-x402-mechanism",
+        "prompt": "Why does the x402 approach allow billing to scale linearly with usage?",
+        "options": [
+          "Because each request includes a fixed micro‑payment that is proportional to the single query.",
+          "Because agents purchase bulk usage packages that are automatically applied.",
+          "Because the API aggregates usage over a month before charging.",
+          "Because the protocol discounts larger volumes of requests."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that each query carries a tiny USDC payment embedded in the request, making payment atomic and directly proportional to the number of calls, which results in linear scaling of billing."
+      }
+    ],
+    "segments": [
+      {
+        "id": "claude-outage-recovery",
+        "title": "Claude services back online after auth outage",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November fourteen, two thousand twenty six.\n\nWe begin with our lead story. Claude services were down on November thirteenth, twenty twenty‑six. At nine fifty‑eight UTC users hit a wall – sign‑in to Claude dot ai, Claude Code, and the console simply wouldn’t work. Anthropic rolled out a fix by eleven‑oh‑five UTC and by eleven‑fifty‑eight UTC everything was back up and running. \n\nHere's why that matters: if you use Claude, double‑check your authentication tokens now that the platform is operational again.",
+        "article_ids": [
+          "claude-incident-resolution-nov-2026"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Brave Search API adds pay‑as‑you‑go agentic payments via x402",
+        "text": "Next on the bulletin. Brave Search just rolled out a pay‑as‑you‑go model for autonomous agents. Instead of an API key, developers can send USDC over the open x402 protocol on Base, and the API will charge five‑tenths of a cent per thousand queries. You install the Stripe‑built Purl C L I wallet, fund it with Base‑native USDC, and each request is settled in real time, with gas fees covered for now. This means AI workflows can pull search results on demand without juggling subscription accounts, though today only USDC on Base is supported.\n\nHere's why that matters: it simplifies billing and scaling for on‑demand search, but you’ll need to manage a wallet and watch for future stablecoin or network expansions.",
+        "article_ids": [
+          "brave-search-x402-payments"
+        ]
+      },
+      {
+        "id": "cublas-fp64-acceleration",
+        "title": "cuBLAS speeds up double‑precision matrix math",
+        "text": "Turning to our next story. NVIDIA just rolled out a new cuBLAS feature that shoves double‑precision DGEMM work onto its integer Tensor Cores. On the VR NVL72 GPU the new Ozaki‑II path runs about five point five times faster, and the GB200 sees roughly three point nine times the speed, all without touching a line of code. The library checks mantissa bits at runtime, and if it can’t guarantee FP64‑level accuracy it falls back to the classic path. Here’s why that matters: HPC code that already uses cuBLAS can now grab multi‑fold performance gains while still getting true double‑precision results.",
+        "article_ids": [
+          "fp64-acceleration-cublas-2026"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Vercel daemons now export OpenTelemetry traces",
+        "text": "Next on the bulletin. Vercel just added OpenTelemetry tracing to its background workers. If you upgrade the @vercel/otel SDK to version two point three point zero or later, the daemon will automatically pick up a Unix socket whose path is exposed in the VERCEL_OTEL_SOCKET_PATH environment variable. Call registerOTel with your service name before the worker starts, and the daemon streams its spans to Vercel Tracing. You can then pull those traces from the Vercel CLI with a simple search command. This gives you the same visibility into background jobs as you have for front‑end requests, but only for daemons running on Vercel’s own infrastructure.",
+        "article_ids": [
+          "vercel-daemon-tracing-2026-11-13"
+        ]
+      },
+      {
+        "id": "llama-cpp-1-0-release-segment",
+        "title": "Llama.cpp hits version one point zero point zero with stable API",
+        "text": "And finally, our last story. Llama dot cpp just rolled out version one point zero point zero, and it comes with a promised stable API and ABI contract. That means the core C slash C++ inference engine can now run multimodal models on anything from a laptop GPU to a big‑room server, and any breaking change will only show up with a major‑version bump. Developers get a clear upgrade path and can lock in a version without fearing surprise breakages. Here's why that matters: it makes building private‑AI services across hardware a lot less of a guessing game.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "llama-cpp-1-0-release"
+        ]
+      }
+    ],
+    "artwork_brief": "A split‑screen illustration: left side shows a GPU chip with glowing Tensor‑Core blocks feeding a double‑precision matrix, right side shows a terminal window with a llama silhouette and a USDC coin hovering over a search bar, both rendered in a clean, technical style."
+  },
+  "sources": [
+    {
+      "id": "source-12418f9c0ee65d2b",
+      "name": "Vercel Blog",
+      "title": "Daemons can now send traces to Vercel Tracing",
+      "url": "https://vercel.com/changelog/vercel-daemons-can-now-send-traces-to-vercel-tracing",
+      "published_at": "2026-11-13T22:24:00Z",
+      "discovered_at": "2026-11-14T06:49:02.517563065Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-8f4ab68910c3775c",
+      "name": "NVIDIA Developer",
+      "title": "Faster Scientific Simulations with New FP64 Algorithms in NVIDIA cuBLAS",
+      "url": "https://developer.nvidia.com/blog/faster-scientific-simulations-with-new-fp64-algorithms-in-nvidia-cublas/",
+      "published_at": "2026-11-13T22:13:51Z",
+      "discovered_at": "2026-11-14T06:49:03.254881991Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-9a1e0d772957b683",
+      "name": "Meta Engineering",
+      "title": "Cuttlefish on Mac: Running Android’s Virtual Device Framework Natively on Apple Silicon",
+      "url": "https://engineering.fb.com/2026/11/13/android/cuttlefish-on-mac/",
+      "published_at": "2026-11-13T17:00:39Z",
+      "discovered_at": "2026-11-14T06:49:03.380391616Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-7d971f83e5d67b77",
+      "name": "Lobsters",
+      "title": "Terminal borders that don't cost a cell",
+      "url": "https://www.joshka.net/cell-borders/",
+      "published_at": null,
+      "discovered_at": "2026-11-13T06:03:19.804-06:00",
+      "discussion_url": "https://lobste.rs/s/akdy9z/terminal_borders_don_t_cost_cell"
+    },
+    {
+      "id": "source-0fc0a6705fb8b0c5",
+      "name": "NVIDIA Developer",
+      "title": "Run GPU-Powered Black Hole Interferometry with NVIDIA cuPhoton",
+      "url": "https://developer.nvidia.com/blog/run-gpu-powered-black-hole-interferometry-with-nvidia-cuphoton/",
+      "published_at": "2026-11-13T21:17:17Z",
+      "discovered_at": "2026-11-14T06:49:03.254881991Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-a99dfdd20d85acbb",
+      "name": "OpenAI News",
+      "title": "Shield helps technicians hand off legacy portal work with OpenAI",
+      "url": "https://openai.com/business/customer-stories/shield",
+      "published_at": "2026-11-13T08:00:00Z",
+      "discovered_at": "2026-11-14T06:49:03.152928476Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-1a09f77a4836fe9e",
+      "name": "Hacker News",
+      "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
+      "url": "https://status.claude.com/incidents/nn11wk485zfn",
+      "published_at": null,
+      "discovered_at": "2026-11-13T10:18:13Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50481187"
+    },
+    {
+      "id": "source-6841e619fcd7e8d9",
+      "name": "Hugging Face",
+      "title": "llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem",
+      "url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
+      "published_at": "2026-11-13T14:05:22Z",
+      "discovered_at": "2026-11-14T06:49:02.312261802Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-a17ef475e2c86f35",
+      "name": "NVIDIA Developer",
+      "title": "When One GPU Isn’t Enough: Serving GLM-5.3 Across Two NVIDIA DGX Stations with vLLM",
+      "url": "https://developer.nvidia.com/blog/when-one-gpu-isnt-enough-serving-glm-5-3-across-two-nvidia-dgx-stations-with-vllm/",
+      "published_at": "2026-11-13T17:00:00Z",
+      "discovered_at": "2026-11-14T06:49:03.254881991Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-eda9000f44d474d6",
+      "name": "Lobsters",
+      "title": "Pointer Provenance in Rust vs C++",
+      "url": "https://sofiabelen.github.io/projects/pointer-provenance-in-rust-vs-cpp/",
+      "published_at": null,
+      "discovered_at": "2026-11-13T12:37:30.823-06:00",
+      "discussion_url": "https://lobste.rs/s/xmtjzq/pointer_provenance_rust_vs_c"
+    },
+    {
+      "id": "source-a60c0deec7adda05",
+      "name": "Lobsters",
+      "title": "Probabilistic data structures in Go",
+      "url": "https://antonz.org/probabilistic-data-structures/",
+      "published_at": null,
+      "discovered_at": "2026-11-13T10:03:44.21-06:00",
+      "discussion_url": "https://lobste.rs/s/xca2qj/probabilistic_data_structures_go"
+    },
+    {
+      "id": "source-58fe5927eaaf10c8",
+      "name": "Hacker News",
+      "title": "Brave Search API now accepts agentic payments via the x402 protocol",
+      "url": "https://brave.com/blog/search-api-agentic-payments/",
+      "published_at": null,
+      "discovered_at": "2026-11-13T03:08:08Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50477649"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-14/a8cab7191f3d3fe6d046b1b01504ea907640a8209358c76c1a3a41e4ec6e016a.mp3",
+    "duration_seconds": 223.032,
+    "script_hash": "b85d93ce7c4b6288ed8936205c5a0003030b484a4d83b1f6225ffa1d3fd71ac2",
+    "cues": [
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Hello",
+        "start_seconds": 0.275,
+        "end_seconds": 0.6625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "everyone,",
+        "start_seconds": 0.6625,
+        "end_seconds": 1.3
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "and",
+        "start_seconds": 1.3,
+        "end_seconds": 1.4625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "welcome",
+        "start_seconds": 1.4625,
+        "end_seconds": 1.9
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "to",
+        "start_seconds": 1.9,
+        "end_seconds": 2.025
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Daywire.",
+        "start_seconds": 2.025,
+        "end_seconds": 3.0625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Let's",
+        "start_seconds": 3.0625,
+        "end_seconds": 3.35
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "make",
+        "start_seconds": 3.35,
+        "end_seconds": 3.5875
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "sense",
+        "start_seconds": 3.5875,
+        "end_seconds": 3.9125
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "of",
+        "start_seconds": 3.9125,
+        "end_seconds": 3.9875
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "the",
+        "start_seconds": 3.9875,
+        "end_seconds": 4.075
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "tech",
+        "start_seconds": 4.075,
+        "end_seconds": 4.325
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "news.",
+        "start_seconds": 4.325,
+        "end_seconds": 5.075
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "It's",
+        "start_seconds": 5.075,
+        "end_seconds": 5.325
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "November",
+        "start_seconds": 5.325,
+        "end_seconds": 5.8375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "fourteen,",
+        "start_seconds": 5.8375,
+        "end_seconds": 6.6375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "two",
+        "start_seconds": 6.6375,
+        "end_seconds": 6.875
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "thousand",
+        "start_seconds": 6.875,
+        "end_seconds": 7.2375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "twenty",
+        "start_seconds": 7.2375,
+        "end_seconds": 7.5125
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "six.",
+        "start_seconds": 7.5125,
+        "end_seconds": 8.3
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "We",
+        "start_seconds": 9.5,
+        "end_seconds": 9.6
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "begin",
+        "start_seconds": 9.6,
+        "end_seconds": 10
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "with",
+        "start_seconds": 10,
+        "end_seconds": 10.1375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "our",
+        "start_seconds": 10.1375,
+        "end_seconds": 10.275
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "lead",
+        "start_seconds": 10.275,
+        "end_seconds": 10.525
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "story.",
+        "start_seconds": 10.525,
+        "end_seconds": 11.4875
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Claude",
+        "start_seconds": 11.4875,
+        "end_seconds": 11.8
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "services",
+        "start_seconds": 11.8,
+        "end_seconds": 12.325
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "were",
+        "start_seconds": 12.325,
+        "end_seconds": 12.475
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "down",
+        "start_seconds": 12.475,
+        "end_seconds": 12.825
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "on",
+        "start_seconds": 12.825,
+        "end_seconds": 12.9375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "November",
+        "start_seconds": 12.9375,
+        "end_seconds": 13.375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "thirteenth,",
+        "start_seconds": 13.375,
+        "end_seconds": 14.15
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "twenty",
+        "start_seconds": 14.15,
+        "end_seconds": 14.425
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "twenty‑six.",
+        "start_seconds": 14.425,
+        "end_seconds": 15.6
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "At",
+        "start_seconds": 15.6,
+        "end_seconds": 15.775
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "nine",
+        "start_seconds": 15.775,
+        "end_seconds": 16.0625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "fifty‑eight",
+        "start_seconds": 16.0625,
+        "end_seconds": 16.6375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "UTC",
+        "start_seconds": 16.6375,
+        "end_seconds": 17.1875
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "users",
+        "start_seconds": 17.1875,
+        "end_seconds": 17.6
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "hit",
+        "start_seconds": 17.6,
+        "end_seconds": 17.7375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "a",
+        "start_seconds": 17.7375,
+        "end_seconds": 17.8375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "wall",
+        "start_seconds": 17.8375,
+        "end_seconds": 18.4125
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "–",
+        "start_seconds": 18.4125,
+        "end_seconds": 18.5
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "sign‑in",
+        "start_seconds": 18.5,
+        "end_seconds": 18.975
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "to",
+        "start_seconds": 18.975,
+        "end_seconds": 19.1
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Claude",
+        "start_seconds": 19.1,
+        "end_seconds": 19.4
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "dot",
+        "start_seconds": 19.4,
+        "end_seconds": 19.6625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "ai,",
+        "start_seconds": 19.6625,
+        "end_seconds": 20.4125
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Claude",
+        "start_seconds": 20.4125,
+        "end_seconds": 20.7375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Code,",
+        "start_seconds": 20.7375,
+        "end_seconds": 21.375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "and",
+        "start_seconds": 21.375,
+        "end_seconds": 21.4875
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "the",
+        "start_seconds": 21.4875,
+        "end_seconds": 21.575
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "console",
+        "start_seconds": 21.575,
+        "end_seconds": 22.1375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "simply",
+        "start_seconds": 22.1375,
+        "end_seconds": 22.475
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "wouldn’t",
+        "start_seconds": 22.475,
+        "end_seconds": 22.7
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "work.",
+        "start_seconds": 22.7,
+        "end_seconds": 23.7
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Anthropic",
+        "start_seconds": 23.7,
+        "end_seconds": 24.3625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "rolled",
+        "start_seconds": 24.3625,
+        "end_seconds": 24.6375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "out",
+        "start_seconds": 24.6375,
+        "end_seconds": 24.7625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "a",
+        "start_seconds": 24.7625,
+        "end_seconds": 24.8375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "fix",
+        "start_seconds": 24.8375,
+        "end_seconds": 25.225
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "by",
+        "start_seconds": 25.225,
+        "end_seconds": 25.4
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "eleven‑oh‑five",
+        "start_seconds": 25.4,
+        "end_seconds": 26.275
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "UTC",
+        "start_seconds": 26.275,
+        "end_seconds": 27.375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "and",
+        "start_seconds": 27.375,
+        "end_seconds": 27.5125
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "by",
+        "start_seconds": 27.5125,
+        "end_seconds": 27.675
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "eleven‑fifty‑eight",
+        "start_seconds": 27.675,
+        "end_seconds": 28.7125
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "UTC",
+        "start_seconds": 28.7125,
+        "end_seconds": 29.3625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "everything",
+        "start_seconds": 29.3625,
+        "end_seconds": 29.85
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "was",
+        "start_seconds": 29.85,
+        "end_seconds": 30.025
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "back",
+        "start_seconds": 30.025,
+        "end_seconds": 30.2625
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "up",
+        "start_seconds": 30.2625,
+        "end_seconds": 30.4375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "and",
+        "start_seconds": 30.4375,
+        "end_seconds": 30.55
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "running.",
+        "start_seconds": 30.55,
+        "end_seconds": 31.3875
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Here's",
+        "start_seconds": 32.6,
+        "end_seconds": 32.925000000000004
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "why",
+        "start_seconds": 32.925000000000004,
+        "end_seconds": 33.125
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "that",
+        "start_seconds": 33.125,
+        "end_seconds": 33.35
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "matters:",
+        "start_seconds": 33.35,
+        "end_seconds": 34.337500000000006
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "if",
+        "start_seconds": 34.337500000000006,
+        "end_seconds": 34.475
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "you",
+        "start_seconds": 34.475,
+        "end_seconds": 34.575
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "use",
+        "start_seconds": 34.575,
+        "end_seconds": 34.837500000000006
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "Claude,",
+        "start_seconds": 34.837500000000006,
+        "end_seconds": 35.5375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "double‑check",
+        "start_seconds": 35.5375,
+        "end_seconds": 36.1375
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "your",
+        "start_seconds": 36.1375,
+        "end_seconds": 36.25
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "authentication",
+        "start_seconds": 36.25,
+        "end_seconds": 37.050000000000004
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "tokens",
+        "start_seconds": 37.050000000000004,
+        "end_seconds": 37.475
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "now",
+        "start_seconds": 37.475,
+        "end_seconds": 37.800000000000004
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "that",
+        "start_seconds": 37.800000000000004,
+        "end_seconds": 37.9125
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "the",
+        "start_seconds": 37.9125,
+        "end_seconds": 38
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "platform",
+        "start_seconds": 38,
+        "end_seconds": 38.575
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "is",
+        "start_seconds": 38.575,
+        "end_seconds": 38.737500000000004
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "operational",
+        "start_seconds": 38.737500000000004,
+        "end_seconds": 39.400000000000006
+      },
+      {
+        "segment_id": "claude-outage-recovery",
+        "text": "again.",
+        "start_seconds": 39.400000000000006,
+        "end_seconds": 40.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 41.475,
+        "end_seconds": 41.7375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 41.7375,
+        "end_seconds": 41.8375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 41.8375,
+        "end_seconds": 41.925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 41.925,
+        "end_seconds": 42.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Brave",
+        "start_seconds": 42.9125,
+        "end_seconds": 43.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Search",
+        "start_seconds": 43.2875,
+        "end_seconds": 43.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "just",
+        "start_seconds": 43.6,
+        "end_seconds": 43.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "rolled",
+        "start_seconds": 43.775,
+        "end_seconds": 44.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "out",
+        "start_seconds": 44.0375,
+        "end_seconds": 44.1625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 44.1625,
+        "end_seconds": 44.2375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pay‑as‑you‑go",
+        "start_seconds": 44.2375,
+        "end_seconds": 45.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "model",
+        "start_seconds": 45.025,
+        "end_seconds": 45.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 45.4,
+        "end_seconds": 45.5375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "autonomous",
+        "start_seconds": 45.5375,
+        "end_seconds": 46.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "agents.",
+        "start_seconds": 46.125,
+        "end_seconds": 47.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Instead",
+        "start_seconds": 47.1125,
+        "end_seconds": 47.4625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 47.4625,
+        "end_seconds": 47.5375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 47.5375,
+        "end_seconds": 47.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "API",
+        "start_seconds": 47.625,
+        "end_seconds": 48.175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "key,",
+        "start_seconds": 48.175,
+        "end_seconds": 48.699999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "developers",
+        "start_seconds": 48.699999999999996,
+        "end_seconds": 49.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 49.25,
+        "end_seconds": 49.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "send",
+        "start_seconds": 49.425,
+        "end_seconds": 49.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "USDC",
+        "start_seconds": 49.6875,
+        "end_seconds": 50.55
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "over",
+        "start_seconds": 50.55,
+        "end_seconds": 50.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 50.7625,
+        "end_seconds": 50.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "open",
+        "start_seconds": 50.875,
+        "end_seconds": 51.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "x402",
+        "start_seconds": 51.2,
+        "end_seconds": 51.925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "protocol",
+        "start_seconds": 51.925,
+        "end_seconds": 52.412499999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 52.412499999999994,
+        "end_seconds": 52.55
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Base,",
+        "start_seconds": 52.55,
+        "end_seconds": 53.349999999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 53.349999999999994,
+        "end_seconds": 53.4625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 53.4625,
+        "end_seconds": 53.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "API",
+        "start_seconds": 53.575,
+        "end_seconds": 54.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 54.2,
+        "end_seconds": 54.3625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "charge",
+        "start_seconds": 54.3625,
+        "end_seconds": 54.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five‑tenths",
+        "start_seconds": 54.7625,
+        "end_seconds": 55.412499999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 55.412499999999994,
+        "end_seconds": 55.4875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 55.4875,
+        "end_seconds": 55.5875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cent",
+        "start_seconds": 55.5875,
+        "end_seconds": 55.849999999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "per",
+        "start_seconds": 55.849999999999994,
+        "end_seconds": 56.037499999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 56.037499999999994,
+        "end_seconds": 56.474999999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "queries.",
+        "start_seconds": 56.474999999999994,
+        "end_seconds": 57.5875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "You",
+        "start_seconds": 57.5875,
+        "end_seconds": 57.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "install",
+        "start_seconds": 57.75,
+        "end_seconds": 58.162499999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 58.162499999999994,
+        "end_seconds": 58.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Stripe‑built",
+        "start_seconds": 58.25,
+        "end_seconds": 58.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Purl",
+        "start_seconds": 58.875,
+        "end_seconds": 59.224999999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "C",
+        "start_seconds": 59.224999999999994,
+        "end_seconds": 59.537499999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "L",
+        "start_seconds": 59.537499999999994,
+        "end_seconds": 59.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "I",
+        "start_seconds": 59.7625,
+        "end_seconds": 59.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "wallet,",
+        "start_seconds": 59.9,
+        "end_seconds": 60.6375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fund",
+        "start_seconds": 60.6375,
+        "end_seconds": 60.8625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 60.8625,
+        "end_seconds": 60.9375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 60.9375,
+        "end_seconds": 61.099999999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Base‑native",
+        "start_seconds": 61.099999999999994,
+        "end_seconds": 61.849999999999994
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "USDC,",
+        "start_seconds": 61.849999999999994,
+        "end_seconds": 63.05
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 63.05,
+        "end_seconds": 63.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "each",
+        "start_seconds": 63.1875,
+        "end_seconds": 63.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "request",
+        "start_seconds": 63.425,
+        "end_seconds": 63.95
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "is",
+        "start_seconds": 63.95,
+        "end_seconds": 64.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "settled",
+        "start_seconds": 64.0875,
+        "end_seconds": 64.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 64.5,
+        "end_seconds": 64.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "real",
+        "start_seconds": 64.65,
+        "end_seconds": 64.925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "time,",
+        "start_seconds": 64.925,
+        "end_seconds": 65.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 65.6,
+        "end_seconds": 65.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "gas",
+        "start_seconds": 65.7875,
+        "end_seconds": 66.15
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fees",
+        "start_seconds": 66.15,
+        "end_seconds": 66.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "covered",
+        "start_seconds": 66.5,
+        "end_seconds": 66.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 66.9,
+        "end_seconds": 67.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now.",
+        "start_seconds": 67.025,
+        "end_seconds": 67.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "This",
+        "start_seconds": 68.27000000000001,
+        "end_seconds": 68.47
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "means",
+        "start_seconds": 68.47,
+        "end_seconds": 68.87
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 68.87,
+        "end_seconds": 69.27000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "workflows",
+        "start_seconds": 69.27000000000001,
+        "end_seconds": 69.87
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 69.87,
+        "end_seconds": 70.02000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pull",
+        "start_seconds": 70.02000000000001,
+        "end_seconds": 70.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "search",
+        "start_seconds": 70.345,
+        "end_seconds": 70.69500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "results",
+        "start_seconds": 70.69500000000001,
+        "end_seconds": 71.13250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 71.13250000000001,
+        "end_seconds": 71.2325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "demand",
+        "start_seconds": 71.2325,
+        "end_seconds": 71.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "without",
+        "start_seconds": 71.97,
+        "end_seconds": 72.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "juggling",
+        "start_seconds": 72.3575,
+        "end_seconds": 72.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "subscription",
+        "start_seconds": 72.795,
+        "end_seconds": 73.39500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "accounts,",
+        "start_seconds": 73.39500000000001,
+        "end_seconds": 74.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "though",
+        "start_seconds": 74.345,
+        "end_seconds": 74.52000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "today",
+        "start_seconds": 74.52000000000001,
+        "end_seconds": 74.9075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "only",
+        "start_seconds": 74.9075,
+        "end_seconds": 75.25750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "USDC",
+        "start_seconds": 75.25750000000001,
+        "end_seconds": 76.02000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 76.02000000000001,
+        "end_seconds": 76.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Base",
+        "start_seconds": 76.22,
+        "end_seconds": 76.6825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "is",
+        "start_seconds": 76.6825,
+        "end_seconds": 76.82000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "supported.",
+        "start_seconds": 76.82000000000001,
+        "end_seconds": 77.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 79.02000000000001,
+        "end_seconds": 79.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 79.345,
+        "end_seconds": 79.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 79.545,
+        "end_seconds": 79.77000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 79.77000000000001,
+        "end_seconds": 80.75750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 80.75750000000001,
+        "end_seconds": 80.9325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "simplifies",
+        "start_seconds": 80.9325,
+        "end_seconds": 81.58250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "billing",
+        "start_seconds": 81.58250000000001,
+        "end_seconds": 81.995
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 81.995,
+        "end_seconds": 82.13250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "scaling",
+        "start_seconds": 82.13250000000001,
+        "end_seconds": 82.62
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 82.62,
+        "end_seconds": 82.7325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on‑demand",
+        "start_seconds": 82.7325,
+        "end_seconds": 83.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "search,",
+        "start_seconds": 83.245,
+        "end_seconds": 83.995
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 83.995,
+        "end_seconds": 84.14500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you’ll",
+        "start_seconds": 84.14500000000001,
+        "end_seconds": 84.27000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "need",
+        "start_seconds": 84.27000000000001,
+        "end_seconds": 84.47
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 84.47,
+        "end_seconds": 84.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "manage",
+        "start_seconds": 84.595,
+        "end_seconds": 84.995
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 84.995,
+        "end_seconds": 85.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "wallet",
+        "start_seconds": 85.1075,
+        "end_seconds": 85.70750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 85.70750000000001,
+        "end_seconds": 85.8575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "watch",
+        "start_seconds": 85.8575,
+        "end_seconds": 86.19500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 86.19500000000001,
+        "end_seconds": 86.33250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "future",
+        "start_seconds": 86.33250000000001,
+        "end_seconds": 86.745
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stablecoin",
+        "start_seconds": 86.745,
+        "end_seconds": 87.57000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 87.57000000000001,
+        "end_seconds": 87.745
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "network",
+        "start_seconds": 87.745,
+        "end_seconds": 88.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "expansions.",
+        "start_seconds": 88.12,
+        "end_seconds": 89.295
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "Turning",
+        "start_seconds": 90.52000000000001,
+        "end_seconds": 90.87
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "to",
+        "start_seconds": 90.87,
+        "end_seconds": 90.95750000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "our",
+        "start_seconds": 90.95750000000001,
+        "end_seconds": 91.095
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "next",
+        "start_seconds": 91.095,
+        "end_seconds": 91.3575
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "story.",
+        "start_seconds": 91.3575,
+        "end_seconds": 92.3575
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "NVIDIA",
+        "start_seconds": 92.3575,
+        "end_seconds": 92.82000000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "just",
+        "start_seconds": 92.82000000000001,
+        "end_seconds": 93.07000000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "rolled",
+        "start_seconds": 93.07000000000001,
+        "end_seconds": 93.3575
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "out",
+        "start_seconds": 93.3575,
+        "end_seconds": 93.495
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "a",
+        "start_seconds": 93.495,
+        "end_seconds": 93.6075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "new",
+        "start_seconds": 93.6075,
+        "end_seconds": 93.88250000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "cuBLAS",
+        "start_seconds": 93.88250000000001,
+        "end_seconds": 94.44500000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "feature",
+        "start_seconds": 94.44500000000001,
+        "end_seconds": 95.1075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "that",
+        "start_seconds": 95.1075,
+        "end_seconds": 95.3075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "shoves",
+        "start_seconds": 95.3075,
+        "end_seconds": 95.63250000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "double‑precision",
+        "start_seconds": 95.63250000000001,
+        "end_seconds": 96.4825
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "DGEMM",
+        "start_seconds": 96.4825,
+        "end_seconds": 97.32000000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "work",
+        "start_seconds": 97.32000000000001,
+        "end_seconds": 97.6825
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "onto",
+        "start_seconds": 97.6825,
+        "end_seconds": 97.9325
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "its",
+        "start_seconds": 97.9325,
+        "end_seconds": 98.095
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "integer",
+        "start_seconds": 98.095,
+        "end_seconds": 98.44500000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "Tensor",
+        "start_seconds": 98.44500000000001,
+        "end_seconds": 98.77000000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "Cores.",
+        "start_seconds": 98.77000000000001,
+        "end_seconds": 99.82000000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "On",
+        "start_seconds": 99.82000000000001,
+        "end_seconds": 99.95750000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "the",
+        "start_seconds": 99.95750000000001,
+        "end_seconds": 100.07000000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "VR",
+        "start_seconds": 100.07000000000001,
+        "end_seconds": 101.9075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "NVL72",
+        "start_seconds": 100.07000000000001,
+        "end_seconds": 101.9075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "GPU",
+        "start_seconds": 101.9075,
+        "end_seconds": 102.88250000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "the",
+        "start_seconds": 102.88250000000001,
+        "end_seconds": 103.0575
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "new",
+        "start_seconds": 103.0575,
+        "end_seconds": 103.2825
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "Ozaki‑II",
+        "start_seconds": 103.2825,
+        "end_seconds": 104.3075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "path",
+        "start_seconds": 104.3075,
+        "end_seconds": 104.795
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "runs",
+        "start_seconds": 104.795,
+        "end_seconds": 105.0575
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "about",
+        "start_seconds": 105.0575,
+        "end_seconds": 105.33250000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "five",
+        "start_seconds": 105.33250000000001,
+        "end_seconds": 105.69500000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "point",
+        "start_seconds": 105.69500000000001,
+        "end_seconds": 106.00750000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "five",
+        "start_seconds": 106.00750000000001,
+        "end_seconds": 106.37
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "times",
+        "start_seconds": 106.37,
+        "end_seconds": 106.72
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "faster,",
+        "start_seconds": 106.72,
+        "end_seconds": 107.67
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "and",
+        "start_seconds": 107.67,
+        "end_seconds": 107.7825
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "the",
+        "start_seconds": 107.7825,
+        "end_seconds": 107.88250000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "GB200",
+        "start_seconds": 107.88250000000001,
+        "end_seconds": 108.9075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "sees",
+        "start_seconds": 108.9075,
+        "end_seconds": 109.245
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "roughly",
+        "start_seconds": 109.245,
+        "end_seconds": 109.64500000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "three",
+        "start_seconds": 109.64500000000001,
+        "end_seconds": 109.89500000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "point",
+        "start_seconds": 109.89500000000001,
+        "end_seconds": 110.17
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "nine",
+        "start_seconds": 110.17,
+        "end_seconds": 110.44500000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "times",
+        "start_seconds": 110.44500000000001,
+        "end_seconds": 110.8075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "the",
+        "start_seconds": 110.8075,
+        "end_seconds": 110.9075
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "speed,",
+        "start_seconds": 110.9075,
+        "end_seconds": 111.7325
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "all",
+        "start_seconds": 111.7325,
+        "end_seconds": 111.9825
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "without",
+        "start_seconds": 111.9825,
+        "end_seconds": 112.295
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "touching",
+        "start_seconds": 112.295,
+        "end_seconds": 112.67
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "a",
+        "start_seconds": 112.67,
+        "end_seconds": 112.77000000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "line",
+        "start_seconds": 112.77000000000001,
+        "end_seconds": 113.0325
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "of",
+        "start_seconds": 113.0325,
+        "end_seconds": 113.14500000000001
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "code.",
+        "start_seconds": 113.14500000000001,
+        "end_seconds": 113.9825
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "The",
+        "start_seconds": 114.44,
+        "end_seconds": 114.53999999999999
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "library",
+        "start_seconds": 114.53999999999999,
+        "end_seconds": 115.0525
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "checks",
+        "start_seconds": 115.0525,
+        "end_seconds": 115.44
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "mantissa",
+        "start_seconds": 115.44,
+        "end_seconds": 115.965
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "bits",
+        "start_seconds": 115.965,
+        "end_seconds": 116.215
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "at",
+        "start_seconds": 116.215,
+        "end_seconds": 116.315
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "runtime,",
+        "start_seconds": 116.315,
+        "end_seconds": 117.265
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "and",
+        "start_seconds": 117.265,
+        "end_seconds": 117.3775
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "if",
+        "start_seconds": 117.3775,
+        "end_seconds": 117.47749999999999
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "it",
+        "start_seconds": 117.47749999999999,
+        "end_seconds": 117.5775
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "can’t",
+        "start_seconds": 117.5775,
+        "end_seconds": 117.865
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "guarantee",
+        "start_seconds": 117.865,
+        "end_seconds": 118.49
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "FP64‑level",
+        "start_seconds": 118.49,
+        "end_seconds": 119.89
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "accuracy",
+        "start_seconds": 119.89,
+        "end_seconds": 120.765
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "it",
+        "start_seconds": 120.765,
+        "end_seconds": 120.94
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "falls",
+        "start_seconds": 120.94,
+        "end_seconds": 121.265
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "back",
+        "start_seconds": 121.265,
+        "end_seconds": 121.53999999999999
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "to",
+        "start_seconds": 121.53999999999999,
+        "end_seconds": 121.6275
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "the",
+        "start_seconds": 121.6275,
+        "end_seconds": 121.715
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "classic",
+        "start_seconds": 121.715,
+        "end_seconds": 122.14
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "path.",
+        "start_seconds": 122.14,
+        "end_seconds": 123.115
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "Here’s",
+        "start_seconds": 123.115,
+        "end_seconds": 123.965
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "why",
+        "start_seconds": 123.965,
+        "end_seconds": 124.14
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "that",
+        "start_seconds": 124.14,
+        "end_seconds": 124.34
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "matters:",
+        "start_seconds": 124.34,
+        "end_seconds": 125.3275
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "HPC",
+        "start_seconds": 125.3275,
+        "end_seconds": 126.0525
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "code",
+        "start_seconds": 126.0525,
+        "end_seconds": 126.465
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "that",
+        "start_seconds": 126.465,
+        "end_seconds": 126.615
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "already",
+        "start_seconds": 126.615,
+        "end_seconds": 126.99
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "uses",
+        "start_seconds": 126.99,
+        "end_seconds": 127.4025
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "cuBLAS",
+        "start_seconds": 127.4025,
+        "end_seconds": 128.09
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "can",
+        "start_seconds": 128.09,
+        "end_seconds": 128.29
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "now",
+        "start_seconds": 128.29,
+        "end_seconds": 128.5275
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "grab",
+        "start_seconds": 128.5275,
+        "end_seconds": 128.865
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "multi‑fold",
+        "start_seconds": 128.865,
+        "end_seconds": 129.715
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "performance",
+        "start_seconds": 129.715,
+        "end_seconds": 130.24
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "gains",
+        "start_seconds": 130.24,
+        "end_seconds": 130.9275
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "while",
+        "start_seconds": 130.9275,
+        "end_seconds": 131.1775
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "still",
+        "start_seconds": 131.1775,
+        "end_seconds": 131.465
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "getting",
+        "start_seconds": 131.465,
+        "end_seconds": 131.8025
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "true",
+        "start_seconds": 131.8025,
+        "end_seconds": 132.1275
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "double‑precision",
+        "start_seconds": 132.1275,
+        "end_seconds": 132.94
+      },
+      {
+        "segment_id": "cublas-fp64-acceleration",
+        "text": "results.",
+        "start_seconds": 132.94,
+        "end_seconds": 133.89
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Next",
+        "start_seconds": 135.14000000000001,
+        "end_seconds": 135.4275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 135.4275,
+        "end_seconds": 135.5275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 135.5275,
+        "end_seconds": 135.615
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bulletin.",
+        "start_seconds": 135.615,
+        "end_seconds": 136.615
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Vercel",
+        "start_seconds": 136.615,
+        "end_seconds": 137.065
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "just",
+        "start_seconds": 137.065,
+        "end_seconds": 137.32750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "added",
+        "start_seconds": 137.32750000000001,
+        "end_seconds": 137.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "OpenTelemetry",
+        "start_seconds": 137.665,
+        "end_seconds": 138.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "tracing",
+        "start_seconds": 138.44,
+        "end_seconds": 138.89000000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 138.89000000000001,
+        "end_seconds": 139.0275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "its",
+        "start_seconds": 139.0275,
+        "end_seconds": 139.165
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "background",
+        "start_seconds": 139.165,
+        "end_seconds": 139.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "workers.",
+        "start_seconds": 139.715,
+        "end_seconds": 140.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "If",
+        "start_seconds": 140.665,
+        "end_seconds": 140.8025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 140.8025,
+        "end_seconds": 140.915
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "upgrade",
+        "start_seconds": 140.915,
+        "end_seconds": 141.3525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 141.3525,
+        "end_seconds": 141.5025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "@vercel/otel",
+        "start_seconds": 141.5025,
+        "end_seconds": 142.74
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "SDK",
+        "start_seconds": 142.74,
+        "end_seconds": 143.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 143.665,
+        "end_seconds": 143.815
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "version",
+        "start_seconds": 143.815,
+        "end_seconds": 144.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 144.24,
+        "end_seconds": 144.54
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 144.54,
+        "end_seconds": 144.82750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "three",
+        "start_seconds": 144.82750000000001,
+        "end_seconds": 145.065
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 145.065,
+        "end_seconds": 145.34
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "zero",
+        "start_seconds": 145.34,
+        "end_seconds": 145.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 145.665,
+        "end_seconds": 145.79
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "later,",
+        "start_seconds": 145.79,
+        "end_seconds": 146.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 146.565,
+        "end_seconds": 146.6775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "daemon",
+        "start_seconds": 146.6775,
+        "end_seconds": 147.01500000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "will",
+        "start_seconds": 147.01500000000001,
+        "end_seconds": 147.20250000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "automatically",
+        "start_seconds": 147.20250000000001,
+        "end_seconds": 147.915
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "pick",
+        "start_seconds": 147.915,
+        "end_seconds": 148.1025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "up",
+        "start_seconds": 148.1025,
+        "end_seconds": 148.2275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 148.2275,
+        "end_seconds": 148.29
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Unix",
+        "start_seconds": 148.29,
+        "end_seconds": 148.59
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "socket",
+        "start_seconds": 148.59,
+        "end_seconds": 149.2775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "whose",
+        "start_seconds": 149.2775,
+        "end_seconds": 149.5025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "path",
+        "start_seconds": 149.5025,
+        "end_seconds": 149.89000000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "is",
+        "start_seconds": 149.89000000000001,
+        "end_seconds": 150.01500000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "exposed",
+        "start_seconds": 150.01500000000001,
+        "end_seconds": 150.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 150.715,
+        "end_seconds": 150.8025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 150.8025,
+        "end_seconds": 150.9025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "VERCEL_OTEL_SOCKET_PATH",
+        "start_seconds": 150.9025,
+        "end_seconds": 152.6775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "environment",
+        "start_seconds": 152.6775,
+        "end_seconds": 153.165
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "variable.",
+        "start_seconds": 153.165,
+        "end_seconds": 154.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Call",
+        "start_seconds": 154.365,
+        "end_seconds": 154.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "registerOTel",
+        "start_seconds": 154.69,
+        "end_seconds": 156.04
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "with",
+        "start_seconds": 156.04,
+        "end_seconds": 156.1775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 156.1775,
+        "end_seconds": 156.32750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "service",
+        "start_seconds": 156.32750000000001,
+        "end_seconds": 156.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "name",
+        "start_seconds": 156.715,
+        "end_seconds": 157.04
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "before",
+        "start_seconds": 157.04,
+        "end_seconds": 157.32750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 157.32750000000001,
+        "end_seconds": 157.415
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "worker",
+        "start_seconds": 157.415,
+        "end_seconds": 157.74
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "starts,",
+        "start_seconds": 157.74,
+        "end_seconds": 158.59
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 158.59,
+        "end_seconds": 158.70250000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 158.70250000000001,
+        "end_seconds": 158.79
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "daemon",
+        "start_seconds": 158.79,
+        "end_seconds": 159.115
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "streams",
+        "start_seconds": 159.115,
+        "end_seconds": 159.5025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "its",
+        "start_seconds": 159.5025,
+        "end_seconds": 159.6275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "spans",
+        "start_seconds": 159.6275,
+        "end_seconds": 160.165
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "to",
+        "start_seconds": 160.165,
+        "end_seconds": 160.29
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Vercel",
+        "start_seconds": 160.29,
+        "end_seconds": 160.64000000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Tracing.",
+        "start_seconds": 160.64000000000001,
+        "end_seconds": 161.6275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "You",
+        "start_seconds": 162.11,
+        "end_seconds": 162.21
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "can",
+        "start_seconds": 162.21,
+        "end_seconds": 162.46
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "then",
+        "start_seconds": 162.46,
+        "end_seconds": 162.69750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "pull",
+        "start_seconds": 162.69750000000002,
+        "end_seconds": 162.96
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "those",
+        "start_seconds": 162.96,
+        "end_seconds": 163.185
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "traces",
+        "start_seconds": 163.185,
+        "end_seconds": 163.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "from",
+        "start_seconds": 163.685,
+        "end_seconds": 163.82250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 163.82250000000002,
+        "end_seconds": 163.91
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Vercel",
+        "start_seconds": 163.91,
+        "end_seconds": 164.32250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "CLI",
+        "start_seconds": 164.32250000000002,
+        "end_seconds": 165.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "with",
+        "start_seconds": 165.235,
+        "end_seconds": 165.3975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 165.3975,
+        "end_seconds": 165.51000000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "simple",
+        "start_seconds": 165.51000000000002,
+        "end_seconds": 165.9225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "search",
+        "start_seconds": 165.9225,
+        "end_seconds": 166.235
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "command.",
+        "start_seconds": 166.235,
+        "end_seconds": 167.335
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "This",
+        "start_seconds": 167.335,
+        "end_seconds": 167.585
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "gives",
+        "start_seconds": 167.585,
+        "end_seconds": 167.835
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 167.835,
+        "end_seconds": 167.96
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 167.96,
+        "end_seconds": 168.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "same",
+        "start_seconds": 168.11,
+        "end_seconds": 168.46
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "visibility",
+        "start_seconds": 168.46,
+        "end_seconds": 169.11
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "into",
+        "start_seconds": 169.11,
+        "end_seconds": 169.335
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "background",
+        "start_seconds": 169.335,
+        "end_seconds": 169.9225
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "jobs",
+        "start_seconds": 169.9225,
+        "end_seconds": 170.685
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "as",
+        "start_seconds": 170.685,
+        "end_seconds": 170.835
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 170.835,
+        "end_seconds": 170.9975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "have",
+        "start_seconds": 170.9975,
+        "end_seconds": 171.335
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 171.335,
+        "end_seconds": 171.4975
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "front‑end",
+        "start_seconds": 171.4975,
+        "end_seconds": 171.94750000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "requests,",
+        "start_seconds": 171.94750000000002,
+        "end_seconds": 172.935
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "but",
+        "start_seconds": 172.935,
+        "end_seconds": 173.085
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "only",
+        "start_seconds": 173.085,
+        "end_seconds": 173.38500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 173.38500000000002,
+        "end_seconds": 173.5475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "daemons",
+        "start_seconds": 173.5475,
+        "end_seconds": 174.07250000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "running",
+        "start_seconds": 174.07250000000002,
+        "end_seconds": 174.41
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 174.41,
+        "end_seconds": 174.61
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Vercel’s",
+        "start_seconds": 174.61,
+        "end_seconds": 175.1475
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "own",
+        "start_seconds": 175.1475,
+        "end_seconds": 175.38500000000002
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "infrastructure.",
+        "start_seconds": 175.38500000000002,
+        "end_seconds": 176.56
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "And",
+        "start_seconds": 177.76,
+        "end_seconds": 177.89749999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "finally,",
+        "start_seconds": 177.89749999999998,
+        "end_seconds": 178.535
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "our",
+        "start_seconds": 178.535,
+        "end_seconds": 178.685
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "last",
+        "start_seconds": 178.685,
+        "end_seconds": 178.9475
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "story.",
+        "start_seconds": 178.9475,
+        "end_seconds": 179.89749999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "Llama",
+        "start_seconds": 179.89749999999998,
+        "end_seconds": 180.20999999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "dot",
+        "start_seconds": 180.20999999999998,
+        "end_seconds": 180.45999999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "cpp",
+        "start_seconds": 180.45999999999998,
+        "end_seconds": 181.035
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "just",
+        "start_seconds": 181.035,
+        "end_seconds": 181.26
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "rolled",
+        "start_seconds": 181.26,
+        "end_seconds": 181.5725
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "out",
+        "start_seconds": 181.5725,
+        "end_seconds": 181.73499999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "version",
+        "start_seconds": 181.73499999999999,
+        "end_seconds": 182.0975
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "one",
+        "start_seconds": 182.0975,
+        "end_seconds": 182.33499999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "point",
+        "start_seconds": 182.33499999999998,
+        "end_seconds": 182.60999999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "zero",
+        "start_seconds": 182.60999999999999,
+        "end_seconds": 182.91
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "point",
+        "start_seconds": 182.91,
+        "end_seconds": 183.16
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "zero,",
+        "start_seconds": 183.16,
+        "end_seconds": 183.885
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 183.885,
+        "end_seconds": 183.9975
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "it",
+        "start_seconds": 183.9975,
+        "end_seconds": 184.08499999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "comes",
+        "start_seconds": 184.08499999999998,
+        "end_seconds": 184.3475
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "with",
+        "start_seconds": 184.3475,
+        "end_seconds": 184.4475
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 184.4475,
+        "end_seconds": 184.51
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "promised",
+        "start_seconds": 184.51,
+        "end_seconds": 184.935
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "stable",
+        "start_seconds": 184.935,
+        "end_seconds": 185.31
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "API",
+        "start_seconds": 185.31,
+        "end_seconds": 186.17249999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 186.17249999999999,
+        "end_seconds": 186.31
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "ABI",
+        "start_seconds": 186.31,
+        "end_seconds": 186.785
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "contract.",
+        "start_seconds": 186.785,
+        "end_seconds": 187.92249999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "That",
+        "start_seconds": 187.92249999999999,
+        "end_seconds": 188.14749999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "means",
+        "start_seconds": 188.14749999999998,
+        "end_seconds": 188.39749999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "the",
+        "start_seconds": 188.39749999999998,
+        "end_seconds": 188.48499999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "core",
+        "start_seconds": 188.48499999999999,
+        "end_seconds": 188.73499999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "C",
+        "start_seconds": 188.73499999999999,
+        "end_seconds": 188.92249999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "slash",
+        "start_seconds": 188.92249999999999,
+        "end_seconds": 189.26
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "C++",
+        "start_seconds": 189.26,
+        "end_seconds": 189.98499999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "inference",
+        "start_seconds": 189.98499999999999,
+        "end_seconds": 190.39749999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "engine",
+        "start_seconds": 190.39749999999998,
+        "end_seconds": 191.0975
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "can",
+        "start_seconds": 191.0975,
+        "end_seconds": 191.26
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "now",
+        "start_seconds": 191.26,
+        "end_seconds": 191.4975
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "run",
+        "start_seconds": 191.4975,
+        "end_seconds": 191.7475
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "multimodal",
+        "start_seconds": 191.7475,
+        "end_seconds": 192.435
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "models",
+        "start_seconds": 192.435,
+        "end_seconds": 192.85999999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "on",
+        "start_seconds": 192.85999999999999,
+        "end_seconds": 193.04749999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "anything",
+        "start_seconds": 193.04749999999999,
+        "end_seconds": 193.45999999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "from",
+        "start_seconds": 193.45999999999998,
+        "end_seconds": 193.5975
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 193.5975,
+        "end_seconds": 193.66
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "laptop",
+        "start_seconds": 193.66,
+        "end_seconds": 194.17249999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "GPU",
+        "start_seconds": 194.17249999999999,
+        "end_seconds": 195.06
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "to",
+        "start_seconds": 195.06,
+        "end_seconds": 195.20999999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 195.20999999999998,
+        "end_seconds": 195.3225
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "big‑room",
+        "start_seconds": 195.3225,
+        "end_seconds": 195.785
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "server,",
+        "start_seconds": 195.785,
+        "end_seconds": 196.66
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 196.66,
+        "end_seconds": 196.77249999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "any",
+        "start_seconds": 196.77249999999998,
+        "end_seconds": 196.95999999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "breaking",
+        "start_seconds": 196.95999999999998,
+        "end_seconds": 197.3725
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "change",
+        "start_seconds": 197.3725,
+        "end_seconds": 197.785
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "will",
+        "start_seconds": 197.785,
+        "end_seconds": 197.95999999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "only",
+        "start_seconds": 197.95999999999998,
+        "end_seconds": 198.27249999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "show",
+        "start_seconds": 198.27249999999998,
+        "end_seconds": 198.51
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "up",
+        "start_seconds": 198.51,
+        "end_seconds": 198.6975
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "with",
+        "start_seconds": 198.6975,
+        "end_seconds": 198.8225
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 198.8225,
+        "end_seconds": 198.92249999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "major‑version",
+        "start_seconds": 198.92249999999999,
+        "end_seconds": 199.635
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "bump.",
+        "start_seconds": 199.635,
+        "end_seconds": 200.52249999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "Developers",
+        "start_seconds": 200.52249999999998,
+        "end_seconds": 201.16
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "get",
+        "start_seconds": 201.16,
+        "end_seconds": 201.29749999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 201.29749999999999,
+        "end_seconds": 201.3725
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "clear",
+        "start_seconds": 201.3725,
+        "end_seconds": 201.70999999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "upgrade",
+        "start_seconds": 201.70999999999998,
+        "end_seconds": 202.16
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "path",
+        "start_seconds": 202.16,
+        "end_seconds": 202.83499999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 202.83499999999998,
+        "end_seconds": 202.98499999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "can",
+        "start_seconds": 202.98499999999999,
+        "end_seconds": 203.185
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "lock",
+        "start_seconds": 203.185,
+        "end_seconds": 203.39749999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "in",
+        "start_seconds": 203.39749999999998,
+        "end_seconds": 203.4975
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 203.4975,
+        "end_seconds": 203.56
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "version",
+        "start_seconds": 203.56,
+        "end_seconds": 203.98499999999999
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "without",
+        "start_seconds": 203.98499999999999,
+        "end_seconds": 204.3475
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "fearing",
+        "start_seconds": 204.3475,
+        "end_seconds": 204.70999999999998
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "surprise",
+        "start_seconds": 204.70999999999998,
+        "end_seconds": 205.135
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "breakages.",
+        "start_seconds": 205.135,
+        "end_seconds": 206.1975
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "Here's",
+        "start_seconds": 206.68,
+        "end_seconds": 207.005
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "why",
+        "start_seconds": 207.005,
+        "end_seconds": 207.18
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "that",
+        "start_seconds": 207.18,
+        "end_seconds": 207.405
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "matters:",
+        "start_seconds": 207.405,
+        "end_seconds": 208.3425
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "it",
+        "start_seconds": 208.3425,
+        "end_seconds": 208.4675
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "makes",
+        "start_seconds": 208.4675,
+        "end_seconds": 208.73
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "building",
+        "start_seconds": 208.73,
+        "end_seconds": 209.1675
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "private‑AI",
+        "start_seconds": 209.1675,
+        "end_seconds": 210.005
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "services",
+        "start_seconds": 210.005,
+        "end_seconds": 210.555
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "across",
+        "start_seconds": 210.555,
+        "end_seconds": 210.93
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "hardware",
+        "start_seconds": 210.93,
+        "end_seconds": 211.7175
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 211.7175,
+        "end_seconds": 211.855
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "lot",
+        "start_seconds": 211.855,
+        "end_seconds": 212.105
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "less",
+        "start_seconds": 212.105,
+        "end_seconds": 212.3175
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "of",
+        "start_seconds": 212.3175,
+        "end_seconds": 212.3925
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 212.3925,
+        "end_seconds": 212.455
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "guessing",
+        "start_seconds": 212.455,
+        "end_seconds": 212.83
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "game.",
+        "start_seconds": 212.83,
+        "end_seconds": 213.58
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "And",
+        "start_seconds": 214.805,
+        "end_seconds": 214.9425
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "that's",
+        "start_seconds": 214.9425,
+        "end_seconds": 215.18
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "your",
+        "start_seconds": 215.18,
+        "end_seconds": 215.33
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "Daywire",
+        "start_seconds": 215.33,
+        "end_seconds": 215.755
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "briefing.",
+        "start_seconds": 215.755,
+        "end_seconds": 216.605
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "You'll",
+        "start_seconds": 216.605,
+        "end_seconds": 216.78
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "find",
+        "start_seconds": 216.78,
+        "end_seconds": 217.0175
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "the",
+        "start_seconds": 217.0175,
+        "end_seconds": 217.1175
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "full",
+        "start_seconds": 217.1175,
+        "end_seconds": 217.38
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "stories",
+        "start_seconds": 217.38,
+        "end_seconds": 217.88
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 217.88,
+        "end_seconds": 218.0175
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "sources",
+        "start_seconds": 218.0175,
+        "end_seconds": 218.53
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "in",
+        "start_seconds": 218.53,
+        "end_seconds": 218.63
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "today's",
+        "start_seconds": 218.63,
+        "end_seconds": 219.005
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "newspaper.",
+        "start_seconds": 219.005,
+        "end_seconds": 220.0175
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "Thanks",
+        "start_seconds": 220.0175,
+        "end_seconds": 220.305
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "for",
+        "start_seconds": 220.305,
+        "end_seconds": 220.43
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "listening.",
+        "start_seconds": 220.43,
+        "end_seconds": 221.1675
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "Take",
+        "start_seconds": 221.1675,
+        "end_seconds": 221.4925
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "care,",
+        "start_seconds": 221.4925,
+        "end_seconds": 221.93
+      },
+      {
+        "segment_id": "llama-cpp-1-0-release-segment",
+        "text": "everyone.",
+        "start_seconds": 221.93,
+        "end_seconds": 222.88
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
