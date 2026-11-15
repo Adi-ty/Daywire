@@ -1,0 +1,3832 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-15",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-15T07:05:41.242066921Z",
+  "coverage": {
+    "from": "2026-11-14T06:00:00+05:30",
+    "until": "2026-11-15T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-79b046481bd48da6",
+      "source-92875e57daa3ed70",
+      "source-6ae7344ea29f1bf5",
+      "source-3cd2b0c41bcab09e"
+    ],
+    "candidate_count": 18,
+    "evidence_count": 14
+  },
+  "content": {
+    "title": "Nvidia’s GPU Squeeze and the ggml 1.0.0 Release",
+    "introduction": "Reports indicate Nvidia is investing in AI‑focused cloud startups to create demand for its surplus GPUs, a strategy that could tighten supply and sustain high prices. Meanwhile, the open‑source ggml library has launched version 1.0.0, adding YaRN truncation, FP8 support and performance improvements across multiple backends, expanding tooling for developers working with GPU‑accelerated models.",
+    "articles": [
+      {
+        "id": "nvidia-scarcity-funding-2026",
+        "section": "AI",
+        "headline": "Nvidia funded AI startups to absorb excess GPUs, sparking a market squeeze",
+        "summary": "A Wall Street Journal report, discussed on Hacker News, alleges Nvidia deliberately invested in AI‑focused cloud firms to create demand for its GPUs and keep prices elevated.",
+        "paragraphs": [
+          "According to a newly surfaced Wall Street Journal profile, Nvidia’s senior finance team met in August 2026 to address an \"avalanche\" of GPU wafers from TSMC that lacked immediate buyers. The paper claims the company responded by channeling capital into small‑scale AI startups, effectively financing customers that would purchase Nvidia GPUs for data‑center builds. The strategy, described as \"circular financing,\" was intended to sustain the perception of robust demand while off‑loading an oversupply of semiconductor inventory.",
+          "Hacker News commenters note that the same financing approach persisted after Jensen Huang’s resignation, with interim CEO Colette Kress initially pushing back on the scale of the deals. Internal tensions surfaced when Huang allegedly berated Kress, calling her a \"deer in the headlights,\" before the company began to pause several of the financing arrangements, including a $250 billion backstop with OpenAI. The fallout has left flagship GeForce RTX cards, such as the RTX 5090, scarce and priced at roughly 160 % of MSRP.",
+          "For engineers and buyers, the immediate consequence is tighter supply and higher costs for consumer‑grade GPUs, while data‑center vendors continue to benefit from the redirected inventory. The episode underscores how financing tactics can reshape hardware markets beyond pure technical merit."
+        ],
+        "implication": "Engineers should expect continued premium pricing on Nvidia consumer GPUs until the financing deals are fully unwound, and they may need to explore alternative vendors for cost‑sensitive projects.",
+        "source_ids": [
+          "source-8f4b2632f43363d7",
+          "source-d5d8547e961af0e1"
+        ]
+      },
+      {
+        "id": "lovable-data-exposure-2026",
+        "section": "Security",
+        "headline": "Lovable AI platform apps leak passport numbers and private messages",
+        "summary": "A security analysis of 159,041 Lovable‑built sites uncovered exposed passport details and over 200 K private chat messages.",
+        "paragraphs": [
+          "Researchers accessed read‑only endpoints on dozens of Lovable applications and retrieved personal records, including full names, emails, dates of birth, and in one case more than 1,000 identity documents with passport numbers, expiration dates and nationalities. The study covered 24,664 examined websites; the authors note the leak rate may be higher because only partial datasets were downloaded."
+        ],
+        "implication": "Developers using Lovable must audit API key permissions and enforce strict access controls, as the platform’s default read‑only endpoints can still expose sensitive data.",
+        "source_ids": [
+          "source-94aa6d9b525a12a4"
+        ]
+      },
+      {
+        "id": "ambient-surveillance-privacy-2026",
+        "section": "Security",
+        "headline": "Tech firms push ambient‑surveillance privacy model onto bystanders",
+        "summary": "Companies are redefining privacy so that a device owner’s settings dictate what surrounding non‑users are recorded, expanding surveillance exposure.",
+        "paragraphs": [
+          "A recent excerpt on Hacker News cites an EFF analysis noting that major vendors—Apple, Meta, Google, Amazon—frame privacy as a set of technical safeguards for the device user while ignoring bystanders, whose images and voices can be captured without any opt‑out mechanism. The piece argues that this “ambient surveillance” model forces everyone nearby to become de‑facto experts on device capabilities and legal obligations."
+        ],
+        "implication": "Readers should recognize that current privacy promises do not protect people who are merely present, meaning bystanders have no technical means to prevent recording and must rely on broader policy or legal action.",
+        "source_ids": [
+          "source-7e8a918c3908973f"
+        ]
+      },
+      {
+        "id": "ggml-1-0-0-release",
+        "section": "Engineering",
+        "headline": "ggml 1.0.0 adds YaRN truncation, FP8 and multi‑backend speedups",
+        "summary": "The ggml 1.0.0 release removes legacy APIs, introduces configurable YaRN truncation and FP8 support, and delivers a suite of performance enhancements across CUDA, Metal, Vulkan, SYCL, OpenCL, WebGPU and Hexagon backends.",
+        "paragraphs": [
+          "Version 1.0.0 prunes the deprecated public API and legacy DIAG_MASK ops while adding two new rope helpers—ggml_rope_set_truncate and ggml_rope_get_truncate—to let developers control YaRN correction‑bound rounding. FP8 arithmetic is now supported, opening a path to lower‑precision inference on compatible hardware.",
+          "Performance work spans many backends: few‑row quantized matmuls and MoE fusion on CUDA/Metal, a Vulkan pre‑fill FlashAttention path, a device‑side MoE scheduler on SYCL, decomposed Adreno FlashAttention in OpenCL, new WebGPU kernels, expanded Hexagon op coverage, and scheduler tweaks that skip uploading unused inputs and prefetch only earlier‑split results.",
+          "Bug fixes include out‑of‑bounds guards in FA output, GROUP_NORM limits for Adreno and MoltenVK, a fixed BLAS workspace for HIP/CDNA2, and 64‑bit FastRPC handle handling. The host build now works with clang‑cl on Windows ARM64."
+        ],
+        "implication": "Developers targeting any of the supported backends can immediately benefit from lower‑precision FP8 inference and reduced memory traffic, while the refined scheduler cuts unnecessary data movement, yielding faster inference on GPUs, mobile ASICs and emerging SYCL devices.",
+        "source_ids": [
+          "source-22f7de6935dc23ea"
+        ]
+      },
+      {
+        "id": "software-job-title-family-tree",
+        "section": "Engineering",
+        "headline": "A visual family tree maps eight decades of software job titles",
+        "summary": "Ian Miell’s new interactive diagram charts the evolution of software roles from the 1940s to today, showing how titles like DevOps, SRE and Platform Engineer have split, merged, and resurfaced.",
+        "paragraphs": [
+          "The tree, built with the help of Claude, lists 104 titles across seven colour‑coded families and five‑year rows, letting users click any title for its history and connections. It highlights patterns such as titles breaking apart before re‑joining and the rise of AI‑focused roles like “AI Agent / Context Engineer.” The diagram is openly editable – adding a node, a row entry, and parent arrows updates the whole view."
+        ],
+        "implication": "Readers can use the map to trace career pathways, anticipate emerging titles, and understand why similar work appears under different names over time.",
+        "source_ids": [
+          "source-a21cc815013d30aa"
+        ]
+      },
+      {
+        "id": "pypi-security-ui-redesign-2026-11-15",
+        "section": "Security",
+        "headline": "PyPI adds provenance warnings to project pages",
+        "summary": "PyPI’s UI now displays a “No provenance” banner for releases that lack digital attestations, clarifying that the origin cannot be cryptographically verified.",
+        "paragraphs": [
+          "The redesign, announced in July 2026, adds a security tab and top‑of‑page provenance warnings alongside existing banners for yanked, archived or pre‑release packages. The banner simply indicates that no attestation file was generated for the release; it does not imply malicious intent.",
+          "Package maintainers can generate attestations by configuring Trusted Publishing, which will cause the warning to disappear for future releases."
+        ],
+        "implication": "Maintainers who enable Trusted Publishing will present cleaner project pages, while users gain an immediate visual cue about the lack of cryptographic provenance for a given release.",
+        "source_ids": [
+          "source-9ed594075d0bf1a5"
+        ]
+      },
+      {
+        "id": "datasentinel-ai-connector-2026-10",
+        "section": "AI",
+        "headline": "Datasentinel 2026.10 adds AI Connector for assistant‑driven troubleshooting",
+        "summary": "The new AI Connector add‑on lets licensed users query Datasentinel metrics through popular AI assistants without direct database access.",
+        "paragraphs": [
+          "Datasentinel 2026.10 introduces an optional AI Connector that bridges the platform’s monitoring data to major assistants such as Claude, ChatGPT, Gemini, Microsoft Copilot, and GitHub Copilot. Users invoke the assistant from a desktop app or CLI, and the service returns findings ranked by impact, each backed by evidence and a concrete next step.",
+          "Access is governed by OAuth 2.1; the assistant receives a token and inherits the same role‑based permissions as the web UI, ensuring users only see instances they are authorized for. All queries are read‑only and routed through the Datasentinel agent, with execution‑plan estimates generated without running the actual SQL.",
+          "A public sandbox offers a shared read‑only account for quick trials, and the new internal function datasentinel_analytics (Agent v4.0.0+) provides read‑only planner statistics for advanced use cases."
+        ],
+        "implication": "Engineers can now leverage familiar AI assistants to diagnose PostgreSQL performance issues while staying within existing role‑based security boundaries, reducing the need to learn a separate query‑analysis UI.",
+        "source_ids": [
+          "source-6dda59291ca39664"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "circular-financing-mechanism-2026",
+        "title": "How Circular Financing Skews GPU Supply",
+        "paragraphs": [
+          "When a chip maker faces an excess of wafers, it can inject money into downstream customers to create artificial demand. Nvidia allegedly did this in 2026 by funding AI‑focused startups that would buy its GPUs for data‑center builds, a practice described as “circular financing.” The financing loop let Nvidia off‑load an “avalanche” of TSMC‑produced GPUs while preserving the illusion of a booming market, which in turn kept consumer GPU prices high.",
+          "The effect is a market squeeze: fewer GPUs reach retail channels and prices rise far above MSRP. Engineers looking for affordable graphics cards must either wait for the financing contracts to unwind or consider alternative vendors."
+        ],
+        "example": "Imagine a retailer buying 1,000 phones from a manufacturer, then receiving a loan from that same manufacturer to sell the phones, effectively guaranteeing the phones will be sold even if demand is low.",
+        "takeaway": "Financing your own customers can distort supply signals and inflate prices, so always assess whether demand is genuine or financially engineered.",
+        "article_ids": [
+          "nvidia-scarcity-funding-2026"
+        ],
+        "source_ids": [
+          "source-8f4b2632f43363d7",
+          "source-d5d8547e961af0e1"
+        ]
+      },
+      {
+        "id": "lovable-readonly-leak-mechanism",
+        "title": "How Read‑Only API Keys on Lovable Could Lead to Data Exposure",
+        "paragraphs": [
+          "The Lovable security analysis observed that read‑only API keys were used to make additional requests that returned more database content than initially expected. In several examined applications, these keys allowed the retrieval of personal records such as full names, email addresses, dates of birth, and, in one case, identity documents that included passport numbers, expiration dates, and nationalities.",
+          "Because the read‑only keys could be used to query different endpoints, an attacker who possessed a valid key could collect a larger set of data than the platform’s marketing materials suggested. The evidence does not specify whether the keys were scoped to particular tables or columns, only that they permitted further read‑only queries that exposed sensitive information."
+        ],
+        "example": "A researcher with a valid read‑only API key sent a series of requests to the application's user‑profile endpoint, each time specifying a different user identifier. The responses included the full profile data for each user, revealing personal details and, in some cases, passport information. This demonstrates that possessing a read‑only key can enable systematic collection of user records when the endpoint returns complete objects.",
+        "takeaway": "Even read‑only credentials can expose sensitive data if the API returns full records without additional safeguards. Developers should consider limiting the amount of information returned by read‑only endpoints and regularly review the data exposed through such keys.",
+        "article_ids": [
+          "lovable-data-exposure-2026"
+        ],
+        "source_ids": [
+          "source-94aa6d9b525a12a4"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-circular-financing-mechanism-2026-q1",
+        "lesson_id": "circular-financing-mechanism-2026",
+        "prompt": "What primary market effect does the circular financing practice described in the lesson produce?",
+        "options": [
+          "Increased availability of GPUs in retail channels",
+          "Lower GPU prices relative to MSRP",
+          "A market squeeze that raises GPU prices above MSRP",
+          "Improved accuracy of supply‑demand signals"
+        ],
+        "answer": 2,
+        "explanation": "The lesson states that circular financing lets Nvidia off‑load excess GPUs while keeping retail supply low, creating a market squeeze that pushes prices far above MSRP."
+      },
+      {
+        "id": "quiz-1-circular-financing-mechanism-2026-q2",
+        "lesson_id": "circular-financing-mechanism-2026",
+        "prompt": "According to the lesson, why might engineers have to wait before obtaining affordable graphics cards?",
+        "options": [
+          "Because the financing contracts must unwind before GPUs return to retail channels",
+          "Because Nvidia permanently stopped producing lower‑cost GPUs",
+          "Because TSMC reduced its wafer output permanently",
+          "Because alternative vendors are prohibited by licensing agreements"
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that the financing loop keeps GPUs out of retail, so engineers must wait for those contracts to unwind before supply reaches the market."
+      },
+      {
+        "id": "quiz-1-circular-financing-mechanism-2026-q3",
+        "lesson_id": "circular-financing-mechanism-2026",
+        "prompt": "What key warning does the lesson’s takeaway give to buyers evaluating GPU demand?",
+        "options": [
+          "Always prioritize GPUs from manufacturers that fund their own customers",
+          "Assess whether demand is genuine or financially engineered",
+          "Assume that high prices always indicate strong market demand",
+          "Rely on financing contracts as a sign of product quality"
+        ],
+        "answer": 1,
+        "explanation": "The takeaway advises buyers to assess whether demand is genuine or the result of financial engineering, directly reflecting the lesson’s warning."
+      },
+      {
+        "id": "quiz-2-readonly-scope",
+        "lesson_id": "lovable-readonly-leak-mechanism",
+        "prompt": "According to the Lovable analysis, why can a read‑only API key lead to exposure of personal records?",
+        "options": [
+          "The key is able to modify database entries, causing data leaks.",
+          "The key allows queries to multiple endpoints that return full user objects.",
+          "The key automatically grants administrative privileges to the attacker.",
+          "The key encrypts responses, making them unreadable to legitimate users."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that read‑only keys could be used to query different endpoints, and the responses included full profile data, enabling systematic collection of personal records."
+      },
+      {
+        "id": "quiz-2-mitigation-focus",
+        "lesson_id": "lovable-readonly-leak-mechanism",
+        "prompt": "What mitigation does the Lovable takeaway specifically recommend for read‑only endpoints?",
+        "options": [
+          "Implement rate limiting on all API requests.",
+          "Limit the amount of information returned by read‑only endpoints.",
+          "Require multi‑factor authentication for every read‑only request.",
+          "Encrypt all API responses with a rotating key."
+        ],
+        "answer": 1,
+        "explanation": "The takeaway advises developers to limit the amount of information returned by read‑only endpoints, directly addressing the over‑exposure issue described."
+      }
+    ],
+    "segments": [
+      {
+        "id": "radio-1",
+        "title": "Nvidia’s Funding Fuels GPU Shortage",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November fifteen, two thousand twenty six.\n\nWe begin with our lead story. Nvidia poured cash into tiny AI cloud startups to soak up an avalanche of GPU wafers, and that move has squeezed the market. The Wall Street Journal says senior finance staff met in August 2026, then financed customers who would buy Nvidia chips for data‑center builds, a tactic dubbed circular financing. The result? flagship GeForce RTX cards like the RTX five zero nine zero are now scarce and fetching about one‑hundred‑sixty percent of MSRP. Engineers should brace for premium pricing on consumer GPUs until those financing deals unwind, and consider other vendors for cost‑sensitive builds.",
+        "article_ids": [
+          "nvidia-scarcity-funding-2026"
+        ]
+      },
+      {
+        "id": "lovable-data-exposure-2026-segment",
+        "title": "Lovable apps expose passport numbers and private chats",
+        "text": "Next on the bulletin. Lovable AI platform apps are spilling personal data. Researchers poked around read‑only endpoints on dozens of sites and pulled full names, emails, dates of birth, and in one case over a thousand identity documents with passport numbers, expiration dates and nationalities. They also uncovered more than two hundred thousand private chat messages. The study looked at 24,664 websites, but the authors say the leak rate could be higher because only partial data sets were downloaded.\n\nHere's why that matters: developers building on Lovable need to audit API key permissions and lock down access controls, because even default read‑only endpoints can still leak sensitive information.",
+        "article_ids": [
+          "lovable-data-exposure-2026"
+        ]
+      },
+      {
+        "id": "ambient-surveillance-privacy-2026-segment",
+        "title": "Ambient surveillance model shifts privacy burden to bystanders",
+        "text": "Turning to our next story. Tech firms are now saying privacy is a set of safeguards that protect the device owner, not the people standing nearby. Apple, Meta, Google and Amazon all frame their cameras and microphones as user‑controlled, while anyone in the room can be recorded with no opt‑out. That means a bystander has to become an expert on every device’s capabilities and the law to avoid being captured. Here's why that matters: the current promises leave ordinary folks without any technical way to stop being filmed, so they’ll have to rely on broader policy or legal routes.\n",
+        "article_ids": [
+          "ambient-surveillance-privacy-2026"
+        ]
+      },
+      {
+        "id": "ggml-1-0-0-release-segment",
+        "title": "ggml 1.0.0 adds YaRN truncation, FP8 and multi‑backend speedups",
+        "text": "Next on the bulletin. ggml version one point zero point zero adds YaRN truncation, FP8 support and multi‑backend speedups.\n\nThe update drops old public APIs and legacy DIAG_MASK ops, then introduces two new rope helpers—ggml_rope_set_truncate and ggml_rope_get_truncate—so developers can fine‑tune YaRN correction‑bound rounding. It also brings FP8 arithmetic, letting inference run at lower precision on compatible hardware. Across CUDA, Metal, Vulkan, SYCL, OpenCL, WebGPU and Hexagon, you’ll see faster matmuls, fused MoE paths and smarter scheduling that cuts needless data movement. Here’s why that matters: you can squeeze more performance out of GPUs, mobile ASICs and emerging SYCL devices right now.",
+        "article_ids": [
+          "ggml-1-0-0-release"
+        ]
+      },
+      {
+        "id": "software-job-title-family-tree-segment",
+        "title": "Software Job Titles Mapped Across Eight Decades",
+        "text": "And finally, our last story. Ian Miell has rolled out an interactive family tree that charts 104 software job titles from the 1940s to today. The diagram groups titles into seven colour‑coded families and lines them up in five‑year rows, so you can click any role and see its lineage and sibling connections. It shows how names like DevOps, SRE and Platform Engineer have split, merged and resurfaced, and even flags the newest AI‑focused roles such as AI Agent slash Context Engineer. Because the map is openly editable, anyone can add a node or a row and the whole view updates automatically. Here’s why that matters: it gives you a visual shortcut to trace career paths, spot emerging titles and decode why similar work shows up under different names.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "software-job-title-family-tree"
+        ]
+      }
+    ],
+    "artwork_brief": "Illustrate a large GPU chip being passed from a hand labeled “Nvidia” to a cloud‑shaped figure, while the ggml logo glows nearby with symbols of code (brackets, gears) representing the new 1.0.0 release."
+  },
+  "sources": [
+    {
+      "id": "source-8f4b2632f43363d7",
+      "name": "Hacker News",
+      "title": "Nvidia allegedly engineered scarcity by funding AI startups to buy its GPUs",
+      "url": "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
+      "published_at": null,
+      "discovered_at": "2026-11-14T02:52:59Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50493251"
+    },
+    {
+      "id": "source-6dda59291ca39664",
+      "name": "PostgreSQL News",
+      "title": "Datasentinel 2026.10 released with AI Connector",
+      "url": "https://www.postgresql.org/about/news/datasentinel-202610-released-with-ai-connector-3400/",
+      "published_at": "2026-11-15T00:00:00Z",
+      "discovered_at": "2026-11-15T06:53:12.907398208Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-94aa6d9b525a12a4",
+      "name": "Hacker News",
+      "title": "Lovable apps expose passport details and more than 200K private messages",
+      "url": "https://www.crissyfield.de/research/lovable-en/",
+      "published_at": null,
+      "discovered_at": "2026-11-14T17:43:10Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50499017"
+    },
+    {
+      "id": "source-7e8a918c3908973f",
+      "name": "Hacker News",
+      "title": "Tech companies are trying to shift the concept of privacy again",
+      "url": "https://www.eff.org/deeplinks/2026/11/tech-companies-are-trying-shift-entire-concept-privacy-again",
+      "published_at": null,
+      "discovered_at": "2026-11-14T12:45:45Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50496602"
+    },
+    {
+      "id": "source-d5d8547e961af0e1",
+      "name": "Hacker News",
+      "title": "Nvidia deliberately kept GPU prices high through circular financing deals",
+      "url": "https://www.techspot.com/news/114558-nvidia-deliberately-kept-gpu-prices-high-through-circular.html",
+      "published_at": null,
+      "discovered_at": "2026-11-14T22:26:30Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50501631"
+    },
+    {
+      "id": "source-22f7de6935dc23ea",
+      "name": "Hacker News",
+      "title": "Ggml v1.0.0",
+      "url": "https://github.com/ggml-org/ggml/releases/tag/v1.0.0",
+      "published_at": null,
+      "discovered_at": "2026-11-14T02:28:29Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50493062"
+    },
+    {
+      "id": "source-a21cc815013d30aa",
+      "name": "Hacker News",
+      "title": "A family tree of software job titles",
+      "url": "https://zwischenzugs.com/2026/11/03/a-family-tree-of-software-job-titles/",
+      "published_at": null,
+      "discovered_at": "2026-11-14T17:45:19Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50499038"
+    },
+    {
+      "id": "source-9ed594075d0bf1a5",
+      "name": "Hacker News",
+      "title": "PyPI's redesigned project pages with clearer security signals are now live",
+      "url": "https://blog.pypi.org/posts/2026-11-06-ui-updates-complete/",
+      "published_at": null,
+      "discovered_at": "2026-11-14T15:40:52Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50497892"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-15/ea01972fec05c4cf7873e6c26e38741b68a1129566cc0e67870e9cca2cf691ed.mp3",
+    "duration_seconds": 263.808,
+    "script_hash": "6fee2d6a7f23a6dd854b4dd3115f2046f00acd06f20c4a08257797f35d19666a",
+    "cues": [
+      {
+        "segment_id": "radio-1",
+        "text": "Hello",
+        "start_seconds": 0.375,
+        "end_seconds": 0.7625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone,",
+        "start_seconds": 0.7625,
+        "end_seconds": 1.375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 1.375,
+        "end_seconds": 1.5375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "welcome",
+        "start_seconds": 1.5375,
+        "end_seconds": 1.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 1.975,
+        "end_seconds": 2.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire.",
+        "start_seconds": 2.1,
+        "end_seconds": 3.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Let's",
+        "start_seconds": 3.1875,
+        "end_seconds": 3.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "make",
+        "start_seconds": 3.475,
+        "end_seconds": 3.7125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sense",
+        "start_seconds": 3.7125,
+        "end_seconds": 4.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 4.0375,
+        "end_seconds": 4.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 4.1125,
+        "end_seconds": 4.2125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tech",
+        "start_seconds": 4.2125,
+        "end_seconds": 4.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "news.",
+        "start_seconds": 4.475,
+        "end_seconds": 5.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "It's",
+        "start_seconds": 5.25,
+        "end_seconds": 5.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 5.5,
+        "end_seconds": 6.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fifteen,",
+        "start_seconds": 6.0375,
+        "end_seconds": 6.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 6.7875,
+        "end_seconds": 7.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 7.025,
+        "end_seconds": 7.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 7.4125,
+        "end_seconds": 7.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six.",
+        "start_seconds": 7.6875,
+        "end_seconds": 8.575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "We",
+        "start_seconds": 9.875,
+        "end_seconds": 9.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "begin",
+        "start_seconds": 9.975,
+        "end_seconds": 10.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 10.35,
+        "end_seconds": 10.4875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 10.4875,
+        "end_seconds": 10.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lead",
+        "start_seconds": 10.625,
+        "end_seconds": 10.9
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 10.9,
+        "end_seconds": 11.8625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Nvidia",
+        "start_seconds": 11.8625,
+        "end_seconds": 12.275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "poured",
+        "start_seconds": 12.275,
+        "end_seconds": 12.5875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cash",
+        "start_seconds": 12.5875,
+        "end_seconds": 12.912500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "into",
+        "start_seconds": 12.912500000000001,
+        "end_seconds": 13.162500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tiny",
+        "start_seconds": 13.162500000000001,
+        "end_seconds": 13.5875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 13.5875,
+        "end_seconds": 14.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cloud",
+        "start_seconds": 14.0875,
+        "end_seconds": 14.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "startups",
+        "start_seconds": 14.425,
+        "end_seconds": 14.925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 14.925,
+        "end_seconds": 15.05
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "soak",
+        "start_seconds": 15.05,
+        "end_seconds": 15.2625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "up",
+        "start_seconds": 15.2625,
+        "end_seconds": 15.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 15.3875,
+        "end_seconds": 15.4875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "avalanche",
+        "start_seconds": 15.4875,
+        "end_seconds": 15.9875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 15.9875,
+        "end_seconds": 16.1125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "GPU",
+        "start_seconds": 16.1125,
+        "end_seconds": 16.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "wafers,",
+        "start_seconds": 16.65,
+        "end_seconds": 17.55
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 17.55,
+        "end_seconds": 17.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 17.6625,
+        "end_seconds": 17.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "move",
+        "start_seconds": 17.875,
+        "end_seconds": 18.1875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "has",
+        "start_seconds": 18.1875,
+        "end_seconds": 18.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "squeezed",
+        "start_seconds": 18.3375,
+        "end_seconds": 18.762500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 18.762500000000003,
+        "end_seconds": 18.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "market.",
+        "start_seconds": 18.85,
+        "end_seconds": 19.887500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 19.887500000000003,
+        "end_seconds": 20.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Wall",
+        "start_seconds": 20.025,
+        "end_seconds": 20.3
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Street",
+        "start_seconds": 20.3,
+        "end_seconds": 20.637500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Journal",
+        "start_seconds": 20.637500000000003,
+        "end_seconds": 21.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "says",
+        "start_seconds": 21.025,
+        "end_seconds": 21.3
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "senior",
+        "start_seconds": 21.3,
+        "end_seconds": 21.7375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "finance",
+        "start_seconds": 21.7375,
+        "end_seconds": 22.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "staff",
+        "start_seconds": 22.25,
+        "end_seconds": 22.6875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "met",
+        "start_seconds": 22.6875,
+        "end_seconds": 22.887500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 22.887500000000003,
+        "end_seconds": 23.012500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "August",
+        "start_seconds": 23.012500000000003,
+        "end_seconds": 23.425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "2026,",
+        "start_seconds": 23.425,
+        "end_seconds": 24.825000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "then",
+        "start_seconds": 24.825000000000003,
+        "end_seconds": 25.05
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "financed",
+        "start_seconds": 25.05,
+        "end_seconds": 25.674999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "customers",
+        "start_seconds": 25.674999999999997,
+        "end_seconds": 26.325000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "who",
+        "start_seconds": 26.325000000000003,
+        "end_seconds": 26.4375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "would",
+        "start_seconds": 26.4375,
+        "end_seconds": 26.549999999999997
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "buy",
+        "start_seconds": 26.549999999999997,
+        "end_seconds": 26.75
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Nvidia",
+        "start_seconds": 26.75,
+        "end_seconds": 27.262500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "chips",
+        "start_seconds": 27.262500000000003,
+        "end_seconds": 27.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 27.65,
+        "end_seconds": 27.8125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "data‑center",
+        "start_seconds": 27.8125,
+        "end_seconds": 28.575000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "builds,",
+        "start_seconds": 28.575000000000003,
+        "end_seconds": 29.387500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 29.387500000000003,
+        "end_seconds": 29.512500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tactic",
+        "start_seconds": 29.512500000000003,
+        "end_seconds": 30.012500000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dubbed",
+        "start_seconds": 30.012500000000003,
+        "end_seconds": 30.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "circular",
+        "start_seconds": 30.4,
+        "end_seconds": 30.950000000000003
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "financing.",
+        "start_seconds": 30.950000000000003,
+        "end_seconds": 32.2875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 32.2875,
+        "end_seconds": 32.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "result?",
+        "start_seconds": 32.4,
+        "end_seconds": 33.4375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flagship",
+        "start_seconds": 33.995000000000005,
+        "end_seconds": 34.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "GeForce",
+        "start_seconds": 34.52,
+        "end_seconds": 35.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "RTX",
+        "start_seconds": 35.045,
+        "end_seconds": 35.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cards",
+        "start_seconds": 35.695,
+        "end_seconds": 36.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "like",
+        "start_seconds": 36.120000000000005,
+        "end_seconds": 36.282500000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 36.282500000000006,
+        "end_seconds": 36.395
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "RTX",
+        "start_seconds": 36.395,
+        "end_seconds": 37.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five",
+        "start_seconds": 37.1075,
+        "end_seconds": 37.4825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 37.4825,
+        "end_seconds": 37.82
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "nine",
+        "start_seconds": 37.82,
+        "end_seconds": 38.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 38.1075,
+        "end_seconds": 38.845000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 38.845000000000006,
+        "end_seconds": 38.995000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 38.995000000000005,
+        "end_seconds": 39.2575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "scarce",
+        "start_seconds": 39.2575,
+        "end_seconds": 39.82
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 39.82,
+        "end_seconds": 39.970000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fetching",
+        "start_seconds": 39.970000000000006,
+        "end_seconds": 40.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "about",
+        "start_seconds": 40.42,
+        "end_seconds": 40.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one‑hundred‑sixty",
+        "start_seconds": 40.67,
+        "end_seconds": 41.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "percent",
+        "start_seconds": 41.57,
+        "end_seconds": 42.00750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 42.00750000000001,
+        "end_seconds": 42.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "MSRP.",
+        "start_seconds": 42.095,
+        "end_seconds": 43.5825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Engineers",
+        "start_seconds": 43.5825,
+        "end_seconds": 44.32000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "should",
+        "start_seconds": 44.32000000000001,
+        "end_seconds": 44.495000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "brace",
+        "start_seconds": 44.495000000000005,
+        "end_seconds": 44.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 44.845,
+        "end_seconds": 44.9825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "premium",
+        "start_seconds": 44.9825,
+        "end_seconds": 45.495000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pricing",
+        "start_seconds": 45.495000000000005,
+        "end_seconds": 46.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 46.045,
+        "end_seconds": 46.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "consumer",
+        "start_seconds": 46.22,
+        "end_seconds": 46.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "GPUs",
+        "start_seconds": 46.7825,
+        "end_seconds": 47.88250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "until",
+        "start_seconds": 47.88250000000001,
+        "end_seconds": 48.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "those",
+        "start_seconds": 48.17,
+        "end_seconds": 48.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "financing",
+        "start_seconds": 48.42,
+        "end_seconds": 49.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "deals",
+        "start_seconds": 49.045,
+        "end_seconds": 49.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "unwind,",
+        "start_seconds": 49.4075,
+        "end_seconds": 50.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 50.52,
+        "end_seconds": 50.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "consider",
+        "start_seconds": 50.645,
+        "end_seconds": 51.07000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "other",
+        "start_seconds": 51.07000000000001,
+        "end_seconds": 51.370000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vendors",
+        "start_seconds": 51.370000000000005,
+        "end_seconds": 51.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 51.845,
+        "end_seconds": 52.00750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cost‑sensitive",
+        "start_seconds": 52.00750000000001,
+        "end_seconds": 53.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "builds.",
+        "start_seconds": 53.045,
+        "end_seconds": 53.995000000000005
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "Next",
+        "start_seconds": 55.345,
+        "end_seconds": 55.6325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "on",
+        "start_seconds": 55.6325,
+        "end_seconds": 55.7325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "the",
+        "start_seconds": 55.7325,
+        "end_seconds": 55.82
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "bulletin.",
+        "start_seconds": 55.82,
+        "end_seconds": 56.895
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "Lovable",
+        "start_seconds": 56.895,
+        "end_seconds": 57.3575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "AI",
+        "start_seconds": 57.3575,
+        "end_seconds": 57.77
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "platform",
+        "start_seconds": 57.77,
+        "end_seconds": 58.345
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "apps",
+        "start_seconds": 58.345,
+        "end_seconds": 58.6325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "are",
+        "start_seconds": 58.6325,
+        "end_seconds": 58.7575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "spilling",
+        "start_seconds": 58.7575,
+        "end_seconds": 59.2325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "personal",
+        "start_seconds": 59.2325,
+        "end_seconds": 59.745
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "data.",
+        "start_seconds": 59.745,
+        "end_seconds": 60.6825
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "Researchers",
+        "start_seconds": 60.6825,
+        "end_seconds": 61.32
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "poked",
+        "start_seconds": 61.32,
+        "end_seconds": 61.5825
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "around",
+        "start_seconds": 61.5825,
+        "end_seconds": 61.9825
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "read‑only",
+        "start_seconds": 61.9825,
+        "end_seconds": 62.5825
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "endpoints",
+        "start_seconds": 62.5825,
+        "end_seconds": 63.082499999999996
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "on",
+        "start_seconds": 63.082499999999996,
+        "end_seconds": 63.245000000000005
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "dozens",
+        "start_seconds": 63.245000000000005,
+        "end_seconds": 63.582499999999996
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "of",
+        "start_seconds": 63.582499999999996,
+        "end_seconds": 63.707499999999996
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "sites",
+        "start_seconds": 63.707499999999996,
+        "end_seconds": 64.3575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "and",
+        "start_seconds": 64.3575,
+        "end_seconds": 64.5075
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "pulled",
+        "start_seconds": 64.5075,
+        "end_seconds": 64.8575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "full",
+        "start_seconds": 64.8575,
+        "end_seconds": 65.095
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "names,",
+        "start_seconds": 65.095,
+        "end_seconds": 65.9825
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "emails,",
+        "start_seconds": 65.9825,
+        "end_seconds": 66.9325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "dates",
+        "start_seconds": 66.9325,
+        "end_seconds": 67.2325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "of",
+        "start_seconds": 67.2325,
+        "end_seconds": 67.32
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "birth,",
+        "start_seconds": 67.32,
+        "end_seconds": 68.045
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "and",
+        "start_seconds": 68.045,
+        "end_seconds": 68.1575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "in",
+        "start_seconds": 68.1575,
+        "end_seconds": 68.295
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "one",
+        "start_seconds": 68.295,
+        "end_seconds": 68.5325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "case",
+        "start_seconds": 68.5325,
+        "end_seconds": 68.92
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "over",
+        "start_seconds": 68.92,
+        "end_seconds": 69.145
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "a",
+        "start_seconds": 69.145,
+        "end_seconds": 69.27
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "thousand",
+        "start_seconds": 69.27,
+        "end_seconds": 69.8325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "identity",
+        "start_seconds": 69.8325,
+        "end_seconds": 70.37
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "documents",
+        "start_seconds": 70.37,
+        "end_seconds": 70.9575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "with",
+        "start_seconds": 70.9575,
+        "end_seconds": 71.1325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "passport",
+        "start_seconds": 71.1325,
+        "end_seconds": 71.7325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "numbers,",
+        "start_seconds": 71.7325,
+        "end_seconds": 72.57
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "expiration",
+        "start_seconds": 72.57,
+        "end_seconds": 73.32
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "dates",
+        "start_seconds": 73.32,
+        "end_seconds": 73.67
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "and",
+        "start_seconds": 73.67,
+        "end_seconds": 73.795
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "nationalities.",
+        "start_seconds": 73.795,
+        "end_seconds": 75.3075
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "They",
+        "start_seconds": 75.3075,
+        "end_seconds": 75.495
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "also",
+        "start_seconds": 75.495,
+        "end_seconds": 75.87
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "uncovered",
+        "start_seconds": 75.87,
+        "end_seconds": 76.445
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "more",
+        "start_seconds": 76.445,
+        "end_seconds": 76.6575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "than",
+        "start_seconds": 76.6575,
+        "end_seconds": 76.8325
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "two",
+        "start_seconds": 76.8325,
+        "end_seconds": 77.07
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "hundred",
+        "start_seconds": 77.07,
+        "end_seconds": 77.4575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "thousand",
+        "start_seconds": 77.4575,
+        "end_seconds": 77.9575
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "private",
+        "start_seconds": 77.9575,
+        "end_seconds": 78.3825
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "chat",
+        "start_seconds": 78.3825,
+        "end_seconds": 78.67
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "messages.",
+        "start_seconds": 78.67,
+        "end_seconds": 79.7825
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "The",
+        "start_seconds": 80.33999999999999,
+        "end_seconds": 80.4525
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "study",
+        "start_seconds": 80.4525,
+        "end_seconds": 80.83999999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "looked",
+        "start_seconds": 80.83999999999999,
+        "end_seconds": 81.08999999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "at",
+        "start_seconds": 81.08999999999999,
+        "end_seconds": 81.2025
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "24,664",
+        "start_seconds": 81.2025,
+        "end_seconds": 83.41499999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "websites,",
+        "start_seconds": 83.41499999999999,
+        "end_seconds": 84.49
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "but",
+        "start_seconds": 84.49,
+        "end_seconds": 84.6275
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "the",
+        "start_seconds": 84.6275,
+        "end_seconds": 84.77749999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "authors",
+        "start_seconds": 84.77749999999999,
+        "end_seconds": 85.2025
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "say",
+        "start_seconds": 85.2025,
+        "end_seconds": 85.44
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "the",
+        "start_seconds": 85.44,
+        "end_seconds": 85.5775
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "leak",
+        "start_seconds": 85.5775,
+        "end_seconds": 85.85249999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "rate",
+        "start_seconds": 85.85249999999999,
+        "end_seconds": 86.16499999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "could",
+        "start_seconds": 86.16499999999999,
+        "end_seconds": 86.27749999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "be",
+        "start_seconds": 86.27749999999999,
+        "end_seconds": 86.4275
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "higher",
+        "start_seconds": 86.4275,
+        "end_seconds": 87.15249999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "because",
+        "start_seconds": 87.15249999999999,
+        "end_seconds": 87.5025
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "only",
+        "start_seconds": 87.5025,
+        "end_seconds": 87.8775
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "partial",
+        "start_seconds": 87.8775,
+        "end_seconds": 88.33999999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "data",
+        "start_seconds": 88.33999999999999,
+        "end_seconds": 88.6775
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "sets",
+        "start_seconds": 88.6775,
+        "end_seconds": 89.0025
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "were",
+        "start_seconds": 89.0025,
+        "end_seconds": 89.14
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "downloaded.",
+        "start_seconds": 89.14,
+        "end_seconds": 90.28999999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "Here's",
+        "start_seconds": 91.58999999999999,
+        "end_seconds": 91.865
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "why",
+        "start_seconds": 91.865,
+        "end_seconds": 92.065
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "that",
+        "start_seconds": 92.065,
+        "end_seconds": 92.265
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "matters:",
+        "start_seconds": 92.265,
+        "end_seconds": 93.3025
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "developers",
+        "start_seconds": 93.3025,
+        "end_seconds": 93.9525
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "building",
+        "start_seconds": 93.9525,
+        "end_seconds": 94.39
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "on",
+        "start_seconds": 94.39,
+        "end_seconds": 94.60249999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "Lovable",
+        "start_seconds": 94.60249999999999,
+        "end_seconds": 95.03999999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "need",
+        "start_seconds": 95.03999999999999,
+        "end_seconds": 95.315
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "to",
+        "start_seconds": 95.315,
+        "end_seconds": 95.4525
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "audit",
+        "start_seconds": 95.4525,
+        "end_seconds": 95.8275
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "API",
+        "start_seconds": 95.8275,
+        "end_seconds": 96.5525
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "key",
+        "start_seconds": 96.5525,
+        "end_seconds": 96.78999999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "permissions",
+        "start_seconds": 96.78999999999999,
+        "end_seconds": 97.71499999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "and",
+        "start_seconds": 97.71499999999999,
+        "end_seconds": 97.865
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "lock",
+        "start_seconds": 97.865,
+        "end_seconds": 98.16499999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "down",
+        "start_seconds": 98.16499999999999,
+        "end_seconds": 98.4525
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "access",
+        "start_seconds": 98.4525,
+        "end_seconds": 98.91499999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "controls,",
+        "start_seconds": 98.91499999999999,
+        "end_seconds": 99.96499999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "because",
+        "start_seconds": 99.96499999999999,
+        "end_seconds": 100.3025
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "even",
+        "start_seconds": 100.3025,
+        "end_seconds": 100.615
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "default",
+        "start_seconds": 100.615,
+        "end_seconds": 101.15249999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "read‑only",
+        "start_seconds": 101.15249999999999,
+        "end_seconds": 101.9275
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "endpoints",
+        "start_seconds": 101.9275,
+        "end_seconds": 102.49
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "can",
+        "start_seconds": 102.49,
+        "end_seconds": 102.6775
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "still",
+        "start_seconds": 102.6775,
+        "end_seconds": 103.015
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "leak",
+        "start_seconds": 103.015,
+        "end_seconds": 103.28999999999999
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "sensitive",
+        "start_seconds": 103.28999999999999,
+        "end_seconds": 103.8275
+      },
+      {
+        "segment_id": "lovable-data-exposure-2026-segment",
+        "text": "information.",
+        "start_seconds": 103.8275,
+        "end_seconds": 105.065
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "Turning",
+        "start_seconds": 106.365,
+        "end_seconds": 106.715
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "to",
+        "start_seconds": 106.715,
+        "end_seconds": 106.8275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "our",
+        "start_seconds": 106.8275,
+        "end_seconds": 106.965
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "next",
+        "start_seconds": 106.965,
+        "end_seconds": 107.24
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "story.",
+        "start_seconds": 107.24,
+        "end_seconds": 108.2275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "Tech",
+        "start_seconds": 108.2275,
+        "end_seconds": 108.49
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "firms",
+        "start_seconds": 108.49,
+        "end_seconds": 108.7775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "are",
+        "start_seconds": 108.7775,
+        "end_seconds": 108.865
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "now",
+        "start_seconds": 108.865,
+        "end_seconds": 109.0775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "saying",
+        "start_seconds": 109.0775,
+        "end_seconds": 109.44
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "privacy",
+        "start_seconds": 109.44,
+        "end_seconds": 110.1025
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "is",
+        "start_seconds": 110.1025,
+        "end_seconds": 110.2275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "a",
+        "start_seconds": 110.2275,
+        "end_seconds": 110.29
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "set",
+        "start_seconds": 110.29,
+        "end_seconds": 110.4275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "of",
+        "start_seconds": 110.4275,
+        "end_seconds": 110.5525
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "safeguards",
+        "start_seconds": 110.5525,
+        "end_seconds": 111.165
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "that",
+        "start_seconds": 111.165,
+        "end_seconds": 111.29
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "protect",
+        "start_seconds": 111.29,
+        "end_seconds": 111.6775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "the",
+        "start_seconds": 111.6775,
+        "end_seconds": 111.765
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "device",
+        "start_seconds": 111.765,
+        "end_seconds": 112.19
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "owner,",
+        "start_seconds": 112.19,
+        "end_seconds": 112.915
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "not",
+        "start_seconds": 112.915,
+        "end_seconds": 113.1025
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "the",
+        "start_seconds": 113.1025,
+        "end_seconds": 113.19
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "people",
+        "start_seconds": 113.19,
+        "end_seconds": 113.54
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "standing",
+        "start_seconds": 113.54,
+        "end_seconds": 113.94
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "nearby.",
+        "start_seconds": 113.94,
+        "end_seconds": 115.19
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "Apple,",
+        "start_seconds": 115.19,
+        "end_seconds": 115.9525
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "Meta,",
+        "start_seconds": 115.9525,
+        "end_seconds": 116.6275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "Google",
+        "start_seconds": 116.6275,
+        "end_seconds": 117.04
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "and",
+        "start_seconds": 117.04,
+        "end_seconds": 117.1775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "Amazon",
+        "start_seconds": 117.1775,
+        "end_seconds": 117.7525
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "all",
+        "start_seconds": 117.7525,
+        "end_seconds": 118.0025
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "frame",
+        "start_seconds": 118.0025,
+        "end_seconds": 118.2775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "their",
+        "start_seconds": 118.2775,
+        "end_seconds": 118.4525
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "cameras",
+        "start_seconds": 118.4525,
+        "end_seconds": 118.99
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "and",
+        "start_seconds": 118.99,
+        "end_seconds": 119.115
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "microphones",
+        "start_seconds": 119.115,
+        "end_seconds": 119.865
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "as",
+        "start_seconds": 119.865,
+        "end_seconds": 120.0275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "user‑controlled,",
+        "start_seconds": 120.0275,
+        "end_seconds": 121.39
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "while",
+        "start_seconds": 121.39,
+        "end_seconds": 121.615
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "anyone",
+        "start_seconds": 121.615,
+        "end_seconds": 121.9275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "in",
+        "start_seconds": 121.9275,
+        "end_seconds": 122.0025
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "the",
+        "start_seconds": 122.0025,
+        "end_seconds": 122.09
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "room",
+        "start_seconds": 122.09,
+        "end_seconds": 122.39
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "can",
+        "start_seconds": 122.39,
+        "end_seconds": 122.5025
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "be",
+        "start_seconds": 122.5025,
+        "end_seconds": 122.64
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "recorded",
+        "start_seconds": 122.64,
+        "end_seconds": 123.16499999999999
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "with",
+        "start_seconds": 123.16499999999999,
+        "end_seconds": 123.34
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "no",
+        "start_seconds": 123.34,
+        "end_seconds": 123.5775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "opt‑out.",
+        "start_seconds": 123.5775,
+        "end_seconds": 124.7775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "That",
+        "start_seconds": 124.7775,
+        "end_seconds": 125.0025
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "means",
+        "start_seconds": 125.0025,
+        "end_seconds": 125.22749999999999
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "a",
+        "start_seconds": 125.22749999999999,
+        "end_seconds": 125.28999999999999
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "bystander",
+        "start_seconds": 125.28999999999999,
+        "end_seconds": 125.965
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "has",
+        "start_seconds": 125.965,
+        "end_seconds": 126.16499999999999
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "to",
+        "start_seconds": 126.16499999999999,
+        "end_seconds": 126.2525
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "become",
+        "start_seconds": 126.2525,
+        "end_seconds": 126.5025
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "an",
+        "start_seconds": 126.5025,
+        "end_seconds": 126.6275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "expert",
+        "start_seconds": 126.6275,
+        "end_seconds": 127.1275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "on",
+        "start_seconds": 127.1275,
+        "end_seconds": 127.2775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "every",
+        "start_seconds": 127.2775,
+        "end_seconds": 127.59
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "device’s",
+        "start_seconds": 127.59,
+        "end_seconds": 128.115
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "capabilities",
+        "start_seconds": 128.115,
+        "end_seconds": 129.24
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "and",
+        "start_seconds": 129.24,
+        "end_seconds": 129.3775
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "the",
+        "start_seconds": 129.3775,
+        "end_seconds": 129.5025
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "law",
+        "start_seconds": 129.5025,
+        "end_seconds": 129.8275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "to",
+        "start_seconds": 129.8275,
+        "end_seconds": 129.99
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "avoid",
+        "start_seconds": 129.99,
+        "end_seconds": 130.39
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "being",
+        "start_seconds": 130.39,
+        "end_seconds": 130.665
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "captured.",
+        "start_seconds": 130.665,
+        "end_seconds": 131.7275
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "Here's",
+        "start_seconds": 132.285,
+        "end_seconds": 132.61
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "why",
+        "start_seconds": 132.61,
+        "end_seconds": 132.785
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "that",
+        "start_seconds": 132.785,
+        "end_seconds": 133.01
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "matters:",
+        "start_seconds": 133.01,
+        "end_seconds": 134.0475
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "the",
+        "start_seconds": 134.0475,
+        "end_seconds": 134.16
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "current",
+        "start_seconds": 134.16,
+        "end_seconds": 134.51
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "promises",
+        "start_seconds": 134.51,
+        "end_seconds": 135.1225
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "leave",
+        "start_seconds": 135.1225,
+        "end_seconds": 135.4475
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "ordinary",
+        "start_seconds": 135.4475,
+        "end_seconds": 136.085
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "folks",
+        "start_seconds": 136.085,
+        "end_seconds": 136.535
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "without",
+        "start_seconds": 136.535,
+        "end_seconds": 136.885
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "any",
+        "start_seconds": 136.885,
+        "end_seconds": 137.1475
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "technical",
+        "start_seconds": 137.1475,
+        "end_seconds": 137.66
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "way",
+        "start_seconds": 137.66,
+        "end_seconds": 137.91
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "to",
+        "start_seconds": 137.91,
+        "end_seconds": 138.035
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "stop",
+        "start_seconds": 138.035,
+        "end_seconds": 138.385
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "being",
+        "start_seconds": 138.385,
+        "end_seconds": 138.6975
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "filmed,",
+        "start_seconds": 138.6975,
+        "end_seconds": 139.5975
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "so",
+        "start_seconds": 139.5975,
+        "end_seconds": 139.7475
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "they’ll",
+        "start_seconds": 139.7475,
+        "end_seconds": 139.91
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "have",
+        "start_seconds": 139.91,
+        "end_seconds": 140.135
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "to",
+        "start_seconds": 140.135,
+        "end_seconds": 140.235
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "rely",
+        "start_seconds": 140.235,
+        "end_seconds": 140.685
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "on",
+        "start_seconds": 140.685,
+        "end_seconds": 140.8975
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "broader",
+        "start_seconds": 140.8975,
+        "end_seconds": 141.335
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "policy",
+        "start_seconds": 141.335,
+        "end_seconds": 141.9475
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "or",
+        "start_seconds": 141.9475,
+        "end_seconds": 142.11
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "legal",
+        "start_seconds": 142.11,
+        "end_seconds": 142.435
+      },
+      {
+        "segment_id": "ambient-surveillance-privacy-2026-segment",
+        "text": "routes.",
+        "start_seconds": 142.435,
+        "end_seconds": 143.31
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "Next",
+        "start_seconds": 144.66,
+        "end_seconds": 144.9475
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "on",
+        "start_seconds": 144.9475,
+        "end_seconds": 145.04749999999999
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "the",
+        "start_seconds": 145.04749999999999,
+        "end_seconds": 145.135
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "bulletin.",
+        "start_seconds": 145.135,
+        "end_seconds": 146.26
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "ggml",
+        "start_seconds": 146.26,
+        "end_seconds": 147.06
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "version",
+        "start_seconds": 147.06,
+        "end_seconds": 147.4975
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "one",
+        "start_seconds": 147.4975,
+        "end_seconds": 147.73499999999999
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "point",
+        "start_seconds": 147.73499999999999,
+        "end_seconds": 148.04749999999999
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "zero",
+        "start_seconds": 148.04749999999999,
+        "end_seconds": 148.42249999999999
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "point",
+        "start_seconds": 148.42249999999999,
+        "end_seconds": 148.7475
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "zero",
+        "start_seconds": 148.7475,
+        "end_seconds": 149.42249999999999
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "adds",
+        "start_seconds": 149.42249999999999,
+        "end_seconds": 149.70999999999998
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "YaRN",
+        "start_seconds": 149.70999999999998,
+        "end_seconds": 150.23499999999999
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "truncation,",
+        "start_seconds": 150.23499999999999,
+        "end_seconds": 151.39749999999998
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "FP8",
+        "start_seconds": 151.39749999999998,
+        "end_seconds": 152.135
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "support",
+        "start_seconds": 152.135,
+        "end_seconds": 152.635
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "and",
+        "start_seconds": 152.635,
+        "end_seconds": 152.76
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "multi‑backend",
+        "start_seconds": 152.76,
+        "end_seconds": 153.7475
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "speedups.",
+        "start_seconds": 153.7475,
+        "end_seconds": 154.785
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "The",
+        "start_seconds": 156.085,
+        "end_seconds": 156.21
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "update",
+        "start_seconds": 156.21,
+        "end_seconds": 156.63500000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "drops",
+        "start_seconds": 156.63500000000002,
+        "end_seconds": 156.985
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "old",
+        "start_seconds": 156.985,
+        "end_seconds": 157.31
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "public",
+        "start_seconds": 157.31,
+        "end_seconds": 157.66000000000003
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "APIs",
+        "start_seconds": 157.66000000000003,
+        "end_seconds": 158.41000000000003
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "and",
+        "start_seconds": 158.41000000000003,
+        "end_seconds": 158.53500000000003
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "legacy",
+        "start_seconds": 158.53500000000003,
+        "end_seconds": 158.9975
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "DIAG_MASK",
+        "start_seconds": 158.9975,
+        "end_seconds": 159.96
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "ops,",
+        "start_seconds": 159.96,
+        "end_seconds": 160.76000000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "then",
+        "start_seconds": 160.76000000000002,
+        "end_seconds": 160.91000000000003
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "introduces",
+        "start_seconds": 160.91000000000003,
+        "end_seconds": 161.5475
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "two",
+        "start_seconds": 161.5475,
+        "end_seconds": 161.78500000000003
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "new",
+        "start_seconds": 161.78500000000003,
+        "end_seconds": 161.96
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "rope",
+        "start_seconds": 161.96,
+        "end_seconds": 162.16000000000003
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "helpers—ggml_rope_set_truncate",
+        "start_seconds": 162.16000000000003,
+        "end_seconds": 165.07250000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "and",
+        "start_seconds": 165.07250000000002,
+        "end_seconds": 165.22250000000003
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "ggml_rope_get_truncate—so",
+        "start_seconds": 165.22250000000003,
+        "end_seconds": 167.935
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "developers",
+        "start_seconds": 167.935,
+        "end_seconds": 168.485
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "can",
+        "start_seconds": 168.485,
+        "end_seconds": 168.71
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "fine‑tune",
+        "start_seconds": 168.71,
+        "end_seconds": 169.485
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "YaRN",
+        "start_seconds": 169.485,
+        "end_seconds": 170.01000000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "correction‑bound",
+        "start_seconds": 170.01000000000002,
+        "end_seconds": 170.935
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "rounding.",
+        "start_seconds": 170.935,
+        "end_seconds": 171.985
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "It",
+        "start_seconds": 171.985,
+        "end_seconds": 172.1225
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "also",
+        "start_seconds": 172.1225,
+        "end_seconds": 172.46
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "brings",
+        "start_seconds": 172.46,
+        "end_seconds": 172.82250000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "FP8",
+        "start_seconds": 172.82250000000002,
+        "end_seconds": 173.61
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "arithmetic,",
+        "start_seconds": 173.61,
+        "end_seconds": 174.6725
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "letting",
+        "start_seconds": 174.6725,
+        "end_seconds": 175.01000000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "inference",
+        "start_seconds": 175.01000000000002,
+        "end_seconds": 175.5225
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "run",
+        "start_seconds": 175.5225,
+        "end_seconds": 175.835
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "at",
+        "start_seconds": 175.835,
+        "end_seconds": 175.9975
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "lower",
+        "start_seconds": 175.9975,
+        "end_seconds": 176.38500000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "precision",
+        "start_seconds": 176.38500000000002,
+        "end_seconds": 176.96
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "on",
+        "start_seconds": 176.96,
+        "end_seconds": 177.11
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "compatible",
+        "start_seconds": 177.11,
+        "end_seconds": 177.76000000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "hardware.",
+        "start_seconds": 177.76000000000002,
+        "end_seconds": 178.82250000000002
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "Across",
+        "start_seconds": 179.38,
+        "end_seconds": 179.7675
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "CUDA,",
+        "start_seconds": 179.7675,
+        "end_seconds": 180.8175
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "Metal,",
+        "start_seconds": 180.8175,
+        "end_seconds": 181.3425
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "Vulkan,",
+        "start_seconds": 181.3425,
+        "end_seconds": 182.08
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "SYCL,",
+        "start_seconds": 182.08,
+        "end_seconds": 183.205
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "OpenCL,",
+        "start_seconds": 183.205,
+        "end_seconds": 184.2675
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "WebGPU",
+        "start_seconds": 184.2675,
+        "end_seconds": 185.105
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "and",
+        "start_seconds": 185.105,
+        "end_seconds": 185.23
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "Hexagon,",
+        "start_seconds": 185.23,
+        "end_seconds": 186.18
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "you’ll",
+        "start_seconds": 186.18,
+        "end_seconds": 186.33
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "see",
+        "start_seconds": 186.33,
+        "end_seconds": 186.5175
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "faster",
+        "start_seconds": 186.5175,
+        "end_seconds": 186.98
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "matmuls,",
+        "start_seconds": 186.98,
+        "end_seconds": 187.8425
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "fused",
+        "start_seconds": 187.8425,
+        "end_seconds": 188.2675
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "MoE",
+        "start_seconds": 188.2675,
+        "end_seconds": 188.6675
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "paths",
+        "start_seconds": 188.6675,
+        "end_seconds": 189.18
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "and",
+        "start_seconds": 189.18,
+        "end_seconds": 189.3175
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "smarter",
+        "start_seconds": 189.3175,
+        "end_seconds": 189.805
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "scheduling",
+        "start_seconds": 189.805,
+        "end_seconds": 190.38
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "that",
+        "start_seconds": 190.38,
+        "end_seconds": 190.5425
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "cuts",
+        "start_seconds": 190.5425,
+        "end_seconds": 190.905
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "needless",
+        "start_seconds": 190.905,
+        "end_seconds": 191.48
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "data",
+        "start_seconds": 191.48,
+        "end_seconds": 191.78
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "movement.",
+        "start_seconds": 191.78,
+        "end_seconds": 192.88
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "Here’s",
+        "start_seconds": 192.88,
+        "end_seconds": 193.955
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "why",
+        "start_seconds": 193.955,
+        "end_seconds": 194.13
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "that",
+        "start_seconds": 194.13,
+        "end_seconds": 194.355
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "matters:",
+        "start_seconds": 194.355,
+        "end_seconds": 195.2675
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "you",
+        "start_seconds": 195.2675,
+        "end_seconds": 195.38
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "can",
+        "start_seconds": 195.38,
+        "end_seconds": 195.58
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "squeeze",
+        "start_seconds": 195.58,
+        "end_seconds": 196.005
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "more",
+        "start_seconds": 196.005,
+        "end_seconds": 196.23
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "performance",
+        "start_seconds": 196.23,
+        "end_seconds": 196.805
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "out",
+        "start_seconds": 196.805,
+        "end_seconds": 196.9425
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "of",
+        "start_seconds": 196.9425,
+        "end_seconds": 197.0425
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "GPUs,",
+        "start_seconds": 197.0425,
+        "end_seconds": 198.1175
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "mobile",
+        "start_seconds": 198.1175,
+        "end_seconds": 198.48
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "ASICs",
+        "start_seconds": 198.48,
+        "end_seconds": 198.98
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "and",
+        "start_seconds": 198.98,
+        "end_seconds": 199.0925
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "emerging",
+        "start_seconds": 199.0925,
+        "end_seconds": 199.53
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "SYCL",
+        "start_seconds": 199.53,
+        "end_seconds": 200.33
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "devices",
+        "start_seconds": 200.33,
+        "end_seconds": 200.8675
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "right",
+        "start_seconds": 200.8675,
+        "end_seconds": 201.18
+      },
+      {
+        "segment_id": "ggml-1-0-0-release-segment",
+        "text": "now.",
+        "start_seconds": 201.18,
+        "end_seconds": 202.055
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "And",
+        "start_seconds": 203.355,
+        "end_seconds": 203.4925
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "finally,",
+        "start_seconds": 203.4925,
+        "end_seconds": 204.13
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "our",
+        "start_seconds": 204.13,
+        "end_seconds": 204.305
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "last",
+        "start_seconds": 204.305,
+        "end_seconds": 204.63
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "story.",
+        "start_seconds": 204.63,
+        "end_seconds": 205.755
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Ian",
+        "start_seconds": 205.755,
+        "end_seconds": 206.07999999999998
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Miell",
+        "start_seconds": 206.07999999999998,
+        "end_seconds": 206.38
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "has",
+        "start_seconds": 206.38,
+        "end_seconds": 206.555
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "rolled",
+        "start_seconds": 206.555,
+        "end_seconds": 206.8175
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "out",
+        "start_seconds": 206.8175,
+        "end_seconds": 206.9675
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "an",
+        "start_seconds": 206.9675,
+        "end_seconds": 207.0925
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "interactive",
+        "start_seconds": 207.0925,
+        "end_seconds": 207.7925
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "family",
+        "start_seconds": 207.7925,
+        "end_seconds": 208.26749999999998
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "tree",
+        "start_seconds": 208.26749999999998,
+        "end_seconds": 208.98
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "that",
+        "start_seconds": 208.98,
+        "end_seconds": 209.1675
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "charts",
+        "start_seconds": 209.1675,
+        "end_seconds": 209.53
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "104",
+        "start_seconds": 209.53,
+        "end_seconds": 210.355
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "software",
+        "start_seconds": 210.355,
+        "end_seconds": 210.89249999999998
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "job",
+        "start_seconds": 210.89249999999998,
+        "end_seconds": 211.23
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "titles",
+        "start_seconds": 211.23,
+        "end_seconds": 211.68
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "from",
+        "start_seconds": 211.68,
+        "end_seconds": 211.8175
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "the",
+        "start_seconds": 211.8175,
+        "end_seconds": 211.905
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "1940s",
+        "start_seconds": 211.905,
+        "end_seconds": 212.855
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "to",
+        "start_seconds": 212.855,
+        "end_seconds": 212.95499999999998
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "today.",
+        "start_seconds": 212.95499999999998,
+        "end_seconds": 214.0425
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "The",
+        "start_seconds": 214.0425,
+        "end_seconds": 214.155
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "diagram",
+        "start_seconds": 214.155,
+        "end_seconds": 214.73
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "groups",
+        "start_seconds": 214.73,
+        "end_seconds": 215.0675
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "titles",
+        "start_seconds": 215.0675,
+        "end_seconds": 215.5425
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "into",
+        "start_seconds": 215.5425,
+        "end_seconds": 215.8175
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "seven",
+        "start_seconds": 215.8175,
+        "end_seconds": 216.2175
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "colour‑coded",
+        "start_seconds": 216.2175,
+        "end_seconds": 216.98
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "families",
+        "start_seconds": 216.98,
+        "end_seconds": 217.905
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 217.905,
+        "end_seconds": 218.055
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "lines",
+        "start_seconds": 218.055,
+        "end_seconds": 218.39249999999998
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "them",
+        "start_seconds": 218.39249999999998,
+        "end_seconds": 218.51749999999998
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "up",
+        "start_seconds": 218.51749999999998,
+        "end_seconds": 218.6925
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "in",
+        "start_seconds": 218.6925,
+        "end_seconds": 218.855
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "five‑year",
+        "start_seconds": 218.855,
+        "end_seconds": 219.405
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "rows,",
+        "start_seconds": 219.405,
+        "end_seconds": 220.255
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "so",
+        "start_seconds": 220.255,
+        "end_seconds": 220.38
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "you",
+        "start_seconds": 220.38,
+        "end_seconds": 220.48
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "can",
+        "start_seconds": 220.48,
+        "end_seconds": 220.6675
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "click",
+        "start_seconds": 220.6675,
+        "end_seconds": 220.95499999999998
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "any",
+        "start_seconds": 220.95499999999998,
+        "end_seconds": 221.1925
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "role",
+        "start_seconds": 221.1925,
+        "end_seconds": 221.655
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 221.655,
+        "end_seconds": 221.805
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "see",
+        "start_seconds": 221.805,
+        "end_seconds": 222.03
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "its",
+        "start_seconds": 222.03,
+        "end_seconds": 222.23
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "lineage",
+        "start_seconds": 222.23,
+        "end_seconds": 222.73
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 222.73,
+        "end_seconds": 222.8675
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "sibling",
+        "start_seconds": 222.8675,
+        "end_seconds": 223.23
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "connections.",
+        "start_seconds": 223.23,
+        "end_seconds": 224.4175
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "It",
+        "start_seconds": 224.975,
+        "end_seconds": 225.1
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "shows",
+        "start_seconds": 225.1,
+        "end_seconds": 225.375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "how",
+        "start_seconds": 225.375,
+        "end_seconds": 225.55
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "names",
+        "start_seconds": 225.55,
+        "end_seconds": 225.8375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "like",
+        "start_seconds": 225.8375,
+        "end_seconds": 226.0625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "DevOps,",
+        "start_seconds": 226.0625,
+        "end_seconds": 227.1
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "SRE",
+        "start_seconds": 227.1,
+        "end_seconds": 227.7
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 227.7,
+        "end_seconds": 227.825
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Platform",
+        "start_seconds": 227.825,
+        "end_seconds": 228.3375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Engineer",
+        "start_seconds": 228.3375,
+        "end_seconds": 228.775
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "have",
+        "start_seconds": 228.775,
+        "end_seconds": 228.9625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "split,",
+        "start_seconds": 228.9625,
+        "end_seconds": 229.6375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "merged",
+        "start_seconds": 229.6375,
+        "end_seconds": 230.1
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 230.1,
+        "end_seconds": 230.225
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "resurfaced,",
+        "start_seconds": 230.225,
+        "end_seconds": 231.35
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 231.35,
+        "end_seconds": 231.4625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "even",
+        "start_seconds": 231.4625,
+        "end_seconds": 231.7375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "flags",
+        "start_seconds": 231.7375,
+        "end_seconds": 232.2
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "the",
+        "start_seconds": 232.2,
+        "end_seconds": 232.3
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "newest",
+        "start_seconds": 232.3,
+        "end_seconds": 232.6875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "AI‑focused",
+        "start_seconds": 232.6875,
+        "end_seconds": 233.525
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "roles",
+        "start_seconds": 233.525,
+        "end_seconds": 233.95
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "such",
+        "start_seconds": 233.95,
+        "end_seconds": 234.1125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "as",
+        "start_seconds": 234.1125,
+        "end_seconds": 234.2625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "AI",
+        "start_seconds": 234.2625,
+        "end_seconds": 234.7125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Agent",
+        "start_seconds": 234.7125,
+        "end_seconds": 235.0875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "slash",
+        "start_seconds": 235.0875,
+        "end_seconds": 235.475
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Context",
+        "start_seconds": 235.475,
+        "end_seconds": 235.9875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Engineer.",
+        "start_seconds": 235.9875,
+        "end_seconds": 237.1125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Because",
+        "start_seconds": 237.1125,
+        "end_seconds": 237.3875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "the",
+        "start_seconds": 237.3875,
+        "end_seconds": 237.475
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "map",
+        "start_seconds": 237.475,
+        "end_seconds": 237.7125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "is",
+        "start_seconds": 237.7125,
+        "end_seconds": 237.8625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "openly",
+        "start_seconds": 237.8625,
+        "end_seconds": 238.275
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "editable,",
+        "start_seconds": 238.275,
+        "end_seconds": 239.15
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "anyone",
+        "start_seconds": 239.15,
+        "end_seconds": 239.475
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "can",
+        "start_seconds": 239.475,
+        "end_seconds": 239.6
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "add",
+        "start_seconds": 239.6,
+        "end_seconds": 239.7625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "a",
+        "start_seconds": 239.7625,
+        "end_seconds": 239.825
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "node",
+        "start_seconds": 239.825,
+        "end_seconds": 240.225
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "or",
+        "start_seconds": 240.225,
+        "end_seconds": 240.35
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "a",
+        "start_seconds": 240.35,
+        "end_seconds": 240.45
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "row",
+        "start_seconds": 240.45,
+        "end_seconds": 241.0375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 241.0375,
+        "end_seconds": 241.1625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "the",
+        "start_seconds": 241.1625,
+        "end_seconds": 241.25
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "whole",
+        "start_seconds": 241.25,
+        "end_seconds": 241.5
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "view",
+        "start_seconds": 241.5,
+        "end_seconds": 241.725
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "updates",
+        "start_seconds": 241.725,
+        "end_seconds": 242.15
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "automatically.",
+        "start_seconds": 242.15,
+        "end_seconds": 243.575
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Here’s",
+        "start_seconds": 243.575,
+        "end_seconds": 244.625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "why",
+        "start_seconds": 244.625,
+        "end_seconds": 244.8
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "that",
+        "start_seconds": 244.8,
+        "end_seconds": 245.025
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "matters:",
+        "start_seconds": 245.025,
+        "end_seconds": 246.0125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "it",
+        "start_seconds": 246.0125,
+        "end_seconds": 246.1125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "gives",
+        "start_seconds": 246.1125,
+        "end_seconds": 246.2875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "you",
+        "start_seconds": 246.2875,
+        "end_seconds": 246.375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "a",
+        "start_seconds": 246.375,
+        "end_seconds": 246.45
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "visual",
+        "start_seconds": 246.45,
+        "end_seconds": 246.85
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "shortcut",
+        "start_seconds": 246.85,
+        "end_seconds": 247.35
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "to",
+        "start_seconds": 247.35,
+        "end_seconds": 247.45
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "trace",
+        "start_seconds": 247.45,
+        "end_seconds": 247.75
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "career",
+        "start_seconds": 247.75,
+        "end_seconds": 248.1125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "paths,",
+        "start_seconds": 248.1125,
+        "end_seconds": 248.9375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "spot",
+        "start_seconds": 248.9375,
+        "end_seconds": 249.2375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "emerging",
+        "start_seconds": 249.2375,
+        "end_seconds": 249.625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "titles",
+        "start_seconds": 249.625,
+        "end_seconds": 250.125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 250.125,
+        "end_seconds": 250.2875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "decode",
+        "start_seconds": 250.2875,
+        "end_seconds": 250.85
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "why",
+        "start_seconds": 250.85,
+        "end_seconds": 251.05
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "similar",
+        "start_seconds": 251.05,
+        "end_seconds": 251.5
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "work",
+        "start_seconds": 251.5,
+        "end_seconds": 251.7875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "shows",
+        "start_seconds": 251.7875,
+        "end_seconds": 252.0875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "up",
+        "start_seconds": 252.0875,
+        "end_seconds": 252.2375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "under",
+        "start_seconds": 252.2375,
+        "end_seconds": 252.45
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "different",
+        "start_seconds": 252.45,
+        "end_seconds": 252.775
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "names.",
+        "start_seconds": 252.775,
+        "end_seconds": 253.75
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "And",
+        "start_seconds": 255.04999999999998,
+        "end_seconds": 255.1875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "that's",
+        "start_seconds": 255.1875,
+        "end_seconds": 255.42499999999998
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "your",
+        "start_seconds": 255.42499999999998,
+        "end_seconds": 255.575
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Daywire",
+        "start_seconds": 255.575,
+        "end_seconds": 256.025
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "briefing.",
+        "start_seconds": 256.025,
+        "end_seconds": 256.9875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "You'll",
+        "start_seconds": 256.9875,
+        "end_seconds": 257.15
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "find",
+        "start_seconds": 257.15,
+        "end_seconds": 257.41249999999997
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "the",
+        "start_seconds": 257.41249999999997,
+        "end_seconds": 257.525
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "full",
+        "start_seconds": 257.525,
+        "end_seconds": 257.8625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "stories",
+        "start_seconds": 257.8625,
+        "end_seconds": 258.3875
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "and",
+        "start_seconds": 258.3875,
+        "end_seconds": 258.5125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "sources",
+        "start_seconds": 258.5125,
+        "end_seconds": 259
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "in",
+        "start_seconds": 259,
+        "end_seconds": 259.125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "today's",
+        "start_seconds": 259.125,
+        "end_seconds": 259.5625
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "newspaper.",
+        "start_seconds": 259.5625,
+        "end_seconds": 260.6125
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Thanks",
+        "start_seconds": 260.6125,
+        "end_seconds": 260.9
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "for",
+        "start_seconds": 260.9,
+        "end_seconds": 261.025
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "listening.",
+        "start_seconds": 261.025,
+        "end_seconds": 261.8375
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "Take",
+        "start_seconds": 261.8375,
+        "end_seconds": 262.16249999999997
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "care,",
+        "start_seconds": 262.16249999999997,
+        "end_seconds": 262.59999999999997
+      },
+      {
+        "segment_id": "software-job-title-family-tree-segment",
+        "text": "everyone.",
+        "start_seconds": 262.59999999999997,
+        "end_seconds": 263.65
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
