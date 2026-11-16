@@ -1,0 +1,3138 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-16",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-16T07:09:11.175347468Z",
+  "coverage": {
+    "from": "2026-11-15T06:00:00+05:30",
+    "until": "2026-11-16T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-2e8f421d2ee2a3df",
+      "source-33b95c2112c46efd",
+      "source-6921618a4fcf3aa8",
+      "source-96752880c3c7626a",
+      "source-7895a3ff8eb274c6"
+    ],
+    "candidate_count": 27,
+    "evidence_count": 22
+  },
+  "content": {
+    "title": "Tech Highlights: OLED Flicker, ALPR Warrant Push, Cost‑Effective Map Tiles, and More",
+    "introduction": "Today's edition presents a range of verified tech developments, from Apple’s new OLED display quirks and privacy‑focused legal actions on license‑plate readers, to affordable self‑hosting of map tiles, security concerns with legacy Bitly links, an Odin‑based NES emulator, NetBSD’s hybrid encryption approach, and Alibaba’s Qwen4‑Max model now available via Vercel AI Gateway.",
+    "articles": [
+      {
+        "id": "macbook-pro-oled-pwm-issue-2026",
+        "section": "Engineering",
+        "headline": "MacBook Pro’s new OLED display shows PWM‑induced flicker for some users",
+        "summary": "Apple’s 2026 MacBook Pro introduces a “PROLED XDR” OLED panel that, while delivering higher contrast and touch input, uses pulse‑width modulation that can cause visible flicker for a subset of users.",
+        "paragraphs": [
+          "The 2026 MacBook Pro replaces the Mini‑LED panel with a tandem OLED screen Apple brands as “PROLED XDR”. The display offers individually illuminated pixels, effectively infinite contrast, and higher peak HDR brightness, plus a new display engine for precise colour and luminance control. However, the panel’s dimming system relies on pulse‑width modulation (PWM), a technique that rapidly switches the backlight on and off to adjust brightness.",
+          "Hacker News discussion of the launch notes that PWM frequency and amplitude vary between OLED implementations, meaning users who tolerate other OLED devices may still experience discomfort on this model. The article’s author, who had never had issues with OLED screens before, reports headaches and eye strain when using the new MacBook Pro, highlighting that sensitivity exists on a spectrum rather than as a binary trait."
+        ],
+        "implication": "Engineers and power users should test the MacBook Pro’s display at typical working brightness levels before adopting it for long‑duration tasks, as PWM‑related flicker may affect comfort even for those without prior OLED sensitivity.",
+        "source_ids": [
+          "source-b14335f00a8d6654"
+        ]
+      },
+      {
+        "id": "alpr-warrant-amicus-brief-2026",
+        "section": "Security",
+        "headline": "EFF and ACLU seek warrant requirement for ALPR searches",
+        "summary": "The Electronic Frontier Foundation and the ACLU filed an amicus brief urging the Sixth Circuit to treat automated license‑plate‑reader data as a searchable record that requires a warrant.",
+        "paragraphs": [
+          "In United States v. Sturdivant, police used two commercial ALPR databases, Flock and ELSAG, to trace a suspect’s vehicle after a series of robberies near Cleveland, Ohio. The district court ruled the suspect had no reasonable expectation of privacy in his license‑plate number, but the brief argues that ALPRs function as a “virtual time machine,” providing law‑enforcement with a searchable history of anyone’s movements.",
+          "The filing cites prior EFF litigation in San Jose and Wisconsin, and a recent federal district court decision that labeled ALPRs “indiscriminate mass surveillance.” The brief asks the appellate court to reverse the lower‑court ruling and require a warrant before any ALPR query."
+        ],
+        "implication": "If the Sixth Circuit adopts the brief’s reasoning, law‑enforcement agencies will need to obtain a warrant before querying ALPR databases, limiting retroactive tracking of vehicle movements.",
+        "source_ids": [
+          "source-888e2f103cc4b000"
+        ]
+      },
+      {
+        "id": "self-hosting-pmtiles-cost-effective",
+        "section": "Tools",
+        "headline": "PMTiles makes self‑hosting map tiles cheap and simple",
+        "summary": "The PMTiles format lets developers store an entire world map in a single file and serve it via range requests, cutting storage to about $5 per month and map loads to fractions of a cent.",
+        "paragraphs": [
+          "A single 139 GB PMTiles file can be uploaded to a CDN that supports range requests and then accessed through the lightweight pmtiles npm library in MapLibre GL; the blog notes that a typical European city view uses only 5 MB of data, costing roughly $0.00005 per load, which is orders of magnitude cheaper than commercial services like Mapbox."
+        ],
+        "implication": "Engineers can now offer global map coverage at negligible hosting cost, but should enforce download‑speed limits or request caps to prevent abuse and unexpected CDN bills.",
+        "source_ids": [
+          "source-56669394d3aaac0f"
+        ]
+      },
+      {
+        "id": "bitly-old-link-hijack-2026",
+        "section": "Security",
+        "headline": "Bitly links from years ago can be repurposed by attackers",
+        "summary": "Bitly confirmed that inactive short URLs can be claimed and redirected to malicious content, affecting old links in public tweets.",
+        "paragraphs": [
+          "On 15 November 2026 Bitly announced that a bug allowed bad actors to claim the back‑half of old, inactive links once the original account or link was deleted, then redirect them to unrelated sites. The issue resurfaced in a McDonald’s 2011 tweet and in dozens of Donald Trump tweets from 2009‑2013, with several links re‑registered on the same day. Bitly has suspended the involved accounts, disabled the hijacked URLs, and said its Trust and Safety team is adding protections against similar misuse."
+        ],
+        "implication": "Users should treat any legacy Bitly link with caution, especially those embedded in historic social‑media posts, as they may no longer point to the original destination.",
+        "source_ids": [
+          "source-4a41bfb9fc315bc4"
+        ]
+      },
+      {
+        "id": "nes-emulator-odin",
+        "section": "Engineering",
+        "headline": "NES emulator written in Odin after seven months",
+        "summary": "A hobbyist released an Odin‑based NES emulator that runs core games but lacks audio extensions and some mapper support.",
+        "paragraphs": [
+          "The project showcases Odin’s low‑level ergonomics: strong static typing, raw unions, and bit‑field support simplify cartridge‑mapper logic and CPU timing compared with many higher‑level languages. Development relied on CBOR for state serialization, requiring custom handlers for Odin’s opaque types. Test ROMs were used to verify accuracy, though audio extensions and several mapper variants remain unimplemented."
+        ],
+        "implication": "Engineers can study this open‑source code as a concrete example of using Odin for systems‑level work, while noting that additional work is needed to handle full audio and all mapper types.",
+        "source_ids": [
+          "source-92b19f4c232fbee4"
+        ]
+      },
+      {
+        "id": "netbsd-disk-encryption-midpoint-approach",
+        "section": "Engineering",
+        "headline": "NetBSD explores a hybrid full‑disk encryption method",
+        "summary": "NetBSD developers propose a middle‑ground encryption scheme that keeps the standard installer and boot flow while using a tiny unencrypted ramdisk to bootstrap an encrypted filesystem.",
+        "paragraphs": [
+          "The design stores only a minimal ramdisk unencrypted, then pivots to an encrypted root, avoiding the heavy‑weight hardware‑backed solutions that require custom boot loaders. It works with both traditional disklabel partitions and GPT wedges, but it does alter startup scripts and may complicate rescue operations."
+        ],
+        "implication": "Users who need stronger data protection can adopt this approach without rewriting their install media, though they should be prepared for a more involved recovery process.",
+        "source_ids": [
+          "source-1093309b494ccc9a"
+        ]
+      },
+      {
+        "id": "qwen4-max-ai-gateway-2026-11-16",
+        "section": "AI",
+        "headline": "Alibaba’s Qwen4‑Max arrives on Vercel AI Gateway",
+        "summary": "The new Qwen4‑Max reasoning model, with vision and a 1 M‑token context window, is now callable through Vercel’s AI Gateway API.",
+        "paragraphs": [
+          "Vercel announced that Qwen4‑Max, the latest model in Alibaba’s Qwen4 series, is available on its AI Gateway as of 15 Nov 2026. The model adds native vision, a 1 M‑token context window, and a focus on professional‑tool integration, allowing it to generate 3D scenes in Blender and playable builds in Unity, Unreal Engine and Godot, then iterate using visual feedback. For finance, legal and healthcare workloads it can invoke multiple MCP tools, process large document sets, and output source‑cited spreadsheets, slide decks, and reports.",
+          "Compared with earlier Qwen Max variants, Qwen4‑Max consumes fewer tokens for equivalent tasks and claims to produce more secure code, reducing injection, memory‑safety and access‑control flaws. Developers can enable the model with the identifier `alibaba/qwen4-max` via the Vercel CLI (`npx vercel ai-gateway setup`) and then select it in an agent configuration. The gateway adds zero‑data‑retention, budget controls, routing rules and a no‑markup pricing layer that also supports BYOK requests."
+        ],
+        "implication": "Engineers can now prototype long‑running, vision‑aware AI agents on Vercel without extra infrastructure, while benefiting from the model’s token efficiency and built‑in security hardening.",
+        "source_ids": [
+          "source-dc1ef78483e2e42f"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "pwm-flicker-mechanism-2026",
+        "title": "Why PWM Dimming Can Cause Flicker on OLED Laptops",
+        "paragraphs": [
+          "Pulse‑width modulation (PWM) controls OLED brightness by turning each pixel on and off at a rapid rate. The average light output is set by the proportion of time the pixel stays lit versus dark. If the switching frequency is low enough, the human eye can perceive the on‑off cycle as a flicker, especially at lower brightness levels where the duty cycle is small.",
+          "Different OLED panels use different PWM frequencies and amplitudes, so two devices that look identical can feel very different. The MacBook Pro’s new PROLED XDR panel runs PWM at a frequency that some users find uncomfortable, even though they have used other OLED screens without issue. This shows that sensitivity is a spectrum, not a binary trait."
+        ],
+        "example": "Imagine a lamp that is on for 1 ms and off for 9 ms in each 10 ms cycle. At 100 Hz the flicker is noticeable; at 1 kHz it becomes invisible to most people.",
+        "takeaway": "When evaluating OLED laptops, check the PWM frequency or use a test mode at typical working brightness—if the flicker is perceptible, the display may cause eye strain over long sessions.",
+        "article_ids": [
+          "macbook-pro-oled-pwm-issue-2026"
+        ],
+        "source_ids": [
+          "source-b14335f00a8d6654"
+        ]
+      },
+      {
+        "id": "alpr-warrant-lesson-2026",
+        "title": "Why ALPR data constitutes a searchable record under the Fourth Amendment",
+        "paragraphs": [
+          "Automated License Plate Readers (ALPRs) continuously capture plate numbers and timestamps, storing them in searchable databases. When police query these archives, they can reconstruct a vehicle’s past routes with a single click, turning a momentary public observation into a detailed historical record.",
+          "The EFF and ACLU argue that this capability exceeds the expectation of privacy for a license plate because the data is aggregated, retained, and searchable long after the original sighting, effectively creating a digital trail that the Fourth Amendment should protect."
+        ],
+        "example": "Imagine a city installs ALPR cameras at every intersection. After a robbery, an officer enters the suspect’s plate into the system and instantly receives a list of every street the car traveled over the past month, even though the driver never consented to that long‑term tracking.",
+        "takeaway": "Treating ALPR databases as searchable records means law‑enforcement must obtain a warrant before accessing historic plate data, preserving privacy against mass, retroactive surveillance.",
+        "article_ids": [
+          "alpr-warrant-amicus-brief-2026"
+        ],
+        "source_ids": [
+          "source-888e2f103cc4b000"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-pwm-flicker-cause",
+        "lesson_id": "pwm-flicker-mechanism-2026",
+        "prompt": "What determines whether a PWM‑controlled OLED display produces visible flicker?",
+        "options": [
+          "The absolute brightness of the display",
+          "The duty cycle of the PWM signal",
+          "The color temperature of the panel",
+          "The type of backlight used"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that flicker is perceived when the PWM switching frequency is low enough and the duty cycle is small, especially at lower brightness levels. The duty cycle directly controls how long the pixel stays lit versus dark, which creates the on‑off cycle that can be seen."
+      },
+      {
+        "id": "quiz-1-pwm-frequency-effect",
+        "lesson_id": "pwm-flicker-mechanism-2026",
+        "prompt": "According to the article, how does increasing the PWM frequency affect perceived flicker?",
+        "options": [
+          "It makes flicker more noticeable because the cycles are shorter.",
+          "It reduces perceived flicker because the eye cannot resolve the faster cycles.",
+          "It changes the color gamut of the OLED panel.",
+          "It lowers the overall brightness of the display."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that at 100 Hz the flicker is noticeable, while at 1 kHz it becomes invisible to most people. Raising the frequency moves the on‑off cycles beyond the eye's temporal resolution, reducing perceived flicker."
+      },
+      {
+        "id": "quiz-1-sensitivity-spectrum",
+        "lesson_id": "pwm-flicker-mechanism-2026",
+        "prompt": "What does the article imply about user sensitivity to PWM flicker?",
+        "options": [
+          "All users either notice flicker or do not, with no middle ground.",
+          "Sensitivity varies among individuals, forming a spectrum rather than a binary trait.",
+          "Only users with pre‑existing eye conditions can detect PWM flicker.",
+          "Sensitivity is determined solely by the display's resolution."
+        ],
+        "answer": 1,
+        "explanation": "The article explicitly says that sensitivity is a spectrum, not a binary trait, noting that some users find the MacBook Pro’s PWM frequency uncomfortable while others do not."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "alpr-warrant-lesson-2026",
+        "prompt": "According to the lesson, why does the ability to query historic ALPR data turn a momentary public observation into a Fourth Amendment concern?",
+        "options": [
+          "Because the data is stored in a searchable database that can reconstruct past movements.",
+          "Because license plates are inherently private information.",
+          "Because police must always obtain a warrant for any observation.",
+          "Because the cameras record video footage in addition to plates."
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that ALPR systems continuously capture plate numbers and timestamps, storing them in searchable databases. Querying these archives lets police reconstruct a vehicle’s past routes, creating a detailed historical record that raises Fourth Amendment concerns."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "alpr-warrant-lesson-2026",
+        "prompt": "What legal requirement does the lesson propose for law‑enforcement when accessing historic ALPR records?",
+        "options": [
+          "A warrant must be obtained before accessing historic plate data.",
+          "Police can access the data without a warrant if the vehicle is suspected of a crime.",
+          "Only a subpoena is needed to retrieve the data.",
+          "No legal process is required because the data is public."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway states that treating ALPR databases as searchable records means law‑enforcement must obtain a warrant before accessing historic plate data, protecting privacy against mass, retroactive surveillance."
+      }
+    ],
+    "segments": [
+      {
+        "id": "macbook-pro-oled-flicker",
+        "title": "MacBook Pro OLED flicker issue",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November sixteen, two thousand twenty six.\n\nWe begin with our lead story. Apple's new MacBook Pro OLED display can flicker for some users.\n\nThe 2026 model swaps Mini‑LED for a tandem OLED called PROLED XDR, promising infinite contrast and brighter HDR. But the dimming uses pulse‑width modulation, which rapidly turns the panel on and off. That can create a visible flicker that triggers headaches and eye strain for a subset of people, even if they never had problems with other OLED screens. Here's why that matters: power users should try the laptop at their normal brightness before committing to long‑hour work, because the PWM‑induced flicker could bite comfort.\n",
+        "article_ids": [
+          "macbook-pro-oled-pwm-issue-2026"
+        ]
+      },
+      {
+        "id": "alpr-warrant-amicus-brief-2026-segment",
+        "title": "EFF and ACLU push for warrant on ALPR searches",
+        "text": "Next on the bulletin. The Electronic Frontier Foundation and the ACLU have filed an amicus brief in United States v. Sturdivant, urging the Sixth Circuit to treat automated license‑plate‑reader data like any searchable record that needs a warrant. In the case, police used two commercial ALPR databases, Flock and ELSAG, to trace a suspect’s car after a string of robberies near Cleveland, Ohio, and the district court said there was no privacy expectation in a license‑plate number. The brief calls that view a \"virtual time machine\" and points to recent rulings labeling ALPRs as indiscriminate mass surveillance. Here's why that matters: if the appellate court adopts the argument, law‑enforcement will have to get a warrant before querying any ALPR database, putting a brake on retroactive vehicle tracking.\n",
+        "article_ids": [
+          "alpr-warrant-amicus-brief-2026"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "PMTiles makes self‑hosting map tiles cheap and simple",
+        "text": "Turning to our next story. A single 139 gigabyte PMTiles file can be dropped onto a CDN that supports range requests, then served with the lightweight pmtiles npm library in MapLibre GL. The blog points out a typical European city view pulls only 5 megabytes, which works out to about zero point zero zero zero zero five dollars per load – a fraction of a cent. That's orders of magnitude cheaper than commercial providers like Mapbox. Engineers can now give global map coverage for roughly five dollars a month, but they should still set download‑speed limits or request caps to keep CDN bills in check.",
+        "article_ids": [
+          "self-hosting-pmtiles-cost-effective"
+        ]
+      },
+      {
+        "id": "bitly-link-hijack-2026-story",
+        "title": "Old Bitly links can be hijacked",
+        "text": "And finally, our last story. Bitly says attackers can grab the back‑half of old, inactive short URLs and point them at malicious sites. The problem showed up when a 2011 McDonald’s tweet and dozens of Donald Trump tweets from 2009 to 2013 were repurposed on the same day. Bitly has already suspended the accounts involved, disabled the hijacked links, and is adding new safeguards. \nHere's why that matters: any legacy Bitly link, especially in historic social‑media posts, might no longer lead where it originally did, so treat those old links with caution.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "bitly-old-link-hijack-2026"
+        ]
+      }
+    ],
+    "artwork_brief": "Create a collage-style illustration featuring a sleek laptop screen showing flickering OLED pixels, a stylized license‑plate scanner, a compact map tile file icon, a broken link chain, a retro NES console, a shield representing encryption, and a futuristic AI brain, all arranged around a central newsroom desk."
+  },
+  "sources": [
+    {
+      "id": "source-dc1ef78483e2e42f",
+      "name": "Vercel Blog",
+      "title": "Qwen4-Max now available on AI Gateway",
+      "url": "https://vercel.com/changelog/qwen4-max-now-available-on-ai-gateway",
+      "published_at": "2026-11-15T20:00:00Z",
+      "discovered_at": "2026-11-16T06:55:17.507836728Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-92b19f4c232fbee4",
+      "name": "Lobsters",
+      "title": "A NES emulator written in Odin",
+      "url": "https://lucypero.com/lucynes.html",
+      "published_at": null,
+      "discovered_at": "2026-11-15T06:37:33.463-06:00",
+      "discussion_url": "https://lobste.rs/s/dtjgmc/nes_emulator_written_odin"
+    },
+    {
+      "id": "source-1093309b494ccc9a",
+      "name": "Lobsters",
+      "title": "Disk encryption on NetBSD achieving secrecy",
+      "url": "https://netbsd.org/~nia/disk-encrypt/",
+      "published_at": null,
+      "discovered_at": "2026-11-14T23:30:28.732-06:00",
+      "discussion_url": "https://lobste.rs/s/6ovrdg/disk_encryption_on_netbsd_achieving"
+    },
+    {
+      "id": "source-b14335f00a8d6654",
+      "name": "Hacker News",
+      "title": "The MacBook Pro's OLED PWM problem",
+      "url": "https://macanorak.com/the-macbook-pros-oled-pwm-problem-when-a-better-display-becomes-worse-to-use/",
+      "published_at": null,
+      "discovered_at": "2026-11-15T13:15:22Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50506719"
+    },
+    {
+      "id": "source-888e2f103cc4b000",
+      "name": "Hacker News",
+      "title": "We're Asking an Appeals Court to Require a Warrant for ALPR Searches",
+      "url": "https://www.eff.org/deeplinks/2026/11/were-asking-appeals-court-require-warrant-alpr-searches",
+      "published_at": null,
+      "discovered_at": "2026-11-15T02:00:54Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50503255"
+    },
+    {
+      "id": "source-56669394d3aaac0f",
+      "name": "Hacker News",
+      "title": "Protomaps: Self-hosting map tiles has gotten cheap and easy",
+      "url": "https://bruceroettgers.eu/blog/protomaps/",
+      "published_at": null,
+      "discovered_at": "2026-11-15T19:26:22Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50509837"
+    },
+    {
+      "id": "source-4a41bfb9fc315bc4",
+      "name": "Hacker News",
+      "title": "Old Bitly links are being hijacked",
+      "url": "https://ransomnews.com/burger-king-tweet-bitly-link-hijack-2026/",
+      "published_at": null,
+      "discovered_at": "2026-11-15T22:11:43Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50511395"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-16/ee462e0bc3e9f98e851f899ae0db9cc37ac5936d45b5d7395f829ad6beeda93f.mp3",
+    "duration_seconds": 173.952,
+    "script_hash": "36ad2c53e3d86d4e8aa257e7beea6d3b8bb9483cc999ccb87285ecf06ec0d47e",
+    "cues": [
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "Hello",
+        "start_seconds": 0.225,
+        "end_seconds": 0.5625
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "everyone,",
+        "start_seconds": 0.5625,
+        "end_seconds": 1.125
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "and",
+        "start_seconds": 1.125,
+        "end_seconds": 1.25
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "welcome",
+        "start_seconds": 1.25,
+        "end_seconds": 1.65
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "to",
+        "start_seconds": 1.65,
+        "end_seconds": 1.775
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "Daywire.",
+        "start_seconds": 1.775,
+        "end_seconds": 2.525
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "Let's",
+        "start_seconds": 2.525,
+        "end_seconds": 2.8
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "make",
+        "start_seconds": 2.8,
+        "end_seconds": 3.0375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "sense",
+        "start_seconds": 3.0375,
+        "end_seconds": 3.3625
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "of",
+        "start_seconds": 3.3625,
+        "end_seconds": 3.4375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "the",
+        "start_seconds": 3.4375,
+        "end_seconds": 3.5375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "tech",
+        "start_seconds": 3.5375,
+        "end_seconds": 3.8
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "news.",
+        "start_seconds": 3.8,
+        "end_seconds": 4.425
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "It's",
+        "start_seconds": 4.425,
+        "end_seconds": 4.625
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "November",
+        "start_seconds": 4.625,
+        "end_seconds": 5.1125
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "sixteen,",
+        "start_seconds": 5.1125,
+        "end_seconds": 5.8125
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "two",
+        "start_seconds": 5.8125,
+        "end_seconds": 6.05
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "thousand",
+        "start_seconds": 6.05,
+        "end_seconds": 6.4125
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "twenty",
+        "start_seconds": 6.4125,
+        "end_seconds": 6.6875
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "six.",
+        "start_seconds": 6.6875,
+        "end_seconds": 7.75
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "We",
+        "start_seconds": 8.924999999999999,
+        "end_seconds": 9.024999999999999
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "begin",
+        "start_seconds": 9.024999999999999,
+        "end_seconds": 9.424999999999999
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "with",
+        "start_seconds": 9.424999999999999,
+        "end_seconds": 9.5625
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "our",
+        "start_seconds": 9.5625,
+        "end_seconds": 9.7
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "lead",
+        "start_seconds": 9.7,
+        "end_seconds": 9.975
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "story.",
+        "start_seconds": 9.975,
+        "end_seconds": 10.837499999999999
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "Apple's",
+        "start_seconds": 10.837499999999999,
+        "end_seconds": 11.2625
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "new",
+        "start_seconds": 11.2625,
+        "end_seconds": 11.45
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "MacBook",
+        "start_seconds": 11.45,
+        "end_seconds": 11.95
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "Pro",
+        "start_seconds": 11.95,
+        "end_seconds": 12.237499999999999
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "OLED",
+        "start_seconds": 12.237499999999999,
+        "end_seconds": 12.575
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "display",
+        "start_seconds": 12.575,
+        "end_seconds": 13.075
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "can",
+        "start_seconds": 13.075,
+        "end_seconds": 13.2875
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "flicker",
+        "start_seconds": 13.2875,
+        "end_seconds": 13.649999999999999
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "for",
+        "start_seconds": 13.649999999999999,
+        "end_seconds": 13.8125
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "some",
+        "start_seconds": 13.8125,
+        "end_seconds": 14.075
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "users.",
+        "start_seconds": 14.075,
+        "end_seconds": 15.225
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "The",
+        "start_seconds": 16.400000000000002,
+        "end_seconds": 16.475
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "2026",
+        "start_seconds": 16.475,
+        "end_seconds": 17.375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "model",
+        "start_seconds": 17.375,
+        "end_seconds": 17.7
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "swaps",
+        "start_seconds": 17.7,
+        "end_seconds": 18.05
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "Mini‑LED",
+        "start_seconds": 18.05,
+        "end_seconds": 18.575
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "for",
+        "start_seconds": 18.575,
+        "end_seconds": 18.6875
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "a",
+        "start_seconds": 18.6875,
+        "end_seconds": 18.75
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "tandem",
+        "start_seconds": 18.75,
+        "end_seconds": 19.175
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "OLED",
+        "start_seconds": 19.175,
+        "end_seconds": 19.55
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "called",
+        "start_seconds": 19.55,
+        "end_seconds": 19.825
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "PROLED",
+        "start_seconds": 19.825,
+        "end_seconds": 20.150000000000002
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "XDR,",
+        "start_seconds": 20.150000000000002,
+        "end_seconds": 20.950000000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "promising",
+        "start_seconds": 20.950000000000003,
+        "end_seconds": 21.450000000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "infinite",
+        "start_seconds": 21.450000000000003,
+        "end_seconds": 21.825000000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "contrast",
+        "start_seconds": 21.825000000000003,
+        "end_seconds": 22.475
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "and",
+        "start_seconds": 22.475,
+        "end_seconds": 22.6
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "brighter",
+        "start_seconds": 22.6,
+        "end_seconds": 22.925
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "HDR.",
+        "start_seconds": 22.925,
+        "end_seconds": 23.9
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "But",
+        "start_seconds": 23.9,
+        "end_seconds": 24.0375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "the",
+        "start_seconds": 24.0375,
+        "end_seconds": 24.125
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "dimming",
+        "start_seconds": 24.125,
+        "end_seconds": 24.425
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "uses",
+        "start_seconds": 24.425,
+        "end_seconds": 24.762500000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "pulse‑width",
+        "start_seconds": 24.762500000000003,
+        "end_seconds": 25.375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "modulation,",
+        "start_seconds": 25.375,
+        "end_seconds": 26.15
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "which",
+        "start_seconds": 26.15,
+        "end_seconds": 26.387500000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "rapidly",
+        "start_seconds": 26.387500000000003,
+        "end_seconds": 26.875
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "turns",
+        "start_seconds": 26.875,
+        "end_seconds": 27.1875
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "the",
+        "start_seconds": 27.1875,
+        "end_seconds": 27.275
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "panel",
+        "start_seconds": 27.275,
+        "end_seconds": 27.65
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "on",
+        "start_seconds": 27.65,
+        "end_seconds": 27.8375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "and",
+        "start_seconds": 27.8375,
+        "end_seconds": 27.950000000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "off.",
+        "start_seconds": 27.950000000000003,
+        "end_seconds": 28.575000000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "That",
+        "start_seconds": 28.575000000000003,
+        "end_seconds": 28.8
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "can",
+        "start_seconds": 28.8,
+        "end_seconds": 28.950000000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "create",
+        "start_seconds": 28.950000000000003,
+        "end_seconds": 29.2375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "a",
+        "start_seconds": 29.2375,
+        "end_seconds": 29.3
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "visible",
+        "start_seconds": 29.3,
+        "end_seconds": 29.7125
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "flicker",
+        "start_seconds": 29.7125,
+        "end_seconds": 30.075000000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "that",
+        "start_seconds": 30.075000000000003,
+        "end_seconds": 30.225
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "triggers",
+        "start_seconds": 30.225,
+        "end_seconds": 30.6
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "headaches",
+        "start_seconds": 30.6,
+        "end_seconds": 31.05
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "and",
+        "start_seconds": 31.05,
+        "end_seconds": 31.175
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "eye",
+        "start_seconds": 31.175,
+        "end_seconds": 31.387500000000003
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "strain",
+        "start_seconds": 31.387500000000003,
+        "end_seconds": 31.85
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "for",
+        "start_seconds": 31.85,
+        "end_seconds": 31.9625
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "a",
+        "start_seconds": 31.9625,
+        "end_seconds": 32.0375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "subset",
+        "start_seconds": 32.0375,
+        "end_seconds": 32.4375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "of",
+        "start_seconds": 32.4375,
+        "end_seconds": 32.525000000000006
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "people,",
+        "start_seconds": 32.525000000000006,
+        "end_seconds": 33.150000000000006
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "even",
+        "start_seconds": 33.150000000000006,
+        "end_seconds": 33.3875
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "if",
+        "start_seconds": 33.3875,
+        "end_seconds": 33.4875
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "they",
+        "start_seconds": 33.4875,
+        "end_seconds": 33.625
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "never",
+        "start_seconds": 33.625,
+        "end_seconds": 33.875
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "had",
+        "start_seconds": 33.875,
+        "end_seconds": 34.075
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "problems",
+        "start_seconds": 34.075,
+        "end_seconds": 34.5625
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "with",
+        "start_seconds": 34.5625,
+        "end_seconds": 34.7
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "other",
+        "start_seconds": 34.7,
+        "end_seconds": 35
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "OLED",
+        "start_seconds": 35,
+        "end_seconds": 35.400000000000006
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "screens.",
+        "start_seconds": 35.400000000000006,
+        "end_seconds": 36.6375
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "Here's",
+        "start_seconds": 37.095,
+        "end_seconds": 37.37
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "why",
+        "start_seconds": 37.37,
+        "end_seconds": 37.545
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "that",
+        "start_seconds": 37.545,
+        "end_seconds": 37.745
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "matters:",
+        "start_seconds": 37.745,
+        "end_seconds": 38.5575
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "power",
+        "start_seconds": 38.5575,
+        "end_seconds": 38.894999999999996
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "users",
+        "start_seconds": 38.894999999999996,
+        "end_seconds": 39.245
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "should",
+        "start_seconds": 39.245,
+        "end_seconds": 39.394999999999996
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "try",
+        "start_seconds": 39.394999999999996,
+        "end_seconds": 39.644999999999996
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "the",
+        "start_seconds": 39.644999999999996,
+        "end_seconds": 39.745
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "laptop",
+        "start_seconds": 39.745,
+        "end_seconds": 40.269999999999996
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "at",
+        "start_seconds": 40.269999999999996,
+        "end_seconds": 40.3575
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "their",
+        "start_seconds": 40.3575,
+        "end_seconds": 40.5575
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "normal",
+        "start_seconds": 40.5575,
+        "end_seconds": 40.945
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "brightness",
+        "start_seconds": 40.945,
+        "end_seconds": 41.47
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "before",
+        "start_seconds": 41.47,
+        "end_seconds": 41.82
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "committing",
+        "start_seconds": 41.82,
+        "end_seconds": 42.22
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "to",
+        "start_seconds": 42.22,
+        "end_seconds": 42.3575
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "long‑hour",
+        "start_seconds": 42.3575,
+        "end_seconds": 42.97
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "work,",
+        "start_seconds": 42.97,
+        "end_seconds": 43.545
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "because",
+        "start_seconds": 43.545,
+        "end_seconds": 43.832499999999996
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "the",
+        "start_seconds": 43.832499999999996,
+        "end_seconds": 43.957499999999996
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "PWM‑induced",
+        "start_seconds": 43.957499999999996,
+        "end_seconds": 45.22
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "flicker",
+        "start_seconds": 45.22,
+        "end_seconds": 45.595
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "could",
+        "start_seconds": 45.595,
+        "end_seconds": 45.769999999999996
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "bite",
+        "start_seconds": 45.769999999999996,
+        "end_seconds": 45.995
+      },
+      {
+        "segment_id": "macbook-pro-oled-flicker",
+        "text": "comfort.",
+        "start_seconds": 45.995,
+        "end_seconds": 47.17
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Next",
+        "start_seconds": 48.37,
+        "end_seconds": 48.6325
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "on",
+        "start_seconds": 48.6325,
+        "end_seconds": 48.732499999999995
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "the",
+        "start_seconds": 48.732499999999995,
+        "end_seconds": 48.82
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "bulletin.",
+        "start_seconds": 48.82,
+        "end_seconds": 49.595
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "The",
+        "start_seconds": 49.595,
+        "end_seconds": 49.72
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Electronic",
+        "start_seconds": 49.72,
+        "end_seconds": 50.32
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Frontier",
+        "start_seconds": 50.32,
+        "end_seconds": 50.794999999999995
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Foundation",
+        "start_seconds": 50.794999999999995,
+        "end_seconds": 51.519999999999996
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "and",
+        "start_seconds": 51.519999999999996,
+        "end_seconds": 51.6325
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "the",
+        "start_seconds": 51.6325,
+        "end_seconds": 51.745
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "ACLU",
+        "start_seconds": 51.745,
+        "end_seconds": 52.495
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "have",
+        "start_seconds": 52.495,
+        "end_seconds": 52.669999999999995
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "filed",
+        "start_seconds": 52.669999999999995,
+        "end_seconds": 52.9325
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "an",
+        "start_seconds": 52.9325,
+        "end_seconds": 53.019999999999996
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "amicus",
+        "start_seconds": 53.019999999999996,
+        "end_seconds": 53.5075
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "brief",
+        "start_seconds": 53.5075,
+        "end_seconds": 53.87
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "in",
+        "start_seconds": 53.87,
+        "end_seconds": 53.97
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "United",
+        "start_seconds": 53.97,
+        "end_seconds": 54.419999999999995
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "States",
+        "start_seconds": 54.419999999999995,
+        "end_seconds": 54.794999999999995
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "v.",
+        "start_seconds": 54.794999999999995,
+        "end_seconds": 54.97
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Sturdivant,",
+        "start_seconds": 54.97,
+        "end_seconds": 55.945
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "urging",
+        "start_seconds": 55.945,
+        "end_seconds": 56.2325
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "the",
+        "start_seconds": 56.2325,
+        "end_seconds": 56.3575
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Sixth",
+        "start_seconds": 56.3575,
+        "end_seconds": 56.6825
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Circuit",
+        "start_seconds": 56.6825,
+        "end_seconds": 57.045
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "to",
+        "start_seconds": 57.045,
+        "end_seconds": 57.17
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "treat",
+        "start_seconds": 57.17,
+        "end_seconds": 57.457499999999996
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "automated",
+        "start_seconds": 57.457499999999996,
+        "end_seconds": 58.045
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "license‑plate‑reader",
+        "start_seconds": 58.045,
+        "end_seconds": 59.095
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "data",
+        "start_seconds": 59.095,
+        "end_seconds": 59.6075
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "like",
+        "start_seconds": 59.6075,
+        "end_seconds": 59.832499999999996
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "any",
+        "start_seconds": 59.832499999999996,
+        "end_seconds": 60.1575
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "searchable",
+        "start_seconds": 60.1575,
+        "end_seconds": 60.595
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "record",
+        "start_seconds": 60.595,
+        "end_seconds": 60.995
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "that",
+        "start_seconds": 60.995,
+        "end_seconds": 61.144999999999996
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "needs",
+        "start_seconds": 61.144999999999996,
+        "end_seconds": 61.38249999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "a",
+        "start_seconds": 61.38249999999999,
+        "end_seconds": 61.4825
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "warrant.",
+        "start_seconds": 61.4825,
+        "end_seconds": 62.6075
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "In",
+        "start_seconds": 63.04,
+        "end_seconds": 63.1025
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "the",
+        "start_seconds": 63.1025,
+        "end_seconds": 63.19
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "case,",
+        "start_seconds": 63.19,
+        "end_seconds": 63.515
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "police",
+        "start_seconds": 63.515,
+        "end_seconds": 63.839999999999996
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "used",
+        "start_seconds": 63.839999999999996,
+        "end_seconds": 64.10249999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "two",
+        "start_seconds": 64.10249999999999,
+        "end_seconds": 64.315
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "commercial",
+        "start_seconds": 64.315,
+        "end_seconds": 64.765
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "ALPR",
+        "start_seconds": 64.765,
+        "end_seconds": 65.39
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "databases,",
+        "start_seconds": 65.39,
+        "end_seconds": 66.2775
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Flock",
+        "start_seconds": 66.2775,
+        "end_seconds": 66.66499999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "and",
+        "start_seconds": 66.66499999999999,
+        "end_seconds": 66.78999999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "ELSAG,",
+        "start_seconds": 66.78999999999999,
+        "end_seconds": 67.765
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "to",
+        "start_seconds": 67.765,
+        "end_seconds": 67.865
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "trace",
+        "start_seconds": 67.865,
+        "end_seconds": 68.1275
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "a",
+        "start_seconds": 68.1275,
+        "end_seconds": 68.22749999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "suspect’s",
+        "start_seconds": 68.22749999999999,
+        "end_seconds": 68.74
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "car",
+        "start_seconds": 68.74,
+        "end_seconds": 69.03999999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "after",
+        "start_seconds": 69.03999999999999,
+        "end_seconds": 69.3025
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "a",
+        "start_seconds": 69.3025,
+        "end_seconds": 69.365
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "string",
+        "start_seconds": 69.365,
+        "end_seconds": 69.60249999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "of",
+        "start_seconds": 69.60249999999999,
+        "end_seconds": 69.69
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "robberies",
+        "start_seconds": 69.69,
+        "end_seconds": 70.16499999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "near",
+        "start_seconds": 70.16499999999999,
+        "end_seconds": 70.39
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Cleveland,",
+        "start_seconds": 70.39,
+        "end_seconds": 70.89
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Ohio,",
+        "start_seconds": 70.89,
+        "end_seconds": 71.59
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "and",
+        "start_seconds": 71.59,
+        "end_seconds": 71.7025
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "the",
+        "start_seconds": 71.7025,
+        "end_seconds": 71.78999999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "district",
+        "start_seconds": 71.78999999999999,
+        "end_seconds": 72.16499999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "court",
+        "start_seconds": 72.16499999999999,
+        "end_seconds": 72.49
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "said",
+        "start_seconds": 72.49,
+        "end_seconds": 72.6275
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "there",
+        "start_seconds": 72.6275,
+        "end_seconds": 72.72749999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "was",
+        "start_seconds": 72.72749999999999,
+        "end_seconds": 72.865
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "no",
+        "start_seconds": 72.865,
+        "end_seconds": 73.03999999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "privacy",
+        "start_seconds": 73.03999999999999,
+        "end_seconds": 73.47749999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "expectation",
+        "start_seconds": 73.47749999999999,
+        "end_seconds": 74.215
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "in",
+        "start_seconds": 74.215,
+        "end_seconds": 74.3025
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "a",
+        "start_seconds": 74.3025,
+        "end_seconds": 74.365
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "license‑plate",
+        "start_seconds": 74.365,
+        "end_seconds": 75.065
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "number.",
+        "start_seconds": 75.065,
+        "end_seconds": 75.89
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "The",
+        "start_seconds": 75.89,
+        "end_seconds": 75.99
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "brief",
+        "start_seconds": 75.99,
+        "end_seconds": 76.265
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "calls",
+        "start_seconds": 76.265,
+        "end_seconds": 76.5025
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "that",
+        "start_seconds": 76.5025,
+        "end_seconds": 76.64
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "view",
+        "start_seconds": 76.64,
+        "end_seconds": 76.865
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "a",
+        "start_seconds": 76.865,
+        "end_seconds": 76.965
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "\"virtual",
+        "start_seconds": 76.965,
+        "end_seconds": 77.39
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "time",
+        "start_seconds": 77.39,
+        "end_seconds": 77.6275
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "machine\"",
+        "start_seconds": 77.6275,
+        "end_seconds": 78.315
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "and",
+        "start_seconds": 78.315,
+        "end_seconds": 78.44
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "points",
+        "start_seconds": 78.44,
+        "end_seconds": 78.765
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "to",
+        "start_seconds": 78.765,
+        "end_seconds": 78.89
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "recent",
+        "start_seconds": 78.89,
+        "end_seconds": 79.265
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "rulings",
+        "start_seconds": 79.265,
+        "end_seconds": 79.72749999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "labeling",
+        "start_seconds": 79.72749999999999,
+        "end_seconds": 80.14
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "ALPRs",
+        "start_seconds": 80.14,
+        "end_seconds": 81.0525
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "as",
+        "start_seconds": 81.0525,
+        "end_seconds": 81.2525
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "indiscriminate",
+        "start_seconds": 81.2525,
+        "end_seconds": 81.99
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "mass",
+        "start_seconds": 81.99,
+        "end_seconds": 82.24
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "surveillance.",
+        "start_seconds": 82.24,
+        "end_seconds": 83.60249999999999
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "Here's",
+        "start_seconds": 84.06,
+        "end_seconds": 84.36
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "why",
+        "start_seconds": 84.36,
+        "end_seconds": 84.535
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "that",
+        "start_seconds": 84.535,
+        "end_seconds": 84.785
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "matters:",
+        "start_seconds": 84.785,
+        "end_seconds": 85.56
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "if",
+        "start_seconds": 85.56,
+        "end_seconds": 85.6725
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "the",
+        "start_seconds": 85.6725,
+        "end_seconds": 85.81
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "appellate",
+        "start_seconds": 85.81,
+        "end_seconds": 86.235
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "court",
+        "start_seconds": 86.235,
+        "end_seconds": 86.535
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "adopts",
+        "start_seconds": 86.535,
+        "end_seconds": 86.9225
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "the",
+        "start_seconds": 86.9225,
+        "end_seconds": 87.06
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "argument,",
+        "start_seconds": 87.06,
+        "end_seconds": 87.8225
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "law‑enforcement",
+        "start_seconds": 87.8225,
+        "end_seconds": 88.6975
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "will",
+        "start_seconds": 88.6975,
+        "end_seconds": 88.81
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "have",
+        "start_seconds": 88.81,
+        "end_seconds": 89.01
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "to",
+        "start_seconds": 89.01,
+        "end_seconds": 89.11
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "get",
+        "start_seconds": 89.11,
+        "end_seconds": 89.2475
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "a",
+        "start_seconds": 89.2475,
+        "end_seconds": 89.3475
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "warrant",
+        "start_seconds": 89.3475,
+        "end_seconds": 89.685
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "before",
+        "start_seconds": 89.685,
+        "end_seconds": 90.0475
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "querying",
+        "start_seconds": 90.0475,
+        "end_seconds": 90.5475
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "any",
+        "start_seconds": 90.5475,
+        "end_seconds": 90.8475
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "ALPR",
+        "start_seconds": 90.8475,
+        "end_seconds": 91.535
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "database,",
+        "start_seconds": 91.535,
+        "end_seconds": 92.36
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "putting",
+        "start_seconds": 92.36,
+        "end_seconds": 92.6225
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "a",
+        "start_seconds": 92.6225,
+        "end_seconds": 92.685
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "brake",
+        "start_seconds": 92.685,
+        "end_seconds": 93.02250000000001
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "on",
+        "start_seconds": 93.02250000000001,
+        "end_seconds": 93.21000000000001
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "retroactive",
+        "start_seconds": 93.21000000000001,
+        "end_seconds": 93.935
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "vehicle",
+        "start_seconds": 93.935,
+        "end_seconds": 94.31
+      },
+      {
+        "segment_id": "alpr-warrant-amicus-brief-2026-segment",
+        "text": "tracking.",
+        "start_seconds": 94.31,
+        "end_seconds": 95.485
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Turning",
+        "start_seconds": 96.66,
+        "end_seconds": 96.96000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 96.96000000000001,
+        "end_seconds": 97.0475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 97.0475,
+        "end_seconds": 97.1725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "next",
+        "start_seconds": 97.1725,
+        "end_seconds": 97.435
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 97.435,
+        "end_seconds": 98.285
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "A",
+        "start_seconds": 98.285,
+        "end_seconds": 98.39750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "single",
+        "start_seconds": 98.39750000000001,
+        "end_seconds": 98.685
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "139",
+        "start_seconds": 98.685,
+        "end_seconds": 99.66
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "gigabyte",
+        "start_seconds": 99.66,
+        "end_seconds": 100.06
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PMTiles",
+        "start_seconds": 100.06,
+        "end_seconds": 100.76
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "file",
+        "start_seconds": 100.76,
+        "end_seconds": 101.08500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 101.08500000000001,
+        "end_seconds": 101.1975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "be",
+        "start_seconds": 101.1975,
+        "end_seconds": 101.31
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dropped",
+        "start_seconds": 101.31,
+        "end_seconds": 101.6225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "onto",
+        "start_seconds": 101.6225,
+        "end_seconds": 101.8225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 101.8225,
+        "end_seconds": 101.9225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "CDN",
+        "start_seconds": 101.9225,
+        "end_seconds": 102.39750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 102.39750000000001,
+        "end_seconds": 102.51
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "supports",
+        "start_seconds": 102.51,
+        "end_seconds": 102.96000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "range",
+        "start_seconds": 102.96000000000001,
+        "end_seconds": 103.2225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "requests,",
+        "start_seconds": 103.2225,
+        "end_seconds": 103.96000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "then",
+        "start_seconds": 103.96000000000001,
+        "end_seconds": 104.1725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "served",
+        "start_seconds": 104.1725,
+        "end_seconds": 104.4975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 104.4975,
+        "end_seconds": 104.5975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 104.5975,
+        "end_seconds": 104.685
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lightweight",
+        "start_seconds": 104.685,
+        "end_seconds": 105.06
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pmtiles",
+        "start_seconds": 105.06,
+        "end_seconds": 105.66
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "npm",
+        "start_seconds": 105.66,
+        "end_seconds": 106.16
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "library",
+        "start_seconds": 106.16,
+        "end_seconds": 106.61
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 106.61,
+        "end_seconds": 106.71000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "MapLibre",
+        "start_seconds": 106.71000000000001,
+        "end_seconds": 107.235
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "GL.",
+        "start_seconds": 107.235,
+        "end_seconds": 108.11
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 108.11,
+        "end_seconds": 108.21000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "blog",
+        "start_seconds": 108.21000000000001,
+        "end_seconds": 108.51
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "points",
+        "start_seconds": 108.51,
+        "end_seconds": 108.7475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "out",
+        "start_seconds": 108.7475,
+        "end_seconds": 108.8475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 108.8475,
+        "end_seconds": 108.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "typical",
+        "start_seconds": 108.91,
+        "end_seconds": 109.31
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "European",
+        "start_seconds": 109.31,
+        "end_seconds": 109.785
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "city",
+        "start_seconds": 109.785,
+        "end_seconds": 110.01
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "view",
+        "start_seconds": 110.01,
+        "end_seconds": 110.26
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pulls",
+        "start_seconds": 110.26,
+        "end_seconds": 110.51
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "only",
+        "start_seconds": 110.51,
+        "end_seconds": 110.8225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "5",
+        "start_seconds": 110.8225,
+        "end_seconds": 111.135
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "megabytes,",
+        "start_seconds": 111.135,
+        "end_seconds": 111.8475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "which",
+        "start_seconds": 111.8475,
+        "end_seconds": 112.035
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "works",
+        "start_seconds": 112.035,
+        "end_seconds": 112.27250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "out",
+        "start_seconds": 112.27250000000001,
+        "end_seconds": 112.435
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 112.435,
+        "end_seconds": 112.5725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "about",
+        "start_seconds": 112.5725,
+        "end_seconds": 112.81
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 112.81,
+        "end_seconds": 113.11
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 113.11,
+        "end_seconds": 113.36
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 113.36,
+        "end_seconds": 113.635
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 113.635,
+        "end_seconds": 113.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 113.91,
+        "end_seconds": 114.185
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 114.185,
+        "end_seconds": 114.52250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five",
+        "start_seconds": 114.52250000000001,
+        "end_seconds": 114.86
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dollars",
+        "start_seconds": 114.86,
+        "end_seconds": 115.235
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "per",
+        "start_seconds": 115.235,
+        "end_seconds": 115.41
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "load",
+        "start_seconds": 115.41,
+        "end_seconds": 115.9225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "–",
+        "start_seconds": 115.9225,
+        "end_seconds": 116.01
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 116.01,
+        "end_seconds": 116.11
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fraction",
+        "start_seconds": 116.11,
+        "end_seconds": 116.4975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 116.4975,
+        "end_seconds": 116.5725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 116.5725,
+        "end_seconds": 116.6725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cent.",
+        "start_seconds": 116.6725,
+        "end_seconds": 117.41
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "That's",
+        "start_seconds": 117.41,
+        "end_seconds": 117.71000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "orders",
+        "start_seconds": 117.71000000000001,
+        "end_seconds": 118.0475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 118.0475,
+        "end_seconds": 118.16
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "magnitude",
+        "start_seconds": 118.16,
+        "end_seconds": 118.7475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cheaper",
+        "start_seconds": 118.7475,
+        "end_seconds": 119.135
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "than",
+        "start_seconds": 119.135,
+        "end_seconds": 119.285
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "commercial",
+        "start_seconds": 119.285,
+        "end_seconds": 119.685
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "providers",
+        "start_seconds": 119.685,
+        "end_seconds": 120.26
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "like",
+        "start_seconds": 120.26,
+        "end_seconds": 120.485
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Mapbox.",
+        "start_seconds": 120.485,
+        "end_seconds": 121.8225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Engineers",
+        "start_seconds": 122.255,
+        "end_seconds": 122.88
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 122.88,
+        "end_seconds": 123.005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 123.005,
+        "end_seconds": 123.23
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "give",
+        "start_seconds": 123.23,
+        "end_seconds": 123.455
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "global",
+        "start_seconds": 123.455,
+        "end_seconds": 123.83
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "map",
+        "start_seconds": 123.83,
+        "end_seconds": 124.105
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "coverage",
+        "start_seconds": 124.105,
+        "end_seconds": 124.555
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 124.555,
+        "end_seconds": 124.68
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "roughly",
+        "start_seconds": 124.68,
+        "end_seconds": 125.0175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five",
+        "start_seconds": 125.0175,
+        "end_seconds": 125.355
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dollars",
+        "start_seconds": 125.355,
+        "end_seconds": 125.6925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 125.6925,
+        "end_seconds": 125.755
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "month,",
+        "start_seconds": 125.755,
+        "end_seconds": 126.38
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 126.38,
+        "end_seconds": 126.5175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "they",
+        "start_seconds": 126.5175,
+        "end_seconds": 126.655
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "should",
+        "start_seconds": 126.655,
+        "end_seconds": 126.855
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "still",
+        "start_seconds": 126.855,
+        "end_seconds": 127.1425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "set",
+        "start_seconds": 127.1425,
+        "end_seconds": 127.4175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "download‑speed",
+        "start_seconds": 127.4175,
+        "end_seconds": 128.28
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "limits",
+        "start_seconds": 128.28,
+        "end_seconds": 128.7425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 128.7425,
+        "end_seconds": 128.88
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "request",
+        "start_seconds": 128.88,
+        "end_seconds": 129.33
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "caps",
+        "start_seconds": 129.33,
+        "end_seconds": 129.68
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 129.68,
+        "end_seconds": 129.78
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "keep",
+        "start_seconds": 129.78,
+        "end_seconds": 130.0175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "CDN",
+        "start_seconds": 130.0175,
+        "end_seconds": 130.555
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bills",
+        "start_seconds": 130.555,
+        "end_seconds": 130.88
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 130.88,
+        "end_seconds": 131.0425
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "check.",
+        "start_seconds": 131.0425,
+        "end_seconds": 132.08
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "And",
+        "start_seconds": 133.23,
+        "end_seconds": 133.3675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "finally,",
+        "start_seconds": 133.3675,
+        "end_seconds": 133.8175
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "our",
+        "start_seconds": 133.8175,
+        "end_seconds": 133.955
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "last",
+        "start_seconds": 133.955,
+        "end_seconds": 134.23
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "story.",
+        "start_seconds": 134.23,
+        "end_seconds": 134.955
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Bitly",
+        "start_seconds": 134.955,
+        "end_seconds": 135.255
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "says",
+        "start_seconds": 135.255,
+        "end_seconds": 135.4425
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "attackers",
+        "start_seconds": 135.4425,
+        "end_seconds": 135.955
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "can",
+        "start_seconds": 135.955,
+        "end_seconds": 136.105
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "grab",
+        "start_seconds": 136.105,
+        "end_seconds": 136.3925
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "the",
+        "start_seconds": 136.3925,
+        "end_seconds": 136.4675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "back‑half",
+        "start_seconds": 136.4675,
+        "end_seconds": 136.8925
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "of",
+        "start_seconds": 136.8925,
+        "end_seconds": 136.98
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "old,",
+        "start_seconds": 136.98,
+        "end_seconds": 137.48
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "inactive",
+        "start_seconds": 137.48,
+        "end_seconds": 137.9675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "short",
+        "start_seconds": 137.9675,
+        "end_seconds": 138.23
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "URLs",
+        "start_seconds": 138.23,
+        "end_seconds": 138.7175
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "and",
+        "start_seconds": 138.7175,
+        "end_seconds": 138.83
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "point",
+        "start_seconds": 138.83,
+        "end_seconds": 139.0675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "them",
+        "start_seconds": 139.0675,
+        "end_seconds": 139.1925
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "at",
+        "start_seconds": 139.1925,
+        "end_seconds": 139.2675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "malicious",
+        "start_seconds": 139.2675,
+        "end_seconds": 139.6675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "sites.",
+        "start_seconds": 139.6675,
+        "end_seconds": 140.455
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "The",
+        "start_seconds": 140.455,
+        "end_seconds": 140.555
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "problem",
+        "start_seconds": 140.555,
+        "end_seconds": 141.0175
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "showed",
+        "start_seconds": 141.0175,
+        "end_seconds": 141.2675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "up",
+        "start_seconds": 141.2675,
+        "end_seconds": 141.4175
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "when",
+        "start_seconds": 141.4175,
+        "end_seconds": 141.5425
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "a",
+        "start_seconds": 141.5425,
+        "end_seconds": 141.605
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "2011",
+        "start_seconds": 141.605,
+        "end_seconds": 142.1925
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "McDonald’s",
+        "start_seconds": 142.1925,
+        "end_seconds": 142.7925
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "tweet",
+        "start_seconds": 142.7925,
+        "end_seconds": 143.155
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "and",
+        "start_seconds": 143.155,
+        "end_seconds": 143.28
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "dozens",
+        "start_seconds": 143.28,
+        "end_seconds": 143.6175
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "of",
+        "start_seconds": 143.6175,
+        "end_seconds": 143.705
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Donald",
+        "start_seconds": 143.705,
+        "end_seconds": 144.055
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Trump",
+        "start_seconds": 144.055,
+        "end_seconds": 144.305
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "tweets",
+        "start_seconds": 144.305,
+        "end_seconds": 144.63
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "from",
+        "start_seconds": 144.63,
+        "end_seconds": 144.78
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "2009",
+        "start_seconds": 144.78,
+        "end_seconds": 145.53
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "to",
+        "start_seconds": 145.53,
+        "end_seconds": 145.63
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "2013",
+        "start_seconds": 145.63,
+        "end_seconds": 146.405
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "were",
+        "start_seconds": 146.405,
+        "end_seconds": 146.53
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "repurposed",
+        "start_seconds": 146.53,
+        "end_seconds": 147.0675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "on",
+        "start_seconds": 147.0675,
+        "end_seconds": 147.1675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "the",
+        "start_seconds": 147.1675,
+        "end_seconds": 147.255
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "same",
+        "start_seconds": 147.255,
+        "end_seconds": 147.555
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "day.",
+        "start_seconds": 147.555,
+        "end_seconds": 148.1675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Bitly",
+        "start_seconds": 148.1675,
+        "end_seconds": 148.4675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "has",
+        "start_seconds": 148.4675,
+        "end_seconds": 148.63
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "already",
+        "start_seconds": 148.63,
+        "end_seconds": 149.005
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "suspended",
+        "start_seconds": 149.005,
+        "end_seconds": 149.5175
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "the",
+        "start_seconds": 149.5175,
+        "end_seconds": 149.605
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "accounts",
+        "start_seconds": 149.605,
+        "end_seconds": 149.9925
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "involved,",
+        "start_seconds": 149.9925,
+        "end_seconds": 150.63
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "disabled",
+        "start_seconds": 150.63,
+        "end_seconds": 151.0925
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "the",
+        "start_seconds": 151.0925,
+        "end_seconds": 151.18
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "hijacked",
+        "start_seconds": 151.18,
+        "end_seconds": 151.655
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "links,",
+        "start_seconds": 151.655,
+        "end_seconds": 152.105
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "and",
+        "start_seconds": 152.105,
+        "end_seconds": 152.2175
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "is",
+        "start_seconds": 152.2175,
+        "end_seconds": 152.3675
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "adding",
+        "start_seconds": 152.3675,
+        "end_seconds": 152.705
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "new",
+        "start_seconds": 152.705,
+        "end_seconds": 152.8925
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "safeguards.",
+        "start_seconds": 152.8925,
+        "end_seconds": 154.3175
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Here's",
+        "start_seconds": 154.75,
+        "end_seconds": 155.025
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "why",
+        "start_seconds": 155.025,
+        "end_seconds": 155.20000000000002
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "that",
+        "start_seconds": 155.20000000000002,
+        "end_seconds": 155.4
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "matters:",
+        "start_seconds": 155.4,
+        "end_seconds": 156.1
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "any",
+        "start_seconds": 156.1,
+        "end_seconds": 156.3
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "legacy",
+        "start_seconds": 156.3,
+        "end_seconds": 156.725
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Bitly",
+        "start_seconds": 156.725,
+        "end_seconds": 157.05
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "link,",
+        "start_seconds": 157.05,
+        "end_seconds": 157.425
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "especially",
+        "start_seconds": 157.425,
+        "end_seconds": 158.01250000000002
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "in",
+        "start_seconds": 158.01250000000002,
+        "end_seconds": 158.0875
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "historic",
+        "start_seconds": 158.0875,
+        "end_seconds": 158.6
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "social‑media",
+        "start_seconds": 158.6,
+        "end_seconds": 159.32500000000002
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "posts,",
+        "start_seconds": 159.32500000000002,
+        "end_seconds": 160.1
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "might",
+        "start_seconds": 160.1,
+        "end_seconds": 160.3
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "no",
+        "start_seconds": 160.3,
+        "end_seconds": 160.475
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "longer",
+        "start_seconds": 160.475,
+        "end_seconds": 160.8
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "lead",
+        "start_seconds": 160.8,
+        "end_seconds": 161.1
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "where",
+        "start_seconds": 161.1,
+        "end_seconds": 161.26250000000002
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "it",
+        "start_seconds": 161.26250000000002,
+        "end_seconds": 161.35
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "originally",
+        "start_seconds": 161.35,
+        "end_seconds": 161.8125
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "did,",
+        "start_seconds": 161.8125,
+        "end_seconds": 162.3
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "so",
+        "start_seconds": 162.3,
+        "end_seconds": 162.4875
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "treat",
+        "start_seconds": 162.4875,
+        "end_seconds": 162.775
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "those",
+        "start_seconds": 162.775,
+        "end_seconds": 163
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "old",
+        "start_seconds": 163,
+        "end_seconds": 163.275
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "links",
+        "start_seconds": 163.275,
+        "end_seconds": 163.5875
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "with",
+        "start_seconds": 163.5875,
+        "end_seconds": 163.75
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "caution.",
+        "start_seconds": 163.75,
+        "end_seconds": 164.9
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "And",
+        "start_seconds": 166.075,
+        "end_seconds": 166.1875
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "that's",
+        "start_seconds": 166.1875,
+        "end_seconds": 166.42499999999998
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "your",
+        "start_seconds": 166.42499999999998,
+        "end_seconds": 166.575
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Daywire",
+        "start_seconds": 166.575,
+        "end_seconds": 167.025
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "briefing.",
+        "start_seconds": 167.025,
+        "end_seconds": 167.79999999999998
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "You'll",
+        "start_seconds": 167.79999999999998,
+        "end_seconds": 167.975
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "find",
+        "start_seconds": 167.975,
+        "end_seconds": 168.2125
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "the",
+        "start_seconds": 168.2125,
+        "end_seconds": 168.3125
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "full",
+        "start_seconds": 168.3125,
+        "end_seconds": 168.61249999999998
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "stories",
+        "start_seconds": 168.61249999999998,
+        "end_seconds": 169.0875
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "and",
+        "start_seconds": 169.0875,
+        "end_seconds": 169.2125
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "sources",
+        "start_seconds": 169.2125,
+        "end_seconds": 169.7
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "in",
+        "start_seconds": 169.7,
+        "end_seconds": 169.79999999999998
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "today's",
+        "start_seconds": 169.79999999999998,
+        "end_seconds": 170.17499999999998
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "newspaper.",
+        "start_seconds": 170.17499999999998,
+        "end_seconds": 171.0125
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Thanks",
+        "start_seconds": 171.0125,
+        "end_seconds": 171.29999999999998
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "for",
+        "start_seconds": 171.29999999999998,
+        "end_seconds": 171.42499999999998
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "listening.",
+        "start_seconds": 171.42499999999998,
+        "end_seconds": 171.975
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "Take",
+        "start_seconds": 171.975,
+        "end_seconds": 172.2625
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "care,",
+        "start_seconds": 172.2625,
+        "end_seconds": 172.625
+      },
+      {
+        "segment_id": "bitly-link-hijack-2026-story",
+        "text": "everyone.",
+        "start_seconds": 172.625,
+        "end_seconds": 173.79999999999998
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
