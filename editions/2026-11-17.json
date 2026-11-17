@@ -1,0 +1,3719 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-17",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-17T08:27:28.892888777Z",
+  "coverage": {
+    "from": "2026-11-16T06:00:00+05:30",
+    "until": "2026-11-17T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-ddde1161b716eb7e",
+      "source-0e7f690aa4ff229b",
+      "source-756563a4144915c6",
+      "source-2d7a5d6b20fff3cd",
+      "source-0de8d85d5304fad8",
+      "source-dd659f011024f04f",
+      "source-d91fd06de7b8771e",
+      "source-b82b64ef90f76e66",
+      "source-9fea35ac84f27206",
+      "source-ff7833693fa2a067",
+      "source-9fe6d2ae73e55f52",
+      "source-21b4758ab52123ac",
+      "source-21e886491b30cfff"
+    ],
+    "candidate_count": 51,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "uBlock Origin patches universal XSS flaw",
+    "introduction": "The uBlock Origin team has released an update that patches a one‑click cross‑site scripting vulnerability in its Firefox MV2 extension, which previously allowed malicious sites to add trusted filters.",
+    "articles": [
+      {
+        "id": "ubo-universal-xss-fix-2026-11-17",
+        "section": "Security",
+        "headline": "uBlock Origin patches universal XSS in element picker",
+        "summary": "A one‑click XSS that let malicious sites add trusted filters to uBlock Origin’s MV2 Firefox extension has been patched.",
+        "paragraphs": [
+          "Earlier this month a researcher disclosed a universal cross‑site scripting flaw in the MV2 version of uBlock Origin for Firefox. The extension’s element picker injects an iframe (moz‑extension://…/epicker‑ui.html) that can receive postMessage calls from any page. By crafting a malicious iframe source, an attacker could trigger the picker to add a trusted filter, which runs arbitrary JavaScript in the context of any visited site. The same mechanism existed in the MV3‑based uBO Lite, though it was less exploitable.",
+          "The vulnerability hinged on the picker accepting messages without authenticating them. The fix introduces a secret token exchanged between the content script and the picker UI; the picker now validates this token before processing filter‑addition requests. The GitHub advisory confirms the change and notes that the issue is resolved in the latest release.",
+          "While the patch closes the universal XSS path, the element picker still requires the extension’s internal UUID to load its UI, meaning the attack surface is limited to sites that can guess or discover that identifier. Users of the MV2 Firefox build should update to the newest version to obtain the fix."
+        ],
+        "implication": "Firefox users of uBlock Origin’s MV2 build must upgrade now to stop any site from injecting trusted filters via the element picker.",
+        "source_ids": [
+          "source-9b09620054bd9f2b"
+        ]
+      },
+      {
+        "id": "windows-coding-agent-telemetry-2026-11-17",
+        "section": "Security",
+        "headline": "Windows 11 logs usage of AI coding assistants",
+        "summary": "A diagnostic component in Windows 11 records which AI coding agents and developer tools run on a machine and sends the bitmap to Microsoft when optional diagnostics are enabled.",
+        "paragraphs": [
+          "Reverse‑engineered MissionControlAggregator.dll subscribes to ETW events and builds a bitmap of agents such as codex.exe, claude.exe, copilot.exe, cursor.exe and tools like python.exe, dotnet.exe, gcc.exe, code.exe. The data is stored locally and uploaded to the Windows Diagnostics service unless the user opts out of the optional diagnostic data, which is on by default. The feature is disabled in the public ISO baseline but was active on an ARM64 VM used for testing."
+        ],
+        "implication": "Developers using AI‑assisted coding tools on Windows 11 should be aware that their tool usage may be reported to Microsoft unless they disable optional diagnostics, affecting privacy expectations.",
+        "source_ids": [
+          "source-d4515e27dcb7f192"
+        ]
+      },
+      {
+        "id": "fastify-busboy-dos-patch-2026",
+        "section": "Security",
+        "headline": "Fastify Busboy 3.2.6 patches two denial‑of‑service bugs",
+        "summary": "Versions 1.0.0‑3.2.5 of @fastify/busboy can crash or hang a Node process when handling multipart uploads, and upgrading to 3.2.6 resolves both issues.",
+        "paragraphs": [
+          "A crafted multipart request can trigger an unhandled error in the vendored Dicer parser when the parts limit (default 1,000) is exceeded and the request ends inside a skipped part. The parser emits ‘Part terminated early…’ without an error listener, causing Node to exit. The same library also hangs when a part’s header block is truncated, leaving the parser waiting for an end event that never arrives. Both conditions are exploitable by unauthenticated clients and affect any Fastify application that uses @fastify/multipart or Node’s formData APIs.",
+          "The advisory recommends upgrading to @fastify/busboy 3.2.6 or later. For the parts‑limit bug, attaching an ‘error’ listener to the busboy stream mitigates the crash, while setting Fastify’s handlerTimeout can limit the impact of the stall. No full application‑level workaround exists for the parser‑level failure."
+        ],
+        "implication": "Upgrading to 3.2.6 eliminates the crash and stall vectors, so Fastify services handling file uploads no longer need custom error handling to stay alive under malicious multipart payloads.",
+        "source_ids": [
+          "source-431ff59288902745",
+          "source-763fc3cdc12a734d"
+        ]
+      },
+      {
+        "id": "jiff-1-0-release",
+        "section": "Tools",
+        "headline": "Jiff 1.0 ships as a stable Rust datetime library",
+        "summary": "The Jiff 1.0 crate is now generally available, offering a comprehensive API for Rust developers needing reliable date‑time handling.",
+        "paragraphs": [
+          "Jiff 1.0 arrives with a full‑featured API that covers civil dates, timestamps, time zones and formatting, and its author pledges indefinite maintenance unless a serious defect emerges. The library is already used in production projects such as uv, Cargo, Starship and fd, and the release notes stress that the crate is intended to be a long‑term public dependency for the Rust ecosystem."
+        ],
+        "implication": "Rust projects can adopt Jiff as a single, well‑maintained source for date‑time logic without fearing frequent breaking changes, simplifying timezone handling and reducing custom code.",
+        "source_ids": [
+          "source-2885ac6e7a6a1904"
+        ]
+      },
+      {
+        "id": "rust-thought-shift-2026",
+        "section": "Engineering",
+        "headline": "Rust’s compile‑time checks reshape developer mindset",
+        "summary": "A veteran developer reports that Rust’s strict type system and ownership model forced a lasting change in how they design code, benefiting safety and abstraction choices.",
+        "paragraphs": [
+          "Martijn Faassen, who has been writing Rust for over six years, explains that the language’s compiler‑enforced guarantees—static type checking, ownership, and explicit dispatch—made him reconsider everyday design decisions. By catching misuse of data structures before the program runs, Rust pushed him toward looser coupling via interfaces and forced a deeper appreciation of trade‑offs between static and dynamic dispatch.",
+          "The shift is not limited to Rust; Faassen notes that the mental habits formed—thinking about lifetimes, borrowing, and compile‑time guarantees—now influence his work in other languages, though the same level of safety requires explicit effort outside Rust."
+        ],
+        "implication": "Developers adopting Rust can expect their problem‑solving approach to become more safety‑first, which may improve code quality even when they later switch to less restrictive languages.",
+        "source_ids": [
+          "source-ee1ec8d5bfed053c"
+        ]
+      },
+      {
+        "id": "vercel-private-inference-2026-11-16",
+        "section": "AI",
+        "headline": "Vercel AI Gateway adds Private Inference for custom model endpoints",
+        "summary": "Vercel’s AI Gateway now lets teams expose their own model endpoints as private models, visible only to their Vercel team and usable through the same Chat Completions, Responses, and Messages APIs.",
+        "paragraphs": [
+          "Private Inference translates calls to a team‑owned endpoint, stores credentials encrypted, and optionally enables zero‑data‑retention. Teams can switch between private and catalog models by changing the model ID, monitor private traffic alongside public models, and configure a fallback to a catalog model if the private endpoint fails. Setup requires adding the endpoint URL, selecting its API format, and registering the served models via the Vercel CLI."
+        ],
+        "implication": "Developers can now integrate proprietary or fine‑tuned models into Vercel’s observability and routing stack without exposing them publicly, simplifying hybrid AI workflows while keeping data handling under team control.",
+        "source_ids": [
+          "source-99ce4045d64de1c9"
+        ]
+      },
+      {
+        "id": "spatial-css-preview-visionos-27-3",
+        "section": "Engineering",
+        "headline": "Safari 27.3 on visionOS adds a developer preview of spatial CSS",
+        "summary": "Apple ships the first spatial‑CSS components, including \u003cmodel\u003e, spatial:portal and @environment‑map, in Safari 27.3 for visionOS 27.3.",
+        "paragraphs": [
+          "The update introduces a limited preview of the proposed spatial CSS API, letting authors declare portals with the new spatial:portal syntax and attach 360° HDR environment maps via @environment‑map on \u003cmodel\u003e elements. The preview is confined to visionOS 27.3 and requires the Xcode‑provided visionOS simulator for testing."
+        ],
+        "implication": "Web developers can now prototype 3‑D web experiences on visionOS, but the features remain experimental and unavailable on other platforms until the specification matures.",
+        "source_ids": [
+          "source-ac4562e5867c6c24"
+        ]
+      },
+      {
+        "id": "vera-rubin-nvl72-mlperf-2026",
+        "section": "AI",
+        "headline": "NVIDIA Vera Rubin NVL72 doubles training speed in MLPerf v6.1",
+        "summary": "The new Vera Rubin NVL72 GPU delivers up to 2× per‑GPU performance over the GB300 baseline on six of seven MLPerf Training v6.1 benchmarks.",
+        "paragraphs": [
+          "In its first MLPerf submission, NVIDIA’s Vera Rubin NVL72 achieved the fastest time‑to‑train on six of seven benchmarks, showing up to 2× more performance per GPU than an optimized GB300 NVL72 system and maintaining 97% efficiency when scaling from 256 to 1,024 GPUs. A separate Endpoints v1.0 provisional run reported over 10× higher throughput per kilowatt versus GB300 at a shared 50‑token‑per‑second interactivity floor."
+        ],
+        "implication": "Engineers targeting large‑scale model pre‑training or agentic inference can expect markedly faster iteration and lower power cost when moving to Vera Rubin hardware, provided they can provision the required 256‑plus GPU clusters.",
+        "source_ids": [
+          "source-c639d63a1f698545",
+          "source-9c1e9b470a847724"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "trusted-filter-xss-mechanism",
+        "title": "How unauthenticated postMessage enabled a universal XSS in uBlock Origin",
+        "paragraphs": [
+          "The element picker UI of uBlock Origin’s MV2 Firefox extension loads an internal page via an iframe and listens for postMessage events from the host page. Because the picker accepted any message without verifying its origin or a secret token, a malicious site could embed the picker iframe, send a crafted message, and instruct the background script to add a trusted filter. Trusted filters run arbitrary JavaScript in the context of every visited site, turning the picker into a one‑click universal XSS vector.",
+          "The fix adds a secret password exchanged between the content script and the picker UI; the picker now validates this token before acting on filter‑addition requests. This simple authentication step blocks external pages from hijacking the picker, eliminating the universal XSS path."
+        ],
+        "example": "A page includes \u003ciframe src=\"moz-extension://\u003cuuid\u003e/web_accessible_resources/epicker-ui.html\"\u003e\u003c/iframe\u003e and immediately runs window.postMessage({type:\"addFilter\",filter:\"##+js(no-fetch-if)\"}, \"*\"); without a token, the extension would add the filter and execute its code on any site.",
+        "takeaway": "Always authenticate cross‑origin messages in extension UI components; a missing check can let any site inject privileged code through seemingly harmless features.",
+        "article_ids": [
+          "ubo-universal-xss-fix-2026-11-17"
+        ],
+        "source_ids": [
+          "source-9b09620054bd9f2b"
+        ]
+      },
+      {
+        "id": "windows-telemetry-ai-coding-2026",
+        "title": "How Windows 11 logs AI coding assistant usage",
+        "paragraphs": [
+          "MissionControlAggregator.dll subscribes to existing ETW events rather than scanning processes directly. When an ETW event indicates the launch of a known coding agent (e.g., codex.exe, claude.exe, copilot.exe, cursor.exe) or developer tool (e.g., python.exe, dotnet.exe, gcc.exe, code.exe), the component flips a corresponding bit in a local bitmap. The bitmap is later packaged into a diagnostic report and uploaded to the Windows Diagnostics service when the optional diagnostic data setting is left enabled, which is the default configuration.",
+          "Because the telemetry only records a presence flag, it does not reveal how long a tool was used or what code was written, but it still creates a profile of which AI assistants a developer relies on. This information can be combined with other telemetry to infer development habits or tool preferences, raising privacy concerns for users who assume their local development environment remains private."
+        ],
+        "example": "If the system receives an ETW event that a known coding assistant such as copilot.exe has started, MissionControlAggregator records that fact by setting the copilot bit in its bitmap. The presence of that bit is then included in the next diagnostic report that is uploaded when optional diagnostics are enabled.",
+        "takeaway": "If you use AI‑assisted coding tools on Windows 11, consider disabling the optional diagnostic data setting or using a build where the feature is turned off to prevent your tool usage from being reported to Microsoft.",
+        "article_ids": [
+          "windows-coding-agent-telemetry-2026-11-17"
+        ],
+        "source_ids": [
+          "source-d4515e27dcb7f192"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-authentication-missing",
+        "lesson_id": "trusted-filter-xss-mechanism",
+        "prompt": "What was the primary security flaw that allowed a universal XSS in uBlock Origin’s element picker?",
+        "options": [
+          "The picker UI loaded its script over HTTP instead of HTTPS.",
+          "The picker accepted postMessage events without verifying origin or a secret token.",
+          "The background script executed filters without sandboxing them.",
+          "The extension’s manifest declared unsafe‑eval permissions."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that the picker accepted any postMessage without checking the origin or a secret token, which let a malicious site inject a trusted filter and achieve universal XSS."
+      },
+      {
+        "id": "quiz-1-fix-mechanism",
+        "lesson_id": "trusted-filter-xss-mechanism",
+        "prompt": "How does the implemented fix prevent the universal XSS vulnerability?",
+        "options": [
+          "It disables the element picker UI entirely.",
+          "It adds a secret password exchanged between the content script and the picker UI, which must be validated before adding a filter.",
+          "It restricts the picker to only run on the extension’s own pages.",
+          "It changes the postMessage target origin from \"*\" to the extension’s exact URL."
+        ],
+        "answer": 1,
+        "explanation": "The fix introduces a secret password that the picker validates before processing filter‑addition requests, blocking external pages from hijacking the picker."
+      },
+      {
+        "id": "quiz-1-general-principle",
+        "lesson_id": "trusted-filter-xss-mechanism",
+        "prompt": "According to the takeaway, what general practice should developers follow when using cross‑origin messaging in extension UI components?",
+        "options": [
+          "Always encrypt the message payload with TLS.",
+          "Never use postMessage; use direct function calls instead.",
+          "Always authenticate cross‑origin messages, such as by verifying origin or a secret token.",
+          "Limit postMessage to messages smaller than 256 bytes."
+        ],
+        "answer": 2,
+        "explanation": "The takeaway stresses that cross‑origin messages must be authenticated; a missing check allowed any site to inject privileged code."
+      },
+      {
+        "id": "quiz-2-privacy-presence",
+        "lesson_id": "windows-telemetry-ai-coding-2026",
+        "prompt": "What specific type of information does MissionControlAggregator.dll record about AI coding assistants on Windows 11?",
+        "options": [
+          "The exact duration each assistant was running",
+          "A presence flag indicating whether the assistant was launched",
+          "The source code files edited by the assistant",
+          "The network traffic generated by the assistant"
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that the component flips a bit in a bitmap when an ETW event shows a known coding agent started, recording only a presence flag. It does not capture duration, code content, or network traffic."
+      },
+      {
+        "id": "quiz-2-diagnostic-setting",
+        "lesson_id": "windows-telemetry-ai-coding-2026",
+        "prompt": "Which user setting determines whether the AI coding assistant usage bitmap is uploaded to Microsoft?",
+        "options": [
+          "The mandatory security updates setting",
+          "The optional diagnostic data setting",
+          "The Windows firewall configuration",
+          "The developer mode toggle"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that the bitmap is packaged into a diagnostic report and uploaded when the optional diagnostic data setting is left enabled, which is the default configuration."
+      }
+    ],
+    "segments": [
+      {
+        "id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "title": "uBlock Origin patches universal XSS in element picker",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November seventeen, two thousand twenty six.\n\nWe begin with our lead story. uBlock Origin has sealed a universal cross‑site scripting hole in its Firefox element picker. The flaw let any page send a postMessage to the picker’s hidden iframe, tricking it into adding a trusted filter that runs arbitrary JavaScript on every site you visit. The new release swaps that open channel for a secret token that the content script and picker UI exchange, and the picker now checks the token before acting. Here's why that matters: Firefox users on the MV2 build need to update right away, or a malicious site could still inject code, though the attack now requires knowing the extension’s internal UUID.",
+        "article_ids": [
+          "ubo-universal-xss-fix-2026-11-17"
+        ]
+      },
+      {
+        "id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "title": "Windows 11 logs AI coding assistant usage",
+        "text": "Next on the bulletin. Windows eleven now quietly notes which AI coding assistants you run and sends a bitmap back to Microsoft when optional diagnostics are turned on. The reverse‑engineered MissionControlAggregator DLL watches ETW events, spots executables like codex.exe, claude.exe, copilot.exe, cursor.exe and even standard tools such as python.exe, dotnet.exe, gcc.exe, code.exe, then stores the pattern locally before uploading it. The upload happens by default unless you opt out, and the feature isn’t in the public ISO but was active on an ARM64 test VM. Here's why that matters: if you rely on privacy, you’ll want to double‑check the optional diagnostics setting.\n",
+        "article_ids": [
+          "windows-coding-agent-telemetry-2026-11-17"
+        ]
+      },
+      {
+        "id": "fastify-busboy-patch-2026",
+        "title": "Fastify Busboy 3.2.6 fixes DoS bugs",
+        "text": "Turning to our next story. Fastify Busboy version three point two point six patches two denial‑of‑service bugs.\nA crafted multipart upload can overflow the default parts limit of one thousand, causing the internal Dicer parser to emit a ‘Part terminated early…’ error with no listener, which crashes the Node process. The same library can also hang when a part’s header block is truncated, leaving the parser waiting forever for an end event. Both flaws are exploitable by unauthenticated clients and affect any Fastify app using @fastify/multipart or Node formData APIs.\nUpgrade to @fastify/busboy three point two point six or later to eliminate the crash and stall, and consider adding an error listener or setting Fastify’s handlerTimeout as extra safeguards.",
+        "article_ids": [
+          "fastify-busboy-dos-patch-2026"
+        ]
+      },
+      {
+        "id": "jiff-1-0-release-segment",
+        "title": "Jiff 1.0 stable Rust datetime library",
+        "text": "Next on the bulletin. Jiff version one point zero is now generally available as a stable Rust crate. It bundles civil dates, timestamps, time zones and formatting into one tidy API, and its author promises indefinite maintenance unless a serious defect shows up. Big‑name projects like uv, Cargo, Starship and fd already rely on it, so Rust developers can adopt a single, well‑maintained source for date‑time logic without worrying about frequent breaking changes.",
+        "article_ids": [
+          "jiff-1-0-release"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Rust’s compile‑time checks reshape how developers think",
+        "text": "And finally, our last story. Veteran Rust coder Martijn Faassen says the compiler’s strict type checking, ownership rules and explicit dispatch forced him to rethink everyday design choices. He now leans toward looser coupling through interfaces and weighs static versus dynamic dispatch more carefully, because Rust catches misuse before the code runs. That mental shift didn’t stay in Rust – he finds himself habitually considering lifetimes, borrowing and compile‑time guarantees even when writing in other languages, though he has to add the safety checks manually.\n\nThe takeaway? Picking up Rust can train you to think safety‑first, and those habits stick around, potentially raising code quality across your whole toolbox.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "rust-thought-shift-2026"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a shield composed of puzzle‑piece ad‑block icons deflecting a bright, jagged XSS code fragment, set against a dark browser window background."
+  },
+  "sources": [
+    {
+      "id": "source-431ff59288902745",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-124724: @fastify/busboy vulnerable to Denial of Service via truncated multipart part past the parts limit",
+      "url": "https://github.com/fastify/busboy/security/advisories/GHSA-wh8h-qr34-3rj3",
+      "published_at": "2026-11-16T13:25:12Z",
+      "discovered_at": "2026-11-17T08:12:56.276074923Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-9b09620054bd9f2b",
+      "name": "Lobsters",
+      "title": "Universal XSS in uBlock Origin from website-driven element picker",
+      "url": "https://iter.ca/post/ubo-uxss/",
+      "published_at": null,
+      "discovered_at": "2026-11-15T23:12:27.923-06:00",
+      "discussion_url": "https://lobste.rs/s/x0ykkw/universal_xss_ublock_origin_from_website"
+    },
+    {
+      "id": "source-ac4562e5867c6c24",
+      "name": "WebKit",
+      "title": "Introducing spatial CSS: A developer preview",
+      "url": "https://webkit.org/blog/18621/introducing-spatial-css-a-developer-preview/",
+      "published_at": "2026-11-16T23:45:44Z",
+      "discovered_at": "2026-11-17T08:12:58.608825196Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-c639d63a1f698545",
+      "name": "NVIDIA Developer",
+      "title": "NVIDIA Vera Rubin NVL72 Achieves up to 2x Blackwell Ultra Performance in MLPerf Training v6.1",
+      "url": "https://developer.nvidia.com/blog/nvidia-vera-rubin-nvl72-achieves-up-to-2x-blackwell-ultra-performance-in-mlperf-training-v6-1/",
+      "published_at": "2026-11-16T16:00:00Z",
+      "discovered_at": "2026-11-17T08:12:57.21445054Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-99ce4045d64de1c9",
+      "name": "Vercel Blog",
+      "title": "AI Gateway now supports Private Inference",
+      "url": "https://vercel.com/changelog/ai-gateway-now-supports-private-inference",
+      "published_at": "2026-11-16T07:47:00Z",
+      "discovered_at": "2026-11-17T08:12:56.400863378Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-ee1ec8d5bfed053c",
+      "name": "Lobsters",
+      "title": "How Rust Changed Me As A Developer",
+      "url": "https://blog.startifact.com/posts/how-rust-changed-me/",
+      "published_at": null,
+      "discovered_at": "2026-11-16T12:17:29.216-06:00",
+      "discussion_url": "https://lobste.rs/s/s7mejx/how_rust_changed_me_as_developer"
+    },
+    {
+      "id": "source-9c1e9b470a847724",
+      "name": "NVIDIA Developer",
+      "title": "NVIDIA Vera Rubin NVL72 Leads Agentic Inference Performance on MLPerf Endpoints v1.0",
+      "url": "https://developer.nvidia.com/blog/nvidia-vera-rubin-nvl72-leads-agentic-inference-performance-on-mlperf-endpoints-v1-0/",
+      "published_at": "2026-11-16T16:00:00Z",
+      "discovered_at": "2026-11-17T08:12:57.21445054Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-763fc3cdc12a734d",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-128835: @fastify/busboy vulnerable to Denial of Service via a multipart part with unterminated headers",
+      "url": "https://github.com/fastify/busboy/security/advisories/GHSA-pvmq-3jr9-v5qh",
+      "published_at": "2026-11-16T13:16:20Z",
+      "discovered_at": "2026-11-17T08:12:56.276074923Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-d4515e27dcb7f192",
+      "name": "Hacker News",
+      "title": "Windows 11 Is Collecting Data on Which Coding Agents and Developer Tools You Use",
+      "url": "https://xusheng.dev/posts/windows-coding-agent-telemetry/",
+      "published_at": null,
+      "discovered_at": "2026-11-16T22:58:20Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50524736"
+    },
+    {
+      "id": "source-2885ac6e7a6a1904",
+      "name": "Hacker News",
+      "title": "Jiff 1.0: A datetime library for Rust",
+      "url": "https://burntsushi.net/jiff/",
+      "published_at": null,
+      "discovered_at": "2026-11-16T16:53:39Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50519744"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-17/099f6fdc86c0f04b2ea14e166b23ce1a22fa8d690be715232dff86fb7cdda4b5.mp3",
+    "duration_seconds": 223.608,
+    "script_hash": "116344e6c95dfe740f256a004df55e73efc1a9b40e55e620e9d6a848d85e5c60",
+    "cues": [
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "Hello",
+        "start_seconds": 0.2,
+        "end_seconds": 0.5875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "everyone,",
+        "start_seconds": 0.5875,
+        "end_seconds": 1.2
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "and",
+        "start_seconds": 1.2,
+        "end_seconds": 1.3375
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "welcome",
+        "start_seconds": 1.3375,
+        "end_seconds": 1.775
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "to",
+        "start_seconds": 1.775,
+        "end_seconds": 1.9
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "Daywire.",
+        "start_seconds": 1.9,
+        "end_seconds": 2.775
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "Let's",
+        "start_seconds": 2.775,
+        "end_seconds": 3.05
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "make",
+        "start_seconds": 3.05,
+        "end_seconds": 3.2875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "sense",
+        "start_seconds": 3.2875,
+        "end_seconds": 3.6125
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "of",
+        "start_seconds": 3.6125,
+        "end_seconds": 3.6875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 3.6875,
+        "end_seconds": 3.7875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "tech",
+        "start_seconds": 3.7875,
+        "end_seconds": 4.075
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "news.",
+        "start_seconds": 4.075,
+        "end_seconds": 4.85
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "It's",
+        "start_seconds": 4.85,
+        "end_seconds": 5.075
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "November",
+        "start_seconds": 5.075,
+        "end_seconds": 5.5625
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "seventeen,",
+        "start_seconds": 5.5625,
+        "end_seconds": 6.3625
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "two",
+        "start_seconds": 6.3625,
+        "end_seconds": 6.6
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "thousand",
+        "start_seconds": 6.6,
+        "end_seconds": 6.9875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "twenty",
+        "start_seconds": 6.9875,
+        "end_seconds": 7.2375
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "six.",
+        "start_seconds": 7.2375,
+        "end_seconds": 8.35
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "We",
+        "start_seconds": 9.475000000000001,
+        "end_seconds": 9.575000000000001
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "begin",
+        "start_seconds": 9.575000000000001,
+        "end_seconds": 9.887500000000001
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "with",
+        "start_seconds": 9.887500000000001,
+        "end_seconds": 10.012500000000001
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "our",
+        "start_seconds": 10.012500000000001,
+        "end_seconds": 10.15
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "lead",
+        "start_seconds": 10.15,
+        "end_seconds": 10.4
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "story.",
+        "start_seconds": 10.4,
+        "end_seconds": 11.3125
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "uBlock",
+        "start_seconds": 11.3125,
+        "end_seconds": 11.725000000000001
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "Origin",
+        "start_seconds": 11.725000000000001,
+        "end_seconds": 12.15
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "has",
+        "start_seconds": 12.15,
+        "end_seconds": 12.325000000000001
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "sealed",
+        "start_seconds": 12.325000000000001,
+        "end_seconds": 12.5875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "a",
+        "start_seconds": 12.5875,
+        "end_seconds": 12.65
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "universal",
+        "start_seconds": 12.65,
+        "end_seconds": 13.175
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "cross‑site",
+        "start_seconds": 13.175,
+        "end_seconds": 13.675
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "scripting",
+        "start_seconds": 13.675,
+        "end_seconds": 14.075000000000001
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "hole",
+        "start_seconds": 14.075000000000001,
+        "end_seconds": 14.325000000000001
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "in",
+        "start_seconds": 14.325000000000001,
+        "end_seconds": 14.412500000000001
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "its",
+        "start_seconds": 14.412500000000001,
+        "end_seconds": 14.55
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "Firefox",
+        "start_seconds": 14.55,
+        "end_seconds": 15.05
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "element",
+        "start_seconds": 15.05,
+        "end_seconds": 15.425
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "picker.",
+        "start_seconds": 15.425,
+        "end_seconds": 16.225
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "The",
+        "start_seconds": 16.225,
+        "end_seconds": 16.325000000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "flaw",
+        "start_seconds": 16.325000000000003,
+        "end_seconds": 16.6
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "let",
+        "start_seconds": 16.6,
+        "end_seconds": 16.7375
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "any",
+        "start_seconds": 16.7375,
+        "end_seconds": 16.925
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "page",
+        "start_seconds": 16.925,
+        "end_seconds": 17.275
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "send",
+        "start_seconds": 17.275,
+        "end_seconds": 17.4375
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "a",
+        "start_seconds": 17.4375,
+        "end_seconds": 17.5
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "postMessage",
+        "start_seconds": 17.5,
+        "end_seconds": 18.175
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "to",
+        "start_seconds": 18.175,
+        "end_seconds": 18.262500000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 18.262500000000003,
+        "end_seconds": 18.35
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "picker’s",
+        "start_seconds": 18.35,
+        "end_seconds": 18.675
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "hidden",
+        "start_seconds": 18.675,
+        "end_seconds": 18.950000000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "iframe,",
+        "start_seconds": 18.950000000000003,
+        "end_seconds": 19.700000000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "tricking",
+        "start_seconds": 19.700000000000003,
+        "end_seconds": 20.012500000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "it",
+        "start_seconds": 20.012500000000003,
+        "end_seconds": 20.0875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "into",
+        "start_seconds": 20.0875,
+        "end_seconds": 20.3
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "adding",
+        "start_seconds": 20.3,
+        "end_seconds": 20.5375
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "a",
+        "start_seconds": 20.5375,
+        "end_seconds": 20.6
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "trusted",
+        "start_seconds": 20.6,
+        "end_seconds": 21.025
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "filter",
+        "start_seconds": 21.025,
+        "end_seconds": 21.425
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "that",
+        "start_seconds": 21.425,
+        "end_seconds": 21.575000000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "runs",
+        "start_seconds": 21.575000000000003,
+        "end_seconds": 21.85
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "arbitrary",
+        "start_seconds": 21.85,
+        "end_seconds": 22.425
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "JavaScript",
+        "start_seconds": 22.425,
+        "end_seconds": 23.0375
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "on",
+        "start_seconds": 23.0375,
+        "end_seconds": 23.15
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "every",
+        "start_seconds": 23.15,
+        "end_seconds": 23.450000000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "site",
+        "start_seconds": 23.450000000000003,
+        "end_seconds": 23.6625
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "you",
+        "start_seconds": 23.6625,
+        "end_seconds": 23.775
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "visit.",
+        "start_seconds": 23.775,
+        "end_seconds": 24.6
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "The",
+        "start_seconds": 24.6,
+        "end_seconds": 24.700000000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "new",
+        "start_seconds": 24.700000000000003,
+        "end_seconds": 24.875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "release",
+        "start_seconds": 24.875,
+        "end_seconds": 25.200000000000003
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "swaps",
+        "start_seconds": 25.200000000000003,
+        "end_seconds": 25.5125
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "that",
+        "start_seconds": 25.5125,
+        "end_seconds": 25.650000000000002
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "open",
+        "start_seconds": 25.650000000000002,
+        "end_seconds": 25.9875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "channel",
+        "start_seconds": 25.9875,
+        "end_seconds": 26.325
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "for",
+        "start_seconds": 26.325,
+        "end_seconds": 26.4375
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "a",
+        "start_seconds": 26.4375,
+        "end_seconds": 26.5125
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "secret",
+        "start_seconds": 26.5125,
+        "end_seconds": 26.900000000000002
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "token",
+        "start_seconds": 26.900000000000002,
+        "end_seconds": 27.2875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "that",
+        "start_seconds": 27.2875,
+        "end_seconds": 27.3875
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 27.3875,
+        "end_seconds": 27.475
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "content",
+        "start_seconds": 27.475,
+        "end_seconds": 27.95
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "script",
+        "start_seconds": 27.95,
+        "end_seconds": 28.325
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "and",
+        "start_seconds": 28.325,
+        "end_seconds": 28.45
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "picker",
+        "start_seconds": 28.45,
+        "end_seconds": 28.775000000000002
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "UI",
+        "start_seconds": 28.775000000000002,
+        "end_seconds": 29.075
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "exchange,",
+        "start_seconds": 29.075,
+        "end_seconds": 30.025000000000002
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "and",
+        "start_seconds": 30.025000000000002,
+        "end_seconds": 30.1375
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 30.1375,
+        "end_seconds": 30.225
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "picker",
+        "start_seconds": 30.225,
+        "end_seconds": 30.55
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "now",
+        "start_seconds": 30.55,
+        "end_seconds": 30.7625
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "checks",
+        "start_seconds": 30.7625,
+        "end_seconds": 31.075
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 31.075,
+        "end_seconds": 31.175
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "token",
+        "start_seconds": 31.175,
+        "end_seconds": 31.55
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "before",
+        "start_seconds": 31.55,
+        "end_seconds": 31.9125
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "acting.",
+        "start_seconds": 31.9125,
+        "end_seconds": 33.087500000000006
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "Here's",
+        "start_seconds": 33.52,
+        "end_seconds": 33.795
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "why",
+        "start_seconds": 33.795,
+        "end_seconds": 33.97
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "that",
+        "start_seconds": 33.97,
+        "end_seconds": 34.195
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "matters:",
+        "start_seconds": 34.195,
+        "end_seconds": 35.1325
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "Firefox",
+        "start_seconds": 35.1325,
+        "end_seconds": 35.745000000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "users",
+        "start_seconds": 35.745000000000005,
+        "end_seconds": 36.195
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "on",
+        "start_seconds": 36.195,
+        "end_seconds": 36.3325
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 36.3325,
+        "end_seconds": 36.4825
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "MV2",
+        "start_seconds": 36.4825,
+        "end_seconds": 37.2825
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "build",
+        "start_seconds": 37.2825,
+        "end_seconds": 37.6325
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "need",
+        "start_seconds": 37.6325,
+        "end_seconds": 37.92
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "to",
+        "start_seconds": 37.92,
+        "end_seconds": 38.057500000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "update",
+        "start_seconds": 38.057500000000005,
+        "end_seconds": 38.52
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "right",
+        "start_seconds": 38.52,
+        "end_seconds": 38.72
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "away,",
+        "start_seconds": 38.72,
+        "end_seconds": 39.4075
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "or",
+        "start_seconds": 39.4075,
+        "end_seconds": 39.595
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "a",
+        "start_seconds": 39.595,
+        "end_seconds": 39.67
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "malicious",
+        "start_seconds": 39.67,
+        "end_seconds": 40.182500000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "site",
+        "start_seconds": 40.182500000000005,
+        "end_seconds": 40.495000000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "could",
+        "start_seconds": 40.495000000000005,
+        "end_seconds": 40.695
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "still",
+        "start_seconds": 40.695,
+        "end_seconds": 40.97
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "inject",
+        "start_seconds": 40.97,
+        "end_seconds": 41.4075
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "code,",
+        "start_seconds": 41.4075,
+        "end_seconds": 42.145
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "though",
+        "start_seconds": 42.145,
+        "end_seconds": 42.307500000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 42.307500000000005,
+        "end_seconds": 42.445
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "attack",
+        "start_seconds": 42.445,
+        "end_seconds": 42.845
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "now",
+        "start_seconds": 42.845,
+        "end_seconds": 43.120000000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "requires",
+        "start_seconds": 43.120000000000005,
+        "end_seconds": 43.682500000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "knowing",
+        "start_seconds": 43.682500000000005,
+        "end_seconds": 44.0075
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 44.0075,
+        "end_seconds": 44.120000000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "extension’s",
+        "start_seconds": 44.120000000000005,
+        "end_seconds": 44.870000000000005
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "internal",
+        "start_seconds": 44.870000000000005,
+        "end_seconds": 45.4075
+      },
+      {
+        "segment_id": "ubo-universal-xss-fix-2026-11-17-segment",
+        "text": "UUID.",
+        "start_seconds": 45.4075,
+        "end_seconds": 47.045
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "Next",
+        "start_seconds": 48.245,
+        "end_seconds": 48.57
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "on",
+        "start_seconds": 48.57,
+        "end_seconds": 48.707499999999996
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 48.707499999999996,
+        "end_seconds": 48.794999999999995
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "bulletin.",
+        "start_seconds": 48.794999999999995,
+        "end_seconds": 49.7825
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "Windows",
+        "start_seconds": 49.7825,
+        "end_seconds": 50.245
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "eleven",
+        "start_seconds": 50.245,
+        "end_seconds": 50.669999999999995
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "now",
+        "start_seconds": 50.669999999999995,
+        "end_seconds": 50.8825
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "quietly",
+        "start_seconds": 50.8825,
+        "end_seconds": 51.419999999999995
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "notes",
+        "start_seconds": 51.419999999999995,
+        "end_seconds": 51.794999999999995
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "which",
+        "start_seconds": 51.794999999999995,
+        "end_seconds": 52.044999999999995
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "AI",
+        "start_seconds": 52.044999999999995,
+        "end_seconds": 52.582499999999996
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "coding",
+        "start_seconds": 52.582499999999996,
+        "end_seconds": 52.97
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "assistants",
+        "start_seconds": 52.97,
+        "end_seconds": 53.519999999999996
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "you",
+        "start_seconds": 53.519999999999996,
+        "end_seconds": 53.707499999999996
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "run",
+        "start_seconds": 53.707499999999996,
+        "end_seconds": 54.2575
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "and",
+        "start_seconds": 54.2575,
+        "end_seconds": 54.4075
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "sends",
+        "start_seconds": 54.4075,
+        "end_seconds": 54.6825
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "a",
+        "start_seconds": 54.6825,
+        "end_seconds": 54.745
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "bitmap",
+        "start_seconds": 54.745,
+        "end_seconds": 55.169999999999995
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "back",
+        "start_seconds": 55.169999999999995,
+        "end_seconds": 55.445
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "to",
+        "start_seconds": 55.445,
+        "end_seconds": 55.57
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "Microsoft",
+        "start_seconds": 55.57,
+        "end_seconds": 56.345
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "when",
+        "start_seconds": 56.345,
+        "end_seconds": 56.5325
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "optional",
+        "start_seconds": 56.5325,
+        "end_seconds": 57.045
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "diagnostics",
+        "start_seconds": 57.045,
+        "end_seconds": 57.92
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "are",
+        "start_seconds": 57.92,
+        "end_seconds": 58.019999999999996
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "turned",
+        "start_seconds": 58.019999999999996,
+        "end_seconds": 58.345
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "on.",
+        "start_seconds": 58.345,
+        "end_seconds": 59.4075
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "The",
+        "start_seconds": 59.79,
+        "end_seconds": 59.89
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "reverse‑engineered",
+        "start_seconds": 59.89,
+        "end_seconds": 60.79
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "MissionControlAggregator",
+        "start_seconds": 60.79,
+        "end_seconds": 61.965
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "DLL",
+        "start_seconds": 61.965,
+        "end_seconds": 62.465
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "watches",
+        "start_seconds": 62.465,
+        "end_seconds": 62.865
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "ETW",
+        "start_seconds": 62.865,
+        "end_seconds": 63.54
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "events,",
+        "start_seconds": 63.54,
+        "end_seconds": 64.09
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "spots",
+        "start_seconds": 64.09,
+        "end_seconds": 64.44
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "executables",
+        "start_seconds": 64.44,
+        "end_seconds": 65.1025
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "like",
+        "start_seconds": 65.1025,
+        "end_seconds": 65.265
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "codex.exe,",
+        "start_seconds": 65.265,
+        "end_seconds": 66.715
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "claude.exe,",
+        "start_seconds": 66.715,
+        "end_seconds": 67.715
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "copilot.exe,",
+        "start_seconds": 67.715,
+        "end_seconds": 68.86500000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "cursor.exe",
+        "start_seconds": 68.86500000000001,
+        "end_seconds": 69.7775
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "and",
+        "start_seconds": 69.7775,
+        "end_seconds": 69.8775
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "even",
+        "start_seconds": 69.8775,
+        "end_seconds": 70.14
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "standard",
+        "start_seconds": 70.14,
+        "end_seconds": 70.515
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "tools",
+        "start_seconds": 70.515,
+        "end_seconds": 70.815
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "such",
+        "start_seconds": 70.815,
+        "end_seconds": 70.9775
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "as",
+        "start_seconds": 70.9775,
+        "end_seconds": 71.11500000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "python.exe,",
+        "start_seconds": 71.11500000000001,
+        "end_seconds": 72.24000000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "dotnet.exe,",
+        "start_seconds": 72.24000000000001,
+        "end_seconds": 73.34
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "gcc.exe,",
+        "start_seconds": 73.34,
+        "end_seconds": 74.515
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "code.exe,",
+        "start_seconds": 74.515,
+        "end_seconds": 75.5775
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "then",
+        "start_seconds": 75.5775,
+        "end_seconds": 75.765
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "stores",
+        "start_seconds": 75.765,
+        "end_seconds": 76.0775
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 76.0775,
+        "end_seconds": 76.165
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "pattern",
+        "start_seconds": 76.165,
+        "end_seconds": 76.515
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "locally",
+        "start_seconds": 76.515,
+        "end_seconds": 76.89
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "before",
+        "start_seconds": 76.89,
+        "end_seconds": 77.165
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "uploading",
+        "start_seconds": 77.165,
+        "end_seconds": 77.64
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "it.",
+        "start_seconds": 77.64,
+        "end_seconds": 78.19
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "The",
+        "start_seconds": 78.19,
+        "end_seconds": 78.34
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "upload",
+        "start_seconds": 78.34,
+        "end_seconds": 78.715
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "happens",
+        "start_seconds": 78.715,
+        "end_seconds": 79.065
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "by",
+        "start_seconds": 79.065,
+        "end_seconds": 79.24000000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "default",
+        "start_seconds": 79.24000000000001,
+        "end_seconds": 79.6525
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "unless",
+        "start_seconds": 79.6525,
+        "end_seconds": 79.9025
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "you",
+        "start_seconds": 79.9025,
+        "end_seconds": 80.015
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "opt",
+        "start_seconds": 80.015,
+        "end_seconds": 80.265
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "out,",
+        "start_seconds": 80.265,
+        "end_seconds": 80.69
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "and",
+        "start_seconds": 80.69,
+        "end_seconds": 80.80250000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 80.80250000000001,
+        "end_seconds": 80.89
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "feature",
+        "start_seconds": 80.89,
+        "end_seconds": 81.24000000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "isn’t",
+        "start_seconds": 81.24000000000001,
+        "end_seconds": 81.5025
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "in",
+        "start_seconds": 81.5025,
+        "end_seconds": 81.5775
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 81.5775,
+        "end_seconds": 81.665
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "public",
+        "start_seconds": 81.665,
+        "end_seconds": 82.065
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "ISO",
+        "start_seconds": 82.065,
+        "end_seconds": 82.79
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "but",
+        "start_seconds": 82.79,
+        "end_seconds": 82.92750000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "was",
+        "start_seconds": 82.92750000000001,
+        "end_seconds": 83.0775
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "active",
+        "start_seconds": 83.0775,
+        "end_seconds": 83.42750000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "on",
+        "start_seconds": 83.42750000000001,
+        "end_seconds": 83.5275
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "an",
+        "start_seconds": 83.5275,
+        "end_seconds": 83.61500000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "ARM64",
+        "start_seconds": 83.61500000000001,
+        "end_seconds": 84.49000000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "test",
+        "start_seconds": 84.49000000000001,
+        "end_seconds": 84.815
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "VM.",
+        "start_seconds": 84.815,
+        "end_seconds": 85.9775
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "Here's",
+        "start_seconds": 86.385,
+        "end_seconds": 86.685
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "why",
+        "start_seconds": 86.685,
+        "end_seconds": 86.885
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "that",
+        "start_seconds": 86.885,
+        "end_seconds": 87.135
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "matters:",
+        "start_seconds": 87.135,
+        "end_seconds": 87.9725
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "if",
+        "start_seconds": 87.9725,
+        "end_seconds": 88.11
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "you",
+        "start_seconds": 88.11,
+        "end_seconds": 88.235
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "rely",
+        "start_seconds": 88.235,
+        "end_seconds": 88.58500000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "on",
+        "start_seconds": 88.58500000000001,
+        "end_seconds": 88.785
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "privacy,",
+        "start_seconds": 88.785,
+        "end_seconds": 89.51
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "you’ll",
+        "start_seconds": 89.51,
+        "end_seconds": 89.71000000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "want",
+        "start_seconds": 89.71000000000001,
+        "end_seconds": 89.89750000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "to",
+        "start_seconds": 89.89750000000001,
+        "end_seconds": 90.02250000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "double‑check",
+        "start_seconds": 90.02250000000001,
+        "end_seconds": 90.635
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "the",
+        "start_seconds": 90.635,
+        "end_seconds": 90.7975
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "optional",
+        "start_seconds": 90.7975,
+        "end_seconds": 91.31
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "diagnostics",
+        "start_seconds": 91.31,
+        "end_seconds": 92.08500000000001
+      },
+      {
+        "segment_id": "windows-coding-agent-telemetry-2026-11-17-segment",
+        "text": "setting.",
+        "start_seconds": 92.08500000000001,
+        "end_seconds": 93.185
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Turning",
+        "start_seconds": 94.31,
+        "end_seconds": 94.61
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "to",
+        "start_seconds": 94.61,
+        "end_seconds": 94.6975
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "our",
+        "start_seconds": 94.6975,
+        "end_seconds": 94.8225
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "next",
+        "start_seconds": 94.8225,
+        "end_seconds": 95.0725
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "story.",
+        "start_seconds": 95.0725,
+        "end_seconds": 95.9475
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Fastify",
+        "start_seconds": 95.9475,
+        "end_seconds": 96.485
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Busboy",
+        "start_seconds": 96.485,
+        "end_seconds": 96.885
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "version",
+        "start_seconds": 96.885,
+        "end_seconds": 97.2475
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "three",
+        "start_seconds": 97.2475,
+        "end_seconds": 97.485
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "point",
+        "start_seconds": 97.485,
+        "end_seconds": 97.735
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "two",
+        "start_seconds": 97.735,
+        "end_seconds": 97.885
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "point",
+        "start_seconds": 97.885,
+        "end_seconds": 98.16000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "six",
+        "start_seconds": 98.16000000000001,
+        "end_seconds": 98.435
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "patches",
+        "start_seconds": 98.435,
+        "end_seconds": 98.8225
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "two",
+        "start_seconds": 98.8225,
+        "end_seconds": 99.03500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "denial‑of‑service",
+        "start_seconds": 99.03500000000001,
+        "end_seconds": 99.86
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "bugs.",
+        "start_seconds": 99.86,
+        "end_seconds": 100.61
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "A",
+        "start_seconds": 100.61,
+        "end_seconds": 100.76
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "crafted",
+        "start_seconds": 100.76,
+        "end_seconds": 101.185
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "multipart",
+        "start_seconds": 101.185,
+        "end_seconds": 101.64750000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "upload",
+        "start_seconds": 101.64750000000001,
+        "end_seconds": 102.03500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "can",
+        "start_seconds": 102.03500000000001,
+        "end_seconds": 102.16000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "overflow",
+        "start_seconds": 102.16000000000001,
+        "end_seconds": 102.6225
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "the",
+        "start_seconds": 102.6225,
+        "end_seconds": 102.71000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "default",
+        "start_seconds": 102.71000000000001,
+        "end_seconds": 103.11
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "parts",
+        "start_seconds": 103.11,
+        "end_seconds": 103.385
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "limit",
+        "start_seconds": 103.385,
+        "end_seconds": 103.6225
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "of",
+        "start_seconds": 103.6225,
+        "end_seconds": 103.71000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "one",
+        "start_seconds": 103.71000000000001,
+        "end_seconds": 103.935
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "thousand,",
+        "start_seconds": 103.935,
+        "end_seconds": 104.71000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "causing",
+        "start_seconds": 104.71000000000001,
+        "end_seconds": 105.02250000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "the",
+        "start_seconds": 105.02250000000001,
+        "end_seconds": 105.09750000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "internal",
+        "start_seconds": 105.09750000000001,
+        "end_seconds": 105.485
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Dicer",
+        "start_seconds": 105.485,
+        "end_seconds": 105.76
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "parser",
+        "start_seconds": 105.76,
+        "end_seconds": 106.185
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "to",
+        "start_seconds": 106.185,
+        "end_seconds": 106.28500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "emit",
+        "start_seconds": 106.28500000000001,
+        "end_seconds": 106.47250000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "a",
+        "start_seconds": 106.47250000000001,
+        "end_seconds": 106.52250000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "‘Part",
+        "start_seconds": 106.52250000000001,
+        "end_seconds": 106.83500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "terminated",
+        "start_seconds": 106.83500000000001,
+        "end_seconds": 107.435
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "early…’",
+        "start_seconds": 107.435,
+        "end_seconds": 107.935
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "error",
+        "start_seconds": 107.935,
+        "end_seconds": 108.26
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "with",
+        "start_seconds": 108.26,
+        "end_seconds": 108.435
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "no",
+        "start_seconds": 108.435,
+        "end_seconds": 108.61
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "listener,",
+        "start_seconds": 108.61,
+        "end_seconds": 109.33500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "which",
+        "start_seconds": 109.33500000000001,
+        "end_seconds": 109.53500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "crashes",
+        "start_seconds": 109.53500000000001,
+        "end_seconds": 109.985
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "the",
+        "start_seconds": 109.985,
+        "end_seconds": 110.08500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Node",
+        "start_seconds": 110.08500000000001,
+        "end_seconds": 110.33500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "process.",
+        "start_seconds": 110.33500000000001,
+        "end_seconds": 111.435
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "The",
+        "start_seconds": 111.435,
+        "end_seconds": 111.5725
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "same",
+        "start_seconds": 111.5725,
+        "end_seconds": 111.885
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "library",
+        "start_seconds": 111.885,
+        "end_seconds": 112.36000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "can",
+        "start_seconds": 112.36000000000001,
+        "end_seconds": 112.48500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "also",
+        "start_seconds": 112.48500000000001,
+        "end_seconds": 112.83500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "hang",
+        "start_seconds": 112.83500000000001,
+        "end_seconds": 113.1225
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "when",
+        "start_seconds": 113.1225,
+        "end_seconds": 113.2475
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "a",
+        "start_seconds": 113.2475,
+        "end_seconds": 113.31
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "part’s",
+        "start_seconds": 113.31,
+        "end_seconds": 113.635
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "header",
+        "start_seconds": 113.635,
+        "end_seconds": 113.83500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "block",
+        "start_seconds": 113.83500000000001,
+        "end_seconds": 114.14750000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "is",
+        "start_seconds": 114.14750000000001,
+        "end_seconds": 114.285
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "truncated,",
+        "start_seconds": 114.285,
+        "end_seconds": 115.2475
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "leaving",
+        "start_seconds": 115.2475,
+        "end_seconds": 115.54750000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "the",
+        "start_seconds": 115.54750000000001,
+        "end_seconds": 115.635
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "parser",
+        "start_seconds": 115.635,
+        "end_seconds": 116.06
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "waiting",
+        "start_seconds": 116.06,
+        "end_seconds": 116.385
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "forever",
+        "start_seconds": 116.385,
+        "end_seconds": 116.83500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "for",
+        "start_seconds": 116.83500000000001,
+        "end_seconds": 116.9475
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "an",
+        "start_seconds": 116.9475,
+        "end_seconds": 117.035
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "end",
+        "start_seconds": 117.035,
+        "end_seconds": 117.2225
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "event.",
+        "start_seconds": 117.2225,
+        "end_seconds": 118.27250000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Both",
+        "start_seconds": 118.655,
+        "end_seconds": 118.88000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "flaws",
+        "start_seconds": 118.88000000000001,
+        "end_seconds": 119.25500000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "are",
+        "start_seconds": 119.25500000000001,
+        "end_seconds": 119.38000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "exploitable",
+        "start_seconds": 119.38000000000001,
+        "end_seconds": 120.055
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "by",
+        "start_seconds": 120.055,
+        "end_seconds": 120.2675
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "unauthenticated",
+        "start_seconds": 120.2675,
+        "end_seconds": 121.205
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "clients",
+        "start_seconds": 121.205,
+        "end_seconds": 121.94250000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "and",
+        "start_seconds": 121.94250000000001,
+        "end_seconds": 122.06750000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "affect",
+        "start_seconds": 122.06750000000001,
+        "end_seconds": 122.43
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "any",
+        "start_seconds": 122.43,
+        "end_seconds": 122.6425
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Fastify",
+        "start_seconds": 122.6425,
+        "end_seconds": 123.2925
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "app",
+        "start_seconds": 123.2925,
+        "end_seconds": 123.58
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "using",
+        "start_seconds": 123.58,
+        "end_seconds": 123.88000000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "@fastify/multipart",
+        "start_seconds": 123.88000000000001,
+        "end_seconds": 125.905
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "or",
+        "start_seconds": 125.905,
+        "end_seconds": 126.08
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Node",
+        "start_seconds": 126.08,
+        "end_seconds": 126.44250000000001
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "formData",
+        "start_seconds": 126.44250000000001,
+        "end_seconds": 126.955
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "APIs.",
+        "start_seconds": 126.955,
+        "end_seconds": 128.18
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Upgrade",
+        "start_seconds": 128.18,
+        "end_seconds": 128.58
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "to",
+        "start_seconds": 128.58,
+        "end_seconds": 128.705
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "@fastify/busboy",
+        "start_seconds": 128.705,
+        "end_seconds": 130.2675
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "three",
+        "start_seconds": 130.2675,
+        "end_seconds": 130.505
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "point",
+        "start_seconds": 130.505,
+        "end_seconds": 130.79250000000002
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "two",
+        "start_seconds": 130.79250000000002,
+        "end_seconds": 131.005
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "point",
+        "start_seconds": 131.005,
+        "end_seconds": 131.29250000000002
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "six",
+        "start_seconds": 131.29250000000002,
+        "end_seconds": 131.8675
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "or",
+        "start_seconds": 131.8675,
+        "end_seconds": 132.03
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "later",
+        "start_seconds": 132.03,
+        "end_seconds": 132.4925
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "to",
+        "start_seconds": 132.4925,
+        "end_seconds": 132.655
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "eliminate",
+        "start_seconds": 132.655,
+        "end_seconds": 133.1425
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "the",
+        "start_seconds": 133.1425,
+        "end_seconds": 133.2425
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "crash",
+        "start_seconds": 133.2425,
+        "end_seconds": 133.68
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "and",
+        "start_seconds": 133.68,
+        "end_seconds": 133.8175
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "stall,",
+        "start_seconds": 133.8175,
+        "end_seconds": 134.755
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "and",
+        "start_seconds": 134.755,
+        "end_seconds": 134.88
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "consider",
+        "start_seconds": 134.88,
+        "end_seconds": 135.305
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "adding",
+        "start_seconds": 135.305,
+        "end_seconds": 135.60500000000002
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "an",
+        "start_seconds": 135.60500000000002,
+        "end_seconds": 135.7425
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "error",
+        "start_seconds": 135.7425,
+        "end_seconds": 136.055
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "listener",
+        "start_seconds": 136.055,
+        "end_seconds": 136.54250000000002
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "or",
+        "start_seconds": 136.54250000000002,
+        "end_seconds": 136.7175
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "setting",
+        "start_seconds": 136.7175,
+        "end_seconds": 137.08
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "Fastify’s",
+        "start_seconds": 137.08,
+        "end_seconds": 137.78
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "handlerTimeout",
+        "start_seconds": 137.78,
+        "end_seconds": 138.6425
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "as",
+        "start_seconds": 138.6425,
+        "end_seconds": 138.8175
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "extra",
+        "start_seconds": 138.8175,
+        "end_seconds": 139.23000000000002
+      },
+      {
+        "segment_id": "fastify-busboy-patch-2026",
+        "text": "safeguards.",
+        "start_seconds": 139.23000000000002,
+        "end_seconds": 140.655
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "Next",
+        "start_seconds": 141.80499999999998,
+        "end_seconds": 142.0425
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "on",
+        "start_seconds": 142.0425,
+        "end_seconds": 142.14249999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "the",
+        "start_seconds": 142.14249999999998,
+        "end_seconds": 142.23
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "bulletin.",
+        "start_seconds": 142.23,
+        "end_seconds": 143.13
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "Jiff",
+        "start_seconds": 143.13,
+        "end_seconds": 143.32999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "version",
+        "start_seconds": 143.32999999999998,
+        "end_seconds": 143.655
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "one",
+        "start_seconds": 143.655,
+        "end_seconds": 143.88
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "point",
+        "start_seconds": 143.88,
+        "end_seconds": 144.155
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "zero",
+        "start_seconds": 144.155,
+        "end_seconds": 144.45499999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "is",
+        "start_seconds": 144.45499999999998,
+        "end_seconds": 144.57999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "now",
+        "start_seconds": 144.57999999999998,
+        "end_seconds": 144.755
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "generally",
+        "start_seconds": 144.755,
+        "end_seconds": 145.155
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "available",
+        "start_seconds": 145.155,
+        "end_seconds": 145.67999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "as",
+        "start_seconds": 145.67999999999998,
+        "end_seconds": 145.7925
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 145.7925,
+        "end_seconds": 145.855
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "stable",
+        "start_seconds": 145.855,
+        "end_seconds": 146.23
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "Rust",
+        "start_seconds": 146.23,
+        "end_seconds": 146.505
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "crate.",
+        "start_seconds": 146.505,
+        "end_seconds": 147.20499999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "It",
+        "start_seconds": 147.20499999999998,
+        "end_seconds": 147.3175
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "bundles",
+        "start_seconds": 147.3175,
+        "end_seconds": 147.67999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "civil",
+        "start_seconds": 147.67999999999998,
+        "end_seconds": 147.905
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "dates,",
+        "start_seconds": 147.905,
+        "end_seconds": 148.32999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "timestamps,",
+        "start_seconds": 148.32999999999998,
+        "end_seconds": 148.98
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "time",
+        "start_seconds": 148.98,
+        "end_seconds": 149.255
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "zones",
+        "start_seconds": 149.255,
+        "end_seconds": 149.5925
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 149.5925,
+        "end_seconds": 149.70499999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "formatting",
+        "start_seconds": 149.70499999999998,
+        "end_seconds": 150.1675
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "into",
+        "start_seconds": 150.1675,
+        "end_seconds": 150.405
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "one",
+        "start_seconds": 150.405,
+        "end_seconds": 150.63
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "tidy",
+        "start_seconds": 150.63,
+        "end_seconds": 150.95499999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "API,",
+        "start_seconds": 150.95499999999998,
+        "end_seconds": 151.905
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 151.905,
+        "end_seconds": 152.01749999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "its",
+        "start_seconds": 152.01749999999998,
+        "end_seconds": 152.13
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "author",
+        "start_seconds": 152.13,
+        "end_seconds": 152.405
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "promises",
+        "start_seconds": 152.405,
+        "end_seconds": 152.88
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "indefinite",
+        "start_seconds": 152.88,
+        "end_seconds": 153.405
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "maintenance",
+        "start_seconds": 153.405,
+        "end_seconds": 153.82999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "unless",
+        "start_seconds": 153.82999999999998,
+        "end_seconds": 154.0675
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 154.0675,
+        "end_seconds": 154.14249999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "serious",
+        "start_seconds": 154.14249999999998,
+        "end_seconds": 154.605
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "defect",
+        "start_seconds": 154.605,
+        "end_seconds": 154.98
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "shows",
+        "start_seconds": 154.98,
+        "end_seconds": 155.28
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "up.",
+        "start_seconds": 155.28,
+        "end_seconds": 155.905
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "Big‑name",
+        "start_seconds": 155.905,
+        "end_seconds": 156.28
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "projects",
+        "start_seconds": 156.28,
+        "end_seconds": 156.6675
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "like",
+        "start_seconds": 156.6675,
+        "end_seconds": 156.855
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "uv,",
+        "start_seconds": 156.855,
+        "end_seconds": 157.355
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "Cargo,",
+        "start_seconds": 157.355,
+        "end_seconds": 157.78
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "Starship",
+        "start_seconds": 157.78,
+        "end_seconds": 158.2175
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 158.2175,
+        "end_seconds": 158.32999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "fd",
+        "start_seconds": 158.32999999999998,
+        "end_seconds": 158.70499999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "already",
+        "start_seconds": 158.70499999999998,
+        "end_seconds": 159.07999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "rely",
+        "start_seconds": 159.07999999999998,
+        "end_seconds": 159.405
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "on",
+        "start_seconds": 159.405,
+        "end_seconds": 159.605
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "it,",
+        "start_seconds": 159.605,
+        "end_seconds": 160.07999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "so",
+        "start_seconds": 160.07999999999998,
+        "end_seconds": 160.23
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "Rust",
+        "start_seconds": 160.23,
+        "end_seconds": 160.4675
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "developers",
+        "start_seconds": 160.4675,
+        "end_seconds": 161.005
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "can",
+        "start_seconds": 161.005,
+        "end_seconds": 161.11749999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "adopt",
+        "start_seconds": 161.11749999999998,
+        "end_seconds": 161.4425
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 161.4425,
+        "end_seconds": 161.5425
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "single,",
+        "start_seconds": 161.5425,
+        "end_seconds": 162.005
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "well‑maintained",
+        "start_seconds": 162.005,
+        "end_seconds": 162.70499999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "source",
+        "start_seconds": 162.70499999999998,
+        "end_seconds": 163.03
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "for",
+        "start_seconds": 163.03,
+        "end_seconds": 163.17999999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "date‑time",
+        "start_seconds": 163.17999999999998,
+        "end_seconds": 163.70499999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "logic",
+        "start_seconds": 163.70499999999998,
+        "end_seconds": 164.26749999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "without",
+        "start_seconds": 164.26749999999998,
+        "end_seconds": 164.605
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "worrying",
+        "start_seconds": 164.605,
+        "end_seconds": 164.99249999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "about",
+        "start_seconds": 164.99249999999998,
+        "end_seconds": 165.26749999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "frequent",
+        "start_seconds": 165.26749999999998,
+        "end_seconds": 165.64249999999998
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "breaking",
+        "start_seconds": 165.64249999999998,
+        "end_seconds": 166.005
+      },
+      {
+        "segment_id": "jiff-1-0-release-segment",
+        "text": "changes.",
+        "start_seconds": 166.005,
+        "end_seconds": 167.20499999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "And",
+        "start_seconds": 168.33,
+        "end_seconds": 168.4675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "finally,",
+        "start_seconds": 168.4675,
+        "end_seconds": 169.08
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 169.08,
+        "end_seconds": 169.23
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "last",
+        "start_seconds": 169.23,
+        "end_seconds": 169.53
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 169.53,
+        "end_seconds": 170.4925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Veteran",
+        "start_seconds": 170.4925,
+        "end_seconds": 170.88
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Rust",
+        "start_seconds": 170.88,
+        "end_seconds": 171.155
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "coder",
+        "start_seconds": 171.155,
+        "end_seconds": 171.53
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Martijn",
+        "start_seconds": 171.53,
+        "end_seconds": 171.98
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Faassen",
+        "start_seconds": 171.98,
+        "end_seconds": 172.455
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "says",
+        "start_seconds": 172.455,
+        "end_seconds": 172.6675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 172.6675,
+        "end_seconds": 172.755
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "compiler’s",
+        "start_seconds": 172.755,
+        "end_seconds": 173.2925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "strict",
+        "start_seconds": 173.2925,
+        "end_seconds": 173.68
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "type",
+        "start_seconds": 173.68,
+        "end_seconds": 173.9675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "checking,",
+        "start_seconds": 173.9675,
+        "end_seconds": 174.7675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ownership",
+        "start_seconds": 174.7675,
+        "end_seconds": 175.33
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "rules",
+        "start_seconds": 175.33,
+        "end_seconds": 175.755
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 175.755,
+        "end_seconds": 175.8675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "explicit",
+        "start_seconds": 175.8675,
+        "end_seconds": 176.405
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dispatch",
+        "start_seconds": 176.405,
+        "end_seconds": 176.9675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "forced",
+        "start_seconds": 176.9675,
+        "end_seconds": 177.2675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "him",
+        "start_seconds": 177.2675,
+        "end_seconds": 177.405
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 177.405,
+        "end_seconds": 177.53
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "rethink",
+        "start_seconds": 177.53,
+        "end_seconds": 177.9925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyday",
+        "start_seconds": 177.9925,
+        "end_seconds": 178.505
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "design",
+        "start_seconds": 178.505,
+        "end_seconds": 178.93
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "choices.",
+        "start_seconds": 178.93,
+        "end_seconds": 180.03
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "He",
+        "start_seconds": 180.03,
+        "end_seconds": 180.155
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 180.155,
+        "end_seconds": 180.355
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "leans",
+        "start_seconds": 180.355,
+        "end_seconds": 180.7175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "toward",
+        "start_seconds": 180.7175,
+        "end_seconds": 181.03
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "looser",
+        "start_seconds": 181.03,
+        "end_seconds": 181.405
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "coupling",
+        "start_seconds": 181.405,
+        "end_seconds": 181.83
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "through",
+        "start_seconds": 181.83,
+        "end_seconds": 182.03
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "interfaces",
+        "start_seconds": 182.03,
+        "end_seconds": 182.7925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 182.7925,
+        "end_seconds": 182.93
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "weighs",
+        "start_seconds": 182.93,
+        "end_seconds": 183.2175
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "static",
+        "start_seconds": 183.2175,
+        "end_seconds": 183.6675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "versus",
+        "start_seconds": 183.6675,
+        "end_seconds": 184.105
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dynamic",
+        "start_seconds": 184.105,
+        "end_seconds": 184.63
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dispatch",
+        "start_seconds": 184.63,
+        "end_seconds": 185.13
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "more",
+        "start_seconds": 185.13,
+        "end_seconds": 185.355
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "carefully,",
+        "start_seconds": 185.355,
+        "end_seconds": 186.18
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "because",
+        "start_seconds": 186.18,
+        "end_seconds": 186.4925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Rust",
+        "start_seconds": 186.4925,
+        "end_seconds": 186.83
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "catches",
+        "start_seconds": 186.83,
+        "end_seconds": 187.255
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "misuse",
+        "start_seconds": 187.255,
+        "end_seconds": 187.755
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "before",
+        "start_seconds": 187.755,
+        "end_seconds": 188.0675
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 188.0675,
+        "end_seconds": 188.155
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "code",
+        "start_seconds": 188.155,
+        "end_seconds": 188.48
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "runs.",
+        "start_seconds": 188.48,
+        "end_seconds": 189.6925
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "That",
+        "start_seconds": 190.1,
+        "end_seconds": 190.3375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "mental",
+        "start_seconds": 190.3375,
+        "end_seconds": 190.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shift",
+        "start_seconds": 190.725,
+        "end_seconds": 191.07500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "didn’t",
+        "start_seconds": 191.07500000000002,
+        "end_seconds": 191.32500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stay",
+        "start_seconds": 191.32500000000002,
+        "end_seconds": 191.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 191.625,
+        "end_seconds": 191.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Rust",
+        "start_seconds": 191.7875,
+        "end_seconds": 192.4875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "–",
+        "start_seconds": 192.4875,
+        "end_seconds": 192.57500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "he",
+        "start_seconds": 192.57500000000002,
+        "end_seconds": 192.7375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "finds",
+        "start_seconds": 192.7375,
+        "end_seconds": 193.0375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "himself",
+        "start_seconds": 193.0375,
+        "end_seconds": 193.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "habitually",
+        "start_seconds": 193.475,
+        "end_seconds": 194.20000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "considering",
+        "start_seconds": 194.20000000000002,
+        "end_seconds": 194.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lifetimes,",
+        "start_seconds": 194.85,
+        "end_seconds": 195.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "borrowing",
+        "start_seconds": 195.9125,
+        "end_seconds": 196.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 196.475,
+        "end_seconds": 196.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "compile‑time",
+        "start_seconds": 196.6,
+        "end_seconds": 197.45000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "guarantees",
+        "start_seconds": 197.45000000000002,
+        "end_seconds": 198.13750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "even",
+        "start_seconds": 198.13750000000002,
+        "end_seconds": 198.4375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "when",
+        "start_seconds": 198.4375,
+        "end_seconds": 198.63750000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "writing",
+        "start_seconds": 198.63750000000002,
+        "end_seconds": 199.05
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 199.05,
+        "end_seconds": 199.20000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "other",
+        "start_seconds": 199.20000000000002,
+        "end_seconds": 199.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "languages,",
+        "start_seconds": 199.5,
+        "end_seconds": 200.32500000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "though",
+        "start_seconds": 200.32500000000002,
+        "end_seconds": 200.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "he",
+        "start_seconds": 200.5,
+        "end_seconds": 200.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "has",
+        "start_seconds": 200.65,
+        "end_seconds": 200.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 200.875,
+        "end_seconds": 201.01250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "add",
+        "start_seconds": 201.01250000000002,
+        "end_seconds": 201.2375
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 201.2375,
+        "end_seconds": 201.3625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "safety",
+        "start_seconds": 201.3625,
+        "end_seconds": 201.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "checks",
+        "start_seconds": 201.7875,
+        "end_seconds": 202.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "manually.",
+        "start_seconds": 202.125,
+        "end_seconds": 203.525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 204.65,
+        "end_seconds": 204.725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "takeaway?",
+        "start_seconds": 204.725,
+        "end_seconds": 205.4
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Picking",
+        "start_seconds": 205.4,
+        "end_seconds": 205.6625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "up",
+        "start_seconds": 205.6625,
+        "end_seconds": 205.85
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Rust",
+        "start_seconds": 205.85,
+        "end_seconds": 206.2
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 206.2,
+        "end_seconds": 206.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "train",
+        "start_seconds": 206.35,
+        "end_seconds": 206.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 206.625,
+        "end_seconds": 206.775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 206.775,
+        "end_seconds": 206.9125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "think",
+        "start_seconds": 206.9125,
+        "end_seconds": 207.2125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "safety‑first,",
+        "start_seconds": 207.2125,
+        "end_seconds": 208.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 208.25,
+        "end_seconds": 208.36249999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "those",
+        "start_seconds": 208.36249999999998,
+        "end_seconds": 208.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "habits",
+        "start_seconds": 208.6,
+        "end_seconds": 209
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stick",
+        "start_seconds": 209,
+        "end_seconds": 209.25
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "around,",
+        "start_seconds": 209.25,
+        "end_seconds": 210.025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "potentially",
+        "start_seconds": 210.025,
+        "end_seconds": 210.65
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "raising",
+        "start_seconds": 210.65,
+        "end_seconds": 211.0875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "code",
+        "start_seconds": 211.0875,
+        "end_seconds": 211.42499999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "quality",
+        "start_seconds": 211.42499999999998,
+        "end_seconds": 211.875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "across",
+        "start_seconds": 211.875,
+        "end_seconds": 212.23749999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 212.23749999999998,
+        "end_seconds": 212.35
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "whole",
+        "start_seconds": 212.35,
+        "end_seconds": 212.6
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "toolbox.",
+        "start_seconds": 212.6,
+        "end_seconds": 214
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "And",
+        "start_seconds": 215.125,
+        "end_seconds": 215.23749999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that's",
+        "start_seconds": 215.23749999999998,
+        "end_seconds": 215.475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 215.475,
+        "end_seconds": 215.625
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Daywire",
+        "start_seconds": 215.625,
+        "end_seconds": 216.075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "briefing.",
+        "start_seconds": 216.075,
+        "end_seconds": 216.95
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "You'll",
+        "start_seconds": 216.95,
+        "end_seconds": 217.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "find",
+        "start_seconds": 217.125,
+        "end_seconds": 217.3875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 217.3875,
+        "end_seconds": 217.48749999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "full",
+        "start_seconds": 217.48749999999998,
+        "end_seconds": 217.7875
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stories",
+        "start_seconds": 217.7875,
+        "end_seconds": 218.325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 218.325,
+        "end_seconds": 218.46249999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sources",
+        "start_seconds": 218.46249999999998,
+        "end_seconds": 218.975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 218.975,
+        "end_seconds": 219.1
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "today's",
+        "start_seconds": 219.1,
+        "end_seconds": 219.5
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "newspaper.",
+        "start_seconds": 219.5,
+        "end_seconds": 220.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Thanks",
+        "start_seconds": 220.4125,
+        "end_seconds": 220.7
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 220.7,
+        "end_seconds": 220.825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "listening.",
+        "start_seconds": 220.825,
+        "end_seconds": 221.4125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Take",
+        "start_seconds": 221.4125,
+        "end_seconds": 221.73749999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "care,",
+        "start_seconds": 221.73749999999998,
+        "end_seconds": 222.125
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "everyone.",
+        "start_seconds": 222.125,
+        "end_seconds": 223.45
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
