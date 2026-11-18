@@ -1,0 +1,412 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-18",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-18T08:02:41.099651068Z",
+  "coverage": {
+    "from": "2026-11-17T06:00:00+05:30",
+    "until": "2026-11-18T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-0fb76b8d23388056",
+      "source-8f6af8c44a4a1bfb",
+      "source-1ef68d8c66fafe73",
+      "source-3047d7657748ea76",
+      "source-95bb52296bb33185",
+      "source-ca337b2b3ceee43a",
+      "source-f887c27fb7254bec"
+    ],
+    "candidate_count": 46,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "OpenJDK Base64 Decoder RCE and Microsoft MAI Code 2 Advance AI Coding",
+    "introduction": "A memory‑corruption bug in OpenJDK’s AVX‑512‑accelerated Base64 decoder (CVE‑2026‑114938) allows unauthenticated attackers to trigger remote code execution on vulnerable x86‑64 systems. In parallel, Microsoft’s MAI Code 2 models deliver near‑state‑of‑the‑art performance on common coding tasks at a lower cost, marking a notable step forward for enterprise AI‑assisted development.",
+    "articles": [
+      {
+        "id": "java4shell-base64-vuln-2026-11-18",
+        "section": "Security",
+        "headline": "OpenJDK Base64 decoder flaw (CVE‑2026‑114938) enables remote code execution",
+        "summary": "A memory‑corruption bug in OpenJDK’s AVX‑512‑accelerated Base64 decoder (CVE‑2026‑114938) lets unauthenticated attackers trigger heap overwrites and remote code execution on vulnerable x86‑64 systems.",
+        "paragraphs": [
+          "The vulnerability, dubbed Java4Shell, resides in the hand‑rolled assembly that processes the final characters of a Base64 string when OpenJDK uses AVX‑512 VBMI instructions. Supplying a 65‑character payload consisting of 64 ‘A’s followed by a single ‘=’ causes the decoder to compute a negative output length, leading to a 64‑byte write past the end of a 50‑byte result array. By the time Java rejects the input, adjacent heap objects may already be corrupted, exposing data in a Heartbleed‑style leak or allowing an attacker to execute arbitrary code.",
+          "The bug affects any OpenJDK build that enables the AVX‑512 Base64 optimization on supported processors, regardless of whether an application actually benefits from the speed boost. No authentication is required; the exploit works over any network path that accepts Base64‑encoded data, such as authentication tokens, file uploads, or custom protocols."
+        ],
+        "implication": "Operators of Java services on AVX‑512‑capable CPUs should verify they are running a patched OpenJDK release or disable the Base64 SIMD optimization until the fix is applied, because the flaw can be triggered by a single malformed string without any credentials.",
+        "source_ids": [
+          "source-1887f66f9a10a465"
+        ]
+      },
+      {
+        "id": "quad9-france-withdrawal-2026",
+        "section": "Security",
+        "headline": "Quad9 pulls its free DNS resolver from France",
+        "summary": "Quad9 is shutting down its public DNS service for French users after a court order forced costly domain‑blocking compliance.",
+        "paragraphs": [
+          "The Swiss non‑profit Quad9 announced it will cease operating its free public DNS resolver in France, citing a French court ruling that imposed daily fines for not blocking domains linked to alleged copyright infringement. The organization faced an untenable choice between paying escalating penalties or compromising the privacy‑focused design of its resolver, and elected to exit the market.",
+          "Quad9’s resolver is widely used by French government agencies, schools, hospitals and utilities. Without advance notice, affected networks will see DNS resolution failures, potentially disrupting everyday online activity. The blog post notes that public DNS services are a critical piece of Internet infrastructure and that forced blocking undermines both reliability and user privacy."
+        ],
+        "implication": "French organizations that rely on Quad9 must reconfigure their DNS settings to an alternative resolver immediately, or risk loss of name resolution for all services.",
+        "source_ids": [
+          "source-9fd23e018da5cf4f"
+        ]
+      },
+      {
+        "id": "ai-click-drop-2026",
+        "section": "AI",
+        "headline": "Google AI Overviews slash website clicks by 40%",
+        "summary": "A randomized study shows that showing Google’s AI‑generated answer boxes reduces outbound clicks to the referenced sites by roughly four‑tenths.",
+        "paragraphs": [
+          "Researchers hid the AI Overviews from a subset of U.S. desktop users and compared traffic to the same queries where the Overviews appeared. The experiment, covering more than half of tracked U.S. keywords, found a 40% drop in clicks to external pages. The effect is limited to desktop searches and reflects the current rollout of Overviews, which now appear for 190 million keywords versus 6 % two years ago."
+        ],
+        "implication": "Web publishers should expect a sizable dip in organic traffic for queries that trigger Overviews and may need to adapt SEO tactics toward citation‑friendly content.",
+        "source_ids": [
+          "source-89626dbace3abab0"
+        ]
+      },
+      {
+        "id": "mai-code-2-launch",
+        "section": "AI",
+        "headline": "Microsoft unveils MAI Code 2 and Code 2 Flash for enterprise coding",
+        "summary": "Microsoft’s new MAI Code 2 models promise near‑state‑of‑the‑art performance on common coding tasks at a fraction of the cost of competing systems.",
+        "paragraphs": [
+          "MAI Code 2 delivers about 98% of GPT‑6.1 Sol’s benchmark scores while costing roughly 40% of the price, and 96% of Claude Opus 5.5 at just 5% of its cost. The lighter‑weight Code 2 Flash targets high‑volume edits and explanations, matching GPT‑6 Luna and Claude Haiku 5.5 performance for only 6.5%–20% of the expense. Both models are tuned for multi‑file reasoning, repo‑wide analysis, and visual UI generation, with Code 2 winning 64% of blind frontend evaluations over GPT‑6 Sol."
+        ],
+        "implication": "Enterprises can adopt MAI Code 2 for production‑grade coding assistance and use Code 2 Flash for bulk, low‑cost routine edits, potentially reducing AI‑assisted development spend dramatically.",
+        "source_ids": [
+          "source-5fb2adb0a1f12f7b"
+        ]
+      },
+      {
+        "id": "fastify-busboy-dos-fix-2026-11-18",
+        "section": "Security",
+        "headline": "Fastify busboy 3.2.6 patches DoS via URL‑encoded field size bypass",
+        "summary": "Versions of @fastify/busboy before 3.2.6 could be forced to buffer an entire request body in memory by a malformed percent‑escape, enabling denial‑of‑service attacks.",
+        "paragraphs": [
+          "The vulnerability (CVE‑2026‑128842, GHSA‑x578‑65c5‑rvww) affects @fastify/busboy \u003c 3.2.6 and any code that uses its URL‑encoded parser, such as @fastify/multipart. The decoder skips the equality check when a percent‑escape like %G expands the decoded length past the configured fieldSize or fieldNameSize limit, causing unbounded buffering until the request ends. Upgrading to 3.2.6 clamps the field as soon as the limit is reached; setting a conservative whole‑request body limit further caps exposure."
+        ],
+        "implication": "Projects that parse application/x‑www‑form‑urlencoded bodies with Fastify should upgrade to @fastify/busboy 3.2.6 immediately, or risk memory exhaustion from unauthenticated requests.",
+        "source_ids": [
+          "source-b5baac17de3dab61"
+        ]
+      },
+      {
+        "id": "fastify-multipart-cve-2026-124289",
+        "section": "Security",
+        "headline": "Fastify multipart allows arbitrary file write via saveRequestFiles()",
+        "summary": "A type‑confusion bug in @fastify/multipart lets unauthenticated clients write arbitrary files when attachFieldsToBody is enabled.",
+        "paragraphs": [
+          "The vulnerability (CVE‑2026‑124289) occurs when request.saveRequestFiles() treats any object with truthy file and _buf properties as an uploaded file. An attacker can send a JSON payload that includes a forged filename such as \"../../../../package.json\", causing the library to write the supplied bytes to the temporary directory and then use the attacker‑controlled name as a destination. The issue is fixed in @fastify/multipart 10.1.9; callers should also verify request.isMultipart() and sanitize filenames with path.basename() or an allowlist."
+        ],
+        "implication": "Projects that rely on Fastify multipart with attachFieldsToBody must upgrade to 10.1.9 or later and add explicit multipart checks and filename sanitisation to prevent remote file‑write attacks.",
+        "source_ids": [
+          "source-84df03960124419b"
+        ]
+      },
+      {
+        "id": "deterministic-simulation-testing-brief",
+        "section": "Engineering",
+        "headline": "Deterministic simulation testing tackles gray‑failure reproducibility",
+        "summary": "A new testing approach swaps real clocks and networks for a controllable simulator, letting engineers reliably reproduce elusive partial‑failure bugs in distributed systems.",
+        "paragraphs": [
+          "Martin Fowler’s recent article explains that standard live or chaos tests cannot consistently recreate the asymmetric routing, packet loss, or latency spikes that cause consensus heartbeats to miss. By injecting a deterministic simulation layer, developers can replay the exact interleavings that triggered a failure, then iterate fixes without the randomness of real traffic."
+        ],
+        "implication": "Teams can now turn flaky, hard‑to‑reproduce bugs into repeatable test cases, shortening the debug cycle for distributed services that suffer from gray‑failure conditions.",
+        "source_ids": [
+          "source-64322f58dae65d1f"
+        ]
+      },
+      {
+        "id": "rakbank-observability-scale-2026",
+        "section": "Engineering",
+        "headline": "Rakbank scales to 150 GB/day logs with OpenSearch hot‑warm‑cold tiers",
+        "summary": "Rakbank’s digital‑banking platform now ingests about 150 GB of telemetry daily into Amazon OpenSearch Service, using hot, UltraWarm and cold tiers plus S3 archiving to meet seven‑year compliance while cutting costs by roughly 55 %.",
+        "paragraphs": [
+          "The bank’s containerized microservices on Amazon EKS feed logs through a private AWS Transit Gateway into a multi‑AZ OpenSearch domain that keeps the most recent 30 days searchable, stores 60 days hot/warm, and offloads older data to UltraWarm and S3 cold storage. At 150 GB per day this yields roughly 9 TB of searchable data and 54 TB archived annually, with no log updates or deletions, enabling write‑once‑read‑many compliance via S3 Object Lock."
+        ],
+        "implication": "Teams can retain massive log volumes for regulatory periods without exploding costs, but must design queries for the 30‑day hot window and plan for delayed access to older data.",
+        "source_ids": [
+          "source-fe0692b4ed44de68"
+        ]
+      },
+      {
+        "id": "vercel-blob-ttl-2026-11-18",
+        "section": "Tools",
+        "headline": "Vercel Blob adds configurable TTL for automatic deletion",
+        "summary": "Vercel Blob now lets developers set a time‑to‑live (TTL) on uploads, causing the object to be removed automatically after 1‑730 days.",
+        "paragraphs": [
+          "The new ttlDays option works with put(), copy(), putImage(), multipart uploads and presigned URLs; each write returns an expiresAt timestamp. Existing blobs can have their TTL changed or cleared via setTtl() for up to 1,000 URLs at once, without re‑uploading. The CLI (v65.16.0+) exposes --ttl-days and a set‑ttl command. A 7‑day TTL incurs one Advanced Operation per 60‑day period, while the maximum 730‑day TTL costs 13; clearing TTLs and deletions are free."
+        ],
+        "implication": "Developers can offload routine cleanup of temporary files to Vercel Blob, reducing storage‑management code and predictable cost accounting.",
+        "source_ids": [
+          "source-55169d12e6f0a434"
+        ]
+      },
+      {
+        "id": "vercel-soft-navs-2026-11-18",
+        "section": "Tools",
+        "headline": "Vercel Speed Insights adds soft‑navigation tracking",
+        "summary": "Vercel’s Speed Insights now records performance metrics for client‑side route changes in supported frameworks.",
+        "paragraphs": [
+          "The update captures LCP, FCP, INP, and CLS for soft navigations—page updates that occur without a full reload—while omitting TTFB because no new document request is made. It is enabled by default for all projects using Speed Insights and works with Next.js, SvelteKit, and Nuxt in Chromium‑based browsers. To turn it off, set softNavs to false and redeploy with @vercel/speed-insights ≥ 2.1.0."
+        ],
+        "implication": "Developers can now monitor real‑world user experience across in‑app transitions, but must remember that TTFB remains unmeasured for these events.",
+        "source_ids": [
+          "source-62b6beed36edda99"
+        ]
+      },
+      {
+        "id": "pull-request-only-preset-preview-builds",
+        "section": "Tools",
+        "headline": "Vercel adds pull‑request‑only preset to skip preview builds",
+        "summary": "Vercel’s new Ignored Build Step preset stops preview builds on branches lacking an open pull request, saving build CPU minutes.",
+        "paragraphs": [
+          "When the preset is enabled in Deployments → Configuration, Vercel automatically applies the ignore command so that only branches with open pull requests generate preview deployments; production builds remain unaffected. On GitHub and GitLab the cancelled previews free up compute resources before any CPU minutes are consumed."
+        ],
+        "implication": "Teams can reduce CI costs by configuring the preset, but must keep pull requests open for any branch that still needs preview feedback.",
+        "source_ids": [
+          "source-4237694406e5909a"
+        ]
+      },
+      {
+        "id": "datasette-lite-service-worker",
+        "section": "Tools",
+        "headline": "Datasette Lite runs full Python app in the browser via service workers",
+        "summary": "Simon Willison rewrote Datasette Lite to use Service Workers and Pyodide, making the in‑browser version function almost like the server‑side app.",
+        "paragraphs": [
+          "The new release (1.0a43) replaces the original hack that relied on a web‑worker and innerHTML injection with a Service Worker that intercepts HTTP requests and serves them from client‑side code. A random session ID prefixes assets, letting the Service Worker route each request back to a dedicated Pyodide instance in a web worker, which is needed because Service Workers cannot retain state beyond roughly 30 seconds.",
+          "This architecture means any Python web app could be ported to run entirely in the browser, offering cheap preview environments and bug‑reproduction sandboxes without a server. The approach is demonstrated on lite.datasette.io, where the same query URL works as it would on a real server."
+        ],
+        "implication": "Developers can now prototype or share Python‑based data tools instantly in a browser, avoiding backend deployment for demos or debugging.",
+        "source_ids": [
+          "source-9e24bec0316d82cc"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "legal-pressure-dns-service-withdrawal",
+        "title": "How Court‑Ordered Blocking Can Force a DNS Provider Out of a Market",
+        "paragraphs": [
+          "When a regulator mandates that a DNS resolver block specific domains, the provider must either implement filtering or face penalties. In France, a court ordered Quad9 to block sites linked to alleged copyright infringement and imposed daily fines for non‑compliance. Facing the choice between paying escalating penalties or compromising the privacy‑first design of its service, Quad9 chose to shut down its resolver for French users.",
+          "The withdrawal illustrates a broader security risk: a single legal requirement can remove a trusted resolver from an entire region, leaving schools, hospitals, and utilities without name resolution until they reconfigure to an alternative. This sudden loss can disrupt everyday online activity and expose users to less‑secure resolvers."
+        ],
+        "example": "A French university that had configured its network to use Quad9’s DNS finds its queries failing after Quad9 ceases service, forcing IT staff to switch to a new resolver to restore connectivity.",
+        "takeaway": "Legal mandates that force DNS filtering can undermine the stability of critical Internet infrastructure, so organizations should maintain fallback resolver configurations to mitigate abrupt service loss.",
+        "article_ids": [
+          "quad9-france-withdrawal-2026"
+        ],
+        "source_ids": [
+          "source-9fd23e018da5cf4f"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-legal-pressure-dns-service-withdrawal-1",
+        "lesson_id": "legal-pressure-dns-service-withdrawal",
+        "prompt": "What primary factor caused Quad9 to discontinue its DNS resolver for French users?",
+        "options": [
+          "Technical incompatibility with French network hardware",
+          "Inability to meet the court‑ordered domain‑blocking requirement without compromising its privacy‑first design",
+          "A sudden surge in DNS query volume that overloaded Quad9’s servers",
+          "Loss of funding from private investors"
+        ],
+        "answer": 1,
+        "explanation": "The lesson states Quad9 faced a court order to block specific domains and would have to either filter traffic, which would conflict with its privacy‑first design, or pay escalating fines. This legal pressure led to the service withdrawal."
+      },
+      {
+        "id": "quiz-1-legal-pressure-dns-service-withdrawal-2",
+        "lesson_id": "legal-pressure-dns-service-withdrawal",
+        "prompt": "According to the article, what is a direct security risk of a court‑ordered DNS filtering mandate?",
+        "options": [
+          "It forces all DNS queries to be encrypted, increasing latency",
+          "It can cause a trusted resolver to disappear from a region, leaving users without reliable name resolution",
+          "It guarantees that all filtered domains will be inaccessible worldwide",
+          "It automatically redirects traffic to a government‑controlled DNS server"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that a single legal requirement can remove a trusted resolver from an entire region, exposing schools, hospitals, and utilities to a loss of name resolution until they switch to an alternative."
+      },
+      {
+        "id": "quiz-1-legal-pressure-dns-service-withdrawal-3",
+        "lesson_id": "legal-pressure-dns-service-withdrawal",
+        "prompt": "What mitigation does the takeaway recommend for organizations to reduce impact from abrupt DNS service loss?",
+        "options": [
+          "Deploying their own private DNS infrastructure in every location",
+          "Maintaining fallback resolver configurations that can be switched to quickly",
+          "Relying exclusively on a single global DNS provider for simplicity",
+          "Disabling DNSSEC to avoid compatibility issues"
+        ],
+        "answer": 1,
+        "explanation": "The takeaway advises organizations to maintain fallback resolver configurations so they can quickly switch if a primary resolver is withdrawn due to legal mandates."
+      }
+    ],
+    "segments": [
+      {
+        "id": "java4shell-base64-vuln-2026-11-18-segment",
+        "title": "OpenJDK Base64 decoder flaw enables remote code execution",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November eighteen, two thousand twenty six.\n\nWe begin with our lead story. OpenJDK’s Base64 decoder has a nasty bug that lets an unauthenticated attacker run code on any x86‑64 system using AVX‑512. The flaw, dubbed Java4Shell, triggers when a 65‑character payload of 64 ‘A’s and a trailing ‘=’ makes the decoder calculate a negative length and write 64 bytes past a 50‑byte buffer. By the time Java rejects the input, the heap can already be corrupted, exposing data or spawning arbitrary code. It works over any channel that accepts Base64, from auth tokens to file uploads. Operators should either upgrade to a patched OpenJDK release or turn off the AVX‑512 Base64 optimization until a fix lands. \n\nHere's why that matters: a single malformed string can compromise a service without any credentials, so the mitigation is urgent but straightforward.",
+        "article_ids": [
+          "java4shell-base64-vuln-2026-11-18"
+        ]
+      },
+      {
+        "id": "quad9-france-withdrawal-2026-seg",
+        "title": "Quad9 pulls free DNS from France",
+        "text": "Next on the bulletin. Quad9, the Swiss non‑profit behind a privacy‑focused public DNS resolver, is shutting down its service for French users. A French court ordered the company to block domains tied to alleged copyright infringement, threatening daily fines that would outweigh the cost of compliance. Rather than compromise its privacy design, Quad9 chose to pull out. \n\nHere's why that matters: schools, hospitals and utilities that rely on Quad9 now need to point their DNS to another resolver, or they’ll lose name resolution for all online services.",
+        "article_ids": [
+          "quad9-france-withdrawal-2026"
+        ]
+      },
+      {
+        "id": "ai-click-drop-2026-segment",
+        "title": "Google AI Overviews Cut Clicks",
+        "text": "Turning to our next story. Google’s AI‑generated answer boxes are now slashing outbound clicks by about forty percent. In a randomized study, U.S. desktop users who saw the Overviews clicked less often on the linked sites, while a control group without the boxes kept clicking as usual. The drop shows up only on desktop searches and comes as Overviews expand to roughly one hundred ninety million keywords, up from six percent two years ago. Here’s why that matters: publishers may see a noticeable dip in organic traffic and might have to tweak their SEO strategy toward citation‑friendly content.",
+        "article_ids": [
+          "ai-click-drop-2026"
+        ]
+      },
+      {
+        "id": "mai-code-2-launch-segment",
+        "title": "Microsoft rolls out MAI Code 2 and Code 2 Flash",
+        "text": "Next on the bulletin. Microsoft just announced its new MAI Code 2 models, promising near‑state‑of‑the‑art coding help at a fraction of the cost. The flagship Code 2 hits about ninety‑eight percent of GPT‑6.1 Sol’s benchmark scores while costing roughly forty percent of the price, and it also reaches ninety‑six percent of Claude Opus 5.5 performance for just five percent of that cost. The lighter‑weight Code 2 Flash is built for high‑volume edits, matching GPT‑6 Luna and Claude Haiku 5.5 performance for only six point five percent to twenty percent of the expense. Here’s why that matters: enterprises can now run production‑grade AI coding assistance without blowing their budgets, though they’ll still need to vet the output for accuracy before shipping code.",
+        "article_ids": [
+          "mai-code-2-launch"
+        ]
+      },
+      {
+        "id": "fastify-busboy-dos-fix-2026-11-18-segment",
+        "title": "Fastify busboy 3.2.6 patches DoS via URL‑encoded field size bypass",
+        "text": "And finally, our last story. Fastify busboy version three point two point six now blocks a denial‑of‑service trick that let attackers overflow memory with a malformed percent‑escape. The old decoder would skip its length check when something like %G pushed the decoded field past the configured fieldSize limit, causing the whole request body to be buffered until the connection closed. The fix clamps the field as soon as the limit is hit, and you can add a whole‑request body cap for extra safety. Projects that parse application slash x‑www‑form‑urlencoded payloads should upgrade right away, or they risk exhausting memory on unauthenticated traffic.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "fastify-busboy-dos-fix-2026-11-18"
+        ]
+      }
+    ],
+    "artwork_brief": "Create a split‑screen illustration: on the left, a stylized Java mascot confronting a jagged, glitch‑like code fragment that represents the Base64 exploit; on the right, a sleek, futuristic code editor emitting glowing AI‑generated suggestions to symbolize the launch of Microsoft’s MAI Code 2."
+  },
+  "sources": [
+    {
+      "id": "source-1887f66f9a10a465",
+      "name": "Lobsters",
+      "title": "Java4Shell: Write once, RCE everywhere",
+      "url": "https://calif.io/java4shell/",
+      "published_at": null,
+      "discovered_at": "2026-11-17T15:16:11.291-06:00",
+      "discussion_url": "https://lobste.rs/s/g0bf9i/java4shell_write_once_rce_everywhere"
+    },
+    {
+      "id": "source-9fd23e018da5cf4f",
+      "name": "Cloudflare Blog",
+      "title": "Quad9’s withdrawal from France: A canary in the coal mine",
+      "url": "https://blog.cloudflare.com/quad9-withdrawal-from-france/",
+      "published_at": "2026-11-17T20:24:27Z",
+      "discovered_at": "2026-11-18T07:47:02.853420258Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-9e24bec0316d82cc",
+      "name": "Simon Willison",
+      "title": "Running the full server-side Datasette Python app in the browser with service workers and Pyodide",
+      "url": "https://simonwillison.net/2026/Nov/17/datasette-lite/",
+      "published_at": "2026-11-17T16:48:33Z",
+      "discovered_at": "2026-11-18T07:47:03.052296972Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-fe0692b4ed44de68",
+      "name": "AWS Architecture",
+      "title": "How Rakbank built centralized observability at scale with Amazon OpenSearch Service",
+      "url": "https://aws.amazon.com/blogs/architecture/how-rakbank-built-centralized-observability-at-scale-with-amazon-opensearch-service/",
+      "published_at": "2026-11-17T16:03:22Z",
+      "discovered_at": "2026-11-18T07:47:04.152776238Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-64322f58dae65d1f",
+      "name": "Martin Fowler",
+      "title": "Deterministic Simulation Testing",
+      "url": "https://martinfowler.com/articles/deterministic-simulation-testing.html",
+      "published_at": "2026-11-17T09:33:00-05:00",
+      "discovered_at": "2026-11-18T07:47:05.555638415Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-55169d12e6f0a434",
+      "name": "Vercel Blog",
+      "title": "Vercel Blob now supports TTLs for automatic deletion",
+      "url": "https://vercel.com/changelog/vercel-blob-now-supports-ttls-for-automatic-deletion",
+      "published_at": "2026-11-17T18:00:00Z",
+      "discovered_at": "2026-11-18T07:47:03.38579011Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-b5baac17de3dab61",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-128842: @fastify/busboy vulnerable to Denial of Service via URL-encoded field size-limit bypass",
+      "url": "https://github.com/fastify/busboy/security/advisories/GHSA-x578-65c5-rvww",
+      "published_at": "2026-11-16T13:18:53Z",
+      "discovered_at": "2026-11-18T07:47:03.232061989Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-62b6beed36edda99",
+      "name": "Vercel Blog",
+      "title": "Speed Insights now measures soft navigations",
+      "url": "https://vercel.com/changelog/speed-insights-now-measures-soft-navigations",
+      "published_at": "2026-11-17T12:40:00Z",
+      "discovered_at": "2026-11-18T07:47:03.38579011Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-4237694406e5909a",
+      "name": "Vercel Blog",
+      "title": "Pull-request-only preset now available for preview builds",
+      "url": "https://vercel.com/changelog/pull-request-only-preset-now-available-for-preview-builds",
+      "published_at": "2026-11-17T02:37:03.997Z",
+      "discovered_at": "2026-11-18T07:47:03.38579011Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-84df03960124419b",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-124289: @fastify/multipart vulnerable to arbitrary file write via type confusion in saveRequestFiles()",
+      "url": "https://github.com/fastify/fastify-multipart/security/advisories/GHSA-gmhr-r4mc-w935",
+      "published_at": "2026-11-16T13:09:49Z",
+      "discovered_at": "2026-11-18T07:47:03.232061989Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-5fb2adb0a1f12f7b",
+      "name": "Hacker News",
+      "title": "MAI Code 2 and Code 2 Flash",
+      "url": "https://microsoft.ai/news/introducing-mai-code-2-and-mai-code-2-flash/",
+      "published_at": null,
+      "discovered_at": "2026-11-17T18:25:13Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50535885"
+    },
+    {
+      "id": "source-89626dbace3abab0",
+      "name": "Hacker News",
+      "title": "Google's AI answers reducing search traffic by 40%",
+      "url": "https://revscope.co/blog/search-seo-geo-2026/",
+      "published_at": null,
+      "discovered_at": "2026-11-18T00:17:58Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50540178"
+    }
+  ],
+  "radio": {
+    "status": "pending",
+    "audio_url": null,
+    "duration_seconds": null,
+    "script_hash": "8cabd7d7486e25ed4a8384e08defcc377d0ce2d29fb8bc51847ff64441e43451"
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
