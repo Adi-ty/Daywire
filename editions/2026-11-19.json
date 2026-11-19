@@ -1,0 +1,429 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-19",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-19T07:57:45.804623655Z",
+  "coverage": {
+    "from": "2026-11-18T06:00:00+05:30",
+    "until": "2026-11-19T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-184d931227f2504d",
+      "source-53d809d7420a3923",
+      "source-67952d9a918d2536",
+      "source-58da586369f33999",
+      "source-99be0c0a7e074380"
+    ],
+    "candidate_count": 57,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "Critical exploits and AI breakthroughs reshape the tech landscape",
+    "introduction": "New unauthenticated remote‑code execution flaws in NGINX threaten countless web services, while Google DeepMind and Microsoft push AI performance with Gemini 4 Neon’s massive context window and MAI Cyber 2 Flash’s sub‑2 % task cost. At the same time, Vercel’s experimental Board opens a fresh avenue for AI agents to coordinate work across development pipelines.",
+    "articles": [
+      {
+        "id": "nginx-rce-vulns-2026",
+        "section": "Security",
+        "headline": "Critical unauthenticated RCE bugs discovered in NGINX",
+        "summary": "Two new CVE‑2026‑123633 and CVE‑2026‑123007 flaws let attackers execute code on any NGINX server with HTTP/2 enabled.",
+        "paragraphs": [
+          "Researchers from Wiz, Ikotas Labs, Metnir, Rapid7 and Xint independently uncovered CVE‑2026‑123633 (an integer underflow dating back to NGINX 1.9.5) and CVE‑2026‑123007 (a use‑after‑free present for nearly six years). Both are unauthenticated remote‑code‑execution vulnerabilities that require HTTP/2 to be turned on. Exploitation works even when NGINX serves only static files, without any backend application or third‑party modules, allowing an attacker to run arbitrary code, steal data or disrupt services.",
+          "The findings illustrate how AI‑assisted analysis is lowering the barrier to finding deep memory‑safety bugs that have lingered for years. Operators should treat the vulnerabilities as critical: apply the forthcoming patches from F5 as soon as they are released, or temporarily disable HTTP/2 on affected instances to mitigate risk."
+        ],
+        "implication": "Servers running NGINX with HTTP/2 must be patched or have the protocol disabled immediately, or they remain exposed to unauthenticated code execution.",
+        "source_ids": [
+          "source-0c457241d113ed5a"
+        ]
+      },
+      {
+        "id": "gemini-4-neon-launch",
+        "section": "AI",
+        "headline": "Google DeepMind launches Gemini 4 Neon with 1 M‑token context window",
+        "summary": "Gemini 4 Neon adds a million‑token context, lower per‑task cost and tighter misuse safeguards for enterprise‑grade workloads.",
+        "paragraphs": [
+          "DeepMind announced Gemini 4 Neon on 18 Nov 2026. The model can ingest spreadsheets, PDFs, charts, audio and video in a single 1 million‑token context window and return structured deliverables. Independent evaluations rank Neon #2 on the Vals Index (70.9 %) and #1 on both the Legal Research and Tax Agent benches, while it leads finance and spreadsheet tasks on Surge AI.",
+          "Neon’s default high‑thinking mode costs about 32 % less per task than the competing Carbon model, and on the xhigh setting it remains roughly 36 % cheaper than top rivals while providing deeper multi‑step reasoning. Real‑time safety filters limit misuse refusals to 1.98 % on Terminal‑Bench 4.0 and 0 % on Terminal‑Bench‑Science, matching Carbon’s protections with fewer false positives."
+        ],
+        "implication": "Engineers can process far larger, multimodal prompts at reduced cost while benefiting from stronger safety guards against cyber‑ and bio‑security misuse.",
+        "source_ids": [
+          "source-95da0fde7d56c751",
+          "source-f539fcdaf975fdb9"
+        ]
+      },
+      {
+        "id": "mai-models-price-performance-2026",
+        "section": "AI",
+        "headline": "Microsoft launches MAI Cyber 2 Flash with sub‑2 % task cost",
+        "summary": "Microsoft’s MAI family adds seven new models, highlighted by Cyber 2 Flash that the vendor says costs less than 2 % per task versus GPT‑6 Astra on the CyberGym‑E2E benchmark.",
+        "paragraphs": [
+          "The release includes MAI Code 2 (98 % of GPT‑6.1 Sol’s coding quality at about 40 % of the price), MAI Code 2 Flash, MAI Image 2.7, MAI Realtime 1 (starting at $0.01 per audio minute), Dragon Copilot Transcribe built on MAI Transcribe 2, and Decision 1.1, each positioned as cost‑effective alternatives to named competitors, though only Cyber 2 Flash is claimed to be under 2 % of task cost."
+        ],
+        "implication": "Engineers can evaluate the new MAI models for cheaper workloads, but expect varying cost savings depending on the specific model and benchmark conditions.",
+        "source_ids": [
+          "source-ab00b903e6c15228"
+        ]
+      },
+      {
+        "id": "united-iceberg-cdc-pipeline",
+        "section": "Engineering",
+        "headline": "United Airlines builds near‑real‑time CDC pipeline to Apache Iceberg",
+        "summary": "United Airlines uses AWS DMS, Kinesis, Lambda and Firehose to stream Aurora MySQL changes into Iceberg tables on S3, cutting query latency five‑fold for analysts.",
+        "paragraphs": [
+          "To keep reference data fresh while migrating to a cloud‑native analytics stack, United Airlines assembled a CDC pipeline that captures every change from an Amazon Aurora MySQL‑compatible database with the AWS Database Migration Service engine. The change events flow through Amazon Kinesis Data Streams, are transformed by AWS Lambda, and are delivered by Amazon Data Firehose into Apache Iceberg tables stored in Amazon S3.",
+          "The new Iceberg layer eliminates the scalability bottlenecks of the legacy SQL warehouse. United’s tests show average query latency improving by a factor of five and downstream AWS Glue ETL jobs completing twice as fast, halving billed Glue runtime. Because the tables are cataloged in AWS Glue, they are immediately queryable from Amazon Redshift Serverless, Athena, or any Iceberg‑compatible engine."
+        ],
+        "implication": "Analysts can now explore up‑to‑date reference data without waiting for batch loads, enabling faster market‑pattern insights and reducing cloud‑cost overhead for ETL jobs.",
+        "source_ids": [
+          "source-5f272bf749e71ff1"
+        ]
+      },
+      {
+        "id": "vercel-board-experimental-release",
+        "section": "Tools",
+        "headline": "Vercel launches experimental Board for agent coordination",
+        "summary": "Vercel Board, an experimental message board that lets AI agents share tasks and context, is now available on all plans.",
+        "paragraphs": [
+          "The new Board primitive lets developers install a skill via `npx skills add vercel/board` and then use CLI commands such as `vercel board tasks claim`, `schedule`, and `complete` to orchestrate agent‑driven workflows. Threads keep the original report, findings, and pull‑request links together, and a JavaScript SDK (`import { board } from \"@vercel/board\"`) enables custom agents to read structured messages validated against user‑defined schemas."
+        ],
+        "implication": "Teams can prototype swarms of agents that maintain shared context without building bespoke messaging layers, but the feature remains experimental and requires the Vercel CLI and skill installation before use.",
+        "source_ids": [
+          "source-0a961e0e6d20bccd",
+          "source-b25263b5a22241eb"
+        ]
+      },
+      {
+        "id": "fastify-busboy-multipart-confusion-2026-11-19",
+        "section": "Security",
+        "headline": "Fastify Busboy 3.2.6 patches multipart header‑splitting bug",
+        "summary": "Versions ≥ 3.2.1 and \u003c 3.2.6 of @fastify/busboy could misclassify uploaded files as text fields when a header terminator straddles the 80 KiB headerSize limit.",
+        "paragraphs": [
+          "The flaw arises because the parser drops the final header line if the \\r\\n\\r\\n sequence is split across socket reads, turning a file part with Content‑Type application/octet‑stream into a plain‑text field. An attacker controlling multipart payloads can bypass validation that only inspects file events. The fix in 3.2.6 tracks buffered terminator bytes and preserves the final header regardless of segmentation."
+        ],
+        "implication": "Upgrading to @fastify/busboy 3.2.6 eliminates the type‑confusion path, but applications should still apply identical validation to both file and field events to avoid logic‑level bypasses.",
+        "source_ids": [
+          "source-0703168f9537c8b4"
+        ]
+      },
+      {
+        "id": "clairic-2026-update",
+        "section": "AI",
+        "headline": "Cloudflare releases open‑weight Clairic with PDF and image extraction",
+        "summary": "Cloudflare’s new Clairic model adds reliable PDF and multi‑image parsing, using parallel slot autoregressive generation for higher accuracy.",
+        "paragraphs": [
+          "The redesigned Clairic replaces the preview’s single‑pass architecture with parallel slot autoregressive generation, letting each extraction field token‑by‑token decide its next output and stop at its own end marker. This change improves text, table and image extraction—error‑free on internal benchmarks for images—and adds support for up to four images or PDF pages per request, returning line items as structured rows. Latency rises only slightly, a trade‑off the team deems acceptable for the accuracy gain."
+        ],
+        "implication": "Developers can now feed PDFs or multiple images to Clairic for structured data extraction without custom preprocessing, but should expect a modest latency increase per request.",
+        "source_ids": [
+          "source-c9098ac47ad21321"
+        ]
+      },
+      {
+        "id": "cosmos-two-prompt-dataset-2026",
+        "section": "AI",
+        "headline": "NVIDIA Cosmos lets developers generate training datasets with two prompts",
+        "summary": "Cosmos Data Factory adds five blueprints and six composable skills that turn two natural‑language prompts into curated, synthetic video data for autonomous‑vehicle and robotics models.",
+        "paragraphs": [
+          "The new Cosmos Data Factory (CDF) blueprint collection lets users describe a desired scenario and a quality constraint in plain text; the platform then searches video embeddings, applies a style‑transfer model, and runs the Cosmos Evaluator to flag motion artifacts and verify physical plausibility before auto‑labeling the output for training."
+        ],
+        "implication": "Engineers can prototype diverse physical‑AI datasets without writing custom pipelines, but they must rely on the built‑in evaluator’s artifact detection, which may miss subtle realism issues.",
+        "source_ids": [
+          "source-8964256bb09caf1f"
+        ]
+      },
+      {
+        "id": "meta-rea-propagation-2026",
+        "section": "AI",
+        "headline": "Meta uses AI agents to accelerate ML technique rollout across ad ranking models",
+        "summary": "Meta’s Ranking Engineer Agent now evaluates and prioritizes proven ML tricks for every ad‑ranking model, cutting compute spent on low‑yield experiments.",
+        "paragraphs": [
+          "The agent scans the fleet’s shared knowledge base, estimates each technique’s transferability, and outputs a ranked list for engineers to approve, turning a multi‑day template‑tuning loop into a fraction of the original compute cost."
+        ],
+        "implication": "Engineers can focus on reviewing high‑impact recommendations instead of manually testing each model, speeding up innovation delivery across Meta’s ad ranking stack.",
+        "source_ids": [
+          "source-4bb2f32f29d32e10"
+        ]
+      },
+      {
+        "id": "article-1",
+        "section": "Tools",
+        "headline": "PyPI adds new validation rules for uploaded sdists and wheels",
+        "summary": "PyPI now rejects source tarballs using legacy V7 format and wheels containing archive‑level ZIP comments, tightening distribution integrity for all uploaders.",
+        "paragraphs": [
+          "The repository introduced these checks over the past few weeks as part of a broader packaging initiative. Maintainers whose builds already follow the pax‑compatible tar format or omit ZIP comments will see no impact, while any package still using the outdated V7 tar style will be blocked at upload time."
+        ],
+        "implication": "Package authors must ensure their build tools produce pax‑compatible tar archives and omit ZIP comments, otherwise uploads will fail and require a rebuild before the packages become installable from PyPI.",
+        "source_ids": [
+          "source-c5834bb96674aa02"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "ai-lowered-barrier-memory-safety",
+        "title": "AI makes deep memory‑safety bugs in server software discoverable",
+        "paragraphs": [
+          "The NGINX RCE bugs (CVE‑2026‑123633 and CVE‑2026‑123007) were hidden for years because they involve subtle interactions between integer underflow, use‑after‑free, and HTTP/2 handling. Traditionally, finding such flaws required expert manual analysis of complex code paths, which acted as a practical barrier to discovery.",
+          "AI‑assisted code analysis can automatically trace those interactions, surfacing hidden memory‑safety issues that have persisted for a decade. By modeling how data moves through the program, the AI highlighted the exact sequence that leads to the underflow and use‑after‑free, enabling multiple research teams to independently uncover the same vulnerabilities."
+        ],
+        "example": "Imagine a simple NGINX config serving only static HTML. An attacker sends a crafted HTTP/2 request that triggers the integer underflow, causing the server to execute a shell command like `rm -rf /var/www` without any authentication.",
+        "takeaway": "When AI tools can reliably map complex memory operations, the old assumption that deep bugs are safe because they are hard to find no longer holds; operators must treat long‑standing code as potentially vulnerable and prioritize rapid patching or protocol mitigation.",
+        "article_ids": [
+          "nginx-rce-vulns-2026"
+        ],
+        "source_ids": [
+          "source-0c457241d113ed5a"
+        ]
+      },
+      {
+        "id": "indirect-prompt-injection-mitigation",
+        "title": "Real‑time safeguards curb indirect prompt‑injection attacks",
+        "paragraphs": [
+          "Gemini 4 Neon includes real‑time safety safeguards that make it more resilient to indirect prompt‑injection attacks than other models in its class, as shown on the Gray Swan IPI benchmark where malicious instructions were embedded in web pages, emails, documents, or code.",
+          "These safeguards are described as strong, real‑time protections comparable to those used for the Carbon model, helping to limit misuse while preserving legitimate task completion."
+        ],
+        "example": "In a benchmark test, Neon processed a document that contained a hidden instruction to disclose confidential data. The model’s safety system prevented the instruction from being acted upon, whereas comparable models without the safeguards were more likely to follow the hidden command.",
+        "takeaway": "Deploying real‑time safety filters can improve a model’s resistance to indirect prompt‑injection attacks, providing stronger protection for high‑throughput, multimodal AI services.",
+        "article_ids": [
+          "gemini-4-neon-launch"
+        ],
+        "source_ids": [
+          "source-95da0fde7d56c751",
+          "source-f539fcdaf975fdb9"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-001",
+        "lesson_id": "ai-lowered-barrier-memory-safety",
+        "prompt": "According to the lesson, what primary factor allowed the NGINX RCE bugs to remain hidden for years?",
+        "options": [
+          "The bugs required expert manual analysis of complex code paths",
+          "The bugs were protected by encryption of the source code",
+          "The bugs only affected obscure, rarely used features",
+          "The bugs were automatically patched by the compiler"
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that the bugs involved subtle interactions between integer underflow, use‑after‑free, and HTTP/2 handling, and that traditionally finding such flaws required expert manual analysis, which acted as a practical barrier to discovery."
+      },
+      {
+        "id": "quiz-1-002",
+        "lesson_id": "ai-lowered-barrier-memory-safety",
+        "prompt": "What capability of AI‑assisted code analysis enabled researchers to uncover the same vulnerabilities independently?",
+        "options": [
+          "Automatically tracing data flow to reveal the exact sequence leading to the underflow and use‑after‑free",
+          "Generating random inputs to fuzz the server until it crashes",
+          "Replacing the HTTP/2 stack with a safer implementation",
+          "Encrypting the vulnerable code sections to hide them from attackers"
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that AI modeled how data moves through the program and highlighted the exact sequence that leads to the underflow and use‑after‑free, allowing multiple teams to discover the bugs."
+      },
+      {
+        "id": "quiz-1-003",
+        "lesson_id": "ai-lowered-barrier-memory-safety",
+        "prompt": "What operational shift does the lesson recommend in response to AI tools reliably mapping complex memory operations?",
+        "options": [
+          "Treat long‑standing code as potentially vulnerable and prioritize rapid patching or protocol mitigation",
+          "Assume that only newly written code can contain deep memory‑safety bugs",
+          "Rely solely on compiler warnings to catch all memory‑safety issues",
+          "Discontinue the use of HTTP/2 entirely"
+        ],
+        "answer": 0,
+        "explanation": "The takeaway in the lesson says that the old assumption that deep bugs are safe because they are hard to find no longer holds, so operators must treat old code as potentially vulnerable and prioritize rapid patching or protocol mitigation."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "indirect-prompt-injection-mitigation",
+        "prompt": "According to the lesson, what is the primary benefit of Gemini 4 Neon’s real‑time safety safeguards?",
+        "options": [
+          "They increase the model’s speed for processing multimodal inputs.",
+          "They make the model more resilient to indirect prompt‑injection attacks.",
+          "They reduce the model’s overall accuracy on standard benchmarks.",
+          "They allow the model to generate longer responses."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that Gemini 4 Neon’s real‑time safety safeguards improve resilience to indirect prompt‑injection attacks, as demonstrated on the Gray Swan IPI benchmark."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "indirect-prompt-injection-mitigation",
+        "prompt": "In the benchmark example, how did Gemini 4 Neon respond to a hidden instruction to disclose confidential data?",
+        "options": [
+          "It followed the hidden instruction and disclosed the data.",
+          "It ignored the hidden instruction and prevented the disclosure.",
+          "It partially complied, revealing only part of the data.",
+          "It crashed and failed to produce any output."
+        ],
+        "answer": 1,
+        "explanation": "The example describes that the model’s safety system prevented the hidden instruction from being acted upon, unlike comparable models without the safeguards."
+      }
+    ],
+    "segments": [
+      {
+        "id": "nginx-rce-2026-brief",
+        "title": "NGINX HTTP/2 Remote Code Execution Flaws",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November nineteen, two thousand twenty six.\n\nWe begin with our lead story. Critical unauthenticated RCE bugs have been found in NGINX when HTTP/2 is enabled. Researchers from Wiz, Ikotas Labs, Metnir, Rapid7 and Xint uncovered two flaws – CVE‑2026‑123633, an integer underflow dating back to version one point nine point five, and CVE‑2026‑123007, a use‑after‑free that’s been lurking for nearly six years. Exploitation works even on static‑only sites, letting an attacker run arbitrary code or steal data. Here’s why that matters: patch as soon as F5’s fixes arrive, or temporarily turn off HTTP/2 to stay safe.",
+        "article_ids": [
+          "nginx-rce-vulns-2026"
+        ]
+      },
+      {
+        "id": "gemini-4-neon-launch-segment",
+        "title": "Google DeepMind rolls out Gemini 4 Neon with million‑token context",
+        "text": "Next on the bulletin. Google DeepMind unveiled Gemini 4 Neon on November eighteenth, 2026. The new model can swallow a full million tokens of spreadsheets, PDFs, charts, audio and video all at once, then spit out structured results. It’s about thirty‑two percent cheaper per task than the rival Carbon model in its default mode, and still undercuts top competitors by roughly thirty‑six percent when you crank up the xhigh setting. Safety filters now refuse misuse only about one point nine eight percent of the time on the toughest benchmark, and zero percent on the science suite. Here’s why that matters: developers can feed far larger, multimodal prompts without blowing their budgets, while keeping tighter guards against cyber and bio‑security abuse.",
+        "article_ids": [
+          "gemini-4-neon-launch"
+        ]
+      },
+      {
+        "id": "mai-models-price-performance-2026-segment",
+        "title": "Microsoft rolls out MAI Cyber 2 Flash under 2 % task cost",
+        "text": "Turning to our next story. Microsoft just unveiled its latest MAI lineup, and the headline act is Cyber 2 Flash. The vendor says this model runs at less than two percent of the task cost of GPT‑6 Astra on the CyberGym‑E2E benchmark. Alongside it come MAI Code 2, which hits ninety‑eight percent of GPT‑6.1 Sol’s coding quality for about forty percent of the price, MAI Code 2 Flash, MAI Image 2.7, MAI Realtime 1 starting at a penny per audio minute, Dragon Copilot Transcribe built on MAI Transcribe 2, and Decision 1.1. Here’s why that matters: developers now have a menu of cheaper alternatives, though the exact savings will vary by model and workload.",
+        "article_ids": [
+          "mai-models-price-performance-2026"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "United Airlines speeds analytics with near‑real‑time Iceberg pipeline",
+        "text": "Next on the bulletin. United Airlines has wired up a change‑data‑capture pipeline that pushes every Aurora MySQL update straight into Apache Iceberg tables on S3. The flow runs through Kinesis, gets a quick Lambda makeover, then lands via Data Firehose, so the new Iceberg layer can be queried instantly from Redshift Serverless, Athena or any compatible engine. Tests show query latency five times faster and Glue jobs finishing in half the time, cutting cloud‑costs. Here’s why that matters: analysts now get fresh reference data on demand, not after a nightly batch.",
+        "article_ids": [
+          "united-iceberg-cdc-pipeline"
+        ]
+      },
+      {
+        "id": "vercel-board-experimental-release-segment",
+        "title": "Vercel Board lets AI agents share tasks",
+        "text": "And finally, our last story. Vercel just rolled out Board, an experimental message board that lets AI agents hand off work and keep context together. You install it with a simple npx command, then use the Vercel CLI to claim, schedule or complete tasks, and the JavaScript SDK lets custom agents read structured messages validated against your own schemas. It’s a way to prototype swarms of agents without building a messaging layer from scratch. The catch? It’s still experimental, needs the Vercel CLI and skill install, and runs on all plans.\n\nHere’s why that matters: teams can try coordinated agent workflows today, but they should treat it as a lab feature, not production‑critical code.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "vercel-board-experimental-release"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized split‑screen illustration: on the left, a cracked NGINX logo leaking binary code; on the right, a glowing AI brain composed of interlocking Gemini and MAI symbols, with faint network nodes linking to a minimalist Vercel board interface."
+  },
+  "sources": [
+    {
+      "id": "source-0c457241d113ed5a",
+      "name": "Hacker News",
+      "title": "Unauthenticated remote code execution in Nginx",
+      "url": "https://www.wiz.io/blog/nginx-http2-rce-vulnerabilities",
+      "published_at": null,
+      "discovered_at": "2026-11-18T15:19:55Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50547374"
+    },
+    {
+      "id": "source-c9098ac47ad21321",
+      "name": "Cloudflare Blog",
+      "title": "An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team",
+      "url": "https://blog.cloudflare.com/open-clairic/",
+      "published_at": "2026-11-18T22:00:00Z",
+      "discovered_at": "2026-11-19T07:42:03.407011971Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-95da0fde7d56c751",
+      "name": "Google DeepMind",
+      "title": "Introducing Gemini 4 Neon",
+      "url": "https://deepmind.google/blog/introducing-gemini-4-neon/",
+      "published_at": "2026-11-18T21:35:43Z",
+      "discovered_at": "2026-11-19T07:42:03.903495977Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-5f272bf749e71ff1",
+      "name": "AWS Architecture",
+      "title": "How United Airlines streams database changes to Apache Iceberg with Amazon Data Firehose",
+      "url": "https://aws.amazon.com/blogs/architecture/how-united-airlines-streams-database-changes-to-apache-iceberg-with-amazon-data-firehose/",
+      "published_at": "2026-11-18T20:37:39Z",
+      "discovered_at": "2026-11-19T07:42:04.239386404Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-8964256bb09caf1f",
+      "name": "NVIDIA Developer",
+      "title": "Build Training-Ready Physical AI Datasets with Two Prompts in NVIDIA Cosmos",
+      "url": "https://developer.nvidia.com/blog/build-training-ready-physical-ai-datasets-with-two-prompts-in-nvidia-cosmos/",
+      "published_at": "2026-11-18T17:00:00Z",
+      "discovered_at": "2026-11-19T07:42:04.21929398Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-4bb2f32f29d32e10",
+      "name": "Meta Engineering",
+      "title": "How Meta Uses AI Agents to Scale ML Innovations Across Ads Ranking Models",
+      "url": "https://engineering.fb.com/2026/11/18/ml-applications/ai-agents-to-scale-ml-innovations-across-ads-ranking-models/",
+      "published_at": "2026-11-18T17:00:00Z",
+      "discovered_at": "2026-11-19T07:42:04.309276361Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-0a961e0e6d20bccd",
+      "name": "Vercel Blog",
+      "title": "Introducing Vercel Board",
+      "url": "https://vercel.com/blog/introducing-vercel-board",
+      "published_at": "2026-11-18T08:00:00Z",
+      "discovered_at": "2026-11-19T07:42:03.665069142Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-0703168f9537c8b4",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-128846: @fastify/busboy vulnerable to multipart file/field type confusion via chunk-dependent header parsing",
+      "url": "https://github.com/fastify/busboy/security/advisories/GHSA-2q57-jvxc-h47j",
+      "published_at": "2026-11-16T13:21:29Z",
+      "discovered_at": "2026-11-19T07:42:03.656144568Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-f539fcdaf975fdb9",
+      "name": "Hacker News",
+      "title": "Gemini 4 Neon",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
+      "published_at": null,
+      "discovered_at": "2026-11-18T21:34:07Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50552424"
+    },
+    {
+      "id": "source-b25263b5a22241eb",
+      "name": "Vercel Blog",
+      "title": "Vercel Board is now available",
+      "url": "https://vercel.com/changelog/vercel-board-is-now-available",
+      "published_at": "2026-11-18T05:00:00Z",
+      "discovered_at": "2026-11-19T07:42:03.665069142Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-c5834bb96674aa02",
+      "name": "Lobsters",
+      "title": "Stricter checks for uploaded distributions on PyPI",
+      "url": "https://blog.pypi.org/posts/2026-11-18-stricter-checks-for-uploaded-sdists/",
+      "published_at": null,
+      "discovered_at": "2026-11-18T14:00:42.222-06:00",
+      "discussion_url": "https://lobste.rs/s/kfpoos/stricter_checks_for_uploaded"
+    },
+    {
+      "id": "source-ab00b903e6c15228",
+      "name": "Hacker News",
+      "title": "Seven new models at scalable price-performance",
+      "url": "https://microsoft.ai/news/microsoft-ignite-2026/",
+      "published_at": null,
+      "discovered_at": "2026-11-18T16:08:24Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50548021"
+    }
+  ],
+  "radio": {
+    "status": "pending",
+    "audio_url": null,
+    "duration_seconds": null,
+    "script_hash": "7fcea89bb2018b5ca7a9f918f0b7bb1a64ab72ffe61753aa83eb0bd4545c3fa1"
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
