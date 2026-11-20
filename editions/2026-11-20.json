@@ -1,0 +1,3836 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-20",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-20T07:48:50.174377378Z",
+  "coverage": {
+    "from": "2026-11-19T06:00:00+05:30",
+    "until": "2026-11-20T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-15969c90ab8fc1c8",
+      "source-9342dbf934e428aa"
+    ],
+    "candidate_count": 49,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "Ruby2Shell bug sparks fresh security scramble",
+    "introduction": "A newly disclosed loop‑bounds flaw in Ruby2Shell (GHSA‑34m4‑m9fh‑gqp5) affects Ruby 3.2‑4.0 runtimes across a range of self‑hosted services. At the same time, updates from PHP, Fastify, and NVIDIA highlight advances in language features, denial‑of‑service mitigations, and ultra‑low‑latency networking.",
+    "articles": [
+      {
+        "id": "ruby2shell-ghsa-34m4-m9fh-gqp5-2026-11-20",
+        "section": "Security",
+        "headline": "Ruby2Shell vulnerability (GHSA‑34m4‑m9fh‑gqp5) affects Ruby 3.3‑4.0 and many self‑hosted services",
+        "summary": "A loop‑bounds bug in Ruby2Shell (CVE‑GHSA‑34m4‑m9fh‑gqp5) can be triggered by upcasing legacy‑encoded strings, affecting Ruby 3.2‑4.0 and bundled runtimes in several popular platforms.",
+        "paragraphs": [
+          "The flaw is reachable in default Rails and classic‑style Sinatra apps, and any code that upcases strings in a legacy encoding. Ruby versions 3.3.0‑3.3.13, 3.4.0‑3.4.12, and 4.0.0‑4.0.9 are vulnerable; fixed releases are 3.3.14, 3.4.13, and 4.0.10. Self‑hosted products that bundle Ruby—GitHub Enterprise Server (≤ 3.22.5), Chatwoot (≤ 4.20.0), GitLab (≤ 19.6.0), Mastodon (≤ 4.7.5), OpenProject (≤ 17.9.7), and older Discourse images—remain vulnerable until vendors ship patched versions.",
+          "Remediation requires upgrading the Ruby interpreter to one of the fixed releases or applying the vendor‑provided patches for the affected services."
+        ],
+        "implication": "Operators of affected self‑hosted platforms must upgrade Ruby or wait for vendor patches; otherwise their applications remain exploitable via crafted legacy‑encoding strings.",
+        "source_ids": [
+          "source-d61f7e881d9ad24f"
+        ]
+      },
+      {
+        "id": "fastify-http-proxy-dos-fixes-2026-11-20",
+        "section": "Security",
+        "headline": "Fastify HTTP‑Proxy patches two DoS bugs in 11.6.10",
+        "summary": "Version 11.6.10 of @fastify/http‑proxy closes two high‑severity denial‑of‑service flaws that crash Node.js processes during WebSocket upgrades.",
+        "paragraphs": [
+          "Both advisories (CVE‑2026‑129500 and CVE‑2026‑129502) affect applications that enable the plugin with websocket: true. The first bug occurs when a client resets the TCP connection before the ws library takes ownership of the upgrade socket; the plugin fails to attach its own error listener, letting the unhandled ECONNRESET terminate the process. The second bug is triggered by a URL fragment in the upgrade request (e.g., GET /echo#x); the upstream target builder throws, the error is only logged, and the client socket remains without a listener, causing a crash on the next frame.",
+          "Both issues are fixed in @fastify/http‑proxy 11.6.10. The update adds a temporary error listener during routing and sanitises the request‑target by stripping fragments before building the upstream link, ensuring that any error destroys only the offending socket. Upgrading is the sole mitigation; TLS termination in front of the proxy also avoids the first bug because TLSSocket retains its own listener, but no configuration can prevent the second flaw without the patch."
+        ],
+        "implication": "Projects that rely on Fastify’s HTTP‑proxy for WebSocket routing must upgrade to 11.6.10 immediately, or risk server crashes from unauthenticated upgrade requests.",
+        "source_ids": [
+          "source-00cfb7c60fbd0e35",
+          "source-9eb98d59d8010e12"
+        ]
+      },
+      {
+        "id": "php-8-6-release-summary",
+        "section": "Engineering",
+        "headline": "PHP 8.6 ships with partial application and Io\\Poll API",
+        "summary": "PHP 8.6.0 introduces partial function application, default values for readonly properties, a new Io\\Poll stream monitor, and several utility classes.",
+        "paragraphs": [
+          "The PHP core team made PHP 8.6.0 generally available on 19 November 2026. Among the headline features are partial function application, which lets developers pre‑supply some arguments and receive a Closure that completes the call later, and the ability for readonly properties to declare default values, removing the need for constructor assignment.",
+          "A new Io\\Poll API replaces the legacy stream_select() with a platform‑optimized poller (epoll, kqueue, event ports, WSAPoll) that can monitor many streams efficiently, a foundation now used by event‑loop libraries such as ReactPHP and AMPHP. Additional additions include a clamp() helper, a SortDirection enum, a \\Time\\Duration class with nanosecond precision, and a clamp() function.",
+          "Developers should review the migration guide for backward‑incompatible changes and update code that relied on stream_select() or assumed readonly properties could not have defaults."
+        ],
+        "implication": "Codebases can simplify argument handling and improve I/O scalability, but must adapt to the new readonly‑property defaults and replace stream_select() usage.",
+        "source_ids": [
+          "source-3a3d893f433776c3",
+          "source-1ab3c6f9fcc2bb4c"
+        ]
+      },
+      {
+        "id": "blobasaur-sqlite-storage",
+        "section": "Engineering",
+        "headline": "Blobasaur delivers sharded SQLite blob storage with millisecond latency",
+        "summary": "Zerodha’s Blobasaur uses SQLite in Rust to serve millions of small JSON blobs at thousands of ops per second on commodity hardware.",
+        "paragraphs": [
+          "The open‑source Blobasaur server shards data across multiple SQLite files and runs in WAL mode, allowing concurrent reads while a single writer per file handles roughly half of the traffic. Built in Rust to avoid Go’s CGo overhead, it achieves single‑digit millisecond latency for blobs up to 1 MB, sidestepping the high per‑request cost of S3‑compatible stores."
+        ],
+        "implication": "Engineers needing low‑latency, high‑throughput blob storage can adopt Blobasaur as a cheap alternative to object stores, provided their payloads stay under 1 MB and they accept the single‑writer limitation per SQLite shard.",
+        "source_ids": [
+          "source-fbf3aaa29ac7691d"
+        ]
+      },
+      {
+        "id": "gemini-tool-retrieval-preview",
+        "section": "AI",
+        "headline": "Gemini API adds preview Tool Retrieval for large tool libraries",
+        "summary": "Google’s Gemini Interactions API now lets agents defer loading of tool schemas, cutting token usage and latency for developers using Gemini 3.6+ models.",
+        "paragraphs": [
+          "The Gemini Interactions API introduces a preview feature called Tool Retrieval, which allows agents to keep a full catalog of tools on standby and request individual parameter schemas only when a task requires them. By setting `defer_loading: true` on a tool definition, developers avoid sending every tool’s schema with each prompt, reducing input token counts and request latency.",
+          "Tool Retrieval is compatible with Gemini 3.6 and later, including all Gemini 4 models. The change requires only the addition of a new `tool_search` tool and the defer flag; no separate index or hosting infrastructure is needed. Early adopters can enable the feature today in the Interactions API."
+        ],
+        "implication": "Developers building agents with dozens of tools can lower costs and improve response speed by loading schemas on demand rather than transmitting the entire library each call.",
+        "source_ids": [
+          "source-1b3aafed7dd5d45c"
+        ]
+      },
+      {
+        "id": "nvidia-daqiri-latency-2026-11-20",
+        "section": "AI",
+        "headline": "NVIDIA DAQIRI ibverbs engine cuts Ethernet latency to 2‑4 µs",
+        "summary": "The DAQIRI direct‑polling mode lets GPU‑resident code receive Ethernet packets with 2‑4 µs round‑trip latency, while its ibverbs engine nearly doubles throughput for 64‑byte and 256‑byte packets.",
+        "paragraphs": [
+          "In a November 19 blog post, NVIDIA and Berkeley Lab demonstrated that DAQIRI can ingest detector data straight into GPU memory via an ibverbs engine, achieving roughly 2‑4 µs latency in direct‑polling mode and almost twice the packet rate for 64‑byte and 256‑byte Ethernet frames compared with DPDK. The benchmark used single‑queue tests on an NVIDIA IGX Thor system and kept high‑throughput streams batched while control queues ran in direct‑polling mode."
+        ],
+        "implication": "Instrument developers can redesign acquisition pipelines to rely on GPU‑native processing, gaining microsecond‑scale feedback loops without extra I/O threads, but the gains apply only to small‑packet Ethernet traffic on supported hardware.",
+        "source_ids": [
+          "source-74f0816ca7f55a71"
+        ]
+      },
+      {
+        "id": "rust-tool-call-parsers-nvidia-2026-11-19",
+        "section": "Tools",
+        "headline": "NVIDIA releases Rust library for robust LLM tool‑call parsing",
+        "summary": "NVIDIA’s frontend‑crates lets developers build Rust parsers that reliably turn LLM tool‑call output into structured events.",
+        "paragraphs": [
+          "The new frontend‑crates package supplies reusable components that follow documented recovery rules, handling malformed, incomplete, or streaming model outputs without guessing intent. Developers define a GOLDEN test set from the UNIFIED.* corpus, run the parser against the model’s grammar, and validate results with a local conformance report. The library runs on CPU for unit tests and only requires a Dynamo runtime and GPU when exercising end‑to‑end model calls."
+        ],
+        "implication": "Engineers can now prototype LLM‑driven tool integrations in Rust with deterministic parsing and a shared test suite, reducing reliance on ad‑hoc string handling.",
+        "source_ids": [
+          "source-da3414a9602a319d"
+        ]
+      },
+      {
+        "id": "vercel-billing-cli-brief",
+        "section": "Tools",
+        "headline": "Vercel CLI adds billing commands for invoices and usage",
+        "summary": "The Vercel command‑line tool now bundles billing overview, invoice download, and upcoming charge previews under a new `vercel billing` namespace.",
+        "paragraphs": [
+          "Starting with CLI version 65.17.0, users can run `vercel billing overview` to see plan status, balance, and invoice details, and `vercel billing invoices` subcommands to list, inspect, download PDFs, or preview upcoming charges; the `--json` flag supplies machine‑readable output for automation. Existing `vercel usage`, `contract`, and `budgets` commands remain functional as aliases."
+        ],
+        "implication": "Developers can now script billing checks and integrate invoice retrieval directly into CI pipelines, reducing manual dashboard visits.",
+        "source_ids": [
+          "source-cafbc0c492dd7990"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "loop-bounds-upcase-lesson",
+        "title": "Why unchecked loop bounds on legacy‑encoded strings can corrupt Ruby’s memory",
+        "paragraphs": [
+          "Ruby2Shell’s vulnerability stems from a C‑level loop that only checks the upper bound of a buffer when processing strings that have been upcased in a legacy encoding (e.g., ISO‑8859‑1). The loop assumes the transformed string will never exceed the original length, but if a transformation were to expand certain characters, the write pointer could run past the allocated memory. This off‑by‑one write corrupts adjacent heap structures and can be leveraged for code execution.",
+          "The bug is invisible for UTF‑8 strings because they follow a different code path that correctly recomputes the length after case conversion. The evidence confirms that the loop only bounds‑checks one limit and that UTF‑8 strings are not affected."
+        ],
+        "example": "Hypothetical illustration: suppose a legacy‑encoded character were to expand when upcased, producing more bytes than the original. Because the loop allocates space based on the original length and only checks the upper bound, the extra byte could be written past the buffer, leading to memory corruption.",
+        "takeaway": "When code performs transformations that can change string length—such as case conversion on legacy‑encoded data—buffer size calculations must be updated accordingly; otherwise a simple upper‑bound check may be insufficient and can result in memory corruption.",
+        "article_ids": [
+          "ruby2shell-ghsa-34m4-m9fh-gqp5-2026-11-20"
+        ],
+        "source_ids": [
+          "source-d61f7e881d9ad24f"
+        ]
+      },
+      {
+        "id": "fastify-http-proxy-error-listener-mechanism-2026-11-20",
+        "title": "Why attaching an error listener during WebSocket upgrade routing prevents crashes",
+        "paragraphs": [
+          "When Fastify’s HTTP‑proxy forwards a WebSocket upgrade, the request is first routed through Fastify hooks before the ws library takes ownership of the socket. If the plugin does not install its own error handler during this window, any socket error—such as a client‑initiated TCP reset (ECONNRESET) that arrives before ws claims the socket—propagates as an unhandled exception, terminating the entire Node.js process.",
+          "Version 11.6.10 fixes the issue by adding a temporary error listener that lives only while Fastify is routing the upgrade. The listener catches any socket error, destroys the offending connection, and then removes itself once ws takes control, ensuring that a single malformed or aborted upgrade cannot bring down the server."
+        ],
+        "example": "A client sends a WebSocket upgrade request, then immediately closes the TCP connection. Without the temporary listener, Node.js throws an unhandled ECONNRESET and exits; with the listener, the error is caught and the socket is closed cleanly while the server continues running.",
+        "takeaway": "Always ensure that asynchronous resources like upgrade sockets have scoped error handling during transitional phases; a short‑lived listener can isolate failures and keep the broader application alive.",
+        "article_ids": [
+          "fastify-http-proxy-dos-fixes-2026-11-20"
+        ],
+        "source_ids": [
+          "source-00cfb7c60fbd0e35",
+          "source-9eb98d59d8010e12"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-loop-bounds-upcase-1",
+        "lesson_id": "loop-bounds-upcase-lesson",
+        "prompt": "What specific condition allows the unchecked loop in Ruby2Shell to write past the allocated buffer?",
+        "options": [
+          "Processing UTF‑8 strings that are upcased",
+          "Upcasing a legacy‑encoded string where the case conversion can increase the byte length",
+          "Reading input without any case conversion",
+          "Using a lower‑bound check instead of an upper‑bound check"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that the vulnerability occurs only when a legacy‑encoded string is upcased and the transformation can expand characters, causing the write pointer to exceed the original buffer size."
+      },
+      {
+        "id": "quiz-1-loop-bounds-upcase-2",
+        "lesson_id": "loop-bounds-upcase-lesson",
+        "prompt": "Why are UTF‑8 strings not vulnerable to the same off‑by‑one write described in the lesson?",
+        "options": [
+          "UTF‑8 strings are never upcased in Ruby2Shell",
+          "The UTF‑8 code path recomputes the string length after case conversion before writing",
+          "UTF‑8 characters never change length when upcased",
+          "The loop skips UTF‑8 strings entirely"
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that UTF‑8 strings follow a different code path that correctly recomputes the length after case conversion, preventing the out‑of‑bounds write."
+      },
+      {
+        "id": "quiz-1-loop-bounds-upcase-3",
+        "lesson_id": "loop-bounds-upcase-lesson",
+        "prompt": "According to the lesson, what is the primary mitigation to prevent memory corruption when transforming strings?",
+        "options": [
+          "Always perform only upper‑bound checks on buffers",
+          "Avoid any string transformations in C code",
+          "Recalculate buffer sizes after transformations that may change string length",
+          "Convert all input to UTF‑8 before processing"
+        ],
+        "answer": 2,
+        "explanation": "The takeaway emphasizes that when transformations can change string length, buffer size calculations must be updated; merely checking an upper bound is insufficient."
+      },
+      {
+        "id": "quiz-2-error-listener-timing",
+        "lesson_id": "fastify-http-proxy-error-listener-mechanism-2026-11-20",
+        "prompt": "Why does Fastify add a temporary error listener only during the WebSocket upgrade routing phase?",
+        "options": [
+          "Because the ws library cannot emit errors after it takes control of the socket",
+          "To catch socket errors that occur before ws claims the socket and prevent unhandled exceptions",
+          "To log all errors for later analysis while allowing the process to crash",
+          "To replace the default Node.js error handling for all HTTP requests"
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that errors like ECONNRESET can arrive before ws takes ownership of the socket. The temporary listener catches these early errors, destroys the connection, and then removes itself, preventing an unhandled exception that would terminate the process."
+      },
+      {
+        "id": "quiz-2-scope-of-error-handler",
+        "lesson_id": "fastify-http-proxy-error-listener-mechanism-2026-11-20",
+        "prompt": "What is the primary benefit of using a short‑lived error listener during the upgrade transition?",
+        "options": [
+          "It permanently disables error propagation for the entire server",
+          "It isolates failures to the specific upgrade request, keeping the rest of the application running",
+          "It automatically retries failed WebSocket upgrades",
+          "It converts all socket errors into HTTP 500 responses"
+        ],
+        "answer": 1,
+        "explanation": "According to the lesson, the scoped listener isolates the failure to the single malformed or aborted upgrade, ensuring that the broader application remains alive. The listener is removed after ws takes control, so it does not affect other requests."
+      }
+    ],
+    "segments": [
+      {
+        "id": "ruby2shell-vuln-2026-11-20",
+        "title": "Ruby2Shell vulnerability hits Ruby 3.3‑4.0 and self‑hosted services",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November twenty, two thousand twenty six.\n\nWe begin with our lead story. A loop‑bounds bug in Ruby2Shell can be triggered by upcasing strings in a legacy encoding, and it reaches default Rails and classic‑style Sinatra apps. The flaw touches Ruby versions 3.3.0 through 3.3.13, 3.4.0 through 3.4.12, and 4.0.0 through 4.0.9, with fixes in version 3.3.14, 3.4.13 and 4.0.10. Self‑hosted platforms that bundle Ruby—GitHub Enterprise Server up to 3.22.5, Chatwoot up to 4.20.0, GitLab up to 19.6.0, Mastodon up to 4.7.5, OpenProject up to 17.9.7, and older Discourse images—remain vulnerable until their vendors release patches. Upgrade Ruby or apply the vendor patches to stay safe.",
+        "article_ids": [
+          "ruby2shell-ghsa-34m4-m9fh-gqp5-2026-11-20"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Fastify HTTP‑Proxy fixes two WebSocket DoS bugs",
+        "text": "Next on the bulletin. Fastify just released version eleven point six point ten of its HTTP‑proxy plugin, and it patches two high‑severity denial‑of‑service flaws.\n\nThe first bug let a client reset the TCP connection before the ws library took over, leaving an unhandled ECONNRESET that crashed the Node jay ess process. The second was a URL fragment in the upgrade request – something like GET slash echo hash x – which caused the upstream builder to throw and then crash on the next frame. The update adds a temporary error listener and strips fragments, so only the offending socket dies. Upgrade now if you route WebSockets through Fastify, or you’ll keep risking unexpected server crashes.",
+        "article_ids": [
+          "fastify-http-proxy-dos-fixes-2026-11-20"
+        ]
+      },
+      {
+        "id": "php-8-6-release-summary-segment",
+        "title": "PHP 8.6 adds partial application and new Io Poll API",
+        "text": "Turning to our next story. PHP 8.6.0 went generally available on 19 November 2026, bringing a couple of developer‑friendly upgrades.\n\nFirst up, partial function application lets you pre‑supply some arguments and get back a Closure that finishes the call later – a neat way to simplify callbacks. Next, readonly properties can now declare default values, so you no longer need a constructor just to set them. Finally, the new Io\\Poll API replaces the old stream_select() with a platform‑optimized poller, giving event‑loop libraries like ReactPHP a more scalable I/O backbone.\n\nHere’s why that matters: you can write cleaner code and handle many streams more efficiently, but you’ll need to adjust any code that still relies on stream_select() or assumes readonly properties can’t have defaults.",
+        "article_ids": [
+          "php-8-6-release-summary"
+        ]
+      },
+      {
+        "id": "blobasaur-storage",
+        "title": "Blobasaur offers sharded SQLite blob store",
+        "text": "Next on the bulletin. Blobasaur, built by Zerodha, now serves tiny JSON blobs from sharded SQLite files with single‑digit millisecond latency. The Rust‑based server runs each shard in write‑ahead log mode, so many reads happen at once while a single writer per file handles about half the traffic. It caps blobs at one megabyte and avoids the per‑request cost of S3‑compatible stores, making it a cheap, low‑latency option for engineers who can work within the single‑writer limit.\n\nIf your payloads stay under that size, you get fast, high‑throughput storage without the cloud bill, but you’ll need to design around the one‑writer‑per‑shard constraint.",
+        "article_ids": [
+          "blobasaur-sqlite-storage"
+        ]
+      },
+      {
+        "id": "gemini-tool-retrieval-preview-segment",
+        "title": "Gemini adds tool retrieval preview",
+        "text": "And finally, our last story. Google’s Gemini Interactions API just got a preview feature called Tool Retrieval. By setting defer loading true on a tool, agents keep a full catalog on standby and only pull a tool’s parameter schema when it’s actually needed. That trims the input token count and cuts request latency, especially for agents juggling dozens of tools. It works with Gemini version three point six and later, including all Gemini four models, and requires no extra hosting. Here’s why that matters: lower costs and faster responses for developers building rich tool‑heavy agents.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "gemini-tool-retrieval-preview"
+        ]
+      }
+    ],
+    "artwork_brief": "Illustrate a stylized ruby gemstone cracked open to reveal a tangled code snippet spilling out, with a faint overlay of a network packet waveform and a small gear representing tooling, all rendered in cool blues and metallic reds."
+  },
+  "sources": [
+    {
+      "id": "source-00cfb7c60fbd0e35",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-129500: @fastify/http-proxy vulnerable to Denial of Service via unhandled error on the WebSocket upgrade socket",
+      "url": "https://github.com/fastify/fastify-http-proxy/security/advisories/GHSA-q659-79j2-32h5",
+      "published_at": "2026-11-19T18:23:13Z",
+      "discovered_at": "2026-11-20T07:33:49.263758539Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-3a3d893f433776c3",
+      "name": "PHP Announcements",
+      "title": "Upcoming Critical PHP Security Release",
+      "url": "https://www.php.net/index.php",
+      "published_at": "2026-11-18T17:09:51Z",
+      "discovered_at": "2026-11-20T07:33:49.261417895Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-d61f7e881d9ad24f",
+      "name": "Lobsters",
+      "title": "Ruby2Shell (GHSA-34m4-m9fh-gqp5)",
+      "url": "https://verialabs.com/ruby2shell/",
+      "published_at": null,
+      "discovered_at": "2026-11-19T04:50:28.63-06:00",
+      "discussion_url": "https://lobste.rs/s/usdf7t/ruby2shell_ghsa_34m4_m9fh_gqp5"
+    },
+    {
+      "id": "source-1b3aafed7dd5d45c",
+      "name": "Google AI",
+      "title": "Introducing Tool Retrieval in the Gemini API",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+      "published_at": "2026-11-19T18:00:00Z",
+      "discovered_at": "2026-11-20T07:33:49.608304403Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-cafbc0c492dd7990",
+      "name": "Vercel Blog",
+      "title": "Vercel Billing CLI is now available",
+      "url": "https://vercel.com/changelog/vercel-billing-cli-is-now-available",
+      "published_at": "2026-11-19T05:00:00Z",
+      "discovered_at": "2026-11-20T07:33:49.292258182Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-9eb98d59d8010e12",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-129502: @fastify/http-proxy vulnerable to Denial of Service via a URL fragment in a WebSocket upgrade",
+      "url": "https://github.com/fastify/fastify-http-proxy/security/advisories/GHSA-29w6-p7r8-xmf9",
+      "published_at": "2026-11-19T18:20:55Z",
+      "discovered_at": "2026-11-20T07:33:49.263758539Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-74f0816ca7f55a71",
+      "name": "NVIDIA Developer",
+      "title": "Enabling Real-Time AI for Scientific Instruments with GPU-Native Data Acquisition",
+      "url": "https://developer.nvidia.com/blog/enabling-real-time-ai-for-scientific-instruments-with-gpu-native-data-acquisition/",
+      "published_at": "2026-11-19T17:00:00Z",
+      "discovered_at": "2026-11-20T07:33:49.900274538Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-1ab3c6f9fcc2bb4c",
+      "name": "Lobsters",
+      "title": "PHP 8.6 Release Announcement",
+      "url": "https://www.php.net/releases/8.6/en.php",
+      "published_at": null,
+      "discovered_at": "2026-11-19T04:17:55.143-06:00",
+      "discussion_url": "https://lobste.rs/s/xn50o0/php_8_6_release_announcement"
+    },
+    {
+      "id": "source-da3414a9602a319d",
+      "name": "NVIDIA Developer",
+      "title": "Build Tool-Calling Parsers in Rust with AI Agents",
+      "url": "https://developer.nvidia.com/blog/build-tool-calling-parsers-in-rust-with-ai-agents/",
+      "published_at": "2026-11-19T16:30:46Z",
+      "discovered_at": "2026-11-20T07:33:49.900274538Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-fbf3aaa29ac7691d",
+      "name": "Lobsters",
+      "title": "Distributed, high-performance blob storage on SQLite",
+      "url": "https://zerodha.tech/blog/high-performance-distributed-blob-storage/",
+      "published_at": null,
+      "discovered_at": "2026-11-19T02:37:13.161-06:00",
+      "discussion_url": "https://lobste.rs/s/bk5nfs/distributed_high_performance_blob"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-20/bd74a804a8d084159524a8fd375a16d7117d528a180e91cfdc17fe343efbed90.mp3",
+    "duration_seconds": 385.848,
+    "script_hash": "84423b5b35e89d61bf84f608b35ef57e572df61ac11e0f3dc0f86c896a3ba61d",
+    "cues": [
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Hello",
+        "start_seconds": 0.225,
+        "end_seconds": 0.725
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "everyone,",
+        "start_seconds": 0.725,
+        "end_seconds": 1.9625
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "and",
+        "start_seconds": 1.9625,
+        "end_seconds": 2.1375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "welcome",
+        "start_seconds": 2.1375,
+        "end_seconds": 2.625
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "to",
+        "start_seconds": 2.625,
+        "end_seconds": 2.75
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Daywire.",
+        "start_seconds": 2.75,
+        "end_seconds": 4.775
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Let's",
+        "start_seconds": 4.775,
+        "end_seconds": 5.125
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "make",
+        "start_seconds": 5.125,
+        "end_seconds": 5.4375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "sense",
+        "start_seconds": 5.4375,
+        "end_seconds": 6.0375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "of",
+        "start_seconds": 6.0375,
+        "end_seconds": 6.175
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "the",
+        "start_seconds": 6.175,
+        "end_seconds": 6.275
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "tech",
+        "start_seconds": 6.275,
+        "end_seconds": 6.575
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "news.",
+        "start_seconds": 6.575,
+        "end_seconds": 8.1125
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "It's",
+        "start_seconds": 8.1125,
+        "end_seconds": 8.375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "November",
+        "start_seconds": 8.375,
+        "end_seconds": 8.9625
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "twenty,",
+        "start_seconds": 8.9625,
+        "end_seconds": 10.0125
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "two",
+        "start_seconds": 10.0125,
+        "end_seconds": 10.3375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "thousand",
+        "start_seconds": 10.3375,
+        "end_seconds": 10.75
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "twenty",
+        "start_seconds": 10.75,
+        "end_seconds": 11.0625
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "six.",
+        "start_seconds": 11.0625,
+        "end_seconds": 12.2
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "We",
+        "start_seconds": 13.375,
+        "end_seconds": 13.475
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "begin",
+        "start_seconds": 13.475,
+        "end_seconds": 14.0625
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "with",
+        "start_seconds": 14.0625,
+        "end_seconds": 14.2125
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "our",
+        "start_seconds": 14.2125,
+        "end_seconds": 14.35
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "lead",
+        "start_seconds": 14.35,
+        "end_seconds": 14.637500000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "story.",
+        "start_seconds": 14.637500000000001,
+        "end_seconds": 16.4375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "A",
+        "start_seconds": 16.4375,
+        "end_seconds": 16.5875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "loop‑bounds",
+        "start_seconds": 16.5875,
+        "end_seconds": 17.3875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "bug",
+        "start_seconds": 17.3875,
+        "end_seconds": 17.775
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "in",
+        "start_seconds": 17.775,
+        "end_seconds": 17.925
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Ruby2Shell",
+        "start_seconds": 17.925,
+        "end_seconds": 19.175
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "can",
+        "start_seconds": 19.175,
+        "end_seconds": 19.35
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "be",
+        "start_seconds": 19.35,
+        "end_seconds": 19.5125
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "triggered",
+        "start_seconds": 19.5125,
+        "end_seconds": 19.9875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "by",
+        "start_seconds": 19.9875,
+        "end_seconds": 20.2125
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "upcasing",
+        "start_seconds": 20.2125,
+        "end_seconds": 20.8375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "strings",
+        "start_seconds": 20.8375,
+        "end_seconds": 21.5875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "in",
+        "start_seconds": 21.5875,
+        "end_seconds": 21.6875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "a",
+        "start_seconds": 21.6875,
+        "end_seconds": 21.775
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "legacy",
+        "start_seconds": 21.775,
+        "end_seconds": 22.200000000000003
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "encoding,",
+        "start_seconds": 22.200000000000003,
+        "end_seconds": 23.887500000000003
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "and",
+        "start_seconds": 23.887500000000003,
+        "end_seconds": 24.012500000000003
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "it",
+        "start_seconds": 24.012500000000003,
+        "end_seconds": 24.1
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "reaches",
+        "start_seconds": 24.1,
+        "end_seconds": 24.5875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "default",
+        "start_seconds": 24.5875,
+        "end_seconds": 25.137500000000003
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Rails",
+        "start_seconds": 25.137500000000003,
+        "end_seconds": 26.4375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "and",
+        "start_seconds": 26.4375,
+        "end_seconds": 26.6
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "classic‑style",
+        "start_seconds": 26.6,
+        "end_seconds": 27.6125
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Sinatra",
+        "start_seconds": 27.6125,
+        "end_seconds": 28.1625
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "apps.",
+        "start_seconds": 28.1625,
+        "end_seconds": 30.025
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "The",
+        "start_seconds": 30.025,
+        "end_seconds": 30.1875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "flaw",
+        "start_seconds": 30.1875,
+        "end_seconds": 30.612499999999997
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "touches",
+        "start_seconds": 30.612499999999997,
+        "end_seconds": 31.0875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Ruby",
+        "start_seconds": 31.0875,
+        "end_seconds": 31.450000000000003
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "versions",
+        "start_seconds": 31.450000000000003,
+        "end_seconds": 32.1
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "3.3.0",
+        "start_seconds": 32.1,
+        "end_seconds": 33.225
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "through",
+        "start_seconds": 33.225,
+        "end_seconds": 33.4625
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "3.3.13,",
+        "start_seconds": 33.4625,
+        "end_seconds": 35.5
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "3.4.0",
+        "start_seconds": 35.5,
+        "end_seconds": 36.85
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "through",
+        "start_seconds": 36.85,
+        "end_seconds": 37.0875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "3.4.12,",
+        "start_seconds": 37.0875,
+        "end_seconds": 39.2375
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "and",
+        "start_seconds": 39.2375,
+        "end_seconds": 39.425
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "4.0.0",
+        "start_seconds": 39.425,
+        "end_seconds": 41.0875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "through",
+        "start_seconds": 41.0875,
+        "end_seconds": 41.35
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "4.0.9,",
+        "start_seconds": 41.35,
+        "end_seconds": 43.675
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "with",
+        "start_seconds": 43.675,
+        "end_seconds": 43.8875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "fixes",
+        "start_seconds": 43.8875,
+        "end_seconds": 44.425
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "in",
+        "start_seconds": 44.425,
+        "end_seconds": 44.575
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "version",
+        "start_seconds": 44.575,
+        "end_seconds": 45.075
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "3.3.14,",
+        "start_seconds": 45.075,
+        "end_seconds": 47.3
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "3.4.13",
+        "start_seconds": 47.3,
+        "end_seconds": 49.425
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "and",
+        "start_seconds": 49.425,
+        "end_seconds": 49.675
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "4.0.10.",
+        "start_seconds": 49.675,
+        "end_seconds": 51.6875
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Self‑hosted",
+        "start_seconds": 52.195,
+        "end_seconds": 52.970000000000006
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "platforms",
+        "start_seconds": 52.970000000000006,
+        "end_seconds": 53.782500000000006
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "that",
+        "start_seconds": 53.782500000000006,
+        "end_seconds": 54.0075
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "bundle",
+        "start_seconds": 54.0075,
+        "end_seconds": 54.42
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Ruby—GitHub",
+        "start_seconds": 54.42,
+        "end_seconds": 56.432500000000005
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Enterprise",
+        "start_seconds": 56.432500000000005,
+        "end_seconds": 57.095000000000006
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Server",
+        "start_seconds": 57.095000000000006,
+        "end_seconds": 57.695
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "up",
+        "start_seconds": 57.695,
+        "end_seconds": 57.92
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "to",
+        "start_seconds": 57.92,
+        "end_seconds": 58.057500000000005
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "3.22.5,",
+        "start_seconds": 58.057500000000005,
+        "end_seconds": 60.50750000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Chatwoot",
+        "start_seconds": 60.50750000000001,
+        "end_seconds": 61.22
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "up",
+        "start_seconds": 61.22,
+        "end_seconds": 61.44500000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "to",
+        "start_seconds": 61.44500000000001,
+        "end_seconds": 61.5825
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "4.20.0,",
+        "start_seconds": 61.5825,
+        "end_seconds": 63.69500000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "GitLab",
+        "start_seconds": 63.69500000000001,
+        "end_seconds": 64.38250000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "up",
+        "start_seconds": 64.38250000000001,
+        "end_seconds": 64.595
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "to",
+        "start_seconds": 64.595,
+        "end_seconds": 64.72
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "19.6.0,",
+        "start_seconds": 64.72,
+        "end_seconds": 66.92
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Mastodon",
+        "start_seconds": 66.92,
+        "end_seconds": 67.82000000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "up",
+        "start_seconds": 67.82000000000001,
+        "end_seconds": 68.045
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "to",
+        "start_seconds": 68.045,
+        "end_seconds": 68.1825
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "4.7.5,",
+        "start_seconds": 68.1825,
+        "end_seconds": 70.38250000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "OpenProject",
+        "start_seconds": 70.38250000000001,
+        "end_seconds": 71.57000000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "up",
+        "start_seconds": 71.57000000000001,
+        "end_seconds": 71.795
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "to",
+        "start_seconds": 71.795,
+        "end_seconds": 71.9325
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "17.9.7,",
+        "start_seconds": 71.9325,
+        "end_seconds": 74.45750000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "and",
+        "start_seconds": 74.45750000000001,
+        "end_seconds": 74.63250000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "older",
+        "start_seconds": 74.63250000000001,
+        "end_seconds": 75.0325
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Discourse",
+        "start_seconds": 75.0325,
+        "end_seconds": 75.595
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "images—remain",
+        "start_seconds": 75.595,
+        "end_seconds": 77.3575
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "vulnerable",
+        "start_seconds": 77.3575,
+        "end_seconds": 78.75750000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "until",
+        "start_seconds": 78.75750000000001,
+        "end_seconds": 79.12
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "their",
+        "start_seconds": 79.12,
+        "end_seconds": 79.32000000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "vendors",
+        "start_seconds": 79.32000000000001,
+        "end_seconds": 79.9825
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "release",
+        "start_seconds": 79.9825,
+        "end_seconds": 80.42
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "patches.",
+        "start_seconds": 80.42,
+        "end_seconds": 82.595
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Upgrade",
+        "start_seconds": 82.595,
+        "end_seconds": 83.25750000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "Ruby",
+        "start_seconds": 83.25750000000001,
+        "end_seconds": 84.3575
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "or",
+        "start_seconds": 84.3575,
+        "end_seconds": 84.57
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "apply",
+        "start_seconds": 84.57,
+        "end_seconds": 85.445
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "the",
+        "start_seconds": 85.445,
+        "end_seconds": 85.595
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "vendor",
+        "start_seconds": 85.595,
+        "end_seconds": 86.08250000000001
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "patches",
+        "start_seconds": 86.08250000000001,
+        "end_seconds": 86.67
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "to",
+        "start_seconds": 86.67,
+        "end_seconds": 86.795
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "stay",
+        "start_seconds": 86.795,
+        "end_seconds": 87.1075
+      },
+      {
+        "segment_id": "ruby2shell-vuln-2026-11-20",
+        "text": "safe.",
+        "start_seconds": 87.1075,
+        "end_seconds": 88.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 89.42,
+        "end_seconds": 89.9325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 89.9325,
+        "end_seconds": 90.0825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 90.0825,
+        "end_seconds": 90.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 90.17,
+        "end_seconds": 92.2075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Fastify",
+        "start_seconds": 92.2075,
+        "end_seconds": 93.2825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "just",
+        "start_seconds": 93.2825,
+        "end_seconds": 93.6825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "released",
+        "start_seconds": 93.6825,
+        "end_seconds": 94.27
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 94.27,
+        "end_seconds": 95.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "eleven",
+        "start_seconds": 95.12,
+        "end_seconds": 95.63250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 95.63250000000001,
+        "end_seconds": 96.07000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six",
+        "start_seconds": 96.07000000000001,
+        "end_seconds": 96.4325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 96.4325,
+        "end_seconds": 96.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ten",
+        "start_seconds": 96.7825,
+        "end_seconds": 97.94500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 97.94500000000001,
+        "end_seconds": 98.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 98.1075,
+        "end_seconds": 98.3325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "HTTP‑proxy",
+        "start_seconds": 98.3325,
+        "end_seconds": 99.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "plugin,",
+        "start_seconds": 99.92,
+        "end_seconds": 101.63250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 101.63250000000001,
+        "end_seconds": 101.75750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 101.75750000000001,
+        "end_seconds": 101.8575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "patches",
+        "start_seconds": 101.8575,
+        "end_seconds": 102.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 102.545,
+        "end_seconds": 103.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "high‑severity",
+        "start_seconds": 103.12,
+        "end_seconds": 104.2325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "denial‑of‑service",
+        "start_seconds": 104.2325,
+        "end_seconds": 106.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "flaws.",
+        "start_seconds": 106.0075,
+        "end_seconds": 107.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 108.41999999999999,
+        "end_seconds": 108.5325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "first",
+        "start_seconds": 108.5325,
+        "end_seconds": 108.93249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bug",
+        "start_seconds": 108.93249999999999,
+        "end_seconds": 109.41999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "let",
+        "start_seconds": 109.41999999999999,
+        "end_seconds": 109.60749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 109.60749999999999,
+        "end_seconds": 109.66999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "client",
+        "start_seconds": 109.66999999999999,
+        "end_seconds": 110.3325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "reset",
+        "start_seconds": 110.3325,
+        "end_seconds": 110.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 110.77,
+        "end_seconds": 110.9075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "TCP",
+        "start_seconds": 110.9075,
+        "end_seconds": 111.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "connection",
+        "start_seconds": 111.57,
+        "end_seconds": 112.80749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "before",
+        "start_seconds": 112.80749999999999,
+        "end_seconds": 113.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 113.22,
+        "end_seconds": 113.32
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ws",
+        "start_seconds": 113.32,
+        "end_seconds": 113.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "library",
+        "start_seconds": 113.945,
+        "end_seconds": 114.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "took",
+        "start_seconds": 114.52,
+        "end_seconds": 114.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "over,",
+        "start_seconds": 114.695,
+        "end_seconds": 116.2075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "leaving",
+        "start_seconds": 116.2075,
+        "end_seconds": 116.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 116.595,
+        "end_seconds": 116.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "unhandled",
+        "start_seconds": 116.77,
+        "end_seconds": 117.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ECONNRESET",
+        "start_seconds": 117.57,
+        "end_seconds": 119.99499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 119.99499999999999,
+        "end_seconds": 120.2825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "crashed",
+        "start_seconds": 120.2825,
+        "end_seconds": 120.74499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 120.74499999999999,
+        "end_seconds": 120.86999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Node",
+        "start_seconds": 120.86999999999999,
+        "end_seconds": 121.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "jay",
+        "start_seconds": 121.57,
+        "end_seconds": 121.98249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ess",
+        "start_seconds": 121.98249999999999,
+        "end_seconds": 122.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "process.",
+        "start_seconds": 122.22,
+        "end_seconds": 124.41999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 124.41999999999999,
+        "end_seconds": 124.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "second",
+        "start_seconds": 124.595,
+        "end_seconds": 125.73249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "was",
+        "start_seconds": 125.73249999999999,
+        "end_seconds": 125.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 125.97,
+        "end_seconds": 126.0825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "URL",
+        "start_seconds": 126.0825,
+        "end_seconds": 126.68249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fragment",
+        "start_seconds": 126.68249999999999,
+        "end_seconds": 127.49499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 127.49499999999999,
+        "end_seconds": 127.6325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 127.6325,
+        "end_seconds": 127.74499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "upgrade",
+        "start_seconds": 127.74499999999999,
+        "end_seconds": 128.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "request",
+        "start_seconds": 128.245,
+        "end_seconds": 129.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "–",
+        "start_seconds": 129.67,
+        "end_seconds": 129.8825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "something",
+        "start_seconds": 129.8825,
+        "end_seconds": 130.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "like",
+        "start_seconds": 130.345,
+        "end_seconds": 130.58249999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "GET",
+        "start_seconds": 130.58249999999998,
+        "end_seconds": 130.87
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "slash",
+        "start_seconds": 130.87,
+        "end_seconds": 131.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "echo",
+        "start_seconds": 131.4075,
+        "end_seconds": 131.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hash",
+        "start_seconds": 131.7825,
+        "end_seconds": 132.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "x",
+        "start_seconds": 132.12,
+        "end_seconds": 133.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "–",
+        "start_seconds": 133.3575,
+        "end_seconds": 133.51999999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "which",
+        "start_seconds": 133.51999999999998,
+        "end_seconds": 133.7575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "caused",
+        "start_seconds": 133.7575,
+        "end_seconds": 134.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 134.245,
+        "end_seconds": 134.37
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "upstream",
+        "start_seconds": 134.37,
+        "end_seconds": 134.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "builder",
+        "start_seconds": 134.945,
+        "end_seconds": 135.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 135.3575,
+        "end_seconds": 135.5075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "throw",
+        "start_seconds": 135.5075,
+        "end_seconds": 136.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 136.7825,
+        "end_seconds": 137.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "then",
+        "start_seconds": 137.095,
+        "end_seconds": 137.5075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "crash",
+        "start_seconds": 137.5075,
+        "end_seconds": 138.2575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 138.2575,
+        "end_seconds": 138.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 138.4075,
+        "end_seconds": 138.495
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "next",
+        "start_seconds": 138.495,
+        "end_seconds": 138.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "frame.",
+        "start_seconds": 138.845,
+        "end_seconds": 140.62
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 140.62,
+        "end_seconds": 140.83249999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "update",
+        "start_seconds": 140.83249999999998,
+        "end_seconds": 141.83249999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "adds",
+        "start_seconds": 141.83249999999998,
+        "end_seconds": 142.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 142.1075,
+        "end_seconds": 142.20749999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "temporary",
+        "start_seconds": 142.20749999999998,
+        "end_seconds": 142.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "error",
+        "start_seconds": 142.945,
+        "end_seconds": 143.26999999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "listener",
+        "start_seconds": 143.26999999999998,
+        "end_seconds": 144.4825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 144.4825,
+        "end_seconds": 144.70749999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "strips",
+        "start_seconds": 144.70749999999998,
+        "end_seconds": 145.14499999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fragments,",
+        "start_seconds": 145.14499999999998,
+        "end_seconds": 146.76999999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "so",
+        "start_seconds": 146.76999999999998,
+        "end_seconds": 147.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "only",
+        "start_seconds": 147.0075,
+        "end_seconds": 147.37
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 147.37,
+        "end_seconds": 147.51999999999998
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "offending",
+        "start_seconds": 147.51999999999998,
+        "end_seconds": 148.0575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "socket",
+        "start_seconds": 148.0575,
+        "end_seconds": 148.5075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dies.",
+        "start_seconds": 148.5075,
+        "end_seconds": 149.7325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Upgrade",
+        "start_seconds": 150.19,
+        "end_seconds": 150.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 150.74,
+        "end_seconds": 151.6275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "if",
+        "start_seconds": 151.6275,
+        "end_seconds": 151.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 151.815,
+        "end_seconds": 151.9775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "route",
+        "start_seconds": 151.9775,
+        "end_seconds": 152.4025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "WebSockets",
+        "start_seconds": 152.4025,
+        "end_seconds": 153.24
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "through",
+        "start_seconds": 153.24,
+        "end_seconds": 153.4525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Fastify,",
+        "start_seconds": 153.4525,
+        "end_seconds": 155.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 155.59,
+        "end_seconds": 155.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you’ll",
+        "start_seconds": 155.74,
+        "end_seconds": 155.915
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "keep",
+        "start_seconds": 155.915,
+        "end_seconds": 156.2275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "risking",
+        "start_seconds": 156.2275,
+        "end_seconds": 157.0525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "unexpected",
+        "start_seconds": 157.0525,
+        "end_seconds": 157.9025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "server",
+        "start_seconds": 157.9025,
+        "end_seconds": 158.29
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "crashes.",
+        "start_seconds": 158.29,
+        "end_seconds": 159.615
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "Turning",
+        "start_seconds": 160.815,
+        "end_seconds": 161.3775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "to",
+        "start_seconds": 161.3775,
+        "end_seconds": 161.5275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "our",
+        "start_seconds": 161.5275,
+        "end_seconds": 161.665
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "next",
+        "start_seconds": 161.665,
+        "end_seconds": 161.965
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "story.",
+        "start_seconds": 161.965,
+        "end_seconds": 163.7775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "PHP",
+        "start_seconds": 163.7775,
+        "end_seconds": 164.965
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "8.6.0",
+        "start_seconds": 164.965,
+        "end_seconds": 166.89
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "went",
+        "start_seconds": 166.89,
+        "end_seconds": 167.3025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "generally",
+        "start_seconds": 167.3025,
+        "end_seconds": 167.9025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "available",
+        "start_seconds": 167.9025,
+        "end_seconds": 169.0775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "on",
+        "start_seconds": 169.0775,
+        "end_seconds": 169.315
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "19",
+        "start_seconds": 169.315,
+        "end_seconds": 172.665
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "November",
+        "start_seconds": 169.315,
+        "end_seconds": 172.665
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "2026,",
+        "start_seconds": 169.315,
+        "end_seconds": 173.065
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "bringing",
+        "start_seconds": 173.065,
+        "end_seconds": 173.49
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "a",
+        "start_seconds": 173.49,
+        "end_seconds": 173.6025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "couple",
+        "start_seconds": 173.6025,
+        "end_seconds": 174.065
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "of",
+        "start_seconds": 174.065,
+        "end_seconds": 174.215
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "developer‑friendly",
+        "start_seconds": 174.215,
+        "end_seconds": 175.7025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "upgrades.",
+        "start_seconds": 175.7025,
+        "end_seconds": 177.115
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "First",
+        "start_seconds": 178.34,
+        "end_seconds": 178.69
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "up,",
+        "start_seconds": 178.69,
+        "end_seconds": 179.2275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "partial",
+        "start_seconds": 179.2275,
+        "end_seconds": 179.6775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "function",
+        "start_seconds": 179.6775,
+        "end_seconds": 180.19
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "application",
+        "start_seconds": 180.19,
+        "end_seconds": 181.6775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "lets",
+        "start_seconds": 181.6775,
+        "end_seconds": 181.99
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "you",
+        "start_seconds": 181.99,
+        "end_seconds": 182.1275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "pre‑supply",
+        "start_seconds": 182.1275,
+        "end_seconds": 182.9525
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "some",
+        "start_seconds": 182.9525,
+        "end_seconds": 183.165
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "arguments",
+        "start_seconds": 183.165,
+        "end_seconds": 184.5775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "and",
+        "start_seconds": 184.5775,
+        "end_seconds": 184.74
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "get",
+        "start_seconds": 184.74,
+        "end_seconds": 184.94
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "back",
+        "start_seconds": 184.94,
+        "end_seconds": 185.2025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "a",
+        "start_seconds": 185.2025,
+        "end_seconds": 185.29
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "Closure",
+        "start_seconds": 185.29,
+        "end_seconds": 186.24
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "that",
+        "start_seconds": 186.24,
+        "end_seconds": 186.4775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "finishes",
+        "start_seconds": 186.4775,
+        "end_seconds": 186.965
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "the",
+        "start_seconds": 186.965,
+        "end_seconds": 187.065
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "call",
+        "start_seconds": 187.065,
+        "end_seconds": 187.365
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "later",
+        "start_seconds": 187.365,
+        "end_seconds": 188.6275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "–",
+        "start_seconds": 188.6275,
+        "end_seconds": 188.84
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "a",
+        "start_seconds": 188.84,
+        "end_seconds": 188.9525
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "neat",
+        "start_seconds": 188.9525,
+        "end_seconds": 189.5025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "way",
+        "start_seconds": 189.5025,
+        "end_seconds": 189.79
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "to",
+        "start_seconds": 189.79,
+        "end_seconds": 189.9275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "simplify",
+        "start_seconds": 189.9275,
+        "end_seconds": 190.49
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "callbacks.",
+        "start_seconds": 190.49,
+        "end_seconds": 192.4775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "Next,",
+        "start_seconds": 192.4775,
+        "end_seconds": 193.7025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "readonly",
+        "start_seconds": 193.7025,
+        "end_seconds": 194.4025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "properties",
+        "start_seconds": 194.4025,
+        "end_seconds": 195.215
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "can",
+        "start_seconds": 195.215,
+        "end_seconds": 195.39
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "now",
+        "start_seconds": 195.39,
+        "end_seconds": 195.665
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "declare",
+        "start_seconds": 195.665,
+        "end_seconds": 196.19
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "default",
+        "start_seconds": 196.19,
+        "end_seconds": 196.64
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "values,",
+        "start_seconds": 196.64,
+        "end_seconds": 198.1775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "so",
+        "start_seconds": 198.1775,
+        "end_seconds": 198.315
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "you",
+        "start_seconds": 198.315,
+        "end_seconds": 198.415
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "no",
+        "start_seconds": 198.415,
+        "end_seconds": 198.59
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "longer",
+        "start_seconds": 198.59,
+        "end_seconds": 198.965
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "need",
+        "start_seconds": 198.965,
+        "end_seconds": 199.1525
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "a",
+        "start_seconds": 199.1525,
+        "end_seconds": 199.215
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "constructor",
+        "start_seconds": 199.215,
+        "end_seconds": 200.2525
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "just",
+        "start_seconds": 200.2525,
+        "end_seconds": 200.64
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "to",
+        "start_seconds": 200.64,
+        "end_seconds": 200.765
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "set",
+        "start_seconds": 200.765,
+        "end_seconds": 201.015
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "them.",
+        "start_seconds": 201.015,
+        "end_seconds": 202.6025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "Finally,",
+        "start_seconds": 202.6025,
+        "end_seconds": 203.8525
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "the",
+        "start_seconds": 203.8525,
+        "end_seconds": 203.99
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "new",
+        "start_seconds": 203.99,
+        "end_seconds": 204.2775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "Io\\Poll",
+        "start_seconds": 204.2775,
+        "end_seconds": 205.715
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "API",
+        "start_seconds": 205.715,
+        "end_seconds": 206.79
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "replaces",
+        "start_seconds": 206.79,
+        "end_seconds": 207.44
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "the",
+        "start_seconds": 207.44,
+        "end_seconds": 207.6025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "old",
+        "start_seconds": 207.6025,
+        "end_seconds": 207.94
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "stream_select()",
+        "start_seconds": 207.94,
+        "end_seconds": 209.84
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "with",
+        "start_seconds": 209.84,
+        "end_seconds": 209.9775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "a",
+        "start_seconds": 209.9775,
+        "end_seconds": 210.04
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "platform‑optimized",
+        "start_seconds": 210.04,
+        "end_seconds": 211.4275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "poller,",
+        "start_seconds": 211.4275,
+        "end_seconds": 212.9275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "giving",
+        "start_seconds": 212.9275,
+        "end_seconds": 213.24
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "event‑loop",
+        "start_seconds": 213.24,
+        "end_seconds": 213.965
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "libraries",
+        "start_seconds": 213.965,
+        "end_seconds": 215.0025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "like",
+        "start_seconds": 215.0025,
+        "end_seconds": 215.2525
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "ReactPHP",
+        "start_seconds": 215.2525,
+        "end_seconds": 216.8775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "a",
+        "start_seconds": 216.8775,
+        "end_seconds": 217.015
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "more",
+        "start_seconds": 217.015,
+        "end_seconds": 217.2525
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "scalable",
+        "start_seconds": 217.2525,
+        "end_seconds": 218.215
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "I/O",
+        "start_seconds": 218.215,
+        "end_seconds": 218.615
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "backbone.",
+        "start_seconds": 218.615,
+        "end_seconds": 219.89
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "Here’s",
+        "start_seconds": 221.09,
+        "end_seconds": 221.9275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "why",
+        "start_seconds": 221.9275,
+        "end_seconds": 222.115
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "that",
+        "start_seconds": 222.115,
+        "end_seconds": 222.39000000000001
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "matters:",
+        "start_seconds": 222.39000000000001,
+        "end_seconds": 224.24
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "you",
+        "start_seconds": 224.24,
+        "end_seconds": 224.415
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "can",
+        "start_seconds": 224.415,
+        "end_seconds": 224.615
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "write",
+        "start_seconds": 224.615,
+        "end_seconds": 224.9275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "cleaner",
+        "start_seconds": 224.9275,
+        "end_seconds": 225.32750000000001
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "code",
+        "start_seconds": 225.32750000000001,
+        "end_seconds": 226.4025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "and",
+        "start_seconds": 226.4025,
+        "end_seconds": 226.565
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "handle",
+        "start_seconds": 226.565,
+        "end_seconds": 226.965
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "many",
+        "start_seconds": 226.965,
+        "end_seconds": 227.2525
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "streams",
+        "start_seconds": 227.2525,
+        "end_seconds": 227.79
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "more",
+        "start_seconds": 227.79,
+        "end_seconds": 227.99
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "efficiently,",
+        "start_seconds": 227.99,
+        "end_seconds": 229.865
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "but",
+        "start_seconds": 229.865,
+        "end_seconds": 230.04
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "you’ll",
+        "start_seconds": 230.04,
+        "end_seconds": 230.215
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "need",
+        "start_seconds": 230.215,
+        "end_seconds": 230.49
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "to",
+        "start_seconds": 230.49,
+        "end_seconds": 230.64000000000001
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "adjust",
+        "start_seconds": 230.64000000000001,
+        "end_seconds": 231.26500000000001
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "any",
+        "start_seconds": 231.26500000000001,
+        "end_seconds": 231.6025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "code",
+        "start_seconds": 231.6025,
+        "end_seconds": 232.565
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "that",
+        "start_seconds": 232.565,
+        "end_seconds": 232.815
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "still",
+        "start_seconds": 232.815,
+        "end_seconds": 233.215
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "relies",
+        "start_seconds": 233.215,
+        "end_seconds": 233.915
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "on",
+        "start_seconds": 233.915,
+        "end_seconds": 234.1275
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "stream_select()",
+        "start_seconds": 234.1275,
+        "end_seconds": 236.4025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "or",
+        "start_seconds": 236.4025,
+        "end_seconds": 236.59
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "assumes",
+        "start_seconds": 236.59,
+        "end_seconds": 237.615
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "readonly",
+        "start_seconds": 237.615,
+        "end_seconds": 238.4025
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "properties",
+        "start_seconds": 238.4025,
+        "end_seconds": 239.76500000000001
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "can’t",
+        "start_seconds": 239.76500000000001,
+        "end_seconds": 240.1775
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "have",
+        "start_seconds": 240.1775,
+        "end_seconds": 240.44
+      },
+      {
+        "segment_id": "php-8-6-release-summary-segment",
+        "text": "defaults.",
+        "start_seconds": 240.44,
+        "end_seconds": 241.76500000000001
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "Next",
+        "start_seconds": 242.965,
+        "end_seconds": 243.54
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "on",
+        "start_seconds": 243.54,
+        "end_seconds": 243.70250000000001
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "the",
+        "start_seconds": 243.70250000000001,
+        "end_seconds": 243.79
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "bulletin.",
+        "start_seconds": 243.79,
+        "end_seconds": 245.7275
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "Blobasaur,",
+        "start_seconds": 245.7275,
+        "end_seconds": 246.8775
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "built",
+        "start_seconds": 246.8775,
+        "end_seconds": 247.19
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "by",
+        "start_seconds": 247.19,
+        "end_seconds": 247.3775
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "Zerodha,",
+        "start_seconds": 247.3775,
+        "end_seconds": 249.04
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "now",
+        "start_seconds": 249.04,
+        "end_seconds": 249.4025
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "serves",
+        "start_seconds": 249.4025,
+        "end_seconds": 249.99
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "tiny",
+        "start_seconds": 249.99,
+        "end_seconds": 250.49
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "JSON",
+        "start_seconds": 250.49,
+        "end_seconds": 251.3775
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "blobs",
+        "start_seconds": 251.3775,
+        "end_seconds": 252.01500000000001
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "from",
+        "start_seconds": 252.01500000000001,
+        "end_seconds": 252.2525
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "sharded",
+        "start_seconds": 252.2525,
+        "end_seconds": 252.79
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "SQLite",
+        "start_seconds": 252.79,
+        "end_seconds": 253.6275
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "files",
+        "start_seconds": 253.6275,
+        "end_seconds": 254.9275
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "with",
+        "start_seconds": 254.9275,
+        "end_seconds": 255.19
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "single‑digit",
+        "start_seconds": 255.19,
+        "end_seconds": 256.21500000000003
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "millisecond",
+        "start_seconds": 256.21500000000003,
+        "end_seconds": 256.89
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "latency.",
+        "start_seconds": 256.89,
+        "end_seconds": 258.8025
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "The",
+        "start_seconds": 258.8025,
+        "end_seconds": 258.9775
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "Rust‑based",
+        "start_seconds": 258.9775,
+        "end_seconds": 259.99
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "server",
+        "start_seconds": 259.99,
+        "end_seconds": 260.8025
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "runs",
+        "start_seconds": 260.8025,
+        "end_seconds": 261.315
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "each",
+        "start_seconds": 261.315,
+        "end_seconds": 261.6775
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "shard",
+        "start_seconds": 261.6775,
+        "end_seconds": 262.71500000000003
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "in",
+        "start_seconds": 262.71500000000003,
+        "end_seconds": 262.90250000000003
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "write‑ahead",
+        "start_seconds": 262.90250000000003,
+        "end_seconds": 263.7275
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "log",
+        "start_seconds": 263.7275,
+        "end_seconds": 264.065
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "mode,",
+        "start_seconds": 264.065,
+        "end_seconds": 265.5775
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "so",
+        "start_seconds": 265.5775,
+        "end_seconds": 265.84000000000003
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "many",
+        "start_seconds": 265.84000000000003,
+        "end_seconds": 266.1275
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "reads",
+        "start_seconds": 266.1275,
+        "end_seconds": 266.65250000000003
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "happen",
+        "start_seconds": 266.65250000000003,
+        "end_seconds": 267.04
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "at",
+        "start_seconds": 267.04,
+        "end_seconds": 267.2025
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "once",
+        "start_seconds": 267.2025,
+        "end_seconds": 268.44
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "while",
+        "start_seconds": 268.44,
+        "end_seconds": 268.6775
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "a",
+        "start_seconds": 268.6775,
+        "end_seconds": 268.79
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "single",
+        "start_seconds": 268.79,
+        "end_seconds": 269.2025
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "writer",
+        "start_seconds": 269.2025,
+        "end_seconds": 269.59000000000003
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "per",
+        "start_seconds": 269.59000000000003,
+        "end_seconds": 269.815
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "file",
+        "start_seconds": 269.815,
+        "end_seconds": 270.7275
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "handles",
+        "start_seconds": 270.7275,
+        "end_seconds": 271.8525
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "about",
+        "start_seconds": 271.8525,
+        "end_seconds": 272.2275
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "half",
+        "start_seconds": 272.2275,
+        "end_seconds": 272.54
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "the",
+        "start_seconds": 272.54,
+        "end_seconds": 272.64
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "traffic.",
+        "start_seconds": 272.64,
+        "end_seconds": 273.8775
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "It",
+        "start_seconds": 274.31,
+        "end_seconds": 274.4975
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "caps",
+        "start_seconds": 274.4975,
+        "end_seconds": 274.92249999999996
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "blobs",
+        "start_seconds": 274.92249999999996,
+        "end_seconds": 275.48499999999996
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "at",
+        "start_seconds": 275.48499999999996,
+        "end_seconds": 275.6475
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "one",
+        "start_seconds": 275.6475,
+        "end_seconds": 275.885
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "megabyte",
+        "start_seconds": 275.885,
+        "end_seconds": 277.635
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "and",
+        "start_seconds": 277.635,
+        "end_seconds": 277.885
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "avoids",
+        "start_seconds": 277.885,
+        "end_seconds": 278.48499999999996
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "the",
+        "start_seconds": 278.48499999999996,
+        "end_seconds": 278.585
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "per‑request",
+        "start_seconds": 278.585,
+        "end_seconds": 279.3975
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "cost",
+        "start_seconds": 279.3975,
+        "end_seconds": 280.6475
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "of",
+        "start_seconds": 280.6475,
+        "end_seconds": 280.85999999999996
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "S3‑compatible",
+        "start_seconds": 280.85999999999996,
+        "end_seconds": 282.42249999999996
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "stores,",
+        "start_seconds": 282.42249999999996,
+        "end_seconds": 284.34749999999997
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "making",
+        "start_seconds": 284.34749999999997,
+        "end_seconds": 284.73499999999996
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "it",
+        "start_seconds": 284.73499999999996,
+        "end_seconds": 284.96
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "a",
+        "start_seconds": 284.96,
+        "end_seconds": 285.1225
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "cheap,",
+        "start_seconds": 285.1225,
+        "end_seconds": 286.15999999999997
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "low‑latency",
+        "start_seconds": 286.15999999999997,
+        "end_seconds": 287.1975
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "option",
+        "start_seconds": 287.1975,
+        "end_seconds": 288.135
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "for",
+        "start_seconds": 288.135,
+        "end_seconds": 288.31
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "engineers",
+        "start_seconds": 288.31,
+        "end_seconds": 289.8975
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "who",
+        "start_seconds": 289.8975,
+        "end_seconds": 290.06
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "can",
+        "start_seconds": 290.06,
+        "end_seconds": 290.2725
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "work",
+        "start_seconds": 290.2725,
+        "end_seconds": 290.9975
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "within",
+        "start_seconds": 290.9975,
+        "end_seconds": 291.31
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "the",
+        "start_seconds": 291.31,
+        "end_seconds": 291.46
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "single‑writer",
+        "start_seconds": 291.46,
+        "end_seconds": 292.51
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "limit.",
+        "start_seconds": 292.51,
+        "end_seconds": 293.60999999999996
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "If",
+        "start_seconds": 294.785,
+        "end_seconds": 294.96
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "your",
+        "start_seconds": 294.96,
+        "end_seconds": 295.1225
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "payloads",
+        "start_seconds": 295.1225,
+        "end_seconds": 295.7475
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "stay",
+        "start_seconds": 295.7475,
+        "end_seconds": 296.16
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "under",
+        "start_seconds": 296.16,
+        "end_seconds": 296.385
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "that",
+        "start_seconds": 296.385,
+        "end_seconds": 296.6725
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "size,",
+        "start_seconds": 296.6725,
+        "end_seconds": 298.1225
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "you",
+        "start_seconds": 298.1225,
+        "end_seconds": 298.285
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "get",
+        "start_seconds": 298.285,
+        "end_seconds": 298.4975
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "fast,",
+        "start_seconds": 298.4975,
+        "end_seconds": 300.0225
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "high‑throughput",
+        "start_seconds": 300.0225,
+        "end_seconds": 300.96
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "storage",
+        "start_seconds": 300.96,
+        "end_seconds": 302.06
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "without",
+        "start_seconds": 302.06,
+        "end_seconds": 302.435
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "the",
+        "start_seconds": 302.435,
+        "end_seconds": 302.535
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "cloud",
+        "start_seconds": 302.535,
+        "end_seconds": 302.885
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "bill,",
+        "start_seconds": 302.885,
+        "end_seconds": 304.4975
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "but",
+        "start_seconds": 304.4975,
+        "end_seconds": 304.66
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "you’ll",
+        "start_seconds": 304.66,
+        "end_seconds": 304.835
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "need",
+        "start_seconds": 304.835,
+        "end_seconds": 305.1225
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "to",
+        "start_seconds": 305.1225,
+        "end_seconds": 305.235
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "design",
+        "start_seconds": 305.235,
+        "end_seconds": 306.035
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "around",
+        "start_seconds": 306.035,
+        "end_seconds": 306.51
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "the",
+        "start_seconds": 306.51,
+        "end_seconds": 306.6475
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "one‑writer‑per‑shard",
+        "start_seconds": 306.6475,
+        "end_seconds": 308.8225
+      },
+      {
+        "segment_id": "blobasaur-storage",
+        "text": "constraint.",
+        "start_seconds": 308.8225,
+        "end_seconds": 310.26
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "And",
+        "start_seconds": 311.435,
+        "end_seconds": 311.6225
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "finally,",
+        "start_seconds": 311.6225,
+        "end_seconds": 312.585
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "our",
+        "start_seconds": 312.585,
+        "end_seconds": 312.76
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "last",
+        "start_seconds": 312.76,
+        "end_seconds": 313.10999999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "story.",
+        "start_seconds": 313.10999999999996,
+        "end_seconds": 314.8725
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Google’s",
+        "start_seconds": 314.8725,
+        "end_seconds": 315.42249999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Gemini",
+        "start_seconds": 315.42249999999996,
+        "end_seconds": 315.935
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Interactions",
+        "start_seconds": 315.935,
+        "end_seconds": 317.09749999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "API",
+        "start_seconds": 317.09749999999997,
+        "end_seconds": 318.335
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "just",
+        "start_seconds": 318.335,
+        "end_seconds": 318.685
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "got",
+        "start_seconds": 318.685,
+        "end_seconds": 318.935
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "a",
+        "start_seconds": 318.935,
+        "end_seconds": 319.04749999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "preview",
+        "start_seconds": 319.04749999999996,
+        "end_seconds": 319.4975
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "feature",
+        "start_seconds": 319.4975,
+        "end_seconds": 320.15999999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "called",
+        "start_seconds": 320.15999999999997,
+        "end_seconds": 320.53499999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Tool",
+        "start_seconds": 320.53499999999997,
+        "end_seconds": 321.03499999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Retrieval.",
+        "start_seconds": 321.03499999999997,
+        "end_seconds": 322.90999999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "By",
+        "start_seconds": 322.90999999999997,
+        "end_seconds": 323.135
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "setting",
+        "start_seconds": 323.135,
+        "end_seconds": 323.51
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "defer",
+        "start_seconds": 323.51,
+        "end_seconds": 323.9975
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "loading",
+        "start_seconds": 323.9975,
+        "end_seconds": 324.34749999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "true",
+        "start_seconds": 324.34749999999997,
+        "end_seconds": 324.73499999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "on",
+        "start_seconds": 324.73499999999996,
+        "end_seconds": 324.8725
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "a",
+        "start_seconds": 324.8725,
+        "end_seconds": 324.97249999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "tool,",
+        "start_seconds": 324.97249999999997,
+        "end_seconds": 326.40999999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "agents",
+        "start_seconds": 326.40999999999997,
+        "end_seconds": 326.97249999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "keep",
+        "start_seconds": 326.97249999999997,
+        "end_seconds": 327.26
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "a",
+        "start_seconds": 327.26,
+        "end_seconds": 327.3725
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "full",
+        "start_seconds": 327.3725,
+        "end_seconds": 327.6975
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "catalog",
+        "start_seconds": 327.6975,
+        "end_seconds": 328.335
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "on",
+        "start_seconds": 328.335,
+        "end_seconds": 328.54749999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "standby",
+        "start_seconds": 328.54749999999996,
+        "end_seconds": 330.04749999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "and",
+        "start_seconds": 330.04749999999996,
+        "end_seconds": 330.335
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "only",
+        "start_seconds": 330.335,
+        "end_seconds": 330.67249999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "pull",
+        "start_seconds": 330.67249999999996,
+        "end_seconds": 331.01
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "a",
+        "start_seconds": 331.01,
+        "end_seconds": 331.1225
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "tool’s",
+        "start_seconds": 331.1225,
+        "end_seconds": 331.6475
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "parameter",
+        "start_seconds": 331.6475,
+        "end_seconds": 332.2725
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "schema",
+        "start_seconds": 332.2725,
+        "end_seconds": 333.2725
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "when",
+        "start_seconds": 333.2725,
+        "end_seconds": 333.4475
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "it’s",
+        "start_seconds": 333.4475,
+        "end_seconds": 333.6475
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "actually",
+        "start_seconds": 333.6475,
+        "end_seconds": 334.10999999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "needed.",
+        "start_seconds": 334.10999999999996,
+        "end_seconds": 336.04749999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "That",
+        "start_seconds": 336.04749999999996,
+        "end_seconds": 336.51
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "trims",
+        "start_seconds": 336.51,
+        "end_seconds": 337.06
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "the",
+        "start_seconds": 337.06,
+        "end_seconds": 337.22249999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "input",
+        "start_seconds": 337.22249999999997,
+        "end_seconds": 337.79749999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "token",
+        "start_seconds": 337.79749999999996,
+        "end_seconds": 338.22249999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "count",
+        "start_seconds": 338.22249999999997,
+        "end_seconds": 339.3225
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "and",
+        "start_seconds": 339.3225,
+        "end_seconds": 339.54749999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "cuts",
+        "start_seconds": 339.54749999999996,
+        "end_seconds": 340.5725
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "request",
+        "start_seconds": 340.5725,
+        "end_seconds": 341.10999999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "latency,",
+        "start_seconds": 341.10999999999996,
+        "end_seconds": 342.81
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "especially",
+        "start_seconds": 342.81,
+        "end_seconds": 343.59749999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "for",
+        "start_seconds": 343.59749999999997,
+        "end_seconds": 343.7725
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "agents",
+        "start_seconds": 343.7725,
+        "end_seconds": 344.42249999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "juggling",
+        "start_seconds": 344.42249999999996,
+        "end_seconds": 345.03499999999997
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "dozens",
+        "start_seconds": 345.03499999999997,
+        "end_seconds": 345.5225
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "of",
+        "start_seconds": 345.5225,
+        "end_seconds": 345.67249999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "tools.",
+        "start_seconds": 345.67249999999996,
+        "end_seconds": 346.9475
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "It",
+        "start_seconds": 347.38,
+        "end_seconds": 347.55499999999995
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "works",
+        "start_seconds": 347.55499999999995,
+        "end_seconds": 347.955
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "with",
+        "start_seconds": 347.955,
+        "end_seconds": 348.1425
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Gemini",
+        "start_seconds": 348.1425,
+        "end_seconds": 348.74249999999995
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "version",
+        "start_seconds": 348.74249999999995,
+        "end_seconds": 349.255
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "three",
+        "start_seconds": 349.255,
+        "end_seconds": 349.5675
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "point",
+        "start_seconds": 349.5675,
+        "end_seconds": 349.92999999999995
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "six",
+        "start_seconds": 349.92999999999995,
+        "end_seconds": 350.705
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "and",
+        "start_seconds": 350.705,
+        "end_seconds": 350.85499999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "later,",
+        "start_seconds": 350.85499999999996,
+        "end_seconds": 352.11749999999995
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "including",
+        "start_seconds": 352.11749999999995,
+        "end_seconds": 352.7675
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "all",
+        "start_seconds": 352.7675,
+        "end_seconds": 353.17999999999995
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Gemini",
+        "start_seconds": 353.17999999999995,
+        "end_seconds": 353.7175
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "four",
+        "start_seconds": 353.7175,
+        "end_seconds": 354.005
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "models,",
+        "start_seconds": 354.005,
+        "end_seconds": 355.5925
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "and",
+        "start_seconds": 355.5925,
+        "end_seconds": 355.72999999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "requires",
+        "start_seconds": 355.72999999999996,
+        "end_seconds": 356.455
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "no",
+        "start_seconds": 356.455,
+        "end_seconds": 356.955
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "extra",
+        "start_seconds": 356.955,
+        "end_seconds": 357.405
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "hosting.",
+        "start_seconds": 357.405,
+        "end_seconds": 359.4675
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Here’s",
+        "start_seconds": 359.4675,
+        "end_seconds": 360.955
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "why",
+        "start_seconds": 360.955,
+        "end_seconds": 361.155
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "that",
+        "start_seconds": 361.155,
+        "end_seconds": 361.405
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "matters:",
+        "start_seconds": 361.405,
+        "end_seconds": 363.24249999999995
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "lower",
+        "start_seconds": 363.24249999999995,
+        "end_seconds": 363.66749999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "costs",
+        "start_seconds": 363.66749999999996,
+        "end_seconds": 365.04249999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "and",
+        "start_seconds": 365.04249999999996,
+        "end_seconds": 365.255
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "faster",
+        "start_seconds": 365.255,
+        "end_seconds": 365.78
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "responses",
+        "start_seconds": 365.78,
+        "end_seconds": 366.92999999999995
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "for",
+        "start_seconds": 366.92999999999995,
+        "end_seconds": 367.08
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "developers",
+        "start_seconds": 367.08,
+        "end_seconds": 368.22999999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "building",
+        "start_seconds": 368.22999999999996,
+        "end_seconds": 368.72999999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "rich",
+        "start_seconds": 368.72999999999996,
+        "end_seconds": 369.205
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "tool‑heavy",
+        "start_seconds": 369.205,
+        "end_seconds": 370.2175
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "agents.",
+        "start_seconds": 370.2175,
+        "end_seconds": 371.505
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "And",
+        "start_seconds": 372.68,
+        "end_seconds": 372.83
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "that's",
+        "start_seconds": 372.83,
+        "end_seconds": 373.13
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "your",
+        "start_seconds": 373.13,
+        "end_seconds": 373.29249999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Daywire",
+        "start_seconds": 373.29249999999996,
+        "end_seconds": 373.755
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "briefing.",
+        "start_seconds": 373.755,
+        "end_seconds": 375.47999999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "You'll",
+        "start_seconds": 375.47999999999996,
+        "end_seconds": 375.7425
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "find",
+        "start_seconds": 375.7425,
+        "end_seconds": 376.13
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "the",
+        "start_seconds": 376.13,
+        "end_seconds": 376.28
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "full",
+        "start_seconds": 376.28,
+        "end_seconds": 376.6175
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "stories",
+        "start_seconds": 376.6175,
+        "end_seconds": 377.3175
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "and",
+        "start_seconds": 377.3175,
+        "end_seconds": 377.4925
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "sources",
+        "start_seconds": 377.4925,
+        "end_seconds": 378.555
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "in",
+        "start_seconds": 378.555,
+        "end_seconds": 378.72999999999996
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "today's",
+        "start_seconds": 378.72999999999996,
+        "end_seconds": 379.2425
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "newspaper.",
+        "start_seconds": 379.2425,
+        "end_seconds": 381.1175
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Thanks",
+        "start_seconds": 381.1175,
+        "end_seconds": 381.58
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "for",
+        "start_seconds": 381.58,
+        "end_seconds": 381.705
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "listening.",
+        "start_seconds": 381.705,
+        "end_seconds": 383.28
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "Take",
+        "start_seconds": 383.28,
+        "end_seconds": 383.6425
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "care,",
+        "start_seconds": 383.6425,
+        "end_seconds": 384.4675
+      },
+      {
+        "segment_id": "gemini-tool-retrieval-preview-segment",
+        "text": "everyone.",
+        "start_seconds": 384.4675,
+        "end_seconds": 385.68
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
