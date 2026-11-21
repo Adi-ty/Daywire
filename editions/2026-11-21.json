@@ -1,0 +1,3549 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-21",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-21T07:44:51.571580495Z",
+  "coverage": {
+    "from": "2026-11-20T06:00:00+05:30",
+    "until": "2026-11-21T06:00:00+05:30",
+    "status": "complete",
+    "unavailable_sources": [],
+    "candidate_count": 47,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "Signal Blocks Screenshots to Thwart AI Agents",
+    "introduction": "Signal has introduced an optional setting that prevents screenshots on supported mobile devices, aiming to stop built‑in AI agents from reading message content. This move marks a notable privacy‑focused response to the growing integration of AI features in messaging apps.",
+    "articles": [
+      {
+        "id": "signal-ai-screenshot-restriction-2026-11-21",
+        "section": "Security",
+        "headline": "Signal adds optional screenshot block to curb AI agents",
+        "summary": "Signal now offers a setting that blocks screenshots on supported mobile platforms to stop built‑in AI agents from reading message content.",
+        "paragraphs": [
+          "The encrypted‑messaging app has introduced a new toggle that, when enabled, prevents the operating system from capturing screenshots of the Signal UI. This measure targets the latest AI agents embedded in iOS and Android that can otherwise harvest visible text for processing. Users can turn the protection off, but doing so re‑exposes their chats to those agents and nullifies Signal’s privacy guarantee.",
+          "Signal notes the feature does not cover all Android devices and cannot block Siri on macOS because Apple provides no reliable screenshot‑blocking API. For macOS 27 users, the only current mitigation is to add Signal to the Excluded Apps list under System Settings → Siri.",
+          "The company calls on Apple, Google and Microsoft to expose clear APIs for developers to block AI‑driven data capture, warning that existing work‑arounds leave gaps in protection."
+        ],
+        "implication": "Developers and privacy‑focused users must treat the screenshot block as a partial safeguard that works only on certain platforms and requires manual activation, while still lobbying OS vendors for proper API support.",
+        "source_ids": [
+          "source-8e7b1da91569f41a"
+        ]
+      },
+      {
+        "id": "vercel-iso-42001-certification-2026",
+        "section": "AI",
+        "headline": "Vercel earns ISO/IEC 42001:2023 AI management certification",
+        "summary": "Vercel’s AI platform, including AI Gateway and Vercel Agent, is now certified under the international AI management standard, giving customers a formally audited foundation.",
+        "paragraphs": [
+          "The certification, valid for three years with annual surveillance, confirms that Vercel’s design, build, operation and governance processes for its AI services meet ISO/IEC 42001:2023 requirements. The audit highlights a shared‑responsibility model, where Vercel documents its obligations and customers retain responsibility for their own AI use cases."
+        ],
+        "implication": "Enterprises can rely on Vercel’s AI products as a pre‑audited component, reducing the effort needed to demonstrate compliance with AI governance standards in their own deployments.",
+        "source_ids": [
+          "source-84c49825b9978281"
+        ]
+      },
+      {
+        "id": "google-duplex-tasks-gemini-2026",
+        "section": "AI",
+        "headline": "Google adds Duplex calling to Gemini Tasks",
+        "summary": "Google’s Gemini app now includes the Duplex voice‑calling feature, letting the personal AI place calls to businesses on a user’s behalf.",
+        "paragraphs": [
+          "The new capability, announced on 20 Nov 2026, extends the decade‑old Duplex system into the Gemini Tasks experience. It builds on a hybrid stack that pairs generative Gemini models with deterministic state tracking and policy guardrails, ensuring calls remain predictable and compliant. The feature is limited to the Gemini Tasks app and relies on the existing Gemini foundation model; no separate API or SDK is provided for third‑party integration."
+        ],
+        "implication": "Developers building on Gemini can now rely on built‑in voice‑calling for user‑initiated tasks, but must stay within the Gemini Tasks environment to access it.",
+        "source_ids": [
+          "source-536d4386c711aad4"
+        ]
+      },
+      {
+        "id": "vercel-large-request-body-beta",
+        "section": "Tools",
+        "headline": "Vercel Functions add 20 MiB request‑body limit in public beta",
+        "summary": "Vercel now lets Functions on Node.js, Python, and Bun accept bodies up to 20 MiB when the VERCEL_SUPPORT_LARGE_REQUEST_BODY flag is enabled.",
+        "paragraphs": [
+          "The opt‑in requires the project’s functions to run with the 4 GB performance memory setting; Edge runtime functions remain capped at 4.5 MiB and will return 413 on larger payloads. Middleware continues to see headers but not the body, so any logic that depends on the request body must be moved into the function itself. Vercel advises reading the body promptly to avoid back‑pressure and memory spikes."
+        ],
+        "implication": "Projects that need larger uploads must switch to a supported runtime and enable the flag, but they lose body‑aware middleware and must manage memory carefully.",
+        "source_ids": [
+          "source-8bef2d897c81f9b1"
+        ]
+      },
+      {
+        "id": "ruby2shell-waf-block-2026-11-21",
+        "section": "Security",
+        "headline": "Cloudflare WAF adds rules to block ruby2shell exploit",
+        "summary": "Cloudflare introduced two managed‑ruleset entries that block the newly disclosed ruby2shell heap overflow (CVE‑2026‑132825) for all customers.",
+        "paragraphs": [
+          "The new rules target the Ruby string‑case conversion bug that overflows a buffer when handling the German sharp‑s (ß) and also cover the related GHSA‑87fm‑7w84‑j2px integer overflow. Cloudflare notes that the WAF is a compensating control; the only complete mitigation is upgrading Ruby to 3.3.14, 3.4.13, or 4.0.10."
+        ],
+        "implication": "Customers receive immediate protection via Cloudflare’s free managed ruleset, but must still schedule Ruby upgrades to fully eliminate the vulnerability.",
+        "source_ids": [
+          "source-c851a250df92def9"
+        ]
+      },
+      {
+        "id": "fastify-reply-from-request-smuggling",
+        "section": "Security",
+        "headline": "Fastify reply‑from plugin fixes request‑smuggling bug",
+        "summary": "Fastify’s @fastify/reply-from 12.9.1 patches a request‑smuggling flaw that let unauthenticated clients inject arbitrary upstream requests.",
+        "paragraphs": [
+          "Versions prior to 12.9.1 forward a client’s Content‑Length even when no body is sent, causing keep‑alive sockets to retain unread bytes; a GET, HEAD or TRACE with a body (or a falsy JSON payload) can then make the upstream read the next request as part of the previous one. The update forces the plugin to forward any parsed body and resets an inherited Content‑Length to 0 when no body is written, eliminating the mismatch. Using the default undici transport avoids the issue entirely."
+        ],
+        "implication": "Deploying 12.9.1 or switching to undici prevents attackers from bypassing Fastify’s routing and authentication via smuggled requests.",
+        "source_ids": [
+          "source-3514ef7a1006de9f"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "ai-screenshot-block-mechanism-2026-11-21",
+        "title": "Why blocking screenshots limits AI agents but is not a complete solution",
+        "paragraphs": [
+          "Signal’s optional setting stops the operating system from capturing screenshots of the Signal interface on platforms that provide a screenshot‑blocking API. This prevents AI agents that rely on reading on‑screen content from obtaining a visual copy of messages.",
+          "The feature works on many iOS and Android devices, but it does not apply to all Android models and is unavailable on macOS because Apple does not expose a reliable screenshot‑blocking API. Consequently, the toggle offers protection only where the OS supports it and must be turned on manually."
+        ],
+        "example": "When a user enables the screenshot‑blocking toggle on a supported Android phone, attempts by any app—including a built‑in AI assistant—to capture the screen are blocked by the operating system, so the assistant cannot obtain an image of the Signal conversation.",
+        "takeaway": "Blocking screenshots removes a straightforward way for AI agents to read on‑screen messages, but it is a partial safeguard that depends on OS support and manual activation; developers and users should continue to advocate for broader, documented protections.",
+        "article_ids": [
+          "signal-ai-screenshot-restriction-2026-11-21"
+        ],
+        "source_ids": [
+          "source-8e7b1da91569f41a"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-screenshot-block-dependence",
+        "lesson_id": "ai-screenshot-block-mechanism-2026-11-21",
+        "prompt": "What is the primary reason that blocking screenshots does not provide complete protection against AI agents?",
+        "options": [
+          "Because the feature must be manually enabled by the user",
+          "Because AI agents can still read messages directly from the network",
+          "Because the OS may not support a screenshot‑blocking API on all devices",
+          "Because the blocked screenshots are stored in a cloud backup"
+        ],
+        "answer": 2,
+        "explanation": "The lesson explains that the protection only works where the operating system provides a screenshot‑blocking API, and many Android models and macOS lack such support, making the safeguard partial."
+      },
+      {
+        "id": "quiz-1-screenshot-toggle-requirement",
+        "lesson_id": "ai-screenshot-block-mechanism-2026-11-21",
+        "prompt": "On which platforms is the Signal screenshot‑blocking toggle unavailable according to the lesson?",
+        "options": [
+          "iOS devices that lack a screenshot‑blocking API",
+          "All Android devices",
+          "macOS devices",
+          "Windows desktop applications"
+        ],
+        "answer": 2,
+        "explanation": "The lesson states that the toggle is unavailable on macOS because Apple does not expose a reliable screenshot‑blocking API."
+      },
+      {
+        "id": "quiz-1-screenshot-protection-scope",
+        "lesson_id": "ai-screenshot-block-mechanism-2026-11-21",
+        "prompt": "Which condition must be met for the screenshot‑blocking feature to stop an AI assistant from capturing a Signal conversation?",
+        "options": [
+          "The device must be running a supported OS version with the API and the toggle must be turned on",
+          "The AI assistant must be granted explicit permission to access the screen",
+          "Signal must be running in a sandboxed environment",
+          "The user must disable all background apps"
+        ],
+        "answer": 0,
+        "explanation": "The lesson notes that the feature works only where the OS supports the screenshot‑blocking API and only when the user manually enables the toggle."
+      }
+    ],
+    "segments": [
+      {
+        "id": "signal-screenshot-block-2026-11-21",
+        "title": "Signal adds optional screenshot block",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November twenty one, two thousand twenty six.\n\nWe begin with our lead story. Signal now lets you flip a switch that stops your phone from taking screenshots of the app. The idea is to keep the newest AI assistants on iOS and Android from reading what you type. It works on supported mobile devices, but Android coverage is spotty and it can’t stop Siri on macOS because Apple doesn’t offer a blocking API. So, it’s a handy extra layer if you enable it, but it’s not a blanket shield – you still need the OS makers to give developers proper tools.\nThe takeaway? Turn it on where it works, but don’t count on it to protect every chat.",
+        "article_ids": [
+          "signal-ai-screenshot-restriction-2026-11-21"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Vercel AI Platform Gains ISO Management Certification",
+        "text": "Next on the bulletin. Vercel’s AI platform just earned ISO slash IEC four two zero zero one two thousand twenty three certification. That means its AI Gateway and Vercel Agent have been audited and found to follow the international AI management standard for design, build, operation and governance. The audit also notes a shared‑responsibility model – Vercel documents its part, but customers still own how they use the AI. Here’s why that matters: enterprises can now lean on Vercel’s pre‑audited services to cut down the work needed for their own AI governance compliance, though they still have to manage their own use cases.",
+        "article_ids": [
+          "vercel-iso-42001-certification-2026"
+        ]
+      },
+      {
+        "id": "google-duplex-calls-story",
+        "title": "Google adds Duplex calls to Gemini Tasks",
+        "text": "Turning to our next story. Google adds Duplex calling to Gemini Tasks. The feature, announced on 20 Nov 2026, folds the decade‑old Duplex voice‑calling system into the Gemini Tasks app, pairing generative Gemini models with deterministic state tracking and policy guardrails. It means the personal AI can place calls to businesses for you, but only inside the Gemini Tasks environment – there’s no separate API or SDK for third‑party use. Here’s why that matters: developers get built‑in voice calling, yet they must stay within Gemini Tasks to access it.",
+        "article_ids": [
+          "google-duplex-tasks-gemini-2026"
+        ]
+      },
+      {
+        "id": "vercel-large-request-body-beta-segment",
+        "title": "Vercel Functions raise request body limit to twenty mebibytes",
+        "text": "Next on the bulletin. Vercel Functions are now offering a twenty mebibytes request‑body ceiling in public beta. To unlock it you flip the VERCEL_SUPPORT_LARGE_REQUEST_BODY flag and run your functions with the four gigabytes performance memory setting. Edge runtime functions stay capped at four point five mebibytes and will return a four one three if you exceed that, and middleware will only see headers, not the body. Vercel advises reading the body right away to keep memory spikes in check.\n\nThe practical upshot? If you need bigger uploads you can switch runtimes and enable the flag, but you’ll lose body‑aware middleware and must watch your memory usage closely.",
+        "article_ids": [
+          "vercel-large-request-body-beta"
+        ]
+      },
+      {
+        "id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "title": "Cloudflare blocks ruby2shell exploit with new WAF rules",
+        "text": "And finally, our last story. Cloudflare has added two managed‑ruleset entries that stop the ruby2shell heap overflow from slipping through its web application firewall.\n\nThe rules target the Ruby string‑case conversion bug that overflows a buffer on the German sharp‑s and also catch a related integer overflow. The immediate effect is that traffic is filtered at the edge, but the only way to fully eliminate the flaw is to upgrade Ruby to version three point three point fourteen, three point four point thirteen, or four point zero point ten.\n\nPlan those Ruby upgrades soon.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "ruby2shell-waf-block-2026-11-21"
+        ]
+      }
+    ],
+    "artwork_brief": "A minimalist illustration showing a smartphone with a shield icon overlaying a camera silhouette, symbolizing the screenshot block feature."
+  },
+  "sources": [
+    {
+      "id": "source-3514ef7a1006de9f",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-133212: @fastify/reply-from vulnerable to request smuggling via an unsatisfied forwarded Content-Length",
+      "url": "https://github.com/fastify/fastify-reply-from/security/advisories/GHSA-mx78-9mrq-rfm5",
+      "published_at": "2026-11-20T17:42:12Z",
+      "discovered_at": "2026-11-21T07:29:47.49249675Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-536d4386c711aad4",
+      "name": "Google Research",
+      "title": "How Google Duplex evolved to also call businesses for you in Gemini",
+      "url": "https://research.google/blog/how-google-duplex-evolved-to-also-call-businesses-for-you-in-gemini/",
+      "published_at": "2026-11-20T23:30:30Z",
+      "discovered_at": "2026-11-21T07:29:47.730868258Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-c851a250df92def9",
+      "name": "Cloudflare Blog",
+      "title": "How Cloudflare WAF protects against ruby2shell (CVE-2026-132825)",
+      "url": "https://blog.cloudflare.com/ruby2shell-waf-protection/",
+      "published_at": "2026-11-20T20:24:38Z",
+      "discovered_at": "2026-11-21T07:29:46.992973011Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-8bef2d897c81f9b1",
+      "name": "Vercel Blog",
+      "title": "Vercel Functions now support request bodies up to 20MiB",
+      "url": "https://vercel.com/changelog/vercel-functions-now-support-request-bodies-up-to-20mib",
+      "published_at": "2026-11-20T13:00:00Z",
+      "discovered_at": "2026-11-21T07:29:47.604957237Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-84c49825b9978281",
+      "name": "Vercel Blog",
+      "title": "Vercel completes ISO/IEC 42001:2023 certification",
+      "url": "https://vercel.com/blog/vercel-completes-iso-iec-42001-2023-certification",
+      "published_at": "2026-11-20T05:00:00Z",
+      "discovered_at": "2026-11-21T07:29:47.604957237Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-8e7b1da91569f41a",
+      "name": "Hacker News",
+      "title": "Restricting AI agents in mobile operating systems platforms from capturing data",
+      "url": "https://signal.org/blog/protecting-your-privacy/",
+      "published_at": null,
+      "discovered_at": "2026-11-20T09:42:16Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50572348"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-21/cbd2abd22e7e7c95031fe6f8f4d2edd321faf2e109fb98464844417a831c23a0.mp3",
+    "duration_seconds": 190.224,
+    "script_hash": "88a4c4a30ee3a4ad34495d6a8bc28896b6a910dae18f99c1b3be204c4f85b2c0",
+    "cues": [
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Hello",
+        "start_seconds": 0.225,
+        "end_seconds": 0.575
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "everyone,",
+        "start_seconds": 0.575,
+        "end_seconds": 1.125
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "and",
+        "start_seconds": 1.125,
+        "end_seconds": 1.25
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "welcome",
+        "start_seconds": 1.25,
+        "end_seconds": 1.675
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "to",
+        "start_seconds": 1.675,
+        "end_seconds": 1.8
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Daywire.",
+        "start_seconds": 1.8,
+        "end_seconds": 2.55
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Let's",
+        "start_seconds": 2.55,
+        "end_seconds": 2.8
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "make",
+        "start_seconds": 2.8,
+        "end_seconds": 3.0375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "sense",
+        "start_seconds": 3.0375,
+        "end_seconds": 3.3625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "of",
+        "start_seconds": 3.3625,
+        "end_seconds": 3.4375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "the",
+        "start_seconds": 3.4375,
+        "end_seconds": 3.5375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "tech",
+        "start_seconds": 3.5375,
+        "end_seconds": 3.8
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "news.",
+        "start_seconds": 3.8,
+        "end_seconds": 4.425
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "It's",
+        "start_seconds": 4.425,
+        "end_seconds": 4.625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "November",
+        "start_seconds": 4.625,
+        "end_seconds": 5.05
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "twenty",
+        "start_seconds": 5.05,
+        "end_seconds": 5.375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "one,",
+        "start_seconds": 5.375,
+        "end_seconds": 5.7375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "two",
+        "start_seconds": 5.7375,
+        "end_seconds": 5.975
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "thousand",
+        "start_seconds": 5.975,
+        "end_seconds": 6.3375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "twenty",
+        "start_seconds": 6.3375,
+        "end_seconds": 6.5875
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "six.",
+        "start_seconds": 6.5875,
+        "end_seconds": 7.65
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "We",
+        "start_seconds": 8.799999999999999,
+        "end_seconds": 8.9
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "begin",
+        "start_seconds": 8.9,
+        "end_seconds": 9.2625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "with",
+        "start_seconds": 9.2625,
+        "end_seconds": 9.3875
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "our",
+        "start_seconds": 9.3875,
+        "end_seconds": 9.525
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "lead",
+        "start_seconds": 9.525,
+        "end_seconds": 9.75
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "story.",
+        "start_seconds": 9.75,
+        "end_seconds": 10.4375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Signal",
+        "start_seconds": 10.4375,
+        "end_seconds": 10.774999999999999
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "now",
+        "start_seconds": 10.774999999999999,
+        "end_seconds": 10.975
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "lets",
+        "start_seconds": 10.975,
+        "end_seconds": 11.1625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "you",
+        "start_seconds": 11.1625,
+        "end_seconds": 11.2875
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "flip",
+        "start_seconds": 11.2875,
+        "end_seconds": 11.5125
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "a",
+        "start_seconds": 11.5125,
+        "end_seconds": 11.6125
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "switch",
+        "start_seconds": 11.6125,
+        "end_seconds": 11.95
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "that",
+        "start_seconds": 11.95,
+        "end_seconds": 12.1
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "stops",
+        "start_seconds": 12.1,
+        "end_seconds": 12.4125
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "your",
+        "start_seconds": 12.4125,
+        "end_seconds": 12.5625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "phone",
+        "start_seconds": 12.5625,
+        "end_seconds": 12.899999999999999
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "from",
+        "start_seconds": 12.899999999999999,
+        "end_seconds": 13.05
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "taking",
+        "start_seconds": 13.05,
+        "end_seconds": 13.375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "screenshots",
+        "start_seconds": 13.375,
+        "end_seconds": 13.962499999999999
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "of",
+        "start_seconds": 13.962499999999999,
+        "end_seconds": 14.0375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "the",
+        "start_seconds": 14.0375,
+        "end_seconds": 14.175
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "app.",
+        "start_seconds": 14.175,
+        "end_seconds": 14.825
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "The",
+        "start_seconds": 14.825,
+        "end_seconds": 14.962499999999999
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "idea",
+        "start_seconds": 14.962499999999999,
+        "end_seconds": 15.325
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "is",
+        "start_seconds": 15.325,
+        "end_seconds": 15.475
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "to",
+        "start_seconds": 15.475,
+        "end_seconds": 15.575
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "keep",
+        "start_seconds": 15.575,
+        "end_seconds": 15.7875
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "the",
+        "start_seconds": 15.7875,
+        "end_seconds": 15.875
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "newest",
+        "start_seconds": 15.875,
+        "end_seconds": 16.2375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "AI",
+        "start_seconds": 16.2375,
+        "end_seconds": 16.5875
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "assistants",
+        "start_seconds": 16.5875,
+        "end_seconds": 17.0375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "on",
+        "start_seconds": 17.0375,
+        "end_seconds": 17.2125
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "iOS",
+        "start_seconds": 17.2125,
+        "end_seconds": 17.775
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "and",
+        "start_seconds": 17.775,
+        "end_seconds": 17.9
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Android",
+        "start_seconds": 17.9,
+        "end_seconds": 18.299999999999997
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "from",
+        "start_seconds": 18.299999999999997,
+        "end_seconds": 18.475
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "reading",
+        "start_seconds": 18.475,
+        "end_seconds": 18.7625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "what",
+        "start_seconds": 18.7625,
+        "end_seconds": 18.9
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "you",
+        "start_seconds": 18.9,
+        "end_seconds": 19.025
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "type.",
+        "start_seconds": 19.025,
+        "end_seconds": 19.775
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "It",
+        "start_seconds": 19.775,
+        "end_seconds": 19.924999999999997
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "works",
+        "start_seconds": 19.924999999999997,
+        "end_seconds": 20.1625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "on",
+        "start_seconds": 20.1625,
+        "end_seconds": 20.299999999999997
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "supported",
+        "start_seconds": 20.299999999999997,
+        "end_seconds": 20.799999999999997
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "mobile",
+        "start_seconds": 20.799999999999997,
+        "end_seconds": 21.075
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "devices,",
+        "start_seconds": 21.075,
+        "end_seconds": 21.6375
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "but",
+        "start_seconds": 21.6375,
+        "end_seconds": 21.7875
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Android",
+        "start_seconds": 21.7875,
+        "end_seconds": 22.225
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "coverage",
+        "start_seconds": 22.225,
+        "end_seconds": 22.625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "is",
+        "start_seconds": 22.625,
+        "end_seconds": 22.7625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "spotty",
+        "start_seconds": 22.7625,
+        "end_seconds": 23.275
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "and",
+        "start_seconds": 23.275,
+        "end_seconds": 23.3875
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "it",
+        "start_seconds": 23.3875,
+        "end_seconds": 23.475
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "can’t",
+        "start_seconds": 23.475,
+        "end_seconds": 23.75
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "stop",
+        "start_seconds": 23.75,
+        "end_seconds": 24.0625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Siri",
+        "start_seconds": 24.0625,
+        "end_seconds": 24.362499999999997
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "on",
+        "start_seconds": 24.362499999999997,
+        "end_seconds": 24.475
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "macOS",
+        "start_seconds": 24.475,
+        "end_seconds": 25.049999999999997
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "because",
+        "start_seconds": 25.049999999999997,
+        "end_seconds": 25.362499999999997
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Apple",
+        "start_seconds": 25.362499999999997,
+        "end_seconds": 25.700000000000003
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "doesn’t",
+        "start_seconds": 25.700000000000003,
+        "end_seconds": 25.975
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "offer",
+        "start_seconds": 25.975,
+        "end_seconds": 26.262500000000003
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "a",
+        "start_seconds": 26.262500000000003,
+        "end_seconds": 26.325000000000003
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "blocking",
+        "start_seconds": 26.325000000000003,
+        "end_seconds": 26.75
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "API.",
+        "start_seconds": 26.75,
+        "end_seconds": 28.0625
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "So,",
+        "start_seconds": 28.52,
+        "end_seconds": 28.7075
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "it’s",
+        "start_seconds": 28.7075,
+        "end_seconds": 28.8075
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "a",
+        "start_seconds": 28.8075,
+        "end_seconds": 28.87
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "handy",
+        "start_seconds": 28.87,
+        "end_seconds": 29.232499999999998
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "extra",
+        "start_seconds": 29.232499999999998,
+        "end_seconds": 29.645
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "layer",
+        "start_seconds": 29.645,
+        "end_seconds": 30.0075
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "if",
+        "start_seconds": 30.0075,
+        "end_seconds": 30.107499999999998
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "you",
+        "start_seconds": 30.107499999999998,
+        "end_seconds": 30.1825
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "enable",
+        "start_seconds": 30.1825,
+        "end_seconds": 30.595
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "it,",
+        "start_seconds": 30.595,
+        "end_seconds": 30.732499999999998
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "but",
+        "start_seconds": 30.732499999999998,
+        "end_seconds": 30.857499999999998
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "it’s",
+        "start_seconds": 30.857499999999998,
+        "end_seconds": 31.02
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "not",
+        "start_seconds": 31.02,
+        "end_seconds": 31.1825
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "a",
+        "start_seconds": 31.1825,
+        "end_seconds": 31.245
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "blanket",
+        "start_seconds": 31.245,
+        "end_seconds": 31.6575
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "shield",
+        "start_seconds": 31.6575,
+        "end_seconds": 32.144999999999996
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "–",
+        "start_seconds": 32.144999999999996,
+        "end_seconds": 32.22
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "you",
+        "start_seconds": 32.22,
+        "end_seconds": 32.345
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "still",
+        "start_seconds": 32.345,
+        "end_seconds": 32.62
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "need",
+        "start_seconds": 32.62,
+        "end_seconds": 32.8075
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "the",
+        "start_seconds": 32.8075,
+        "end_seconds": 32.9325
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "OS",
+        "start_seconds": 32.9325,
+        "end_seconds": 33.32
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "makers",
+        "start_seconds": 33.32,
+        "end_seconds": 33.745
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "to",
+        "start_seconds": 33.745,
+        "end_seconds": 33.845
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "give",
+        "start_seconds": 33.845,
+        "end_seconds": 34.045
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "developers",
+        "start_seconds": 34.045,
+        "end_seconds": 34.62
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "proper",
+        "start_seconds": 34.62,
+        "end_seconds": 35.0075
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "tools.",
+        "start_seconds": 35.0075,
+        "end_seconds": 35.87
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "The",
+        "start_seconds": 35.87,
+        "end_seconds": 35.945
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "takeaway?",
+        "start_seconds": 35.945,
+        "end_seconds": 36.7325
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "Turn",
+        "start_seconds": 36.7325,
+        "end_seconds": 36.9825
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "it",
+        "start_seconds": 36.9825,
+        "end_seconds": 37.0575
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "on",
+        "start_seconds": 37.0575,
+        "end_seconds": 37.22
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "where",
+        "start_seconds": 37.22,
+        "end_seconds": 37.3825
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "it",
+        "start_seconds": 37.3825,
+        "end_seconds": 37.47
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "works,",
+        "start_seconds": 37.47,
+        "end_seconds": 37.832499999999996
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "but",
+        "start_seconds": 37.832499999999996,
+        "end_seconds": 37.97
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "don’t",
+        "start_seconds": 37.97,
+        "end_seconds": 38.195
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "count",
+        "start_seconds": 38.195,
+        "end_seconds": 38.457499999999996
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "on",
+        "start_seconds": 38.457499999999996,
+        "end_seconds": 38.582499999999996
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "it",
+        "start_seconds": 38.582499999999996,
+        "end_seconds": 38.67
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "to",
+        "start_seconds": 38.67,
+        "end_seconds": 38.769999999999996
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "protect",
+        "start_seconds": 38.769999999999996,
+        "end_seconds": 39.195
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "every",
+        "start_seconds": 39.195,
+        "end_seconds": 39.5075
+      },
+      {
+        "segment_id": "signal-screenshot-block-2026-11-21",
+        "text": "chat.",
+        "start_seconds": 39.5075,
+        "end_seconds": 40.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 41.77,
+        "end_seconds": 42.032500000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 42.032500000000006,
+        "end_seconds": 42.1325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 42.1325,
+        "end_seconds": 42.220000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 42.220000000000006,
+        "end_seconds": 42.970000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Vercel’s",
+        "start_seconds": 42.970000000000006,
+        "end_seconds": 43.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 43.3575,
+        "end_seconds": 43.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "platform",
+        "start_seconds": 43.695,
+        "end_seconds": 44.245000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "just",
+        "start_seconds": 44.245000000000005,
+        "end_seconds": 44.445
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "earned",
+        "start_seconds": 44.445,
+        "end_seconds": 44.7325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ISO",
+        "start_seconds": 44.7325,
+        "end_seconds": 45.245000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "slash",
+        "start_seconds": 45.245000000000005,
+        "end_seconds": 45.6075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "IEC",
+        "start_seconds": 45.6075,
+        "end_seconds": 46.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 46.120000000000005,
+        "end_seconds": 46.345000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 46.345000000000006,
+        "end_seconds": 46.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 46.52,
+        "end_seconds": 46.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 46.795,
+        "end_seconds": 47.095000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 47.095000000000006,
+        "end_seconds": 47.32
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 47.32,
+        "end_seconds": 47.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 47.52,
+        "end_seconds": 47.8325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty",
+        "start_seconds": 47.8325,
+        "end_seconds": 48.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "three",
+        "start_seconds": 48.120000000000005,
+        "end_seconds": 48.345000000000006
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "certification.",
+        "start_seconds": 48.345000000000006,
+        "end_seconds": 49.6575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "That",
+        "start_seconds": 49.6575,
+        "end_seconds": 49.8575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "means",
+        "start_seconds": 49.8575,
+        "end_seconds": 50.0825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 50.0825,
+        "end_seconds": 50.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 50.22,
+        "end_seconds": 50.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Gateway",
+        "start_seconds": 50.545,
+        "end_seconds": 50.932500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 50.932500000000005,
+        "end_seconds": 51.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Vercel",
+        "start_seconds": 51.045,
+        "end_seconds": 51.370000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Agent",
+        "start_seconds": 51.370000000000005,
+        "end_seconds": 51.682500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 51.682500000000005,
+        "end_seconds": 51.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "been",
+        "start_seconds": 51.7825,
+        "end_seconds": 51.932500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "audited",
+        "start_seconds": 51.932500000000005,
+        "end_seconds": 52.3325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 52.3325,
+        "end_seconds": 52.44500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "found",
+        "start_seconds": 52.44500000000001,
+        "end_seconds": 52.682500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 52.682500000000005,
+        "end_seconds": 52.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "follow",
+        "start_seconds": 52.77,
+        "end_seconds": 53.057500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 53.057500000000005,
+        "end_seconds": 53.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "international",
+        "start_seconds": 53.17,
+        "end_seconds": 53.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 53.795,
+        "end_seconds": 54.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "management",
+        "start_seconds": 54.120000000000005,
+        "end_seconds": 54.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "standard",
+        "start_seconds": 54.595,
+        "end_seconds": 54.995000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 54.995000000000005,
+        "end_seconds": 55.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "design,",
+        "start_seconds": 55.120000000000005,
+        "end_seconds": 55.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "build,",
+        "start_seconds": 55.645,
+        "end_seconds": 55.94500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "operation",
+        "start_seconds": 55.94500000000001,
+        "end_seconds": 56.57000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 56.57000000000001,
+        "end_seconds": 56.69500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "governance.",
+        "start_seconds": 56.69500000000001,
+        "end_seconds": 57.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 57.67,
+        "end_seconds": 57.82000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "audit",
+        "start_seconds": 57.82000000000001,
+        "end_seconds": 58.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "also",
+        "start_seconds": 58.120000000000005,
+        "end_seconds": 58.47
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "notes",
+        "start_seconds": 58.47,
+        "end_seconds": 58.7075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 58.7075,
+        "end_seconds": 58.82000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shared‑responsibility",
+        "start_seconds": 58.82000000000001,
+        "end_seconds": 59.82000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "model",
+        "start_seconds": 59.82000000000001,
+        "end_seconds": 60.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "–",
+        "start_seconds": 60.345,
+        "end_seconds": 60.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Vercel",
+        "start_seconds": 60.42,
+        "end_seconds": 60.82000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "documents",
+        "start_seconds": 60.82000000000001,
+        "end_seconds": 61.25750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 61.25750000000001,
+        "end_seconds": 61.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "part,",
+        "start_seconds": 61.42,
+        "end_seconds": 61.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 61.77,
+        "end_seconds": 61.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "customers",
+        "start_seconds": 61.92,
+        "end_seconds": 62.44500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "still",
+        "start_seconds": 62.44500000000001,
+        "end_seconds": 62.7075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "own",
+        "start_seconds": 62.7075,
+        "end_seconds": 62.870000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "how",
+        "start_seconds": 62.870000000000005,
+        "end_seconds": 63.057500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "they",
+        "start_seconds": 63.057500000000005,
+        "end_seconds": 63.19500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "use",
+        "start_seconds": 63.19500000000001,
+        "end_seconds": 63.432500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 63.432500000000005,
+        "end_seconds": 63.5825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI.",
+        "start_seconds": 63.5825,
+        "end_seconds": 64.75750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here’s",
+        "start_seconds": 65.215,
+        "end_seconds": 65.765
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 65.765,
+        "end_seconds": 65.94
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 65.94,
+        "end_seconds": 66.165
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 66.165,
+        "end_seconds": 66.99000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "enterprises",
+        "start_seconds": 66.99000000000001,
+        "end_seconds": 67.665
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 67.665,
+        "end_seconds": 67.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 67.84,
+        "end_seconds": 68.04
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lean",
+        "start_seconds": 68.04,
+        "end_seconds": 68.30250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 68.30250000000001,
+        "end_seconds": 68.49000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Vercel’s",
+        "start_seconds": 68.49000000000001,
+        "end_seconds": 68.92750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pre‑audited",
+        "start_seconds": 68.92750000000001,
+        "end_seconds": 69.67750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "services",
+        "start_seconds": 69.67750000000001,
+        "end_seconds": 70.265
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 70.265,
+        "end_seconds": 70.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cut",
+        "start_seconds": 70.39,
+        "end_seconds": 70.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "down",
+        "start_seconds": 70.64,
+        "end_seconds": 70.8775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 70.8775,
+        "end_seconds": 70.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "work",
+        "start_seconds": 70.965,
+        "end_seconds": 71.215
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "needed",
+        "start_seconds": 71.215,
+        "end_seconds": 71.54
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 71.54,
+        "end_seconds": 71.6525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "their",
+        "start_seconds": 71.6525,
+        "end_seconds": 71.8275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "own",
+        "start_seconds": 71.8275,
+        "end_seconds": 72.1025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 72.1025,
+        "end_seconds": 72.465
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "governance",
+        "start_seconds": 72.465,
+        "end_seconds": 72.89
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "compliance,",
+        "start_seconds": 72.89,
+        "end_seconds": 73.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "though",
+        "start_seconds": 73.84,
+        "end_seconds": 74.015
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "they",
+        "start_seconds": 74.015,
+        "end_seconds": 74.17750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "still",
+        "start_seconds": 74.17750000000001,
+        "end_seconds": 74.465
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 74.465,
+        "end_seconds": 74.665
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 74.665,
+        "end_seconds": 74.79
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "manage",
+        "start_seconds": 74.79,
+        "end_seconds": 75.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "their",
+        "start_seconds": 75.19,
+        "end_seconds": 75.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "own",
+        "start_seconds": 75.39,
+        "end_seconds": 75.61500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "use",
+        "start_seconds": 75.61500000000001,
+        "end_seconds": 75.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cases.",
+        "start_seconds": 75.815,
+        "end_seconds": 77.04
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Turning",
+        "start_seconds": 78.21499999999999,
+        "end_seconds": 78.515
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "to",
+        "start_seconds": 78.515,
+        "end_seconds": 78.60249999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "our",
+        "start_seconds": 78.60249999999999,
+        "end_seconds": 78.72749999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "next",
+        "start_seconds": 78.72749999999999,
+        "end_seconds": 78.97749999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "story.",
+        "start_seconds": 78.97749999999999,
+        "end_seconds": 79.72749999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Google",
+        "start_seconds": 79.72749999999999,
+        "end_seconds": 80.065
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "adds",
+        "start_seconds": 80.065,
+        "end_seconds": 80.33999999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Duplex",
+        "start_seconds": 80.33999999999999,
+        "end_seconds": 80.765
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "calling",
+        "start_seconds": 80.765,
+        "end_seconds": 81.08999999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "to",
+        "start_seconds": 81.08999999999999,
+        "end_seconds": 81.19
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Gemini",
+        "start_seconds": 81.19,
+        "end_seconds": 81.53999999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Tasks.",
+        "start_seconds": 81.53999999999999,
+        "end_seconds": 82.44
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "The",
+        "start_seconds": 82.44,
+        "end_seconds": 82.53999999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "feature,",
+        "start_seconds": 82.53999999999999,
+        "end_seconds": 82.8775
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "announced",
+        "start_seconds": 82.8775,
+        "end_seconds": 83.22749999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "on",
+        "start_seconds": 83.22749999999999,
+        "end_seconds": 83.33999999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "20",
+        "start_seconds": 83.33999999999999,
+        "end_seconds": 84.89
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Nov",
+        "start_seconds": 83.33999999999999,
+        "end_seconds": 84.89
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "2026,",
+        "start_seconds": 83.33999999999999,
+        "end_seconds": 84.94
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "folds",
+        "start_seconds": 84.94,
+        "end_seconds": 85.2025
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "the",
+        "start_seconds": 85.2025,
+        "end_seconds": 85.315
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "decade‑old",
+        "start_seconds": 85.315,
+        "end_seconds": 85.865
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Duplex",
+        "start_seconds": 85.865,
+        "end_seconds": 86.28999999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "voice‑calling",
+        "start_seconds": 86.28999999999999,
+        "end_seconds": 86.865
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "system",
+        "start_seconds": 86.865,
+        "end_seconds": 87.1775
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "into",
+        "start_seconds": 87.1775,
+        "end_seconds": 87.35249999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "the",
+        "start_seconds": 87.35249999999999,
+        "end_seconds": 87.44
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Gemini",
+        "start_seconds": 87.44,
+        "end_seconds": 87.815
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Tasks",
+        "start_seconds": 87.815,
+        "end_seconds": 88.19
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "app,",
+        "start_seconds": 88.19,
+        "end_seconds": 88.565
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "pairing",
+        "start_seconds": 88.565,
+        "end_seconds": 88.91499999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "generative",
+        "start_seconds": 88.91499999999999,
+        "end_seconds": 89.315
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Gemini",
+        "start_seconds": 89.315,
+        "end_seconds": 89.64
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "models",
+        "start_seconds": 89.64,
+        "end_seconds": 90.0025
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "with",
+        "start_seconds": 90.0025,
+        "end_seconds": 90.14
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "deterministic",
+        "start_seconds": 90.14,
+        "end_seconds": 90.765
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "state",
+        "start_seconds": 90.765,
+        "end_seconds": 91.015
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "tracking",
+        "start_seconds": 91.015,
+        "end_seconds": 91.40249999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "and",
+        "start_seconds": 91.40249999999999,
+        "end_seconds": 91.515
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "policy",
+        "start_seconds": 91.515,
+        "end_seconds": 91.94
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "guardrails.",
+        "start_seconds": 91.94,
+        "end_seconds": 92.89
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "It",
+        "start_seconds": 92.89,
+        "end_seconds": 93.0025
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "means",
+        "start_seconds": 93.0025,
+        "end_seconds": 93.22749999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "the",
+        "start_seconds": 93.22749999999999,
+        "end_seconds": 93.315
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "personal",
+        "start_seconds": 93.315,
+        "end_seconds": 93.74
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "AI",
+        "start_seconds": 93.74,
+        "end_seconds": 94.09
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "can",
+        "start_seconds": 94.09,
+        "end_seconds": 94.215
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "place",
+        "start_seconds": 94.215,
+        "end_seconds": 94.49
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "calls",
+        "start_seconds": 94.49,
+        "end_seconds": 94.815
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "to",
+        "start_seconds": 94.815,
+        "end_seconds": 94.91499999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "businesses",
+        "start_seconds": 94.91499999999999,
+        "end_seconds": 95.365
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "for",
+        "start_seconds": 95.365,
+        "end_seconds": 95.49
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "you,",
+        "start_seconds": 95.49,
+        "end_seconds": 95.815
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "but",
+        "start_seconds": 95.815,
+        "end_seconds": 95.965
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "only",
+        "start_seconds": 95.965,
+        "end_seconds": 96.26499999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "inside",
+        "start_seconds": 96.26499999999999,
+        "end_seconds": 96.6275
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "the",
+        "start_seconds": 96.6275,
+        "end_seconds": 96.715
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Gemini",
+        "start_seconds": 96.715,
+        "end_seconds": 97.065
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Tasks",
+        "start_seconds": 97.065,
+        "end_seconds": 97.4275
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "environment",
+        "start_seconds": 97.4275,
+        "end_seconds": 98.16499999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "–",
+        "start_seconds": 98.16499999999999,
+        "end_seconds": 98.24
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "there’s",
+        "start_seconds": 98.24,
+        "end_seconds": 98.44
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "no",
+        "start_seconds": 98.44,
+        "end_seconds": 98.6275
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "separate",
+        "start_seconds": 98.6275,
+        "end_seconds": 98.99
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "API",
+        "start_seconds": 98.99,
+        "end_seconds": 99.63999999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "or",
+        "start_seconds": 99.63999999999999,
+        "end_seconds": 99.78999999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "SDK",
+        "start_seconds": 99.78999999999999,
+        "end_seconds": 100.44
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "for",
+        "start_seconds": 100.44,
+        "end_seconds": 100.60249999999999
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "third‑party",
+        "start_seconds": 100.60249999999999,
+        "end_seconds": 101.24
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "use.",
+        "start_seconds": 101.24,
+        "end_seconds": 102.2775
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Here’s",
+        "start_seconds": 102.71,
+        "end_seconds": 103.185
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "why",
+        "start_seconds": 103.185,
+        "end_seconds": 103.36
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "that",
+        "start_seconds": 103.36,
+        "end_seconds": 103.585
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "matters:",
+        "start_seconds": 103.585,
+        "end_seconds": 104.285
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "developers",
+        "start_seconds": 104.285,
+        "end_seconds": 104.86
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "get",
+        "start_seconds": 104.86,
+        "end_seconds": 105.035
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "built‑in",
+        "start_seconds": 105.035,
+        "end_seconds": 105.46
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "voice",
+        "start_seconds": 105.46,
+        "end_seconds": 105.76
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "calling,",
+        "start_seconds": 105.76,
+        "end_seconds": 106.335
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "yet",
+        "start_seconds": 106.335,
+        "end_seconds": 106.51
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "they",
+        "start_seconds": 106.51,
+        "end_seconds": 106.66
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "must",
+        "start_seconds": 106.66,
+        "end_seconds": 106.885
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "stay",
+        "start_seconds": 106.885,
+        "end_seconds": 107.16
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "within",
+        "start_seconds": 107.16,
+        "end_seconds": 107.4725
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Gemini",
+        "start_seconds": 107.4725,
+        "end_seconds": 107.9725
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "Tasks",
+        "start_seconds": 107.9725,
+        "end_seconds": 108.46
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "to",
+        "start_seconds": 108.46,
+        "end_seconds": 108.5975
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "access",
+        "start_seconds": 108.5975,
+        "end_seconds": 109.0725
+      },
+      {
+        "segment_id": "google-duplex-calls-story",
+        "text": "it.",
+        "start_seconds": 109.0725,
+        "end_seconds": 109.91
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "Next",
+        "start_seconds": 111.11,
+        "end_seconds": 111.3725
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "on",
+        "start_seconds": 111.3725,
+        "end_seconds": 111.4725
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "the",
+        "start_seconds": 111.4725,
+        "end_seconds": 111.56
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "bulletin.",
+        "start_seconds": 111.56,
+        "end_seconds": 112.31
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "Vercel",
+        "start_seconds": 112.31,
+        "end_seconds": 112.635
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "Functions",
+        "start_seconds": 112.635,
+        "end_seconds": 113.0475
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "are",
+        "start_seconds": 113.0475,
+        "end_seconds": 113.135
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "now",
+        "start_seconds": 113.135,
+        "end_seconds": 113.335
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "offering",
+        "start_seconds": 113.335,
+        "end_seconds": 113.6475
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "a",
+        "start_seconds": 113.6475,
+        "end_seconds": 113.71
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "twenty",
+        "start_seconds": 113.71,
+        "end_seconds": 114.035
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "mebibytes",
+        "start_seconds": 114.035,
+        "end_seconds": 114.56
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "request‑body",
+        "start_seconds": 114.56,
+        "end_seconds": 115.2475
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "ceiling",
+        "start_seconds": 115.2475,
+        "end_seconds": 115.5725
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "in",
+        "start_seconds": 115.5725,
+        "end_seconds": 115.66
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "public",
+        "start_seconds": 115.66,
+        "end_seconds": 116.06
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "beta.",
+        "start_seconds": 116.06,
+        "end_seconds": 116.8475
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "To",
+        "start_seconds": 116.8475,
+        "end_seconds": 116.96
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "unlock",
+        "start_seconds": 116.96,
+        "end_seconds": 117.385
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "it",
+        "start_seconds": 117.385,
+        "end_seconds": 117.51
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "you",
+        "start_seconds": 117.51,
+        "end_seconds": 117.6725
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "flip",
+        "start_seconds": 117.6725,
+        "end_seconds": 117.9225
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "the",
+        "start_seconds": 117.9225,
+        "end_seconds": 118.01
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "VERCEL_SUPPORT_LARGE_REQUEST_BODY",
+        "start_seconds": 118.01,
+        "end_seconds": 119.71
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "flag",
+        "start_seconds": 119.71,
+        "end_seconds": 120.085
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "and",
+        "start_seconds": 120.085,
+        "end_seconds": 120.21
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "run",
+        "start_seconds": 120.21,
+        "end_seconds": 120.3475
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "your",
+        "start_seconds": 120.3475,
+        "end_seconds": 120.46
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "functions",
+        "start_seconds": 120.46,
+        "end_seconds": 120.8975
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "with",
+        "start_seconds": 120.8975,
+        "end_seconds": 120.9975
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "the",
+        "start_seconds": 120.9975,
+        "end_seconds": 121.0975
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "four",
+        "start_seconds": 121.0975,
+        "end_seconds": 121.335
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "gigabytes",
+        "start_seconds": 121.335,
+        "end_seconds": 121.835
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "performance",
+        "start_seconds": 121.835,
+        "end_seconds": 122.385
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "memory",
+        "start_seconds": 122.385,
+        "end_seconds": 122.735
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "setting.",
+        "start_seconds": 122.735,
+        "end_seconds": 123.535
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "Edge",
+        "start_seconds": 123.535,
+        "end_seconds": 123.735
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "runtime",
+        "start_seconds": 123.735,
+        "end_seconds": 124.085
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "functions",
+        "start_seconds": 124.085,
+        "end_seconds": 124.4975
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "stay",
+        "start_seconds": 124.4975,
+        "end_seconds": 124.735
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "capped",
+        "start_seconds": 124.735,
+        "end_seconds": 125.0225
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "at",
+        "start_seconds": 125.0225,
+        "end_seconds": 125.11
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "four",
+        "start_seconds": 125.11,
+        "end_seconds": 125.335
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "point",
+        "start_seconds": 125.335,
+        "end_seconds": 125.585
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "five",
+        "start_seconds": 125.585,
+        "end_seconds": 125.835
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "mebibytes",
+        "start_seconds": 125.835,
+        "end_seconds": 126.36
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "and",
+        "start_seconds": 126.36,
+        "end_seconds": 126.4725
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "will",
+        "start_seconds": 126.4725,
+        "end_seconds": 126.5725
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "return",
+        "start_seconds": 126.5725,
+        "end_seconds": 126.8725
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "a",
+        "start_seconds": 126.8725,
+        "end_seconds": 126.94749999999999
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "four",
+        "start_seconds": 126.94749999999999,
+        "end_seconds": 127.185
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "one",
+        "start_seconds": 127.185,
+        "end_seconds": 127.41
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "three",
+        "start_seconds": 127.41,
+        "end_seconds": 127.6225
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "if",
+        "start_seconds": 127.6225,
+        "end_seconds": 127.7225
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "you",
+        "start_seconds": 127.7225,
+        "end_seconds": 127.7975
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "exceed",
+        "start_seconds": 127.7975,
+        "end_seconds": 128.135
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "that,",
+        "start_seconds": 128.135,
+        "end_seconds": 128.61
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "and",
+        "start_seconds": 128.61,
+        "end_seconds": 128.735
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "middleware",
+        "start_seconds": 128.735,
+        "end_seconds": 129.0975
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "will",
+        "start_seconds": 129.0975,
+        "end_seconds": 129.21
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "only",
+        "start_seconds": 129.21,
+        "end_seconds": 129.51
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "see",
+        "start_seconds": 129.51,
+        "end_seconds": 129.71
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "headers,",
+        "start_seconds": 129.71,
+        "end_seconds": 130.0975
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "not",
+        "start_seconds": 130.0975,
+        "end_seconds": 130.2725
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "the",
+        "start_seconds": 130.2725,
+        "end_seconds": 130.36
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "body.",
+        "start_seconds": 130.36,
+        "end_seconds": 131.0975
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "Vercel",
+        "start_seconds": 131.0975,
+        "end_seconds": 131.4475
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "advises",
+        "start_seconds": 131.4475,
+        "end_seconds": 131.935
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "reading",
+        "start_seconds": 131.935,
+        "end_seconds": 132.2225
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "the",
+        "start_seconds": 132.2225,
+        "end_seconds": 132.31
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "body",
+        "start_seconds": 132.31,
+        "end_seconds": 132.635
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "right",
+        "start_seconds": 132.635,
+        "end_seconds": 132.8225
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "away",
+        "start_seconds": 132.8225,
+        "end_seconds": 133.16
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "to",
+        "start_seconds": 133.16,
+        "end_seconds": 133.26
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "keep",
+        "start_seconds": 133.26,
+        "end_seconds": 133.51
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "memory",
+        "start_seconds": 133.51,
+        "end_seconds": 133.885
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "spikes",
+        "start_seconds": 133.885,
+        "end_seconds": 134.285
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "in",
+        "start_seconds": 134.285,
+        "end_seconds": 134.4475
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "check.",
+        "start_seconds": 134.4475,
+        "end_seconds": 135.41
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "The",
+        "start_seconds": 136.56,
+        "end_seconds": 136.63500000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "practical",
+        "start_seconds": 136.63500000000002,
+        "end_seconds": 137.185
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "upshot?",
+        "start_seconds": 137.185,
+        "end_seconds": 137.985
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "If",
+        "start_seconds": 137.985,
+        "end_seconds": 138.13500000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "you",
+        "start_seconds": 138.13500000000002,
+        "end_seconds": 138.235
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "need",
+        "start_seconds": 138.235,
+        "end_seconds": 138.46
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "bigger",
+        "start_seconds": 138.46,
+        "end_seconds": 138.78500000000003
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "uploads",
+        "start_seconds": 138.78500000000003,
+        "end_seconds": 139.26000000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "you",
+        "start_seconds": 139.26000000000002,
+        "end_seconds": 139.38500000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "can",
+        "start_seconds": 139.38500000000002,
+        "end_seconds": 139.57250000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "switch",
+        "start_seconds": 139.57250000000002,
+        "end_seconds": 139.91000000000003
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "runtimes",
+        "start_seconds": 139.91000000000003,
+        "end_seconds": 140.51000000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "and",
+        "start_seconds": 140.51000000000002,
+        "end_seconds": 140.6225
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "enable",
+        "start_seconds": 140.6225,
+        "end_seconds": 140.97250000000003
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "the",
+        "start_seconds": 140.97250000000003,
+        "end_seconds": 141.07250000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "flag,",
+        "start_seconds": 141.07250000000002,
+        "end_seconds": 141.63500000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "but",
+        "start_seconds": 141.63500000000002,
+        "end_seconds": 141.78500000000003
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "you’ll",
+        "start_seconds": 141.78500000000003,
+        "end_seconds": 141.91000000000003
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "lose",
+        "start_seconds": 141.91000000000003,
+        "end_seconds": 142.13500000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "body‑aware",
+        "start_seconds": 142.13500000000002,
+        "end_seconds": 142.76000000000002
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "middleware",
+        "start_seconds": 142.76000000000002,
+        "end_seconds": 143.28500000000003
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "and",
+        "start_seconds": 143.28500000000003,
+        "end_seconds": 143.41000000000003
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "must",
+        "start_seconds": 143.41000000000003,
+        "end_seconds": 143.685
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "watch",
+        "start_seconds": 143.685,
+        "end_seconds": 143.97250000000003
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "your",
+        "start_seconds": 143.97250000000003,
+        "end_seconds": 144.085
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "memory",
+        "start_seconds": 144.085,
+        "end_seconds": 144.46
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "usage",
+        "start_seconds": 144.46,
+        "end_seconds": 144.86
+      },
+      {
+        "segment_id": "vercel-large-request-body-beta-segment",
+        "text": "closely.",
+        "start_seconds": 144.86,
+        "end_seconds": 146.03500000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "And",
+        "start_seconds": 147.185,
+        "end_seconds": 147.32250000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "finally,",
+        "start_seconds": 147.32250000000002,
+        "end_seconds": 147.91000000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "our",
+        "start_seconds": 147.91000000000003,
+        "end_seconds": 148.06
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "last",
+        "start_seconds": 148.06,
+        "end_seconds": 148.36
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "story.",
+        "start_seconds": 148.36,
+        "end_seconds": 149.2475
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "Cloudflare",
+        "start_seconds": 149.2475,
+        "end_seconds": 149.81
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "has",
+        "start_seconds": 149.81,
+        "end_seconds": 149.985
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "added",
+        "start_seconds": 149.985,
+        "end_seconds": 150.32250000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "two",
+        "start_seconds": 150.32250000000002,
+        "end_seconds": 150.57250000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "managed‑ruleset",
+        "start_seconds": 150.57250000000002,
+        "end_seconds": 151.44750000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "entries",
+        "start_seconds": 151.44750000000002,
+        "end_seconds": 151.86
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "that",
+        "start_seconds": 151.86,
+        "end_seconds": 152.01000000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "stop",
+        "start_seconds": 152.01000000000002,
+        "end_seconds": 152.32250000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "the",
+        "start_seconds": 152.32250000000002,
+        "end_seconds": 152.41000000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "ruby2shell",
+        "start_seconds": 152.41000000000003,
+        "end_seconds": 153.01000000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "heap",
+        "start_seconds": 153.01000000000002,
+        "end_seconds": 153.26000000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "overflow",
+        "start_seconds": 153.26000000000002,
+        "end_seconds": 153.76000000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "from",
+        "start_seconds": 153.76000000000002,
+        "end_seconds": 153.97250000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "slipping",
+        "start_seconds": 153.97250000000003,
+        "end_seconds": 154.3975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "through",
+        "start_seconds": 154.3975,
+        "end_seconds": 154.61
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "its",
+        "start_seconds": 154.61,
+        "end_seconds": 154.81
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "web",
+        "start_seconds": 154.81,
+        "end_seconds": 154.9975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "application",
+        "start_seconds": 154.9975,
+        "end_seconds": 155.6475
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "firewall.",
+        "start_seconds": 155.6475,
+        "end_seconds": 156.935
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "The",
+        "start_seconds": 158.10999999999999,
+        "end_seconds": 158.20999999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "rules",
+        "start_seconds": 158.20999999999998,
+        "end_seconds": 158.535
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "target",
+        "start_seconds": 158.535,
+        "end_seconds": 158.89749999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "the",
+        "start_seconds": 158.89749999999998,
+        "end_seconds": 159.02249999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "Ruby",
+        "start_seconds": 159.02249999999998,
+        "end_seconds": 159.31
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "string‑case",
+        "start_seconds": 159.31,
+        "end_seconds": 159.935
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "conversion",
+        "start_seconds": 159.935,
+        "end_seconds": 160.45999999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "bug",
+        "start_seconds": 160.45999999999998,
+        "end_seconds": 160.70999999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "that",
+        "start_seconds": 160.70999999999998,
+        "end_seconds": 160.83499999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "overflows",
+        "start_seconds": 160.83499999999998,
+        "end_seconds": 161.3475
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "a",
+        "start_seconds": 161.3475,
+        "end_seconds": 161.41
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "buffer",
+        "start_seconds": 161.41,
+        "end_seconds": 161.77249999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "on",
+        "start_seconds": 161.77249999999998,
+        "end_seconds": 161.8725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "the",
+        "start_seconds": 161.8725,
+        "end_seconds": 161.95999999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "German",
+        "start_seconds": 161.95999999999998,
+        "end_seconds": 162.3225
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "sharp‑s",
+        "start_seconds": 162.3225,
+        "end_seconds": 162.91
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "and",
+        "start_seconds": 162.91,
+        "end_seconds": 163.02249999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "also",
+        "start_seconds": 163.02249999999998,
+        "end_seconds": 163.35999999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "catch",
+        "start_seconds": 163.35999999999999,
+        "end_seconds": 163.5975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "a",
+        "start_seconds": 163.5975,
+        "end_seconds": 163.66
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "related",
+        "start_seconds": 163.66,
+        "end_seconds": 164.135
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "integer",
+        "start_seconds": 164.135,
+        "end_seconds": 164.51
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "overflow.",
+        "start_seconds": 164.51,
+        "end_seconds": 165.635
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "The",
+        "start_seconds": 165.635,
+        "end_seconds": 165.73499999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "immediate",
+        "start_seconds": 165.73499999999999,
+        "end_seconds": 166.1225
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "effect",
+        "start_seconds": 166.1225,
+        "end_seconds": 166.4975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "is",
+        "start_seconds": 166.4975,
+        "end_seconds": 166.5975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "that",
+        "start_seconds": 166.5975,
+        "end_seconds": 166.76
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "traffic",
+        "start_seconds": 166.76,
+        "end_seconds": 167.14749999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "is",
+        "start_seconds": 167.14749999999998,
+        "end_seconds": 167.285
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "filtered",
+        "start_seconds": 167.285,
+        "end_seconds": 167.64749999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "at",
+        "start_seconds": 167.64749999999998,
+        "end_seconds": 167.7225
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "the",
+        "start_seconds": 167.7225,
+        "end_seconds": 167.85999999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "edge,",
+        "start_seconds": 167.85999999999999,
+        "end_seconds": 168.435
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "but",
+        "start_seconds": 168.435,
+        "end_seconds": 168.5725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "the",
+        "start_seconds": 168.5725,
+        "end_seconds": 168.685
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "only",
+        "start_seconds": 168.685,
+        "end_seconds": 168.98499999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "way",
+        "start_seconds": 168.98499999999999,
+        "end_seconds": 169.14749999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "to",
+        "start_seconds": 169.14749999999998,
+        "end_seconds": 169.27249999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "fully",
+        "start_seconds": 169.27249999999998,
+        "end_seconds": 169.54749999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "eliminate",
+        "start_seconds": 169.54749999999999,
+        "end_seconds": 169.9725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "the",
+        "start_seconds": 169.9725,
+        "end_seconds": 170.0725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "flaw",
+        "start_seconds": 170.0725,
+        "end_seconds": 170.435
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "is",
+        "start_seconds": 170.435,
+        "end_seconds": 170.58499999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "to",
+        "start_seconds": 170.58499999999998,
+        "end_seconds": 170.70999999999998
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "upgrade",
+        "start_seconds": 170.70999999999998,
+        "end_seconds": 171.16
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "Ruby",
+        "start_seconds": 171.16,
+        "end_seconds": 171.48499999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "to",
+        "start_seconds": 171.48499999999999,
+        "end_seconds": 171.60999999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "version",
+        "start_seconds": 171.60999999999999,
+        "end_seconds": 171.9975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "three",
+        "start_seconds": 171.9975,
+        "end_seconds": 172.23499999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "point",
+        "start_seconds": 172.23499999999999,
+        "end_seconds": 172.51
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "three",
+        "start_seconds": 172.51,
+        "end_seconds": 172.73499999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "point",
+        "start_seconds": 172.73499999999999,
+        "end_seconds": 172.98499999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "fourteen,",
+        "start_seconds": 172.98499999999999,
+        "end_seconds": 173.79749999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "three",
+        "start_seconds": 173.79749999999999,
+        "end_seconds": 174.035
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "point",
+        "start_seconds": 174.035,
+        "end_seconds": 174.29749999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "four",
+        "start_seconds": 174.29749999999999,
+        "end_seconds": 174.535
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "point",
+        "start_seconds": 174.535,
+        "end_seconds": 174.785
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "thirteen,",
+        "start_seconds": 174.785,
+        "end_seconds": 175.41
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "or",
+        "start_seconds": 175.41,
+        "end_seconds": 175.5725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "four",
+        "start_seconds": 175.5725,
+        "end_seconds": 175.81
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "point",
+        "start_seconds": 175.81,
+        "end_seconds": 176.06
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "zero",
+        "start_seconds": 176.06,
+        "end_seconds": 176.35999999999999
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "point",
+        "start_seconds": 176.35999999999999,
+        "end_seconds": 176.635
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "ten.",
+        "start_seconds": 176.635,
+        "end_seconds": 177.66
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "Plan",
+        "start_seconds": 178.81,
+        "end_seconds": 179.16000000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "those",
+        "start_seconds": 179.16000000000003,
+        "end_seconds": 179.47250000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "Ruby",
+        "start_seconds": 179.47250000000003,
+        "end_seconds": 179.81
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "upgrades",
+        "start_seconds": 179.81,
+        "end_seconds": 180.3725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "soon.",
+        "start_seconds": 180.3725,
+        "end_seconds": 181.41000000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "And",
+        "start_seconds": 182.56,
+        "end_seconds": 182.6725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "that's",
+        "start_seconds": 182.6725,
+        "end_seconds": 182.91000000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "your",
+        "start_seconds": 182.91000000000003,
+        "end_seconds": 183.06
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "Daywire",
+        "start_seconds": 183.06,
+        "end_seconds": 183.51000000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "briefing.",
+        "start_seconds": 183.51000000000002,
+        "end_seconds": 184.21
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "You'll",
+        "start_seconds": 184.21,
+        "end_seconds": 184.36
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "find",
+        "start_seconds": 184.36,
+        "end_seconds": 184.59750000000003
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "the",
+        "start_seconds": 184.59750000000003,
+        "end_seconds": 184.69750000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "full",
+        "start_seconds": 184.69750000000002,
+        "end_seconds": 184.935
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "stories",
+        "start_seconds": 184.935,
+        "end_seconds": 185.3725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "and",
+        "start_seconds": 185.3725,
+        "end_seconds": 185.4975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "sources",
+        "start_seconds": 185.4975,
+        "end_seconds": 185.985
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "in",
+        "start_seconds": 185.985,
+        "end_seconds": 186.085
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "today's",
+        "start_seconds": 186.085,
+        "end_seconds": 186.46
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "newspaper.",
+        "start_seconds": 186.46,
+        "end_seconds": 187.2975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "Thanks",
+        "start_seconds": 187.2975,
+        "end_seconds": 187.585
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "for",
+        "start_seconds": 187.585,
+        "end_seconds": 187.71
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "listening.",
+        "start_seconds": 187.71,
+        "end_seconds": 188.2725
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "Take",
+        "start_seconds": 188.2725,
+        "end_seconds": 188.57250000000002
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "care,",
+        "start_seconds": 188.57250000000002,
+        "end_seconds": 188.8975
+      },
+      {
+        "segment_id": "cloudflare-waf-ruby2shell-2026-11-21",
+        "text": "everyone.",
+        "start_seconds": 188.8975,
+        "end_seconds": 190.06
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
