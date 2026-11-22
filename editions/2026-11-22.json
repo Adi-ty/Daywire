@@ -1,0 +1,3517 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-22",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-22T07:28:54.398784422Z",
+  "coverage": {
+    "from": "2026-11-21T06:00:00+05:30",
+    "until": "2026-11-22T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-cf85127411206c4e",
+      "source-784c995a07e77d4e"
+    ],
+    "candidate_count": 37,
+    "evidence_count": 32
+  },
+  "content": {
+    "title": "Fastify middleware bypass fix and FBI NCIC breach investigation",
+    "introduction": "The Fastify‑Express middleware bypass was addressed in the 4.0.10 release, strengthening authentication and rate‑limiting for Node.js services. In parallel, the FBI has opened an investigation into a reported intrusion of its National Crime Information Center, highlighting concerns about law‑enforcement data security.",
+    "articles": [
+      {
+        "id": "fastify-express-middleware-bypass",
+        "section": "Security",
+        "headline": "Fastify‑Express middleware bypass fixed in 4.0.10",
+        "summary": "A critical path‑scoped middleware bypass in @fastify/express is patched in version 4.0.10, protecting routes that rely on Express middleware for auth or rate‑limiting.",
+        "paragraphs": [
+          "Two related advisories (CVE‑2026‑133120 and CVE‑2026‑129504) describe how @fastify/express could let unauthenticated requests reach a Fastify handler while the attached Express middleware is skipped. The first issue stems from URL percent‑decoding mismatches that let backslashes or a leading asterisk alter the path seen by Express. The second issue arises when Fastify concatenates a plugin prefix with an Express mount path, producing a mismatched route if the prefix ends with a slash or the mount path lacks a leading slash. Both flaws require no special configuration and affect all applications that embed path‑scoped Express middleware inside Fastify plugins.",
+          "The vendor released @fastify/express 4.0.10, which now rejects request targets that do not start with “/”, preserves the encoded query string, and aligns Express mount paths with Fastify’s router. Upgrading eliminates the bypass without code changes, though developers may still add a preHandler hook that checks request.routeOptions.url for extra safety."
+        ],
+        "implication": "Upgrading to @fastify/express ≥ 4.0.10 restores the intended security boundary between Fastify routing and Express middleware, ensuring that authentication, authorization, or rate‑limiting logic cannot be bypassed by crafted URLs.",
+        "source_ids": [
+          "source-03d55ac7bdbb35ab",
+          "source-a2adefcdbf146202"
+        ]
+      },
+      {
+        "id": "fbi-ncic-breach-2026-11-22",
+        "section": "Security",
+        "headline": "Apparent breach of FBI’s NCIC criminal database reported",
+        "summary": "The FBI is probing a suspected intrusion into its National Crime Information Center, affecting law‑enforcement data sharing nationwide.",
+        "paragraphs": [
+          "Two sources told the BBC that unauthorized access was detected in the NCIC system, which stores warrants and background‑check information for federal and local agencies. The incident follows earlier claims of a ShinyHunters breach that exposed personal data on roughly 38,000 FBI staff. No official comment has been received from the bureau, and details of the attack vector remain undisclosed."
+        ],
+        "implication": "The report underscores that NCIC data may have been accessed without authorization, so agencies that rely on the system should watch for any FBI-issued notices about the breach.",
+        "source_ids": [
+          "source-859d9bb59e13136f"
+        ]
+      },
+      {
+        "id": "fastify-swagger-ui-auth-bypass-2026-11-22",
+        "section": "Security",
+        "headline": "Fastify swagger-ui static route exposes docs without auth",
+        "summary": "Versions 2.1.0‑6.1.4 of @fastify/swagger-ui allow unauthenticated reads of files served via the /static path, bypassing documentation login.",
+        "paragraphs": [
+          "The plugin applies uiHooks (onRequest and preHandler) to all its routes except the @fastify/static instance mounted at \u003croutePrefix\u003e/static/. When baseDir is configured, any file protected at \u003croutePrefix\u003e/\u003cfile\u003e can be fetched without credentials at \u003croutePrefix\u003e/static/\u003cfile\u003e. The issue affects 2.1.0 through 6.1.4 and is fixed in 6.1.5, which secures the static assets with the same hooks. Operators can also enforce authentication in a preceding Fastify hook or omit baseDir to avoid the exposure."
+        ],
+        "implication": "Projects that rely on @fastify/swagger-ui for protected API docs should upgrade to 6.1.5 or later, or add a pre‑request hook, to prevent accidental leakage of specification files.",
+        "source_ids": [
+          "source-cf3b1732feb40fc7"
+        ]
+      },
+      {
+        "id": "inkling-2-mini-memory-efficiency",
+        "section": "Engineering",
+        "headline": "Inkling‑2‑Mini 12.8 GB checkpoint matches full‑size BF16 teacher",
+        "summary": "The 12.8 GB Inkling‑2‑Mini checkpoint reproduces the untouched BF16 teacher’s benchmark scores while using 32.5 % less text‑weight memory.",
+        "paragraphs": [
+          "The Inkling‑2‑Mini family, released on GitHub, provides four memory‑scaled checkpoints (5.4 GB, 8.9 GB, 11.2 GB, 12.8 GB). Only the 12.8 GB variant attains 100 % of the teacher’s performance on all 349 pooled benchmark items, doing so with 32.5 % less text‑weight memory than the original BF16 model.",
+          "All checkpoints run through the lamq toolchain and unified Metal kernels on Apple M5 Max. The 12.8 GB model reaches 2,016 tok/s prefill and 112.7 tok/s median lossless decode while staying under 13 GB active RAM; smaller checkpoints trade a modest drop in accuracy for lower RAM usage and comparable throughput.",
+          "For engineers targeting Apple silicon, the choice is clear: use the 12.8 GB checkpoint when full fidelity is required, or select a smaller checkpoint to fit tighter memory budgets at the cost of a few percentage points in benchmark scores."
+        ],
+        "implication": "Developers can obtain teacher‑level accuracy on Apple‑M5 hardware by allocating roughly 13 GB RAM, while still having lower‑memory options for less demanding use cases.",
+        "source_ids": [
+          "source-6c69e97c5257c80c"
+        ]
+      },
+      {
+        "id": "zero-csharp-native-tool",
+        "section": "Tools",
+        "headline": "Zero C# compiles to tiny native binaries without a runtime",
+        "summary": "A fork of bflat lets developers write standard C# code that compiles directly to a small native executable, eliminating the .NET runtime and garbage collector.",
+        "paragraphs": [
+          "The Zero C# project builds on bflat to produce native programs that run on Linux, macOS, Windows, WebAssembly, and even DOS on a 386, while preserving C# syntax, type checking, generics, and a subset of LINQ via a small library. Memory is managed through arena allocation freed in bulk, and the resulting hello‑world binary is about 11 KB on Windows and 40 KB on Linux, requiring only the C library."
+        ],
+        "implication": "Engineers can ship C# utilities with a minimal footprint and no runtime dependency, but must redesign code to avoid garbage‑collected patterns and rely on explicit memory arenas.",
+        "source_ids": [
+          "source-d8640923d2430592"
+        ]
+      },
+      {
+        "id": "human-baseline-outperforms-llms-simplebench-2026",
+        "section": "AI",
+        "headline": "Human baseline outpaces top LLMs on SimpleBench",
+        "summary": "A new benchmark shows everyday human reasoning still beats the latest frontier models, including Claude Fable.",
+        "paragraphs": [
+          "SimpleBench, a multiple‑choice test of spatio‑temporal reasoning, social intelligence and adversarial linguistic tricks, reports an 83.7 % human baseline (nine high‑school participants) versus 81.9 % for Claude Fable, the current top model. The result highlights that memorised knowledge and approximate retrieval used by state‑of‑the‑art LLMs are insufficient for many basic questions."
+        ],
+        "implication": "Engineers should temper expectations that larger models automatically solve everyday reasoning tasks; targeted prompting or new architectures may be needed for robust performance.",
+        "source_ids": [
+          "source-74442715952b612f"
+        ]
+      },
+      {
+        "id": "rust-gui-ai-rewrites-2026",
+        "section": "Engineering",
+        "headline": "GPUI emerges as a major Rust GUI for AI‑driven rewrites",
+        "summary": "The Lobsters community notes GPUI gaining attention for AI‑focused UI rewrites, with Discord cited as a flagship adopter.",
+        "paragraphs": [
+          "In a Lobsters discussion that follows up on the 2022 “Advice for the next dozen Rust GUIs” post, participants observe that roughly 20 Rust GUI toolkits have appeared since then, yet GPUI is highlighted as an emerging major choice for AI‑driven rewrites. The thread points to Discord’s recent client rewrite as a concrete example of GPUI’s use in production.",
+          "The same discussion also mentions that immediate‑mode UI designs remain attractive for their simplicity, but participants express concern about their scalability, and that hardware‑accelerated video layers are still uncommon in most Rust UI toolkits."
+        ],
+        "implication": "Engineers evaluating Rust‑based UI overhauls for AI‑enhanced products should weigh GPUI’s growing adoption against the limited availability of video‑accelerated components.",
+        "source_ids": [
+          "source-3f9a1420c7864ab1"
+        ]
+      },
+      {
+        "id": "go-pg-extensions-experimental",
+        "section": "Tools",
+        "headline": "gopgext lets Go code become PostgreSQL extensions",
+        "summary": "The open‑source gopgext tool compiles plain Go functions into PostgreSQL extensions using TinyGo, but it remains experimental and unsuitable for production.",
+        "paragraphs": [
+          "Developers can mark a Go function with //gopgext:function and gopgext generates the C glue, install script and control file, exposing standard library types (fmt, regexp, crypto, generics, etc.) as SQL types. It supports triggers, aggregates, index operator classes and foreign data wrappers, and has passed upstream regression tests for several contrib modules. The project warns that bugs in the generated code or the Go runtime can crash the server or corrupt data, and the API may change without notice."
+        ],
+        "implication": "Engineers can prototype PostgreSQL extensions in Go quickly, but must treat gopgext as a research tool rather than a production‑ready solution.",
+        "source_ids": [
+          "source-5b40733bb9059e79"
+        ]
+      },
+      {
+        "id": "mini-pg-single-binary",
+        "section": "Tools",
+        "headline": "miniPG packages a full PostgreSQL server into a single executable",
+        "summary": "miniPG lets developers run real PostgreSQL locally without a separate server process, targeting single‑user tools that would otherwise need SQLite.",
+        "paragraphs": [
+          "The project compiles a complete PostgreSQL instance into a cross‑platform binary for macOS, Windows and Linux. You point it at a directory and it behaves like sqlite3, but it runs the actual PostgreSQL engine rather than a compatibility shim. On the author’s M3 MacBook the binary takes about seven seconds to become ready for connections, roughly an order of magnitude slower than a native server."
+        ],
+        "implication": "For hobbyist or single‑user applications that need PostgreSQL features, miniPG offers a zero‑setup alternative, though developers should expect slower start‑up times compared with a traditional server.",
+        "source_ids": [
+          "source-c4d11d7910491361"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "url-decoding-consistency-fastify-express",
+        "title": "Keep URL decoding and path normalization consistent across routing layers",
+        "paragraphs": [
+          "When Fastify forwards a request to the embedded Express plugin, the two frameworks must see the same normalized path. The advisory CVE‑2026‑133120 shows that @fastify/express decoded percent‑encoded characters before Express did, so a backslash (%5C) or a leading asterisk caused Fastify to route the request while Express failed to match its middleware, letting unauthenticated traffic bypass auth checks.",
+          "A second flaw (CVE‑2026‑129504) arose from simple string concatenation of Fastify’s plugin prefix and Express’s mount path. If the prefix ended with a slash or the mount path omitted its leading slash, the resulting path differed between the router and middleware, again skipping the middleware while the handler still ran."
+        ],
+        "example": "Imagine Fastify has a plugin prefix \"/api/\" and Express mounts middleware with use('admin', auth). The combined path becomes \"/api/admin\" for Fastify but \"admin\" for Express, so a request to \"/api/admin\" reaches the handler without auth.",
+        "takeaway": "Always ensure that URL decoding and path joining are performed identically in every layer of a stack; mismatches can silently bypass security middleware even without attacker‑crafted payloads.",
+        "article_ids": [
+          "fastify-express-middleware-bypass"
+        ],
+        "source_ids": [
+          "source-03d55ac7bdbb35ab",
+          "source-a2adefcdbf146202"
+        ]
+      },
+      {
+        "id": "centralized-database-access-controls-2026-11-22",
+        "title": "Enforce strict access controls on centralized law‑enforcement databases",
+        "paragraphs": [
+          "The FBI’s National Crime Information Center (NCIC) stores warrants, background‑check data and other critical law‑enforcement records. A recent report confirms an apparent breach of this system, indicating that unauthorized parties were able to access data that is normally restricted to law‑enforcement users.",
+          "Because the NCIC is a single, highly privileged repository, any weakness in how access is granted or monitored could allow an attacker who obtains legitimate credentials—or otherwise gains access—to retrieve large amounts of sensitive information. The report does not specify the exact technique used, but it highlights the risk inherent in broad, un‑audited permissions."
+        ],
+        "example": "Hypothetical illustration: suppose an analyst’s login credentials were compromised. If that account is permitted to run a generic search function without limits on the scope of queries, the attacker could issue many searches and collect records beyond what the analyst normally needs. This scenario underscores why granular, role‑based permissions and thorough logging are essential, even though the actual breach details have not been disclosed.",
+        "takeaway": "Limit each user account to the minimum data and queries required for its role, implement role‑based access controls, and ensure that all database queries are logged and regularly reviewed for anomalous activity.",
+        "article_ids": [
+          "fbi-ncic-breach-2026-11-22"
+        ],
+        "source_ids": [
+          "source-859d9bb59e13136f"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-url-decoding-consistency-fastify-express-1",
+        "lesson_id": "url-decoding-consistency-fastify-express",
+        "prompt": "Why did CVE‑2026‑133120 allow unauthenticated traffic to bypass auth checks in a Fastify‑Express setup?",
+        "options": [
+          "Fastify decoded percent‑encoded characters before Express, causing a path mismatch.",
+          "Express decoded percent‑encoded characters before Fastify, causing a path mismatch.",
+          "Both frameworks used the same decoding order, but the auth middleware was disabled.",
+          "The request URL contained an invalid character that both frameworks rejected."
+        ],
+        "answer": 0,
+        "explanation": "The advisory states that Fastify decoded percent‑encoded characters (e.g., %5C) before Express did, so Fastify routed the request while Express failed to match its middleware, letting the request bypass authentication."
+      },
+      {
+        "id": "quiz-1-url-decoding-consistency-fastify-express-2",
+        "lesson_id": "url-decoding-consistency-fastify-express",
+        "prompt": "In the CVE‑2026‑129504 scenario, what caused the path mismatch between Fastify and Express?",
+        "options": [
+          "Fastify concatenated its plugin prefix with Express’s mount path without normalizing slashes.",
+          "Express ignored the Fastify plugin prefix entirely.",
+          "Fastify used a different HTTP method than Express expected.",
+          "Express automatically added a trailing slash to the mount path."
+        ],
+        "answer": 0,
+        "explanation": "The flaw arose from simple string concatenation of Fastify’s plugin prefix and Express’s mount path; if the prefix ended with a slash or the mount path omitted its leading slash, the resulting path differed, skipping the middleware."
+      },
+      {
+        "id": "quiz-1-url-decoding-consistency-fastify-express-3",
+        "lesson_id": "url-decoding-consistency-fastify-express",
+        "prompt": "According to the takeaway, what is the primary security practice to prevent middleware bypasses in layered routing stacks?",
+        "options": [
+          "Ensure URL decoding and path joining are performed identically in every layer.",
+          "Always place authentication middleware at the very end of the stack.",
+          "Disable percent‑encoding in all incoming requests.",
+          "Use only one routing framework per application."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway explicitly advises that URL decoding and path joining must be performed identically across all layers; mismatches can silently bypass security middleware."
+      },
+      {
+        "id": "quiz-2-1",
+        "lesson_id": "centralized-database-access-controls-2026-11-22",
+        "prompt": "What primary security principle is highlighted by the recommendation to limit each user account to the minimum data and queries required for its role?",
+        "options": [
+          "Defense in depth",
+          "Least privilege",
+          "Security through obscurity",
+          "Mandatory access control"
+        ],
+        "answer": 1,
+        "explanation": "The lesson advises limiting accounts to only the data and queries needed for their role, which directly implements the least‑privilege principle."
+      },
+      {
+        "id": "quiz-2-2",
+        "lesson_id": "centralized-database-access-controls-2026-11-22",
+        "prompt": "According to the lesson, why is thorough logging of database queries important in a centralized system like NCIC?",
+        "options": [
+          "It prevents attackers from using compromised credentials.",
+          "It enables detection of anomalous activity that may indicate misuse.",
+          "It automatically blocks any unauthorized query.",
+          "It replaces the need for role‑based access controls."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that logging and regular review help identify anomalous activity, which is essential for spotting misuse after credentials are compromised."
+      }
+    ],
+    "segments": [
+      {
+        "id": "fastify-express-middleware-bypass-update",
+        "title": "Fastify‑Express middleware bypass fixed",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November twenty two, two thousand twenty six.\n\nWe begin with our lead story. Fastify‑Express has patched a critical middleware bypass in version four point zero point ten. The flaw let crafted URLs slip past Express auth or rate‑limiting layers, either by percent‑decoding tricks or mismatched mount paths, and it required no special configuration. Upgrading to the new release makes Fastify reject any request that doesn’t start with a slash, keeps the query string encoded, and lines up mount paths correctly. Here’s why that matters: the security boundary between Fastify routing and Express middleware is restored, so your authentication and rate‑limiting logic stays effective.",
+        "article_ids": [
+          "fastify-express-middleware-bypass"
+        ]
+      },
+      {
+        "id": "fbi-ncic-breach-2026-11-22-segment",
+        "title": "FBI NCIC breach reported",
+        "text": "Next on the bulletin. Two BBC‑cited sources say the FBI’s National Crime Information Center was accessed without permission. The database holds warrants and background‑check information that law‑enforcement agencies across the country rely on. The report follows earlier claims that the ShinyHunters group exposed personal data on roughly thirty‑eight thousand FBI staff. No official comment has been received and the attack vector has not been disclosed.",
+        "article_ids": [
+          "fbi-ncic-breach-2026-11-22"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Fastify Swagger‑UI static route exposes docs without auth",
+        "text": "Turning to our next story. Fastify swagger‑UI lets anyone pull your API docs straight from the static folder. The plugin skips its authentication hooks on any route under \u003croutePrefix\u003e/static/, so a file you thought was protected at \u003croutePrefix\u003e/\u003cfile\u003e can be fetched at \u003croutePrefix\u003e/static/\u003cfile\u003e without credentials. Versions two point one point zero through six point one point four are vulnerable; the fix lands in version six point one point five, which applies the same hooks to static assets. Here's why that matters: if you rely on swagger‑UI for private documentation, upgrade now or add your own pre‑request hook to keep the specs from leaking.",
+        "article_ids": [
+          "fastify-swagger-ui-auth-bypass-2026-11-22"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Inkling‑2‑Mini 12.8 GB matches full‑size teacher on Apple silicon",
+        "text": "Next on the bulletin. Inkling‑2‑Mini’s biggest checkpoint hits the same benchmark scores as the full‑size BF16 teacher while shaving a third off its text‑weight memory.\n\nThe 12.8 GB model runs on Apple M5 Max, staying under 13 GB of active RAM and still delivering about two thousand sixteen tokens per second in pre‑fill and a median lossless decode speed of one hundred twelve point seven tokens per second. Smaller checkpoints trade a few percent of accuracy for lower RAM footprints, but if you need teacher‑level fidelity, the 12.8 GB checkpoint is the clear choice.\n\nSo developers targeting Apple silicon can get full‑teacher accuracy with roughly thirteen gigabytes of RAM, and still have leaner options when memory is tight.",
+        "article_ids": [
+          "inkling-2-mini-memory-efficiency"
+        ]
+      },
+      {
+        "id": "zero-csharp-native-tool-story",
+        "title": "Zero C# ships tiny native binaries",
+        "text": "And finally, our last story. Zero C# lets you write ordinary C# and compile straight to a native executable, no .NET runtime needed. The fork of bflat produces a hello‑world binary that's about eleven kilobytes on Windows and forty kilobytes on Linux, and it even runs on WebAssembly, macOS, and DOS on a 386. Memory is handled with arena allocation, so you give up the garbage collector and design for bulk frees. Here's why that matters: you can ship tiny C# utilities without bundling a runtime, as long as you rewrite code to avoid garbage‑collected patterns.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "zero-csharp-native-tool"
+        ]
+      }
+    ],
+    "artwork_brief": "An illustration split in two: on the left, a code editor displaying Fastify source with highlighted patches for the middleware bypass; on the right, a stylized data center silhouette with a warning symbol, representing the FBI NCIC breach investigation."
+  },
+  "sources": [
+    {
+      "id": "source-03d55ac7bdbb35ab",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-133120: @fastify/express vulnerable to path-scoped middleware bypass via request URL decoding and normalization mismatches",
+      "url": "https://github.com/fastify/fastify-express/security/advisories/GHSA-w877-hjcp-88rc",
+      "published_at": "2026-11-21T17:08:07Z",
+      "discovered_at": "2026-11-22T07:10:41.597188156Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-a2adefcdbf146202",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-129504: @fastify/express vulnerable to path-scoped middleware bypass via prefix and mount path join mismatch",
+      "url": "https://github.com/fastify/fastify-express/security/advisories/GHSA-f44m-4qwg-5587",
+      "published_at": "2026-11-21T17:03:38Z",
+      "discovered_at": "2026-11-22T07:10:41.597188156Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-6c69e97c5257c80c",
+      "name": "Hacker News",
+      "title": "Inkling-2-Mini in 5.4 GB Memory",
+      "url": "https://github.com/ShinMegamiBoson/lookatmyquant",
+      "published_at": null,
+      "discovered_at": "2026-11-21T18:02:19Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50591853"
+    },
+    {
+      "id": "source-3f9a1420c7864ab1",
+      "name": "Lobsters",
+      "title": "Advice for the next 100 Rust GUIs",
+      "url": "https://linebender.org/blog/next-100-guis/",
+      "published_at": null,
+      "discovered_at": "2026-11-21T17:10:07.02-06:00",
+      "discussion_url": "https://lobste.rs/s/inhlo2/advice_for_next_100_rust_guis"
+    },
+    {
+      "id": "source-74442715952b612f",
+      "name": "Hacker News",
+      "title": "Astra 6.2 and Sol 6.2 flop at Simple Bench",
+      "url": "https://simple-bench.com/",
+      "published_at": null,
+      "discovered_at": "2026-11-21T13:16:12Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50588916"
+    },
+    {
+      "id": "source-c4d11d7910491361",
+      "name": "Lobsters",
+      "title": "How I Got Postgres into a Single Binary",
+      "url": "https://progrium.xyz/articles/2026/single-binary-postgres",
+      "published_at": null,
+      "discovered_at": "2026-11-21T13:32:22.642-06:00",
+      "discussion_url": "https://lobste.rs/s/pvylnk/how_i_got_postgres_into_single_binary"
+    },
+    {
+      "id": "source-859d9bb59e13136f",
+      "name": "Hacker News",
+      "title": "FBI reportedly investigating apparent hack of its criminal database",
+      "url": "https://www.bbc.com/news/articles/cvze7de86pk3o",
+      "published_at": null,
+      "discovered_at": "2026-11-21T10:33:57Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50587859"
+    },
+    {
+      "id": "source-cf3b1732feb40fc7",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-133273: @fastify/swagger-ui vulnerable to documentation authentication bypass via the unprotected /static route",
+      "url": "https://github.com/fastify/fastify-swagger-ui/security/advisories/GHSA-j7qm-jhpc-mj26",
+      "published_at": "2026-11-21T16:50:48Z",
+      "discovered_at": "2026-11-22T07:10:41.597188156Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-d8640923d2430592",
+      "name": "Hacker News",
+      "title": "Show HN: Zero C# – C# without a runtime or GC",
+      "url": "https://onurgumus.github.io/zero-csharp/index.html",
+      "published_at": null,
+      "discovered_at": "2026-11-21T15:39:09Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50590279"
+    },
+    {
+      "id": "source-5b40733bb9059e79",
+      "name": "Hacker News",
+      "title": "PostgreSQL Extensions in Go",
+      "url": "https://jespino.github.io/gopgext/",
+      "published_at": null,
+      "discovered_at": "2026-11-21T17:08:04Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50591260"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-22/e16f15965e6245d143189e51ae704512156520ad37aefa6ceee8ada11d9bd89a.mp3",
+    "duration_seconds": 185.976,
+    "script_hash": "6865f995af84c12c1a87a1f89573fddaa9ab7efef42b47720ca200e6dcfe4dce",
+    "cues": [
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.625
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "everyone,",
+        "start_seconds": 0.625,
+        "end_seconds": 1.1625
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "and",
+        "start_seconds": 1.1625,
+        "end_seconds": 1.275
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "welcome",
+        "start_seconds": 1.275,
+        "end_seconds": 1.65
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "to",
+        "start_seconds": 1.65,
+        "end_seconds": 1.775
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Daywire.",
+        "start_seconds": 1.775,
+        "end_seconds": 2.5625
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Let's",
+        "start_seconds": 2.5625,
+        "end_seconds": 2.8125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "make",
+        "start_seconds": 2.8125,
+        "end_seconds": 3.025
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "sense",
+        "start_seconds": 3.025,
+        "end_seconds": 3.3375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "of",
+        "start_seconds": 3.3375,
+        "end_seconds": 3.4125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "the",
+        "start_seconds": 3.4125,
+        "end_seconds": 3.5
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "tech",
+        "start_seconds": 3.5,
+        "end_seconds": 3.75
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "news.",
+        "start_seconds": 3.75,
+        "end_seconds": 4.425
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "It's",
+        "start_seconds": 4.425,
+        "end_seconds": 4.6125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "November",
+        "start_seconds": 4.6125,
+        "end_seconds": 5.025
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "twenty",
+        "start_seconds": 5.025,
+        "end_seconds": 5.3375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "two,",
+        "start_seconds": 5.3375,
+        "end_seconds": 5.65
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "two",
+        "start_seconds": 5.65,
+        "end_seconds": 5.85
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "thousand",
+        "start_seconds": 5.85,
+        "end_seconds": 6.1875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "twenty",
+        "start_seconds": 6.1875,
+        "end_seconds": 6.425
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "six.",
+        "start_seconds": 6.425,
+        "end_seconds": 7.25
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "We",
+        "start_seconds": 8.424999999999999,
+        "end_seconds": 8.5125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "begin",
+        "start_seconds": 8.5125,
+        "end_seconds": 8.8125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "with",
+        "start_seconds": 8.8125,
+        "end_seconds": 8.9125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "our",
+        "start_seconds": 8.9125,
+        "end_seconds": 9.049999999999999
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "lead",
+        "start_seconds": 9.049999999999999,
+        "end_seconds": 9.274999999999999
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "story.",
+        "start_seconds": 9.274999999999999,
+        "end_seconds": 10.0125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Fastify‑Express",
+        "start_seconds": 10.0125,
+        "end_seconds": 10.9375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "has",
+        "start_seconds": 10.9375,
+        "end_seconds": 11.1
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "patched",
+        "start_seconds": 11.1,
+        "end_seconds": 11.3875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "a",
+        "start_seconds": 11.3875,
+        "end_seconds": 11.45
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "critical",
+        "start_seconds": 11.45,
+        "end_seconds": 11.85
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "middleware",
+        "start_seconds": 11.85,
+        "end_seconds": 12.174999999999999
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "bypass",
+        "start_seconds": 12.174999999999999,
+        "end_seconds": 12.612499999999999
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "in",
+        "start_seconds": 12.612499999999999,
+        "end_seconds": 12.7
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "version",
+        "start_seconds": 12.7,
+        "end_seconds": 13.049999999999999
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "four",
+        "start_seconds": 13.049999999999999,
+        "end_seconds": 13.25
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "point",
+        "start_seconds": 13.25,
+        "end_seconds": 13.5
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "zero",
+        "start_seconds": 13.5,
+        "end_seconds": 13.799999999999999
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "point",
+        "start_seconds": 13.799999999999999,
+        "end_seconds": 14.024999999999999
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "ten.",
+        "start_seconds": 14.024999999999999,
+        "end_seconds": 14.725
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "The",
+        "start_seconds": 14.725,
+        "end_seconds": 14.825
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "flaw",
+        "start_seconds": 14.825,
+        "end_seconds": 15.1
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "let",
+        "start_seconds": 15.1,
+        "end_seconds": 15.25
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "crafted",
+        "start_seconds": 15.25,
+        "end_seconds": 15.674999999999999
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "URLs",
+        "start_seconds": 15.674999999999999,
+        "end_seconds": 16.15
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "slip",
+        "start_seconds": 16.15,
+        "end_seconds": 16.4
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "past",
+        "start_seconds": 16.4,
+        "end_seconds": 16.6875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Express",
+        "start_seconds": 16.6875,
+        "end_seconds": 17.112499999999997
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "auth",
+        "start_seconds": 17.112499999999997,
+        "end_seconds": 17.3125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "or",
+        "start_seconds": 17.3125,
+        "end_seconds": 17.4
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "rate‑limiting",
+        "start_seconds": 17.4,
+        "end_seconds": 17.924999999999997
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "layers,",
+        "start_seconds": 17.924999999999997,
+        "end_seconds": 18.424999999999997
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "either",
+        "start_seconds": 18.424999999999997,
+        "end_seconds": 18.612499999999997
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "by",
+        "start_seconds": 18.612499999999997,
+        "end_seconds": 18.75
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "percent‑decoding",
+        "start_seconds": 18.75,
+        "end_seconds": 19.424999999999997
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "tricks",
+        "start_seconds": 19.424999999999997,
+        "end_seconds": 19.725
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "or",
+        "start_seconds": 19.725,
+        "end_seconds": 19.85
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "mismatched",
+        "start_seconds": 19.85,
+        "end_seconds": 20.325
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "mount",
+        "start_seconds": 20.325,
+        "end_seconds": 20.525
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "paths,",
+        "start_seconds": 20.525,
+        "end_seconds": 20.9125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "and",
+        "start_seconds": 20.9125,
+        "end_seconds": 21.0125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "it",
+        "start_seconds": 21.0125,
+        "end_seconds": 21.0875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "required",
+        "start_seconds": 21.0875,
+        "end_seconds": 21.475
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "no",
+        "start_seconds": 21.475,
+        "end_seconds": 21.65
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "special",
+        "start_seconds": 21.65,
+        "end_seconds": 21.975
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "configuration.",
+        "start_seconds": 21.975,
+        "end_seconds": 23.2
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Upgrading",
+        "start_seconds": 23.2,
+        "end_seconds": 23.7
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "to",
+        "start_seconds": 23.7,
+        "end_seconds": 23.7875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "the",
+        "start_seconds": 23.7875,
+        "end_seconds": 23.875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "new",
+        "start_seconds": 23.875,
+        "end_seconds": 24.049999999999997
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "release",
+        "start_seconds": 24.049999999999997,
+        "end_seconds": 24.45
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "makes",
+        "start_seconds": 24.45,
+        "end_seconds": 24.724999999999998
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Fastify",
+        "start_seconds": 24.724999999999998,
+        "end_seconds": 25.275
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "reject",
+        "start_seconds": 25.275,
+        "end_seconds": 25.675
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "any",
+        "start_seconds": 25.675,
+        "end_seconds": 25.875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "request",
+        "start_seconds": 25.875,
+        "end_seconds": 26.3375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "that",
+        "start_seconds": 26.3375,
+        "end_seconds": 26.4375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "doesn’t",
+        "start_seconds": 26.4375,
+        "end_seconds": 26.7
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "start",
+        "start_seconds": 26.7,
+        "end_seconds": 26.9625
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "with",
+        "start_seconds": 26.9625,
+        "end_seconds": 27.0625
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "a",
+        "start_seconds": 27.0625,
+        "end_seconds": 27.125
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "slash,",
+        "start_seconds": 27.125,
+        "end_seconds": 27.724999999999998
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "keeps",
+        "start_seconds": 27.724999999999998,
+        "end_seconds": 27.9875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "the",
+        "start_seconds": 27.9875,
+        "end_seconds": 28.075
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "query",
+        "start_seconds": 28.075,
+        "end_seconds": 28.4
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "string",
+        "start_seconds": 28.4,
+        "end_seconds": 28.6875
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "encoded,",
+        "start_seconds": 28.6875,
+        "end_seconds": 29.25
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "and",
+        "start_seconds": 29.25,
+        "end_seconds": 29.375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "lines",
+        "start_seconds": 29.375,
+        "end_seconds": 29.6375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "up",
+        "start_seconds": 29.6375,
+        "end_seconds": 29.8
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "mount",
+        "start_seconds": 29.8,
+        "end_seconds": 30.025
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "paths",
+        "start_seconds": 30.025,
+        "end_seconds": 30.375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "correctly.",
+        "start_seconds": 30.375,
+        "end_seconds": 31.4375
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Here’s",
+        "start_seconds": 31.895,
+        "end_seconds": 32.42
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "why",
+        "start_seconds": 32.42,
+        "end_seconds": 32.595
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "that",
+        "start_seconds": 32.595,
+        "end_seconds": 32.82
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "matters:",
+        "start_seconds": 32.82,
+        "end_seconds": 33.62
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "the",
+        "start_seconds": 33.62,
+        "end_seconds": 33.72
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "security",
+        "start_seconds": 33.72,
+        "end_seconds": 34.195
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "boundary",
+        "start_seconds": 34.195,
+        "end_seconds": 34.62
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "between",
+        "start_seconds": 34.62,
+        "end_seconds": 34.9825
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Fastify",
+        "start_seconds": 34.9825,
+        "end_seconds": 35.57
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "routing",
+        "start_seconds": 35.57,
+        "end_seconds": 35.97
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "and",
+        "start_seconds": 35.97,
+        "end_seconds": 36.082499999999996
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "Express",
+        "start_seconds": 36.082499999999996,
+        "end_seconds": 36.545
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "middleware",
+        "start_seconds": 36.545,
+        "end_seconds": 36.995
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "is",
+        "start_seconds": 36.995,
+        "end_seconds": 37.12
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "restored,",
+        "start_seconds": 37.12,
+        "end_seconds": 37.92
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "so",
+        "start_seconds": 37.92,
+        "end_seconds": 38.095
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "your",
+        "start_seconds": 38.095,
+        "end_seconds": 38.245
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "authentication",
+        "start_seconds": 38.245,
+        "end_seconds": 39.095
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "and",
+        "start_seconds": 39.095,
+        "end_seconds": 39.22
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "rate‑limiting",
+        "start_seconds": 39.22,
+        "end_seconds": 39.894999999999996
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "logic",
+        "start_seconds": 39.894999999999996,
+        "end_seconds": 40.22
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "stays",
+        "start_seconds": 40.22,
+        "end_seconds": 40.57
+      },
+      {
+        "segment_id": "fastify-express-middleware-bypass-update",
+        "text": "effective.",
+        "start_seconds": 40.57,
+        "end_seconds": 41.57
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "Next",
+        "start_seconds": 42.77,
+        "end_seconds": 43.032500000000006
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "on",
+        "start_seconds": 43.032500000000006,
+        "end_seconds": 43.1325
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "the",
+        "start_seconds": 43.1325,
+        "end_seconds": 43.220000000000006
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "bulletin.",
+        "start_seconds": 43.220000000000006,
+        "end_seconds": 43.9825
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "Two",
+        "start_seconds": 43.9825,
+        "end_seconds": 44.195
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "BBC‑cited",
+        "start_seconds": 44.195,
+        "end_seconds": 45.07
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "sources",
+        "start_seconds": 45.07,
+        "end_seconds": 45.495000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "say",
+        "start_seconds": 45.495000000000005,
+        "end_seconds": 45.6325
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "the",
+        "start_seconds": 45.6325,
+        "end_seconds": 45.745000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "FBI’s",
+        "start_seconds": 45.745000000000005,
+        "end_seconds": 46.32
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "National",
+        "start_seconds": 46.32,
+        "end_seconds": 46.695
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "Crime",
+        "start_seconds": 46.695,
+        "end_seconds": 46.907500000000006
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "Information",
+        "start_seconds": 46.907500000000006,
+        "end_seconds": 47.42
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "Center",
+        "start_seconds": 47.42,
+        "end_seconds": 47.7325
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "was",
+        "start_seconds": 47.7325,
+        "end_seconds": 47.8825
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "accessed",
+        "start_seconds": 47.8825,
+        "end_seconds": 48.307500000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "without",
+        "start_seconds": 48.307500000000005,
+        "end_seconds": 48.5825
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "permission.",
+        "start_seconds": 48.5825,
+        "end_seconds": 49.370000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "The",
+        "start_seconds": 49.370000000000005,
+        "end_seconds": 49.470000000000006
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "database",
+        "start_seconds": 49.470000000000006,
+        "end_seconds": 49.9575
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "holds",
+        "start_seconds": 49.9575,
+        "end_seconds": 50.2575
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "warrants",
+        "start_seconds": 50.2575,
+        "end_seconds": 50.63250000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "and",
+        "start_seconds": 50.63250000000001,
+        "end_seconds": 50.745000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "background‑check",
+        "start_seconds": 50.745000000000005,
+        "end_seconds": 51.4075
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "information",
+        "start_seconds": 51.4075,
+        "end_seconds": 51.9575
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "that",
+        "start_seconds": 51.9575,
+        "end_seconds": 52.095
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "law‑enforcement",
+        "start_seconds": 52.095,
+        "end_seconds": 52.795
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "agencies",
+        "start_seconds": 52.795,
+        "end_seconds": 53.2825
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "across",
+        "start_seconds": 53.2825,
+        "end_seconds": 53.6075
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "the",
+        "start_seconds": 53.6075,
+        "end_seconds": 53.69500000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "country",
+        "start_seconds": 53.69500000000001,
+        "end_seconds": 54.02
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "rely",
+        "start_seconds": 54.02,
+        "end_seconds": 54.345
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "on.",
+        "start_seconds": 54.345,
+        "end_seconds": 54.895
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "The",
+        "start_seconds": 54.895,
+        "end_seconds": 54.995000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "report",
+        "start_seconds": 54.995000000000005,
+        "end_seconds": 55.370000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "follows",
+        "start_seconds": 55.370000000000005,
+        "end_seconds": 55.69500000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "earlier",
+        "start_seconds": 55.69500000000001,
+        "end_seconds": 55.995000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "claims",
+        "start_seconds": 55.995000000000005,
+        "end_seconds": 56.3575
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "that",
+        "start_seconds": 56.3575,
+        "end_seconds": 56.4575
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "the",
+        "start_seconds": 56.4575,
+        "end_seconds": 56.545
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "ShinyHunters",
+        "start_seconds": 56.545,
+        "end_seconds": 57.120000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "group",
+        "start_seconds": 57.120000000000005,
+        "end_seconds": 57.3575
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "exposed",
+        "start_seconds": 57.3575,
+        "end_seconds": 57.82000000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "personal",
+        "start_seconds": 57.82000000000001,
+        "end_seconds": 58.19500000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "data",
+        "start_seconds": 58.19500000000001,
+        "end_seconds": 58.495000000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "on",
+        "start_seconds": 58.495000000000005,
+        "end_seconds": 58.67
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "roughly",
+        "start_seconds": 58.67,
+        "end_seconds": 59.057500000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "thirty‑eight",
+        "start_seconds": 59.057500000000005,
+        "end_seconds": 59.57000000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "thousand",
+        "start_seconds": 59.57000000000001,
+        "end_seconds": 59.9575
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "FBI",
+        "start_seconds": 59.9575,
+        "end_seconds": 60.42
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "staff.",
+        "start_seconds": 60.42,
+        "end_seconds": 61.182500000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "No",
+        "start_seconds": 61.182500000000005,
+        "end_seconds": 61.395
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "official",
+        "start_seconds": 61.395,
+        "end_seconds": 61.77
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "comment",
+        "start_seconds": 61.77,
+        "end_seconds": 62.13250000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "has",
+        "start_seconds": 62.13250000000001,
+        "end_seconds": 62.27
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "been",
+        "start_seconds": 62.27,
+        "end_seconds": 62.432500000000005
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "received",
+        "start_seconds": 62.432500000000005,
+        "end_seconds": 62.97
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "and",
+        "start_seconds": 62.97,
+        "end_seconds": 63.0825
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "the",
+        "start_seconds": 63.0825,
+        "end_seconds": 63.17
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "attack",
+        "start_seconds": 63.17,
+        "end_seconds": 63.545
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "vector",
+        "start_seconds": 63.545,
+        "end_seconds": 63.9075
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "has",
+        "start_seconds": 63.9075,
+        "end_seconds": 64.07000000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "not",
+        "start_seconds": 64.07000000000001,
+        "end_seconds": 64.2825
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "been",
+        "start_seconds": 64.2825,
+        "end_seconds": 64.38250000000001
+      },
+      {
+        "segment_id": "fbi-ncic-breach-2026-11-22-segment",
+        "text": "disclosed.",
+        "start_seconds": 64.38250000000001,
+        "end_seconds": 65.495
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Turning",
+        "start_seconds": 66.66999999999999,
+        "end_seconds": 66.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 66.97,
+        "end_seconds": 67.05749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 67.05749999999999,
+        "end_seconds": 67.18249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "next",
+        "start_seconds": 67.18249999999999,
+        "end_seconds": 67.43249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 67.43249999999999,
+        "end_seconds": 68.2075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Fastify",
+        "start_seconds": 68.2075,
+        "end_seconds": 68.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "swagger‑UI",
+        "start_seconds": 68.72,
+        "end_seconds": 69.445
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lets",
+        "start_seconds": 69.445,
+        "end_seconds": 69.66999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "anyone",
+        "start_seconds": 69.66999999999999,
+        "end_seconds": 69.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pull",
+        "start_seconds": 69.97,
+        "end_seconds": 70.1325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 70.1325,
+        "end_seconds": 70.27
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "API",
+        "start_seconds": 70.27,
+        "end_seconds": 70.74499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "docs",
+        "start_seconds": 70.74499999999999,
+        "end_seconds": 71.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "straight",
+        "start_seconds": 71.07,
+        "end_seconds": 71.35749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 71.35749999999999,
+        "end_seconds": 71.48249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 71.48249999999999,
+        "end_seconds": 71.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "static",
+        "start_seconds": 71.57,
+        "end_seconds": 71.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "folder.",
+        "start_seconds": 71.97,
+        "end_seconds": 72.66999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 72.66999999999999,
+        "end_seconds": 72.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "plugin",
+        "start_seconds": 72.77,
+        "end_seconds": 73.145
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "skips",
+        "start_seconds": 73.145,
+        "end_seconds": 73.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 73.4075,
+        "end_seconds": 73.5075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "authentication",
+        "start_seconds": 73.5075,
+        "end_seconds": 74.16999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hooks",
+        "start_seconds": 74.16999999999999,
+        "end_seconds": 74.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 74.4075,
+        "end_seconds": 74.54499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 74.54499999999999,
+        "end_seconds": 74.74499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "route",
+        "start_seconds": 74.74499999999999,
+        "end_seconds": 74.93249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "under",
+        "start_seconds": 74.93249999999999,
+        "end_seconds": 75.11999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "\u003croutePrefix\u003e/static/,",
+        "start_seconds": 75.11999999999999,
+        "end_seconds": 77.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "so",
+        "start_seconds": 77.095,
+        "end_seconds": 77.23249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 77.23249999999999,
+        "end_seconds": 77.30749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "file",
+        "start_seconds": 77.30749999999999,
+        "end_seconds": 77.61999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 77.61999999999999,
+        "end_seconds": 77.74499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thought",
+        "start_seconds": 77.74499999999999,
+        "end_seconds": 77.9575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "was",
+        "start_seconds": 77.9575,
+        "end_seconds": 78.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "protected",
+        "start_seconds": 78.07,
+        "end_seconds": 78.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "at",
+        "start_seconds": 78.57,
+        "end_seconds": 78.66999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "\u003croutePrefix\u003e/\u003cfile\u003e",
+        "start_seconds": 78.66999999999999,
+        "end_seconds": 79.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 79.845,
+        "end_seconds": 79.9575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "be",
+        "start_seconds": 79.9575,
+        "end_seconds": 80.0825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fetched",
+        "start_seconds": 80.0825,
+        "end_seconds": 80.395
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "at",
+        "start_seconds": 80.395,
+        "end_seconds": 80.49499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "\u003croutePrefix\u003e/static/\u003cfile\u003e",
+        "start_seconds": 80.49499999999999,
+        "end_seconds": 82.49499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "without",
+        "start_seconds": 82.49499999999999,
+        "end_seconds": 82.82
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "credentials.",
+        "start_seconds": 82.82,
+        "end_seconds": 83.93249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Versions",
+        "start_seconds": 84.39,
+        "end_seconds": 84.8275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 84.8275,
+        "end_seconds": 85.04
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 85.04,
+        "end_seconds": 85.315
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 85.315,
+        "end_seconds": 85.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 85.515,
+        "end_seconds": 85.79
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 85.79,
+        "end_seconds": 86.115
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "through",
+        "start_seconds": 86.115,
+        "end_seconds": 86.3275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six",
+        "start_seconds": 86.3275,
+        "end_seconds": 86.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 86.615,
+        "end_seconds": 86.8775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 86.8775,
+        "end_seconds": 87.015
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 87.015,
+        "end_seconds": 87.29
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 87.29,
+        "end_seconds": 87.54
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 87.54,
+        "end_seconds": 87.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "vulnerable;",
+        "start_seconds": 87.64,
+        "end_seconds": 88.49
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 88.49,
+        "end_seconds": 88.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "fix",
+        "start_seconds": 88.59,
+        "end_seconds": 88.865
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lands",
+        "start_seconds": 88.865,
+        "end_seconds": 89.1775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 89.1775,
+        "end_seconds": 89.29
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 89.29,
+        "end_seconds": 89.6525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "six",
+        "start_seconds": 89.6525,
+        "end_seconds": 89.94
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 89.94,
+        "end_seconds": 90.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 90.19,
+        "end_seconds": 90.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 90.365,
+        "end_seconds": 90.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five,",
+        "start_seconds": 90.64,
+        "end_seconds": 91.0025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "which",
+        "start_seconds": 91.0025,
+        "end_seconds": 91.1775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "applies",
+        "start_seconds": 91.1775,
+        "end_seconds": 91.5275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 91.5275,
+        "end_seconds": 91.6275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "same",
+        "start_seconds": 91.6275,
+        "end_seconds": 91.89
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hooks",
+        "start_seconds": 91.89,
+        "end_seconds": 92.165
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 92.165,
+        "end_seconds": 92.265
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "static",
+        "start_seconds": 92.265,
+        "end_seconds": 92.665
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "assets.",
+        "start_seconds": 92.665,
+        "end_seconds": 93.5775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 93.5775,
+        "end_seconds": 93.865
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 93.865,
+        "end_seconds": 94.04
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 94.04,
+        "end_seconds": 94.265
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 94.265,
+        "end_seconds": 95.04
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "if",
+        "start_seconds": 95.04,
+        "end_seconds": 95.165
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 95.165,
+        "end_seconds": 95.265
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "rely",
+        "start_seconds": 95.265,
+        "end_seconds": 95.6025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 95.6025,
+        "end_seconds": 95.79
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "swagger‑UI",
+        "start_seconds": 95.79,
+        "end_seconds": 96.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 96.515,
+        "end_seconds": 96.64
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "private",
+        "start_seconds": 96.64,
+        "end_seconds": 96.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "documentation,",
+        "start_seconds": 96.965,
+        "end_seconds": 97.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "upgrade",
+        "start_seconds": 97.84,
+        "end_seconds": 98.29
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 98.29,
+        "end_seconds": 98.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 98.59,
+        "end_seconds": 98.7525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "add",
+        "start_seconds": 98.7525,
+        "end_seconds": 98.9525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 98.9525,
+        "end_seconds": 99.1025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "own",
+        "start_seconds": 99.1025,
+        "end_seconds": 99.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pre‑request",
+        "start_seconds": 99.365,
+        "end_seconds": 99.9775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hook",
+        "start_seconds": 99.9775,
+        "end_seconds": 100.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 100.19,
+        "end_seconds": 100.28999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "keep",
+        "start_seconds": 100.28999999999999,
+        "end_seconds": 100.4525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 100.4525,
+        "end_seconds": 100.53999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "specs",
+        "start_seconds": 100.53999999999999,
+        "end_seconds": 100.85249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 100.85249999999999,
+        "end_seconds": 100.99000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "leaking.",
+        "start_seconds": 100.99000000000001,
+        "end_seconds": 101.89
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Next",
+        "start_seconds": 103.09,
+        "end_seconds": 103.3775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 103.3775,
+        "end_seconds": 103.4775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 103.4775,
+        "end_seconds": 103.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bulletin.",
+        "start_seconds": 103.565,
+        "end_seconds": 104.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Inkling‑2‑Mini’s",
+        "start_seconds": 104.44,
+        "end_seconds": 105.42750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "biggest",
+        "start_seconds": 105.42750000000001,
+        "end_seconds": 105.7525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "checkpoint",
+        "start_seconds": 105.7525,
+        "end_seconds": 106.265
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "hits",
+        "start_seconds": 106.265,
+        "end_seconds": 106.5025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 106.5025,
+        "end_seconds": 106.6275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "same",
+        "start_seconds": 106.6275,
+        "end_seconds": 106.94
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "benchmark",
+        "start_seconds": 106.94,
+        "end_seconds": 107.465
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "scores",
+        "start_seconds": 107.465,
+        "end_seconds": 107.915
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "as",
+        "start_seconds": 107.915,
+        "end_seconds": 108.05250000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 108.05250000000001,
+        "end_seconds": 108.17750000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "full‑size",
+        "start_seconds": 108.17750000000001,
+        "end_seconds": 108.8275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "BF16",
+        "start_seconds": 108.8275,
+        "end_seconds": 109.64
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "teacher",
+        "start_seconds": 109.64,
+        "end_seconds": 110.14
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "while",
+        "start_seconds": 110.14,
+        "end_seconds": 110.3775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "shaving",
+        "start_seconds": 110.3775,
+        "end_seconds": 110.7275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 110.7275,
+        "end_seconds": 110.8275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "third",
+        "start_seconds": 110.8275,
+        "end_seconds": 111.14
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "off",
+        "start_seconds": 111.14,
+        "end_seconds": 111.30250000000001
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "its",
+        "start_seconds": 111.30250000000001,
+        "end_seconds": 111.415
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "text‑weight",
+        "start_seconds": 111.415,
+        "end_seconds": 111.9025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "memory.",
+        "start_seconds": 111.9025,
+        "end_seconds": 112.815
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "The",
+        "start_seconds": 113.99,
+        "end_seconds": 114.065
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "12.8",
+        "start_seconds": 114.065,
+        "end_seconds": 115.015
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "GB",
+        "start_seconds": 114.065,
+        "end_seconds": 115.015
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "model",
+        "start_seconds": 115.015,
+        "end_seconds": 115.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "runs",
+        "start_seconds": 115.365,
+        "end_seconds": 115.6275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 115.6275,
+        "end_seconds": 115.7775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Apple",
+        "start_seconds": 115.7775,
+        "end_seconds": 116.115
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "M5",
+        "start_seconds": 116.115,
+        "end_seconds": 116.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Max,",
+        "start_seconds": 116.565,
+        "end_seconds": 117.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "staying",
+        "start_seconds": 117.24,
+        "end_seconds": 117.5525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "under",
+        "start_seconds": 117.5525,
+        "end_seconds": 117.765
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "13",
+        "start_seconds": 117.765,
+        "end_seconds": 118.4775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "GB",
+        "start_seconds": 117.765,
+        "end_seconds": 118.4775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "of",
+        "start_seconds": 118.4775,
+        "end_seconds": 118.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "active",
+        "start_seconds": 118.565,
+        "end_seconds": 118.89
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "RAM",
+        "start_seconds": 118.89,
+        "end_seconds": 119.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 119.24,
+        "end_seconds": 119.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "still",
+        "start_seconds": 119.365,
+        "end_seconds": 119.59
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "delivering",
+        "start_seconds": 119.59,
+        "end_seconds": 119.9525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "about",
+        "start_seconds": 119.9525,
+        "end_seconds": 120.14
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "two",
+        "start_seconds": 120.14,
+        "end_seconds": 120.34
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "thousand",
+        "start_seconds": 120.34,
+        "end_seconds": 120.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "sixteen",
+        "start_seconds": 120.69,
+        "end_seconds": 121.09
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "tokens",
+        "start_seconds": 121.09,
+        "end_seconds": 121.49
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "per",
+        "start_seconds": 121.49,
+        "end_seconds": 121.615
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "second",
+        "start_seconds": 121.615,
+        "end_seconds": 121.9275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 121.9275,
+        "end_seconds": 122.015
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "pre‑fill",
+        "start_seconds": 122.015,
+        "end_seconds": 122.6775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 122.6775,
+        "end_seconds": 122.8025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 122.8025,
+        "end_seconds": 122.865
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "median",
+        "start_seconds": 122.865,
+        "end_seconds": 123.215
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "lossless",
+        "start_seconds": 123.215,
+        "end_seconds": 123.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "decode",
+        "start_seconds": 123.665,
+        "end_seconds": 124.09
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "speed",
+        "start_seconds": 124.09,
+        "end_seconds": 124.3525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "of",
+        "start_seconds": 124.3525,
+        "end_seconds": 124.4275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "one",
+        "start_seconds": 124.4275,
+        "end_seconds": 124.5525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "hundred",
+        "start_seconds": 124.5525,
+        "end_seconds": 124.7775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "twelve",
+        "start_seconds": 124.7775,
+        "end_seconds": 125.065
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "point",
+        "start_seconds": 125.065,
+        "end_seconds": 125.34
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "seven",
+        "start_seconds": 125.34,
+        "end_seconds": 125.59
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "tokens",
+        "start_seconds": 125.59,
+        "end_seconds": 125.99
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "per",
+        "start_seconds": 125.99,
+        "end_seconds": 126.115
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "second.",
+        "start_seconds": 126.115,
+        "end_seconds": 127.0025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Smaller",
+        "start_seconds": 127.0025,
+        "end_seconds": 127.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "checkpoints",
+        "start_seconds": 127.365,
+        "end_seconds": 127.865
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "trade",
+        "start_seconds": 127.865,
+        "end_seconds": 128.1025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 128.1025,
+        "end_seconds": 128.165
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "few",
+        "start_seconds": 128.165,
+        "end_seconds": 128.39
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "percent",
+        "start_seconds": 128.39,
+        "end_seconds": 128.7275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "of",
+        "start_seconds": 128.7275,
+        "end_seconds": 128.815
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "accuracy",
+        "start_seconds": 128.815,
+        "end_seconds": 129.29
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 129.29,
+        "end_seconds": 129.415
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "lower",
+        "start_seconds": 129.415,
+        "end_seconds": 129.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "RAM",
+        "start_seconds": 129.665,
+        "end_seconds": 129.94
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "footprints,",
+        "start_seconds": 129.94,
+        "end_seconds": 130.74
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "but",
+        "start_seconds": 130.74,
+        "end_seconds": 130.8775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "if",
+        "start_seconds": 130.8775,
+        "end_seconds": 130.9525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 130.9525,
+        "end_seconds": 131.04
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "need",
+        "start_seconds": 131.04,
+        "end_seconds": 131.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "teacher‑level",
+        "start_seconds": 131.24,
+        "end_seconds": 131.865
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fidelity,",
+        "start_seconds": 131.865,
+        "end_seconds": 132.4025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 132.4025,
+        "end_seconds": 132.49
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "12.8",
+        "start_seconds": 132.49,
+        "end_seconds": 133.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "GB",
+        "start_seconds": 132.49,
+        "end_seconds": 133.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "checkpoint",
+        "start_seconds": 133.565,
+        "end_seconds": 134.0275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "is",
+        "start_seconds": 134.0275,
+        "end_seconds": 134.1525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 134.1525,
+        "end_seconds": 134.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "clear",
+        "start_seconds": 134.24,
+        "end_seconds": 134.515
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "choice.",
+        "start_seconds": 134.515,
+        "end_seconds": 135.34
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "So",
+        "start_seconds": 136.54,
+        "end_seconds": 136.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "developers",
+        "start_seconds": 136.715,
+        "end_seconds": 137.30249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "targeting",
+        "start_seconds": 137.30249999999998,
+        "end_seconds": 137.8275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Apple",
+        "start_seconds": 137.8275,
+        "end_seconds": 138.165
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "silicon",
+        "start_seconds": 138.165,
+        "end_seconds": 138.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "can",
+        "start_seconds": 138.715,
+        "end_seconds": 138.84
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "get",
+        "start_seconds": 138.84,
+        "end_seconds": 139.05249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "full‑teacher",
+        "start_seconds": 139.05249999999998,
+        "end_seconds": 139.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "accuracy",
+        "start_seconds": 139.69,
+        "end_seconds": 140.29
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "with",
+        "start_seconds": 140.29,
+        "end_seconds": 140.465
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "roughly",
+        "start_seconds": 140.465,
+        "end_seconds": 140.8525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "thirteen",
+        "start_seconds": 140.8525,
+        "end_seconds": 141.34
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "gigabytes",
+        "start_seconds": 141.34,
+        "end_seconds": 141.80249999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "of",
+        "start_seconds": 141.80249999999998,
+        "end_seconds": 141.89
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "RAM,",
+        "start_seconds": 141.89,
+        "end_seconds": 142.59
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 142.59,
+        "end_seconds": 142.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "still",
+        "start_seconds": 142.715,
+        "end_seconds": 142.98999999999998
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "have",
+        "start_seconds": 142.98999999999998,
+        "end_seconds": 143.215
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "leaner",
+        "start_seconds": 143.215,
+        "end_seconds": 143.54
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "options",
+        "start_seconds": 143.54,
+        "end_seconds": 144.0275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "when",
+        "start_seconds": 144.0275,
+        "end_seconds": 144.165
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "memory",
+        "start_seconds": 144.165,
+        "end_seconds": 144.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "is",
+        "start_seconds": 144.565,
+        "end_seconds": 144.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "tight.",
+        "start_seconds": 144.715,
+        "end_seconds": 145.54
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "And",
+        "start_seconds": 146.715,
+        "end_seconds": 146.84
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "finally,",
+        "start_seconds": 146.84,
+        "end_seconds": 147.2525
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "our",
+        "start_seconds": 147.2525,
+        "end_seconds": 147.39000000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "last",
+        "start_seconds": 147.39000000000001,
+        "end_seconds": 147.6525
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "story.",
+        "start_seconds": 147.6525,
+        "end_seconds": 148.3775
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "Zero",
+        "start_seconds": 148.3775,
+        "end_seconds": 148.69
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "C#",
+        "start_seconds": 148.69,
+        "end_seconds": 149.19
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "lets",
+        "start_seconds": 149.19,
+        "end_seconds": 149.35250000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "you",
+        "start_seconds": 149.35250000000002,
+        "end_seconds": 149.44
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "write",
+        "start_seconds": 149.44,
+        "end_seconds": 149.66500000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "ordinary",
+        "start_seconds": 149.66500000000002,
+        "end_seconds": 150.09
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "C#",
+        "start_seconds": 150.09,
+        "end_seconds": 150.57750000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "and",
+        "start_seconds": 150.57750000000001,
+        "end_seconds": 150.6775
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "compile",
+        "start_seconds": 150.6775,
+        "end_seconds": 151.01500000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "straight",
+        "start_seconds": 151.01500000000001,
+        "end_seconds": 151.315
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "to",
+        "start_seconds": 151.315,
+        "end_seconds": 151.4025
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "a",
+        "start_seconds": 151.4025,
+        "end_seconds": 151.465
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "native",
+        "start_seconds": 151.465,
+        "end_seconds": 151.76500000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "executable,",
+        "start_seconds": 151.76500000000001,
+        "end_seconds": 152.49
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "no",
+        "start_seconds": 152.49,
+        "end_seconds": 152.66500000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": ".NET",
+        "start_seconds": 152.66500000000002,
+        "end_seconds": 152.82750000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "runtime",
+        "start_seconds": 152.82750000000001,
+        "end_seconds": 153.1275
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "needed.",
+        "start_seconds": 153.1275,
+        "end_seconds": 153.79000000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "The",
+        "start_seconds": 153.79000000000002,
+        "end_seconds": 153.89000000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "fork",
+        "start_seconds": 153.89000000000001,
+        "end_seconds": 154.10250000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "of",
+        "start_seconds": 154.10250000000002,
+        "end_seconds": 154.19
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "bflat",
+        "start_seconds": 154.19,
+        "end_seconds": 154.57750000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "produces",
+        "start_seconds": 154.57750000000001,
+        "end_seconds": 154.95250000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "a",
+        "start_seconds": 154.95250000000001,
+        "end_seconds": 155.01500000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "hello‑world",
+        "start_seconds": 155.01500000000001,
+        "end_seconds": 155.59
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "binary",
+        "start_seconds": 155.59,
+        "end_seconds": 156.0025
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "that's",
+        "start_seconds": 156.0025,
+        "end_seconds": 156.1525
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "about",
+        "start_seconds": 156.1525,
+        "end_seconds": 156.35250000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "eleven",
+        "start_seconds": 156.35250000000002,
+        "end_seconds": 156.69
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "kilobytes",
+        "start_seconds": 156.69,
+        "end_seconds": 157.1775
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "on",
+        "start_seconds": 157.1775,
+        "end_seconds": 157.29000000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "Windows",
+        "start_seconds": 157.29000000000002,
+        "end_seconds": 157.6525
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "and",
+        "start_seconds": 157.6525,
+        "end_seconds": 157.76500000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "forty",
+        "start_seconds": 157.76500000000001,
+        "end_seconds": 158.04000000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "kilobytes",
+        "start_seconds": 158.04000000000002,
+        "end_seconds": 158.47750000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "on",
+        "start_seconds": 158.47750000000002,
+        "end_seconds": 158.59
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "Linux,",
+        "start_seconds": 158.59,
+        "end_seconds": 159.09
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "and",
+        "start_seconds": 159.09,
+        "end_seconds": 159.20250000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "it",
+        "start_seconds": 159.20250000000001,
+        "end_seconds": 159.2775
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "even",
+        "start_seconds": 159.2775,
+        "end_seconds": 159.54000000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "runs",
+        "start_seconds": 159.54000000000002,
+        "end_seconds": 159.7775
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "on",
+        "start_seconds": 159.7775,
+        "end_seconds": 159.89000000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "WebAssembly,",
+        "start_seconds": 159.89000000000001,
+        "end_seconds": 160.51500000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "macOS,",
+        "start_seconds": 160.51500000000001,
+        "end_seconds": 161.10250000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "and",
+        "start_seconds": 161.10250000000002,
+        "end_seconds": 161.215
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "DOS",
+        "start_seconds": 161.215,
+        "end_seconds": 161.5275
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "on",
+        "start_seconds": 161.5275,
+        "end_seconds": 161.6275
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "a",
+        "start_seconds": 161.6275,
+        "end_seconds": 161.70250000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "386.",
+        "start_seconds": 161.70250000000001,
+        "end_seconds": 163.1775
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "Memory",
+        "start_seconds": 163.1775,
+        "end_seconds": 163.59
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "is",
+        "start_seconds": 163.59,
+        "end_seconds": 163.715
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "handled",
+        "start_seconds": 163.715,
+        "end_seconds": 164.0525
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "with",
+        "start_seconds": 164.0525,
+        "end_seconds": 164.19
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "arena",
+        "start_seconds": 164.19,
+        "end_seconds": 164.5525
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "allocation,",
+        "start_seconds": 164.5525,
+        "end_seconds": 165.215
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "so",
+        "start_seconds": 165.215,
+        "end_seconds": 165.34
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "you",
+        "start_seconds": 165.34,
+        "end_seconds": 165.44
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "give",
+        "start_seconds": 165.44,
+        "end_seconds": 165.57750000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "up",
+        "start_seconds": 165.57750000000001,
+        "end_seconds": 165.6775
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "the",
+        "start_seconds": 165.6775,
+        "end_seconds": 165.76500000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "garbage",
+        "start_seconds": 165.76500000000001,
+        "end_seconds": 166.14000000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "collector",
+        "start_seconds": 166.14000000000001,
+        "end_seconds": 166.66500000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "and",
+        "start_seconds": 166.66500000000002,
+        "end_seconds": 166.7775
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "design",
+        "start_seconds": 166.7775,
+        "end_seconds": 167.16500000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "for",
+        "start_seconds": 167.16500000000002,
+        "end_seconds": 167.29000000000002
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "bulk",
+        "start_seconds": 167.29000000000002,
+        "end_seconds": 167.565
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "frees.",
+        "start_seconds": 167.565,
+        "end_seconds": 168.45250000000001
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "Here's",
+        "start_seconds": 168.91,
+        "end_seconds": 169.21
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "why",
+        "start_seconds": 169.21,
+        "end_seconds": 169.385
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "that",
+        "start_seconds": 169.385,
+        "end_seconds": 169.585
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "matters:",
+        "start_seconds": 169.585,
+        "end_seconds": 170.41
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "you",
+        "start_seconds": 170.41,
+        "end_seconds": 170.535
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "can",
+        "start_seconds": 170.535,
+        "end_seconds": 170.7475
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "ship",
+        "start_seconds": 170.7475,
+        "end_seconds": 171.01
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "tiny",
+        "start_seconds": 171.01,
+        "end_seconds": 171.3725
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "C#",
+        "start_seconds": 171.3725,
+        "end_seconds": 171.85999999999999
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "utilities",
+        "start_seconds": 171.85999999999999,
+        "end_seconds": 172.435
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "without",
+        "start_seconds": 172.435,
+        "end_seconds": 172.76
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "bundling",
+        "start_seconds": 172.76,
+        "end_seconds": 173.1475
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "a",
+        "start_seconds": 173.1475,
+        "end_seconds": 173.21
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "runtime,",
+        "start_seconds": 173.21,
+        "end_seconds": 173.9975
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "as",
+        "start_seconds": 173.9975,
+        "end_seconds": 174.16
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "long",
+        "start_seconds": 174.16,
+        "end_seconds": 174.3725
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "as",
+        "start_seconds": 174.3725,
+        "end_seconds": 174.48499999999999
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "you",
+        "start_seconds": 174.48499999999999,
+        "end_seconds": 174.60999999999999
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "rewrite",
+        "start_seconds": 174.60999999999999,
+        "end_seconds": 174.9975
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "code",
+        "start_seconds": 174.9975,
+        "end_seconds": 175.335
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "to",
+        "start_seconds": 175.335,
+        "end_seconds": 175.46
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "avoid",
+        "start_seconds": 175.46,
+        "end_seconds": 175.81
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "garbage‑collected",
+        "start_seconds": 175.81,
+        "end_seconds": 176.71
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "patterns.",
+        "start_seconds": 176.71,
+        "end_seconds": 177.71
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "And",
+        "start_seconds": 178.885,
+        "end_seconds": 178.9975
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "that's",
+        "start_seconds": 178.9975,
+        "end_seconds": 179.2225
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "your",
+        "start_seconds": 179.2225,
+        "end_seconds": 179.335
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "Daywire",
+        "start_seconds": 179.335,
+        "end_seconds": 179.71
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "briefing.",
+        "start_seconds": 179.71,
+        "end_seconds": 180.48499999999999
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "You'll",
+        "start_seconds": 180.48499999999999,
+        "end_seconds": 180.635
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "find",
+        "start_seconds": 180.635,
+        "end_seconds": 180.8725
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "the",
+        "start_seconds": 180.8725,
+        "end_seconds": 180.9725
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "full",
+        "start_seconds": 180.9725,
+        "end_seconds": 181.21
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "stories",
+        "start_seconds": 181.21,
+        "end_seconds": 181.5975
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "and",
+        "start_seconds": 181.5975,
+        "end_seconds": 181.71
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "sources",
+        "start_seconds": 181.71,
+        "end_seconds": 182.185
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "in",
+        "start_seconds": 182.185,
+        "end_seconds": 182.285
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "today's",
+        "start_seconds": 182.285,
+        "end_seconds": 182.66
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "newspaper.",
+        "start_seconds": 182.66,
+        "end_seconds": 183.4475
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "Thanks",
+        "start_seconds": 183.4475,
+        "end_seconds": 183.67249999999999
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "for",
+        "start_seconds": 183.67249999999999,
+        "end_seconds": 183.785
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "listening.",
+        "start_seconds": 183.785,
+        "end_seconds": 184.26
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "Take",
+        "start_seconds": 184.26,
+        "end_seconds": 184.535
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "care,",
+        "start_seconds": 184.535,
+        "end_seconds": 184.8475
+      },
+      {
+        "segment_id": "zero-csharp-native-tool-story",
+        "text": "everyone.",
+        "start_seconds": 184.8475,
+        "end_seconds": 185.81
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
