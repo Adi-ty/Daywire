@@ -1,0 +1,3188 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-24",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-24T10:27:51.125718398Z",
+  "coverage": {
+    "from": "2026-11-23T06:00:00+05:30",
+    "until": "2026-11-24T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-f1db7ce98881d890"
+    ],
+    "candidate_count": 51,
+    "evidence_count": 36
+  },
+  "content": {
+    "title": "Shirudo eBPF Runtime and GPU-Accelerated Sparse Solvers Lead Tech Advances",
+    "introduction": "OpenAI and Cisco’s Shirudo eBPF runtime brings live Linux patching to defenders, while NVIDIA’s cuDSS 1.0 library promises GPU‑accelerated sparse linear solves that could outpace traditional CPU libraries. Together they signal a shift toward in‑place security hardening and hardware‑centric performance gains across the stack.",
+    "articles": [
+      {
+        "id": "ladybird-alpha-release",
+        "section": "Engineering",
+        "headline": "Ladybird browser enters alpha with macOS and Linux builds",
+        "summary": "The Ladybird project has shipped its first alpha binaries for macOS and Linux, letting users run the home‑grown engine without building from source.",
+        "paragraphs": [
+          "Andreas Kling announced on 23 Nov 2026 that Ladybird’s new, self‑written rendering engine is now available as pre‑built alpha packages for macOS and Linux. The release is a rolling channel; automatic updates will be pushed as the codebase evolves, replacing the previous requirement to compile the browser locally. The browser includes WebDriver support and the Firefox DevTools protocol, aiming to attract web developers and security researchers for early testing.",
+          "Kling stresses that the alpha is intentionally unstable—some sites will break and crashes are expected. Users can file bug reports from within the browser, and crash logs are optional to send. No security guarantees are made, and the team invites “security nerds” to probe the product and share findings for hardening."
+        ],
+        "implication": "Developers can now experiment with Ladybird’s unique engine without a build step, but must treat the build as a test platform rather than a production browser.",
+        "source_ids": [
+          "source-8d83fbfc47ac58f7"
+        ]
+      },
+      {
+        "id": "xnu-linux-macos-userspace",
+        "section": "Engineering",
+        "headline": "macOS userspace runs as a kernel module on arm64 Linux",
+        "summary": "The XNU‑Linux project lets a full macOS desktop operate alongside Linux processes by loading the XNU kernel as a loadable module on an unmodified arm64 Linux kernel.",
+        "paragraphs": [
+          "The open‑source XNU‑Linux repository builds Apple’s XNU kernel from the publicly released sources and inserts it into a standard Linux kernel as the module xnu.ko. Once loaded, the hosted XNU drives the CPU and MMU directly, allowing macOS processes—including WindowServer, Dock, Finder and Safari—to execute natively next to Linux tasks without a hypervisor. The Linux side remains isolated except for the FKI bridge, which forwards virtio‑gpu ioctls; current GPU support is limited to CPU rendering via Mesa’s lavapipe, with full GPU pass‑through pending a new DRM backend.",
+          "The proof‑of‑concept boots a complete macOS 27.2.1 desktop on bare‑metal arm64 Linux (e.g., Ubuntu 7.0) with four CPUs, offering SSH and screen‑sharing access from the hosted macOS. Licensing is kept separate: XNU code stays under Apple’s original license while the integration layers are GPL‑2.0‑only with MIT patches."
+        ],
+        "implication": "Engineers can experiment with co‑running macOS and Linux workloads on the same hardware, but must accept limited GPU acceleration until the DRM bridge is implemented.",
+        "source_ids": [
+          "source-b7cf04a84828baaf"
+        ]
+      },
+      {
+        "id": "fsnotes-eu-removal-2026",
+        "section": "Tools",
+        "headline": "Apple removes FSNotes from EU App Stores",
+        "summary": "An independent developer reports that Apple removed the open‑source note‑taking app FSNotes from all European App Stores without a clear explanation.",
+        "paragraphs": [
+          "After nine years of availability on macOS and iOS, FSNotes disappeared from EU storefronts when the developer did not receive an October sales payout and was unable to obtain a response from Apple support. The developer has completed the EU Digital Services Act compliance steps in App Store Connect and submitted official Ukrainian business‑registry documents, yet the app remains unavailable, threatening its rankings and revenue."
+        ],
+        "implication": "Developers distributing apps in Europe should be aware that unresolved compliance or payout issues can trigger abrupt removal, and reinstating the app may not automatically restore its prior visibility.",
+        "source_ids": [
+          "source-6851a6a04065867c"
+        ]
+      },
+      {
+        "id": "shirudo-intro-2026-11-23",
+        "section": "Security",
+        "headline": "OpenAI and Cisco unveil Shirudo eBPF runtime for live Linux patching",
+        "summary": "OpenAI and Cisco released Shirudo, an open‑source eBPF‑based runtime that lets defenders deploy shields against exploits without restarting services.",
+        "paragraphs": [
+          "In a controlled test, a Codex‑generated shield blocked a Java4Shell attack on an Elasticsearch instance while the service stayed up, demonstrating Shirudo’s ability to apply machine‑speed protections to live workloads. The runtime offers programmable controls for vulnerability investigation, targeted shield creation, and validation against real exploits, letting security teams decide exactly what code is deployed."
+        ],
+        "implication": "Teams can now mitigate critical vulnerabilities on production Linux systems instantly, buying time to develop full patches while keeping services available.",
+        "source_ids": [
+          "source-b0689cf87ab570a4"
+        ]
+      },
+      {
+        "id": "cudss-1-0-release",
+        "section": "Engineering",
+        "headline": "NVIDIA launches cuDSS 1.0 for GPU‑accelerated sparse linear solves",
+        "summary": "The new cuDSS 1.0 library lets developers run direct sparse solvers on NVIDIA GPUs, promising speedups over Intel MKL for engineering simulations.",
+        "paragraphs": [
+          "cuDSS 1.0 is now generally available and positioned as a production‑ready alternative to CPU‑only libraries. Benchmarks on an NVIDIA B200 (192 GB HBM3e) versus Intel MKL 2026.1.0 on an Intel Xeon Platinum 8570 show notable matrix‑wise speedups for workloads such as circuit simulation, CFD, and structural analysis.",
+          "The results are limited to the disclosed hardware and matrix set; they do not represent a vendor‑wide comparison. Teams should validate cuDSS on their own problem sizes and GPU configurations before assuming similar gains."
+        ],
+        "implication": "Engineers can explore cuDSS 1.0 for faster sparse solves, but must benchmark it against their specific workloads and hardware to confirm benefits.",
+        "source_ids": [
+          "source-b741f8055682affe"
+        ]
+      },
+      {
+        "id": "kubectl-websockets-default-v1-38",
+        "section": "Engineering",
+        "headline": "kubectl switches to WebSockets for exec, attach, and cp in v1.38",
+        "summary": "Kubernetes v1.38 makes WebSockets the default transport for kubectl exec, attach, and cp, falling back to SPDY only if needed.",
+        "paragraphs": [
+          "The upcoming v1.38 release changes kubectl’s networking layer: it will try WebSockets first for exec, attach, and cp operations, with SPDY as a fallback. This shift removes the previous SPDY‑only default and aligns with the project’s broader move away from SPDY. Users with custom tooling that expects SPDY may need to verify compatibility before upgrading."
+        ],
+        "implication": "Operators should test scripts that rely on SPDY‑only behavior, as they may encounter connection failures until they adapt to WebSockets or confirm the fallback works.",
+        "source_ids": [
+          "source-2e31644f6487f318"
+        ]
+      },
+      {
+        "id": "sirius-gpu-extension",
+        "section": "Tools",
+        "headline": "NVIDIA and DuckLabs add Sirius GPU extension to DuckDB",
+        "summary": "Sirius, a DuckDB core extension, lets users run supported analytical queries on NVIDIA GPUs with a two‑SQL‑command install.",
+        "paragraphs": [
+          "The Sirius extension offloads compatible query plans to the GPU while DuckDB retains parsing and optimization. Benchmarks on TPC‑H workloads from 100 GB to 10 TB show 3.25×‑5.5× speedups and up to 79 % lower query‑time compute cost on tuned two‑GPU configurations; queries that Sirius cannot handle fall back to the CPU engine."
+        ],
+        "implication": "Engineers with NVIDIA GPUs can boost DuckDB analytics without rewriting SQL or changing schemas, though performance gains depend on the query’s GPU compatibility and the hardware used.",
+        "source_ids": [
+          "source-c04dcf5137601f99"
+        ]
+      },
+      {
+        "id": "vercel-ai-gateway-canary-audits",
+        "section": "AI",
+        "headline": "Vercel adds canary audits to AI Gateway’s ZDR compliance",
+        "summary": "Vercel’s AI Gateway now runs canary audits that flag any prompt content that leaks outside a provider’s zero‑data‑retention (ZDR) path.",
+        "paragraphs": [
+          "Each audit mints a unique URL tied to a specific provider, model, and run, embeds it in a test prompt, and watches for any request to that URL. A ZDR‑compliant provider should never touch the URL, so any hit identifies a breach for investigation. The feature complements contractual ZDR agreements and independent Audited ZDR reports, which Vercel introduced alongside the new provider tier."
+        ],
+        "implication": "Teams can rely on the canary alerts to discover accidental data retention before it becomes a compliance incident, but they must still verify that their chosen providers hold an Audited ZDR report.",
+        "source_ids": [
+          "source-e35c285beae6bed9",
+          "source-c37ab7e3f403ce71"
+        ]
+      },
+      {
+        "id": "vercel-extraction-models-2026-11-23",
+        "section": "AI",
+        "headline": "Vercel AI Gateway adds experimental extraction model",
+        "summary": "Vercel’s AI Gateway now supports the experimental scaledown/extract-1 model for pulling structured fields from text, PDFs and images via the AI SDK (ai@7.0.176+).",
+        "paragraphs": [
+          "The new extraction model can return invoice numbers, contact names, vendor details, totals and line‑item lists, along with confidence scores and character offsets; missing fields appear as null. It is accessed through the SDK’s experimental_extract function and requires the model ID scaledown/extract-1, with file inputs supplied as a file part in the state array."
+        ],
+        "implication": "Developers can automate data entry from documents without building custom parsers, but must handle null results and confidence thresholds because the feature remains experimental and limited to SDK users on ai@7.0.176 or later.",
+        "source_ids": [
+          "source-aaf095a83539f55b"
+        ]
+      },
+      {
+        "id": "vercel-flag-deployment-check",
+        "section": "Engineering",
+        "headline": "Vercel Flags can now block deployments missing flag definitions",
+        "summary": "Vercel adds a deployment‑time check that stops a build from reaching production when code references a feature flag that hasn’t been defined in the project.",
+        "paragraphs": [
+          "When the Flag Definitions Present Deployment Check runs, any undeclared flags cause the check to fail and list the missing names, letting teams create them before redeploying. The check works automatically with Flags SDK 4.5.0+ on Vercel; earlier SDK versions still need a FLAGS_SECRET. Teams on any plan can enable the check in Build and Deployment settings and mark it required."
+        ],
+        "implication": "Projects that rely on feature flags should upgrade to Flags SDK 4.5.0 or later and enable the new check to prevent accidental feature activation in production.",
+        "source_ids": [
+          "source-eaed0bf2d9ed1e31"
+        ]
+      },
+      {
+        "id": "fastify-express-middleware-bypass-fixes",
+        "section": "Security",
+        "headline": "Fastify‑Express 4.0.10 patches two middleware bypass flaws",
+        "summary": "Version 4.0.10 of @fastify/express closes two distinct bypass routes that could let unauthenticated requests reach protected handlers.",
+        "paragraphs": [
+          "CVE‑2026‑129850 arises when Fastify routing is case‑insensitive; Unicode folding maps the Kelvin sign (U+212A) to ‘k’, letting a request encoded as %E2%84%AA bypass path‑scoped Express middleware. CVE‑2026‑124626 exploits empty dynamic segments or wildcards, where Fastify accepts an empty parameter that Express’s path‑to‑regexp matcher rejects, skipping the same middleware. Both issues are fixed in @fastify/express 4.0.10, which now folds paths consistently and aligns parameter handling."
+        ],
+        "implication": "Upgrading to 4.0.10 eliminates these bypass vectors, but developers should still prefer Fastify hooks for authorization or keep the router case‑sensitive to avoid similar mismatches.",
+        "source_ids": [
+          "source-3098830631db74a5",
+          "source-1832fbabc2eb0860"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "rolling-update-mechanism",
+        "title": "How Ladybird’s rolling channel delivers automatic updates",
+        "paragraphs": [
+          "Ladybird’s alpha is distributed as a rolling channel, meaning the binary you install is not a fixed snapshot. Andreas Kling’s announcement notes that the browser will receive automatic updates regularly, so newer builds replace the previous version without requiring a manual reinstall.",
+          "Because updates are pushed continuously, developers see the latest engine changes almost immediately, but they also must accept that stability can vary from one update to the next."
+        ],
+        "example": "If you installed Ladybird on Linux on 23 Nov 2026 and opened it the next day, you might notice that the browser behaves differently because a newer build has been applied automatically.",
+        "takeaway": "A rolling update channel accelerates feedback loops for developers and security researchers, while also requiring users to treat each session as potentially running a different version of the browser.",
+        "article_ids": [
+          "ladybird-alpha-release"
+        ],
+        "source_ids": [
+          "source-8d83fbfc47ac58f7"
+        ]
+      },
+      {
+        "id": "native-macos-on-linux-module",
+        "title": "Running macOS userspace natively on Linux via a kernel module",
+        "paragraphs": [
+          "The XNU‑Linux project demonstrates that an entire macOS userspace can run side‑by‑side with Linux processes by loading Apple’s XNU kernel as a loadable module (xnu.ko) inside an unmodified arm64 Linux kernel. Because the hosted XNU drives the CPU and MMU directly, macOS binaries execute natively without a hypervisor; the only interaction point is the FKI bridge, which forwards virtio‑gpu ioctls to Linux. This design keeps the two operating systems isolated at the license level while sharing the same hardware resources.",
+          "In practice, the proof‑of‑concept boots macOS 27.2.1 on a bare‑metal arm64 Linux system with four CPUs, exposing a full desktop, SSH, and screen‑sharing. GPU acceleration is currently limited to CPU rendering (Mesa lavapipe) because xnudrmd only supports virtio‑gpu; full GPU pass‑through will require a new DRM bridge."
+        ],
+        "example": "On a Raspberry Pi 5 running Ubuntu 7.0, inserting xnu.ko loads the XNU kernel, after which the macOS Finder and Safari appear alongside the Linux terminal, both using the same CPUs.",
+        "takeaway": "Loading a foreign OS kernel as a module lets its userspace run natively on the host, eliminating hypervisor overhead but requiring custom bridges for hardware acceleration.",
+        "article_ids": [
+          "xnu-linux-macos-userspace"
+        ],
+        "source_ids": [
+          "source-b7cf04a84828baaf"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-rolling-update-mechanism-1",
+        "lesson_id": "rolling-update-mechanism",
+        "prompt": "What is the primary characteristic of Ladybird’s rolling channel as described in the lesson?",
+        "options": [
+          "The installed binary is a fixed snapshot that never changes.",
+          "Updates are applied automatically, replacing the previous version without manual reinstall.",
+          "Users must manually download and install each new version.",
+          "Only security patches are delivered automatically, while feature updates require manual action."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that Ladybird’s rolling channel delivers automatic updates that replace the previous version without requiring a manual reinstall."
+      },
+      {
+        "id": "quiz-1-rolling-update-mechanism-2",
+        "lesson_id": "rolling-update-mechanism",
+        "prompt": "According to the lesson, what is a direct consequence for developers using a rolling update channel?",
+        "options": [
+          "They receive engine changes only after a long delay.",
+          "They must wait for a stable release before testing new features.",
+          "They see the latest engine changes almost immediately.",
+          "They cannot test new features until a major version is released."
+        ],
+        "answer": 2,
+        "explanation": "The lesson notes that because updates are pushed continuously, developers see the latest engine changes almost immediately."
+      },
+      {
+        "id": "quiz-1-rolling-update-mechanism-3",
+        "lesson_id": "rolling-update-mechanism",
+        "prompt": "What trade‑off does the lesson highlight for users of the rolling channel?",
+        "options": [
+          "Faster feedback loops but each session may run a different browser version.",
+          "Longer update intervals but guaranteed stability across sessions.",
+          "Manual update control with no automatic changes.",
+          "Only security updates are applied automatically, preserving UI consistency."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway explains that a rolling update channel accelerates feedback loops while requiring users to treat each session as potentially running a different version."
+      },
+      {
+        "id": "quiz-2-01",
+        "lesson_id": "native-macos-on-linux-module",
+        "prompt": "What is the primary reason the XNU‑Linux project can run macOS userspace without a hypervisor?",
+        "options": [
+          "The XNU kernel runs as a loadable module inside the Linux kernel, directly controlling the CPU and MMU.",
+          "The Linux kernel emulates macOS system calls through a compatibility layer.",
+          "A lightweight hypervisor is still used but is hidden from the user.",
+          "macOS binaries are translated to Linux binaries at runtime."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that loading Apple’s XNU kernel as a module lets it drive the CPU and MMU directly, so macOS binaries execute natively without a hypervisor."
+      },
+      {
+        "id": "quiz-2-02",
+        "lesson_id": "native-macos-on-linux-module",
+        "prompt": "Why is GPU acceleration limited to CPU rendering in the current proof‑of‑concept?",
+        "options": [
+          "The xnudrmd component only supports virtio‑gpu, which is implemented by Mesa’s software renderer.",
+          "Linux does not provide any GPU drivers for arm64 platforms.",
+          "The macOS kernel lacks any GPU drivers for the hardware used.",
+          "The hypervisor blocks direct access to the GPU."
+        ],
+        "answer": 0,
+        "explanation": "According to the lesson, xnudrmd only supports virtio‑gpu, and the current implementation uses Mesa’s lavapipe software renderer, so full GPU pass‑through is not yet available."
+      }
+    ],
+    "segments": [
+      {
+        "id": "ladybird-alpha-story",
+        "title": "Ladybird browser alpha release",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November twenty four, two thousand twenty six.\n\nWe begin with our lead story. LADYBIRD BROWSER ENTERS ALPHA WITH MAC OS AND LINUX BUILDS.\n\nAndreas Kling announced on November twenty‑third, twenty twenty‑six that pre‑built alpha packages for mac OS and Linux are now available. The new self‑written rendering engine can be installed without compiling, and updates will roll out automatically as the code evolves. It ships with WebDriver support and the Firefox DevTools protocol, aimed at developers and security researchers. Kling warns the release is intentionally unstable—sites may break, crashes are expected, and there are no security guarantees. Treat it as a test platform, not a production browser.",
+        "article_ids": [
+          "ladybird-alpha-release"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "macOS runs as a kernel module on arm64 Linux",
+        "text": "Next on the bulletin. macOS userspace now runs as a kernel module on arm64 Linux.\nThe XNU‑Linux project builds Apple’s XNU kernel from the public sources, packages it as the module xnu dot ko and loads it into a standard Linux kernel. Once the module is up, macOS components like WindowServer, Dock, Finder and Safari execute side‑by‑side with Linux processes, without any hypervisor. The Linux side stays isolated, only talking to macOS through a small FKI bridge that forwards virtio‑gpu calls, so right now graphics are limited to CPU rendering via Mesa’s lavapipe. Here’s why that matters: developers can experiment with truly co‑running macOS and Linux workloads on the same hardware, but they’ll have to wait for a proper DRM backend before they get full GPU acceleration.",
+        "article_ids": [
+          "xnu-linux-macos-userspace"
+        ]
+      },
+      {
+        "id": "fsnotes-eu-removal-2026-segment",
+        "title": "Apple pulls FSNotes from EU stores",
+        "text": "Turning to our next story. Apple has taken the open‑source note‑taking app FSNotes off every European App Store. The developer says the app vanished after an October sales payout never arrived and Apple support stayed silent. Even after completing the EU Digital Services Act steps in App Store Connect and sending Ukrainian business‑registry paperwork, the app is still missing, hurting its rankings and revenue.\n\nHere’s why that matters: a hiccup in compliance or payouts can instantly yank an app, and getting it back doesn’t guarantee it will regain its former visibility.",
+        "article_ids": [
+          "fsnotes-eu-removal-2026"
+        ]
+      },
+      {
+        "id": "cudss-1-0-release-segment",
+        "title": "NVIDIA rolls out cuDSS 1.0 for GPU‑accelerated sparse solves",
+        "text": "And finally, our last story. NVIDIA just made cuDSS version one point zero generally available, letting you run direct sparse solvers on its GPUs. Early benchmarks on an NVIDIA B200 with 192 gigabytes of HBM three e show noticeable speedups compared with Intel MKL version twenty twenty six point one point zero on a Xeon Platinum eight five seven zero, especially for circuit simulation, CFD and structural analysis. \n\nHere’s why that matters: you could shave time off your engineering workloads, but you’ll need to test cuDSS on your own matrices and GPU setup before counting on those gains.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "cudss-1-0-release"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration showing a sleek laptop screen split in half: the left side displays flowing eBPF bytecode weaving a shield around a Linux kernel icon, and the right side shows a GPU chip with matrix-like vectors racing through, both connected by a glowing data pipeline."
+  },
+  "sources": [
+    {
+      "id": "source-8d83fbfc47ac58f7",
+      "name": "Lobsters",
+      "title": "Ladybird is now in alpha",
+      "url": "https://ladybird.org/posts/alpha/",
+      "published_at": null,
+      "discovered_at": "2026-11-23T10:13:03.376-06:00",
+      "discussion_url": "https://lobste.rs/s/h6webg/ladybird_is_now_alpha"
+    },
+    {
+      "id": "source-b0689cf87ab570a4",
+      "name": "OpenAI News",
+      "title": "OpenAI and Cisco introduce Shirudo",
+      "url": "https://openai.com/index/introducing-shirudo",
+      "published_at": "2026-11-23T21:20:00Z",
+      "discovered_at": "2026-11-24T10:10:44.653801964Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-b741f8055682affe",
+      "name": "NVIDIA Developer",
+      "title": "Accelerating Direct Sparse Solvers for Computational Engineering with NVIDIA cuDSS 1.0",
+      "url": "https://developer.nvidia.com/blog/accelerating-direct-sparse-solvers-for-computational-engineering-with-nvidia-cudss-1-0/",
+      "published_at": "2026-11-23T19:59:40Z",
+      "discovered_at": "2026-11-24T10:10:44.687382656Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-2e31644f6487f318",
+      "name": "Kubernetes Blog",
+      "title": "Kubernetes v1.38 Sneak Peek",
+      "url": "https://kubernetes.io/blog/2026/11/23/kubernetes-v1-38-sneak-peek/",
+      "published_at": "2026-11-23T08:00:00-08:00",
+      "discovered_at": "2026-11-24T10:10:44.827261742Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-e35c285beae6bed9",
+      "name": "Vercel Blog",
+      "title": "AI Gateway now runs canary ZDR audits",
+      "url": "https://vercel.com/changelog/ai-gateway-now-runs-canary-zdr-audits",
+      "published_at": "2026-11-23T06:19:00Z",
+      "discovered_at": "2026-11-24T10:10:44.263954382Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-3098830631db74a5",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-129850: @fastify/express vulnerable to path-scoped middleware bypass via Unicode case folding",
+      "url": "https://github.com/fastify/fastify-express/security/advisories/GHSA-6rmc-f24g-hmp6",
+      "published_at": "2026-11-21T17:05:52Z",
+      "discovered_at": "2026-11-24T10:10:44.239133634Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-c04dcf5137601f99",
+      "name": "NVIDIA Developer",
+      "title": "Get Started with GPU-Accelerated DuckDB Analytics Using the Sirius Core Extension",
+      "url": "https://developer.nvidia.com/blog/get-started-with-gpu-accelerated-duckdb-analytics-using-the-sirius-core-extension/",
+      "published_at": "2026-11-23T17:09:28Z",
+      "discovered_at": "2026-11-24T10:10:44.687382656Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-c37ab7e3f403ce71",
+      "name": "Vercel Blog",
+      "title": "Introducing Audited ZDR on AI Gateway",
+      "url": "https://vercel.com/blog/introducing-audited-zdr-on-ai-gateway",
+      "published_at": "2026-11-23T05:00:00Z",
+      "discovered_at": "2026-11-24T10:10:44.263954382Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-1832fbabc2eb0860",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-124626: @fastify/express vulnerable to middleware bypass via empty route parameters and wildcards",
+      "url": "https://github.com/fastify/fastify-express/security/advisories/GHSA-662w-h4p6-jq4p",
+      "published_at": "2026-11-21T17:01:36Z",
+      "discovered_at": "2026-11-24T10:10:44.239133634Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-aaf095a83539f55b",
+      "name": "Vercel Blog",
+      "title": "AI Gateway now supports extraction models",
+      "url": "https://vercel.com/changelog/ai-gateway-now-supports-extraction-models",
+      "published_at": "2026-11-23T05:00:00Z",
+      "discovered_at": "2026-11-24T10:10:44.263954382Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-b7cf04a84828baaf",
+      "name": "Hacker News",
+      "title": "XNU Linux: Full OS X GUI Userspace on Linux",
+      "url": "https://github.com/AFK-surf/xnulinux",
+      "published_at": null,
+      "discovered_at": "2026-11-23T03:49:24Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50607261"
+    },
+    {
+      "id": "source-eaed0bf2d9ed1e31",
+      "name": "Vercel Blog",
+      "title": "Catch missing feature flags before they reach production",
+      "url": "https://vercel.com/changelog/catch-missing-feature-flags-before-they-reach-production",
+      "published_at": "2026-11-23T05:00:00Z",
+      "discovered_at": "2026-11-24T10:10:44.263954382Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-6851a6a04065867c",
+      "name": "Hacker News",
+      "title": "Apple removed my open-source app from EU App Stores after 9 years",
+      "url": "https://github.com/glushchenko/fsnotes/discussions/2056",
+      "published_at": null,
+      "discovered_at": "2026-11-23T18:48:10Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50616933"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-24/c31bb7115912e06106244c26c756fede9da83b4b403b6019c3843da27e219f9e.mp3",
+    "duration_seconds": 186.984,
+    "script_hash": "85673bf13fde7912a73de89abae15fe204c1d0e6cc338a13af0c8e2327a1ac1c",
+    "cues": [
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Hello",
+        "start_seconds": 0.4,
+        "end_seconds": 0.7875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "everyone,",
+        "start_seconds": 0.7875,
+        "end_seconds": 1.4
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "and",
+        "start_seconds": 1.4,
+        "end_seconds": 1.525
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "welcome",
+        "start_seconds": 1.525,
+        "end_seconds": 1.95
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "to",
+        "start_seconds": 1.95,
+        "end_seconds": 2.075
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Daywire.",
+        "start_seconds": 2.075,
+        "end_seconds": 3.0375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Let's",
+        "start_seconds": 3.0375,
+        "end_seconds": 3.325
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "make",
+        "start_seconds": 3.325,
+        "end_seconds": 3.5625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "sense",
+        "start_seconds": 3.5625,
+        "end_seconds": 3.8875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "of",
+        "start_seconds": 3.8875,
+        "end_seconds": 3.9625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "the",
+        "start_seconds": 3.9625,
+        "end_seconds": 4.0625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "tech",
+        "start_seconds": 4.0625,
+        "end_seconds": 4.325
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "news.",
+        "start_seconds": 4.325,
+        "end_seconds": 5.025
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "It's",
+        "start_seconds": 5.025,
+        "end_seconds": 5.25
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "November",
+        "start_seconds": 5.25,
+        "end_seconds": 5.65
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "twenty",
+        "start_seconds": 5.65,
+        "end_seconds": 5.9625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "four,",
+        "start_seconds": 5.9625,
+        "end_seconds": 6.4375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "two",
+        "start_seconds": 6.4375,
+        "end_seconds": 6.65
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "thousand",
+        "start_seconds": 6.65,
+        "end_seconds": 6.9875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "twenty",
+        "start_seconds": 6.9875,
+        "end_seconds": 7.2375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "six.",
+        "start_seconds": 7.2375,
+        "end_seconds": 8.075
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "We",
+        "start_seconds": 9.4,
+        "end_seconds": 9.5
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "begin",
+        "start_seconds": 9.5,
+        "end_seconds": 9.875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "with",
+        "start_seconds": 9.875,
+        "end_seconds": 10.012500000000001
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "our",
+        "start_seconds": 10.012500000000001,
+        "end_seconds": 10.15
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "lead",
+        "start_seconds": 10.15,
+        "end_seconds": 10.375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "story.",
+        "start_seconds": 10.375,
+        "end_seconds": 11.2625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "LADYBIRD",
+        "start_seconds": 11.2625,
+        "end_seconds": 11.775
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "BROWSER",
+        "start_seconds": 11.775,
+        "end_seconds": 12.3875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "ENTERS",
+        "start_seconds": 12.3875,
+        "end_seconds": 12.7625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "ALPHA",
+        "start_seconds": 12.7625,
+        "end_seconds": 13.125
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "WITH",
+        "start_seconds": 13.125,
+        "end_seconds": 13.412500000000001
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "MAC",
+        "start_seconds": 13.412500000000001,
+        "end_seconds": 13.7125
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "OS",
+        "start_seconds": 13.7125,
+        "end_seconds": 14.0625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "AND",
+        "start_seconds": 14.0625,
+        "end_seconds": 14.3
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "LINUX",
+        "start_seconds": 14.3,
+        "end_seconds": 14.6375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "BUILDS.",
+        "start_seconds": 14.6375,
+        "end_seconds": 16.025
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Andreas",
+        "start_seconds": 17.425,
+        "end_seconds": 17.962500000000002
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Kling",
+        "start_seconds": 17.962500000000002,
+        "end_seconds": 18.3
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "announced",
+        "start_seconds": 18.3,
+        "end_seconds": 18.6875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "on",
+        "start_seconds": 18.6875,
+        "end_seconds": 18.7875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "November",
+        "start_seconds": 18.7875,
+        "end_seconds": 19.175
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "twenty‑third,",
+        "start_seconds": 19.175,
+        "end_seconds": 20.175
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "twenty",
+        "start_seconds": 20.175,
+        "end_seconds": 20.425
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "twenty‑six",
+        "start_seconds": 20.425,
+        "end_seconds": 21.075000000000003
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "that",
+        "start_seconds": 21.075000000000003,
+        "end_seconds": 21.2875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "pre‑built",
+        "start_seconds": 21.2875,
+        "end_seconds": 21.8
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "alpha",
+        "start_seconds": 21.8,
+        "end_seconds": 22.1
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "packages",
+        "start_seconds": 22.1,
+        "end_seconds": 22.625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "for",
+        "start_seconds": 22.625,
+        "end_seconds": 22.75
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "mac",
+        "start_seconds": 22.75,
+        "end_seconds": 23.6
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "OS",
+        "start_seconds": 22.75,
+        "end_seconds": 23.6
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "and",
+        "start_seconds": 23.6,
+        "end_seconds": 23.725
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Linux",
+        "start_seconds": 23.725,
+        "end_seconds": 24.137500000000003
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "are",
+        "start_seconds": 24.137500000000003,
+        "end_seconds": 24.25
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "now",
+        "start_seconds": 24.25,
+        "end_seconds": 24.450000000000003
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "available.",
+        "start_seconds": 24.450000000000003,
+        "end_seconds": 25.5625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "The",
+        "start_seconds": 25.5625,
+        "end_seconds": 25.675
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "new",
+        "start_seconds": 25.675,
+        "end_seconds": 25.8625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "self‑written",
+        "start_seconds": 25.8625,
+        "end_seconds": 26.425
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "rendering",
+        "start_seconds": 26.425,
+        "end_seconds": 26.8
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "engine",
+        "start_seconds": 26.8,
+        "end_seconds": 27.25
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "can",
+        "start_seconds": 27.25,
+        "end_seconds": 27.3625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "be",
+        "start_seconds": 27.3625,
+        "end_seconds": 27.5
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "installed",
+        "start_seconds": 27.5,
+        "end_seconds": 28.012500000000003
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "without",
+        "start_seconds": 28.012500000000003,
+        "end_seconds": 28.3
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "compiling,",
+        "start_seconds": 28.3,
+        "end_seconds": 29.375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "and",
+        "start_seconds": 29.375,
+        "end_seconds": 29.512500000000003
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "updates",
+        "start_seconds": 29.512500000000003,
+        "end_seconds": 30.025000000000002
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "will",
+        "start_seconds": 30.025000000000002,
+        "end_seconds": 30.200000000000003
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "roll",
+        "start_seconds": 30.200000000000003,
+        "end_seconds": 30.462500000000002
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "out",
+        "start_seconds": 30.462500000000002,
+        "end_seconds": 30.6625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "automatically",
+        "start_seconds": 30.6625,
+        "end_seconds": 31.5375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "as",
+        "start_seconds": 31.5375,
+        "end_seconds": 31.6875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "the",
+        "start_seconds": 31.6875,
+        "end_seconds": 31.775000000000002
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "code",
+        "start_seconds": 31.775000000000002,
+        "end_seconds": 32.0125
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "evolves.",
+        "start_seconds": 32.0125,
+        "end_seconds": 33.075
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "It",
+        "start_seconds": 33.075,
+        "end_seconds": 33.3
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "ships",
+        "start_seconds": 33.3,
+        "end_seconds": 33.6125
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "with",
+        "start_seconds": 33.6125,
+        "end_seconds": 33.775000000000006
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "WebDriver",
+        "start_seconds": 33.775000000000006,
+        "end_seconds": 34.275000000000006
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "support",
+        "start_seconds": 34.275000000000006,
+        "end_seconds": 34.8125
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "and",
+        "start_seconds": 34.8125,
+        "end_seconds": 34.9375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "the",
+        "start_seconds": 34.9375,
+        "end_seconds": 35.0375
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Firefox",
+        "start_seconds": 35.0375,
+        "end_seconds": 35.625
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "DevTools",
+        "start_seconds": 35.625,
+        "end_seconds": 36.225
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "protocol,",
+        "start_seconds": 36.225,
+        "end_seconds": 37.2875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "aimed",
+        "start_seconds": 37.2875,
+        "end_seconds": 37.587500000000006
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "at",
+        "start_seconds": 37.587500000000006,
+        "end_seconds": 37.675
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "developers",
+        "start_seconds": 37.675,
+        "end_seconds": 38.3
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "and",
+        "start_seconds": 38.3,
+        "end_seconds": 38.425
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "security",
+        "start_seconds": 38.425,
+        "end_seconds": 38.875
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "researchers.",
+        "start_seconds": 38.875,
+        "end_seconds": 40.0125
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Kling",
+        "start_seconds": 40.595,
+        "end_seconds": 40.845
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "warns",
+        "start_seconds": 40.845,
+        "end_seconds": 41.22
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "the",
+        "start_seconds": 41.22,
+        "end_seconds": 41.32
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "release",
+        "start_seconds": 41.32,
+        "end_seconds": 41.769999999999996
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "is",
+        "start_seconds": 41.769999999999996,
+        "end_seconds": 41.92
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "intentionally",
+        "start_seconds": 41.92,
+        "end_seconds": 42.62
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "unstable—sites",
+        "start_seconds": 42.62,
+        "end_seconds": 44.095
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "may",
+        "start_seconds": 44.095,
+        "end_seconds": 44.269999999999996
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "break,",
+        "start_seconds": 44.269999999999996,
+        "end_seconds": 44.832499999999996
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "crashes",
+        "start_seconds": 44.832499999999996,
+        "end_seconds": 45.295
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "are",
+        "start_seconds": 45.295,
+        "end_seconds": 45.42
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "expected,",
+        "start_seconds": 45.42,
+        "end_seconds": 46.37
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "and",
+        "start_seconds": 46.37,
+        "end_seconds": 46.4825
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "there",
+        "start_seconds": 46.4825,
+        "end_seconds": 46.62
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "are",
+        "start_seconds": 46.62,
+        "end_seconds": 46.769999999999996
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "no",
+        "start_seconds": 46.769999999999996,
+        "end_seconds": 46.97
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "security",
+        "start_seconds": 46.97,
+        "end_seconds": 47.42
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "guarantees.",
+        "start_seconds": 47.42,
+        "end_seconds": 48.582499999999996
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "Treat",
+        "start_seconds": 48.582499999999996,
+        "end_seconds": 48.845
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "it",
+        "start_seconds": 48.845,
+        "end_seconds": 48.97
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "as",
+        "start_seconds": 48.97,
+        "end_seconds": 49.082499999999996
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "a",
+        "start_seconds": 49.082499999999996,
+        "end_seconds": 49.1575
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "test",
+        "start_seconds": 49.1575,
+        "end_seconds": 49.47
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "platform,",
+        "start_seconds": 49.47,
+        "end_seconds": 50.22
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "not",
+        "start_seconds": 50.22,
+        "end_seconds": 50.4075
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "a",
+        "start_seconds": 50.4075,
+        "end_seconds": 50.47
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "production",
+        "start_seconds": 50.47,
+        "end_seconds": 50.92
+      },
+      {
+        "segment_id": "ladybird-alpha-story",
+        "text": "browser.",
+        "start_seconds": 50.92,
+        "end_seconds": 51.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 53.195,
+        "end_seconds": 53.4575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 53.4575,
+        "end_seconds": 53.557500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 53.557500000000005,
+        "end_seconds": 53.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 53.645,
+        "end_seconds": 54.557500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "macOS",
+        "start_seconds": 54.557500000000005,
+        "end_seconds": 55.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "userspace",
+        "start_seconds": 55.045,
+        "end_seconds": 55.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 55.67,
+        "end_seconds": 55.8825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "runs",
+        "start_seconds": 55.8825,
+        "end_seconds": 56.2325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 56.2325,
+        "end_seconds": 56.3325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 56.3325,
+        "end_seconds": 56.395
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kernel",
+        "start_seconds": 56.395,
+        "end_seconds": 56.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "module",
+        "start_seconds": 56.72,
+        "end_seconds": 57.057500000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 57.057500000000005,
+        "end_seconds": 57.195
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "arm64",
+        "start_seconds": 57.195,
+        "end_seconds": 58.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Linux.",
+        "start_seconds": 58.045,
+        "end_seconds": 58.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 58.92,
+        "end_seconds": 59.02
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "XNU‑Linux",
+        "start_seconds": 59.02,
+        "end_seconds": 59.870000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "project",
+        "start_seconds": 59.870000000000005,
+        "end_seconds": 60.395
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "builds",
+        "start_seconds": 60.395,
+        "end_seconds": 60.7075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Apple’s",
+        "start_seconds": 60.7075,
+        "end_seconds": 61.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "XNU",
+        "start_seconds": 61.1075,
+        "end_seconds": 61.620000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kernel",
+        "start_seconds": 61.620000000000005,
+        "end_seconds": 61.895
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "from",
+        "start_seconds": 61.895,
+        "end_seconds": 62.0325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 62.0325,
+        "end_seconds": 62.120000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "public",
+        "start_seconds": 62.120000000000005,
+        "end_seconds": 62.495000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sources,",
+        "start_seconds": 62.495000000000005,
+        "end_seconds": 63.370000000000005
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "packages",
+        "start_seconds": 63.370000000000005,
+        "end_seconds": 63.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 63.845,
+        "end_seconds": 63.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 63.97,
+        "end_seconds": 64.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 64.1075,
+        "end_seconds": 64.19500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "module",
+        "start_seconds": 64.19500000000001,
+        "end_seconds": 64.57000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "xnu",
+        "start_seconds": 64.57000000000001,
+        "end_seconds": 65.07000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dot",
+        "start_seconds": 65.07000000000001,
+        "end_seconds": 65.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ko",
+        "start_seconds": 65.345,
+        "end_seconds": 65.895
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 65.895,
+        "end_seconds": 66.045
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "loads",
+        "start_seconds": 66.045,
+        "end_seconds": 66.3075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "it",
+        "start_seconds": 66.3075,
+        "end_seconds": 66.38250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "into",
+        "start_seconds": 66.38250000000001,
+        "end_seconds": 66.5825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 66.5825,
+        "end_seconds": 66.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "standard",
+        "start_seconds": 66.645,
+        "end_seconds": 67.02
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Linux",
+        "start_seconds": 67.02,
+        "end_seconds": 67.345
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "kernel.",
+        "start_seconds": 67.345,
+        "end_seconds": 68.2325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Once",
+        "start_seconds": 68.2325,
+        "end_seconds": 68.4575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 68.4575,
+        "end_seconds": 68.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "module",
+        "start_seconds": 68.545,
+        "end_seconds": 68.8575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "is",
+        "start_seconds": 68.8575,
+        "end_seconds": 68.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "up,",
+        "start_seconds": 68.97,
+        "end_seconds": 69.4325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "macOS",
+        "start_seconds": 69.4325,
+        "end_seconds": 69.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "components",
+        "start_seconds": 69.97,
+        "end_seconds": 70.45750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "like",
+        "start_seconds": 70.45750000000001,
+        "end_seconds": 70.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "WindowServer,",
+        "start_seconds": 70.67,
+        "end_seconds": 71.6325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Dock,",
+        "start_seconds": 71.6325,
+        "end_seconds": 72.20750000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Finder",
+        "start_seconds": 72.20750000000001,
+        "end_seconds": 72.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 72.67,
+        "end_seconds": 72.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Safari",
+        "start_seconds": 72.795,
+        "end_seconds": 73.33250000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "execute",
+        "start_seconds": 73.33250000000001,
+        "end_seconds": 73.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "side‑by‑side",
+        "start_seconds": 73.845,
+        "end_seconds": 74.6825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 74.6825,
+        "end_seconds": 74.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Linux",
+        "start_seconds": 74.845,
+        "end_seconds": 75.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "processes,",
+        "start_seconds": 75.17,
+        "end_seconds": 76.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "without",
+        "start_seconds": 76.17,
+        "end_seconds": 76.495
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "any",
+        "start_seconds": 76.495,
+        "end_seconds": 76.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hypervisor.",
+        "start_seconds": 76.695,
+        "end_seconds": 77.8575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 78.44,
+        "end_seconds": 78.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Linux",
+        "start_seconds": 78.515,
+        "end_seconds": 78.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "side",
+        "start_seconds": 78.815,
+        "end_seconds": 79.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stays",
+        "start_seconds": 79.14,
+        "end_seconds": 79.5275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "isolated,",
+        "start_seconds": 79.5275,
+        "end_seconds": 80.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "only",
+        "start_seconds": 80.565,
+        "end_seconds": 80.865
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "talking",
+        "start_seconds": 80.865,
+        "end_seconds": 81.215
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 81.215,
+        "end_seconds": 81.315
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "macOS",
+        "start_seconds": 81.315,
+        "end_seconds": 81.865
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "through",
+        "start_seconds": 81.865,
+        "end_seconds": 82.0025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 82.0025,
+        "end_seconds": 82.065
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "small",
+        "start_seconds": 82.065,
+        "end_seconds": 82.41499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "FKI",
+        "start_seconds": 82.41499999999999,
+        "end_seconds": 82.91499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bridge",
+        "start_seconds": 82.91499999999999,
+        "end_seconds": 83.28999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 83.28999999999999,
+        "end_seconds": 83.47749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "forwards",
+        "start_seconds": 83.47749999999999,
+        "end_seconds": 83.91499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "virtio‑gpu",
+        "start_seconds": 83.91499999999999,
+        "end_seconds": 84.78999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "calls,",
+        "start_seconds": 84.78999999999999,
+        "end_seconds": 85.7025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "so",
+        "start_seconds": 85.7025,
+        "end_seconds": 85.89
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "right",
+        "start_seconds": 85.89,
+        "end_seconds": 86.0775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 86.0775,
+        "end_seconds": 86.265
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "graphics",
+        "start_seconds": 86.265,
+        "end_seconds": 86.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "are",
+        "start_seconds": 86.74,
+        "end_seconds": 86.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "limited",
+        "start_seconds": 86.84,
+        "end_seconds": 87.215
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 87.215,
+        "end_seconds": 87.35249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "CPU",
+        "start_seconds": 87.35249999999999,
+        "end_seconds": 87.865
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "rendering",
+        "start_seconds": 87.865,
+        "end_seconds": 88.4025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "via",
+        "start_seconds": 88.4025,
+        "end_seconds": 88.66499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Mesa’s",
+        "start_seconds": 88.66499999999999,
+        "end_seconds": 89.015
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lavapipe.",
+        "start_seconds": 89.015,
+        "end_seconds": 90.0775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here’s",
+        "start_seconds": 90.0775,
+        "end_seconds": 90.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 90.615,
+        "end_seconds": 90.765
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 90.765,
+        "end_seconds": 90.965
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 90.965,
+        "end_seconds": 91.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "developers",
+        "start_seconds": 91.815,
+        "end_seconds": 92.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 92.365,
+        "end_seconds": 92.47749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "experiment",
+        "start_seconds": 92.47749999999999,
+        "end_seconds": 93.0525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 93.0525,
+        "end_seconds": 93.22749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "truly",
+        "start_seconds": 93.22749999999999,
+        "end_seconds": 93.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "co‑running",
+        "start_seconds": 93.565,
+        "end_seconds": 94.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "macOS",
+        "start_seconds": 94.14,
+        "end_seconds": 94.7775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 94.7775,
+        "end_seconds": 94.91499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Linux",
+        "start_seconds": 94.91499999999999,
+        "end_seconds": 95.24
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "workloads",
+        "start_seconds": 95.24,
+        "end_seconds": 95.7025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 95.7025,
+        "end_seconds": 95.8025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 95.8025,
+        "end_seconds": 95.89
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "same",
+        "start_seconds": 95.89,
+        "end_seconds": 96.14
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hardware,",
+        "start_seconds": 96.14,
+        "end_seconds": 97.115
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "but",
+        "start_seconds": 97.115,
+        "end_seconds": 97.2525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "they’ll",
+        "start_seconds": 97.2525,
+        "end_seconds": 97.41499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 97.41499999999999,
+        "end_seconds": 97.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 97.615,
+        "end_seconds": 97.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "wait",
+        "start_seconds": 97.74,
+        "end_seconds": 97.99
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 97.99,
+        "end_seconds": 98.10249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 98.10249999999999,
+        "end_seconds": 98.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "proper",
+        "start_seconds": 98.16499999999999,
+        "end_seconds": 98.60249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "DRM",
+        "start_seconds": 98.60249999999999,
+        "end_seconds": 99.09
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "backend",
+        "start_seconds": 99.09,
+        "end_seconds": 99.72749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "before",
+        "start_seconds": 99.72749999999999,
+        "end_seconds": 100.0275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "they",
+        "start_seconds": 100.0275,
+        "end_seconds": 100.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "get",
+        "start_seconds": 100.16499999999999,
+        "end_seconds": 100.3775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "full",
+        "start_seconds": 100.3775,
+        "end_seconds": 100.6275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "GPU",
+        "start_seconds": 100.6275,
+        "end_seconds": 101.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "acceleration.",
+        "start_seconds": 101.16499999999999,
+        "end_seconds": 102.465
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Turning",
+        "start_seconds": 103.765,
+        "end_seconds": 104.11500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "to",
+        "start_seconds": 104.11500000000001,
+        "end_seconds": 104.2025
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "our",
+        "start_seconds": 104.2025,
+        "end_seconds": 104.3275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "next",
+        "start_seconds": 104.3275,
+        "end_seconds": 104.5775
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "story.",
+        "start_seconds": 104.5775,
+        "end_seconds": 105.5275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Apple",
+        "start_seconds": 105.5275,
+        "end_seconds": 105.8275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "has",
+        "start_seconds": 105.8275,
+        "end_seconds": 105.99000000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "taken",
+        "start_seconds": 105.99000000000001,
+        "end_seconds": 106.25250000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "the",
+        "start_seconds": 106.25250000000001,
+        "end_seconds": 106.36500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "open‑source",
+        "start_seconds": 106.36500000000001,
+        "end_seconds": 106.965
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "note‑taking",
+        "start_seconds": 106.965,
+        "end_seconds": 107.55250000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "app",
+        "start_seconds": 107.55250000000001,
+        "end_seconds": 107.80250000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "FSNotes",
+        "start_seconds": 107.80250000000001,
+        "end_seconds": 108.515
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "off",
+        "start_seconds": 108.515,
+        "end_seconds": 108.75250000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "every",
+        "start_seconds": 108.75250000000001,
+        "end_seconds": 109.06500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "European",
+        "start_seconds": 109.06500000000001,
+        "end_seconds": 109.59
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "App",
+        "start_seconds": 109.59,
+        "end_seconds": 109.81500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Store.",
+        "start_seconds": 109.81500000000001,
+        "end_seconds": 110.665
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "The",
+        "start_seconds": 110.665,
+        "end_seconds": 110.75250000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "developer",
+        "start_seconds": 110.75250000000001,
+        "end_seconds": 111.24000000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "says",
+        "start_seconds": 111.24000000000001,
+        "end_seconds": 111.4525
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "the",
+        "start_seconds": 111.4525,
+        "end_seconds": 111.5775
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "app",
+        "start_seconds": 111.5775,
+        "end_seconds": 111.81500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "vanished",
+        "start_seconds": 111.81500000000001,
+        "end_seconds": 112.30250000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "after",
+        "start_seconds": 112.30250000000001,
+        "end_seconds": 112.5775
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "an",
+        "start_seconds": 112.5775,
+        "end_seconds": 112.665
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "October",
+        "start_seconds": 112.665,
+        "end_seconds": 113.11500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "sales",
+        "start_seconds": 113.11500000000001,
+        "end_seconds": 113.465
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "payout",
+        "start_seconds": 113.465,
+        "end_seconds": 113.8525
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "never",
+        "start_seconds": 113.8525,
+        "end_seconds": 114.11500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "arrived",
+        "start_seconds": 114.11500000000001,
+        "end_seconds": 114.84
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "and",
+        "start_seconds": 114.84,
+        "end_seconds": 114.99000000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Apple",
+        "start_seconds": 114.99000000000001,
+        "end_seconds": 115.29
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "support",
+        "start_seconds": 115.29,
+        "end_seconds": 115.715
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "stayed",
+        "start_seconds": 115.715,
+        "end_seconds": 116.04
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "silent.",
+        "start_seconds": 116.04,
+        "end_seconds": 117.0275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Even",
+        "start_seconds": 117.0275,
+        "end_seconds": 117.29
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "after",
+        "start_seconds": 117.29,
+        "end_seconds": 117.56500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "completing",
+        "start_seconds": 117.56500000000001,
+        "end_seconds": 118.0275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "the",
+        "start_seconds": 118.0275,
+        "end_seconds": 118.14
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "EU",
+        "start_seconds": 118.14,
+        "end_seconds": 118.465
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Digital",
+        "start_seconds": 118.465,
+        "end_seconds": 118.81500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Services",
+        "start_seconds": 118.81500000000001,
+        "end_seconds": 119.3275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Act",
+        "start_seconds": 119.3275,
+        "end_seconds": 119.61500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "steps",
+        "start_seconds": 119.61500000000001,
+        "end_seconds": 119.94
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "in",
+        "start_seconds": 119.94,
+        "end_seconds": 120.07750000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "App",
+        "start_seconds": 120.07750000000001,
+        "end_seconds": 120.315
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Store",
+        "start_seconds": 120.315,
+        "end_seconds": 120.59
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Connect",
+        "start_seconds": 120.59,
+        "end_seconds": 121.26500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "and",
+        "start_seconds": 121.26500000000001,
+        "end_seconds": 121.42750000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "sending",
+        "start_seconds": 121.42750000000001,
+        "end_seconds": 121.79
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Ukrainian",
+        "start_seconds": 121.79,
+        "end_seconds": 122.36500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "business‑registry",
+        "start_seconds": 122.36500000000001,
+        "end_seconds": 123.215
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "paperwork,",
+        "start_seconds": 123.215,
+        "end_seconds": 124.19
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "the",
+        "start_seconds": 124.19,
+        "end_seconds": 124.3525
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "app",
+        "start_seconds": 124.3525,
+        "end_seconds": 124.57750000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "is",
+        "start_seconds": 124.57750000000001,
+        "end_seconds": 124.69
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "still",
+        "start_seconds": 124.69,
+        "end_seconds": 124.965
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "missing,",
+        "start_seconds": 124.965,
+        "end_seconds": 125.64000000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "hurting",
+        "start_seconds": 125.64000000000001,
+        "end_seconds": 125.95250000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "its",
+        "start_seconds": 125.95250000000001,
+        "end_seconds": 126.14000000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "rankings",
+        "start_seconds": 126.14000000000001,
+        "end_seconds": 126.67750000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "and",
+        "start_seconds": 126.67750000000001,
+        "end_seconds": 126.815
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "revenue.",
+        "start_seconds": 126.815,
+        "end_seconds": 127.76500000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "Here’s",
+        "start_seconds": 129.09,
+        "end_seconds": 129.79
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "why",
+        "start_seconds": 129.79,
+        "end_seconds": 129.965
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "that",
+        "start_seconds": 129.965,
+        "end_seconds": 130.19
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "matters:",
+        "start_seconds": 130.19,
+        "end_seconds": 131.1275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "a",
+        "start_seconds": 131.1275,
+        "end_seconds": 131.24
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "hiccup",
+        "start_seconds": 131.24,
+        "end_seconds": 131.565
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "in",
+        "start_seconds": 131.565,
+        "end_seconds": 131.715
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "compliance",
+        "start_seconds": 131.715,
+        "end_seconds": 132.39000000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "or",
+        "start_seconds": 132.39000000000001,
+        "end_seconds": 132.5525
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "payouts",
+        "start_seconds": 132.5525,
+        "end_seconds": 133.09
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "can",
+        "start_seconds": 133.09,
+        "end_seconds": 133.3025
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "instantly",
+        "start_seconds": 133.3025,
+        "end_seconds": 133.82750000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "yank",
+        "start_seconds": 133.82750000000001,
+        "end_seconds": 134.1275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "an",
+        "start_seconds": 134.1275,
+        "end_seconds": 134.215
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "app,",
+        "start_seconds": 134.215,
+        "end_seconds": 134.915
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "and",
+        "start_seconds": 134.915,
+        "end_seconds": 135.04
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "getting",
+        "start_seconds": 135.04,
+        "end_seconds": 135.3025
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "it",
+        "start_seconds": 135.3025,
+        "end_seconds": 135.415
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "back",
+        "start_seconds": 135.415,
+        "end_seconds": 135.7275
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "doesn’t",
+        "start_seconds": 135.7275,
+        "end_seconds": 136.04
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "guarantee",
+        "start_seconds": 136.04,
+        "end_seconds": 136.6525
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "it",
+        "start_seconds": 136.6525,
+        "end_seconds": 136.7525
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "will",
+        "start_seconds": 136.7525,
+        "end_seconds": 136.89000000000001
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "regain",
+        "start_seconds": 136.89000000000001,
+        "end_seconds": 137.29
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "its",
+        "start_seconds": 137.29,
+        "end_seconds": 137.49
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "former",
+        "start_seconds": 137.49,
+        "end_seconds": 137.815
+      },
+      {
+        "segment_id": "fsnotes-eu-removal-2026-segment",
+        "text": "visibility.",
+        "start_seconds": 137.815,
+        "end_seconds": 138.99
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "And",
+        "start_seconds": 140.165,
+        "end_seconds": 140.3025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "finally,",
+        "start_seconds": 140.3025,
+        "end_seconds": 140.7525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "our",
+        "start_seconds": 140.7525,
+        "end_seconds": 140.89
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "last",
+        "start_seconds": 140.89,
+        "end_seconds": 141.1525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "story.",
+        "start_seconds": 141.1525,
+        "end_seconds": 142.0025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "NVIDIA",
+        "start_seconds": 142.0025,
+        "end_seconds": 142.39
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "just",
+        "start_seconds": 142.39,
+        "end_seconds": 142.5525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "made",
+        "start_seconds": 142.5525,
+        "end_seconds": 142.765
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "cuDSS",
+        "start_seconds": 142.765,
+        "end_seconds": 143.44
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "version",
+        "start_seconds": 143.44,
+        "end_seconds": 143.74
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "one",
+        "start_seconds": 143.74,
+        "end_seconds": 143.965
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "point",
+        "start_seconds": 143.965,
+        "end_seconds": 144.24
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "zero",
+        "start_seconds": 144.24,
+        "end_seconds": 144.54
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "generally",
+        "start_seconds": 144.54,
+        "end_seconds": 144.915
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "available,",
+        "start_seconds": 144.915,
+        "end_seconds": 145.815
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "letting",
+        "start_seconds": 145.815,
+        "end_seconds": 146.065
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "you",
+        "start_seconds": 146.065,
+        "end_seconds": 146.19
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "run",
+        "start_seconds": 146.19,
+        "end_seconds": 146.415
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "direct",
+        "start_seconds": 146.415,
+        "end_seconds": 146.765
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "sparse",
+        "start_seconds": 146.765,
+        "end_seconds": 147.09
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "solvers",
+        "start_seconds": 147.09,
+        "end_seconds": 147.5025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "on",
+        "start_seconds": 147.5025,
+        "end_seconds": 147.6025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "its",
+        "start_seconds": 147.6025,
+        "end_seconds": 147.715
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "GPUs.",
+        "start_seconds": 147.715,
+        "end_seconds": 148.865
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "Early",
+        "start_seconds": 148.865,
+        "end_seconds": 149.14
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "benchmarks",
+        "start_seconds": 149.14,
+        "end_seconds": 149.6525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "on",
+        "start_seconds": 149.6525,
+        "end_seconds": 149.7525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "an",
+        "start_seconds": 149.7525,
+        "end_seconds": 149.8275
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "NVIDIA",
+        "start_seconds": 149.8275,
+        "end_seconds": 150.165
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "B200",
+        "start_seconds": 150.165,
+        "end_seconds": 150.89
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "with",
+        "start_seconds": 150.89,
+        "end_seconds": 151.0275
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "192",
+        "start_seconds": 151.0275,
+        "end_seconds": 151.79
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "gigabytes",
+        "start_seconds": 151.79,
+        "end_seconds": 152.2525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "of",
+        "start_seconds": 152.2525,
+        "end_seconds": 152.34
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "HBM",
+        "start_seconds": 152.34,
+        "end_seconds": 152.9275
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "three",
+        "start_seconds": 152.9275,
+        "end_seconds": 153.165
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "e",
+        "start_seconds": 153.165,
+        "end_seconds": 153.3275
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "show",
+        "start_seconds": 153.3275,
+        "end_seconds": 153.565
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "noticeable",
+        "start_seconds": 153.565,
+        "end_seconds": 153.99
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "speedups",
+        "start_seconds": 153.99,
+        "end_seconds": 154.515
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "compared",
+        "start_seconds": 154.515,
+        "end_seconds": 154.9025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "with",
+        "start_seconds": 154.9025,
+        "end_seconds": 155.065
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "Intel",
+        "start_seconds": 155.065,
+        "end_seconds": 155.44
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "MKL",
+        "start_seconds": 155.44,
+        "end_seconds": 155.965
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "version",
+        "start_seconds": 155.965,
+        "end_seconds": 156.265
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "twenty",
+        "start_seconds": 156.265,
+        "end_seconds": 156.515
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "twenty",
+        "start_seconds": 156.515,
+        "end_seconds": 156.79
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "six",
+        "start_seconds": 156.79,
+        "end_seconds": 157.04
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "point",
+        "start_seconds": 157.04,
+        "end_seconds": 157.29
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "one",
+        "start_seconds": 157.29,
+        "end_seconds": 157.49
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "point",
+        "start_seconds": 157.49,
+        "end_seconds": 157.765
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "zero",
+        "start_seconds": 157.765,
+        "end_seconds": 158.3525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "on",
+        "start_seconds": 158.3525,
+        "end_seconds": 158.5025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "a",
+        "start_seconds": 158.5025,
+        "end_seconds": 158.565
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "Xeon",
+        "start_seconds": 158.565,
+        "end_seconds": 158.89
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "Platinum",
+        "start_seconds": 158.89,
+        "end_seconds": 159.34
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "eight",
+        "start_seconds": 159.34,
+        "end_seconds": 159.565
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "five",
+        "start_seconds": 159.565,
+        "end_seconds": 159.84
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "seven",
+        "start_seconds": 159.84,
+        "end_seconds": 160.165
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "zero,",
+        "start_seconds": 160.165,
+        "end_seconds": 160.9525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "especially",
+        "start_seconds": 160.9525,
+        "end_seconds": 161.515
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "for",
+        "start_seconds": 161.515,
+        "end_seconds": 161.6775
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "circuit",
+        "start_seconds": 161.6775,
+        "end_seconds": 161.99
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "simulation,",
+        "start_seconds": 161.99,
+        "end_seconds": 162.99
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "CFD",
+        "start_seconds": 162.99,
+        "end_seconds": 163.69
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 163.69,
+        "end_seconds": 163.815
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "structural",
+        "start_seconds": 163.815,
+        "end_seconds": 164.2775
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "analysis.",
+        "start_seconds": 164.2775,
+        "end_seconds": 165.4025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "Here’s",
+        "start_seconds": 166.715,
+        "end_seconds": 167.29
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "why",
+        "start_seconds": 167.29,
+        "end_seconds": 167.465
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "that",
+        "start_seconds": 167.465,
+        "end_seconds": 167.69
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "matters:",
+        "start_seconds": 167.69,
+        "end_seconds": 168.64000000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "you",
+        "start_seconds": 168.64000000000001,
+        "end_seconds": 168.74
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "could",
+        "start_seconds": 168.74,
+        "end_seconds": 168.9275
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "shave",
+        "start_seconds": 168.9275,
+        "end_seconds": 169.2775
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "time",
+        "start_seconds": 169.2775,
+        "end_seconds": 169.59
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "off",
+        "start_seconds": 169.59,
+        "end_seconds": 169.7525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "your",
+        "start_seconds": 169.7525,
+        "end_seconds": 169.89000000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "engineering",
+        "start_seconds": 169.89000000000001,
+        "end_seconds": 170.465
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "workloads,",
+        "start_seconds": 170.465,
+        "end_seconds": 171.415
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "but",
+        "start_seconds": 171.415,
+        "end_seconds": 171.5525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "you’ll",
+        "start_seconds": 171.5525,
+        "end_seconds": 171.6525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "need",
+        "start_seconds": 171.6525,
+        "end_seconds": 171.84
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "to",
+        "start_seconds": 171.84,
+        "end_seconds": 171.965
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "test",
+        "start_seconds": 171.965,
+        "end_seconds": 172.32750000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "cuDSS",
+        "start_seconds": 172.32750000000001,
+        "end_seconds": 173.29
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "on",
+        "start_seconds": 173.29,
+        "end_seconds": 173.4025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "your",
+        "start_seconds": 173.4025,
+        "end_seconds": 173.5525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "own",
+        "start_seconds": 173.5525,
+        "end_seconds": 173.815
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "matrices",
+        "start_seconds": 173.815,
+        "end_seconds": 174.6025
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 174.6025,
+        "end_seconds": 174.7525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "GPU",
+        "start_seconds": 174.7525,
+        "end_seconds": 175.32750000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "setup",
+        "start_seconds": 175.32750000000001,
+        "end_seconds": 175.82750000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "before",
+        "start_seconds": 175.82750000000001,
+        "end_seconds": 176.165
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "counting",
+        "start_seconds": 176.165,
+        "end_seconds": 176.5275
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "on",
+        "start_seconds": 176.5275,
+        "end_seconds": 176.6275
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "those",
+        "start_seconds": 176.6275,
+        "end_seconds": 176.84
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "gains.",
+        "start_seconds": 176.84,
+        "end_seconds": 177.79
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "And",
+        "start_seconds": 179.115,
+        "end_seconds": 179.22750000000002
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "that's",
+        "start_seconds": 179.22750000000002,
+        "end_seconds": 179.465
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "your",
+        "start_seconds": 179.465,
+        "end_seconds": 179.615
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "Daywire",
+        "start_seconds": 179.615,
+        "end_seconds": 180.01500000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "briefing.",
+        "start_seconds": 180.01500000000001,
+        "end_seconds": 180.89000000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "You'll",
+        "start_seconds": 180.89000000000001,
+        "end_seconds": 181.04000000000002
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "find",
+        "start_seconds": 181.04000000000002,
+        "end_seconds": 181.2775
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "the",
+        "start_seconds": 181.2775,
+        "end_seconds": 181.3775
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "full",
+        "start_seconds": 181.3775,
+        "end_seconds": 181.615
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "stories",
+        "start_seconds": 181.615,
+        "end_seconds": 182.0525
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "and",
+        "start_seconds": 182.0525,
+        "end_seconds": 182.1775
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "sources",
+        "start_seconds": 182.1775,
+        "end_seconds": 182.66500000000002
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "in",
+        "start_seconds": 182.66500000000002,
+        "end_seconds": 182.76500000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "today's",
+        "start_seconds": 182.76500000000001,
+        "end_seconds": 183.14000000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "newspaper.",
+        "start_seconds": 183.14000000000001,
+        "end_seconds": 184.10250000000002
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "Thanks",
+        "start_seconds": 184.10250000000002,
+        "end_seconds": 184.39000000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "for",
+        "start_seconds": 184.39000000000001,
+        "end_seconds": 184.51500000000001
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "listening.",
+        "start_seconds": 184.51500000000001,
+        "end_seconds": 185.1775
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "Take",
+        "start_seconds": 185.1775,
+        "end_seconds": 185.465
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "care,",
+        "start_seconds": 185.465,
+        "end_seconds": 185.79000000000002
+      },
+      {
+        "segment_id": "cudss-1-0-release-segment",
+        "text": "everyone.",
+        "start_seconds": 185.79000000000002,
+        "end_seconds": 186.815
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
