@@ -1,0 +1,4065 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-25",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-25T09:10:57.36262103Z",
+  "coverage": {
+    "from": "2026-11-24T06:00:00+05:30",
+    "until": "2026-11-25T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-0ea66ddcc209eef8",
+      "source-0290cd3e97744559",
+      "source-456f99b0be71d7d7"
+    ],
+    "candidate_count": 38,
+    "evidence_count": 35
+  },
+  "content": {
+    "title": "AI breakthroughs reshape development and biotech",
+    "introduction": "OpenAI’s GPT‑6 now drafts novel protein structures from plain language prompts, while NVIDIA’s Kimodo model brings text‑driven character motion directly into Unreal Engine 5.9 Preview. These advances illustrate how generative AI is accelerating both software creation and scientific discovery.",
+    "articles": [
+      {
+        "id": "trynix-dev-unnkernel-browser-2026",
+        "section": "Engineering",
+        "headline": "Linux‑to‑Wasm engine speeds browser‑based GUI apps",
+        "summary": "The new unkernel engine lets Linux boot in the browser and run graphical programs up to 32× faster than prior QEMU‑Wasm setups, affecting developers testing desktop software online.",
+        "paragraphs": [
+          "Pooya Parsa’s unkernel project compiles the Linux kernel and core system components to WebAssembly, leaving only user‑space programs to be emulated. The approach replaces the slower QEMU‑Wasm emulator that previously powered trynix.dev, a site showcasing browser‑based GUI apps such as Solitaire, GL gears, xeyes, a voice assistant, weather fetches via curl, and even Firefox.",
+          "Benchmarks posted on the project’s page show unkernel delivering between 2× and 32× speed improvements depending on workload, with the biggest gains on first‑run scenarios where kernel work dominates. The engine includes a minimal Mesa build with the virgl driver, rendering through WebGL2, and supports networking, full‑screen graphics, and audio directly in the browser.",
+          "While the performance jump makes interactive demos more practical, the evidence notes that QEMU‑Wasm’s latency still limits heavy workloads, and the current implementation remains a proof‑of‑concept rather than a production‑ready solution."
+        ],
+        "implication": "Developers can now prototype and share Linux‑based GUI applications in the browser with markedly lower latency, but should treat unkernel as an experimental platform rather than a substitute for native deployment.",
+        "source_ids": [
+          "source-a9c56d12d300d5c6"
+        ]
+      },
+      {
+        "id": "gpt-6-protein-design-brief",
+        "section": "AI",
+        "headline": "GPT‑6 models can design proteins without specialized tools",
+        "summary": "OpenAI’s GPT‑6 family can generate novel protein structures and sequences using only natural‑language prompts and code, eliminating the need for dedicated biology models.",
+        "paragraphs": [
+          "In a preprint announced on November 24, 2026, OpenAI demonstrated that GPT‑6.2 can reason about atomic bonds, predict small‑molecule binding sites, and create minibinder proteins by following plain‑text instructions, all without retraining or external bio‑informatics software. The approach relies on the model’s intrinsic reasoning and coding abilities, but the results remain limited to internal, unpublished structures and have not been validated in external labs."
+        ],
+        "implication": "Researchers can prototype protein concepts directly in a language model, but should treat the designs as experimental hypotheses pending experimental verification.",
+        "source_ids": [
+          "source-d9615c8c024ea5a2"
+        ]
+      },
+      {
+        "id": "ternary-bonsai-2-5-27b-release",
+        "section": "AI",
+        "headline": "PrismML launches Ternary Bonsai 2.5 27B for on‑device agentic coding",
+        "summary": "PrismML’s new Ternary Bonsai 2.5 27B model improves multi‑turn tool use and coding speed while keeping the 5.9 GB footprint for local GPUs and Apple silicon.",
+        "paragraphs": [
+          "The upgrade builds on the earlier Ternary Bonsai 2 27B and the Qwen 3.8 27B base, adding stronger reasoning, visual understanding, and tighter loop control for agentic workflows. In benchmark tables the 2.5 version completes tasks in fewer turns, consumes fewer tokens, and delivers faster, more accurate results than its predecessor, narrowing the gap to the full‑precision base model.",
+          "Crucially, the model runs on NVIDIA and Intel GPUs through llama.cpp and on Mac, iPhone, and iPad via MLX, preserving the 5.9 GB memory footprint that makes on‑device deployment feasible for private knowledge work."
+        ],
+        "implication": "Developers can now embed a higher‑performing, low‑memory model in local applications, reducing reliance on cloud APIs for complex coding assistants and tool‑driven agents.",
+        "source_ids": [
+          "source-57993858eb1cb093"
+        ]
+      },
+      {
+        "id": "amd-epyc-zen6-performance-brief",
+        "section": "Engineering",
+        "headline": "AMD EPYC Zen 6 delivers 12× geo‑mean boost over Zen 1",
+        "summary": "New EPYC 9006 “Venice” Zen 6 CPUs outperform the original EPYC 7601 by a 12.1× geometric‑mean across a suite of real‑world benchmarks, affecting data‑center operators evaluating upgrade cycles.",
+        "paragraphs": [
+          "The Phoronix review measured two‑socket EPYC 9686F and EPYC 9996 Zen 6 systems against a ten‑year‑old Dell PowerEdge R7425 equipped with dual EPYC 7601 (Zen 1). Across AI, HPC, compilation, and storage workloads the Zen 6 platforms showed a 12.1× geo‑mean speedup and up to 133× on specific AI tests, while also noting power‑efficiency gains from architectural refinements such as AVX‑512 extensions and integrated security features."
+        ],
+        "implication": "For engineers planning refreshes, the data suggests that moving to Zen 6 can dramatically shrink workload runtimes and lower energy costs, but the gains are measured on comparable dual‑socket server configurations and may vary with different memory or storage subsystems.",
+        "source_ids": [
+          "source-ab674d6c1d5c5f45"
+        ]
+      },
+      {
+        "id": "nvidia-kimodo-unreal-5-9-preview",
+        "section": "AI",
+        "headline": "NVIDIA Kimodo powers AI‑generated motion in Unreal Engine 5.9 Preview",
+        "summary": "Unreal Engine 5.9 Preview now embeds NVIDIA’s Kimodo model, letting animators create character motion directly in Sequencer via text prompts, splines or target poses.",
+        "paragraphs": [
+          "The integration arrives with NVIDIA’s In‑Game Inferencing SDK 1.8, which adds hardened RTX Spark support and updated llama.cpp and whisper.cpp back‑ends. Kimodo is the first AI motion‑generation model hooked into the new guided‑animation framework, so creators can generate and edit animation inside the familiar timeline editor without leaving Unreal."
+        ],
+        "implication": "Developers can prototype and iterate animation in‑engine faster, but must adopt the 5.9 Preview build and SDK 1.8 to access the feature.",
+        "source_ids": [
+          "source-7057a24125f9dd57"
+        ]
+      },
+      {
+        "id": "nvidia-megatron-market-data-pipeline",
+        "section": "AI",
+        "headline": "NVIDIA Megatron Core adds GPU‑optimized market‑data preprocessing for transformer forecasts",
+        "summary": "NVIDIA’s Megatron Core now includes a script and dataset provider that turn intraday market‑bar Parquet files into tensor batches for training transformer models on financial time‑series.",
+        "paragraphs": [
+          "The new preprocessing pipeline groups consecutive bars into patches, slides fixed‑length context windows, and computes multi‑horizon return and volume targets while enforcing embargo periods to avoid leakage. Users can feed their own market‑bar Parquet files into the Megatron‑LM training loop via a memory‑mapped loader that shares reads across tensor‑parallel groups, enabling large‑scale GPU‑accelerated forecasting experiments."
+        ],
+        "implication": "Engineers can now prototype high‑throughput financial forecasting models without building custom data pipelines, but must supply correctly formatted Parquet bar files and respect the embargo‑split rules to prevent forward‑looking bias.",
+        "source_ids": [
+          "source-db82b1b3ec08f7a3"
+        ]
+      },
+      {
+        "id": "vercel-agent-mcp-management",
+        "section": "AI",
+        "headline": "Vercel agents can now configure AI Gateway via MCP",
+        "summary": "Agents connected to Vercel MCP can create virtual models, edit routing rules, and set spending budgets for AI Gateway using plain‑language commands.",
+        "paragraphs": [
+          "The new capability lets an agent create reusable model IDs—such as a virtual model named coding‑agent that points to anthropic/claude‑opus‑5.5 with Zero Data Retention—list, inspect, update, or restore them, adjust team‑wide routing rules that redirect or block requests, and view or set budgets for teams, projects, and members. All actions require the agent to be linked to Vercel MCP with team‑level access and the appropriate AI Gateway permissions, preserving existing Vercel team permissions."
+        ],
+        "implication": "Developers can tweak AI model selections, traffic routing, and cost controls on the fly without redeploying apps, streamlining experimentation and budget management.",
+        "source_ids": [
+          "source-56bc9e13007f0e5f"
+        ]
+      },
+      {
+        "id": "vercel-sandbox-images-2026-11-25",
+        "section": "Tools",
+        "headline": "Vercel Sandbox runtimes switch to managed images",
+        "summary": "Vercel now runs all Sandbox environments on its own managed container images, giving every sandbox 64 GB storage and up‑to‑date runtimes.",
+        "paragraphs": [
+          "Effective 24 Nov 2026, Vercel’s Sandbox platform stopped using legacy, self‑hosted images and migrated every runtime—including the node22 legacy stack—to the open‑source images in the vercel/sandbox repository, served through Vercel Container Registry (VCR). The change adds a uniform 64 GB storage quota per sandbox and aligns the infrastructure with VCR‑based sandboxes.",
+          "The new “universal” image is published nightly; rolling tags like latest automatically pull OS, dependency, and coding‑agent updates (Node.js, Python, Claude Code, Pi, etc.). Developers who need reproducible builds can pin a specific image digest. Sandboxes built with JavaScript Sandbox SDK v3+ default to vercel/sandbox/universal:latest, reachable at vcr.vercel.com/vercel/sandbox/universal:latest."
+        ],
+        "implication": "Engineers can rely on a single, regularly refreshed container image for all sandbox workloads, simplifying version management while gaining a larger storage allocation.",
+        "source_ids": [
+          "source-59f746ae70110a89"
+        ]
+      },
+      {
+        "id": "vercel-private-link-secure-compute",
+        "section": "Tools",
+        "headline": "Vercel adds AWS PrivateLink support to Secure Compute",
+        "summary": "Secure Compute users can now provision AWS PrivateLink endpoints from the Vercel dashboard to reach private AWS services.",
+        "paragraphs": [
+          "Enterprise teams can create a PrivateLink endpoint inside their Secure Compute VPC, sharing it across connected project environments. The endpoint must already exist as an AWS PrivateLink service (e.g., RDS, Aurora, Snowflake) and then Vercel Functions, Sandbox and builds can access those backends over the private AWS network. Each network includes one free endpoint; extra endpoints cost $30 / month and data transfer $0.04 / GB."
+        ],
+        "implication": "Developers can now keep traffic to critical databases and internal services off the public internet without extra networking tooling, but they must provision and pay for the AWS PrivateLink service separately.",
+        "source_ids": [
+          "source-f9fdfba7d20240bf"
+        ]
+      },
+      {
+        "id": "delete-run-data-workflow-sdk-2026",
+        "section": "Tools",
+        "headline": "Vercel Workflow SDK adds on‑demand run data deletion",
+        "summary": "Version 5.7.0 of the Vercel Workflow SDK now lets developers purge inputs, outputs, hooks and error traces of completed runs.",
+        "paragraphs": [
+          "The new deleteRuns() API and CLI command (pnpx workflow delete \u003crunId\u003e) remove payload data for finished runs while leaving metadata intact, supporting compliance needs. Deletion is limited to runs that have already completed; active runs are ignored, and bulk deletion caps at 100 runs per call. The feature requires upgrading to workflow@5.7.0 or later."
+        ],
+        "implication": "Teams can meet data‑retention policies without abandoning run observability, but must ensure runs finish before invoking the delete command.",
+        "source_ids": [
+          "source-447207655328df9a"
+        ]
+      },
+      {
+        "id": "vercel-flags-sdk-no-secret-2026-11-24",
+        "section": "Tools",
+        "headline": "Flags SDK runs on Vercel without a shared secret",
+        "summary": "Starting with flags @4.5.0, Vercel projects can use Flags Explorer and precompute features without setting the FLAGS_SECRET environment variable.",
+        "paragraphs": [
+          "The SDK now relies on Vercel‑signed discovery requests and encrypts flag values with Vercel’s public key, eliminating the need to sync a secret across micro‑frontends. Existing deployments continue to use FLAGS_SECRET until the variable is removed; precomputed codes generated without a secret are limited to the deployment that created them, while cross‑deployment precomputes still require FLAGS_PRECOMPUTE_SECRET or a build‑cache configuration."
+        ],
+        "implication": "Developers can simplify onboarding and reduce secret‑management overhead on Vercel, but must keep a secret for any flag data that must survive across deployments.",
+        "source_ids": [
+          "source-0f8eb92e24ac9e8f"
+        ]
+      },
+      {
+        "id": "hexpm-security-incident-2026-11-25",
+        "section": "Security",
+        "headline": "Hex.pm breach forces credential rotation and client logout",
+        "summary": "A recent attack on Hex.pm compromised server credentials, prompting a full credential reset and temporary logout of all users.",
+        "paragraphs": [
+          "The attacker accessed internal servers, allowing reads of email addresses, password hashes, API key hashes, 2FA secrets, sessions, and audit logs; Hex.pm responded by rotating storage, CDN, email, database credentials and signing keys, logging everyone out, and advising users to change passwords, reset 2FA, and update the Hex client once the new signing system is released, while restricting fetches to repo.hex.pm."
+        ],
+        "implication": "Developers must treat all current Hex credentials as compromised, reset them immediately, and plan to upgrade to the forthcoming client version that supports key rotation before trusting any mirrors.",
+        "source_ids": [
+          "source-9cff6bd2431d9855"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "wasm-kernel-boot-optimisation-2026",
+        "title": "Why compiling the kernel to WebAssembly speeds up browser‑based Linux",
+        "paragraphs": [
+          "Traditional browser‑based Linux environments use QEMU‑Wasm to emulate the entire system, including the kernel. Every instruction the kernel executes must be interpreted by QEMU, which adds a large overhead, especially during boot when kernel work dominates. Pooya Parsa’s unkernel approach sidesteps this by compiling the Linux kernel and core system components directly to WebAssembly, letting the browser’s native Wasm engine run them at near‑native speed while only user‑space programs are still emulated.",
+          "Because the heavy lifting is now done by the highly‑optimized Wasm runtime, the boot sequence finishes in seconds and graphical programs launch up to 32× faster than with full QEMU‑Wasm. The minimal Mesa build with the virgl driver then renders through WebGL2, providing full‑screen graphics and audio without additional translation layers."
+        ],
+        "example": "On trynix.dev, launching the Firefox browser with unkernel takes a few seconds, whereas the same launch under QEMU‑Wasm can stall for tens of seconds, illustrating the performance gap caused by kernel emulation.",
+        "takeaway": "Compiling the kernel to WebAssembly removes the biggest source of emulation overhead, turning browser‑based Linux from a novelty into a practical platform for rapid prototyping of GUI apps.",
+        "article_ids": [
+          "trynix-dev-unnkernel-browser-2026"
+        ],
+        "source_ids": [
+          "source-a9c56d12d300d5c6"
+        ]
+      },
+      {
+        "id": "intrinsic-protein-design-mechanism",
+        "title": "How GPT‑6’s internal reasoning replaces specialized protein‑design pipelines",
+        "paragraphs": [
+          "Traditional protein‑design workflows stitch together multiple domain‑specific tools: a structure predictor, a sequence optimizer, and a docking simulator. Each tool expects a rigid input format and must be manually chained, which adds overhead and limits flexibility. GPT‑6 collapses this pipeline by using its built‑in reasoning and code‑generation abilities to interpret a natural‑language prompt, simulate atomic interactions, and output a full 3‑D design in one step.",
+          "The model treats the design task as a logical problem: given a desired binding site, it reasons about bond geometry, writes short Python snippets that calculate distances, and then assembles a plausible amino‑acid sequence that satisfies those constraints. This eliminates the need for separate, hand‑tuned modules."
+        ],
+        "example": "Prompt: “Create a 45‑residue minibinder that wraps around the spike protein’s receptor‑binding domain, using three α‑helices and a disulfide bridge between residues 12 and 38.” GPT‑6 returns a PDB‑style coordinate list and the corresponding sequence, all generated from the single instruction.",
+        "takeaway": "When a language model can reason about chemistry and generate code, it can act as a universal protein‑design engine, reducing toolchain complexity and enabling rapid prototyping directly from plain text.",
+        "article_ids": [
+          "gpt-6-protein-design-brief"
+        ],
+        "source_ids": [
+          "source-d9615c8c024ea5a2"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-wasm-kernel-boot-optimisation-2026-1",
+        "lesson_id": "wasm-kernel-boot-optimisation-2026",
+        "prompt": "What is the primary reason that compiling the Linux kernel to WebAssembly speeds up the boot process in browser‑based Linux?",
+        "options": [
+          "It allows the kernel to run directly on the browser’s native Wasm engine, avoiding QEMU instruction interpretation.",
+          "It replaces the kernel with a smaller, less functional version that does less work during boot.",
+          "It enables the use of hardware‑accelerated GPU drivers that are unavailable to QEMU‑Wasm.",
+          "It compresses the kernel binary so that less data needs to be transferred over the network."
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that compiling the kernel to WebAssembly lets the browser’s native Wasm engine execute kernel instructions directly, removing the heavy QEMU emulation overhead that dominates boot time."
+      },
+      {
+        "id": "quiz-1-wasm-kernel-boot-optimisation-2026-2",
+        "lesson_id": "wasm-kernel-boot-optimisation-2026",
+        "prompt": "According to the article, which component still relies on emulation after the kernel is compiled to WebAssembly?",
+        "options": [
+          "User‑space programs",
+          "The kernel’s memory management subsystem",
+          "The Mesa graphics stack",
+          "The virgl driver"
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that only user‑space programs remain emulated, while the kernel and core system components run natively as WebAssembly."
+      },
+      {
+        "id": "quiz-1-wasm-kernel-boot-optimisation-2026-3",
+        "lesson_id": "wasm-kernel-boot-optimisation-2026",
+        "prompt": "How does the performance of graphical programs change when using the unkernel approach compared to full QEMU‑Wasm?",
+        "options": [
+          "They launch up to 32× faster because the kernel no longer adds emulation latency.",
+          "They run at the same speed, but use less memory due to a smaller kernel binary.",
+          "They become slower because the virgl driver must translate Wasm calls to WebGL2.",
+          "They only work in headless mode, eliminating graphical performance differences."
+        ],
+        "answer": 0,
+        "explanation": "The article notes that with the kernel compiled to WebAssembly, graphical programs launch up to 32× faster, as the major source of emulation overhead (the kernel) is removed."
+      },
+      {
+        "id": "quiz-2-01",
+        "lesson_id": "intrinsic-protein-design-mechanism",
+        "prompt": "According to the lesson, what primary advantage does GPT‑6 provide over traditional protein‑design pipelines?",
+        "options": [
+          "It eliminates the need for any human oversight in protein design.",
+          "It replaces multiple specialized tools with a single natural‑language driven step.",
+          "It guarantees that every generated protein will fold correctly in vitro.",
+          "It reduces the computational cost by using only pre‑computed templates."
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that GPT‑6 collapses the traditional multi‑tool pipeline into one step by interpreting a natural‑language prompt, reasoning about chemistry, and outputting a full 3‑D design, which is the advantage described in option 2."
+      },
+      {
+        "id": "quiz-2-02",
+        "lesson_id": "intrinsic-protein-design-mechanism",
+        "prompt": "How does GPT‑6 generate a protein design according to the described mechanism?",
+        "options": [
+          "It selects a pre‑existing protein from a database that matches the description.",
+          "It writes short Python code to calculate distances and then assembles a sequence that meets the geometric constraints.",
+          "It runs a molecular dynamics simulation to evolve a random sequence into the desired shape.",
+          "It asks a human expert to manually adjust the output of a separate docking simulator."
+        ],
+        "answer": 1,
+        "explanation": "The lesson explains that GPT‑6 treats the task as a logical problem, writes Python snippets to calculate distances, and assembles a plausible amino‑acid sequence that satisfies the constraints, which matches option 2."
+      }
+    ],
+    "segments": [
+      {
+        "id": "trynix-dev-unnkernel-browser-2026-seg",
+        "title": "Unkernel speeds up browser Linux demos",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November twenty five, two thousand twenty six.\n\nWe begin with our lead story. Unkernel boosts browser‑based Linux GUI apps dramatically.\n\nPooya Parsa’s new engine compiles the Linux kernel to WebAssembly, leaving only user‑space to be emulated, and that alone shaves off a lot of the overhead you’d see with the older QEMU‑Wasm setup. The project’s own benchmarks claim anywhere from two times to thirty‑two times faster start‑up, especially when the workload is kernel‑heavy. It even bundles a tiny Mesa build with the virgl driver so graphics run through WebGL2, plus networking and audio straight in the browser. Here’s why that matters: developers can now spin up interactive demos of things like Solitaire or a voice assistant with far less lag, but it’s still a proof‑of‑concept, not a production‑ready replacement for native Linux.",
+        "article_ids": [
+          "trynix-dev-unnkernel-browser-2026"
+        ]
+      },
+      {
+        "id": "gpt-6-protein-design-brief-segment",
+        "title": "GPT‑6 designs proteins from plain text",
+        "text": "Next on the bulletin. OpenAI says its GPT‑6.2 model can sketch out new protein structures just from a natural‑language prompt. In a preprint posted on November twenty‑four, twenty twenty‑six, the team showed the model reasoning about atomic bonds, spotting small‑molecule binding sites, and even drafting minibinder proteins without any retraining or external bio‑informatics tools. The designs live only in internal, unpublished models and haven’t been tested in a wet lab yet. So while researchers can now spin up protein concepts inside a language model, they should treat those outputs as experimental hypotheses until real‑world validation backs them up.",
+        "article_ids": [
+          "gpt-6-protein-design-brief"
+        ]
+      },
+      {
+        "id": "ternary-bonsai-2-5-27b-launch",
+        "title": "PrismML rolls out Ternary Bonsai 2.5 27B for on‑device coding",
+        "text": "Turning to our next story. PrismML just dropped Ternary Bonsai version two point five twenty‑seven B, a new on‑device coding model that still fits in a five point nine gigabyte memory slot. It builds on the earlier two point zero model and the Qwen three point eight base, adding sharper reasoning, visual grasp and tighter loop control for agentic tools. Benchmarks show it finishes tasks in fewer turns, burns fewer tokens and runs faster on NVIDIA and Intel GPUs via llama dot cpp, as well as on Mac, iPhone and iPad through MLX. \n\nHere’s why that matters: developers can now ship a more capable, low‑memory model straight into local apps, cutting the need for cloud A P I calls for complex coding assistants and tool‑driven agents.",
+        "article_ids": [
+          "ternary-bonsai-2-5-27b-release"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "AMD EPYC Zen 6 delivers 12.1× geo‑mean boost over Zen 1",
+        "text": "Next on the bulletin. AMD’s new EPYC 9006 “Venice” Zen 6 chips sprint past the original EPYC 7601, showing a twelve point one times geometric‑mean speedup across AI, HPC, compilation and storage tests.\n\nThe Phoronix review ran two‑socket EPYC 9686F and EPYC 9996 systems side by side with a ten‑year‑old dual‑socket Dell PowerEdge R7425, and even saw a one‑hundred‑thirty‑three times jump on a specific AI workload. That matters because engineers can dramatically shrink runtimes and cut energy use, though actual gains will depend on the memory and storage configuration you pair with the new silicon.",
+        "article_ids": [
+          "amd-epyc-zen6-performance-brief"
+        ]
+      },
+      {
+        "id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "title": "NVIDIA Kimodo Animates Unreal 5.9 Preview",
+        "text": "And finally, our last story. NVIDIA’s Kimodo model is now baked into Unreal Engine version five point nine preview. Animators can type a prompt, draw a spline, or drop a target pose and watch the character’s motion generate right inside the Sequencer timeline. The feature rides on NVIDIA’s In‑Game Inferencing SDK version one point eight, which brings hardened RTX Spark support and updated llama dot cpp and whisper dot cpp back‑ends. Here’s why that matters: you can prototype and tweak animation without hopping between tools, but you’ll need the 5.9 preview build and SDK 1.8 to try it.\nDevelopers should weigh the convenience against the need to adopt a preview version that may still be evolving.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "nvidia-kimodo-unreal-5-9-preview"
+        ]
+      }
+    ],
+    "artwork_brief": "A split‑screen illustration: on the left, a stylized protein helix emerging from a glowing AI brain; on the right, a 3D game character mid‑motion with motion‑capture lines, both linked by a flowing data stream."
+  },
+  "sources": [
+    {
+      "id": "source-a9c56d12d300d5c6",
+      "name": "Hacker News",
+      "title": "2035 came early",
+      "url": "https://fzakaria.com/2026/11/23/2035-came-early",
+      "published_at": null,
+      "discovered_at": "2026-11-24T06:30:33Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50624497"
+    },
+    {
+      "id": "source-59f746ae70110a89",
+      "name": "Vercel Blog",
+      "title": "All Sandbox runtimes now use Vercel Managed Images",
+      "url": "https://vercel.com/changelog/all-sandbox-runtimes-now-use-vercel-managed-images",
+      "published_at": "2026-11-24T18:00:00Z",
+      "discovered_at": "2026-11-25T08:56:06.054315222Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-db82b1b3ec08f7a3",
+      "name": "NVIDIA Developer",
+      "title": "Prepare Market Data for Forecasting with NVIDIA Megatron Core",
+      "url": "https://developer.nvidia.com/blog/prepare-market-data-for-forecasting-with-nvidia-megatron-core/",
+      "published_at": "2026-11-24T17:00:00Z",
+      "discovered_at": "2026-11-25T08:56:06.895189569Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-f9fdfba7d20240bf",
+      "name": "Vercel Blog",
+      "title": "AWS PrivateLink endpoints are now available on Secure Compute",
+      "url": "https://vercel.com/changelog/aws-privatelink-endpoints-are-now-available-on-secure-compute",
+      "published_at": "2026-11-24T09:54:00Z",
+      "discovered_at": "2026-11-25T08:56:06.054315222Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-7057a24125f9dd57",
+      "name": "NVIDIA Developer",
+      "title": "What’s New for Game Developers: AI Animation and RTX Tools",
+      "url": "https://developer.nvidia.com/blog/whats-new-for-game-developers-ai-animation-and-rtx-tools/",
+      "published_at": "2026-11-24T17:00:00Z",
+      "discovered_at": "2026-11-25T08:56:06.895189569Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-56bc9e13007f0e5f",
+      "name": "Vercel Blog",
+      "title": "Agents can now manage AI Gateway through Vercel MCP",
+      "url": "https://vercel.com/changelog/agents-can-now-manage-ai-gateway-through-vercel-mcp",
+      "published_at": "2026-11-24T05:00:00Z",
+      "discovered_at": "2026-11-25T08:56:06.054315222Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-447207655328df9a",
+      "name": "Vercel Blog",
+      "title": "Delete a run's data on demand in Workflow SDK",
+      "url": "https://vercel.com/changelog/delete-run-data-workflow-sdk",
+      "published_at": "2026-11-24T05:00:00Z",
+      "discovered_at": "2026-11-25T08:56:06.054315222Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-0f8eb92e24ac9e8f",
+      "name": "Vercel Blog",
+      "title": "Flags SDK now works on Vercel without FLAGS_SECRET",
+      "url": "https://vercel.com/changelog/flags-sdk-now-works-on-vercel-without-flags-secret",
+      "published_at": "2026-11-24T05:00:00Z",
+      "discovered_at": "2026-11-25T08:56:06.054315222Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-57993858eb1cb093",
+      "name": "Hacker News",
+      "title": "Ternary Bonsai 2.5 27B",
+      "url": "https://prismml.com/news/bonsai-2-5-27b",
+      "published_at": null,
+      "discovered_at": "2026-11-24T20:08:03Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50633922"
+    },
+    {
+      "id": "source-d9615c8c024ea5a2",
+      "name": "Hacker News",
+      "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+      "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/",
+      "published_at": null,
+      "discovered_at": "2026-11-24T21:02:22Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50634658"
+    },
+    {
+      "id": "source-ab674d6c1d5c5f45",
+      "name": "Hacker News",
+      "title": "AMD EPYC Zen 6 vs. Zen 1 Performance: 12.1x Geo Mean in Less Than 10 Years",
+      "url": "https://www.phoronix.com/review/amd-epyc-9006-7601",
+      "published_at": null,
+      "discovered_at": "2026-11-24T05:15:22Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50624061"
+    },
+    {
+      "id": "source-9cff6bd2431d9855",
+      "name": "Lobsters",
+      "title": "Security incident on Hex.pm",
+      "url": "https://hex.pm/blog/security-incident-on-hexpm",
+      "published_at": null,
+      "discovered_at": "2026-11-24T08:52:19.552-06:00",
+      "discussion_url": "https://lobste.rs/s/rfcgkx/security_incident_on_hex_pm"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-25/21f65a6395673912a5670ee46fad8752a6c6f60eb71e1fd4a47e19189bc26b31.mp3",
+    "duration_seconds": 248.976,
+    "script_hash": "4e3afa157f7fd51d1e2545d1c919c2cc71159cbbafcb7868174b658bf2be99d3",
+    "cues": [
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "everyone,",
+        "start_seconds": 0.6,
+        "end_seconds": 1.15
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "and",
+        "start_seconds": 1.15,
+        "end_seconds": 1.3125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "welcome",
+        "start_seconds": 1.3125,
+        "end_seconds": 1.75
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "to",
+        "start_seconds": 1.75,
+        "end_seconds": 1.875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Daywire.",
+        "start_seconds": 1.875,
+        "end_seconds": 2.8375
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Let's",
+        "start_seconds": 2.8375,
+        "end_seconds": 3.125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "make",
+        "start_seconds": 3.125,
+        "end_seconds": 3.3625
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "sense",
+        "start_seconds": 3.3625,
+        "end_seconds": 3.6875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "of",
+        "start_seconds": 3.6875,
+        "end_seconds": 3.7625
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "the",
+        "start_seconds": 3.7625,
+        "end_seconds": 3.85
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "tech",
+        "start_seconds": 3.85,
+        "end_seconds": 4.1
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "news.",
+        "start_seconds": 4.1,
+        "end_seconds": 4.875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "It's",
+        "start_seconds": 4.875,
+        "end_seconds": 5.125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "November",
+        "start_seconds": 5.125,
+        "end_seconds": 5.55
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "twenty",
+        "start_seconds": 5.55,
+        "end_seconds": 5.875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "five,",
+        "start_seconds": 5.875,
+        "end_seconds": 6.2875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "two",
+        "start_seconds": 6.2875,
+        "end_seconds": 6.525
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "thousand",
+        "start_seconds": 6.525,
+        "end_seconds": 6.8875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "twenty",
+        "start_seconds": 6.8875,
+        "end_seconds": 7.1875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "six.",
+        "start_seconds": 7.1875,
+        "end_seconds": 8.25
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "We",
+        "start_seconds": 9.424999999999999,
+        "end_seconds": 9.549999999999999
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "begin",
+        "start_seconds": 9.549999999999999,
+        "end_seconds": 9.924999999999999
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "with",
+        "start_seconds": 9.924999999999999,
+        "end_seconds": 10.0625
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "our",
+        "start_seconds": 10.0625,
+        "end_seconds": 10.2
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "lead",
+        "start_seconds": 10.2,
+        "end_seconds": 10.45
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "story.",
+        "start_seconds": 10.45,
+        "end_seconds": 11.362499999999999
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Unkernel",
+        "start_seconds": 11.362499999999999,
+        "end_seconds": 11.875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "boosts",
+        "start_seconds": 11.875,
+        "end_seconds": 12.25
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "browser‑based",
+        "start_seconds": 12.25,
+        "end_seconds": 13
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Linux",
+        "start_seconds": 13,
+        "end_seconds": 13.325
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "GUI",
+        "start_seconds": 13.325,
+        "end_seconds": 13.649999999999999
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "apps",
+        "start_seconds": 13.649999999999999,
+        "end_seconds": 13.95
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "dramatically.",
+        "start_seconds": 13.95,
+        "end_seconds": 15.325
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Pooya",
+        "start_seconds": 16.5,
+        "end_seconds": 16.799999999999997
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Parsa’s",
+        "start_seconds": 16.799999999999997,
+        "end_seconds": 17.25
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "new",
+        "start_seconds": 17.25,
+        "end_seconds": 17.424999999999997
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "engine",
+        "start_seconds": 17.424999999999997,
+        "end_seconds": 17.825
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "compiles",
+        "start_seconds": 17.825,
+        "end_seconds": 18.299999999999997
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "the",
+        "start_seconds": 18.299999999999997,
+        "end_seconds": 18.4
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Linux",
+        "start_seconds": 18.4,
+        "end_seconds": 18.75
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "kernel",
+        "start_seconds": 18.75,
+        "end_seconds": 19.15
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "to",
+        "start_seconds": 19.15,
+        "end_seconds": 19.25
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "WebAssembly,",
+        "start_seconds": 19.25,
+        "end_seconds": 20.299999999999997
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "leaving",
+        "start_seconds": 20.299999999999997,
+        "end_seconds": 20.65
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "only",
+        "start_seconds": 20.65,
+        "end_seconds": 20.9625
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "user‑space",
+        "start_seconds": 20.9625,
+        "end_seconds": 21.625
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "to",
+        "start_seconds": 21.625,
+        "end_seconds": 21.7125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "be",
+        "start_seconds": 21.7125,
+        "end_seconds": 21.825
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "emulated,",
+        "start_seconds": 21.825,
+        "end_seconds": 22.9
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "and",
+        "start_seconds": 22.9,
+        "end_seconds": 23.0125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "that",
+        "start_seconds": 23.0125,
+        "end_seconds": 23.15
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "alone",
+        "start_seconds": 23.15,
+        "end_seconds": 23.5125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "shaves",
+        "start_seconds": 23.5125,
+        "end_seconds": 23.8125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "off",
+        "start_seconds": 23.8125,
+        "end_seconds": 23.9625
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "a",
+        "start_seconds": 23.9625,
+        "end_seconds": 24.025
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "lot",
+        "start_seconds": 24.025,
+        "end_seconds": 24.2125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "of",
+        "start_seconds": 24.2125,
+        "end_seconds": 24.287499999999998
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "the",
+        "start_seconds": 24.287499999999998,
+        "end_seconds": 24.4
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "overhead",
+        "start_seconds": 24.4,
+        "end_seconds": 24.849999999999998
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "you’d",
+        "start_seconds": 24.849999999999998,
+        "end_seconds": 25.025
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "see",
+        "start_seconds": 25.025,
+        "end_seconds": 25.2625
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "with",
+        "start_seconds": 25.2625,
+        "end_seconds": 25.362499999999997
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "the",
+        "start_seconds": 25.362499999999997,
+        "end_seconds": 25.474999999999998
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "older",
+        "start_seconds": 25.474999999999998,
+        "end_seconds": 25.799999999999997
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "QEMU‑Wasm",
+        "start_seconds": 25.799999999999997,
+        "end_seconds": 26.5
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "setup.",
+        "start_seconds": 26.5,
+        "end_seconds": 27.474999999999998
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "The",
+        "start_seconds": 27.474999999999998,
+        "end_seconds": 27.575
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "project’s",
+        "start_seconds": 27.575,
+        "end_seconds": 28.0125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "own",
+        "start_seconds": 28.0125,
+        "end_seconds": 28.174999999999997
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "benchmarks",
+        "start_seconds": 28.174999999999997,
+        "end_seconds": 28.799999999999997
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "claim",
+        "start_seconds": 28.799999999999997,
+        "end_seconds": 29.099999999999998
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "anywhere",
+        "start_seconds": 29.099999999999998,
+        "end_seconds": 29.525
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "from",
+        "start_seconds": 29.525,
+        "end_seconds": 29.7
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "two",
+        "start_seconds": 29.7,
+        "end_seconds": 29.875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "times",
+        "start_seconds": 29.875,
+        "end_seconds": 30.25
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "to",
+        "start_seconds": 30.25,
+        "end_seconds": 30.375
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "thirty‑two",
+        "start_seconds": 30.375,
+        "end_seconds": 30.825
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "times",
+        "start_seconds": 30.825,
+        "end_seconds": 31.2
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "faster",
+        "start_seconds": 31.2,
+        "end_seconds": 31.575
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "start‑up,",
+        "start_seconds": 31.575,
+        "end_seconds": 32.525
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "especially",
+        "start_seconds": 32.525,
+        "end_seconds": 33.0875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "when",
+        "start_seconds": 33.0875,
+        "end_seconds": 33.2125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "the",
+        "start_seconds": 33.2125,
+        "end_seconds": 33.3
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "workload",
+        "start_seconds": 33.3,
+        "end_seconds": 33.7375
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "is",
+        "start_seconds": 33.7375,
+        "end_seconds": 33.875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "kernel‑heavy.",
+        "start_seconds": 33.875,
+        "end_seconds": 35.05
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "It",
+        "start_seconds": 35.05,
+        "end_seconds": 35.2125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "even",
+        "start_seconds": 35.2125,
+        "end_seconds": 35.5
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "bundles",
+        "start_seconds": 35.5,
+        "end_seconds": 35.8875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "a",
+        "start_seconds": 35.8875,
+        "end_seconds": 35.95
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "tiny",
+        "start_seconds": 35.95,
+        "end_seconds": 36.275
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Mesa",
+        "start_seconds": 36.275,
+        "end_seconds": 36.6375
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "build",
+        "start_seconds": 36.6375,
+        "end_seconds": 36.9375
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "with",
+        "start_seconds": 36.9375,
+        "end_seconds": 37.037499999999994
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "the",
+        "start_seconds": 37.037499999999994,
+        "end_seconds": 37.125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "virgl",
+        "start_seconds": 37.125,
+        "end_seconds": 37.5
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "driver",
+        "start_seconds": 37.5,
+        "end_seconds": 38.0125
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "so",
+        "start_seconds": 38.0125,
+        "end_seconds": 38.2
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "graphics",
+        "start_seconds": 38.2,
+        "end_seconds": 38.7
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "run",
+        "start_seconds": 38.7,
+        "end_seconds": 38.925
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "through",
+        "start_seconds": 38.925,
+        "end_seconds": 39.1875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "WebGL2,",
+        "start_seconds": 39.1875,
+        "end_seconds": 40.55
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "plus",
+        "start_seconds": 40.55,
+        "end_seconds": 40.825
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "networking",
+        "start_seconds": 40.825,
+        "end_seconds": 41.4
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "and",
+        "start_seconds": 41.4,
+        "end_seconds": 41.525
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "audio",
+        "start_seconds": 41.525,
+        "end_seconds": 41.912499999999994
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "straight",
+        "start_seconds": 41.912499999999994,
+        "end_seconds": 42.287499999999994
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "in",
+        "start_seconds": 42.287499999999994,
+        "end_seconds": 42.3625
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "the",
+        "start_seconds": 42.3625,
+        "end_seconds": 42.45
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "browser.",
+        "start_seconds": 42.45,
+        "end_seconds": 43.5875
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Here’s",
+        "start_seconds": 44.045,
+        "end_seconds": 44.620000000000005
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "why",
+        "start_seconds": 44.620000000000005,
+        "end_seconds": 44.795
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "that",
+        "start_seconds": 44.795,
+        "end_seconds": 44.995000000000005
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "matters:",
+        "start_seconds": 44.995000000000005,
+        "end_seconds": 45.92
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "developers",
+        "start_seconds": 45.92,
+        "end_seconds": 46.52
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "can",
+        "start_seconds": 46.52,
+        "end_seconds": 46.645
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "now",
+        "start_seconds": 46.645,
+        "end_seconds": 46.8575
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "spin",
+        "start_seconds": 46.8575,
+        "end_seconds": 47.1325
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "up",
+        "start_seconds": 47.1325,
+        "end_seconds": 47.295
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "interactive",
+        "start_seconds": 47.295,
+        "end_seconds": 47.895
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "demos",
+        "start_seconds": 47.895,
+        "end_seconds": 48.307500000000005
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "of",
+        "start_seconds": 48.307500000000005,
+        "end_seconds": 48.395
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "things",
+        "start_seconds": 48.395,
+        "end_seconds": 48.72
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "like",
+        "start_seconds": 48.72,
+        "end_seconds": 48.9575
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Solitaire",
+        "start_seconds": 48.9575,
+        "end_seconds": 49.6075
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "or",
+        "start_seconds": 49.6075,
+        "end_seconds": 49.745000000000005
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "a",
+        "start_seconds": 49.745000000000005,
+        "end_seconds": 49.82
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "voice",
+        "start_seconds": 49.82,
+        "end_seconds": 50.120000000000005
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "assistant",
+        "start_seconds": 50.120000000000005,
+        "end_seconds": 50.6575
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "with",
+        "start_seconds": 50.6575,
+        "end_seconds": 50.8325
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "far",
+        "start_seconds": 50.8325,
+        "end_seconds": 51.120000000000005
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "less",
+        "start_seconds": 51.120000000000005,
+        "end_seconds": 51.345
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "lag,",
+        "start_seconds": 51.345,
+        "end_seconds": 52.195
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "but",
+        "start_seconds": 52.195,
+        "end_seconds": 52.3325
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "it’s",
+        "start_seconds": 52.3325,
+        "end_seconds": 52.495000000000005
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "still",
+        "start_seconds": 52.495000000000005,
+        "end_seconds": 52.7575
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "a",
+        "start_seconds": 52.7575,
+        "end_seconds": 52.82
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "proof‑of‑concept,",
+        "start_seconds": 52.82,
+        "end_seconds": 54.145
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "not",
+        "start_seconds": 54.145,
+        "end_seconds": 54.3325
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "a",
+        "start_seconds": 54.3325,
+        "end_seconds": 54.395
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "production‑ready",
+        "start_seconds": 54.395,
+        "end_seconds": 55.22
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "replacement",
+        "start_seconds": 55.22,
+        "end_seconds": 55.845
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "for",
+        "start_seconds": 55.845,
+        "end_seconds": 55.97
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "native",
+        "start_seconds": 55.97,
+        "end_seconds": 56.370000000000005
+      },
+      {
+        "segment_id": "trynix-dev-unnkernel-browser-2026-seg",
+        "text": "Linux.",
+        "start_seconds": 56.370000000000005,
+        "end_seconds": 57.495000000000005
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "Next",
+        "start_seconds": 58.72,
+        "end_seconds": 58.9825
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "on",
+        "start_seconds": 58.9825,
+        "end_seconds": 59.0825
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "the",
+        "start_seconds": 59.0825,
+        "end_seconds": 59.17
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "bulletin.",
+        "start_seconds": 59.17,
+        "end_seconds": 60.1825
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "OpenAI",
+        "start_seconds": 60.1825,
+        "end_seconds": 60.795
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "says",
+        "start_seconds": 60.795,
+        "end_seconds": 60.995
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "its",
+        "start_seconds": 60.995,
+        "end_seconds": 61.2075
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "GPT‑6.2",
+        "start_seconds": 61.2075,
+        "end_seconds": 62.745
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "model",
+        "start_seconds": 62.745,
+        "end_seconds": 63.07
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "can",
+        "start_seconds": 63.07,
+        "end_seconds": 63.245
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "sketch",
+        "start_seconds": 63.245,
+        "end_seconds": 63.545
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "out",
+        "start_seconds": 63.545,
+        "end_seconds": 63.77
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "new",
+        "start_seconds": 63.77,
+        "end_seconds": 63.945
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "protein",
+        "start_seconds": 63.945,
+        "end_seconds": 64.395
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "structures",
+        "start_seconds": 64.395,
+        "end_seconds": 64.92
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "just",
+        "start_seconds": 64.92,
+        "end_seconds": 65.145
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "from",
+        "start_seconds": 65.145,
+        "end_seconds": 65.2825
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "a",
+        "start_seconds": 65.2825,
+        "end_seconds": 65.345
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "natural‑language",
+        "start_seconds": 65.345,
+        "end_seconds": 66.12
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "prompt.",
+        "start_seconds": 66.12,
+        "end_seconds": 67.0325
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "In",
+        "start_seconds": 67.0325,
+        "end_seconds": 67.1575
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "a",
+        "start_seconds": 67.1575,
+        "end_seconds": 67.22
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "preprint",
+        "start_seconds": 67.22,
+        "end_seconds": 67.62
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "posted",
+        "start_seconds": 67.62,
+        "end_seconds": 68.0325
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "on",
+        "start_seconds": 68.0325,
+        "end_seconds": 68.1325
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "November",
+        "start_seconds": 68.1325,
+        "end_seconds": 68.57
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "twenty‑four,",
+        "start_seconds": 68.57,
+        "end_seconds": 69.42
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "twenty",
+        "start_seconds": 69.42,
+        "end_seconds": 69.72
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "twenty‑six,",
+        "start_seconds": 69.72,
+        "end_seconds": 70.82
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "the",
+        "start_seconds": 70.82,
+        "end_seconds": 70.92
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "team",
+        "start_seconds": 70.92,
+        "end_seconds": 71.2325
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "showed",
+        "start_seconds": 71.2325,
+        "end_seconds": 71.4825
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "the",
+        "start_seconds": 71.4825,
+        "end_seconds": 71.57
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "model",
+        "start_seconds": 71.57,
+        "end_seconds": 71.895
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "reasoning",
+        "start_seconds": 71.895,
+        "end_seconds": 72.3075
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "about",
+        "start_seconds": 72.3075,
+        "end_seconds": 72.57
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "atomic",
+        "start_seconds": 72.57,
+        "end_seconds": 72.995
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "bonds,",
+        "start_seconds": 72.995,
+        "end_seconds": 73.8575
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "spotting",
+        "start_seconds": 73.8575,
+        "end_seconds": 74.2825
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "small‑molecule",
+        "start_seconds": 74.2825,
+        "end_seconds": 75.07
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "binding",
+        "start_seconds": 75.07,
+        "end_seconds": 75.495
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "sites,",
+        "start_seconds": 75.495,
+        "end_seconds": 76.27
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "and",
+        "start_seconds": 76.27,
+        "end_seconds": 76.395
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "even",
+        "start_seconds": 76.395,
+        "end_seconds": 76.72
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "drafting",
+        "start_seconds": 76.72,
+        "end_seconds": 77.17
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "minibinder",
+        "start_seconds": 77.17,
+        "end_seconds": 77.67
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "proteins",
+        "start_seconds": 77.67,
+        "end_seconds": 78.345
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "without",
+        "start_seconds": 78.345,
+        "end_seconds": 78.695
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "any",
+        "start_seconds": 78.695,
+        "end_seconds": 78.895
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "retraining",
+        "start_seconds": 78.895,
+        "end_seconds": 79.52
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "or",
+        "start_seconds": 79.52,
+        "end_seconds": 79.67
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "external",
+        "start_seconds": 79.67,
+        "end_seconds": 80.195
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "bio‑informatics",
+        "start_seconds": 80.195,
+        "end_seconds": 81.22
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "tools.",
+        "start_seconds": 81.22,
+        "end_seconds": 82.3325
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "The",
+        "start_seconds": 82.79,
+        "end_seconds": 82.86500000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "designs",
+        "start_seconds": 82.86500000000001,
+        "end_seconds": 83.36500000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "live",
+        "start_seconds": 83.36500000000001,
+        "end_seconds": 83.6025
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "only",
+        "start_seconds": 83.6025,
+        "end_seconds": 83.915
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "in",
+        "start_seconds": 83.915,
+        "end_seconds": 84.04
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "internal,",
+        "start_seconds": 84.04,
+        "end_seconds": 84.7275
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "unpublished",
+        "start_seconds": 84.7275,
+        "end_seconds": 85.31500000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "models",
+        "start_seconds": 85.31500000000001,
+        "end_seconds": 86.1025
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "and",
+        "start_seconds": 86.1025,
+        "end_seconds": 86.24000000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "haven’t",
+        "start_seconds": 86.24000000000001,
+        "end_seconds": 86.54
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "been",
+        "start_seconds": 86.54,
+        "end_seconds": 86.74000000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "tested",
+        "start_seconds": 86.74000000000001,
+        "end_seconds": 87.215
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "in",
+        "start_seconds": 87.215,
+        "end_seconds": 87.30250000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "a",
+        "start_seconds": 87.30250000000001,
+        "end_seconds": 87.36500000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "wet",
+        "start_seconds": 87.36500000000001,
+        "end_seconds": 87.59
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "lab",
+        "start_seconds": 87.59,
+        "end_seconds": 87.84
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "yet.",
+        "start_seconds": 87.84,
+        "end_seconds": 88.7275
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "So",
+        "start_seconds": 88.7275,
+        "end_seconds": 88.89
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "while",
+        "start_seconds": 88.89,
+        "end_seconds": 89.09
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "researchers",
+        "start_seconds": 89.09,
+        "end_seconds": 89.715
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "can",
+        "start_seconds": 89.715,
+        "end_seconds": 89.84
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "now",
+        "start_seconds": 89.84,
+        "end_seconds": 90.05250000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "spin",
+        "start_seconds": 90.05250000000001,
+        "end_seconds": 90.3275
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "up",
+        "start_seconds": 90.3275,
+        "end_seconds": 90.515
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "protein",
+        "start_seconds": 90.515,
+        "end_seconds": 90.99000000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "concepts",
+        "start_seconds": 90.99000000000001,
+        "end_seconds": 91.6025
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "inside",
+        "start_seconds": 91.6025,
+        "end_seconds": 91.9775
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "a",
+        "start_seconds": 91.9775,
+        "end_seconds": 92.04
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "language",
+        "start_seconds": 92.04,
+        "end_seconds": 92.44000000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "model,",
+        "start_seconds": 92.44000000000001,
+        "end_seconds": 93.215
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "they",
+        "start_seconds": 93.215,
+        "end_seconds": 93.36500000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "should",
+        "start_seconds": 93.36500000000001,
+        "end_seconds": 93.515
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "treat",
+        "start_seconds": 93.515,
+        "end_seconds": 93.765
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "those",
+        "start_seconds": 93.765,
+        "end_seconds": 94.015
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "outputs",
+        "start_seconds": 94.015,
+        "end_seconds": 94.56500000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "as",
+        "start_seconds": 94.56500000000001,
+        "end_seconds": 94.715
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "experimental",
+        "start_seconds": 94.715,
+        "end_seconds": 95.465
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "hypotheses",
+        "start_seconds": 95.465,
+        "end_seconds": 96.5775
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "until",
+        "start_seconds": 96.5775,
+        "end_seconds": 96.9775
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "real‑world",
+        "start_seconds": 96.9775,
+        "end_seconds": 97.56500000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "validation",
+        "start_seconds": 97.56500000000001,
+        "end_seconds": 98.24000000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "backs",
+        "start_seconds": 98.24000000000001,
+        "end_seconds": 98.50250000000001
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "them",
+        "start_seconds": 98.50250000000001,
+        "end_seconds": 98.6275
+      },
+      {
+        "segment_id": "gpt-6-protein-design-brief-segment",
+        "text": "up.",
+        "start_seconds": 98.6275,
+        "end_seconds": 99.49000000000001
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "Turning",
+        "start_seconds": 100.69,
+        "end_seconds": 101.015
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "to",
+        "start_seconds": 101.015,
+        "end_seconds": 101.10249999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "our",
+        "start_seconds": 101.10249999999999,
+        "end_seconds": 101.2025
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "next",
+        "start_seconds": 101.2025,
+        "end_seconds": 101.4525
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "story.",
+        "start_seconds": 101.4525,
+        "end_seconds": 102.315
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "PrismML",
+        "start_seconds": 102.315,
+        "end_seconds": 102.91499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "just",
+        "start_seconds": 102.91499999999999,
+        "end_seconds": 103.16499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "dropped",
+        "start_seconds": 103.16499999999999,
+        "end_seconds": 103.4525
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "Ternary",
+        "start_seconds": 103.4525,
+        "end_seconds": 103.84
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "Bonsai",
+        "start_seconds": 103.84,
+        "end_seconds": 104.215
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "version",
+        "start_seconds": 104.215,
+        "end_seconds": 104.6525
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "two",
+        "start_seconds": 104.6525,
+        "end_seconds": 104.91499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "point",
+        "start_seconds": 104.91499999999999,
+        "end_seconds": 105.215
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "five",
+        "start_seconds": 105.215,
+        "end_seconds": 105.515
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "twenty‑seven",
+        "start_seconds": 105.515,
+        "end_seconds": 106.765
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "B,",
+        "start_seconds": 105.515,
+        "end_seconds": 106.865
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "a",
+        "start_seconds": 106.865,
+        "end_seconds": 106.965
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "new",
+        "start_seconds": 106.965,
+        "end_seconds": 107.1525
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "on‑device",
+        "start_seconds": 107.1525,
+        "end_seconds": 107.66499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "coding",
+        "start_seconds": 107.66499999999999,
+        "end_seconds": 108.03999999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "model",
+        "start_seconds": 108.03999999999999,
+        "end_seconds": 108.365
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "that",
+        "start_seconds": 108.365,
+        "end_seconds": 108.49
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "still",
+        "start_seconds": 108.49,
+        "end_seconds": 108.7775
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "fits",
+        "start_seconds": 108.7775,
+        "end_seconds": 109.0525
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "in",
+        "start_seconds": 109.0525,
+        "end_seconds": 109.1275
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "a",
+        "start_seconds": 109.1275,
+        "end_seconds": 109.2025
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "five",
+        "start_seconds": 109.2025,
+        "end_seconds": 109.53999999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "point",
+        "start_seconds": 109.53999999999999,
+        "end_seconds": 109.815
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "nine",
+        "start_seconds": 109.815,
+        "end_seconds": 110.115
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "gigabyte",
+        "start_seconds": 110.115,
+        "end_seconds": 110.565
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "memory",
+        "start_seconds": 110.565,
+        "end_seconds": 110.94
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "slot.",
+        "start_seconds": 110.94,
+        "end_seconds": 111.84
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "It",
+        "start_seconds": 111.84,
+        "end_seconds": 112.015
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "builds",
+        "start_seconds": 112.015,
+        "end_seconds": 112.3025
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "on",
+        "start_seconds": 112.3025,
+        "end_seconds": 112.4025
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "the",
+        "start_seconds": 112.4025,
+        "end_seconds": 112.5275
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "earlier",
+        "start_seconds": 112.5275,
+        "end_seconds": 112.9025
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "two",
+        "start_seconds": 112.9025,
+        "end_seconds": 113.16499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "point",
+        "start_seconds": 113.16499999999999,
+        "end_seconds": 113.47749999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "zero",
+        "start_seconds": 113.47749999999999,
+        "end_seconds": 113.84
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "model",
+        "start_seconds": 113.84,
+        "end_seconds": 114.515
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "and",
+        "start_seconds": 114.515,
+        "end_seconds": 114.6525
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "the",
+        "start_seconds": 114.6525,
+        "end_seconds": 114.74
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "Qwen",
+        "start_seconds": 114.74,
+        "end_seconds": 115.1775
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "three",
+        "start_seconds": 115.1775,
+        "end_seconds": 115.41499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "point",
+        "start_seconds": 115.41499999999999,
+        "end_seconds": 115.715
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "eight",
+        "start_seconds": 115.715,
+        "end_seconds": 115.94
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "base,",
+        "start_seconds": 115.94,
+        "end_seconds": 116.715
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "adding",
+        "start_seconds": 116.715,
+        "end_seconds": 117.0275
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "sharper",
+        "start_seconds": 117.0275,
+        "end_seconds": 117.41499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "reasoning,",
+        "start_seconds": 117.41499999999999,
+        "end_seconds": 118.16499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "visual",
+        "start_seconds": 118.16499999999999,
+        "end_seconds": 118.565
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "grasp",
+        "start_seconds": 118.565,
+        "end_seconds": 119.03999999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "and",
+        "start_seconds": 119.03999999999999,
+        "end_seconds": 119.1775
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "tighter",
+        "start_seconds": 119.1775,
+        "end_seconds": 119.53999999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "loop",
+        "start_seconds": 119.53999999999999,
+        "end_seconds": 119.74
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "control",
+        "start_seconds": 119.74,
+        "end_seconds": 120.19
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "for",
+        "start_seconds": 120.19,
+        "end_seconds": 120.3275
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "agentic",
+        "start_seconds": 120.3275,
+        "end_seconds": 120.815
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "tools.",
+        "start_seconds": 120.815,
+        "end_seconds": 121.9525
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "Benchmarks",
+        "start_seconds": 122.41,
+        "end_seconds": 122.9975
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "show",
+        "start_seconds": 122.9975,
+        "end_seconds": 123.2225
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "it",
+        "start_seconds": 123.2225,
+        "end_seconds": 123.31
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "finishes",
+        "start_seconds": 123.31,
+        "end_seconds": 123.735
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "tasks",
+        "start_seconds": 123.735,
+        "end_seconds": 124.185
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "in",
+        "start_seconds": 124.185,
+        "end_seconds": 124.335
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "fewer",
+        "start_seconds": 124.335,
+        "end_seconds": 124.61
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "turns,",
+        "start_seconds": 124.61,
+        "end_seconds": 125.46
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "burns",
+        "start_seconds": 125.46,
+        "end_seconds": 125.785
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "fewer",
+        "start_seconds": 125.785,
+        "end_seconds": 126.06
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "tokens",
+        "start_seconds": 126.06,
+        "end_seconds": 126.585
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "and",
+        "start_seconds": 126.585,
+        "end_seconds": 126.71
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "runs",
+        "start_seconds": 126.71,
+        "end_seconds": 127.00999999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "faster",
+        "start_seconds": 127.00999999999999,
+        "end_seconds": 127.3975
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "on",
+        "start_seconds": 127.3975,
+        "end_seconds": 127.4975
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "NVIDIA",
+        "start_seconds": 127.4975,
+        "end_seconds": 127.96
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "and",
+        "start_seconds": 127.96,
+        "end_seconds": 128.085
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "Intel",
+        "start_seconds": 128.085,
+        "end_seconds": 128.46
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "GPUs",
+        "start_seconds": 128.46,
+        "end_seconds": 129.035
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "via",
+        "start_seconds": 129.035,
+        "end_seconds": 129.285
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "llama",
+        "start_seconds": 129.285,
+        "end_seconds": 129.585
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "dot",
+        "start_seconds": 129.585,
+        "end_seconds": 129.85999999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "cpp,",
+        "start_seconds": 129.85999999999999,
+        "end_seconds": 131.01
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "as",
+        "start_seconds": 131.01,
+        "end_seconds": 131.135
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "well",
+        "start_seconds": 131.135,
+        "end_seconds": 131.29749999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "as",
+        "start_seconds": 131.29749999999999,
+        "end_seconds": 131.3725
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "on",
+        "start_seconds": 131.3725,
+        "end_seconds": 131.535
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "Mac,",
+        "start_seconds": 131.535,
+        "end_seconds": 132.23499999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "iPhone",
+        "start_seconds": 132.23499999999999,
+        "end_seconds": 132.785
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "and",
+        "start_seconds": 132.785,
+        "end_seconds": 132.91
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "iPad",
+        "start_seconds": 132.91,
+        "end_seconds": 133.385
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "through",
+        "start_seconds": 133.385,
+        "end_seconds": 133.585
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "MLX.",
+        "start_seconds": 133.585,
+        "end_seconds": 134.92249999999999
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "Here’s",
+        "start_seconds": 136.11,
+        "end_seconds": 136.685
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "why",
+        "start_seconds": 136.685,
+        "end_seconds": 136.86
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "that",
+        "start_seconds": 136.86,
+        "end_seconds": 137.06
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "matters:",
+        "start_seconds": 137.06,
+        "end_seconds": 137.985
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "developers",
+        "start_seconds": 137.985,
+        "end_seconds": 138.56
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "can",
+        "start_seconds": 138.56,
+        "end_seconds": 138.685
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "now",
+        "start_seconds": 138.685,
+        "end_seconds": 138.8975
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "ship",
+        "start_seconds": 138.8975,
+        "end_seconds": 139.09750000000003
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "a",
+        "start_seconds": 139.09750000000003,
+        "end_seconds": 139.16000000000003
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "more",
+        "start_seconds": 139.16000000000003,
+        "end_seconds": 139.3725
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "capable,",
+        "start_seconds": 139.3725,
+        "end_seconds": 140.01000000000002
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "low‑memory",
+        "start_seconds": 140.01000000000002,
+        "end_seconds": 140.63500000000002
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "model",
+        "start_seconds": 140.63500000000002,
+        "end_seconds": 140.96
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "straight",
+        "start_seconds": 140.96,
+        "end_seconds": 141.2475
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "into",
+        "start_seconds": 141.2475,
+        "end_seconds": 141.46
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "local",
+        "start_seconds": 141.46,
+        "end_seconds": 141.81
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "apps,",
+        "start_seconds": 141.81,
+        "end_seconds": 142.56
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "cutting",
+        "start_seconds": 142.56,
+        "end_seconds": 142.8725
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "the",
+        "start_seconds": 142.8725,
+        "end_seconds": 142.96
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "need",
+        "start_seconds": 142.96,
+        "end_seconds": 143.235
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "for",
+        "start_seconds": 143.235,
+        "end_seconds": 143.36
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "cloud",
+        "start_seconds": 143.36,
+        "end_seconds": 143.6225
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "A",
+        "start_seconds": 143.6225,
+        "end_seconds": 143.685
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "P",
+        "start_seconds": 143.685,
+        "end_seconds": 143.8975
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "I",
+        "start_seconds": 143.8975,
+        "end_seconds": 144.03500000000003
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "calls",
+        "start_seconds": 144.03500000000003,
+        "end_seconds": 144.41000000000003
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "for",
+        "start_seconds": 144.41000000000003,
+        "end_seconds": 144.53500000000003
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "complex",
+        "start_seconds": 144.53500000000003,
+        "end_seconds": 145.06
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "coding",
+        "start_seconds": 145.06,
+        "end_seconds": 145.3975
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "assistants",
+        "start_seconds": 145.3975,
+        "end_seconds": 146.085
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "and",
+        "start_seconds": 146.085,
+        "end_seconds": 146.22250000000003
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "tool‑driven",
+        "start_seconds": 146.22250000000003,
+        "end_seconds": 146.86
+      },
+      {
+        "segment_id": "ternary-bonsai-2-5-27b-launch",
+        "text": "agents.",
+        "start_seconds": 146.86,
+        "end_seconds": 148.01000000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 149.235,
+        "end_seconds": 149.4975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 149.4975,
+        "end_seconds": 149.5975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 149.5975,
+        "end_seconds": 149.685
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 149.685,
+        "end_seconds": 150.7225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AMD’s",
+        "start_seconds": 150.7225,
+        "end_seconds": 151.31
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "new",
+        "start_seconds": 151.31,
+        "end_seconds": 151.485
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "EPYC",
+        "start_seconds": 151.485,
+        "end_seconds": 152.16
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "9006",
+        "start_seconds": 152.16,
+        "end_seconds": 153.3725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "“Venice”",
+        "start_seconds": 153.3725,
+        "end_seconds": 154.2225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Zen",
+        "start_seconds": 154.2225,
+        "end_seconds": 154.7975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "6",
+        "start_seconds": 154.2225,
+        "end_seconds": 154.7975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "chips",
+        "start_seconds": 154.7975,
+        "end_seconds": 155.06
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "sprint",
+        "start_seconds": 155.06,
+        "end_seconds": 155.435
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "past",
+        "start_seconds": 155.435,
+        "end_seconds": 155.7725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 155.7725,
+        "end_seconds": 155.86
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "original",
+        "start_seconds": 155.86,
+        "end_seconds": 156.31
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "EPYC",
+        "start_seconds": 156.31,
+        "end_seconds": 157.06
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "7601,",
+        "start_seconds": 157.06,
+        "end_seconds": 158.57250000000002
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "showing",
+        "start_seconds": 158.57250000000002,
+        "end_seconds": 158.8975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 158.8975,
+        "end_seconds": 158.96
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twelve",
+        "start_seconds": 158.96,
+        "end_seconds": 159.285
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 159.285,
+        "end_seconds": 159.56
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one",
+        "start_seconds": 159.56,
+        "end_seconds": 159.785
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "times",
+        "start_seconds": 159.785,
+        "end_seconds": 160.1725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "geometric‑mean",
+        "start_seconds": 160.1725,
+        "end_seconds": 161.035
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "speedup",
+        "start_seconds": 161.035,
+        "end_seconds": 161.46
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "across",
+        "start_seconds": 161.46,
+        "end_seconds": 161.7975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI,",
+        "start_seconds": 161.7975,
+        "end_seconds": 162.46
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "HPC,",
+        "start_seconds": 162.46,
+        "end_seconds": 163.335
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "compilation",
+        "start_seconds": 163.335,
+        "end_seconds": 164.06
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 164.06,
+        "end_seconds": 164.185
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "storage",
+        "start_seconds": 164.185,
+        "end_seconds": 164.61
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tests.",
+        "start_seconds": 164.61,
+        "end_seconds": 165.735
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 166.91,
+        "end_seconds": 167.0225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Phoronix",
+        "start_seconds": 167.0225,
+        "end_seconds": 167.535
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "review",
+        "start_seconds": 167.535,
+        "end_seconds": 167.86
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ran",
+        "start_seconds": 167.86,
+        "end_seconds": 168.1475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two‑socket",
+        "start_seconds": 168.1475,
+        "end_seconds": 168.835
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "EPYC",
+        "start_seconds": 168.835,
+        "end_seconds": 169.51
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "9686F",
+        "start_seconds": 169.51,
+        "end_seconds": 171.1975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 171.1975,
+        "end_seconds": 171.335
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "EPYC",
+        "start_seconds": 171.335,
+        "end_seconds": 172.035
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "9996",
+        "start_seconds": 172.035,
+        "end_seconds": 173.56
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "systems",
+        "start_seconds": 173.56,
+        "end_seconds": 173.9725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "side",
+        "start_seconds": 173.9725,
+        "end_seconds": 174.235
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "by",
+        "start_seconds": 174.235,
+        "end_seconds": 174.4225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "side",
+        "start_seconds": 174.4225,
+        "end_seconds": 175.1725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 175.1725,
+        "end_seconds": 175.3225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 175.3225,
+        "end_seconds": 175.3975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ten‑year‑old",
+        "start_seconds": 175.3975,
+        "end_seconds": 176.21
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dual‑socket",
+        "start_seconds": 176.21,
+        "end_seconds": 176.885
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Dell",
+        "start_seconds": 176.885,
+        "end_seconds": 177.1475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "PowerEdge",
+        "start_seconds": 177.1475,
+        "end_seconds": 177.66
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "R7425,",
+        "start_seconds": 177.66,
+        "end_seconds": 179.585
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 179.585,
+        "end_seconds": 179.71
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "even",
+        "start_seconds": 179.71,
+        "end_seconds": 180.0225
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "saw",
+        "start_seconds": 180.0225,
+        "end_seconds": 180.1975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 180.1975,
+        "end_seconds": 180.26
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "one‑hundred‑thirty‑three",
+        "start_seconds": 180.26,
+        "end_seconds": 181.185
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "times",
+        "start_seconds": 181.185,
+        "end_seconds": 181.5725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "jump",
+        "start_seconds": 181.5725,
+        "end_seconds": 182.085
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 182.085,
+        "end_seconds": 182.1975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 182.1975,
+        "end_seconds": 182.26
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "specific",
+        "start_seconds": 182.26,
+        "end_seconds": 182.76
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 182.76,
+        "end_seconds": 183.11
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "workload.",
+        "start_seconds": 183.11,
+        "end_seconds": 184.2725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "That",
+        "start_seconds": 184.2725,
+        "end_seconds": 184.485
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters",
+        "start_seconds": 184.485,
+        "end_seconds": 184.885
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "because",
+        "start_seconds": 184.885,
+        "end_seconds": 185.16
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "engineers",
+        "start_seconds": 185.16,
+        "end_seconds": 185.785
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "can",
+        "start_seconds": 185.785,
+        "end_seconds": 185.91
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dramatically",
+        "start_seconds": 185.91,
+        "end_seconds": 186.4725
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "shrink",
+        "start_seconds": 186.4725,
+        "end_seconds": 186.76
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "runtimes",
+        "start_seconds": 186.76,
+        "end_seconds": 187.41
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 187.41,
+        "end_seconds": 187.5475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cut",
+        "start_seconds": 187.5475,
+        "end_seconds": 187.81
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "energy",
+        "start_seconds": 187.81,
+        "end_seconds": 188.21
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "use,",
+        "start_seconds": 188.21,
+        "end_seconds": 189.01
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "though",
+        "start_seconds": 189.01,
+        "end_seconds": 189.185
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "actual",
+        "start_seconds": 189.185,
+        "end_seconds": 189.61
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "gains",
+        "start_seconds": 189.61,
+        "end_seconds": 189.9975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 189.9975,
+        "end_seconds": 190.0975
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "depend",
+        "start_seconds": 190.0975,
+        "end_seconds": 190.4475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 190.4475,
+        "end_seconds": 190.5475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 190.5475,
+        "end_seconds": 190.635
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "memory",
+        "start_seconds": 190.635,
+        "end_seconds": 191.06
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "and",
+        "start_seconds": 191.06,
+        "end_seconds": 191.185
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "storage",
+        "start_seconds": 191.185,
+        "end_seconds": 191.585
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "configuration",
+        "start_seconds": 191.585,
+        "end_seconds": 192.31
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 192.31,
+        "end_seconds": 192.435
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "pair",
+        "start_seconds": 192.435,
+        "end_seconds": 192.71
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 192.71,
+        "end_seconds": 192.8475
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 192.8475,
+        "end_seconds": 192.935
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "new",
+        "start_seconds": 192.935,
+        "end_seconds": 193.11
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "silicon.",
+        "start_seconds": 193.11,
+        "end_seconds": 194.285
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "And",
+        "start_seconds": 195.46,
+        "end_seconds": 195.585
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "finally,",
+        "start_seconds": 195.585,
+        "end_seconds": 196.0225
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "our",
+        "start_seconds": 196.0225,
+        "end_seconds": 196.13500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "last",
+        "start_seconds": 196.13500000000002,
+        "end_seconds": 196.3725
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "story.",
+        "start_seconds": 196.3725,
+        "end_seconds": 197.2975
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "NVIDIA’s",
+        "start_seconds": 197.2975,
+        "end_seconds": 197.78500000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Kimodo",
+        "start_seconds": 197.78500000000003,
+        "end_seconds": 198.26000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "model",
+        "start_seconds": 198.26000000000002,
+        "end_seconds": 198.585
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "is",
+        "start_seconds": 198.585,
+        "end_seconds": 198.71
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "now",
+        "start_seconds": 198.71,
+        "end_seconds": 198.88500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "baked",
+        "start_seconds": 198.88500000000002,
+        "end_seconds": 199.1475
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "into",
+        "start_seconds": 199.1475,
+        "end_seconds": 199.3725
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Unreal",
+        "start_seconds": 199.3725,
+        "end_seconds": 199.78500000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Engine",
+        "start_seconds": 199.78500000000003,
+        "end_seconds": 200.13500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "version",
+        "start_seconds": 200.13500000000002,
+        "end_seconds": 200.57250000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "five",
+        "start_seconds": 200.57250000000002,
+        "end_seconds": 200.88500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "point",
+        "start_seconds": 200.88500000000002,
+        "end_seconds": 201.16000000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "nine",
+        "start_seconds": 201.16000000000003,
+        "end_seconds": 201.38500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "preview.",
+        "start_seconds": 201.38500000000002,
+        "end_seconds": 202.32250000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Animators",
+        "start_seconds": 202.32250000000002,
+        "end_seconds": 202.91000000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "can",
+        "start_seconds": 202.91000000000003,
+        "end_seconds": 203.03500000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "type",
+        "start_seconds": 203.03500000000003,
+        "end_seconds": 203.22250000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "a",
+        "start_seconds": 203.22250000000003,
+        "end_seconds": 203.28500000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "prompt,",
+        "start_seconds": 203.28500000000003,
+        "end_seconds": 203.96
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "draw",
+        "start_seconds": 203.96,
+        "end_seconds": 204.1475
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "a",
+        "start_seconds": 204.1475,
+        "end_seconds": 204.22250000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "spline,",
+        "start_seconds": 204.22250000000003,
+        "end_seconds": 204.81
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "or",
+        "start_seconds": 204.81,
+        "end_seconds": 204.91000000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "drop",
+        "start_seconds": 204.91000000000003,
+        "end_seconds": 205.1475
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "a",
+        "start_seconds": 205.1475,
+        "end_seconds": 205.21
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "target",
+        "start_seconds": 205.21,
+        "end_seconds": 205.61
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "pose",
+        "start_seconds": 205.61,
+        "end_seconds": 206.3725
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "and",
+        "start_seconds": 206.3725,
+        "end_seconds": 206.51000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "watch",
+        "start_seconds": 206.51000000000002,
+        "end_seconds": 206.76000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "the",
+        "start_seconds": 206.76000000000002,
+        "end_seconds": 206.86
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "character’s",
+        "start_seconds": 206.86,
+        "end_seconds": 207.36
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "motion",
+        "start_seconds": 207.36,
+        "end_seconds": 207.71
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "generate",
+        "start_seconds": 207.71,
+        "end_seconds": 208.13500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "right",
+        "start_seconds": 208.13500000000002,
+        "end_seconds": 208.4225
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "inside",
+        "start_seconds": 208.4225,
+        "end_seconds": 208.7725
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "the",
+        "start_seconds": 208.7725,
+        "end_seconds": 208.86
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Sequencer",
+        "start_seconds": 208.86,
+        "end_seconds": 209.31
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "timeline.",
+        "start_seconds": 209.31,
+        "end_seconds": 210.28500000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "The",
+        "start_seconds": 210.28500000000003,
+        "end_seconds": 210.38500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "feature",
+        "start_seconds": 210.38500000000002,
+        "end_seconds": 210.735
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "rides",
+        "start_seconds": 210.735,
+        "end_seconds": 211.0475
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "on",
+        "start_seconds": 211.0475,
+        "end_seconds": 211.1475
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "NVIDIA’s",
+        "start_seconds": 211.1475,
+        "end_seconds": 211.685
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "In‑Game",
+        "start_seconds": 211.685,
+        "end_seconds": 212.16000000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Inferencing",
+        "start_seconds": 212.16000000000003,
+        "end_seconds": 212.685
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "SDK",
+        "start_seconds": 212.685,
+        "end_seconds": 213.28500000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "version",
+        "start_seconds": 213.28500000000003,
+        "end_seconds": 213.71
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "one",
+        "start_seconds": 213.71,
+        "end_seconds": 213.935
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "point",
+        "start_seconds": 213.935,
+        "end_seconds": 214.235
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "eight,",
+        "start_seconds": 214.235,
+        "end_seconds": 214.96
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "which",
+        "start_seconds": 214.96,
+        "end_seconds": 215.16000000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "brings",
+        "start_seconds": 215.16000000000003,
+        "end_seconds": 215.47250000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "hardened",
+        "start_seconds": 215.47250000000003,
+        "end_seconds": 215.935
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "RTX",
+        "start_seconds": 215.935,
+        "end_seconds": 216.485
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Spark",
+        "start_seconds": 216.485,
+        "end_seconds": 216.86
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "support",
+        "start_seconds": 216.86,
+        "end_seconds": 217.71
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "and",
+        "start_seconds": 217.71,
+        "end_seconds": 217.86
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "updated",
+        "start_seconds": 217.86,
+        "end_seconds": 218.435
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "llama",
+        "start_seconds": 218.435,
+        "end_seconds": 218.735
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "dot",
+        "start_seconds": 218.735,
+        "end_seconds": 218.97250000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "cpp",
+        "start_seconds": 218.97250000000003,
+        "end_seconds": 219.66000000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "and",
+        "start_seconds": 219.66000000000003,
+        "end_seconds": 219.78500000000003
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "whisper",
+        "start_seconds": 219.78500000000003,
+        "end_seconds": 220.11
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "dot",
+        "start_seconds": 220.11,
+        "end_seconds": 220.3975
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "cpp",
+        "start_seconds": 220.3975,
+        "end_seconds": 220.96
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "back‑ends.",
+        "start_seconds": 220.96,
+        "end_seconds": 222.2475
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Here’s",
+        "start_seconds": 222.705,
+        "end_seconds": 223.25500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "why",
+        "start_seconds": 223.25500000000002,
+        "end_seconds": 223.43
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "that",
+        "start_seconds": 223.43,
+        "end_seconds": 223.63000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "matters:",
+        "start_seconds": 223.63000000000002,
+        "end_seconds": 224.555
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "you",
+        "start_seconds": 224.555,
+        "end_seconds": 224.68
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "can",
+        "start_seconds": 224.68,
+        "end_seconds": 224.83
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "prototype",
+        "start_seconds": 224.83,
+        "end_seconds": 225.44250000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "and",
+        "start_seconds": 225.44250000000002,
+        "end_seconds": 225.555
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "tweak",
+        "start_seconds": 225.555,
+        "end_seconds": 225.83
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "animation",
+        "start_seconds": 225.83,
+        "end_seconds": 226.43
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "without",
+        "start_seconds": 226.43,
+        "end_seconds": 226.75500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "hopping",
+        "start_seconds": 226.75500000000002,
+        "end_seconds": 227.08
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "between",
+        "start_seconds": 227.08,
+        "end_seconds": 227.405
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "tools,",
+        "start_seconds": 227.405,
+        "end_seconds": 228.305
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "but",
+        "start_seconds": 228.305,
+        "end_seconds": 228.455
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "you’ll",
+        "start_seconds": 228.455,
+        "end_seconds": 228.60500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "need",
+        "start_seconds": 228.60500000000002,
+        "end_seconds": 228.79250000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "the",
+        "start_seconds": 228.79250000000002,
+        "end_seconds": 228.8925
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "5.9",
+        "start_seconds": 228.8925,
+        "end_seconds": 229.73000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "preview",
+        "start_seconds": 229.73000000000002,
+        "end_seconds": 230.10500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "build",
+        "start_seconds": 230.10500000000002,
+        "end_seconds": 230.69250000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "and",
+        "start_seconds": 230.69250000000002,
+        "end_seconds": 230.85500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "SDK",
+        "start_seconds": 230.85500000000002,
+        "end_seconds": 231.5175
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "1.8",
+        "start_seconds": 231.5175,
+        "end_seconds": 232.25500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "to",
+        "start_seconds": 232.25500000000002,
+        "end_seconds": 232.35500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "try",
+        "start_seconds": 232.35500000000002,
+        "end_seconds": 232.655
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "it.",
+        "start_seconds": 232.655,
+        "end_seconds": 233.35500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Developers",
+        "start_seconds": 233.35500000000002,
+        "end_seconds": 234.0175
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "should",
+        "start_seconds": 234.0175,
+        "end_seconds": 234.18
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "weigh",
+        "start_seconds": 234.18,
+        "end_seconds": 234.38000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "the",
+        "start_seconds": 234.38000000000002,
+        "end_seconds": 234.48000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "convenience",
+        "start_seconds": 234.48000000000002,
+        "end_seconds": 235.13000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "against",
+        "start_seconds": 235.13000000000002,
+        "end_seconds": 235.5175
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "the",
+        "start_seconds": 235.5175,
+        "end_seconds": 235.60500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "need",
+        "start_seconds": 235.60500000000002,
+        "end_seconds": 235.88000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "to",
+        "start_seconds": 235.88000000000002,
+        "end_seconds": 236.00500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "adopt",
+        "start_seconds": 236.00500000000002,
+        "end_seconds": 236.3425
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "a",
+        "start_seconds": 236.3425,
+        "end_seconds": 236.405
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "preview",
+        "start_seconds": 236.405,
+        "end_seconds": 236.78
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "version",
+        "start_seconds": 236.78,
+        "end_seconds": 237.44250000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "that",
+        "start_seconds": 237.44250000000002,
+        "end_seconds": 237.58
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "may",
+        "start_seconds": 237.58,
+        "end_seconds": 237.7675
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "still",
+        "start_seconds": 237.7675,
+        "end_seconds": 238.055
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "be",
+        "start_seconds": 238.055,
+        "end_seconds": 238.205
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "evolving.",
+        "start_seconds": 238.205,
+        "end_seconds": 239.38000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "And",
+        "start_seconds": 240.555,
+        "end_seconds": 240.705
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "that's",
+        "start_seconds": 240.705,
+        "end_seconds": 240.955
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "your",
+        "start_seconds": 240.955,
+        "end_seconds": 241.13000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Daywire",
+        "start_seconds": 241.13000000000002,
+        "end_seconds": 241.58
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "briefing.",
+        "start_seconds": 241.58,
+        "end_seconds": 242.50500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "You'll",
+        "start_seconds": 242.50500000000002,
+        "end_seconds": 242.68
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "find",
+        "start_seconds": 242.68,
+        "end_seconds": 242.94250000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "the",
+        "start_seconds": 242.94250000000002,
+        "end_seconds": 243.04250000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "full",
+        "start_seconds": 243.04250000000002,
+        "end_seconds": 243.305
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "stories",
+        "start_seconds": 243.305,
+        "end_seconds": 243.7675
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "and",
+        "start_seconds": 243.7675,
+        "end_seconds": 243.8925
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "sources",
+        "start_seconds": 243.8925,
+        "end_seconds": 244.38000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "in",
+        "start_seconds": 244.38000000000002,
+        "end_seconds": 244.48000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "today's",
+        "start_seconds": 244.48000000000002,
+        "end_seconds": 244.85500000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "newspaper.",
+        "start_seconds": 244.85500000000002,
+        "end_seconds": 245.8425
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Thanks",
+        "start_seconds": 245.8425,
+        "end_seconds": 246.18
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "for",
+        "start_seconds": 246.18,
+        "end_seconds": 246.305
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "listening.",
+        "start_seconds": 246.305,
+        "end_seconds": 247.06750000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "Take",
+        "start_seconds": 247.06750000000002,
+        "end_seconds": 247.38000000000002
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "care,",
+        "start_seconds": 247.38000000000002,
+        "end_seconds": 247.6425
+      },
+      {
+        "segment_id": "nvidia-kimodo-unreal-5-9-preview-segment",
+        "text": "everyone.",
+        "start_seconds": 247.6425,
+        "end_seconds": 248.805
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
