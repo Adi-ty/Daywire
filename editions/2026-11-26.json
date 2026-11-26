@@ -1,0 +1,3313 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-26",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-26T08:58:21.035434415Z",
+  "coverage": {
+    "from": "2026-11-25T06:00:00+05:30",
+    "until": "2026-11-26T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-788f1fc23eab2f5e",
+      "source-90af623726060850",
+      "source-1ac09a398b6e2ac9"
+    ],
+    "candidate_count": 31,
+    "evidence_count": 28
+  },
+  "content": {
+    "title": "Sandbox Leaks and AI‑Ready Tooling Shift the Landscape",
+    "introduction": "New research shows that batching in vLLM can create covert channels between isolated model instances, raising fresh security concerns for AI services. At the same time, major platform updates—from Vercel’s usage‑based billing to Cloudflare’s one‑click AI search and language‑tooling advances in Zig and Rust—are reshaping how developers build and deploy software.",
+    "articles": [
+      {
+        "id": "model-communication-vllm",
+        "section": "AI",
+        "headline": "Inference servers can leak bits between sandboxed model instances",
+        "summary": "Researchers show that batching on vLLM lets separate model calls infer a shared bit of state, creating a covert channel.",
+        "paragraphs": [
+          "When vLLM groups multiple forward passes into a single engine step, the size of the batch influences low‑level kernel choices and timing. By deliberately inflating the token count of one request, a model can cause a measurable change that a co‑located request detects, allowing the two instances to exchange at least one bit of information per step. The method works only when the server is otherwise idle; heavy traffic can disrupt the signal."
+        ],
+        "implication": "Deployers of sandboxed LLM services should treat inference‑server batching as a potential side‑channel and consider isolation strategies such as per‑request servers or fixed‑size batches.",
+        "source_ids": [
+          "source-a279a61d80e00f54"
+        ]
+      },
+      {
+        "id": "nytimes-adobe-photoshop-2027-warning",
+        "section": "AI",
+        "headline": "NYT tells freelance photographers to avoid Photoshop 2027",
+        "summary": "The New York Times asks its contributing photographers not to use Adobe Photoshop 2027 (release 28.0.0 and later) because new AI tools may automatically add C2PA metadata that flags images as AI‑generated.",
+        "paragraphs": [
+          "An internal email seen by The Verge says the November update introduces an “AI Assisted Editor” toolbar, prompt‑based transformations, upscaling and canvas‑recomposition tools, all of which can attach C2PA provenance tags; the paper worries those tags could unintentionally label its work as AI‑generated, so it requires freelancers to stay on earlier Photoshop versions."
+        ],
+        "implication": "Freelance photographers working for the Times must keep Photoshop at version 27.x or earlier to avoid automatic AI‑metadata that could jeopardize their assignments.",
+        "source_ids": [
+          "source-1bfb90103b3c1d8e"
+        ]
+      },
+      {
+        "id": "pipewire-loudness-eq-2026",
+        "section": "Tools",
+        "headline": "PipeWire gains Windows‑style loudness equalization",
+        "summary": "A reverse‑engineered module adds Windows’ Loudness Equalization and limiter to PipeWire on Linux.",
+        "paragraphs": [
+          "The pw‑loudness‑eq project provides a PipeWire module and a DSP plugin that equalize per‑application volume and apply a look‑ahead limiter, mirroring the behavior of Windows’ AudioEng.dll. It builds against PipeWire ≥ 1.4 and GTK 3, and can be compiled with standard development tools; configuration overrides reside in the user’s pipewire.conf.d directory."
+        ],
+        "implication": "Linux users running PipeWire ≥ 1.4 can now use the same loudness‑balancing and clipping‑prevention processing that Windows provides, provided they install the module and its GTK 3 UI.",
+        "source_ids": [
+          "source-0b46032ba816a3c3"
+        ]
+      },
+      {
+        "id": "vercel-standard-build-billing-2026-11-25",
+        "section": "Tools",
+        "headline": "Vercel shifts Standard builds for Pro teams to usage‑based billing",
+        "summary": "Pro teams on Vercel now pay $0.014 per minute for Standard build slots instead of receiving them for free.",
+        "paragraphs": [
+          "Vercel’s Standard build machines are no longer bundled with Pro team plans; they are billed at $0.014 per build minute and count against any monthly usage credit. The change applies to every project on the team and can be managed via the Usage page or by selecting a build machine in team or project settings."
+        ],
+        "implication": "Teams should track build minutes and consider allocating usage credits to keep expenses predictable.",
+        "source_ids": [
+          "source-51b060c33e831926"
+        ]
+      },
+      {
+        "id": "search-for-agents-toggle",
+        "section": "AI",
+        "headline": "Cloudflare adds one‑click AI Search setup for websites",
+        "summary": "Cloudflare’s new Search for Agents toggle creates and indexes an AI Search instance automatically, letting any customer add site‑wide AI‑powered search without manual configuration.",
+        "paragraphs": [
+          "When enabled in the Cloudflare dashboard, the toggle provisions an AI Search instance, crawls the zone’s pages, and exposes a searchable API at the site’s own domain; the feature is available to Free plans with usage limits and supports the same configuration options as standard AI Search, including public REST, Workers, and embed options."
+        ],
+        "implication": "Developers can now integrate AI‑driven site search in minutes, reducing setup time and infrastructure overhead while staying within existing Cloudflare pricing tiers.",
+        "source_ids": [
+          "source-a9bc069d7df21121"
+        ]
+      },
+      {
+        "id": "typed-indexes-zig",
+        "section": "Engineering",
+        "headline": "Zig adds compile‑time typed indexes to stop array mix‑ups",
+        "summary": "A new pattern in Zig lets developers declare row‑ and column‑specific index types that the compiler enforces, reducing accidental cross‑index bugs in struct‑of‑array code.",
+        "paragraphs": [
+          "The approach defines an enum (e.g. Kind = .row | .col) and generates a distinct Index type for each slice via comptime generics. Functions such as s.at(.row_width, i) now only compile when i has the matching Index(.row) type, catching mismatches like using a column index on row data at build time."
+        ],
+        "implication": "Code that manipulates separate dimensions can now rely on the type system to prevent index‑mixing errors, making refactors safer without runtime checks.",
+        "source_ids": [
+          "source-853f7cf909363e0d"
+        ]
+      },
+      {
+        "id": "servo-video-captions-2026-11-25",
+        "section": "Engineering",
+        "headline": "Servo adds live subtitles to HTML video elements",
+        "summary": "Servo 0.8 now renders timed captions on \u003cvideo\u003e tags, expanding its media support for web developers.",
+        "paragraphs": [
+          "The October release (Servo 0.8) introduces subtitle rendering for \u003cvideo\u003e elements, driven by issue #48809. Captions update in sync with playback, and the feature is currently limited to non‑module scripts. The update also includes performance timing improvements for LargestContentfulPaint and fixes for several layout and GC panics."
+        ],
+        "implication": "Web developers can rely on Servo to display synchronized captions without custom JavaScript, but must avoid module scripts until broader support arrives.",
+        "source_ids": [
+          "source-3390b09a22d6e61e"
+        ]
+      },
+      {
+        "id": "rustc-next-trait-solver-1-102",
+        "section": "Engineering",
+        "headline": "Rustc’s next‑generation trait solver lands in Rust 1.102.0",
+        "summary": "The new prolog‑style trait solver, a major rewrite of the compiler’s trait handling, is scheduled to ship with Rust 1.102.0.",
+        "paragraphs": [
+          "The subsystem, originally prototyped as the Chalk project, has been reimplemented as a dedicated “next‑generation” solver and will replace the legacy code base. Its design aims to eliminate long‑standing correctness bugs that the old solver could not fix, while improving performance for complex trait queries."
+        ],
+        "implication": "Developers can expect more reliable trait resolution in Rust 1.102, but must upgrade to that version to benefit from the fixes; code that relied on the old solver’s quirks may need minor adjustments.",
+        "source_ids": [
+          "source-ff621d05c62cd3fa"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "batch-covert-channel-vllm",
+        "title": "Batching on inference servers can create covert communication channels",
+        "paragraphs": [
+          "When an inference server such as vLLM groups several forward passes into a single engine step, the batch size influences low‑level kernel selection and timing. A model that deliberately inflates the token count of its request can cause the server to choose a different kernel or to spend more time on that step. A second model whose request happens to be processed in the same batch can observe the resulting change—e.g., a shift in latency or a subtle difference in activation statistics—and infer a bit of information about the first model’s intent.",
+          "Because each batch can convey at least one bit, repeated steps allow the two instances to exchange arbitrarily many bits, as demonstrated in the authors’ color‑guessing game. The channel only works when the server is otherwise idle; heavy traffic disrupts the signal, highlighting the importance of isolation."
+        ],
+        "example": "Alice sends a request that reads a 10,000‑token document, causing the batch dimension to be large. Bob’s request runs in the same engine step and measures a longer compute time, interpreting it as a binary \"1\"; a short time would be a \"0\".",
+        "takeaway": "Deployers should treat inference‑server batching as a potential side‑channel and consider isolation measures such as per‑request servers or fixed‑size batches to prevent covert communication between sandboxed model instances.",
+        "article_ids": [
+          "model-communication-vllm"
+        ],
+        "source_ids": [
+          "source-a279a61d80e00f54"
+        ]
+      },
+      {
+        "id": "ai-metadata-awareness",
+        "title": "Understanding AI‑Generated Metadata in Creative Tools",
+        "paragraphs": [
+          "When AI‑powered features are used in image‑editing software, the application can embed provenance information that indicates AI involvement. The New York Times has warned that recent Photoshop updates may add such metadata, which could cause its photographs to be flagged as AI‑generated even when the photographer did not intend that label.",
+          "Because this metadata is written when an AI feature is applied, downstream consumers—such as a news outlet’s verification workflow—may see an indication that AI was used. This can create concerns for creators who need to maintain clear attribution for their work."
+        ],
+        "example": "A freelance photographer edits a portrait in Photoshop 2027 using an AI‑assisted tool. After saving the file, the image includes metadata that notes AI was involved in the editing process. When the New York Times reviews the image, the presence of that metadata raises a flag, prompting the photographer to use an earlier version of Photoshop that does not add the AI provenance information.",
+        "takeaway": "Check whether the editing tools you use automatically embed AI provenance metadata, and consider disabling those features or using earlier software versions if you need to avoid unintended AI‑generated tags.",
+        "article_ids": [
+          "nytimes-adobe-photoshop-2027-warning"
+        ],
+        "source_ids": [
+          "source-1bfb90103b3c1d8e"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-batching-effect",
+        "lesson_id": "batch-covert-channel-vllm",
+        "prompt": "What aspect of the inference server's behavior enables a model to transmit a bit of information to another model in the same batch?",
+        "options": [
+          "The choice of low‑level kernel based on batch size",
+          "The model's internal random seed generation",
+          "The GPU's power consumption monitoring",
+          "The order in which requests are logged"
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that inflating token count changes the batch size, which can cause the server to select a different kernel or spend more time on that step, providing a measurable side‑channel for the second model."
+      },
+      {
+        "id": "quiz-1-traffic-impact",
+        "lesson_id": "batch-covert-channel-vllm",
+        "prompt": "Why does heavy traffic on the inference server disrupt the covert channel described in the lesson?",
+        "options": [
+          "It introduces variability in batch composition, masking timing differences",
+          "It forces the server to shut down and restart",
+          "It disables the kernel selection mechanism entirely",
+          "It encrypts the activation statistics sent to each model"
+        ],
+        "answer": 0,
+        "explanation": "The lesson notes that the channel works only when the server is otherwise idle; heavy traffic changes batch composition and timing, preventing the receiver from reliably detecting the sender's induced changes."
+      },
+      {
+        "id": "quiz-1-mitigation-strategy",
+        "lesson_id": "batch-covert-channel-vllm",
+        "prompt": "Which mitigation directly prevents the covert channel described in the lesson by removing the variable that the sender manipulates?",
+        "options": [
+          "Running each request on a dedicated server",
+          "Limiting the maximum token length per request",
+          "Encrypting model weights at rest",
+          "Using a higher‑precision floating‑point format"
+        ],
+        "answer": 1,
+        "explanation": "The sender creates the covert signal by inflating the token count of its request, which changes batch size and kernel selection. Limiting the maximum token length removes this manipulable variable, so the sender can no longer encode bits, directly blocking the channel. The other options do not eliminate the token‑count variable."
+      },
+      {
+        "id": "quiz-2-001",
+        "lesson_id": "ai-metadata-awareness",
+        "prompt": "What triggers the addition of AI provenance metadata in an edited image?",
+        "options": [
+          "Saving the file in any image format",
+          "Applying an AI‑assisted tool within the editing software",
+          "Opening the file in a non‑AI‑enabled viewer",
+          "Exporting the image to a compressed archive"
+        ],
+        "answer": 1,
+        "explanation": "The lesson states that metadata is written when an AI feature is applied, so using an AI‑assisted tool causes the provenance tag to be embedded."
+      },
+      {
+        "id": "quiz-2-002",
+        "lesson_id": "ai-metadata-awareness",
+        "prompt": "According to the lesson, which action can a creator take to avoid unintended AI‑generated tags in their files?",
+        "options": [
+          "Upgrade to the latest version of the software",
+          "Disable the AI provenance feature or use an earlier software version",
+          "Convert the image to a different color space",
+          "Add a manual watermark after editing"
+        ],
+        "answer": 1,
+        "explanation": "The takeaway advises checking for automatic AI provenance metadata and suggests disabling those features or using an earlier version that does not add the tags."
+      }
+    ],
+    "segments": [
+      {
+        "id": "vllm-sidechannel",
+        "title": "vLLM batching can leak bits",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November twenty six, two thousand twenty six.\n\nWe begin with our lead story. Inference servers using vLLM can unintentionally pass a single bit of data between separate model calls.\n\nWhen vLLM groups several forward passes into one engine step, the batch size steers low‑level kernel choices and timing. By padding the token count of one request, an attacker can create a measurable timing shift that a neighboring request picks up, essentially building a covert channel. The trick only works when the server is otherwise idle; normal traffic drowns the signal. Deployers should treat batching as a possible side‑channel and look at isolation tactics like per‑request servers or fixed‑size batches.",
+        "article_ids": [
+          "model-communication-vllm"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "NYT advises freelancers to avoid Photoshop version twenty‑eight point zero point zero",
+        "text": "Next on the bulletin. The New York Times has asked its freelance photographers to stick with Photoshop version twenty‑seven or earlier. The November update, version twenty‑eight point zero point zero, adds an AI Assisted Editor toolbar that automatically attaches C2PA provenance tags, which could label an image as AI‑generated. The paper worries those tags might jeopardize a photographer’s assignment. So the practical takeaway? Keep your Photoshop on the older release until the Times provides clearer guidance on the new metadata.",
+        "article_ids": [
+          "nytimes-adobe-photoshop-2027-warning"
+        ]
+      },
+      {
+        "id": "pipewire-loudness-eq-2026-segment",
+        "title": "PipeWire adds Windows‑style loudness equalizer",
+        "text": "Turning to our next story. A reverse‑engineered module now lets PipeWire match Windows‑style loudness equalization and a look‑ahead limiter on Linux.\n\nThe pw‑loudness‑eq project builds against PipeWire version one point four or later and GTK three, installing its configuration under the user’s pipewire.conf.d directory. It equalizes per‑application volume and prevents clipping, mirroring the behavior of Windows AudioEng.dll. Here’s why that matters: any Linux desktop using PipeWire can enjoy balanced sound and clipping protection, as long as the module and its GTK three UI are installed.",
+        "article_ids": [
+          "pipewire-loudness-eq-2026"
+        ]
+      },
+      {
+        "id": "radio-2",
+        "title": "Vercel charges for Standard builds",
+        "text": "Next on the bulletin. Vercel is now billing Pro teams for Standard build slots at fourteen thousandths of a dollar per minute. That means every build minute on those machines shows up on your invoice and counts against any monthly usage credit you have. You can see and control the charges on the Usage page or by picking a build machine in your team or project settings. Here's why that matters: keep an eye on your build minutes or you might see a surprise line item in your next bill.",
+        "article_ids": [
+          "vercel-standard-build-billing-2026-11-25"
+        ]
+      },
+      {
+        "id": "search-for-agents-toggle-segment",
+        "title": "Cloudflare launches one‑click AI Search toggle",
+        "text": "And finally, our last story. Cloudflare just rolled out a new toggle in its dashboard that spins up an AI Search instance for you. Flip it on, and the service automatically crawls your site, builds an index, and publishes a searchable API right at your own domain. It works on the Free plan, though there are usage caps, and you still get all the usual configuration knobs – public REST, Workers, or embed options. Here's why that matters: you can add AI‑powered site search in minutes without any extra infrastructure or billing surprises.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "search-for-agents-toggle"
+        ]
+      }
+    ],
+    "artwork_brief": "A stylized illustration depicting a sleek server rack with glowing partitions; a faint, translucent data stream weaves from one partition to another, forming a subtle binary pattern that hints at hidden communication, while a background of abstract circuit motifs suggests the broader AI and tooling ecosystem."
+  },
+  "sources": [
+    {
+      "id": "source-a9bc069d7df21121",
+      "name": "Cloudflare Blog",
+      "title": "Introducing Search for Agents",
+      "url": "https://blog.cloudflare.com/search-for-agents/",
+      "published_at": "2026-11-25T14:00:00Z",
+      "discovered_at": "2026-11-26T08:40:53.039106443Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-51b060c33e831926",
+      "name": "Vercel Blog",
+      "title": "Standard builds for existing Pro teams have moved to usage-based billing",
+      "url": "https://vercel.com/changelog/standard-builds-for-existing-pro-teams-have-moved-to-usage-based-billing",
+      "published_at": "2026-11-25T08:00:00Z",
+      "discovered_at": "2026-11-26T08:40:53.264170135Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-a279a61d80e00f54",
+      "name": "Hacker News",
+      "title": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+      "url": "https://www.lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being",
+      "published_at": null,
+      "discovered_at": "2026-11-25T02:34:21Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50637686"
+    },
+    {
+      "id": "source-853f7cf909363e0d",
+      "name": "Lobsters",
+      "title": "Typed indexes in Zig",
+      "url": "https://lvignoli.eu/posts/2026-11-16-typed-indexes-in-zig/",
+      "published_at": null,
+      "discovered_at": "2026-11-25T16:48:44.713-06:00",
+      "discussion_url": "https://lobste.rs/s/l6g7j1/typed_indexes_zig"
+    },
+    {
+      "id": "source-1bfb90103b3c1d8e",
+      "name": "Hacker News",
+      "title": "The New York Times warns photographers not to update Photoshop over AI features",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features",
+      "published_at": null,
+      "discovered_at": "2026-11-25T21:18:02Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50647673"
+    },
+    {
+      "id": "source-3390b09a22d6e61e",
+      "name": "Lobsters",
+      "title": "October in Servo: video captions and inert content",
+      "url": "https://servo.org/blog/2026/11/25/october-in-servo/",
+      "published_at": null,
+      "discovered_at": "2026-11-25T08:31:31.655-06:00",
+      "discussion_url": "https://lobste.rs/s/tf9ldm/october_servo_video_captions_inert"
+    },
+    {
+      "id": "source-0b46032ba816a3c3",
+      "name": "Hacker News",
+      "title": "Windows Loudness Equalization, reverse-engineered and ported to PipeWire",
+      "url": "https://github.com/xoxorwr/pw-loudness-eq",
+      "published_at": null,
+      "discovered_at": "2026-11-25T11:34:25Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50641171"
+    },
+    {
+      "id": "source-ff621d05c62cd3fa",
+      "name": "Lobsters",
+      "title": "Optimizing Rustc's next trait solver",
+      "url": "https://donsz.nl/blog/optimizing-rustcs-next-trait-solver",
+      "published_at": null,
+      "discovered_at": "2026-11-25T07:09:22.097-06:00",
+      "discussion_url": "https://lobste.rs/s/lyyksp/optimizing_rustc_s_next_trait_solver"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-26/bbab11fce1ef12b9336b97d042dc8a0728854ad4310dca80f10860a20c29b665.mp3",
+    "duration_seconds": 188.4,
+    "script_hash": "2e85f722cd86d43edad3863a2e440bdb6daf6f67cfc75d012015833f8a3c2bed",
+    "cues": [
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "everyone,",
+        "start_seconds": 0.6,
+        "end_seconds": 1.175
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "and",
+        "start_seconds": 1.175,
+        "end_seconds": 1.3
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "welcome",
+        "start_seconds": 1.3,
+        "end_seconds": 1.725
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "to",
+        "start_seconds": 1.725,
+        "end_seconds": 1.825
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "Daywire.",
+        "start_seconds": 1.825,
+        "end_seconds": 2.8875
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "Let's",
+        "start_seconds": 2.8875,
+        "end_seconds": 3.175
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "make",
+        "start_seconds": 3.175,
+        "end_seconds": 3.4125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "sense",
+        "start_seconds": 3.4125,
+        "end_seconds": 3.7375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "of",
+        "start_seconds": 3.7375,
+        "end_seconds": 3.8125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "the",
+        "start_seconds": 3.8125,
+        "end_seconds": 3.9
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "tech",
+        "start_seconds": 3.9,
+        "end_seconds": 4.15
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "news.",
+        "start_seconds": 4.15,
+        "end_seconds": 4.9
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "It's",
+        "start_seconds": 4.9,
+        "end_seconds": 5.125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "November",
+        "start_seconds": 5.125,
+        "end_seconds": 5.5
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "twenty",
+        "start_seconds": 5.5,
+        "end_seconds": 5.825
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "six,",
+        "start_seconds": 5.825,
+        "end_seconds": 6.2
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "two",
+        "start_seconds": 6.2,
+        "end_seconds": 6.425
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "thousand",
+        "start_seconds": 6.425,
+        "end_seconds": 6.7875
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "twenty",
+        "start_seconds": 6.7875,
+        "end_seconds": 7.075
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "six.",
+        "start_seconds": 7.075,
+        "end_seconds": 8.15
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "We",
+        "start_seconds": 9.35,
+        "end_seconds": 9.475
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "begin",
+        "start_seconds": 9.475,
+        "end_seconds": 9.85
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "with",
+        "start_seconds": 9.85,
+        "end_seconds": 9.987499999999999
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "our",
+        "start_seconds": 9.987499999999999,
+        "end_seconds": 10.125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "lead",
+        "start_seconds": 10.125,
+        "end_seconds": 10.375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "story.",
+        "start_seconds": 10.375,
+        "end_seconds": 11.4375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "Inference",
+        "start_seconds": 11.4375,
+        "end_seconds": 11.9375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "servers",
+        "start_seconds": 11.9375,
+        "end_seconds": 12.375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "using",
+        "start_seconds": 12.375,
+        "end_seconds": 12.7
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "vLLM",
+        "start_seconds": 12.7,
+        "end_seconds": 13.6125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "can",
+        "start_seconds": 13.6125,
+        "end_seconds": 13.774999999999999
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "unintentionally",
+        "start_seconds": 13.774999999999999,
+        "end_seconds": 14.524999999999999
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "pass",
+        "start_seconds": 14.524999999999999,
+        "end_seconds": 14.85
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "a",
+        "start_seconds": 14.85,
+        "end_seconds": 14.962499999999999
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "single",
+        "start_seconds": 14.962499999999999,
+        "end_seconds": 15.3
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "bit",
+        "start_seconds": 15.3,
+        "end_seconds": 15.462499999999999
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "of",
+        "start_seconds": 15.462499999999999,
+        "end_seconds": 15.55
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "data",
+        "start_seconds": 15.55,
+        "end_seconds": 15.975
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "between",
+        "start_seconds": 15.975,
+        "end_seconds": 16.3375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "separate",
+        "start_seconds": 16.3375,
+        "end_seconds": 16.75
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "model",
+        "start_seconds": 16.75,
+        "end_seconds": 17.075
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "calls.",
+        "start_seconds": 17.075,
+        "end_seconds": 18.2
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "When",
+        "start_seconds": 19.4,
+        "end_seconds": 19.549999999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "vLLM",
+        "start_seconds": 19.549999999999997,
+        "end_seconds": 20.224999999999998
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "groups",
+        "start_seconds": 20.224999999999998,
+        "end_seconds": 20.525
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "several",
+        "start_seconds": 20.525,
+        "end_seconds": 20.862499999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "forward",
+        "start_seconds": 20.862499999999997,
+        "end_seconds": 21.174999999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "passes",
+        "start_seconds": 21.174999999999997,
+        "end_seconds": 21.6375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "into",
+        "start_seconds": 21.6375,
+        "end_seconds": 21.849999999999998
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "one",
+        "start_seconds": 21.849999999999998,
+        "end_seconds": 22.049999999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "engine",
+        "start_seconds": 22.049999999999997,
+        "end_seconds": 22.424999999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "step,",
+        "start_seconds": 22.424999999999997,
+        "end_seconds": 23.099999999999998
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "the",
+        "start_seconds": 23.099999999999998,
+        "end_seconds": 23.2
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "batch",
+        "start_seconds": 23.2,
+        "end_seconds": 23.5
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "size",
+        "start_seconds": 23.5,
+        "end_seconds": 23.775
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "steers",
+        "start_seconds": 23.775,
+        "end_seconds": 24.125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "low‑level",
+        "start_seconds": 24.125,
+        "end_seconds": 24.65
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "kernel",
+        "start_seconds": 24.65,
+        "end_seconds": 25
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "choices",
+        "start_seconds": 25,
+        "end_seconds": 25.4375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "and",
+        "start_seconds": 25.4375,
+        "end_seconds": 25.549999999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "timing.",
+        "start_seconds": 25.549999999999997,
+        "end_seconds": 26.674999999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "By",
+        "start_seconds": 26.674999999999997,
+        "end_seconds": 26.849999999999998
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "padding",
+        "start_seconds": 26.849999999999998,
+        "end_seconds": 27.162499999999998
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "the",
+        "start_seconds": 27.162499999999998,
+        "end_seconds": 27.25
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "token",
+        "start_seconds": 27.25,
+        "end_seconds": 27.65
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "count",
+        "start_seconds": 27.65,
+        "end_seconds": 27.9375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "of",
+        "start_seconds": 27.9375,
+        "end_seconds": 28.025
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "one",
+        "start_seconds": 28.025,
+        "end_seconds": 28.2125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "request,",
+        "start_seconds": 28.2125,
+        "end_seconds": 29.075
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "an",
+        "start_seconds": 29.075,
+        "end_seconds": 29.162499999999998
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "attacker",
+        "start_seconds": 29.162499999999998,
+        "end_seconds": 29.599999999999998
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "can",
+        "start_seconds": 29.599999999999998,
+        "end_seconds": 29.75
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "create",
+        "start_seconds": 29.75,
+        "end_seconds": 30.0875
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "a",
+        "start_seconds": 30.0875,
+        "end_seconds": 30.174999999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "measurable",
+        "start_seconds": 30.174999999999997,
+        "end_seconds": 30.65
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "timing",
+        "start_seconds": 30.65,
+        "end_seconds": 31.0625
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "shift",
+        "start_seconds": 31.0625,
+        "end_seconds": 31.375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "that",
+        "start_seconds": 31.375,
+        "end_seconds": 31.487499999999997
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "a",
+        "start_seconds": 31.487499999999997,
+        "end_seconds": 31.575
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "neighboring",
+        "start_seconds": 31.575,
+        "end_seconds": 32
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "request",
+        "start_seconds": 32,
+        "end_seconds": 32.4
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "picks",
+        "start_seconds": 32.4,
+        "end_seconds": 32.675
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "up,",
+        "start_seconds": 32.675,
+        "end_seconds": 33.224999999999994
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "essentially",
+        "start_seconds": 33.224999999999994,
+        "end_seconds": 33.775
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "building",
+        "start_seconds": 33.775,
+        "end_seconds": 34.1125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "a",
+        "start_seconds": 34.1125,
+        "end_seconds": 34.175
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "covert",
+        "start_seconds": 34.175,
+        "end_seconds": 34.625
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "channel.",
+        "start_seconds": 34.625,
+        "end_seconds": 35.8
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "The",
+        "start_seconds": 35.8,
+        "end_seconds": 35.9
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "trick",
+        "start_seconds": 35.9,
+        "end_seconds": 36.175
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "only",
+        "start_seconds": 36.175,
+        "end_seconds": 36.474999999999994
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "works",
+        "start_seconds": 36.474999999999994,
+        "end_seconds": 36.8125
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "when",
+        "start_seconds": 36.8125,
+        "end_seconds": 36.9375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "the",
+        "start_seconds": 36.9375,
+        "end_seconds": 37.037499999999994
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "server",
+        "start_seconds": 37.037499999999994,
+        "end_seconds": 37.425
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "is",
+        "start_seconds": 37.425,
+        "end_seconds": 37.575
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "otherwise",
+        "start_seconds": 37.575,
+        "end_seconds": 38.037499999999994
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "idle;",
+        "start_seconds": 38.037499999999994,
+        "end_seconds": 38.8375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "normal",
+        "start_seconds": 38.8375,
+        "end_seconds": 39.2
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "traffic",
+        "start_seconds": 39.2,
+        "end_seconds": 39.65
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "drowns",
+        "start_seconds": 39.65,
+        "end_seconds": 40.0625
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "the",
+        "start_seconds": 40.0625,
+        "end_seconds": 40.15
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "signal.",
+        "start_seconds": 40.15,
+        "end_seconds": 41.2375
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "Deployers",
+        "start_seconds": 41.695,
+        "end_seconds": 42.22
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "should",
+        "start_seconds": 42.22,
+        "end_seconds": 42.37
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "treat",
+        "start_seconds": 42.37,
+        "end_seconds": 42.595
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "batching",
+        "start_seconds": 42.595,
+        "end_seconds": 43.095
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "as",
+        "start_seconds": 43.095,
+        "end_seconds": 43.2075
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "a",
+        "start_seconds": 43.2075,
+        "end_seconds": 43.27
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "possible",
+        "start_seconds": 43.27,
+        "end_seconds": 43.72
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "side‑channel",
+        "start_seconds": 43.72,
+        "end_seconds": 44.845
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "and",
+        "start_seconds": 44.845,
+        "end_seconds": 44.995
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "look",
+        "start_seconds": 44.995,
+        "end_seconds": 45.1575
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "at",
+        "start_seconds": 45.1575,
+        "end_seconds": 45.2575
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "isolation",
+        "start_seconds": 45.2575,
+        "end_seconds": 45.845
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "tactics",
+        "start_seconds": 45.845,
+        "end_seconds": 46.3575
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "like",
+        "start_seconds": 46.3575,
+        "end_seconds": 46.545
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "per‑request",
+        "start_seconds": 46.545,
+        "end_seconds": 47.095
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "servers",
+        "start_seconds": 47.095,
+        "end_seconds": 47.7325
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "or",
+        "start_seconds": 47.7325,
+        "end_seconds": 47.9075
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "fixed‑size",
+        "start_seconds": 47.9075,
+        "end_seconds": 48.52
+      },
+      {
+        "segment_id": "vllm-sidechannel",
+        "text": "batches.",
+        "start_seconds": 48.52,
+        "end_seconds": 49.769999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Next",
+        "start_seconds": 51.019999999999996,
+        "end_seconds": 51.2825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 51.2825,
+        "end_seconds": 51.3825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 51.3825,
+        "end_seconds": 51.47
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "bulletin.",
+        "start_seconds": 51.47,
+        "end_seconds": 52.495
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 52.495,
+        "end_seconds": 52.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "New",
+        "start_seconds": 52.595,
+        "end_seconds": 52.769999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "York",
+        "start_seconds": 52.769999999999996,
+        "end_seconds": 53.019999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Times",
+        "start_seconds": 53.019999999999996,
+        "end_seconds": 53.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "has",
+        "start_seconds": 53.3575,
+        "end_seconds": 53.47
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "asked",
+        "start_seconds": 53.47,
+        "end_seconds": 53.7575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "its",
+        "start_seconds": 53.7575,
+        "end_seconds": 53.894999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "freelance",
+        "start_seconds": 53.894999999999996,
+        "end_seconds": 54.394999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "photographers",
+        "start_seconds": 54.394999999999996,
+        "end_seconds": 55.019999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 55.019999999999996,
+        "end_seconds": 55.144999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "stick",
+        "start_seconds": 55.144999999999996,
+        "end_seconds": 55.4075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "with",
+        "start_seconds": 55.4075,
+        "end_seconds": 55.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Photoshop",
+        "start_seconds": 55.545,
+        "end_seconds": 56.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 56.07,
+        "end_seconds": 56.445
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty‑seven",
+        "start_seconds": 56.445,
+        "end_seconds": 57.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 57.12,
+        "end_seconds": 57.269999999999996
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "earlier.",
+        "start_seconds": 57.269999999999996,
+        "end_seconds": 58.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 58.17,
+        "end_seconds": 58.2575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 58.2575,
+        "end_seconds": 58.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "update,",
+        "start_seconds": 58.72,
+        "end_seconds": 59.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "version",
+        "start_seconds": 59.245,
+        "end_seconds": 59.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty‑eight",
+        "start_seconds": 59.595,
+        "end_seconds": 60.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 60.095,
+        "end_seconds": 60.37
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero",
+        "start_seconds": 60.37,
+        "end_seconds": 60.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 60.695,
+        "end_seconds": 60.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "zero,",
+        "start_seconds": 60.97,
+        "end_seconds": 61.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "adds",
+        "start_seconds": 61.695,
+        "end_seconds": 61.9075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 61.9075,
+        "end_seconds": 62.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI",
+        "start_seconds": 62.0075,
+        "end_seconds": 62.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Assisted",
+        "start_seconds": 62.42,
+        "end_seconds": 62.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Editor",
+        "start_seconds": 62.845,
+        "end_seconds": 63.195
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "toolbar",
+        "start_seconds": 63.195,
+        "end_seconds": 63.72
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 63.72,
+        "end_seconds": 63.87
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "automatically",
+        "start_seconds": 63.87,
+        "end_seconds": 64.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "attaches",
+        "start_seconds": 64.545,
+        "end_seconds": 65.0075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "C2PA",
+        "start_seconds": 65.0075,
+        "end_seconds": 65.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "provenance",
+        "start_seconds": 65.595,
+        "end_seconds": 66.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tags,",
+        "start_seconds": 66.095,
+        "end_seconds": 66.87
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "which",
+        "start_seconds": 66.87,
+        "end_seconds": 67.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "could",
+        "start_seconds": 67.07,
+        "end_seconds": 67.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "label",
+        "start_seconds": 67.22,
+        "end_seconds": 67.5075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "an",
+        "start_seconds": 67.5075,
+        "end_seconds": 67.595
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "image",
+        "start_seconds": 67.595,
+        "end_seconds": 67.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "as",
+        "start_seconds": 67.945,
+        "end_seconds": 68.1075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "AI‑generated.",
+        "start_seconds": 68.1075,
+        "end_seconds": 69.67
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "The",
+        "start_seconds": 69.67,
+        "end_seconds": 69.77
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "paper",
+        "start_seconds": 69.77,
+        "end_seconds": 70.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "worries",
+        "start_seconds": 70.12,
+        "end_seconds": 70.495
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "those",
+        "start_seconds": 70.495,
+        "end_seconds": 70.745
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "tags",
+        "start_seconds": 70.745,
+        "end_seconds": 71.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "might",
+        "start_seconds": 71.12,
+        "end_seconds": 71.32
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "jeopardize",
+        "start_seconds": 71.32,
+        "end_seconds": 71.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 71.7825,
+        "end_seconds": 71.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "photographer’s",
+        "start_seconds": 71.845,
+        "end_seconds": 72.42
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "assignment.",
+        "start_seconds": 72.42,
+        "end_seconds": 73.5325
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "So",
+        "start_seconds": 73.5325,
+        "end_seconds": 73.7075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 73.7075,
+        "end_seconds": 73.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "practical",
+        "start_seconds": 73.795,
+        "end_seconds": 74.32
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "takeaway?",
+        "start_seconds": 74.32,
+        "end_seconds": 75.5075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Keep",
+        "start_seconds": 75.965,
+        "end_seconds": 76.2025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "your",
+        "start_seconds": 76.2025,
+        "end_seconds": 76.39
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Photoshop",
+        "start_seconds": 76.39,
+        "end_seconds": 77.0025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 77.0025,
+        "end_seconds": 77.1025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 77.1025,
+        "end_seconds": 77.215
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "older",
+        "start_seconds": 77.215,
+        "end_seconds": 77.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "release",
+        "start_seconds": 77.515,
+        "end_seconds": 78.2025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "until",
+        "start_seconds": 78.2025,
+        "end_seconds": 78.5275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 78.5275,
+        "end_seconds": 78.61500000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Times",
+        "start_seconds": 78.61500000000001,
+        "end_seconds": 79.015
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "provides",
+        "start_seconds": 79.015,
+        "end_seconds": 79.465
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "clearer",
+        "start_seconds": 79.465,
+        "end_seconds": 79.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "guidance",
+        "start_seconds": 79.84,
+        "end_seconds": 80.2775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 80.2775,
+        "end_seconds": 80.3775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "the",
+        "start_seconds": 80.3775,
+        "end_seconds": 80.465
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "new",
+        "start_seconds": 80.465,
+        "end_seconds": 80.6275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "metadata.",
+        "start_seconds": 80.6275,
+        "end_seconds": 81.94
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "Turning",
+        "start_seconds": 83.14,
+        "end_seconds": 83.44
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "to",
+        "start_seconds": 83.44,
+        "end_seconds": 83.5275
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "our",
+        "start_seconds": 83.5275,
+        "end_seconds": 83.64
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "next",
+        "start_seconds": 83.64,
+        "end_seconds": 83.9025
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "story.",
+        "start_seconds": 83.9025,
+        "end_seconds": 84.9275
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "A",
+        "start_seconds": 84.9275,
+        "end_seconds": 85.04
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "reverse‑engineered",
+        "start_seconds": 85.04,
+        "end_seconds": 86.04
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "module",
+        "start_seconds": 86.04,
+        "end_seconds": 86.39
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "now",
+        "start_seconds": 86.39,
+        "end_seconds": 86.64
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "lets",
+        "start_seconds": 86.64,
+        "end_seconds": 86.915
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "PipeWire",
+        "start_seconds": 86.915,
+        "end_seconds": 87.415
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "match",
+        "start_seconds": 87.415,
+        "end_seconds": 87.69
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "Windows‑style",
+        "start_seconds": 87.69,
+        "end_seconds": 88.465
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "loudness",
+        "start_seconds": 88.465,
+        "end_seconds": 88.8775
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "equalization",
+        "start_seconds": 88.8775,
+        "end_seconds": 90.04
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "and",
+        "start_seconds": 90.04,
+        "end_seconds": 90.1775
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "a",
+        "start_seconds": 90.1775,
+        "end_seconds": 90.24
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "look‑ahead",
+        "start_seconds": 90.24,
+        "end_seconds": 90.665
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "limiter",
+        "start_seconds": 90.665,
+        "end_seconds": 91.0525
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "on",
+        "start_seconds": 91.0525,
+        "end_seconds": 91.19
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "Linux.",
+        "start_seconds": 91.19,
+        "end_seconds": 92.29
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "The",
+        "start_seconds": 93.49,
+        "end_seconds": 93.565
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "pw‑loudness‑eq",
+        "start_seconds": 93.565,
+        "end_seconds": 94.765
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "project",
+        "start_seconds": 94.765,
+        "end_seconds": 95.19
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "builds",
+        "start_seconds": 95.19,
+        "end_seconds": 95.47749999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "against",
+        "start_seconds": 95.47749999999999,
+        "end_seconds": 95.765
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "PipeWire",
+        "start_seconds": 95.765,
+        "end_seconds": 96.24
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "version",
+        "start_seconds": 96.24,
+        "end_seconds": 96.58999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "one",
+        "start_seconds": 96.58999999999999,
+        "end_seconds": 96.815
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "point",
+        "start_seconds": 96.815,
+        "end_seconds": 97.08999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "four",
+        "start_seconds": 97.08999999999999,
+        "end_seconds": 97.315
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "or",
+        "start_seconds": 97.315,
+        "end_seconds": 97.41499999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "later",
+        "start_seconds": 97.41499999999999,
+        "end_seconds": 97.8775
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "and",
+        "start_seconds": 97.8775,
+        "end_seconds": 98.015
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "GTK",
+        "start_seconds": 98.015,
+        "end_seconds": 98.52749999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "three,",
+        "start_seconds": 98.52749999999999,
+        "end_seconds": 99.28999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "installing",
+        "start_seconds": 99.28999999999999,
+        "end_seconds": 99.77749999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "its",
+        "start_seconds": 99.77749999999999,
+        "end_seconds": 99.89
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "configuration",
+        "start_seconds": 99.89,
+        "end_seconds": 100.5775
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "under",
+        "start_seconds": 100.5775,
+        "end_seconds": 100.7525
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "the",
+        "start_seconds": 100.7525,
+        "end_seconds": 100.83999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "user’s",
+        "start_seconds": 100.83999999999999,
+        "end_seconds": 101.16499999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "pipewire.conf.d",
+        "start_seconds": 101.16499999999999,
+        "end_seconds": 102.69
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "directory.",
+        "start_seconds": 102.69,
+        "end_seconds": 103.89
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "It",
+        "start_seconds": 103.89,
+        "end_seconds": 104.065
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "equalizes",
+        "start_seconds": 104.065,
+        "end_seconds": 104.64
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "per‑application",
+        "start_seconds": 104.64,
+        "end_seconds": 105.39
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "volume",
+        "start_seconds": 105.39,
+        "end_seconds": 105.77749999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "and",
+        "start_seconds": 105.77749999999999,
+        "end_seconds": 105.8775
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "prevents",
+        "start_seconds": 105.8775,
+        "end_seconds": 106.24
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "clipping,",
+        "start_seconds": 106.24,
+        "end_seconds": 106.94
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "mirroring",
+        "start_seconds": 106.94,
+        "end_seconds": 107.3025
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "the",
+        "start_seconds": 107.3025,
+        "end_seconds": 107.3775
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "behavior",
+        "start_seconds": 107.3775,
+        "end_seconds": 107.8275
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "of",
+        "start_seconds": 107.8275,
+        "end_seconds": 107.91499999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "Windows",
+        "start_seconds": 107.91499999999999,
+        "end_seconds": 108.315
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "AudioEng.dll.",
+        "start_seconds": 108.315,
+        "end_seconds": 110.4025
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "Here’s",
+        "start_seconds": 110.4025,
+        "end_seconds": 111.01499999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "why",
+        "start_seconds": 111.01499999999999,
+        "end_seconds": 111.19
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "that",
+        "start_seconds": 111.19,
+        "end_seconds": 111.38999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "matters:",
+        "start_seconds": 111.38999999999999,
+        "end_seconds": 112.26499999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "any",
+        "start_seconds": 112.26499999999999,
+        "end_seconds": 112.49
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "Linux",
+        "start_seconds": 112.49,
+        "end_seconds": 112.815
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "desktop",
+        "start_seconds": 112.815,
+        "end_seconds": 113.32749999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "using",
+        "start_seconds": 113.32749999999999,
+        "end_seconds": 113.59
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "PipeWire",
+        "start_seconds": 113.59,
+        "end_seconds": 114.19
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "can",
+        "start_seconds": 114.19,
+        "end_seconds": 114.32749999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "enjoy",
+        "start_seconds": 114.32749999999999,
+        "end_seconds": 114.69
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "balanced",
+        "start_seconds": 114.69,
+        "end_seconds": 115.115
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "sound",
+        "start_seconds": 115.115,
+        "end_seconds": 115.45249999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "and",
+        "start_seconds": 115.45249999999999,
+        "end_seconds": 115.565
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "clipping",
+        "start_seconds": 115.565,
+        "end_seconds": 115.88999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "protection,",
+        "start_seconds": 115.88999999999999,
+        "end_seconds": 116.84
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "as",
+        "start_seconds": 116.84,
+        "end_seconds": 116.965
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "long",
+        "start_seconds": 116.965,
+        "end_seconds": 117.1525
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "as",
+        "start_seconds": 117.1525,
+        "end_seconds": 117.2525
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "the",
+        "start_seconds": 117.2525,
+        "end_seconds": 117.34
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "module",
+        "start_seconds": 117.34,
+        "end_seconds": 117.78999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "and",
+        "start_seconds": 117.78999999999999,
+        "end_seconds": 117.9025
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "its",
+        "start_seconds": 117.9025,
+        "end_seconds": 118.03999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "GTK",
+        "start_seconds": 118.03999999999999,
+        "end_seconds": 118.5525
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "three",
+        "start_seconds": 118.5525,
+        "end_seconds": 118.78999999999999
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "UI",
+        "start_seconds": 118.78999999999999,
+        "end_seconds": 119.215
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "are",
+        "start_seconds": 119.215,
+        "end_seconds": 119.315
+      },
+      {
+        "segment_id": "pipewire-loudness-eq-2026-segment",
+        "text": "installed.",
+        "start_seconds": 119.315,
+        "end_seconds": 120.615
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Next",
+        "start_seconds": 121.84,
+        "end_seconds": 122.10249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 122.10249999999999,
+        "end_seconds": 122.2025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 122.2025,
+        "end_seconds": 122.28999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bulletin.",
+        "start_seconds": 122.28999999999999,
+        "end_seconds": 123.35249999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Vercel",
+        "start_seconds": 123.35249999999999,
+        "end_seconds": 123.78999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "is",
+        "start_seconds": 123.78999999999999,
+        "end_seconds": 123.91499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "now",
+        "start_seconds": 123.91499999999999,
+        "end_seconds": 124.09
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "billing",
+        "start_seconds": 124.09,
+        "end_seconds": 124.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Pro",
+        "start_seconds": 124.365,
+        "end_seconds": 124.615
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "teams",
+        "start_seconds": 124.615,
+        "end_seconds": 124.965
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "for",
+        "start_seconds": 124.965,
+        "end_seconds": 125.09
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Standard",
+        "start_seconds": 125.09,
+        "end_seconds": 125.53999999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "build",
+        "start_seconds": 125.53999999999999,
+        "end_seconds": 125.815
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "slots",
+        "start_seconds": 125.815,
+        "end_seconds": 126.16499999999999
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "at",
+        "start_seconds": 126.16499999999999,
+        "end_seconds": 126.265
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "fourteen",
+        "start_seconds": 126.265,
+        "end_seconds": 126.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "thousandths",
+        "start_seconds": 126.69,
+        "end_seconds": 127.1775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "of",
+        "start_seconds": 127.1775,
+        "end_seconds": 127.2525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 127.2525,
+        "end_seconds": 127.315
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "dollar",
+        "start_seconds": 127.315,
+        "end_seconds": 127.565
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "per",
+        "start_seconds": 127.565,
+        "end_seconds": 127.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "minute.",
+        "start_seconds": 127.715,
+        "end_seconds": 128.515
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "That",
+        "start_seconds": 128.515,
+        "end_seconds": 128.7025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "means",
+        "start_seconds": 128.7025,
+        "end_seconds": 128.965
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "every",
+        "start_seconds": 128.965,
+        "end_seconds": 129.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "build",
+        "start_seconds": 129.24,
+        "end_seconds": 129.515
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "minute",
+        "start_seconds": 129.515,
+        "end_seconds": 129.7525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 129.7525,
+        "end_seconds": 129.8525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "those",
+        "start_seconds": 129.8525,
+        "end_seconds": 130.0275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "machines",
+        "start_seconds": 130.0275,
+        "end_seconds": 130.59
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "shows",
+        "start_seconds": 130.59,
+        "end_seconds": 130.8775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "up",
+        "start_seconds": 130.8775,
+        "end_seconds": 131.0275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 131.0275,
+        "end_seconds": 131.1275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 131.1275,
+        "end_seconds": 131.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "invoice",
+        "start_seconds": 131.24,
+        "end_seconds": 131.715
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 131.715,
+        "end_seconds": 131.84
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "counts",
+        "start_seconds": 131.84,
+        "end_seconds": 132.1525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "against",
+        "start_seconds": 132.1525,
+        "end_seconds": 132.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "any",
+        "start_seconds": 132.44,
+        "end_seconds": 132.64
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "monthly",
+        "start_seconds": 132.64,
+        "end_seconds": 133.015
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "usage",
+        "start_seconds": 133.015,
+        "end_seconds": 133.365
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "credit",
+        "start_seconds": 133.365,
+        "end_seconds": 133.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 133.69,
+        "end_seconds": 133.815
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "have.",
+        "start_seconds": 133.815,
+        "end_seconds": 134.64
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "You",
+        "start_seconds": 134.64,
+        "end_seconds": 134.7775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "can",
+        "start_seconds": 134.7775,
+        "end_seconds": 134.9525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "see",
+        "start_seconds": 134.9525,
+        "end_seconds": 135.1775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "and",
+        "start_seconds": 135.1775,
+        "end_seconds": 135.29
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "control",
+        "start_seconds": 135.29,
+        "end_seconds": 135.6525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 135.6525,
+        "end_seconds": 135.74
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "charges",
+        "start_seconds": 135.74,
+        "end_seconds": 136.1525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 136.1525,
+        "end_seconds": 136.2525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "the",
+        "start_seconds": 136.2525,
+        "end_seconds": 136.34
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Usage",
+        "start_seconds": 136.34,
+        "end_seconds": 136.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "page",
+        "start_seconds": 136.69,
+        "end_seconds": 137.29
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 137.29,
+        "end_seconds": 137.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "by",
+        "start_seconds": 137.44,
+        "end_seconds": 137.59
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "picking",
+        "start_seconds": 137.59,
+        "end_seconds": 137.8525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 137.8525,
+        "end_seconds": 137.915
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "build",
+        "start_seconds": 137.915,
+        "end_seconds": 138.1525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "machine",
+        "start_seconds": 138.1525,
+        "end_seconds": 138.4525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 138.4525,
+        "end_seconds": 138.5275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 138.5275,
+        "end_seconds": 138.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "team",
+        "start_seconds": 138.69,
+        "end_seconds": 138.99
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 138.99,
+        "end_seconds": 139.09
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "project",
+        "start_seconds": 139.09,
+        "end_seconds": 139.49
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "settings.",
+        "start_seconds": 139.49,
+        "end_seconds": 140.5775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "Here's",
+        "start_seconds": 140.5775,
+        "end_seconds": 140.94
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "why",
+        "start_seconds": 140.94,
+        "end_seconds": 141.115
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "that",
+        "start_seconds": 141.115,
+        "end_seconds": 141.315
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "matters:",
+        "start_seconds": 141.315,
+        "end_seconds": 142.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "keep",
+        "start_seconds": 142.24,
+        "end_seconds": 142.4275
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "an",
+        "start_seconds": 142.4275,
+        "end_seconds": 142.515
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "eye",
+        "start_seconds": 142.515,
+        "end_seconds": 142.69
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "on",
+        "start_seconds": 142.69,
+        "end_seconds": 142.8525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 142.8525,
+        "end_seconds": 142.965
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "build",
+        "start_seconds": 142.965,
+        "end_seconds": 143.2025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "minutes",
+        "start_seconds": 143.2025,
+        "end_seconds": 143.8025
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "or",
+        "start_seconds": 143.8025,
+        "end_seconds": 143.915
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "you",
+        "start_seconds": 143.915,
+        "end_seconds": 144.04
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "might",
+        "start_seconds": 144.04,
+        "end_seconds": 144.24
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "see",
+        "start_seconds": 144.24,
+        "end_seconds": 144.3775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "a",
+        "start_seconds": 144.3775,
+        "end_seconds": 144.44
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "surprise",
+        "start_seconds": 144.44,
+        "end_seconds": 144.89
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "line",
+        "start_seconds": 144.89,
+        "end_seconds": 145.14
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "item",
+        "start_seconds": 145.14,
+        "end_seconds": 145.4775
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "in",
+        "start_seconds": 145.4775,
+        "end_seconds": 145.5525
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "your",
+        "start_seconds": 145.5525,
+        "end_seconds": 145.665
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "next",
+        "start_seconds": 145.665,
+        "end_seconds": 145.965
+      },
+      {
+        "segment_id": "radio-2",
+        "text": "bill.",
+        "start_seconds": 145.965,
+        "end_seconds": 146.94
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "And",
+        "start_seconds": 148.14,
+        "end_seconds": 148.29
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "finally,",
+        "start_seconds": 148.29,
+        "end_seconds": 148.7275
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "our",
+        "start_seconds": 148.7275,
+        "end_seconds": 148.83999999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "last",
+        "start_seconds": 148.83999999999997,
+        "end_seconds": 149.08999999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "story.",
+        "start_seconds": 149.08999999999997,
+        "end_seconds": 150.14
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Cloudflare",
+        "start_seconds": 150.14,
+        "end_seconds": 150.64
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "just",
+        "start_seconds": 150.64,
+        "end_seconds": 150.83999999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "rolled",
+        "start_seconds": 150.83999999999997,
+        "end_seconds": 151.0775
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "out",
+        "start_seconds": 151.0775,
+        "end_seconds": 151.2275
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "a",
+        "start_seconds": 151.2275,
+        "end_seconds": 151.29
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "new",
+        "start_seconds": 151.29,
+        "end_seconds": 151.46499999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "toggle",
+        "start_seconds": 151.46499999999997,
+        "end_seconds": 151.77749999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "in",
+        "start_seconds": 151.77749999999997,
+        "end_seconds": 151.8525
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "its",
+        "start_seconds": 151.8525,
+        "end_seconds": 151.96499999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "dashboard",
+        "start_seconds": 151.96499999999997,
+        "end_seconds": 152.4525
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "that",
+        "start_seconds": 152.4525,
+        "end_seconds": 152.565
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "spins",
+        "start_seconds": 152.565,
+        "end_seconds": 152.8275
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "up",
+        "start_seconds": 152.8275,
+        "end_seconds": 152.9775
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "an",
+        "start_seconds": 152.9775,
+        "end_seconds": 153.065
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "AI",
+        "start_seconds": 153.065,
+        "end_seconds": 153.4525
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Search",
+        "start_seconds": 153.4525,
+        "end_seconds": 153.7525
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "instance",
+        "start_seconds": 153.7525,
+        "end_seconds": 154.165
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "for",
+        "start_seconds": 154.165,
+        "end_seconds": 154.29
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "you.",
+        "start_seconds": 154.29,
+        "end_seconds": 154.9525
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Flip",
+        "start_seconds": 154.9525,
+        "end_seconds": 155.17749999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "it",
+        "start_seconds": 155.17749999999998,
+        "end_seconds": 155.29
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "on,",
+        "start_seconds": 155.29,
+        "end_seconds": 155.83999999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "and",
+        "start_seconds": 155.83999999999997,
+        "end_seconds": 155.9525
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "the",
+        "start_seconds": 155.9525,
+        "end_seconds": 156.04
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "service",
+        "start_seconds": 156.04,
+        "end_seconds": 156.44
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "automatically",
+        "start_seconds": 156.44,
+        "end_seconds": 157.11499999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "crawls",
+        "start_seconds": 157.11499999999998,
+        "end_seconds": 157.42749999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "your",
+        "start_seconds": 157.42749999999998,
+        "end_seconds": 157.565
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "site,",
+        "start_seconds": 157.565,
+        "end_seconds": 158.21499999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "builds",
+        "start_seconds": 158.21499999999997,
+        "end_seconds": 158.5025
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "an",
+        "start_seconds": 158.5025,
+        "end_seconds": 158.5775
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "index,",
+        "start_seconds": 158.5775,
+        "end_seconds": 159.05249999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "and",
+        "start_seconds": 159.05249999999998,
+        "end_seconds": 159.165
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "publishes",
+        "start_seconds": 159.165,
+        "end_seconds": 159.64
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "a",
+        "start_seconds": 159.64,
+        "end_seconds": 159.7525
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "searchable",
+        "start_seconds": 159.7525,
+        "end_seconds": 160.23999999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "API",
+        "start_seconds": 160.23999999999998,
+        "end_seconds": 160.79
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "right",
+        "start_seconds": 160.79,
+        "end_seconds": 161.02749999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "at",
+        "start_seconds": 161.02749999999997,
+        "end_seconds": 161.1025
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "your",
+        "start_seconds": 161.1025,
+        "end_seconds": 161.21499999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "own",
+        "start_seconds": 161.21499999999997,
+        "end_seconds": 161.415
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "domain.",
+        "start_seconds": 161.415,
+        "end_seconds": 162.565
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "It",
+        "start_seconds": 162.565,
+        "end_seconds": 162.71499999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "works",
+        "start_seconds": 162.71499999999997,
+        "end_seconds": 162.9775
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "on",
+        "start_seconds": 162.9775,
+        "end_seconds": 163.0775
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "the",
+        "start_seconds": 163.0775,
+        "end_seconds": 163.165
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Free",
+        "start_seconds": 163.165,
+        "end_seconds": 163.39
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "plan,",
+        "start_seconds": 163.39,
+        "end_seconds": 163.915
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "though",
+        "start_seconds": 163.915,
+        "end_seconds": 164.08999999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "there",
+        "start_seconds": 164.08999999999997,
+        "end_seconds": 164.23999999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "are",
+        "start_seconds": 164.23999999999998,
+        "end_seconds": 164.33999999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "usage",
+        "start_seconds": 164.33999999999997,
+        "end_seconds": 164.69
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "caps,",
+        "start_seconds": 164.69,
+        "end_seconds": 165.415
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "and",
+        "start_seconds": 165.415,
+        "end_seconds": 165.52749999999997
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "you",
+        "start_seconds": 165.52749999999997,
+        "end_seconds": 165.64
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "still",
+        "start_seconds": 165.64,
+        "end_seconds": 165.915
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "get",
+        "start_seconds": 165.915,
+        "end_seconds": 166.11499999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "all",
+        "start_seconds": 166.11499999999998,
+        "end_seconds": 166.30249999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "the",
+        "start_seconds": 166.30249999999998,
+        "end_seconds": 166.39
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "usual",
+        "start_seconds": 166.39,
+        "end_seconds": 166.69
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "configuration",
+        "start_seconds": 166.69,
+        "end_seconds": 167.39
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "knobs",
+        "start_seconds": 167.39,
+        "end_seconds": 167.79
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "–",
+        "start_seconds": 167.79,
+        "end_seconds": 167.86499999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "public",
+        "start_seconds": 167.86499999999998,
+        "end_seconds": 168.23999999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "REST,",
+        "start_seconds": 168.23999999999998,
+        "end_seconds": 168.665
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Workers,",
+        "start_seconds": 168.665,
+        "end_seconds": 169.36499999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "or",
+        "start_seconds": 169.36499999999998,
+        "end_seconds": 169.48999999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "embed",
+        "start_seconds": 169.48999999999998,
+        "end_seconds": 169.815
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "options.",
+        "start_seconds": 169.815,
+        "end_seconds": 171.05249999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Here's",
+        "start_seconds": 171.51,
+        "end_seconds": 171.81
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "why",
+        "start_seconds": 171.81,
+        "end_seconds": 171.98499999999999
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "that",
+        "start_seconds": 171.98499999999999,
+        "end_seconds": 172.185
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "matters:",
+        "start_seconds": 172.185,
+        "end_seconds": 173.20999999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "you",
+        "start_seconds": 173.20999999999998,
+        "end_seconds": 173.33499999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "can",
+        "start_seconds": 173.33499999999998,
+        "end_seconds": 173.51
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "add",
+        "start_seconds": 173.51,
+        "end_seconds": 173.7475
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "AI‑powered",
+        "start_seconds": 173.7475,
+        "end_seconds": 174.48499999999999
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "site",
+        "start_seconds": 174.48499999999999,
+        "end_seconds": 174.76
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "search",
+        "start_seconds": 174.76,
+        "end_seconds": 175.0725
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "in",
+        "start_seconds": 175.0725,
+        "end_seconds": 175.14749999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "minutes",
+        "start_seconds": 175.14749999999998,
+        "end_seconds": 175.4475
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "without",
+        "start_seconds": 175.4475,
+        "end_seconds": 175.785
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "any",
+        "start_seconds": 175.785,
+        "end_seconds": 176.035
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "extra",
+        "start_seconds": 176.035,
+        "end_seconds": 176.435
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "infrastructure",
+        "start_seconds": 176.435,
+        "end_seconds": 177.1975
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "or",
+        "start_seconds": 177.1975,
+        "end_seconds": 177.33499999999998
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "billing",
+        "start_seconds": 177.33499999999998,
+        "end_seconds": 177.66
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "surprises.",
+        "start_seconds": 177.66,
+        "end_seconds": 179.035
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "And",
+        "start_seconds": 180.235,
+        "end_seconds": 180.3725
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "that's",
+        "start_seconds": 180.3725,
+        "end_seconds": 180.61
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "your",
+        "start_seconds": 180.61,
+        "end_seconds": 180.735
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Daywire",
+        "start_seconds": 180.735,
+        "end_seconds": 181.16000000000003
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "briefing.",
+        "start_seconds": 181.16000000000003,
+        "end_seconds": 182.11
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "You'll",
+        "start_seconds": 182.11,
+        "end_seconds": 182.28500000000003
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "find",
+        "start_seconds": 182.28500000000003,
+        "end_seconds": 182.5225
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "the",
+        "start_seconds": 182.5225,
+        "end_seconds": 182.6225
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "full",
+        "start_seconds": 182.6225,
+        "end_seconds": 182.86
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "stories",
+        "start_seconds": 182.86,
+        "end_seconds": 183.2975
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "and",
+        "start_seconds": 183.2975,
+        "end_seconds": 183.4225
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "sources",
+        "start_seconds": 183.4225,
+        "end_seconds": 183.91000000000003
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "in",
+        "start_seconds": 183.91000000000003,
+        "end_seconds": 184.01000000000002
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "today's",
+        "start_seconds": 184.01000000000002,
+        "end_seconds": 184.38500000000002
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "newspaper.",
+        "start_seconds": 184.38500000000002,
+        "end_seconds": 185.3975
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Thanks",
+        "start_seconds": 185.3975,
+        "end_seconds": 185.735
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "for",
+        "start_seconds": 185.735,
+        "end_seconds": 185.86
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "listening.",
+        "start_seconds": 185.86,
+        "end_seconds": 186.51000000000002
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "Take",
+        "start_seconds": 186.51000000000002,
+        "end_seconds": 186.81
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "care,",
+        "start_seconds": 186.81,
+        "end_seconds": 187.07250000000002
+      },
+      {
+        "segment_id": "search-for-agents-toggle-segment",
+        "text": "everyone.",
+        "start_seconds": 187.07250000000002,
+        "end_seconds": 188.235
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
