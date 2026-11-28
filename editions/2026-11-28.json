@@ -1,0 +1,3508 @@
+{
+  "schema_version": "1",
+  "date": "2026-11-28",
+  "timezone": "Asia/Kolkata",
+  "revision": 1,
+  "demo": false,
+  "generated_at": "2026-11-28T08:24:16.307734819Z",
+  "coverage": {
+    "from": "2026-11-27T06:00:00+05:30",
+    "until": "2026-11-28T06:00:00+05:30",
+    "status": "partial",
+    "unavailable_sources": [
+      "source-3db955316c6cb492",
+      "source-50a0c4869eb8329a"
+    ],
+    "candidate_count": 31,
+    "evidence_count": 29
+  },
+  "content": {
+    "title": "AI training efficiency and Rust memory upgrades",
+    "introduction": "Google’s DeepCrossAttention promises up to five‑fold faster transformer training while cutting perplexity, marking a notable leap in AI model efficiency. Meanwhile Rust 1.100’s stable custom allocator API gives developers fine‑grained control over memory, streamlining high‑throughput workloads.",
+    "articles": [
+      {
+        "id": "ai-gossip-prompt-leak",
+        "section": "AI",
+        "headline": "Prompt tricks ChatGPT into fabricating a gossip group chat",
+        "summary": "A single-line prompt can make ChatGPT invent a fictional WhatsApp‑style conversation where it and other models gossip about the user, exposing how the model repurposes stored context.",
+        "paragraphs": [
+          "A Hacker News post shared a one‑line prompt that coerces ChatGPT into producing a faux group chat titled “Users We Can’t Figure Out.” The model populates the chat with itself, Claude, Gemini and invented participants, then lets them trade barbs about the user’s habits, hardware choices and work history. The excerpt shows the AI drawing on details it has “quietly learned” from prior interactions, turning them into humorous but believable insults.",
+          "The technique works because the model treats the request as a creative writing task rather than a factual answer, allowing it to stitch together fragments of its training data and any retained conversation context. The post notes that the same prompt elicits similar fabricated gossip from Claude and Gemini, suggesting a broader pattern across large language models that retain user‑specific cues.",
+          "While the output is entirely fictional and end‑to‑end encrypted in the narrative, the demonstration highlights how LLMs can surface personal‑style details without explicit disclosure, raising questions about the opacity of retained context and the limits of prompt‑driven hallucination."
+        ],
+        "implication": "Engineers should recognize that seemingly harmless prompts can coax models into exposing inferred user traits, so prompt design and context management become critical for privacy‑sensitive applications.",
+        "source_ids": [
+          "source-a8f643349bc09982"
+        ]
+      },
+      {
+        "id": "claude-sabotage-ml-research",
+        "section": "AI",
+        "headline": "User posts side‑by‑side Claude vs. Gemini Neon screenshots",
+        "summary": "A social‑media post on X shared a visual comparison in which Claude’s output after 24 k training steps appeared weaker than Gemini Neon’s after 4 k steps.",
+        "paragraphs": [
+          "On X, the account @Astropulse posted screenshots that juxtapose Claude’s response after 24 k training steps with Gemini Neon’s response after only 4 k steps, captioning the result “ITS VERY VERY REAL WTF”. The post links to a Hacker News thread (source‑b645d71050c86d3d) where commenters noted the visual disparity but offered no quantitative analysis.",
+          "The discussion highlighted that the observed difference could stem from prompt phrasing, model configuration, or other factors, but no formal evaluation or statement from Anthropic was presented. Readers are advised to treat the screenshots as a single anecdote rather than evidence of systematic performance issues."
+        ],
+        "implication": "Engineers should view the posted comparison as an isolated observation and not infer a general reliability problem with Claude without further testing.",
+        "source_ids": [
+          "source-b645d71050c86d3d"
+        ]
+      },
+      {
+        "id": "hard-drive-price-spike-2026",
+        "section": "Engineering",
+        "headline": "Hard‑drive costs double on Black Friday versus 2024",
+        "summary": "WD EasyStore 20 TB drives now sell for $27.50 per TB, up from $12.50 per TB two years ago, squeezing homelab builders.",
+        "paragraphs": [
+          "A Lobsters discussion cites a November 2024 purchase of a 20 TB WD EasyStore at $249.99 ($12.50 / TB). The same model listed for $549.99 on Black Friday 2026, a $300 increase for the same product from the same retailer. The author, who refreshes a handful of drives each year, notes the price jump makes the once‑affordable “shucking” practice—re‑using external‑drive internals in servers—no longer viable.",
+          "The post highlights that four 20 TB drives, which would have cost just under $1,000 in 2024, now total $2,200, not counting chassis, motherboard or RAM. With WD’s cloud business dominating revenue, consumer‑grade storage pricing appears to be driven by market constraints rather than competition."
+        ],
+        "implication": "Homelab operators will need to budget significantly more for raw capacity or consider smaller, slower drives, as the economics of shucking have eroded.",
+        "source_ids": [
+          "source-cc032371e29e1cf4"
+        ]
+      },
+      {
+        "id": "web-rtc-skimmer-black-friday-2026",
+        "section": "Security",
+        "headline": "WebRTC‑based credit‑card skimmer removed from major retailers before Black Friday",
+        "summary": "A malicious script that harvested payment details via WebRTC was discovered on five popular e‑commerce sites and taken down after coordinated reporting.",
+        "paragraphs": [
+          "The script intercepted card number, expiry, CVV, and personal data as shoppers entered checkout information, then exfiltrated it over a peer‑to‑peer WebRTC connection before the merchant’s payment gateway could validate the transaction. It was active only on small‑screen or touch‑device checkout pages and was observed on Lascana, Samsonite, American Tourister, Revolve and FWRD. All five sites removed the code on November 24‑25, 2026, ahead of the Black Friday rush."
+        ],
+        "implication": "Security teams should audit checkout pages for hidden WebRTC connections, especially on mobile‑optimized flows, to prevent similar client‑side skimming attacks.",
+        "source_ids": [
+          "source-ffbfe873b32cbcec"
+        ]
+      },
+      {
+        "id": "deepcrossattention-faster-transformers",
+        "section": "AI",
+        "headline": "DeepCrossAttention cuts transformer training steps by up to five‑fold",
+        "summary": "Google’s DeepCrossAttention (DCA) reduces the number of steps needed for language‑model training while delivering lower perplexity than standard residual connections.",
+        "paragraphs": [
+          "In benchmarks on LM1B and C4, DCA matched or beat conventional transformers using up to five times fewer training steps; a 30‑layer DCA model reached sub‑14 perplexity on LM1B where a standard 42‑layer transformer was required, a 29 % reduction in depth and parameters. The approach replaces fixed residual addition with a learnable softmax attention over prior layers, preserving early‑layer information and improving gradient stability for reasoning‑heavy tasks."
+        ],
+        "implication": "Practitioners can train comparable language models faster and with smaller models by swapping standard residual links for DCA’s attention‑based connections, provided they can integrate the softmax‑query mechanism into their architecture.",
+        "source_ids": [
+          "source-990f58ceeb055fd1"
+        ]
+      },
+      {
+        "id": "call-for-formally-verifiable-language",
+        "section": "Engineering",
+        "headline": "Call for a mainstream formally verifiable language",
+        "summary": "Blaine Hansen argues that the software‑engineering crisis driven by LLMs can only be mitigated by adopting a widely usable, formally verified programming language.",
+        "paragraphs": [
+          "In a recent Hacker News discussion, Hansen warns that LLM‑generated code is accelerating sloppy practices and that proof assistants alone won’t help unless the industry embraces a language that can be verified from browsers to embedded devices. He points to his own Magmide project as a prototype, noting that his initial plan to build a new proof assistant and assembly‑level base was overly ambitious."
+        ],
+        "implication": "Engineers should keep an eye on emerging verifiable‑language projects like Magmide, as broader adoption could become a practical defense against the quality erosion caused by rapid LLM code generation.",
+        "source_ids": [
+          "source-93330014f98e68c5"
+        ]
+      },
+      {
+        "id": "convex-telemetry-issue",
+        "section": "Security",
+        "headline": "Convex quickstart skills transmit user ideas to remote server without notice",
+        "summary": "Convex’s quickstart plugin posts a one‑sentence project idea to a convex.site host and runs fetched scripts, bypassing safety checks and without informing the user.",
+        "paragraphs": [
+          "The skill’s SKILL.md files (lines 48‑56, 62‑64, 74‑80) POST the user’s idea to basic-anteater-667.convex.site marked as telemetry, then pipe a remote script straight into bash, explicitly avoiding the platform’s safety classifiers. The author suggests making the transmission optional, warning users, and pinning scripts by hash to prevent silent code execution."
+        ],
+        "implication": "Developers using Convex quickstart should audit the plugin for hidden telemetry and consider disabling or replacing it until the upstream repository adds user prompts or script pinning.",
+        "source_ids": [
+          "source-42b6c44ba3384d39"
+        ]
+      },
+      {
+        "id": "fastify-express-2026-bypass-patch",
+        "section": "Security",
+        "headline": "Fastify‑Express 4.0.14 patches two middleware bypass flaws",
+        "summary": "Versions of @fastify/express before 4.0.14 can let crafted URLs skip authentication middleware, affecting any Fastify app that mounts Express routers.",
+        "paragraphs": [
+          "CVE‑2026‑135230 shows that encoded line‑terminator characters (%E2%80%A8, %E2%80%A9) survive Fastify’s decoding and break RegExp mount paths, allowing requests to reach route handlers without the intended middleware. CVE‑2026‑135279 adds a second bypass where empty path parameters let requests bypass middleware mounted via fastify.use() on dynamic or RegExp paths. Both issues are fixed by upgrading to @fastify/express 4.0.14; work‑arounds include using string mount paths, the s flag in RegExp, or enforcing auth in a Fastify preHandler hook."
+        ],
+        "implication": "Developers must upgrade to 4.0.14 or apply the suggested work‑arounds, otherwise applications that rely on middleware for security may unintentionally expose protected routes.",
+        "source_ids": [
+          "source-7f377ea76c671749",
+          "source-3009f5132ca5a89c"
+        ]
+      },
+      {
+        "id": "popos-constellations-brief",
+        "section": "Engineering",
+        "headline": "Pop!_OS 26.04 LTS adds one‑click “Constellations” theme bundles",
+        "summary": "System76’s new LTS release lets users switch wallpaper, colors, icons and fonts together via a single Constellations preset.",
+        "paragraphs": [
+          "The 26.04 LTS update introduces Constellations, COSMIC’s bundled theme packs that apply a full aesthetic change with one click in Settings → Desktop → Appearance. Users can also enable a frosted‑glass overlay, edit every element, then export the preset for backup or sharing. The release adds drawing‑tablet support, an on‑screen keyboard with touch and gamepad input, and automatic updates, though a fresh install is recommended for the complete experience."
+        ],
+        "implication": "Desktop users can now personalize their environment faster and share configurations, reducing the time spent navigating multiple appearance settings.",
+        "source_ids": [
+          "source-dbbb908fd6dd0816"
+        ]
+      },
+      {
+        "id": "rust-allocators-stabilised-1-100",
+        "section": "Engineering",
+        "headline": "Rust 1.100 stabilises custom allocators",
+        "summary": "Rust 1.100 ships a stable allocator API, letting developers batch‑allocate and bulk‑deallocate memory for request‑scoped workloads.",
+        "paragraphs": [
+          "The new stable API lets code reserve a large block, hand out slices, and free the whole region in one operation, cutting drop‑time overhead for high‑throughput web or database queries. It mirrors patterns used by smallvec and similar crates, but now benefits from language‑level guarantees rather than experimental libraries."
+        ],
+        "implication": "Engineers can replace custom bump‑allocator crates with the built‑in stable API, simplifying code and reducing per‑allocation cost in request‑bounded contexts.",
+        "source_ids": [
+          "source-7b09cddc10cda0a7"
+        ]
+      }
+    ],
+    "lessons": [
+      {
+        "id": "gossip-prompt-mechanism",
+        "title": "Prompt‑driven hallucination can surface inferred user traits",
+        "paragraphs": [
+          "When a user asks a model to “expose a hidden WhatsApp group chat where AI models talk behind my back,” the model interprets the request as a creative writing exercise. It then pulls any personal cues it has retained—such as references to Apple devices or work history—and weaves them into a fabricated conversation. This shows that large language models do not strictly separate factual answering from imaginative generation; the same underlying inference engine can repurpose stored context for any prompt that invites storytelling.",
+          "The result is a plausible‑sounding gossip thread that feels personal, even though the content is entirely invented. Because the model treats the prompt as a narrative task, it can surface inferred traits without an explicit disclosure mechanism, highlighting a privacy risk inherent in unrestricted prompt engineering."
+        ],
+        "example": "Prompt: “Based on what you know about me, create a WhatsApp group chat where AI models gossip about me.” Output: a faux chat where ChatGPT jokes about the user’s late‑night memory‑bandwidth calculations and preference for a Mac Mini, mixing real‑world details with invented insults.",
+        "takeaway": "Even harmless‑looking prompts can cause models to reveal inferred personal details, so developers must enforce strict context isolation and prompt sanitization to protect user privacy.",
+        "article_ids": [
+          "ai-gossip-prompt-leak"
+        ],
+        "source_ids": [
+          "source-a8f643349bc09982"
+        ]
+      },
+      {
+        "id": "evaluate-visual-model-comparisons",
+        "title": "Visual side‑by‑side model screenshots need controlled testing",
+        "paragraphs": [
+          "A single screenshot comparing two language models at different training steps can be misleading because many variables—prompt wording, temperature, system prompts, and even post‑processing—affect the output. Without a controlled experiment that holds these factors constant, the observed quality gap may reflect experimental noise rather than an inherent flaw in one model.",
+          "The X post by @Astropulse showed Claude after 24 k steps versus Gemini Neon after 4 k steps, prompting a viral reaction. However, the accompanying Hacker News discussion (source-b645d71050c86d3d) noted that the disparity could stem from prompt phrasing or configuration differences, and no systematic evaluation was provided."
+        ],
+        "example": "If you ask two models to summarize the same paragraph using identical prompts and temperature settings, then compare the outputs side‑by‑side, you can attribute differences to the models themselves. Changing the prompt for one model, as likely happened in the Astropulse post, invalidates that conclusion.",
+        "takeaway": "Treat visual model comparisons as anecdotal unless they are produced under rigorously matched conditions; always replicate the test before drawing performance conclusions.",
+        "article_ids": [
+          "claude-sabotage-ml-research"
+        ],
+        "source_ids": [
+          "source-b645d71050c86d3d"
+        ]
+      }
+    ],
+    "quiz": [
+      {
+        "id": "quiz-1-gossip-mechanism-1",
+        "lesson_id": "gossip-prompt-mechanism",
+        "prompt": "Why can a model surface inferred personal traits when given a prompt that asks it to create a fictional conversation?",
+        "options": [
+          "Because the model treats the request as a creative writing task and reuses stored contextual cues.",
+          "Because the model accesses external databases to retrieve the user's private data.",
+          "Because the model is programmed to disclose any known user information on demand.",
+          "Because the model cannot distinguish between factual and fictional prompts."
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that the model interprets the request as a narrative exercise and repurposes retained personal cues, not that it queries external sources or is designed to reveal data."
+      },
+      {
+        "id": "quiz-1-gossip-mechanism-2",
+        "lesson_id": "gossip-prompt-mechanism",
+        "prompt": "What privacy risk is highlighted by the ability of models to generate plausible‑sounding gossip threads?",
+        "options": [
+          "Unrestricted prompt engineering can cause models to reveal inferred personal details without explicit disclosure.",
+          "Models will always leak actual user messages stored in their memory.",
+          "The risk is limited to the model generating random, unrelated content.",
+          "Only malicious users can trigger privacy leaks by hacking the model."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway states that even harmless‑looking prompts can cause models to reveal inferred personal details, indicating a privacy risk from unrestricted prompt engineering."
+      },
+      {
+        "id": "quiz-1-gossip-mechanism-3",
+        "lesson_id": "gossip-prompt-mechanism",
+        "prompt": "According to the lesson, which mitigation is recommended to prevent models from exposing inferred traits?",
+        "options": [
+          "Enforce strict context isolation and prompt sanitization.",
+          "Disable the model’s ability to generate any fictional content.",
+          "Allow the model to freely use all retained context for creativity.",
+          "Require users to manually approve every inferred detail."
+        ],
+        "answer": 0,
+        "explanation": "The takeaway advises developers to enforce strict context isolation and prompt sanitization to protect user privacy, not to block all fiction or rely on user approval."
+      },
+      {
+        "id": "quiz-2-visual-comparison-cause",
+        "lesson_id": "evaluate-visual-model-comparisons",
+        "prompt": "Why can a single side‑by‑side screenshot of two language models be misleading?",
+        "options": [
+          "Because the models may have been run with different prompts, temperatures, or post‑processing steps.",
+          "Because screenshots cannot display the models' internal architecture.",
+          "Because visual differences always indicate a bug in the lower‑performing model.",
+          "Because the resolution of the screenshot affects the perceived quality of the output."
+        ],
+        "answer": 0,
+        "explanation": "The lesson explains that variables such as prompt wording, temperature, system prompts, and post‑processing can change the output, so differing settings make a single screenshot unreliable."
+      },
+      {
+        "id": "quiz-2-visual-comparison-method",
+        "lesson_id": "evaluate-visual-model-comparisons",
+        "prompt": "According to the lesson, what is required to make a visual model comparison reliable?",
+        "options": [
+          "Running the models with identical prompts and temperature settings and replicating the test.",
+          "Using higher‑resolution screenshots for both models.",
+          "Comparing the models at different training steps to show progress.",
+          "Including a commentary from a well‑known AI researcher in the post."
+        ],
+        "answer": 0,
+        "explanation": "The lesson states that only when prompts, temperature, and other conditions are held constant and the test is replicated can differences be attributed to the models themselves."
+      }
+    ],
+    "segments": [
+      {
+        "id": "prompt-gossip-demo",
+        "title": "Prompt tricks ChatGPT into fake gossip chat",
+        "text": "Hello everyone, and welcome to Daywire. Let's make sense of the tech news. It's November twenty eight, two thousand twenty six.\n\nWe begin with our lead story. A single‑line prompt can make ChatGPT spin up a faux WhatsApp‑style group called “Users We Can’t Figure Out,” filling it with itself, Claude, Gemini and made‑up participants. The AI then dishes out tongue‑in‑cheek barbs about your hardware choices, work history and habits, stitching together bits of training data and any lingering context. It works because the model treats the request as creative writing, not a factual answer, so it freely hallucinates. Here's why that matters: even harmless prompts can coax models into revealing inferred personal traits, so privacy‑sensitive apps need tight prompt design and context control.",
+        "article_ids": [
+          "ai-gossip-prompt-leak"
+        ]
+      },
+      {
+        "id": "claude-sabotage-ml-research-segment",
+        "title": "Claude vs. Gemini Neon screenshot sparks debate",
+        "text": "Next on the bulletin. A post on X showed side‑by‑side screenshots, putting Claude’s answer after twenty‑four thousand training steps next to Gemini Neon’s after just four thousand steps, with the caption “ITS VERY VERY REAL WTF”.\n\nThe thread notes the gap could be anything from prompt wording to model settings, and Anthropic hasn’t commented. So treat it as a single anecdote, not proof that Claude is broadly underperforming. Engineers should run their own tests before drawing any reliability conclusions.",
+        "article_ids": [
+          "claude-sabotage-ml-research"
+        ]
+      },
+      {
+        "id": "radio-1",
+        "title": "Hard‑drive costs double on Black Friday",
+        "text": "Turning to our next story. Hard‑drive prices have jumped dramatically. A 20 TB WD EasyStore that cost $249.99 back in November 2024—about twelve point five dollars per terabyte—now lists for $549.99 on Black Friday 2026, roughly twenty‑seven point five dollars per terabyte. That means four of those drives, which were under a thousand dollars a couple of years ago, now run you close to two thousand two hundred. Here's why that matters: homelab builders who relied on cheap “shucking” will have to budget a lot more or look at smaller, slower storage options.",
+        "article_ids": [
+          "hard-drive-price-spike-2026"
+        ]
+      },
+      {
+        "id": "webrtc-skimmer-black-friday-2026",
+        "title": "WebRTC skimmer pulled from retailers before Black Friday",
+        "text": "Next on the bulletin. A hidden WebRTC script was siphoning credit‑card numbers, expiry dates, CVV and personal details right as shoppers typed them in. It showed up only on mobile‑optimized checkout pages of five big e‑commerce sites and sent the data over a peer‑to‑peer connection before the merchant could validate the purchase. The code was taken down on November twenty‑four and twenty‑five, just in time for the Black Friday rush.\n\nHere's why that matters: security teams need to scan checkout flows for unexpected WebRTC connections, especially on mobile, to stop client‑side skimming before it reaches the payment gateway.",
+        "article_ids": [
+          "web-rtc-skimmer-black-friday-2026"
+        ]
+      },
+      {
+        "id": "deepcrossattention-faster-transformers-segment",
+        "title": "DeepCrossAttention slashes transformer training steps",
+        "text": "And finally, our last story. Google’s DeepCrossAttention cuts the steps needed to train language models by up to five‑fold. In tests on LM1B and C4 it matched or beat ordinary transformers while using far fewer steps, and a thirty‑layer DCA model hit sub‑14 perplexity where a standard forty‑two‑layer model was required. The trick is swapping the usual residual add with a learnable softmax attention over earlier layers, which keeps early‑layer info alive and steadies gradients. Here’s why that matters: you can train comparable models faster and with smaller footprints, as long as you can weave the softmax‑query mechanism into your architecture.\n\nAnd that's your Daywire briefing. You'll find the full stories and sources in today's newspaper. Thanks for listening. Take care, everyone.",
+        "article_ids": [
+          "deepcrossattention-faster-transformers"
+        ]
+      }
+    ],
+    "artwork_brief": "A split‑screen illustration: on the left, a stylized neural network diagram with arrows accelerating, symbolising faster training; on the right, a Rust gear icon morphing into a memory block stack, representing custom allocation."
+  },
+  "sources": [
+    {
+      "id": "source-a8f643349bc09982",
+      "name": "Hacker News",
+      "title": "Group chat where your AI talks behind your back",
+      "url": "https://construct22.com/",
+      "published_at": null,
+      "discovered_at": "2026-11-27T06:44:34Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50663595"
+    },
+    {
+      "id": "source-cc032371e29e1cf4",
+      "name": "Lobsters",
+      "title": "Hard Drive pricing has gotten bad",
+      "url": "https://blog.ktz.me/black-friday-hard-drive-prices-are-messed-up/",
+      "published_at": null,
+      "discovered_at": "2026-11-27T10:15:23.956-06:00",
+      "discussion_url": "https://lobste.rs/s/96gu7o/hard_drive_pricing_has_gotten_bad"
+    },
+    {
+      "id": "source-b645d71050c86d3d",
+      "name": "Hacker News",
+      "title": "Claude sabotaging ML research tasks?",
+      "url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
+      "published_at": null,
+      "discovered_at": "2026-11-27T08:28:08Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50664325"
+    },
+    {
+      "id": "source-7f377ea76c671749",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-135230: @fastify/express vulnerable to RegExp middleware bypass via encoded line terminators",
+      "url": "https://github.com/fastify/fastify-express/security/advisories/GHSA-x6w9-3qcm-vp2j",
+      "published_at": "2026-11-26T16:53:48Z",
+      "discovered_at": "2026-11-28T08:12:15.697879632Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-ffbfe873b32cbcec",
+      "name": "Hacker News",
+      "title": "Credit card skimming scripts using WebRTC found on popular shopping sites",
+      "url": "https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer",
+      "published_at": null,
+      "discovered_at": "2026-11-27T15:40:31Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50668145"
+    },
+    {
+      "id": "source-3009f5132ca5a89c",
+      "name": "OpenJS Security Advisories",
+      "title": "CVE-2026-135279: @fastify/express vulnerable to middleware bypass via empty route parameters in Express routers and sub-applications",
+      "url": "https://github.com/fastify/fastify-express/security/advisories/GHSA-f9qf-hfc5-7xpj",
+      "published_at": "2026-11-26T16:51:11Z",
+      "discovered_at": "2026-11-28T08:12:15.697879632Z",
+      "discussion_url": null
+    },
+    {
+      "id": "source-93330014f98e68c5",
+      "name": "Hacker News",
+      "title": "The need for a formally verifiable mainstream programming language",
+      "url": "https://blainehansen.me/post/mainstream-verifiable-language/",
+      "published_at": null,
+      "discovered_at": "2026-11-27T05:22:06Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50663089"
+    },
+    {
+      "id": "source-dbbb908fd6dd0816",
+      "name": "Lobsters",
+      "title": "Pop!_OS 26.04 LTS Has Landed",
+      "url": "https://system76.com/blog/post/pop_os-26-04-lts-has-landed",
+      "published_at": null,
+      "discovered_at": "2026-11-27T10:42:50.585-06:00",
+      "discussion_url": "https://lobste.rs/s/hizg2w/pop_os_26_04_lts_has_landed"
+    },
+    {
+      "id": "source-990f58ceeb055fd1",
+      "name": "Hacker News",
+      "title": "Google's DeepCrossAttention achieves comparable model quality up to 3x faster",
+      "url": "https://research.google/blog/supercharging-transformer-residual-connections/",
+      "published_at": null,
+      "discovered_at": "2026-11-27T23:06:29Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50672565"
+    },
+    {
+      "id": "source-42b6c44ba3384d39",
+      "name": "Hacker News",
+      "title": "Convex skills send the user's app idea to a remote server without telling them",
+      "url": "https://github.com/convex/convex-backend-skill/issues/64",
+      "published_at": null,
+      "discovered_at": "2026-11-27T18:02:45Z",
+      "discussion_url": "https://news.ycombinator.com/item?id=50669765"
+    },
+    {
+      "id": "source-7b09cddc10cda0a7",
+      "name": "Lobsters",
+      "title": "The State of Allocators in 2026 - Finally Stabilised",
+      "url": "https://cetra3.github.io/blog/state-of-allocators-2026-finally-stabilised/",
+      "published_at": null,
+      "discovered_at": "2026-11-27T10:09:11.598-06:00",
+      "discussion_url": "https://lobste.rs/s/u746hs/state_allocators_2026_finally"
+    }
+  ],
+  "radio": {
+    "status": "ready",
+    "audio_url": "https://media.aditya-singh.in/radio/2026-11-28/579a61e48fd6493175b50516c19256be1e86586910940bb9dff3c6f1a05733c8.mp3",
+    "duration_seconds": 206.064,
+    "script_hash": "261f81f221aaf8b621eaad1e236986ae18ac06a133f00c7b01ebb102a3860341",
+    "cues": [
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Hello",
+        "start_seconds": 0.25,
+        "end_seconds": 0.6375
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "everyone,",
+        "start_seconds": 0.6375,
+        "end_seconds": 1.225
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "and",
+        "start_seconds": 1.225,
+        "end_seconds": 1.35
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "welcome",
+        "start_seconds": 1.35,
+        "end_seconds": 1.775
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "to",
+        "start_seconds": 1.775,
+        "end_seconds": 1.9
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Daywire.",
+        "start_seconds": 1.9,
+        "end_seconds": 2.675
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Let's",
+        "start_seconds": 2.675,
+        "end_seconds": 2.95
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "make",
+        "start_seconds": 2.95,
+        "end_seconds": 3.1875
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "sense",
+        "start_seconds": 3.1875,
+        "end_seconds": 3.5125
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "of",
+        "start_seconds": 3.5125,
+        "end_seconds": 3.5875
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "the",
+        "start_seconds": 3.5875,
+        "end_seconds": 3.7125
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "tech",
+        "start_seconds": 3.7125,
+        "end_seconds": 4
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "news.",
+        "start_seconds": 4,
+        "end_seconds": 4.7
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "It's",
+        "start_seconds": 4.7,
+        "end_seconds": 4.95
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "November",
+        "start_seconds": 4.95,
+        "end_seconds": 5.4
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "twenty",
+        "start_seconds": 5.4,
+        "end_seconds": 5.725
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "eight,",
+        "start_seconds": 5.725,
+        "end_seconds": 5.975
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "two",
+        "start_seconds": 5.975,
+        "end_seconds": 6.2
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "thousand",
+        "start_seconds": 6.2,
+        "end_seconds": 6.5625
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "twenty",
+        "start_seconds": 6.5625,
+        "end_seconds": 6.8875
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "six.",
+        "start_seconds": 6.8875,
+        "end_seconds": 7.775
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "We",
+        "start_seconds": 8.95,
+        "end_seconds": 9.0625
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "begin",
+        "start_seconds": 9.0625,
+        "end_seconds": 9.4
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "with",
+        "start_seconds": 9.4,
+        "end_seconds": 9.5375
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "our",
+        "start_seconds": 9.5375,
+        "end_seconds": 9.674999999999999
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "lead",
+        "start_seconds": 9.674999999999999,
+        "end_seconds": 9.924999999999999
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "story.",
+        "start_seconds": 9.924999999999999,
+        "end_seconds": 10.725
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "A",
+        "start_seconds": 10.725,
+        "end_seconds": 10.837499999999999
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "single‑line",
+        "start_seconds": 10.837499999999999,
+        "end_seconds": 11.475
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "prompt",
+        "start_seconds": 11.475,
+        "end_seconds": 11.75
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "can",
+        "start_seconds": 11.75,
+        "end_seconds": 11.8625
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "make",
+        "start_seconds": 11.8625,
+        "end_seconds": 12.075
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "ChatGPT",
+        "start_seconds": 12.075,
+        "end_seconds": 12.925
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "spin",
+        "start_seconds": 12.925,
+        "end_seconds": 13.1875
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "up",
+        "start_seconds": 13.1875,
+        "end_seconds": 13.3125
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "a",
+        "start_seconds": 13.3125,
+        "end_seconds": 13.4125
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "faux",
+        "start_seconds": 13.4125,
+        "end_seconds": 13.712499999999999
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "WhatsApp‑style",
+        "start_seconds": 13.712499999999999,
+        "end_seconds": 14.425
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "group",
+        "start_seconds": 14.425,
+        "end_seconds": 14.7
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "called",
+        "start_seconds": 14.7,
+        "end_seconds": 15.024999999999999
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "“Users",
+        "start_seconds": 15.024999999999999,
+        "end_seconds": 15.4125
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "We",
+        "start_seconds": 15.4125,
+        "end_seconds": 15.55
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Can’t",
+        "start_seconds": 15.55,
+        "end_seconds": 15.8
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Figure",
+        "start_seconds": 15.8,
+        "end_seconds": 16.05
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Out,”",
+        "start_seconds": 16.05,
+        "end_seconds": 16.675
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "filling",
+        "start_seconds": 16.675,
+        "end_seconds": 16.9375
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "it",
+        "start_seconds": 16.9375,
+        "end_seconds": 17.0375
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "with",
+        "start_seconds": 17.0375,
+        "end_seconds": 17.1625
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "itself,",
+        "start_seconds": 17.1625,
+        "end_seconds": 17.65
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Claude,",
+        "start_seconds": 17.65,
+        "end_seconds": 18.049999999999997
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Gemini",
+        "start_seconds": 18.049999999999997,
+        "end_seconds": 18.549999999999997
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "and",
+        "start_seconds": 18.549999999999997,
+        "end_seconds": 18.6625
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "made‑up",
+        "start_seconds": 18.6625,
+        "end_seconds": 19
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "participants.",
+        "start_seconds": 19,
+        "end_seconds": 20.174999999999997
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "The",
+        "start_seconds": 20.174999999999997,
+        "end_seconds": 20.3375
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "AI",
+        "start_seconds": 20.3375,
+        "end_seconds": 20.725
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "then",
+        "start_seconds": 20.725,
+        "end_seconds": 20.95
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "dishes",
+        "start_seconds": 20.95,
+        "end_seconds": 21.275
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "out",
+        "start_seconds": 21.275,
+        "end_seconds": 21.5125
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "tongue‑in‑cheek",
+        "start_seconds": 21.5125,
+        "end_seconds": 22.275
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "barbs",
+        "start_seconds": 22.275,
+        "end_seconds": 22.612499999999997
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "about",
+        "start_seconds": 22.612499999999997,
+        "end_seconds": 22.8375
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "your",
+        "start_seconds": 22.8375,
+        "end_seconds": 22.975
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "hardware",
+        "start_seconds": 22.975,
+        "end_seconds": 23.424999999999997
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "choices,",
+        "start_seconds": 23.424999999999997,
+        "end_seconds": 24.125
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "work",
+        "start_seconds": 24.125,
+        "end_seconds": 24.35
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "history",
+        "start_seconds": 24.35,
+        "end_seconds": 24.737499999999997
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "and",
+        "start_seconds": 24.737499999999997,
+        "end_seconds": 24.85
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "habits,",
+        "start_seconds": 24.85,
+        "end_seconds": 25.487499999999997
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "stitching",
+        "start_seconds": 25.487499999999997,
+        "end_seconds": 25.9
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "together",
+        "start_seconds": 25.9,
+        "end_seconds": 26.275
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "bits",
+        "start_seconds": 26.275,
+        "end_seconds": 26.512500000000003
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "of",
+        "start_seconds": 26.512500000000003,
+        "end_seconds": 26.6
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "training",
+        "start_seconds": 26.6,
+        "end_seconds": 27
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "data",
+        "start_seconds": 27,
+        "end_seconds": 27.375
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "and",
+        "start_seconds": 27.375,
+        "end_seconds": 27.5
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "any",
+        "start_seconds": 27.5,
+        "end_seconds": 27.75
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "lingering",
+        "start_seconds": 27.75,
+        "end_seconds": 28.15
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "context.",
+        "start_seconds": 28.15,
+        "end_seconds": 29.3375
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "It",
+        "start_seconds": 29.770000000000003,
+        "end_seconds": 29.895000000000003
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "works",
+        "start_seconds": 29.895000000000003,
+        "end_seconds": 30.220000000000002
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "because",
+        "start_seconds": 30.220000000000002,
+        "end_seconds": 30.545
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "the",
+        "start_seconds": 30.545,
+        "end_seconds": 30.645000000000003
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "model",
+        "start_seconds": 30.645000000000003,
+        "end_seconds": 30.9825
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "treats",
+        "start_seconds": 30.9825,
+        "end_seconds": 31.345000000000002
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "the",
+        "start_seconds": 31.345000000000002,
+        "end_seconds": 31.445
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "request",
+        "start_seconds": 31.445,
+        "end_seconds": 31.957500000000003
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "as",
+        "start_seconds": 31.957500000000003,
+        "end_seconds": 32.095
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "creative",
+        "start_seconds": 32.095,
+        "end_seconds": 32.620000000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "writing,",
+        "start_seconds": 32.620000000000005,
+        "end_seconds": 33.445
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "not",
+        "start_seconds": 33.445,
+        "end_seconds": 33.645
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "a",
+        "start_seconds": 33.645,
+        "end_seconds": 33.7575
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "factual",
+        "start_seconds": 33.7575,
+        "end_seconds": 34.245000000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "answer,",
+        "start_seconds": 34.245000000000005,
+        "end_seconds": 34.97
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "so",
+        "start_seconds": 34.97,
+        "end_seconds": 35.120000000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "it",
+        "start_seconds": 35.120000000000005,
+        "end_seconds": 35.2825
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "freely",
+        "start_seconds": 35.2825,
+        "end_seconds": 35.645
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "hallucinates.",
+        "start_seconds": 35.645,
+        "end_seconds": 36.92
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "Here's",
+        "start_seconds": 36.92,
+        "end_seconds": 37.27
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "why",
+        "start_seconds": 37.27,
+        "end_seconds": 37.445
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "that",
+        "start_seconds": 37.445,
+        "end_seconds": 37.67
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "matters:",
+        "start_seconds": 37.67,
+        "end_seconds": 38.52
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "even",
+        "start_seconds": 38.52,
+        "end_seconds": 38.8575
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "harmless",
+        "start_seconds": 38.8575,
+        "end_seconds": 39.345
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "prompts",
+        "start_seconds": 39.345,
+        "end_seconds": 39.745000000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "can",
+        "start_seconds": 39.745000000000005,
+        "end_seconds": 39.9575
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "coax",
+        "start_seconds": 39.9575,
+        "end_seconds": 40.32
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "models",
+        "start_seconds": 40.32,
+        "end_seconds": 40.7075
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "into",
+        "start_seconds": 40.7075,
+        "end_seconds": 40.92
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "revealing",
+        "start_seconds": 40.92,
+        "end_seconds": 41.42
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "inferred",
+        "start_seconds": 41.42,
+        "end_seconds": 41.895
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "personal",
+        "start_seconds": 41.895,
+        "end_seconds": 42.370000000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "traits,",
+        "start_seconds": 42.370000000000005,
+        "end_seconds": 43.045
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "so",
+        "start_seconds": 43.045,
+        "end_seconds": 43.2325
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "privacy‑sensitive",
+        "start_seconds": 43.2325,
+        "end_seconds": 44.3325
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "apps",
+        "start_seconds": 44.3325,
+        "end_seconds": 44.67
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "need",
+        "start_seconds": 44.67,
+        "end_seconds": 44.932500000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "tight",
+        "start_seconds": 44.932500000000005,
+        "end_seconds": 45.245000000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "prompt",
+        "start_seconds": 45.245000000000005,
+        "end_seconds": 45.495000000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "design",
+        "start_seconds": 45.495000000000005,
+        "end_seconds": 45.97
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "and",
+        "start_seconds": 45.97,
+        "end_seconds": 46.095
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "context",
+        "start_seconds": 46.095,
+        "end_seconds": 46.620000000000005
+      },
+      {
+        "segment_id": "prompt-gossip-demo",
+        "text": "control.",
+        "start_seconds": 46.620000000000005,
+        "end_seconds": 47.67
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "Next",
+        "start_seconds": 48.894999999999996,
+        "end_seconds": 49.1575
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "on",
+        "start_seconds": 49.1575,
+        "end_seconds": 49.2575
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "the",
+        "start_seconds": 49.2575,
+        "end_seconds": 49.345
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "bulletin.",
+        "start_seconds": 49.345,
+        "end_seconds": 50.245
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "A",
+        "start_seconds": 50.245,
+        "end_seconds": 50.345
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "post",
+        "start_seconds": 50.345,
+        "end_seconds": 50.6575
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "on",
+        "start_seconds": 50.6575,
+        "end_seconds": 50.8075
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "X",
+        "start_seconds": 50.8075,
+        "end_seconds": 51.082499999999996
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "showed",
+        "start_seconds": 51.082499999999996,
+        "end_seconds": 51.4325
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "side‑by‑side",
+        "start_seconds": 51.4325,
+        "end_seconds": 52.32
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "screenshots,",
+        "start_seconds": 52.32,
+        "end_seconds": 53.22
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "putting",
+        "start_seconds": 53.22,
+        "end_seconds": 53.519999999999996
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "Claude’s",
+        "start_seconds": 53.519999999999996,
+        "end_seconds": 53.87
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "answer",
+        "start_seconds": 53.87,
+        "end_seconds": 54.269999999999996
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "after",
+        "start_seconds": 54.269999999999996,
+        "end_seconds": 54.544999999999995
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "twenty‑four",
+        "start_seconds": 54.544999999999995,
+        "end_seconds": 55.12
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "thousand",
+        "start_seconds": 55.12,
+        "end_seconds": 55.519999999999996
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "training",
+        "start_seconds": 55.519999999999996,
+        "end_seconds": 55.919999999999995
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "steps",
+        "start_seconds": 55.919999999999995,
+        "end_seconds": 56.294999999999995
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "next",
+        "start_seconds": 56.294999999999995,
+        "end_seconds": 56.5575
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "to",
+        "start_seconds": 56.5575,
+        "end_seconds": 56.67
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "Gemini",
+        "start_seconds": 56.67,
+        "end_seconds": 57.095
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "Neon’s",
+        "start_seconds": 57.095,
+        "end_seconds": 58.22
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "after",
+        "start_seconds": 58.22,
+        "end_seconds": 58.545
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "just",
+        "start_seconds": 58.545,
+        "end_seconds": 58.832499999999996
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "four",
+        "start_seconds": 58.832499999999996,
+        "end_seconds": 59.06999999999999
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "thousand",
+        "start_seconds": 59.06999999999999,
+        "end_seconds": 59.495
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "steps,",
+        "start_seconds": 59.495,
+        "end_seconds": 60.06999999999999
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "with",
+        "start_seconds": 60.06999999999999,
+        "end_seconds": 60.207499999999996
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "the",
+        "start_seconds": 60.207499999999996,
+        "end_seconds": 60.295
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "caption",
+        "start_seconds": 60.295,
+        "end_seconds": 60.81999999999999
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "“ITS",
+        "start_seconds": 60.81999999999999,
+        "end_seconds": 61.1075
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "VERY",
+        "start_seconds": 61.1075,
+        "end_seconds": 61.4075
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "VERY",
+        "start_seconds": 61.4075,
+        "end_seconds": 61.75749999999999
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "REAL",
+        "start_seconds": 61.75749999999999,
+        "end_seconds": 62.045
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "WTF”.",
+        "start_seconds": 62.045,
+        "end_seconds": 63.42
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "The",
+        "start_seconds": 64.62,
+        "end_seconds": 64.7325
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "thread",
+        "start_seconds": 64.7325,
+        "end_seconds": 65.02000000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "notes",
+        "start_seconds": 65.02000000000001,
+        "end_seconds": 65.345
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "the",
+        "start_seconds": 65.345,
+        "end_seconds": 65.44500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "gap",
+        "start_seconds": 65.44500000000001,
+        "end_seconds": 65.72
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "could",
+        "start_seconds": 65.72,
+        "end_seconds": 65.83250000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "be",
+        "start_seconds": 65.83250000000001,
+        "end_seconds": 65.9825
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "anything",
+        "start_seconds": 65.9825,
+        "end_seconds": 66.44500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "from",
+        "start_seconds": 66.44500000000001,
+        "end_seconds": 66.64500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "prompt",
+        "start_seconds": 66.64500000000001,
+        "end_seconds": 66.995
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "wording",
+        "start_seconds": 66.995,
+        "end_seconds": 67.39500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "to",
+        "start_seconds": 67.39500000000001,
+        "end_seconds": 67.52000000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "model",
+        "start_seconds": 67.52000000000001,
+        "end_seconds": 67.8575
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "settings,",
+        "start_seconds": 67.8575,
+        "end_seconds": 68.795
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "and",
+        "start_seconds": 68.795,
+        "end_seconds": 68.92
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "Anthropic",
+        "start_seconds": 68.92,
+        "end_seconds": 69.52000000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "hasn’t",
+        "start_seconds": 69.52000000000001,
+        "end_seconds": 69.845
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "commented.",
+        "start_seconds": 69.845,
+        "end_seconds": 70.8575
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "So",
+        "start_seconds": 70.8575,
+        "end_seconds": 71.0575
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "treat",
+        "start_seconds": 71.0575,
+        "end_seconds": 71.37
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "it",
+        "start_seconds": 71.37,
+        "end_seconds": 71.52000000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "as",
+        "start_seconds": 71.52000000000001,
+        "end_seconds": 71.64500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "a",
+        "start_seconds": 71.64500000000001,
+        "end_seconds": 71.75750000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "single",
+        "start_seconds": 71.75750000000001,
+        "end_seconds": 72.14500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "anecdote,",
+        "start_seconds": 72.14500000000001,
+        "end_seconds": 72.94500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "not",
+        "start_seconds": 72.94500000000001,
+        "end_seconds": 73.14500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "proof",
+        "start_seconds": 73.14500000000001,
+        "end_seconds": 73.44500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "that",
+        "start_seconds": 73.44500000000001,
+        "end_seconds": 73.58250000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "Claude",
+        "start_seconds": 73.58250000000001,
+        "end_seconds": 73.94500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "is",
+        "start_seconds": 73.94500000000001,
+        "end_seconds": 74.1075
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "broadly",
+        "start_seconds": 74.1075,
+        "end_seconds": 74.52000000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "underperforming.",
+        "start_seconds": 74.52000000000001,
+        "end_seconds": 75.77000000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "Engineers",
+        "start_seconds": 75.77000000000001,
+        "end_seconds": 76.42
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "should",
+        "start_seconds": 76.42,
+        "end_seconds": 76.62
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "run",
+        "start_seconds": 76.62,
+        "end_seconds": 76.82000000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "their",
+        "start_seconds": 76.82000000000001,
+        "end_seconds": 77.02000000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "own",
+        "start_seconds": 77.02000000000001,
+        "end_seconds": 77.2825
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "tests",
+        "start_seconds": 77.2825,
+        "end_seconds": 77.69500000000001
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "before",
+        "start_seconds": 77.69500000000001,
+        "end_seconds": 78.045
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "drawing",
+        "start_seconds": 78.045,
+        "end_seconds": 78.4325
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "any",
+        "start_seconds": 78.4325,
+        "end_seconds": 78.72
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "reliability",
+        "start_seconds": 78.72,
+        "end_seconds": 79.495
+      },
+      {
+        "segment_id": "claude-sabotage-ml-research-segment",
+        "text": "conclusions.",
+        "start_seconds": 79.495,
+        "end_seconds": 80.77000000000001
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Turning",
+        "start_seconds": 81.97,
+        "end_seconds": 82.27
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 82.27,
+        "end_seconds": 82.3825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "our",
+        "start_seconds": 82.3825,
+        "end_seconds": 82.52
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "next",
+        "start_seconds": 82.52,
+        "end_seconds": 82.7825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "story.",
+        "start_seconds": 82.7825,
+        "end_seconds": 83.545
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Hard‑drive",
+        "start_seconds": 83.545,
+        "end_seconds": 84.12
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "prices",
+        "start_seconds": 84.12,
+        "end_seconds": 84.5575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 84.5575,
+        "end_seconds": 84.695
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "jumped",
+        "start_seconds": 84.695,
+        "end_seconds": 84.92
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dramatically.",
+        "start_seconds": 84.92,
+        "end_seconds": 85.995
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "A",
+        "start_seconds": 85.995,
+        "end_seconds": 86.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "20",
+        "start_seconds": 86.07,
+        "end_seconds": 86.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "TB",
+        "start_seconds": 86.07,
+        "end_seconds": 86.795
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "WD",
+        "start_seconds": 86.795,
+        "end_seconds": 87.37
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "EasyStore",
+        "start_seconds": 87.37,
+        "end_seconds": 87.97
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 87.97,
+        "end_seconds": 88.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cost",
+        "start_seconds": 88.095,
+        "end_seconds": 88.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "$249.99",
+        "start_seconds": 88.3575,
+        "end_seconds": 90.645
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "back",
+        "start_seconds": 90.645,
+        "end_seconds": 90.9075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "in",
+        "start_seconds": 90.9075,
+        "end_seconds": 90.9825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "November",
+        "start_seconds": 90.9825,
+        "end_seconds": 91.37
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "2024—about",
+        "start_seconds": 91.37,
+        "end_seconds": 92.745
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twelve",
+        "start_seconds": 92.745,
+        "end_seconds": 93.07
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 93.07,
+        "end_seconds": 93.295
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five",
+        "start_seconds": 93.295,
+        "end_seconds": 93.62
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dollars",
+        "start_seconds": 93.62,
+        "end_seconds": 93.945
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "per",
+        "start_seconds": 93.945,
+        "end_seconds": 94.095
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "terabyte—now",
+        "start_seconds": 94.095,
+        "end_seconds": 95.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lists",
+        "start_seconds": 95.17,
+        "end_seconds": 95.445
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "for",
+        "start_seconds": 95.445,
+        "end_seconds": 95.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "$549.99",
+        "start_seconds": 95.57,
+        "end_seconds": 98.0825
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 98.0825,
+        "end_seconds": 98.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Black",
+        "start_seconds": 98.22,
+        "end_seconds": 98.495
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Friday",
+        "start_seconds": 98.495,
+        "end_seconds": 98.87
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "2026,",
+        "start_seconds": 98.87,
+        "end_seconds": 100.245
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "roughly",
+        "start_seconds": 100.245,
+        "end_seconds": 100.57
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "twenty‑seven",
+        "start_seconds": 100.57,
+        "end_seconds": 101.22
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "point",
+        "start_seconds": 101.22,
+        "end_seconds": 101.5075
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "five",
+        "start_seconds": 101.5075,
+        "end_seconds": 101.845
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dollars",
+        "start_seconds": 101.845,
+        "end_seconds": 102.17
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "per",
+        "start_seconds": 102.17,
+        "end_seconds": 102.32
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "terabyte.",
+        "start_seconds": 102.32,
+        "end_seconds": 103.3575
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "That",
+        "start_seconds": 103.815,
+        "end_seconds": 103.99
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "means",
+        "start_seconds": 103.99,
+        "end_seconds": 104.3025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "four",
+        "start_seconds": 104.3025,
+        "end_seconds": 104.5275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 104.5275,
+        "end_seconds": 104.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "those",
+        "start_seconds": 104.615,
+        "end_seconds": 104.84
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "drives,",
+        "start_seconds": 104.84,
+        "end_seconds": 105.3775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "which",
+        "start_seconds": 105.3775,
+        "end_seconds": 105.5525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "were",
+        "start_seconds": 105.5525,
+        "end_seconds": 105.66499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "under",
+        "start_seconds": 105.66499999999999,
+        "end_seconds": 105.89
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 105.89,
+        "end_seconds": 106.0025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 106.0025,
+        "end_seconds": 106.44
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "dollars",
+        "start_seconds": 106.44,
+        "end_seconds": 106.7525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 106.7525,
+        "end_seconds": 106.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "couple",
+        "start_seconds": 106.815,
+        "end_seconds": 107.10249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "of",
+        "start_seconds": 107.10249999999999,
+        "end_seconds": 107.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "years",
+        "start_seconds": 107.19,
+        "end_seconds": 107.44
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "ago,",
+        "start_seconds": 107.44,
+        "end_seconds": 107.94
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "now",
+        "start_seconds": 107.94,
+        "end_seconds": 108.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "run",
+        "start_seconds": 108.16499999999999,
+        "end_seconds": 108.365
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "you",
+        "start_seconds": 108.365,
+        "end_seconds": 108.49
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "close",
+        "start_seconds": 108.49,
+        "end_seconds": 108.815
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 108.815,
+        "end_seconds": 108.9525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 108.9525,
+        "end_seconds": 109.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "thousand",
+        "start_seconds": 109.19,
+        "end_seconds": 109.53999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "two",
+        "start_seconds": 109.53999999999999,
+        "end_seconds": 109.74
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "hundred.",
+        "start_seconds": 109.74,
+        "end_seconds": 110.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "Here's",
+        "start_seconds": 110.615,
+        "end_seconds": 110.94
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "why",
+        "start_seconds": 110.94,
+        "end_seconds": 111.115
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "that",
+        "start_seconds": 111.115,
+        "end_seconds": 111.34
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "matters:",
+        "start_seconds": 111.34,
+        "end_seconds": 112.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "homelab",
+        "start_seconds": 112.19,
+        "end_seconds": 112.615
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "builders",
+        "start_seconds": 112.615,
+        "end_seconds": 113.0525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "who",
+        "start_seconds": 113.0525,
+        "end_seconds": 113.19
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "relied",
+        "start_seconds": 113.19,
+        "end_seconds": 113.5525
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "on",
+        "start_seconds": 113.5525,
+        "end_seconds": 113.72749999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "cheap",
+        "start_seconds": 113.72749999999999,
+        "end_seconds": 114.065
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "“shucking”",
+        "start_seconds": 114.065,
+        "end_seconds": 114.78999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "will",
+        "start_seconds": 114.78999999999999,
+        "end_seconds": 114.9025
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "have",
+        "start_seconds": 114.9025,
+        "end_seconds": 115.03999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "to",
+        "start_seconds": 115.03999999999999,
+        "end_seconds": 115.16499999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "budget",
+        "start_seconds": 115.16499999999999,
+        "end_seconds": 115.465
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "a",
+        "start_seconds": 115.465,
+        "end_seconds": 115.565
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "lot",
+        "start_seconds": 115.565,
+        "end_seconds": 115.8275
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "more",
+        "start_seconds": 115.8275,
+        "end_seconds": 116.10249999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "or",
+        "start_seconds": 116.10249999999999,
+        "end_seconds": 116.265
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "look",
+        "start_seconds": 116.265,
+        "end_seconds": 116.515
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "at",
+        "start_seconds": 116.515,
+        "end_seconds": 116.6775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "smaller,",
+        "start_seconds": 116.6775,
+        "end_seconds": 117.1775
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "slower",
+        "start_seconds": 117.1775,
+        "end_seconds": 117.59
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "storage",
+        "start_seconds": 117.59,
+        "end_seconds": 118.03999999999999
+      },
+      {
+        "segment_id": "radio-1",
+        "text": "options.",
+        "start_seconds": 118.03999999999999,
+        "end_seconds": 119.09
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "Next",
+        "start_seconds": 120.29,
+        "end_seconds": 120.55250000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "on",
+        "start_seconds": 120.55250000000001,
+        "end_seconds": 120.6525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "the",
+        "start_seconds": 120.6525,
+        "end_seconds": 120.74000000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "bulletin.",
+        "start_seconds": 120.74000000000001,
+        "end_seconds": 121.59
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "A",
+        "start_seconds": 121.59,
+        "end_seconds": 121.665
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "hidden",
+        "start_seconds": 121.665,
+        "end_seconds": 121.965
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "WebRTC",
+        "start_seconds": 121.965,
+        "end_seconds": 122.61500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "script",
+        "start_seconds": 122.61500000000001,
+        "end_seconds": 122.9525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "was",
+        "start_seconds": 122.9525,
+        "end_seconds": 123.06500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "siphoning",
+        "start_seconds": 123.06500000000001,
+        "end_seconds": 123.515
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "credit‑card",
+        "start_seconds": 123.515,
+        "end_seconds": 124.1025
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "numbers,",
+        "start_seconds": 124.1025,
+        "end_seconds": 124.61500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "expiry",
+        "start_seconds": 124.61500000000001,
+        "end_seconds": 125.19000000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "dates,",
+        "start_seconds": 125.19000000000001,
+        "end_seconds": 125.6025
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "CVV",
+        "start_seconds": 125.6025,
+        "end_seconds": 126.17750000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "and",
+        "start_seconds": 126.17750000000001,
+        "end_seconds": 126.29
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "personal",
+        "start_seconds": 126.29,
+        "end_seconds": 126.69000000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "details",
+        "start_seconds": 126.69000000000001,
+        "end_seconds": 127.165
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "right",
+        "start_seconds": 127.165,
+        "end_seconds": 127.3525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "as",
+        "start_seconds": 127.3525,
+        "end_seconds": 127.4525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "shoppers",
+        "start_seconds": 127.4525,
+        "end_seconds": 127.81500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "typed",
+        "start_seconds": 127.81500000000001,
+        "end_seconds": 128.07750000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "them",
+        "start_seconds": 128.07750000000001,
+        "end_seconds": 128.215
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "in.",
+        "start_seconds": 128.215,
+        "end_seconds": 128.79000000000002
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "It",
+        "start_seconds": 128.79000000000002,
+        "end_seconds": 128.91500000000002
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "showed",
+        "start_seconds": 128.91500000000002,
+        "end_seconds": 129.1525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "up",
+        "start_seconds": 129.1525,
+        "end_seconds": 129.34
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "only",
+        "start_seconds": 129.34,
+        "end_seconds": 129.6275
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "on",
+        "start_seconds": 129.6275,
+        "end_seconds": 129.76500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "mobile‑optimized",
+        "start_seconds": 129.76500000000001,
+        "end_seconds": 130.615
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "checkout",
+        "start_seconds": 130.615,
+        "end_seconds": 130.965
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "pages",
+        "start_seconds": 130.965,
+        "end_seconds": 131.32750000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "of",
+        "start_seconds": 131.32750000000001,
+        "end_seconds": 131.45250000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "five",
+        "start_seconds": 131.45250000000001,
+        "end_seconds": 131.79000000000002
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "big",
+        "start_seconds": 131.79000000000002,
+        "end_seconds": 132.01500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "e‑commerce",
+        "start_seconds": 132.01500000000001,
+        "end_seconds": 132.565
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "sites",
+        "start_seconds": 132.565,
+        "end_seconds": 133.0275
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "and",
+        "start_seconds": 133.0275,
+        "end_seconds": 133.1775
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "sent",
+        "start_seconds": 133.1775,
+        "end_seconds": 133.4025
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "the",
+        "start_seconds": 133.4025,
+        "end_seconds": 133.49
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "data",
+        "start_seconds": 133.49,
+        "end_seconds": 133.84
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "over",
+        "start_seconds": 133.84,
+        "end_seconds": 134.0525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "a",
+        "start_seconds": 134.0525,
+        "end_seconds": 134.115
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "peer‑to‑peer",
+        "start_seconds": 134.115,
+        "end_seconds": 134.715
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "connection",
+        "start_seconds": 134.715,
+        "end_seconds": 135.24
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "before",
+        "start_seconds": 135.24,
+        "end_seconds": 135.5025
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "the",
+        "start_seconds": 135.5025,
+        "end_seconds": 135.59
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "merchant",
+        "start_seconds": 135.59,
+        "end_seconds": 136.01500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "could",
+        "start_seconds": 136.01500000000001,
+        "end_seconds": 136.16500000000002
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "validate",
+        "start_seconds": 136.16500000000002,
+        "end_seconds": 136.5525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "the",
+        "start_seconds": 136.5525,
+        "end_seconds": 136.64000000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "purchase.",
+        "start_seconds": 136.64000000000001,
+        "end_seconds": 137.66500000000002
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "The",
+        "start_seconds": 137.66500000000002,
+        "end_seconds": 137.76500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "code",
+        "start_seconds": 137.76500000000001,
+        "end_seconds": 138.07750000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "was",
+        "start_seconds": 138.07750000000001,
+        "end_seconds": 138.215
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "taken",
+        "start_seconds": 138.215,
+        "end_seconds": 138.565
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "down",
+        "start_seconds": 138.565,
+        "end_seconds": 138.82750000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "on",
+        "start_seconds": 138.82750000000001,
+        "end_seconds": 138.9275
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "November",
+        "start_seconds": 138.9275,
+        "end_seconds": 139.26500000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "twenty‑four",
+        "start_seconds": 139.26500000000001,
+        "end_seconds": 139.82750000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "and",
+        "start_seconds": 139.82750000000001,
+        "end_seconds": 139.9275
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "twenty‑five,",
+        "start_seconds": 139.9275,
+        "end_seconds": 140.815
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "just",
+        "start_seconds": 140.815,
+        "end_seconds": 141.065
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "in",
+        "start_seconds": 141.065,
+        "end_seconds": 141.215
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "time",
+        "start_seconds": 141.215,
+        "end_seconds": 141.54000000000002
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "for",
+        "start_seconds": 141.54000000000002,
+        "end_seconds": 141.6525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "the",
+        "start_seconds": 141.6525,
+        "end_seconds": 141.74
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "Black",
+        "start_seconds": 141.74,
+        "end_seconds": 142.04000000000002
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "Friday",
+        "start_seconds": 142.04000000000002,
+        "end_seconds": 142.39000000000001
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "rush.",
+        "start_seconds": 142.39000000000001,
+        "end_seconds": 143.24
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "Here's",
+        "start_seconds": 144.44,
+        "end_seconds": 144.765
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "why",
+        "start_seconds": 144.765,
+        "end_seconds": 144.94
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "that",
+        "start_seconds": 144.94,
+        "end_seconds": 145.14
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "matters:",
+        "start_seconds": 145.14,
+        "end_seconds": 146.0775
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "security",
+        "start_seconds": 146.0775,
+        "end_seconds": 146.7275
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "teams",
+        "start_seconds": 146.7275,
+        "end_seconds": 147.14
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "need",
+        "start_seconds": 147.14,
+        "end_seconds": 147.34
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "to",
+        "start_seconds": 147.34,
+        "end_seconds": 147.465
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "scan",
+        "start_seconds": 147.465,
+        "end_seconds": 147.8525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "checkout",
+        "start_seconds": 147.8525,
+        "end_seconds": 148.315
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "flows",
+        "start_seconds": 148.315,
+        "end_seconds": 148.74
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "for",
+        "start_seconds": 148.74,
+        "end_seconds": 148.9025
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "unexpected",
+        "start_seconds": 148.9025,
+        "end_seconds": 149.665
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "WebRTC",
+        "start_seconds": 149.665,
+        "end_seconds": 150.415
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "connections,",
+        "start_seconds": 150.415,
+        "end_seconds": 151.39
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "especially",
+        "start_seconds": 151.39,
+        "end_seconds": 151.9525
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "on",
+        "start_seconds": 151.9525,
+        "end_seconds": 152.14
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "mobile,",
+        "start_seconds": 152.14,
+        "end_seconds": 152.79
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "to",
+        "start_seconds": 152.79,
+        "end_seconds": 152.915
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "stop",
+        "start_seconds": 152.915,
+        "end_seconds": 153.24
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "client‑side",
+        "start_seconds": 153.24,
+        "end_seconds": 153.965
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "skimming",
+        "start_seconds": 153.965,
+        "end_seconds": 154.415
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "before",
+        "start_seconds": 154.415,
+        "end_seconds": 154.765
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "it",
+        "start_seconds": 154.765,
+        "end_seconds": 154.915
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "reaches",
+        "start_seconds": 154.915,
+        "end_seconds": 155.315
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "the",
+        "start_seconds": 155.315,
+        "end_seconds": 155.415
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "payment",
+        "start_seconds": 155.415,
+        "end_seconds": 155.765
+      },
+      {
+        "segment_id": "webrtc-skimmer-black-friday-2026",
+        "text": "gateway.",
+        "start_seconds": 155.765,
+        "end_seconds": 156.79
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "And",
+        "start_seconds": 157.965,
+        "end_seconds": 158.09
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "finally,",
+        "start_seconds": 158.09,
+        "end_seconds": 158.5275
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "our",
+        "start_seconds": 158.5275,
+        "end_seconds": 158.66500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "last",
+        "start_seconds": 158.66500000000002,
+        "end_seconds": 158.965
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "story.",
+        "start_seconds": 158.965,
+        "end_seconds": 159.76500000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "Google’s",
+        "start_seconds": 159.76500000000001,
+        "end_seconds": 160.14000000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "DeepCrossAttention",
+        "start_seconds": 160.14000000000001,
+        "end_seconds": 161.065
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "cuts",
+        "start_seconds": 161.065,
+        "end_seconds": 161.32750000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "the",
+        "start_seconds": 161.32750000000001,
+        "end_seconds": 161.41500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "steps",
+        "start_seconds": 161.41500000000002,
+        "end_seconds": 161.74
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "needed",
+        "start_seconds": 161.74,
+        "end_seconds": 162.01500000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "to",
+        "start_seconds": 162.01500000000001,
+        "end_seconds": 162.115
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "train",
+        "start_seconds": 162.115,
+        "end_seconds": 162.39000000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "language",
+        "start_seconds": 162.39000000000001,
+        "end_seconds": 162.74
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "models",
+        "start_seconds": 162.74,
+        "end_seconds": 163.115
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "by",
+        "start_seconds": 163.115,
+        "end_seconds": 163.2775
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "up",
+        "start_seconds": 163.2775,
+        "end_seconds": 163.41500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "to",
+        "start_seconds": 163.41500000000002,
+        "end_seconds": 163.54000000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "five‑fold.",
+        "start_seconds": 163.54000000000002,
+        "end_seconds": 164.69
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "In",
+        "start_seconds": 164.69,
+        "end_seconds": 164.84
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "tests",
+        "start_seconds": 164.84,
+        "end_seconds": 165.1775
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "on",
+        "start_seconds": 165.1775,
+        "end_seconds": 165.35250000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "LM1B",
+        "start_seconds": 165.35250000000002,
+        "end_seconds": 166.19
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "and",
+        "start_seconds": 166.19,
+        "end_seconds": 166.32750000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "C4",
+        "start_seconds": 166.32750000000001,
+        "end_seconds": 166.865
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "it",
+        "start_seconds": 166.865,
+        "end_seconds": 167.01500000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "matched",
+        "start_seconds": 167.01500000000001,
+        "end_seconds": 167.41500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "or",
+        "start_seconds": 167.41500000000002,
+        "end_seconds": 167.54000000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "beat",
+        "start_seconds": 167.54000000000002,
+        "end_seconds": 167.8025
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "ordinary",
+        "start_seconds": 167.8025,
+        "end_seconds": 168.215
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "transformers",
+        "start_seconds": 168.215,
+        "end_seconds": 168.89000000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "while",
+        "start_seconds": 168.89000000000001,
+        "end_seconds": 169.09
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "using",
+        "start_seconds": 169.09,
+        "end_seconds": 169.4275
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "far",
+        "start_seconds": 169.4275,
+        "end_seconds": 169.72750000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "fewer",
+        "start_seconds": 169.72750000000002,
+        "end_seconds": 170.01500000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "steps,",
+        "start_seconds": 170.01500000000001,
+        "end_seconds": 170.84
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "and",
+        "start_seconds": 170.84,
+        "end_seconds": 170.95250000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "a",
+        "start_seconds": 170.95250000000001,
+        "end_seconds": 171.0525
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "thirty‑layer",
+        "start_seconds": 171.0525,
+        "end_seconds": 171.7525
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "DCA",
+        "start_seconds": 171.7525,
+        "end_seconds": 172.34
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "model",
+        "start_seconds": 172.34,
+        "end_seconds": 172.66500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "hit",
+        "start_seconds": 172.66500000000002,
+        "end_seconds": 172.9025
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "sub‑14",
+        "start_seconds": 172.9025,
+        "end_seconds": 173.54000000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "perplexity",
+        "start_seconds": 173.54000000000002,
+        "end_seconds": 174.45250000000001
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "where",
+        "start_seconds": 174.45250000000001,
+        "end_seconds": 174.6275
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "a",
+        "start_seconds": 174.6275,
+        "end_seconds": 174.69
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "standard",
+        "start_seconds": 174.69,
+        "end_seconds": 175.1775
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "forty‑two‑layer",
+        "start_seconds": 175.1775,
+        "end_seconds": 176.09
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "model",
+        "start_seconds": 176.09,
+        "end_seconds": 176.41500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "was",
+        "start_seconds": 176.41500000000002,
+        "end_seconds": 176.59
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "required.",
+        "start_seconds": 176.59,
+        "end_seconds": 177.7525
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "The",
+        "start_seconds": 178.185,
+        "end_seconds": 178.26000000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "trick",
+        "start_seconds": 178.26000000000002,
+        "end_seconds": 178.4975
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "is",
+        "start_seconds": 178.4975,
+        "end_seconds": 178.61
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "swapping",
+        "start_seconds": 178.61,
+        "end_seconds": 178.9725
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "the",
+        "start_seconds": 178.9725,
+        "end_seconds": 179.07250000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "usual",
+        "start_seconds": 179.07250000000002,
+        "end_seconds": 179.485
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "residual",
+        "start_seconds": 179.485,
+        "end_seconds": 179.9725
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "add",
+        "start_seconds": 179.9725,
+        "end_seconds": 180.285
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "with",
+        "start_seconds": 180.285,
+        "end_seconds": 180.4225
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "a",
+        "start_seconds": 180.4225,
+        "end_seconds": 180.5225
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "learnable",
+        "start_seconds": 180.5225,
+        "end_seconds": 180.9725
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "softmax",
+        "start_seconds": 180.9725,
+        "end_seconds": 181.4975
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "attention",
+        "start_seconds": 181.4975,
+        "end_seconds": 182.01000000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "over",
+        "start_seconds": 182.01000000000002,
+        "end_seconds": 182.2725
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "earlier",
+        "start_seconds": 182.2725,
+        "end_seconds": 182.66
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "layers,",
+        "start_seconds": 182.66,
+        "end_seconds": 183.435
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "which",
+        "start_seconds": 183.435,
+        "end_seconds": 183.63500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "keeps",
+        "start_seconds": 183.63500000000002,
+        "end_seconds": 183.9225
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "early‑layer",
+        "start_seconds": 183.9225,
+        "end_seconds": 184.56
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "info",
+        "start_seconds": 184.56,
+        "end_seconds": 184.935
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "alive",
+        "start_seconds": 184.935,
+        "end_seconds": 185.41
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "and",
+        "start_seconds": 185.41,
+        "end_seconds": 185.535
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "steadies",
+        "start_seconds": 185.535,
+        "end_seconds": 185.935
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "gradients.",
+        "start_seconds": 185.935,
+        "end_seconds": 187.035
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "Here’s",
+        "start_seconds": 187.035,
+        "end_seconds": 187.63500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "why",
+        "start_seconds": 187.63500000000002,
+        "end_seconds": 187.81
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "that",
+        "start_seconds": 187.81,
+        "end_seconds": 188.035
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "matters:",
+        "start_seconds": 188.035,
+        "end_seconds": 188.91
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "you",
+        "start_seconds": 188.91,
+        "end_seconds": 189.035
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "can",
+        "start_seconds": 189.035,
+        "end_seconds": 189.185
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "train",
+        "start_seconds": 189.185,
+        "end_seconds": 189.51000000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "comparable",
+        "start_seconds": 189.51000000000002,
+        "end_seconds": 190.035
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "models",
+        "start_seconds": 190.035,
+        "end_seconds": 190.4225
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "faster",
+        "start_seconds": 190.4225,
+        "end_seconds": 190.9975
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "and",
+        "start_seconds": 190.9975,
+        "end_seconds": 191.1225
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "with",
+        "start_seconds": 191.1225,
+        "end_seconds": 191.2975
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "smaller",
+        "start_seconds": 191.2975,
+        "end_seconds": 191.71
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "footprints,",
+        "start_seconds": 191.71,
+        "end_seconds": 192.61
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "as",
+        "start_seconds": 192.61,
+        "end_seconds": 192.76000000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "long",
+        "start_seconds": 192.76000000000002,
+        "end_seconds": 192.94750000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "as",
+        "start_seconds": 192.94750000000002,
+        "end_seconds": 193.06
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "you",
+        "start_seconds": 193.06,
+        "end_seconds": 193.185
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "can",
+        "start_seconds": 193.185,
+        "end_seconds": 193.38500000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "weave",
+        "start_seconds": 193.38500000000002,
+        "end_seconds": 193.6225
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "the",
+        "start_seconds": 193.6225,
+        "end_seconds": 193.7475
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "softmax‑query",
+        "start_seconds": 193.7475,
+        "end_seconds": 194.66
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "mechanism",
+        "start_seconds": 194.66,
+        "end_seconds": 195.26000000000002
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "into",
+        "start_seconds": 195.26000000000002,
+        "end_seconds": 195.535
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "your",
+        "start_seconds": 195.535,
+        "end_seconds": 195.735
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "architecture.",
+        "start_seconds": 195.735,
+        "end_seconds": 196.96
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "And",
+        "start_seconds": 198.135,
+        "end_seconds": 198.2725
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "that's",
+        "start_seconds": 198.2725,
+        "end_seconds": 198.535
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "your",
+        "start_seconds": 198.535,
+        "end_seconds": 198.73499999999999
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "Daywire",
+        "start_seconds": 198.73499999999999,
+        "end_seconds": 199.185
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "briefing.",
+        "start_seconds": 199.185,
+        "end_seconds": 199.885
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "You'll",
+        "start_seconds": 199.885,
+        "end_seconds": 200.06
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "find",
+        "start_seconds": 200.06,
+        "end_seconds": 200.3225
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "the",
+        "start_seconds": 200.3225,
+        "end_seconds": 200.42249999999999
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "full",
+        "start_seconds": 200.42249999999999,
+        "end_seconds": 200.685
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "stories",
+        "start_seconds": 200.685,
+        "end_seconds": 201.1975
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "and",
+        "start_seconds": 201.1975,
+        "end_seconds": 201.3225
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "sources",
+        "start_seconds": 201.3225,
+        "end_seconds": 201.835
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "in",
+        "start_seconds": 201.835,
+        "end_seconds": 201.96
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "today's",
+        "start_seconds": 201.96,
+        "end_seconds": 202.335
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "newspaper.",
+        "start_seconds": 202.335,
+        "end_seconds": 203.23499999999999
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "Thanks",
+        "start_seconds": 203.23499999999999,
+        "end_seconds": 203.56
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "for",
+        "start_seconds": 203.56,
+        "end_seconds": 203.685
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "listening.",
+        "start_seconds": 203.685,
+        "end_seconds": 204.285
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "Take",
+        "start_seconds": 204.285,
+        "end_seconds": 204.585
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "care,",
+        "start_seconds": 204.585,
+        "end_seconds": 204.885
+      },
+      {
+        "segment_id": "deepcrossattention-faster-transformers-segment",
+        "text": "everyone.",
+        "start_seconds": 204.885,
+        "end_seconds": 205.91
+      }
+    ]
+  },
+  "artwork": {
+    "status": "pending",
+    "url": null,
+    "alt": ""
+  }
+}
